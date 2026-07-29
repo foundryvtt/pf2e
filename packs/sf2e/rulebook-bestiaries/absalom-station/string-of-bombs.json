@@ -1,0 +1,346 @@
+{
+    "_id": "5OYZcNFkfTO8lGca",
+    "folder": "Lp8SSoghaiVyQN5E",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "8uFnzv9l2gvj9E5k",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Vine Lash",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "N9zgo9p5BSgze6Ez": {
+                        "damage": "1d8+4",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "hKY5WxoVFCGKlQrR",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Explosive Pod",
+            "sort": 200000,
+            "system": {
+                "action": "area-fire",
+                "area": {
+                    "type": "burst",
+                    "value": 5
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "muQRDqiU5weolwW3": {
+                        "damage": "2d6",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 30,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "eB4iFiBzOjlQyOoI",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Volatile Pods",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The string-of-bombs is critically hit with a melee attack</p><hr /><p><strong>Effect</strong> The string-of-bombs regains its use of Pod Panic if expended, then uses Pod Panic.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mbdCRJc240AVDdne",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Pod Panic",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The string-of-bombs haphazardly detonates some of its pods in a @Template[type:emanation|distance:15]. All creatures in a @Template[type:emanation|distance:15] take @Damage[3d6[fire]|options:area-damage] damage (@Check[reflex|dc:18|basic] save). A creature that critically fails this save is knocked @UUID[Compendium.sf2e.conditions.Item.Prone].</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Nw3fUtrEdRxoUani",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Unruly Roots",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The string-of-bombs digs its roots into the ground to ensure stability, or uproots itself. While rooted, the string-of-bombs has a Speed of 0 and a +2 circumstance bonus to AC. The ground within a @Template[type:emanation|distance:15] of the string-of-bombs is difficult terrain while the string-of-bombs is rooted.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "unruly-roots",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "unruly-roots"
+                        ],
+                        "selector": [
+                            "land-speed"
+                        ],
+                        "value": -10
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "unruly-roots"
+                        ],
+                        "selector": [
+                            "ac"
+                        ],
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "String-of-Bombs",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -2
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 17
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 30,
+                "temp": 0,
+                "value": 30
+            },
+            "immunities": [
+                {
+                    "type": "mental"
+                },
+                {
+                    "type": "olfactory"
+                },
+                {
+                    "type": "visual"
+                }
+            ],
+            "resistances": [
+                {
+                    "type": "fire",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 10
+            },
+            "weaknesses": [
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 2
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The string-of-bombs is a beautiful yet explosive succulent that can be found as a dangerous passenger aboard many starships in the Pact Worlds. Native to the jungles of Castrovel, the string-of-bombs' explosive name comes from the softly glowing orange pods that dangle from their vines. These pods were developed as a defense mechanism against Castrovel's massive predators when thorns and vines proved insufficient deterrents.</p>\n<p>As the plant's explosive pods don't develop until full maturity, the string-of-bombs resembles other harmless succulents (including the closely related and harmless string-of-suns) and might be overlooked as low-maintenance ship greenery. Many gardeners remain unaware of the hazard they're cultivating until it literally blows up in their face.</p><hr /><h2>Infestations</h2><p>Invasive creatures plague Absalom Station and resist the most dedicated efforts to eliminate them. Whether lurking in the Ghost Levels or stowing away on starships, tenacious infestations are a constant problem in such a large and cosmopolitan station.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Absalom Station"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 9,
+            "senses": [
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "tremorsense"
+                }
+            ],
+            "vision": false
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 4
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 7
+            },
+            "stealth": {
+                "base": 6
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mindless",
+                "plant"
+            ]
+        }
+    },
+    "type": "npc"
+}

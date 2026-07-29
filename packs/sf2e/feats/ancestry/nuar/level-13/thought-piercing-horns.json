@@ -1,0 +1,64 @@
+{
+    "_id": "WRAzc9l4NG7oTAPu",
+    "folder": "Vz72FqpsqZFs8ZIv",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Thought-Piercing Horns",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Pain is in the mind as well as in the body, which your horns make abundantly clear on contact. Your unarmed horns attack deals an additional @Damage[1d6[mental]] damage. On a critical hit, the target also becomes @UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 2} until the beginning of your next turn.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "rules": [
+            {
+                "damageType": "mental",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:slug:nuar-horns"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": [
+                    "nuar-horns-attack"
+                ],
+                "text": "SF2E.SpecificRule.ThoughtPiercingHorns.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "nuar"
+            ]
+        }
+    },
+    "type": "feat"
+}

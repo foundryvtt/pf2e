@@ -1,0 +1,54 @@
+{
+    "_id": "IB3lQzXWYG4cYnVL",
+    "img": "icons/magic/perception/eye-slit-pink.webp",
+    "name": "Effect: Thaumogen Haze",
+    "system": {
+        "description": {
+            "value": "<p>You gain a status bonus to the spell's damage equal to the spell's rank.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "config": "ranks"
+                },
+                "flag": "rank",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Rank"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "spell-damage"
+                ],
+                "type": "status",
+                "value": "{item|flags.system.rulesSelections.rank}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

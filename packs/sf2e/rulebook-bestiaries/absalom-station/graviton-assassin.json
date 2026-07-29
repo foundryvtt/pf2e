@@ -1,0 +1,849 @@
+{
+    "_id": "aCYxSC8ddmzyivVl",
+    "folder": "Lp8SSoghaiVyQN5E",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "eCRiOLrZOim7sFij",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.eU5n2fP7DvnFyqov"
+            },
+            "folder": "jjcF0lfrc3ZIoKv1",
+            "img": "icons/equipment/chest/breastplate-sculpted-green.webp",
+            "name": "Shotalashu Armor",
+            "sort": 100000,
+            "system": {
+                "acBonus": 3,
+                "baseItem": "shotalashu-armor",
+                "bulk": {
+                    "value": 2
+                },
+                "category": "medium",
+                "checkPenalty": -2,
+                "containerId": null,
+                "description": {
+                    "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>Flexible but sturdy plates layered together form this traditional armor worn by lashunta cavalry on Castrovel. In times past, a shotalashu cavalry member forged their armor from their mount's shed skin, or more rarely, the skin of a fallen mount, to honor them in future battles. Synthetic imitations are fashionable on some parts of Castrovel.</p>"
+                },
+                "dexCap": 2,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "grade": "tactical",
+                "group": "composite",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 40
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "shotalashu-armor",
+                "speedPenalty": -5,
+                "strength": 2,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "tech"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "loqm60IXSFlmcwNr",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.LgJrTVo1rReh9H5m"
+            },
+            "folder": "NJWNipWsF1UNHIqy",
+            "img": "icons/commodities/gems/pearl-brown-red.webp",
+            "name": "Gluon Crystal (Superior) (Solar Flare)",
+            "sort": 200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>A gluon crystal harnesses entropy to cause serious lasting wounds. Your solar weapon or solar flare deals an extra @Damage[1d10[persistent,bleed]] damage. On a critical hit, the target is @UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 1} until it recovers from the persistent bleed damage.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 15
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 0,
+                        "gp": 0,
+                        "pp": 0,
+                        "sp": 61400
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "SF2E.SpecificRule.Solarian.SolarFlare.Label",
+                                "value": "solar-flare"
+                            },
+                            {
+                                "label": "SF2E.SpecificRule.Solarian.SolarWeapon.Label",
+                                "value": "solar-weapon"
+                            },
+                            {
+                                "label": "SF2E.SpecificRule.Solarian.SolarWeapon.TwinLabel",
+                                "predicate": [
+                                    "feat:twin-weapons"
+                                ],
+                                "value": "twin-solar-weapon"
+                            }
+                        ],
+                        "flag": "gluonCrystalSuperior",
+                        "key": "ChoiceSet",
+                        "prompt": "SF2E.SpecificRule.Prompt.SolarianWeapon",
+                        "rollOption": "gluon-crystal-superior",
+                        "selection": "solar-flare"
+                    },
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "and": [
+                                            "item:slug:solar-weapon",
+                                            "gluon-crystal-superior:solar-weapon"
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "item:slug:solar-flare",
+                                            "gluon-crystal-superior:solar-flare"
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "item:slug:twin-solar-weapon",
+                                            "gluon-crystal-superior:twin-solar-weapon"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "and": [
+                                            "item:slug:solar-weapon",
+                                            "gluon-crystal-superior:solar-weapon"
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "item:slug:solar-flare",
+                                            "gluon-crystal-superior:solar-flare"
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "item:slug:twin-solar-weapon",
+                                            "gluon-crystal-superior:twin-solar-weapon"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage",
+                        "text": "SF2E.SpecificRule.Equipment.SolarianCrystals.Gluon.Note",
+                        "title": "SF2E.SpecificRule.Equipment.SolarianCrystals.Gluon.Title"
+                    }
+                ],
+                "size": "med",
+                "slug": "gluon-crystal-superior",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "DaXdCphBXhsp0Pds",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.hLQlFY3NpdZ67uWE"
+            },
+            "folder": "NJWNipWsF1UNHIqy",
+            "img": "icons/commodities/gems/gem-faceted-round-black.webp",
+            "name": "Striking Crystal (Tactical) (Solar Flare)",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This gem contains the condensed matter of a star and increases the weapon damage dice of a solar weapon or flare to three instead of one.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 12
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 0,
+                        "gp": 0,
+                        "pp": 0,
+                        "sp": 10650
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "SF2E.SpecificRule.Solarian.SolarFlare.Label",
+                                "value": "solar-flare"
+                            },
+                            {
+                                "label": "SF2E.SpecificRule.Solarian.SolarWeapon.Label",
+                                "value": "solar-weapon"
+                            },
+                            {
+                                "label": "SF2E.SpecificRule.Solarian.SolarWeapon.TwinLabel",
+                                "predicate": [
+                                    "feat:twin-weapons"
+                                ],
+                                "value": "twin-solar-weapon"
+                            }
+                        ],
+                        "flag": "strikingCrystalTactical",
+                        "key": "ChoiceSet",
+                        "prompt": "SF2E.SpecificRule.Prompt.SolarianWeapon",
+                        "rollOption": "striking-crystal-tactical",
+                        "selection": "solar-flare"
+                    },
+                    {
+                        "itemType": "weapon",
+                        "key": "ItemAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "and": [
+                                            "item:slug:solar-weapon",
+                                            "striking-crystal-tactical:solar-weapon"
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "item:slug:solar-flare",
+                                            "striking-crystal-tactical:solar-flare"
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "item:slug:twin-solar-weapon",
+                                            "striking-crystal-tactical:twin-solar-weapon"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "property": "damage-dice-number",
+                        "value": 3
+                    }
+                ],
+                "size": "med",
+                "slug": "striking-crystal-tactical",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "mZcVyPIQS9YAbsab",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.hLQlFY3NpdZ67uWE"
+            },
+            "folder": "NJWNipWsF1UNHIqy",
+            "img": "icons/commodities/gems/gem-faceted-round-black.webp",
+            "name": "Striking Crystal (Tactical) (Solar Weapon)",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This gem contains the condensed matter of a star and increases the weapon damage dice of a solar weapon or flare to three instead of one.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 12
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 0,
+                        "gp": 0,
+                        "pp": 0,
+                        "sp": 10650
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "SF2E.SpecificRule.Solarian.SolarFlare.Label",
+                                "value": "solar-flare"
+                            },
+                            {
+                                "label": "SF2E.SpecificRule.Solarian.SolarWeapon.Label",
+                                "value": "solar-weapon"
+                            },
+                            {
+                                "label": "SF2E.SpecificRule.Solarian.SolarWeapon.TwinLabel",
+                                "predicate": [
+                                    "feat:twin-weapons"
+                                ],
+                                "value": "twin-solar-weapon"
+                            }
+                        ],
+                        "flag": "strikingCrystalTactical",
+                        "key": "ChoiceSet",
+                        "prompt": "SF2E.SpecificRule.Prompt.SolarianWeapon",
+                        "rollOption": "striking-crystal-tactical",
+                        "selection": "solar-weapon"
+                    },
+                    {
+                        "itemType": "weapon",
+                        "key": "ItemAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "and": [
+                                            "item:slug:solar-weapon",
+                                            "striking-crystal-tactical:solar-weapon"
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "item:slug:solar-flare",
+                                            "striking-crystal-tactical:solar-flare"
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "item:slug:twin-solar-weapon",
+                                            "striking-crystal-tactical:twin-solar-weapon"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "property": "damage-dice-number",
+                        "value": 3
+                    }
+                ],
+                "size": "med",
+                "slug": "striking-crystal-tactical",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "5Lwd53sW8mQDkH36",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Graviton Blade",
+            "sort": 500000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "9sgjqX4672o1L4yM": {
+                        "category": "persistent",
+                        "damage": "1d10",
+                        "damageType": "bleed"
+                    },
+                    "JY17lfxnc6nPrTZR": {
+                        "damage": "3d8+8",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "parry",
+                        "two-hand-d10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "xRBBJwee1lDRg1eu",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Graviton Flare",
+            "sort": 600000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "VVbIMUhlnQk5q55q": {
+                        "damage": "3d8+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 15,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "YVjUMF2LF7yEfSdN",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "+3 for initiative",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "check:type:initiative"
+                        ],
+                        "selector": [
+                            "perception"
+                        ],
+                        "value": 3
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MyE86tnJIA0uFURB",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
+            },
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Alien Core"
+                },
+                "rules": [],
+                "slug": "reactive-strike",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MMmPTudeWeT4uh23",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Black Hole",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p><strong>Effect</strong> The assassin emulates a black hole, selecting any number of creatures within 30 feet. Each chosen creature takes @Damage[9d8[bludgeoning]] damage and must attempt a @Check[fortitude|dc:30] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and is pulled 5 feet towards the assassin.</p>\n<p><strong>Failure</strong> The creature takes full damage, is pulled 15 feet towards the assassin, and is @UUID[Compendium.sf2e.conditions.Item.Off-Guard] against the next melee attack the assassin makes before the end of the assassin's turn.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, is pulled 30 feet towards the assassin, and is knocked @UUID[Compendium.sf2e.conditions.Item.Prone].</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT10M"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Fg2EzXS1YUQwPca2",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Constrictive Gravity",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature who is hit by the assassin's graviton flare Strike is @UUID[Compendium.sf2e.conditions.Item.Immobilized] until the end of its next turn or until it [[/act escape dc=30]]{Escapes}. On a critical hit, the target is also @UUID[Compendium.sf2e.conditions.Item.Off-Guard] as long as it is immobilized.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rH0sP7cXutzVHoKT",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Eclipse Swing",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The assassin makes a graviton blade Strike. On a hit, the assassin is @UUID[Compendium.sf2e.conditions.Item.Concealed] by a warping in space until the start of its next turn and can immediately Step twice.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Graviton Assassin",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 5
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 30
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 150,
+                "temp": 0,
+                "value": 150
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 35
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
+            "level": {
+                "value": 10
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Some say that when you gaze into the void it gazes back. But what of those who channel it?</p>\n<p>Assassins for hire tend to be cold pragmatists who might do anything for the right price, but many have their own strange philosophies or belong to obscure cults and religious sects. Deities popular with professional killers include the nihilistic Devourer and cunning Lao Shu Po. Some solarians, like the one below, justify their assassinations as a part of the Cycle necessary to balance the Universe.</p><h2>Mercenaries</h2><p>So long as the almighty credit can buy power, safety, and comfort, it can also be used to buy violence from the desperate, irrational, and unsentimental. Absalom Station is home to countless mercenary companies and freelance soldiers-for-hire, all eagerly offering their services to the highest bidder.</p>\n<p>Some mercs have a moral code or sense of honor that limits what contracts they accept, and Absalom law strictly limits what jobs a paramilitary company can hand out to its members. Of course, this doesn't stop a festering underbelly of wetwork and worse from blooming in the darker reaches of the station, if one knows where to look.</p>\n<p>Mercenaries aren't always operatives or soldiers. Sometimes they're cunning spellcasters, powerful solarians, or treacherous envoys. Bounty hunters are one of the most common class of merc hanging around the station. The bounty hunter below is an example of an elite foe tracking down dangerous outlaws, but the statistics for gangsters can stand in for lower-level mercenaries.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Absalom Station"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "(+25 for initiative)",
+            "mod": 22,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 20
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 19
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 19,
+                "special": []
+            },
+            "athletics": {
+                "base": 20,
+                "special": []
+            },
+            "deception": {
+                "base": 22,
+                "special": []
+            },
+            "nature": {
+                "base": 19,
+                "special": []
+            },
+            "stealth": {
+                "base": 22,
+                "special": [
+                    {
+                        "base": 25,
+                        "label": "for initiative",
+                        "predicate": [
+                            "check:type:initiative"
+                        ]
+                    }
+                ]
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "humanoid"
+            ]
+        }
+    },
+    "type": "npc"
+}

@@ -1,0 +1,112 @@
+{
+    "_id": "6f309Pt3H8lbqrYI",
+    "folder": "RTmfkP0RlWpOTPHx",
+    "img": "systems/sf2e/icons/equipment/weapons/claw-blade.webp",
+    "name": "Hook Claws (Commercial)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>Sharp synthetic claws extend your limbs, often appearing as extra-long nail tips made of precious metals and gems. You gain an unarmed claw attack that deals 1d6 slashing damage, has the agile, finesse, and unarmed traits, and is in the brawling weapon group. Additionally, you gain a climb Speed of 15 feet. If you already have a climb Speed of 15 feet or more, you instead gain a +5-foot item bonus to your climb Speed.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 2
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "sp": 300
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/sf2e/icons/equipment/weapons/claw-blade.webp",
+                "key": "Strike",
+                "label": "SF2E.Weapon.Base.claw",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "choices": [
+                    {
+                        "label": "SF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "predicate": [
+                            "speed:climb"
+                        ],
+                        "value": "existing-climb-speed"
+                    },
+                    {
+                        "label": "SF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "predicate": [
+                            {
+                                "not": "speed:climb"
+                            }
+                        ],
+                        "value": "no-climb-speed"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "hook-claws"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "hook-claws:no-climb-speed"
+                ],
+                "selector": "climb",
+                "value": 15
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "hook-claws:existing-climb-speed"
+                ],
+                "selector": [
+                    "climb-speed"
+                ],
+                "type": "item",
+                "value": 5
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "tech"
+            ]
+        },
+        "usage": {
+            "value": "implanted"
+        }
+    },
+    "type": "equipment"
+}

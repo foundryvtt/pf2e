@@ -1,0 +1,65 @@
+{
+    "_id": "WASztmz1VA4HJAMQ",
+    "folder": "c08cNDToxGL1b2ou",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Chemical Connoisseur",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your acute taste boosts your immunities. You gain a +2 circumstance bonus to saves against effects with the disease, ingested, olfactory, or poison traits. Any disease you contract with a level lower than your own loses the virulent trait.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "chemoreceptive gnarefuroid heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:disease",
+                            "item:trait:ingested",
+                            "item:trait:olfactory",
+                            "item:trait:poison"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gnarefuroid"
+            ]
+        }
+    },
+    "type": "feat"
+}

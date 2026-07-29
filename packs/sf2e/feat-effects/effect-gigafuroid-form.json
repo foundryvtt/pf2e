@@ -1,0 +1,114 @@
+{
+    "_id": "FqUokahAJwpV6lbE",
+    "img": "icons/creatures/tentacles/tentacles-suctioncups-pink.webp",
+    "name": "Effect: Gigafuroid Form",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Gigafuroid Form]</p>\n<p>Your battle form is an aberration with a Speed of 30 feet and climb Speed of 30 feet, resistance 10 to acid and poison damage, darkvision, precise scent 60 feet, and an unarmed tentacle Strike (reach 15 feet) that deals 2d10 bludgeoning damage plus Damage 2d6 acid damage. You can spend an action after you hit a creature with your tentacle to Grab the target. You also gain the @UUID[Compendium.sf2e.actions.Item.Gunk Spray] ability while in this battle form.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "rules": [
+            {
+                "brackets": [
+                    {
+                        "start": 5,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "18 + @actor.level"
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 20
+                                }
+                            },
+                            "strikes": {
+                                "tentacle": {
+                                    "damage": {
+                                        "dice": 4,
+                                        "modifier": 7
+                                    },
+                                    "modifier": 18,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-15"
+                                    ]
+                                }
+                            },
+                            "tempHP": 20
+                        }
+                    }
+                ],
+                "key": "BattleForm",
+                "overrides": {
+                    "senses": {
+                        "low-light-vision": {},
+                        "scent": {
+                            "acuity": "precise",
+                            "range": 60
+                        }
+                    },
+                    "size": "med",
+                    "speeds": {
+                        "climb": 30,
+                        "land": 30
+                    },
+                    "strikes": {
+                        "tentacle": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d10"
+                            },
+                            "img": "icons/creatures/tentacles/tentacles-suctioncups-pink.webp",
+                            "traits": [
+                                "unarmed"
+                            ]
+                        }
+                    },
+                    "traits": [
+                        "aberration"
+                    ]
+                }
+            },
+            {
+                "damageType": "poison",
+                "diceNumber": "2",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "tentacle-damage"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Gunk Spray"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

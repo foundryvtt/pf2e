@@ -1,0 +1,86 @@
+{
+    "_id": "OC8jVt3ji3eP7zmF",
+    "folder": "6XHl0j82CwxwR0rc",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Stinging Tendril",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your tendrils have barbs that can deliver toxins. You gain a tendril unarmed attack that deals 1d6 poison damage in the dart weapon group and has the agile, finesse, injection, and unarmed traits.</p>\n<p>At 5th level, whenever you get a critical hit with this attack, you get its critical specialization effect.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "poison",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "dart",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Tendril",
+                "range": null,
+                "slug": "tendril",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "injection",
+                    "unarmed"
+                ]
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:id:{item|id}"
+                ],
+                "property": "other-tags",
+                "value": "gnarefuroid-tendril"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            "5"
+                        ]
+                    },
+                    "item:tag:gnarefuroid-tendril"
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gnarefuroid"
+            ]
+        }
+    },
+    "type": "feat"
+}

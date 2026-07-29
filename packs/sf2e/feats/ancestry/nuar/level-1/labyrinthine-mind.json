@@ -1,0 +1,58 @@
+{
+    "_id": "8aNP2zwc132PhkWF",
+    "folder": "aYu1X85t264nbbEZ",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Labyrinthine Mind",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your true feelings and thoughts are tucked away in the twisting corridors of your mind, such that you and, more importantly, others have difficulty accessing them. When you roll a success on a saving throw against an emotion effect or a @UUID[Compendium.sf2e.spells.Item.Mind Reading] spell, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:emotion",
+                            "item:slug:mind-reading"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "nuar"
+            ]
+        }
+    },
+    "type": "feat"
+}

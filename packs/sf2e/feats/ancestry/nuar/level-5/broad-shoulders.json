@@ -1,0 +1,61 @@
+{
+    "_id": "g6vEKuiatFDTH2H5",
+    "folder": "uNAo6ChQL7j8gUrE",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Broad Shoulders",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your wide build allows you to carry crushing weights. Increase your maximum and encumbered Bulk limits by 4. You ignore the penalty to attack rolls using weapons with the kickback trait as if you had +2 Strength, regardless of your actual modifier.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "inventory.bulk.encumberedAfterAddend",
+                "value": 4
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "inventory.bulk.maxAddend",
+                "value": 4
+            },
+            {
+                "key": "AdjustModifier",
+                "selector": "attack",
+                "slug": "kickback",
+                "suppress": true
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "nuar"
+            ]
+        }
+    },
+    "type": "feat"
+}

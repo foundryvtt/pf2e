@@ -1,0 +1,261 @@
+{
+    "_id": "CdetzaXWMajYsFaM",
+    "folder": "Lp8SSoghaiVyQN5E",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "fXIVClIrz0BQ9qFH",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "UgjifUtWpgIe37I5": {
+                        "damage": "2d8+5",
+                        "damageType": "piercing"
+                    },
+                    "xmMZeouAR7WdB8qW": {
+                        "damage": "1",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "G2xLmJcEg4Z61FSW",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Essence Rip",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The terminite's last action was a successful jaws Strike against a creature</p><hr /><p><strong>Effect</strong> The terminite's reality-shearing mandibles pry free a piece of the target. The target takes @Damage[2d8[slashing]] damage with a @Check[fortitude|dc:24] save.</p><hr /><p><strong>Critical Success</strong> The target takes no damage.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage and becomes @UUID[Compendium.sf2e.conditions.Item.Drained]{Drained 1}. If the terminite doesn't have a mote (see below), it gains a mote of the target's essence that vanishes after 24 hours. While the terminite has this mote, it knows the distance and direction to the target.</p>\n<p><strong>Critical Failure</strong> As failure, but double damage and the target's drained value increases by 1 if it was already drained.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zlgskPvr5jXPhN2l",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Mote Meal",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> The terminite has a target's mote from Essence Rip</p><hr /><p><strong>Effect</strong> The terminite consumes the mote. The target reduces its drained value by 1 and the terminite regains @Damage[2d10[healing]] Hit Points.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "healing",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Terminite Hunter",
+    "prototypeToken": {
+        "name": "NPC"
+    },
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -2
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 23
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 85,
+                "temp": 0,
+                "value": 85
+            },
+            "immunities": [
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "poison"
+                }
+            ],
+            "resistances": [
+                {
+                    "type": "acid",
+                    "value": 5
+                },
+                {
+                    "type": "cold",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 20
+                    }
+                ],
+                "value": 35
+            },
+            "weaknesses": [
+                {
+                    "type": "mental",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 6
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>When stories of terminites first spread, they were viewed as eerie, furtive scavengers. When thrill-seekers began hunting the creatures for sport or study, a new type of terminite appeared almost overnight: the terminite hunter. Hunters are far more bloodthirsty than the smaller worker components of a terminite colony. Instead of harvesting motes from objects and terrain, hunters are strong enough to rip chunks of reality from living creatures.</p><hr /><h2>Infestations</h2><p>Invasive creatures plague Absalom Station and resist the most dedicated efforts to eliminate them. Whether lurking in the Ghost Levels or stowing away on starships, tenacious infestations are a constant problem in such a large and cosmopolitan station.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Absalom Station"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 14,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 10
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 12
+            },
+            "athletics": {
+                "base": 15
+            },
+            "stealth": {
+                "base": 14
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "aberration"
+            ]
+        }
+    },
+    "type": "npc"
+}
