@@ -104,7 +104,7 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
         if ((!slot && this.slotted) || feat.suppressed) return false;
 
         if (slot?.feat) {
-            console.debug(`PF2e System | Multiple feats with same index: ${feat.name}, ${slot.feat.name}`);
+            console.debug(`${SYSTEM_NAME} System | Multiple feats with same index: ${feat.name}, ${slot.feat.name}`);
             return false;
         }
 

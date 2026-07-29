@@ -12,7 +12,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p>Your body stores cellular kinetic energy as a static charge. You discharge this electricity in a @Template[type:emanation|distance:10] (15 feet if you're in a body of water). All creatures in the area take @Damage[ternary(gte(@actor.level,17),11,ternary(gte(@actor.level,13),8,5))d6[electricity]|options:area-damage] damage (basic Reflex save against the higher of your class DC or spell DC). On a critical failure, a creature becomes @UUID[Compendium.sf2e.conditions.Item.Immobilized] for 1 round. At 13th level, the damage increases to 8d6. At 17th level, the damage increases to 11d6.</p>"
+            "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p>Your body stores cellular kinetic energy as a static charge. You discharge this electricity in a @Template[emanation|distance:10] (@Template[emanation|distance:15]{15 feet} if you're in a body of water). All creatures in the area take @Damage[ternary(gte(@actor.level,17),11,ternary(gte(@actor.level,13),8,5))d6[electricity]|options:area-damage] damage (basic @Check[reflex|against:class-spell|basic|options:area-effect] save against the higher of your class DC or spell DC). On a critical failure, a creature becomes @UUID[Compendium.sf2e.conditions.Item.Immobilized] for 1 round. At 13th level, the damage increases to 8d6. At 17th level, the damage increases to 11d6.</p>"
         },
         "frequency": {
             "max": 1,

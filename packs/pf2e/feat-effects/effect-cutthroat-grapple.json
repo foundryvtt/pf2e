@@ -1,0 +1,51 @@
+{
+    "_id": "ahkqz1fpSBM3BSdn",
+    "img": "icons/skills/melee/blade-tip-orange.webp",
+    "name": "Effect: Cutthroat Grapple",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Cutthroat Grapple]{Cuthroat Grapple}</p>\n<p>You take a –4 circumstance penalty to your Escape attempt.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 16
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens High Seas"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:escape"
+                ],
+                "selector": [
+                    "basic-unarmed-attack-roll",
+                    "atheltics",
+                    "acrobatics"
+                ],
+                "type": "circumstance",
+                "value": -4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

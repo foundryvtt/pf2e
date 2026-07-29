@@ -1,0 +1,85 @@
+{
+    "_id": "7LWZ6BwPIxr1uQm5",
+    "img": "icons/magic/control/silhouette-fall-slip-prone.webp",
+    "name": "Effect: Graceless Domain",
+    "system": {
+        "description": {
+            "value": "<p><strong>Failure</strong> The first time each round you roll an Athletics, Acrobatics, or Performance skill check, you must roll twice and take the worse result.</p>\n<p><strong>Critical Failure</strong> Every time you roll an Athletics, Acrobatics, or Performance skill check, you must roll twice and take the worse result.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "graceless-domain"
+            },
+            {
+                "key": "RollOption",
+                "option": "graceless-domain-failure-first",
+                "predicate": [
+                    "graceless-domain:failure"
+                ],
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "predicate": [
+                    {
+                        "or": [
+                            "graceless-domain:critical-failure",
+                            {
+                                "and": [
+                                    "graceless-domain:failure",
+                                    "graceless-domain-failure-first"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "removeAfterRoll": false,
+                "selector": [
+                    "athletics",
+                    "acrobatics",
+                    "performance"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

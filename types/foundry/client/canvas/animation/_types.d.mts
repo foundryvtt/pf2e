@@ -25,10 +25,7 @@ export interface CanvasAnimationAttribute {
 }
 
 export type CanvasAnimationEasingFunction =
-    | "easeInOutCosine"
-    | "easeOutCircle"
-    | "easeInCircle"
-    | ((percentage: number) => number);
+    "easeInOutCosine" | "easeOutCircle" | "easeInCircle" | ((percentage: number) => number);
 
 export interface CanvasAnimationOptions {
     /** A DisplayObject which defines context to the PIXI.Ticker function */

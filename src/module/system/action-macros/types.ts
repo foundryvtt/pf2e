@@ -5,13 +5,14 @@ import type { DCSlug } from "@actor/types.ts";
 import type { Rolled } from "@client/dice/_module.d.mts";
 import type { ItemPF2e } from "@item";
 import type { WeaponTrait } from "@item/weapon/types.ts";
+import type { OneToThree } from "@module/data.ts";
 import type { RollNotePF2e } from "@module/notes.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import type { CheckRoll, CheckType } from "@system/check/index.ts";
 import type { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import type { Statistic } from "@system/statistic/index.ts";
 
-type ActionGlyph = "A" | "D" | "T" | "R" | "F" | "a" | "d" | "t" | "r" | "f" | 1 | 2 | 3 | "1" | "2" | "3";
+type ActionGlyph = "A" | "D" | "T" | "R" | "F" | "a" | "d" | "t" | "r" | "f" | "1" | "2" | "3" | OneToThree;
 
 interface BuildCheckContextOptions<TItem extends ItemPF2e<ActorPF2e>> {
     actor: ActorPF2e;

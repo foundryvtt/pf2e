@@ -1,0 +1,134 @@
+{
+    "_id": "nauKeeLKERwPZNDI",
+    "folder": "VH6XwP3aPSaYPPDQ",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "a6R82hWRHjHoAgxP",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shadows Rise",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> More than three living creatures end their turn in area <strong>A19</strong> or any one creature ends their turn while standing within the empty bath</p><hr /><p><strong>Effect</strong> Shadows seep out from the bath and swiftly coat the walls and ceiling, covering all entrances into <strong>A19</strong> with sheets of shadow, plunging the area within into darkness. Non-magical light sources, such as a torch or lantern, do not emanate any light in the room while the haunt is active. This also suppresses magical light of rank 3 or lower. The haunt then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": "object-immunities"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Bring Dusk to Dawn",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 24
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 100,
+                "temp": 0,
+                "value": 100
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "spirit",
+                        "vitality"
+                    ],
+                    "type": "all-damage",
+                    "value": 5
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 18
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "vitality",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>Shadows rise up from the empty tub, creeping along the floor, walls, and celling to blot out light.</p>",
+            "disable": "<p>@Check[religion|dc:25] or @Check[nature|dc:25] (expert) to burn out the shadowy influence through prayer or meditation, @Check[arcana|dc:28] or @Check[occultism|dc:28] (trained) to use magic to block the shadowy influence from being able to manifest at all; three successes are required to disable the haunt.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+            },
+            "reset": "<p>The haunt deactivates at the end of any round in which no living creature is in area <strong>A19</strong>, then resets 1 round later.</p>",
+            "routine": "<p>(2 actions) A shadowy figure rises up from the bath, resembling the upper torso of a demonic humanoid with glowing eyes. On its first action, the haunt sweeps its many arms through area <strong>A19</strong>, dealing @Damage[4d6[void]] damage on all living creatures in the area (@Check[fortitude|dc:21|basic] save). On its second action, it either spawns an undead shadow from its mass, or it Sustains a currently spawned undead shadow; it can only have one shadow active at a time. This shadow has the minion trait, cannot leave area <strong>A19</strong>, and takes its two actions on the haunt's initiative. Void damage from the haunt doesn't heal a shadow minion.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 11
+            },
+            "reflex": {
+                "value": 14
+            },
+            "will": {
+                "value": 17
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

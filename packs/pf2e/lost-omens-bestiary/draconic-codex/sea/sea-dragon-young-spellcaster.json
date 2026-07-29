@@ -140,7 +140,7 @@
                 "spelldc": {
                     "dc": 26,
                     "mod": 0,
-                    "value": 18
+                    "value": 0
                 },
                 "tradition": {
                     "value": "arcane"
@@ -356,7 +356,7 @@
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.5esP2GVzvxWsMgaX"
             },
             "img": "systems/pf2e/icons/spells/endure-elements.webp",
-            "name": "Environmental Endurance (self only)",
+            "name": "Environmental Endurance (Self Only)",
             "sort": 600000,
             "system": {
                 "area": null,
@@ -627,7 +627,7 @@
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.Seaah9amXg70RKw2"
             },
             "img": "icons/magic/water/wave-water-blue.webp",
-            "name": "Water Walk (constant)",
+            "name": "Water Walk (Constant)",
             "sort": 1000000,
             "system": {
                 "area": null,
@@ -1447,7 +1447,8 @@
                 "slug": "tail",
                 "traits": {
                     "value": [
-                        "reach-20"
+                        "reach-20",
+                        "unarmed"
                     ]
                 }
             },
@@ -1506,7 +1507,20 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "item:trait:earth",
+                            "item:type:spell",
+                            "self:effect:liquefy"
+                        ],
+                        "selector": "damage-received",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -1535,7 +1549,14 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.system.fedByMetalAC",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -1616,21 +1637,16 @@
                 },
                 "rules": [
                     {
-                        "key": "RollOption",
-                        "option": "liquefy",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "Resistance",
-                        "predicate": [
-                            "liquefy"
-                        ],
-                        "type": [
-                            "fire"
-                        ],
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.system.liquefyResistance",
                         "value": 10
                     }
                 ],
+                "selfEffect": {
+                    "name": "Effect: Liquefy",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Liquefy"
+                },
                 "slug": null,
                 "traits": {
                     "value": [
@@ -1655,7 +1671,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon shoots a ball of water that deals @Damage[9d6[bludgeoning]|options:area-damage] damage in a @Template[type:burst|distance:20] within 40 feet (@Check[reflex|dc:26|basic] save). All non-magical fire in the radius is extinguished. The dragon can't use Black Water Breath again for [[/gmr 1d4 #Recharge Black Water Breath]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon shoots a ball of water that deals @Damage[9d6[bludgeoning]|options:area-damage] damage in a @Template[type:burst|distance:20] within 40 feet (@Check[reflex|dc:26|basic|options:area-effect] save). All non-magical fire in the radius is extinguished. The dragon can't use Black Water Breath again for [[/gmr 1d4 #Recharge Black Water Breath]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1719,7 +1735,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A living creature that takes damage from the sea dragon's jaws Strike must succeed at a @Check[fortitude|dc:26] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} as a surge of excess water floods its body.</p>"
+                    "value": "<p>A living creature that takes damage from the sea dragon's jaws Strike must succeed at a @Check[fortitude|dc:26|options:inflicts:sickened] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} as a surge of excess water floods its body.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1765,7 +1781,7 @@
         "attributes": {
             "ac": {
                 "details": "fed by metal",
-                "value": 27
+                "value": 26
             },
             "allSaves": {
                 "value": ""

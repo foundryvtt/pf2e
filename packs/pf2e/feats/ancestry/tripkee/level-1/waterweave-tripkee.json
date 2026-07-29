@@ -1,0 +1,57 @@
+{
+    "_id": "aaXHUQxSHgnkBZvS",
+    "folder": "Iw0dujzKEnLt32xt",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Waterweave Tripkee",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your body has adapted to remain underwater indefinitely. You can breathe in water just as easily as you can breathe air. You gain the amphibious trait.</p><hr /><p><strong>Special</strong> If you have the@UUID[Compendium.pf2e.heritages.Item.Riverside Tripkee]{ riverside tripkee} heritage, your swim Speed increases to 20 feet.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens High Seas"
+        },
+        "rules": [
+            {
+                "key": "ActorTraits",
+                "remove": [
+                    "amphibious"
+                ]
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "heritage:riverside-tripkee"
+                ],
+                "selector": "swim",
+                "value": 20
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "tripkee"
+            ]
+        }
+    },
+    "type": "feat"
+}

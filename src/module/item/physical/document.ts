@@ -634,6 +634,11 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             return false;
         }
 
+        // Credsticks are not stackable, instead they may transfer credits at certain points
+        if (item.isOfType("treasure") && item.system.category === "credstick") {
+            return false;
+        }
+
         // Additional checks to make sure the worn state is what we want
         // These checks are skipped for sub-items or items that are in a container
         if (!this.parentItem && !this.container) {

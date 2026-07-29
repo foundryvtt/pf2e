@@ -1,0 +1,127 @@
+{
+    "_id": "iiQSTRA8EVCvlfDQ",
+    "img": "icons/commodities/gems/pearl-fire-swirl.webp",
+    "name": "Effect: Bolster Life",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Soulheart], @UUID[Compendium.pf2e.equipment-srd.Item.Soulheart (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Soulheart (Major)], @UUID[Compendium.pf2e.equipment-srd.Item.Soulheart (Pure)], @UUID[Compendium.pf2e.equipment-srd.Item.Soulheart (Angelic)]</p>\n<p>You gain temporary Hit Points.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 8
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.GenericLabel.Time.Daytime",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.GenericLabel.Time.Nighttime",
+                        "value": 1
+                    }
+                ],
+                "flag": "soulheartTemp",
+                "key": "ChoiceSet"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:soulheart",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Soulheart"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:soulheart-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Soulheart (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:soulheart-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Soulheart (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "soulheart"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "soulheart:soulheart"
+                ],
+                "value": "3*@item.flags.pf2e.rulesSelections.soulheartTemp"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "soulheart:soulheart-greater"
+                ],
+                "value": "6*@item.flags.pf2e.rulesSelections.soulheartTemp"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "soulheart:soulheart-major"
+                ],
+                "value": "9*@item.flags.pf2e.rulesSelections.soulheartTemp"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "soulheart:soulheart-pure"
+                ],
+                "value": "9*@item.flags.pf2e.rulesSelections.soulheartTemp"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

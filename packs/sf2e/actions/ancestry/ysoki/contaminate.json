@@ -12,7 +12,7 @@
         },
         "category": "defensive",
         "description": {
-            "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> A creature Strikes you with an unarmed attack</p><hr /><p><strong>Effect</strong> You expose the creature to radiation. The triggering creature must attempt a Fortitude save against the higher of your class DC or spell DC. On a failure, the creature takes @Damage[1d6[poison]] damage and is @UUID[Compendium.sf2e.conditions.Item.Sickened]{Sickened 1} for 1 minute.</p>"
+            "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> A creature Strikes you with an unarmed attack</p><hr /><p><strong>Effect</strong> You expose the creature to radiation. The triggering creature must attempt a @Check[fortitude|against:class-spell|options:damaging-effect,inflicts:sickened] save against the higher of your class DC or spell DC. On a failure, the creature takes @Damage[1d6[poison]] damage and is @UUID[Compendium.sf2e.conditions.Item.Sickened]{Sickened 1} for 1 minute.</p>"
         },
         "frequency": {
             "max": 1,

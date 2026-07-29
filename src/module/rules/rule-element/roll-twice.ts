@@ -37,14 +37,12 @@ class RollTwiceRuleElement extends RuleElement<RollTwiceRuleSchema> {
         const removeExpired = game.pf2e.settings.automation.removeEffects;
         const removeAfterRoll = this.removeAfterRoll ?? (removeExpired && this.item.isOfType("effect"));
         const rolledTwice = roll?.dice.some((d) => ["kh", "kl"].some((m) => d.modifiers.includes(m))) ?? false;
-        if (
-            !(
-                rolledTwice &&
-                removeAfterRoll &&
-                this.selector.some((s) => domains.includes(s)) &&
-                this.test(rollOptions)
-            )
-        ) {
+        if (!(
+            rolledTwice &&
+            removeAfterRoll &&
+            this.selector.some((s) => domains.includes(s)) &&
+            this.test(rollOptions)
+        )) {
             return;
         }
 

@@ -41,17 +41,26 @@
                                     "feat:monastic-weaponry",
                                     "item:trait:monk"
                                 ]
+                            },
+                            {
+                                "and": [
+                                    "monastic-archer:half-increment",
+                                    "item:group:bow"
+                                ]
                             }
                         ]
                     },
                     {
                         "or": [
-                            "one-inch-punch-3",
-                            "one-inch-punch-2"
+                            "one-inch-punch:three",
+                            "one-inch-punch:two"
                         ]
                     }
                 ],
-                "selector": "melee-strike-damage",
+                "selector": [
+                    "melee-strike-damage",
+                    "ranged-strike-damage"
+                ],
                 "text": "{item|system.description.value}",
                 "title": "{item|name}"
             }

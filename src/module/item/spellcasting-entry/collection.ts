@@ -60,8 +60,10 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<string, Spell
         const groupId = options?.groupId;
         const heightenedRank = canHeighten ? (spellSlotGroupIdToNumber(groupId) ?? spell.rank) : spell.baseRank;
 
+        // Already in this collection at this rank: match the actor too, since a duplicated actor's
+        // spell carries the same item and entry ids
         const spellcastingEntryId = spell.system.location.value;
-        if (spellcastingEntryId === this.id && spell.rank === heightenedRank) {
+        if (spell.actor === actor && spellcastingEntryId === this.id && spell.rank === heightenedRank) {
             return null;
         }
 
@@ -72,7 +74,7 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<string, Spell
         }
 
         // Warn if the level being dragged to is lower than spell's level
-        if (spell.baseRank > heightenedRank && this.id === spell.system.location?.value) {
+        if (spell.baseRank > heightenedRank && spell.actor === actor && this.id === spell.system.location?.value) {
             this.#warnInvalidDrop("invalid-rank", { spell, groupId });
             return null;
         }
@@ -311,14 +313,12 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<string, Spell
         const groupedByRank = R.groupBy(Array.from(this.values()), (s) => s.rank);
         const groups = R.entries(groupedByRank)
             .sort(([a], [b]) => Number(a) - Number(b))
-            .map(
-                ([rank, spells]): SpellcastingSlotGroup => ({
-                    id: Number(rank) as SpellSlotGroupId,
-                    label: _loc("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(Number(rank)) }),
-                    maxRank: 10,
-                    active: spells.map((spell) => ({ spell, expended: spell.parentItem?.uses.value === 0 })),
-                }),
-            );
+            .map(([rank, spells]): SpellcastingSlotGroup => ({
+                id: Number(rank) as SpellSlotGroupId,
+                label: _loc("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(Number(rank)) }),
+                maxRank: 10,
+                active: spells.map((spell) => ({ spell, expended: spell.parentItem?.uses.value === 0 })),
+            }));
 
         return { groups, prepList: null };
     }

@@ -1,0 +1,73 @@
+{
+    "_id": "FaLV7NboBARQ1PG5",
+    "img": "icons/equipment/feet/boots-galosh-white.webp",
+    "name": "Effect: Diplomatic Retreat (Critical Failure)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Diplomatic Retreat]</p>\n<p>You take a +1 circumstance bonus to attack rolls and to your save DCs for any hostile actions that include the origin as a target or include the origin in the area.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 13
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "diplomatic-retreat"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:diplomatic-retreat"
+                ],
+                "selector": [
+                    "attack"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Lashunta.DiplomaticRetreat.ToggleLabel",
+                "option": "diplomatic-target",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "diplomatic-target"
+                ],
+                "selector": [
+                    "inline-dc",
+                    "spell-dc",
+                    "area-fire-dc",
+                    "auto-fire-dc"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

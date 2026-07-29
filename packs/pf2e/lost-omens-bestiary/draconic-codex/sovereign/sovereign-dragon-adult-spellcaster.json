@@ -594,7 +594,7 @@
             },
             "folder": "iDjm2cXyRAe4VZ35",
             "img": "systems/pf2e/icons/spells/tongues.webp",
-            "name": "Truespeech (constant)",
+            "name": "Truespeech (Constant)",
             "sort": 900000,
             "system": {
                 "area": null,
@@ -996,7 +996,7 @@
             },
             "folder": "7cyoYPoPYA01mErU",
             "img": "systems/pf2e/icons/spells/suggestion.webp",
-            "name": "Suggestion (at will)",
+            "name": "Suggestion (At Will)",
             "sort": 1500000,
             "system": {
                 "area": null,
@@ -2150,7 +2150,8 @@
                 "traits": {
                     "value": [
                         "magical",
-                        "reach-15"
+                        "reach-15",
+                        "unarmed"
                     ]
                 }
             },
@@ -2175,7 +2176,7 @@
                 "damageRolls": {
                     "TLs6f0wcfhfF31kG": {
                         "damage": "3d8+14",
-                        "damageType": "bludgeoning"
+                        "damageType": "slashing"
                     }
                 },
                 "description": {
@@ -2193,7 +2194,8 @@
                     "value": [
                         "agile",
                         "magical",
-                        "reach-10"
+                        "reach-10",
+                        "unarmed"
                     ]
                 }
             },
@@ -2235,7 +2237,8 @@
                 "traits": {
                     "value": [
                         "magical",
-                        "reach-20"
+                        "reach-20",
+                        "unarmed"
                     ]
                 }
             },
@@ -2439,7 +2442,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The dragon's armor glows with a golden light. The dragon gains a +2 status bonus to AC and resistance 15 to acid, cold, electricity, fire, and sonic damage. Each enemy in a @Template[type:emanation|distance:20] must succeed at a @Check[fortitude|dc:36] save or be @UUID[Compendium.pf2e.conditionitems.Item.Dazzled]. All these effects last until the end of the dragon's next turn.</p>"
+                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The dragon's armor glows with a golden light. The dragon gains a +2 status bonus to AC and resistance 15 to acid, cold, electricity, fire, and sonic damage. Each enemy in a @Template[emanation|distance:20] must succeed at a @Check[fortitude|dc:36|options:area-effect,inflicts:dazzled] save or be @UUID[Compendium.pf2e.conditionitems.Item.Dazzled]. All these effects last until the end of the dragon's next turn.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -2489,7 +2492,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>@Damage[(3d10+8)[bludgeoning]], @Check[fortitude|dc:36|basic]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
+                    "value": "<p>@Damage[(3d10+8)[bludgeoning]], @Check[fortitude|dc:36|basic|options:inflicts:unconscious]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -2554,7 +2557,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon unleashes a roar charged with psychic energy, dealing @Damage[16d6[mental]|options:area-damage] damage in a @Template[type:cone|distance:40] (@Check[will|dc:36|basic] save). The dragon can't use Sovereign's Rebuke again for [[/gmr 1d4 #Recharge Sovereign's Rebuke]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon unleashes a roar charged with psychic energy, dealing @Damage[16d6[mental]|options:area-damage] damage in a @Template[type:cone|distance:40] (@Check[will|dc:36|basic|options:area-effect] save). The dragon can't use Sovereign's Rebuke again for [[/gmr 1d4 #Recharge Sovereign's Rebuke]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2604,7 +2607,7 @@
                 "value": 37
             },
             "allSaves": {
-                "value": ""
+                "value": "+1 status to all saves vs. magic"
             },
             "hp": {
                 "details": "",

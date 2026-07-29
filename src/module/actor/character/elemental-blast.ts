@@ -11,6 +11,7 @@ import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import type { RangeData } from "@item/types.ts";
 import type { WeaponDamage } from "@item/weapon/data.ts";
 import type { WeaponTrait } from "@item/weapon/types.ts";
+import type { OneToTwo } from "@module/data.ts";
 import {
     extractDamageDice,
     extractModifierAdjustments,
@@ -135,7 +136,7 @@ class ElementalBlast {
         });
     })();
 
-    get actionCost(): 1 | 2 {
+    get actionCost(): OneToTwo {
         const cost = this.item?.flags[SYSTEM_ID].rulesSelections.actionCost ?? 1;
         if (cost !== 1 && cost !== 2) throw ErrorPF2e("Action cost must be 1 or 2");
         return cost;
@@ -616,7 +617,7 @@ interface ElementalBlastConfig extends Omit<fields.ModelPropsFromSchema<BlastCon
     range: RangeData & { label: string };
     statistic: Statistic;
     item: AbilityItemPF2e<CharacterPF2e>;
-    actionCost: 1 | 2;
+    actionCost: OneToTwo;
     ready: boolean;
     maps: {
         melee: { map0: string; map1: string; map2: string };

@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup.ts";
+import { trickMagicItem } from "@actor/sheet/trick-magic-item-popup.ts";
 import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.d.mts";
 import type { SpellPF2e } from "@item";
 import { ItemProxyPF2e, PhysicalItemPF2e } from "@item";
@@ -135,7 +135,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             if (actor.spellcasting?.canCastConsumable(this)) {
                 this.castEmbeddedSpell();
             } else if (actor.itemTypes.feat.some((feat) => feat.slug === "trick-magic-item")) {
-                new TrickMagicItemPopup(this);
+                trickMagicItem(this);
             } else {
                 const formatParams = { actor: actor.name, spell: this.name };
                 const message = _loc("PF2E.LackCastConsumableCapability", formatParams);

@@ -1,0 +1,120 @@
+{
+    "_id": "DTflIrRmXIZzaP5Z",
+    "img": "icons/equipment/finger/ring-shield-silver.webp",
+    "name": "Effect: Commander's Signet",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Commander's Signet], @UUID[Compendium.pf2e.equipment-srd.Item.General's Signet]</p>\n<p>You gain a status bonus to attack rolls, Perception checks, saving throws, and skill checks. The status bonus is doubled for saving throws made against fear effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:commanders-signet",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Commander's Signet"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:generals-signet",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.General's Signet"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "commanders-signet"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack-roll",
+                    "perception",
+                    "saving-throw",
+                    "skill-check"
+                ],
+                "slug": "commanders-signet",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "commanders-signet:generals-signet"
+                ],
+                "relabel": "PF2E.SpecificRule.Equipment.CommandersSignet.General.Label",
+                "selectors": [
+                    "attack-roll",
+                    "perception",
+                    "saving-throw",
+                    "skill-check"
+                ],
+                "slug": "commanders-signet",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    "item:trait:fear"
+                ],
+                "priority": 50,
+                "selector": "saving-throw",
+                "value": 2
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "commanders-signet:generals-signet"
+                ],
+                "property": "name",
+                "value": "PF2E.SpecificRule.Equipment.CommandersSignet.General.EffectLabel"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

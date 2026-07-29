@@ -3,7 +3,8 @@ import type { AttributeString, MovementType, SkillSlug } from "@actor/types.ts";
 import type { ImageFilePath } from "@common/constants.d.mts";
 import type { WeaponDamage } from "@item/weapon/data.ts";
 import type { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from "@item/weapon/types.ts";
-import type { Size } from "@module/data.ts";
+import type { OneToTwo, Size } from "@module/data.ts";
+import type { DamageType } from "@system/damage/types.ts";
 import type { RawPredicate } from "@system/predication.ts";
 import type { RuleElementSource } from "../index.ts";
 import type { ImmunityRuleElement, ResistanceRuleElement, WeaknessRuleElement } from "../iwr/index.ts";
@@ -26,7 +27,7 @@ interface BattleFormOverrides {
     size?: Size | null;
     speeds?: BattleFormSpeeds;
     skills?: BattleFormSkills;
-    strikes?: Record<string, BattleFormStrike>;
+    strikes?: Record<string, BattleFormStrikeSource>;
     immunities?: Omit<ImmunityRuleElement["_source"], "key">[];
     weaknesses?: Omit<WeaknessRuleElement["_source"], "key">[];
     resistances?: Omit<ResistanceRuleElement["_source"], "key">[];
@@ -65,7 +66,12 @@ interface BattleFormStrike {
     damage: WeaponDamage;
     ownIfHigher?: boolean;
     range?: { increment?: number | null; max?: number | null };
+    traitToggles?: { modular?: number | null; versatile?: DamageType | null };
+    handsHeld?: OneToTwo;
 }
+
+/** A full strike, or just a user's saved damage-type/grip choices when the strike varies by level brackets */
+type BattleFormStrikeSource = Partial<BattleFormStrike>;
 
 interface BattleFormStrikeQuery {
     pack: string;
@@ -83,4 +89,5 @@ export type {
     BattleFormSpeeds,
     BattleFormStrike,
     BattleFormStrikeQuery,
+    BattleFormStrikeSource,
 };

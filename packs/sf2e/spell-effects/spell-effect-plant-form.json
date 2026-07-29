@@ -1,0 +1,281 @@
+{
+    "_id": "bEq3bA3ElUEy8002",
+    "img": "systems/sf2e/icons/spells/plant-form.webp",
+    "name": "Spell Effect: Plant Form",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Plant Form]</p>\n<p>You transform into a Large plant battle form. When you Cast this Spell, choose a listed battle form. You can substitute a similar specific plant to turn into (such as a pitcher plant instead of a flytrap), but this has no effect on the form's Size or statistics. While in this form, you gain the plant trait. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of which battle form you choose.</p><ul><li><p>AC = 19 + your level. Ignore your armor's check penalty and Speed reduction.</p></li><li><p>12 temporary Hit Points.</p></li><li><p>Resistance 10 to poison.</p></li><li><p>Low-light vision.</p></li><li><p>One or more unarmed melee attacks specific to the battle form you choose, which are the only attacks you can Strike with. You're trained with them. Your attack modifier is +17, and your damage bonus is +11. These attacks are Strength based (for the purpose of the @UUID[Compendium.sf2e.conditions.Item.Enfeebled] condition, for example). If your unarmed attack modifier is higher, you can use it instead.</p></li><li><p>Athletics modifier of +19, unless your own modifier is higher.</p></li></ul><p>You gain specific abilities based on the plant you choose.</p><ul><li><p><strong>Moonflower</strong></p><ul><li><p>Speed 30 feet;</p></li><li><p>Resistance 10 to electricity;</p></li><li><p><strong>Melee</strong> <span class=\"action-glyph\">1</span> bite (reach 15 feet), <strong>Damage</strong> 2d10 piercing;</p></li><li><p><strong>Melee</strong> <span class=\"action-glyph\">1</span> root (reach 15 feet), <strong>Damage</strong> 2d8 bludgeoning, and you can spend an action after a hit to @UUID[Compendium.sf2e.bestiary-ability-glossary-srd.Item.Grab] the target.</p></li></ul></li><li><p><strong>Void Palm</strong></p><ul><li><p>Speed 15 feet;</p></li><li><p>Resistance 10 to poison;</p></li><li><p><strong>Melee</strong> <span class=\"action-glyph\">1</span> void frond (reach 10 feet), <strong>Damage</strong> 2d8 slashing.</p></li></ul></li></ul><hr /><p><strong>Heightened (6th)</strong> Your battle form is Huge, and the reach of your attacks increases by 5 feet. You instead gain AC = 22 + your level, 24 temporary HP, attack modifier +21, damage bonus +16, and Athletics +22.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.BattleForm.PlantForm.ChoiceSet.Moonflower",
+                        "value": "moonflower"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.PlantForm.ChoiceSet.VoidPalm",
+                        "value": "void-palm"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Form",
+                "rollOption": "plant-form"
+            },
+            {
+                "brackets": [
+                    {
+                        "start": 5,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "19 + @actor.level"
+                            },
+                            "size": "lg",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 19
+                                }
+                            },
+                            "strikes": {
+                                "bite": {
+                                    "damage": {
+                                        "modifier": 11
+                                    },
+                                    "modifier": 17
+                                },
+                                "root": {
+                                    "damage": {
+                                        "modifier": 11
+                                    },
+                                    "modifier": 17
+                                }
+                            },
+                            "tempHP": 12
+                        }
+                    },
+                    {
+                        "start": 6,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "22 + @actor.level"
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 22
+                                }
+                            },
+                            "strikes": {
+                                "bite": {
+                                    "damage": {
+                                        "modifier": 16
+                                    },
+                                    "modifier": 21,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-20"
+                                    ]
+                                },
+                                "root": {
+                                    "damage": {
+                                        "modifier": 16
+                                    },
+                                    "modifier": 21,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-20"
+                                    ]
+                                }
+                            },
+                            "tempHP": 24
+                        }
+                    }
+                ],
+                "key": "BattleForm",
+                "overrides": {
+                    "resistances": [
+                        {
+                            "type": [
+                                "electricity",
+                                "poison"
+                            ],
+                            "value": 10
+                        }
+                    ],
+                    "senses": {
+                        "low-light-vision": {}
+                    },
+                    "speeds": {
+                        "land": 30
+                    },
+                    "strikes": {
+                        "bite": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d10"
+                            },
+                            "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
+                            "traits": [
+                                "unarmed",
+                                "reach-15"
+                            ]
+                        },
+                        "root": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 2,
+                                "die": "d8"
+                            },
+                            "img": "icons/magic/nature/root-vine-wood-blue.webp",
+                            "traits": [
+                                "unarmed",
+                                "reach-15"
+                            ]
+                        }
+                    },
+                    "traits": [
+                        "plant"
+                    ]
+                },
+                "predicate": [
+                    "plant-form:moonflower"
+                ]
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "plant-form:moonflower"
+                ],
+                "selector": [
+                    "root-damage"
+                ],
+                "text": "SF2E.BattleForm.Note.Grab",
+                "title": "{item|name}"
+            },
+            {
+                "brackets": [
+                    {
+                        "start": 5,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "19 + @actor.level"
+                            },
+                            "size": "lg",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 19
+                                }
+                            },
+                            "strikes": {
+                                "void-frond": {
+                                    "damage": {
+                                        "modifier": 11
+                                    },
+                                    "modifier": 17
+                                }
+                            },
+                            "tempHP": 12
+                        }
+                    },
+                    {
+                        "start": 6,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "22 + @actor.level"
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 22
+                                }
+                            },
+                            "strikes": {
+                                "void-frond": {
+                                    "damage": {
+                                        "modifier": 16
+                                    },
+                                    "modifier": 21,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-15"
+                                    ]
+                                }
+                            },
+                            "tempHP": 24
+                        }
+                    }
+                ],
+                "key": "BattleForm",
+                "overrides": {
+                    "resistances": [
+                        {
+                            "type": [
+                                "poison"
+                            ],
+                            "value": 10
+                        }
+                    ],
+                    "senses": {
+                        "low-light-vision": {}
+                    },
+                    "speeds": {
+                        "land": 15
+                    },
+                    "strikes": {
+                        "void-frond": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 2,
+                                "die": "d8"
+                            },
+                            "img": "icons/magic/nature/plant-glowing-white-purple.webp",
+                            "traits": [
+                                "unarmed",
+                                "reach-10"
+                            ]
+                        }
+                    },
+                    "traits": [
+                        "plant"
+                    ]
+                },
+                "predicate": [
+                    "plant-form:void-palm"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

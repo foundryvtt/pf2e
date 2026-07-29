@@ -51,7 +51,8 @@
                 },
                 "tradition": {
                     "value": "arcane"
-                }
+                },
+                "traits": {}
             },
             "type": "spellcastingEntry"
         },
@@ -324,6 +325,7 @@
                 },
                 "location": {
                     "heightenedLevel": 3,
+                    "signature": true,
                     "value": "gdPgf1rGos471csi"
                 },
                 "publication": {
@@ -525,6 +527,7 @@
                 },
                 "location": {
                     "heightenedLevel": 2,
+                    "signature": true,
                     "value": "gdPgf1rGos471csi"
                 },
                 "publication": {
@@ -1173,6 +1176,7 @@
                 },
                 "location": {
                     "heightenedLevel": 1,
+                    "signature": true,
                     "value": "gdPgf1rGos471csi"
                 },
                 "overlays": {},
@@ -1659,10 +1663,50 @@
             "type": "melee"
         },
         {
+            "_id": "4oU5PV7qJXUiW0xM",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "DC 27 on Emotion Spells",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>King Merlokrep's emotion spells have a spell DC of 27.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:emotion"
+                        ],
+                        "selector": [
+                            "spell-dc"
+                        ],
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "8YOU5O0qxqlZcslG",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Imperious Retreat",
-            "sort": 2500000,
+            "sort": 2600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1711,7 +1755,7 @@
             "_id": "KXN0pWiNHPs86Zt8",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Signature Spells",
-            "sort": 2600000,
+            "sort": 2700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1721,7 +1765,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>King Merlokrep can cast any of his signature spells (Fireball, Dispel Magic, and Magic Missile) as heightened versions freely.</p>"
+                    "value": "<p>King Merlokrep can cast any of his signature spells (@UUID[Compendium.pf2e.spells-srd.Item.Fireball], @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic], and @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage]{Magic Missile}) as heightened versions freely.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1741,7 +1785,7 @@
             "_id": "gUlLJDYDAuGsSgHW",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Rise From Death",
-            "sort": 2700000,
+            "sort": 2800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1775,7 +1819,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 2800000,
+            "sort": 2900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1822,7 +1866,7 @@
             "_id": "GDkM7LI45g2jVpRj",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Mining Lore",
-            "sort": 2900000,
+            "sort": 3000000,
             "system": {
                 "description": {
                     "value": ""

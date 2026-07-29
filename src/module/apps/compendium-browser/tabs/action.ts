@@ -22,7 +22,7 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
     }
 
     protected override async loadData(): Promise<void> {
-        console.debug("PF2e System | Compendium Browser | Started loading actions");
+        console.debug(`${SYSTEM_NAME} System | Compendium Browser | Started loading actions`);
 
         const actions: CompendiumBrowserIndexData[] = [];
         const indexFields = [
@@ -41,7 +41,7 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
             this.browser.loadedPacks("action"),
             indexFields,
         )) {
-            console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loading`);
+            console.debug(`${SYSTEM_NAME} System | Compendium Browser | ${pack.metadata.label} - Loading`);
             for (const actionData of index) {
                 if (actionData.type !== "action") continue;
                 if (!this.hasAllIndexFields(actionData, indexFields)) {
@@ -84,7 +84,7 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
         );
         this.filterData.source.options = this.generateSourceCheckboxOptions(publications);
 
-        console.debug("PF2e System | Compendium Browser | Finished loading actions");
+        console.debug(`${SYSTEM_NAME} System | Compendium Browser | Finished loading actions`);
     }
 
     protected override prepareFilterData(): ActionFilters {

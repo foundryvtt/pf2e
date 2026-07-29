@@ -131,14 +131,25 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The cloaker makes an attack roll with a [[/r 1d20+14 #Envelop Attack]]{+14 bonus} against an adjacent creature's Reflex DC. If it succeeds, it envelops the target, who is @UUID[Compendium.pf2e.conditionitems.Item.Restrained]. Attacks that hit an enveloping cloaker deal half their damage to the cloaker and half to the trapped victim. The cloaker can't Fly, and when it moves using its land Speed it moves the enveloped creature with it. The cloaker can make only jaws Strikes against the restrained creature but can make tail Strikes against other creatures.</p>\n<p>A creature that voluntarily puts on the cloaker becomes engulfed automatically. A cloaker can engulf only Large or smaller creatures, and no more than one creature at a time.</p>"
+                    "value": "<p>The cloaker makes an attack roll with a @Check[envelop|against:reflex]{+14} bonus against an adjacent creature's Reflex DC. If it succeeds, it envelops the target, who is @UUID[Compendium.pf2e.conditionitems.Item.Restrained]. Attacks that hit an enveloping cloaker deal half their damage to the cloaker and half to the trapped victim. The cloaker can't Fly, and when it moves using its land Speed it moves the enveloped creature with it. The cloaker can make only jaws Strikes against the restrained creature but can make tail Strikes against other creatures.</p>\n<p>A creature that voluntarily puts on the cloaker becomes engulfed automatically. A cloaker can engulf only Large or smaller creatures, and no more than one creature at a time.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "SpecialStatistic",
+                        "slug": "envelop",
+                        "type": "attack-roll"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "envelop-attack-roll",
+                        "value": 14
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

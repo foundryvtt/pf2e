@@ -1,0 +1,121 @@
+{
+    "_id": "ughj4w37cFYLudzJ",
+    "folder": "LIyBalqfNL1tbX7c",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "ReFtuwggE9gvKIpN",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "We've Been Here Forever",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature ends their turn inside of area <strong>C37</strong></p><hr /><p><strong>Effect</strong> The skeletons rise up in a horrifying clatter. All living creatures in area <strong>C37</strong> must attempt a @Check[will|dc:26|options:inflicts:paralyzed] save to avoid becoming @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round (or 1 minute on a critical failure, with a new save at the end of their turn to recover). The haunt then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "emotion",
+                        "fear",
+                        "incapacitation",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Join Us Forever",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 27
+            },
+            "emitsSound": "encounter",
+            "hardness": 15,
+            "hp": {
+                "details": "moderate cover behind the bars from creatures outside the cell",
+                "max": 66,
+                "temp": 0,
+                "value": 66
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 18
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "bludgeoning",
+                    "value": 5
+                },
+                {
+                    "exceptions": [],
+                    "type": "vitality",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>The skeletal remains in the cells clatter up to their feet and reach out toward visitors as they call out, inviting them to embrace the addiction of imprisonment.</p>",
+            "disable": "<p>@Check[deception|dc:26] (trained) to trick one of the skeletons into thinking they're free, or @Check[religion|dc:23] (expert) to exorcise a haunted skeleton; each success disables one of the four haunted skeletons.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 8
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+            },
+            "reset": "<p>The haunt deactivates at the end of any round in which there are no living creatures in the room. It then resets 1 minute later.</p>",
+            "routine": "<p>(4 actions) Each of the four skeletons targets a living creature in area <strong>C37</strong>, reaches their arms out toward the target, and in a mournful yet strangely compelling voice invites the target to join them in imprisonment forever, promising blissful enlightenment in return for an eternity spent behind bars. The skeletons attempt to target a different living creature, but if there are more skeletons than targets, they randomly target identical creatures. Targeted creatures must attempt a @Check[will|dc:26|options:damaging-effect,inflicts:paralyzed,inflicts:slowed,inflicts:stupefied] save, with a cumulative status penalty of –1 for each additional skeleton targeting them (to a maximum penalty of –3 if all four skeletons target a single creature), and the following results. This is an incapacitation and mental effect.</p><hr><p><strong>Critical Success</strong> The creature is unaffected.</p><p><strong>Success</strong> The creature is tempted to remain in the room, takes @Damage[2d6[mental]] damage, and becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the end of its next turn.</p><p><strong>Failure</strong> The creature is compelled to remain in the room, takes @Damage[5d6[mental]] damage, and becomes @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] until the end of its next turn.</p><p><strong>Critical Failure</strong> The creature is compelled to remain in the room, takes @Damage[10d6[mental]] damage, becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} with an unlimited duration, and becomes paralyzed until the end of its next turn.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 13
+            },
+            "reflex": {
+                "value": 19
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

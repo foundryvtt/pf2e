@@ -56,26 +56,20 @@
                     }
                 },
                 "description": {
-                    "value": "<p>No multiple attack penalty. A creature damaged by the despairing breath must succeed at a @Check[will|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] 1 on a critical failure); this effect has the fear trait.</p>"
+                    "value": "<p>No multiple attack penalty. A creature damaged by the despairing breath must succeed at a @Check[will|dc:22|options:inflicts:frightened,inflicts:fleeing] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] on a critical failure); this effect has the fear trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "range": null,
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success",
-                            "criticalSuccess"
-                        ],
-                        "selector": "attack",
-                        "text": "<p>A creature damaged by the despairing breath must succeed at a @Check[will|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] 1 on a critical failure); this effect has the fear trait.</p>"
-                    }
-                ],
+                "range": {
+                    "increment": null,
+                    "max": 30
+                },
+                "rules": [],
                 "slug": null,
+                "subjectToMAP": false,
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -128,7 +122,7 @@
                 "title": "Pathfinder Kingmaker"
             },
             "reset": "<p>The trap resets after 1 minute</p>",
-            "routine": "<p>(4 actions) The trap loses 1 action per disabled face each turn. On each action, a different face spews a writhing breath of darkness from its mouth to a target in the area. A creature can only be targeted once per round by the despairing breath, so if fewer than four creatures are in the room, the trap won't be able to take full advantage of all four of its actions.</p>"
+            "routine": "<p>(4 actions) The trap loses 1 action per disabled face each turn. On each action, a different face spews a writhing breath of darkness from its mouth to a target in area <strong>C2</strong>. A creature can only be targeted once per round by the despairing breath, so if fewer than four creatures are in the room, the trap won't be able to take full advantage of all four of its actions.</p>"
         },
         "saves": {
             "fortitude": {
@@ -141,7 +135,7 @@
             },
             "will": {
                 "saveDetail": "",
-                "value": 0
+                "value": null
             }
         },
         "statusEffects": [],

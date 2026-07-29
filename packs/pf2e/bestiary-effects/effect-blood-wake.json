@@ -4,23 +4,79 @@
     "name": "Effect: Blood Wake",
     "system": {
         "description": {
-            "value": "<p>The creature takes a -4 status penalty to Athletics checks to Swim.</p>"
+            "value": "<p>You becomes frightened 2 (frightened 4 on a critical failure) and stunned 1, and you take a –4 status penalty to Athletics checks to Swim.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
         },
         "level": {
-            "value": 9
+            "value": 18
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Bestiary 3"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens High Seas"
         },
         "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "blood-wake"
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "granter": "detach"
+                },
+                "predicate": [
+                    "blood-wake:failure"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Frightened"
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 4
+                    }
+                ],
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "granter": "detach"
+                },
+                "predicate": [
+                    "blood-wake:critical-failure"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Frightened"
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "granter": "detach"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Stunned"
+            },
             {
                 "key": "FlatModifier",
                 "predicate": [

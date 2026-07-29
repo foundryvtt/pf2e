@@ -12,7 +12,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>The writing on your shell has evolved to become a divine script, either to a deity or to a philosophy unto itself. Depending on the spell you selected for Repository of Divinity, you become sanctified and gain either the holy or unholy trait (holy for @UUID[Compendium.sf2e.spells.Item.Summon Celestial], or unholy for @UUID[Compendium.sf2e.spells.Item.Summon Fiend]). Your @UUID[Compendium.sf2e.ancestry-features.Item.Fire Breath] gains the sanctified trait, and you can choose to deal spirit damage instead of fire damage.</p>"
+            "value": "<p>The writing on your shell has evolved to become a divine script, either to a deity or to a philosophy unto itself. Depending on the spell you selected for @UUID[Compendium.sf2e.feats.Item.Repository of Divinity], you become sanctified and gain either the holy or unholy trait (holy for @UUID[Compendium.sf2e.spells.Item.Summon Celestial], or unholy for @UUID[Compendium.sf2e.spells.Item.Summon Fiend]). Your @UUID[Compendium.sf2e.ancestry-features.Item.Fire Breath] gains the sanctified trait, and you can choose to deal spirit damage instead of fire damage.</p>"
         },
         "level": {
             "value": 13
@@ -32,7 +32,39 @@
             "remaster": true,
             "title": "Starfinder Galactic Ancestries"
         },
-        "rules": [],
+        "rules": [
+            {
+                "add": [
+                    "{item|flags.system.rulesSelections.sanctification}"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitHoly",
+                        "value": "holy"
+                    },
+                    {
+                        "label": "PF2E.TraitUnholy",
+                        "value": "unholy"
+                    }
+                ],
+                "flag": "sanctification",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Sanctification"
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:fire-breath"
+                ],
+                "property": "traits",
+                "value": "sanctified"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

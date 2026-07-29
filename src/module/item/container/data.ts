@@ -35,15 +35,7 @@ interface ContainerSystemData
 }
 
 type SourceOmission =
-    | "apex"
-    | "bulk"
-    | "description"
-    | "hp"
-    | "identification"
-    | "material"
-    | "price"
-    | "temporary"
-    | "usage";
+    "apex" | "bulk" | "description" | "hp" | "identification" | "material" | "price" | "temporary" | "usage";
 
 interface ContainerBulkData extends ContainerBulkSource, BulkData {}
 

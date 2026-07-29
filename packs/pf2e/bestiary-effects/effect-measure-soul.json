@@ -1,0 +1,55 @@
+{
+    "_id": "UJSPisdEMjS77hlL",
+    "img": "icons/skills/social/trading-justice-scale-yellow.webp",
+    "name": "Effect: Measure Soul",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 circumstance bonus to attack rolls, damage rolls, and Perception checks against the marked creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 12
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #195: Heavy is the Crown"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "measure-soul"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:measure-soul"
+                ],
+                "selector": [
+                    "attack-roll",
+                    "perception",
+                    "damage"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

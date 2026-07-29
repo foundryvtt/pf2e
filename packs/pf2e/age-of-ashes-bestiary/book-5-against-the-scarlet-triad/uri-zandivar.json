@@ -1063,14 +1063,25 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Uri has @UUID[Compendium.pf2e.equipment-srd.Item.Manacles (Superior)]{Manacles} in his possession and is adjacent to a creature</p>\n<hr />\n<p><strong>Effect</strong> Uri sheathes a weapon he's carrying, then attempts to bind the creature's wrists or ankles with the @UUID[Compendium.pf2e.equipment-srd.Item.Manacles (Superior)]{Manacles}. If Uri succeeds at an attack roll with a [[/r 1d20+36 #Manacles]]{+36 modifier} against the target's AC, he applies the @UUID[Compendium.pf2e.equipment-srd.Item.Manacles (Superior)]{Manacles}.</p>"
+                    "value": "<p><strong>Requirements</strong> Uri has manacles in his possession and is adjacent to a creature</p>\n<hr />\n<p><strong>Effect</strong> Uri sheathes a weapon he's carrying, then attempts to bind the creature's wrists or ankles with the manacles. If Uri succeeds at an attack roll with a @Check[swift-capture|against:ac]{+36} modifier against the target's AC, he applies the manacles.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "SpecialStatistic",
+                        "slug": "swift-capture",
+                        "type": "attack-roll"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "swift-capture-attack-roll",
+                        "value": 36
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
