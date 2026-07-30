@@ -6,6 +6,20 @@
                 "Text": "The target must succeed at a @Check[reflex|dc:16|name:Antler Arrow] save or become stuck to the surface, taking the critical specialization effects of a bow",
                 "Title": "Antler Arrow"
             },
+            "DaybreakAmmunition": {
+                "Text": "When activated daybreak ammunition hits a target, the missile flares with an aura of bright light in a @Template[type:emanation|distance:10] from the target for 1 round. Each creature in the area must attempt a @Check[fortitude|dc:18] save. Creatures with darkvision take a –2 circumstance penalty to this save.",
+                "Title": "Daybreak Ammunition"
+            },
+            "DisruptionAmmunition": {
+                "Greater": {
+                    "Test": "Disruption Ammunition (Greater)",
+                    "Title": "When activated disruption ammunition hits a target, it attempts to counteract one active spell effect that the target is Sustaining with a +20 counteract check modifier (counteract rank 6)."
+                },
+                "Normal": {
+                    "Test": "Disruption Ammunition (Greater)",
+                    "Title": "When activated disruption ammunition hits a target, it attempts to counteract one active spell effect that the target is Sustaining with a +11 counteract check modifier (counteract rank 3)."
+                } 
+            },
             "ExplosiveAmmunition": {
                 "Greater": {
                     "Text": "The missile explodes in a @Template[burst|distance:10], dealing @Damage[10d6[fire]|options:area-damage] damage to each creature in the area (including the target). Each creature must attempt a @Check[reflex|dc:30|basic|name:Explosive Ammunition|options:area-effect] save.",
@@ -15,6 +29,10 @@
                     "Text": "The missile explodes in a @Template[burst|distance:10], dealing @Damage[6d6[fire]|options:area-damage] damage to each creature in the area (including the target). Each creature must attempt a @Check[reflex|dc:25|basic|name:Explosive Ammunition|options:area-effect] save.",
                     "Title": "Explosive Ammunition"
                 }
+            },
+            "EscalationAmmunition": {
+                "Text": "The target must attempt a @Check[fortitude|dc:30] save. On a failure, the target rolls the next saving throw it attempts within the next minute against a spell or magical effect twice and takes the worse result.",
+                "Title": "Escalation Ammunition"
             },
             "ExsanguinatingAmmunition": {
                 "Greater": {
@@ -37,6 +55,20 @@
             "GlueBullet": {
                 "Text": "On a hit, the target takes a –10-foot circumstance penalty to its Speeds for [[/r 2d4 #rounds]]{2d4 rounds}. On a critical hit, the target is also @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{Immobilized}. @UUID[Compendium.pf2e.equipment-effects.Item.dBjXvsLFezo2fGRa]{Effect: Glue Bullet}.",
                 "Title": "Glue Bullet"
+            },
+            "GravebaneAmmunition": {
+                "Greater": {
+                    "Text": "On a successful Strike, the attack deals an additional @Damage[1d10[vitality]] damage to creatures with void healing. If the target takes vitality damage, it must succeed at a @Check[fortitude|dc:19] save or become @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 1} (or @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 2} on a critical failure) until the start of your next turn.",
+                    "Title": "Gravebane Ammunition (Greater)"
+                },
+                "Normal": {
+                    "Text": "On a successful Strike, the attack deals an additional @Damage[2d10[vitality]] damage to creatures with void healing. If the target takes vitality damage, it must succeed at a @Check[fortitude|dc:27] save or become @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 1} (or @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 2} on a critical failure) until the start of your next turn.",
+                    "Title": "EGravebane Ammunition"
+                } 
+            },
+            "MagekillerBullet": {
+                "Text": "Each time within the next week an affected target Casts a Spell, it must attempt a @Check[flat|dc:11]. On a failure, it takes @Damage[2d12[force]] damage.",
+                "Title": "Magekiller Bullet"
             },
             "MeteorShot": {
                 "CriticalFailureText": "On a critical failure, the weapon misfires.",
@@ -70,6 +102,20 @@
                 "Moderate": {
                     "Text": "The creature takes a -10-foot penalty to Speed and @Damage[2d4[persistent,acid]] damage until it ends the effects. The target can end the effects by @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escaping} (DC 20) the sticky foam. Other creatures can provide the actions, although doing so deals half the ammunition's persistent acid damage to the assisting creature. A creature that ends the effect still takes the persistent damage that turn. @UUID[Compendium.pf2e.equipment-effects.Item.m77YnEX1T7bdk7Qa]{Effect: Ooze Ammunition}",
                     "Title": "Ooze Ammunition (Moderate)"
+                }
+            },
+            "ShatterpointAmmunition": {
+                "Greater": {
+                    "Text": "The damage the ammunition deals ignores the target's Hardness if it's 8 or lower. In addition, the target takes @Damage[2d8[persistent,sonic]] damage.",
+                    "Title": "Shatterpoint Ammunition (Greater)"
+                },
+                "Major": {
+                    "Text": "The damage the ammunition deals ignores the target's Hardness if it's 12 or lower. In addition, the target takes @Damage[3d8[persistent,sonic]] damage.",
+                    "Title": "Shatterpoint Ammunition (Major)"
+                },
+                "Normal": {
+                    "Text": "The damage the ammunition deals ignores the target's Hardness if it's 4 or lower. In addition, the target takes @Damage[1d8[persistent,sonic]] damage.",
+                    "Title": "Shatterpoint Ammunition"
                 }
             },
             "ShiningAmmunition": {
@@ -1169,6 +1215,7 @@
                             "Ape": "Ape",
                             "Bat": "Bat",
                             "BatGiant": "Giant Bat",
+                            "BatSmall": "Small Bat",
                             "Boar": "Boar",
                             "Centipede": "Centipede",
                             "Cobra": "Cobra",
@@ -1176,6 +1223,7 @@
                             "Dog": "Dog",
                             "Dove": "Dove",
                             "Fish": "Fish",
+                            "InsectSmall": "Small Insect",
                             "Fox": "Fox",
                             "Lizard": "Lizard",
                             "Mantis": "Mantis",
@@ -7338,6 +7386,9 @@
                 "MartialWayangWeapons": "Martial Wayang Weapons",
                 "MinotaurWeapons": "Minotaur Weapons",
                 "MonasticArchery": "Monastic Archery",
+                "PeacekeeperHeavy": "Peacekeeper Heavy Armor",
+                "PeacekeeperMedium": "Peacekeeper Medium Armor",
+                "PeakeeperWeapons": "Peacekeeper Weapons",
                 "PerformativeWeapons": "Gladiator Performative Weapons",
                 "PirateWeapons": "Pirate Weapons",
                 "SimpleBombsFirearms": "Simple Bombs & Firearms",
@@ -8741,6 +8792,7 @@
                 "PurifyingSpell": "If the next action you use is to cast _heal_ targeting a single living creature, you can attempt to counteract a disease or poison affecting the target, in addition to the other benefits of _heal_. If you do, _heal_ gains the water trait.",
                 "QuickenedCasting": "If your next action is to cast a cantrip or a spell that is at least 2 ranks lower than the highest-rank spell slot you have, reduce the number of actions to cast it by 1 (minimum 1 action).",
                 "ReachSpell": "If the next action you use is to Cast a Spell that has a range, increase that spell's range by 30 feet. As is standard for increasing spell ranges, if the spell normally has a range of touch, you extend its range to 30 feet.",
+                "ReachOfTheDead": "You cast that spell from one of your thralls within 60 feet. That thrall becomes the point of origin for your spell; calculate range and cover from its space instead of yours. The thrall is then destroyed.",
                 "Remediate": "If your next action is to use your divine font to cast a 3-action heal or harm spell, you can harness the residual energy to counterbalance opposing forces. In addition to its normal effects, you use your heal or harm spell to attempt to counteract one divine effect in the spell's area.",
                 "ReverberatingSpell": "The spell deals an additional @Damage[1d8[sonic]] damage and all creatures who fail their save against the spell are @UUID[Compendium.pf2e.conditionitems.Item.9PR9y0bi4JPKnHPR]{Deafened} for 1 round. Targets who critically fail their saves against this spell are instead deafened for 1 minute. The spell gains the sonic trait.",
                 "RockslideSpell": "A number of 5-foot squares in the area equal to the spell rank become difficult terrain for 1 round. These squares must be on the ground, and the entire area of difficult terrain must be contiguous. The spell gains the earth trait.",
@@ -8760,6 +8812,7 @@
                 "TimelineSplittingSpell": "You Cast two Spells that each take 1 or 2 actions to cast. These can't be the same spell heightened to two different levels. You expend the resources for both spells, such as spell slots, Focus Points, and material components. Determine the immediate results for both spells, including attack rolls, saving throws, damage, and any other dice rolls. Then, choose which of the two spells takes effect, using the previously made rolls. The other spell's resources are still expended, but the spell has no effect as the magic disappears the other timeline.",
                 "UnlimitedPotential": "If your next action is to Cast a Spell of 5th level or lower that has no duration, you don't expend the prepared spell as you cast it.",
                 "UnusualComposition": "If your next action is to cast a composition spell that is auditory or visual, you can have it affect creatures who can witness it with any sense, not just those the traits indicate, even including special senses like tremorsense. You can choose to exclude any senses you choose.",
+                "VampiricSpell": "You gain temporary Hit Points equal to half the initial damage a single creature takes from this spell; calculate these temporary Hit Points using the creature that took the most damage from the spell. These temporary Hit Points last for 1 minute.",
                 "VigorousAnthem": "You and all affected allies gain temporary HP equal to 3 + your Charisma modifier that last for 1 minute. @UUID[Compendium.pf2e.feat-effects.Item.7AzGhIOx4Df5Cicr]{Effect: Vigorous Anthem}",
                 "WhatCouldHaveBeen": "If your next action is to Cast a Spell that summons a creature, that creature is another version of you. This creature remains the type of creature you summoned and has largely the same abilities (plus the following adjustments), but it clearly resembles you, likely sharing some distinguishing features, such as mannerisms, speech patterns, tattoos, or clothing. The summoned creature gains a +1 status bonus to any skill check in which you're trained, a +2 status bonus if you're an expert, a +3 status bonus if you're a master, or a +4 status bonus if you're legendary. The creature also takes a –2 penalty to all skills in which you're untrained.",
                 "WidenSpell": "If the next action you use is to Cast a Spell that has an area of a burst, cone, or line and does not have a duration, increase the area of that spell. Add 5 feet to the radius of a burst that normally has a radius of at least 10 feet (a burst with a smaller radius is not affected). Add 5 feet to the length of a cone or line that is normally 15 feet long or smaller, and add 10 feet to the length of a larger cone or line.",
@@ -9888,8 +9941,8 @@
                 "Magboots": {
                     "ClimbMetalSurfaces": "Magboots — Climb metal surfaces"
                 },
-                "UltralightWings": {
-                    "WingsDeployed": "Ultralight Wings — Wings Deployed"
+                "RevealingFlashlight": {
+                    "Lit": "Flashlight Lit"
                 },
                 "SolarianCrystals": {
                     "Gluon": {
@@ -9916,6 +9969,17 @@
                     "WeaponPotency": {
                         "Label": "Weapon Potency"
                     }
+                },
+                "StunStick": {
+                    "AdvancedNote": "On a hit, you deal electricity damage instead of bludgeoning damage, and the target must succeed at a @Check[fortitude|dc:20] save or become @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1} for 1 round; this is an incapacitation effect.",
+                    "EliteNote": "On a hit, you deal electricity damage instead of bludgeoning damage, and the target must succeed at a @Check[fortitude|dc:31] save or become @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1} for 1 round; this is an incapacitation effect.",
+                    "ShortSharpShock": "Short, Sharp Shock",
+                    "SuperiorNote": "On a hit, you deal electricity damage instead of bludgeoning damage, and the target must succeed at a @Check[fortitude|dc:28] save or become @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1} for 1 round; this is an incapacitation effect.",
+                    "UltimateNote": "On a hit, you deal electricity damage instead of bludgeoning damage, and the target must succeed at a @Check[fortitude|dc:36] save or become @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1} for 1 round; this is an incapacitation effect.", 
+                    "ParagonNote": "On a hit, you deal electricity damage instead of bludgeoning damage, and the target must succeed at a @Check[fortitude|dc:40] save or become @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1} for 1 round; this is an incapacitation effect."
+                },
+                "UltralightWings": {
+                    "WingsDeployed": "Ultralight Wings — Wings Deployed"
                 },
                 "Upgrades": {
                     "Weapon": {
@@ -9965,6 +10029,11 @@
                             "CriticalNoteTactical": "On a critically successful Strike, the target becomes unable to make sound. The target can't use sonic attacks, nor can it use actions with the auditory trait. This also prevents the target from casting spells due to the incantations or sounds involved in casting, with the exception of subtle spells. The target can resist the effects of the silencer with a successful @Check[will|dc:27] save."
                         }
                     }
+                }
+            },
+            "Gnarefuroid": {
+                "HullborneGnarefuroid": {
+                    "Carapace": "Hullborne Gnarefuroid Carapace"
                 }
             },
             "Hellknight": {
@@ -10113,6 +10182,11 @@
                         "Viral": "Viral Order"
                     },
                     "Prompt": "Select a Bond"
+                }
+            },
+            "Nuar": {
+                "ThoughtPiercingHorns": {
+                    "Note": "The target also becomes @UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 2} until the beginning of your next turn."
                 }
             },
             "Operative": {
