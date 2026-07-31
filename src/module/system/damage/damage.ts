@@ -279,7 +279,6 @@ export class DamagePF2e {
                 splashRoll.options.splashOnly = true;
                 rolls.push(splashRoll.toJSON());
             }
-
             return rolls;
         })();
 
