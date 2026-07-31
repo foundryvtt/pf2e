@@ -19,7 +19,7 @@
 - (Chromatic Penguin) Fix PF2e style table borders in `ApplicationV2`
 - (Chromatic Penguin) Fix trait and grip toggles on battle form strikes
 - (Chromatic Penguin) Fix weapon trait toggles on attached weapons
-- (Dantar) Update handling of Two-Hand treat when when's damage die is upgraded to be in line with errata
+- (Dantar) Update handling of Two-Hand trait when when's damage die is upgraded to be in line with errata
 - (stwlam) Prevent `onDeleteActions` being dropped from Choice Set rule elements
 - (Supe) Fix ammo quantity input when there is more than one type
 
