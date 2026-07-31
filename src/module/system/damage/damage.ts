@@ -275,9 +275,9 @@ export class DamagePF2e {
             for (const splash of splashInstances) {
                 const flavor = [splash.damageType, ...roll.materials].join(",");
                 const formula = `(${splash.total}[splash])[${flavor}]`;
-const splashRoll = await new DamageRoll(formula).evaluate();
-splashRoll.options.splashOnly = true;
-rolls.push(splashRoll.toJSON());
+                const splashRoll = await new DamageRoll(formula).evaluate();
+                splashRoll.options.splashOnly = true;
+                rolls.push(splashRoll.toJSON());
             }
             return rolls;
         })();
