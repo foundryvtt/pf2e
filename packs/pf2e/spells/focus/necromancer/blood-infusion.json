@@ -9,18 +9,7 @@
             "value": ""
         },
         "counteraction": false,
-        "damage": {
-            "qkVTjUzZLyaxB7cZ": {
-                "applyMod": false,
-                "category": null,
-                "formula": "1d6",
-                "kinds": [
-                    "damage"
-                ],
-                "materials": [],
-                "type": "bleed"
-            }
-        },
+        "damage": {},
         "defense": {
             "save": {
                 "basic": false,
@@ -28,19 +17,11 @@
             }
         },
         "description": {
-            "value": "<p>You pull blood and other fluid from a thrall before embedding it into another creature. You then slowly and painfully begin to extract that blood from the creature. A creature within 15 feet of the target thrall becomes filled with blood. The thrall is destroyed, and the creature must attempt a Fortitude saving throw.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The target loses any immunity to bleed and is considered to be a creature with blood for the purposes of effects and requirements. The creature takes 1 persistent bleed damage.</p>\n<p><strong>Failure</strong> As success, but the persistent bleed damage is 1d6.</p>\n<p><strong>Critical Failure</strong> As success, but the persistent bleed damage is 2d6.</p><hr /><p><strong>Heightened (+1)</strong> The persistent bleed damage increases by 1 on a success, 1d6 on a failure, and 2d6 on a critical failure.</p>"
+            "value": "<p>You pull blood and other fluid from a thrall before embedding it into another creature. You then slowly and painfully begin to extract that blood from the creature. A creature within 15 feet of the target thrall becomes filled with blood. The thrall is destroyed, and the creature must attempt a Fortitude saving throw.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The target loses any immunity to bleed and is considered to be a creature with blood for the purposes of effects and requirements. The creature takes @Damage[(@item.rank)[bleed]] damage.</p>\n<p><strong>Failure</strong> As success, but the persistent bleed damage is @Damage[(@item.rank)d6[bleed]|shortLabel].</p>\n<p><strong>Critical Failure</strong> As success, but the persistent bleed damage is @Damage[(@item.rank*2)d6[bleed]|shortLabel].</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Blood Infusion]</p><hr /><p><strong>Heightened (+1)</strong> The persistent bleed damage increases by 1 on a success, 1d6 on a failure, and 2d6 on a critical failure.</p>"
         },
         "duration": {
             "sustained": false,
             "value": "1 minute"
-        },
-        "heightening": {
-            "area": 0,
-            "damage": {
-                "qkVTjUzZLyaxB7cZ": "1d6"
-            },
-            "interval": 1,
-            "type": "interval"
         },
         "level": {
             "value": 1
