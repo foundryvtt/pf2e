@@ -1,0 +1,100 @@
+{
+    "_id": "oXnubvlxTtwyWHOH",
+    "folder": "byOVUGuasFKcmNuI",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "fRP9RDUu89f1vI6Y",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Trigger",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A creature enters the laboratory without prior authorization from Feskagazar</p><hr /><p><strong>Effect</strong> Alarms blare throughout the complex. The trap rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Absolute Zero Security System",
+    "prototypeToken": {
+        "name": "Hazard"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(Trained)</p>",
+                "value": 15
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The Absolute Zero security system includes a devious array of defenses intended to eliminate or scare away intruders.</p>",
+            "disable": "<p>@Check[computers|dc:20] (trained) to hack into the security system remotely, @Check[thievery|dc:22] (trained) to rewire a security terminal, @Check[deception|dc:20] (trained) to trick the cameras into activating the system in an empty room, or @Check[athletics|dc:22] or @Check[crafting|dc:22] (trained) to throw up a defensive barricade or otherwise block the hazard's path; four successes required to disable security system</p>",
+            "isComplex": true,
+            "level": {
+                "value": 4
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Adventure: Rescue on Raxil"
+            },
+            "reset": "<p>1 hour</p>",
+            "routine": "<p>(1 action) The security system activates a lethal defense mechanism from the table below; either choose a mechanism or roll a [[/r 1d6]] to determine the effect. All creatures in the area must attempt a basic DC 21 saving throw, with the saving throw type and damage listed. Some defenses have an additional effect listed that occurs on a failed save.</p><table border=\"1\" class=\"pf2e\"><thead><tr style=\"text-align: right;\"><th><p>D6</p></th><th><p>Mechanism</p></th><th><p>Description</p></th><th><p>Save</p></th><th><p>Damage</p></th><th><p>Failure Effect</p></th></tr></thead><tbody><tr><td><p>1–2</p></td><td><p>Dragonfreeze Turret</p></td><td><p>Turrets whose barrels look like the heads of iridescent dragons pop out of holes in the walls</p></td><td><p>@Check[reflex|dc:21|basic]</p></td><td><p>@Damage[2d8[cold]]</p></td><td><p>@UUID[Compendium.sf2e.conditions.Item.Enfeebled]{Enfeebled 1} for 1 hour</p></td></tr><tr><td><p>3–4</p></td><td><p>Laser Bats</p></td><td><p>Furry blue bats with laser eyes swoop down and shoot searing eye beams at the intruders</p></td><td><p>@Check[reflex|dc:21|basic]</p></td><td><p>@Damage[(2d8+5)[fire]]</p></td><td><p>–</p></td></tr><tr><td><p>5–6</p></td><td><p>Sonic Boom</p></td><td><p>An explosion of sound overwhelms the senses</p></td><td><p>@Check[fortitude|dc:21|basic]</p></td><td><p>@Damage[2d8[cold]]</p></td><td><p>@UUID[Compendium.sf2e.conditions.Item.Deafened] for 1 hour</p></td></tr><tr><td><p>4</p></td><td><p>Fungal Cloud</p></td><td><p>The air fills with a cloud of poison derived from fungal spores</p></td><td><p>@Check[fortitude|dc:21|basic]</p></td><td><p>@Damage[2d8[poison]]</p></td><td><p>@Damage[1d6[persistent,poison]] damage</p></td></tr><tr><td><p>5</p></td><td><p>Mindscreech</p></td><td><p>A psychic screech assaults the minds of all creatures in the room</p></td><td><p>@Check[will|dc:21|basic]</p></td><td><p>@Damage[2d8[mental]]</p></td><td><p>@UUID[Compendium.sf2e.conditions.Item.Sickened]{Sickened 1}</p></td></tr><tr><td><p>6</p></td><td><p>Electrified Floors</p></td><td><p>Electricity surges through the metal floor, jolting all creatures on the ground</p></td><td><p>@Check[reflex|dc:21|basic]</p></td><td><p>@Damage[2d12[electricity]]</p></td><td><p>–</p></td></tr></tbody></table>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "tech",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}
