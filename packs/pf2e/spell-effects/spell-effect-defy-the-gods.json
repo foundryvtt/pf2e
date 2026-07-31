@@ -1,19 +1,20 @@
 {
-    "_id": "7IUPl6dQUktXZh5t",
-    "img": "icons/magic/death/skull-weapon-staff-glow-pink.webp",
-    "name": "Spell Effect: Mind of Menace",
+    "_id": "miS33XQMZc0O9Lwx",
+    "img": "icons/magic/light/beams-rays-orange-purple-small.webp",
+    "name": "Spell Effect: Defy the Gods",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Mind of Menace]</p>\n<p>You gain the Fight with Fear reaction.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Defy the Gods]</p>\n<p>You gain resistance 15 to holy and unholy.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "hours",
-            "value": 24
+            "unit": "minutes",
+            "value": 1
         },
+        "fromSpell": false,
         "level": {
-            "value": 3
+            "value": 7
         },
         "publication": {
             "license": "ORC",
@@ -22,8 +23,12 @@
         },
         "rules": [
             {
-                "key": "GrantItem",
-                "uuid": "Compendium.pf2e.actionspf2e.Item.Fight with Fear"
+                "key": "Resistance",
+                "type": [
+                    "holy",
+                    "unholy"
+                ],
+                "value": 15
             }
         ],
         "start": {

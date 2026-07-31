@@ -1,19 +1,20 @@
 {
-    "_id": "7IUPl6dQUktXZh5t",
-    "img": "icons/magic/death/skull-weapon-staff-glow-pink.webp",
-    "name": "Spell Effect: Mind of Menace",
+    "_id": "tnbmzwool95tqqhy",
+    "img": "icons/tools/instruments/harp-white.webp",
+    "name": "Spell Effect: Song of the Soul",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Mind of Menace]</p>\n<p>You gain the Fight with Fear reaction.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Song of the Soul]</p>\n<p>You gain fast healing.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "hours",
-            "value": 24
+            "unit": "minutes",
+            "value": 1
         },
+        "fromSpell": false,
         "level": {
-            "value": 3
+            "value": 1
         },
         "publication": {
             "license": "ORC",
@@ -22,8 +23,8 @@
         },
         "rules": [
             {
-                "key": "GrantItem",
-                "uuid": "Compendium.pf2e.actionspf2e.Item.Fight with Fear"
+                "key": "FastHealing",
+                "value": "@item.level"
             }
         ],
         "start": {
