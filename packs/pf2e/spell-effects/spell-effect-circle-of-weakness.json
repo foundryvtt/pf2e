@@ -1,0 +1,119 @@
+{
+    "_id": "ENbYS44wnQ0wERuC",
+    "img": "icons/magic/symbols/runes-triangle-blue.webp",
+    "name": "Spell Effect: Circle of Weakness",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Circle of Weakness]</p>\n<p>You gain weakness to acid, cold, electricity, fire, force, or sonic. On a critical failure, you also become immobilized.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitForce",
+                        "value": "force"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "energyType",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EnergyType"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "circle-of-weakness"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "circle-of-weakness:success"
+                ],
+                "type": "{item|flags.system.rulesSelections.energyType}",
+                "value": "ceil(@item.level/2)"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    {
+                        "or": [
+                            "circle-of-weakness:failure",
+                            "circle-of-weakness:critical-failure"
+                        ]
+                    }
+                ],
+                "type": "{item|flags.system.rulesSelections.energyType}",
+                "value": "ceil(@item.level/2)*2"
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "detach"
+                },
+                "predicate": [
+                    "circle-of-weakness:critical-failure"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
