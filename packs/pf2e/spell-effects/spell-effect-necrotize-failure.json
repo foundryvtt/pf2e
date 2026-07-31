@@ -1,0 +1,93 @@
+{
+    "_id": "sxHLYidLus47eQUu",
+    "img": "icons/magic/unholy/hand-fire-skeleton-pink.webp",
+    "name": "Spell Effect: Necrotize (Failure)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Necrotize]</p><ol><li><p><strong>Bones</strong> You gain weakness 3 to bludgeoning damage.</p></li><li><p><strong>Joints</strong> You become clumsy 1.</p></li><li><p><strong>Legs</strong> You take a –10-foot status penalty to your Speeds.</p></li><li><p><strong>Muscles</strong> You become enfeebled 1.</p></li></ol>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectNecrotize.Bones",
+                        "value": "bones"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectNecrotize.Joints",
+                        "value": "joints"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectNecrotize.Legs",
+                        "value": "legs"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectNecrotize.Muscles",
+                        "value": "muscles"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.SpellEffectNecrotize.Prompt",
+                "rollOption": "necrotize"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "necrotize:bones"
+                ],
+                "type": "bludgeoning",
+                "value": 3
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "necrotize:joints"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "necrotize:legs"
+                ],
+                "selector": "all-speeds",
+                "type": "status",
+                "value": -10
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "necrotize:muscles"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
