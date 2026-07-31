@@ -1292,6 +1292,14 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         slug: "deathdrinking",
         traits: ["magical"],
     },
+    deflecting: {
+        level: 6,
+        name: "PF2E.WeaponPropertyRune.deflecting.Name",
+        price: 230,
+        rarity: "common",
+        slug: "deflecting",
+        traits: ["magical"],
+    },
     demolishing: {
         damage: {
             additional: [
@@ -1352,6 +1360,14 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 250,
         rarity: "uncommon",
         slug: "energizing",
+        traits: ["magical"],
+    },
+    energyVulnerability:{
+        level: 4,
+        name: "PF2E.WeaponPropertyRune.energyVulnerability.Name",
+        price: 90,
+        rarity: "common",
+        slug: "energyVulnerability",
         traits: ["magical"],
     },
     extending: {
@@ -1694,6 +1710,14 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 4300,
         rarity: "uncommon",
         slug: "greaterDisrupting",
+        traits: ["magical"],
+    },
+    greaterEnergyVulnerability:{
+        level: 16,
+        name: "PF2E.WeaponPropertyRune.greaterEnergyVulnerability.Name",
+        price: 9000,
+        rarity: "common",
+        slug: "greaterEnergyVulnerability",
         traits: ["magical"],
     },
     greaterExtending: {
