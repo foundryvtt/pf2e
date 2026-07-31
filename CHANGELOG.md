@@ -2,10 +2,10 @@
 
 ### Highlights
 
-- (Ambrose, Dantar, Dogstarb, Mecha Maya, Rigo Tikael) Add Impossible Magic content
+- (Ambrose, Dantar, Dogstarb, Kromko, Mecha Maya, Rigo Tikael) Add Impossible Magic content
 - (Ambrose) Add Clockwork Mystery content
 - (Ambrose) Add Things Go to Hell content
-- (Rigo) Add Bastion of Blasphemies content
+- (Rigo, SpartanCPA) Add Bastion of Blasphemies content
 
 ### System Improvements
 
@@ -19,7 +19,7 @@
 - (Chromatic Penguin) Fix PF2e style table borders in `ApplicationV2`
 - (Chromatic Penguin) Fix trait and grip toggles on battle form strikes
 - (Chromatic Penguin) Fix weapon trait toggles on attached weapons
-- (Dantar) Update weapon damage die calculation for errata
+- (Dantar) Update handling of Two-Hand trait when when's damage die is upgraded to be in line with errata
 - (stwlam) Prevent `onDeleteActions` being dropped from Choice Set rule elements
 - (Supe) Fix ammo quantity input when there is more than one type
 
@@ -52,12 +52,8 @@
 - (Dire Weasel) Remove extraneous attack from Vault-Drowned Souls
 - (DocSchlock) Perform large audit and cleanup of Age of Ashes content
 - (hollyvalenta) Update traditions for Undertow spell
-- (kromko) Add description to Bony Barrage spell
-- (kromko) Fix Overflowing Blade link in Living Nexus journal
-- (kromko) Fix Unbreakable Expertise embed in Guardian class journal
-- (kromko) Make Catfolk Dance effect apply off-guard on a critical success
-- (kromko) Remove clarification label on Runesmith's Remote Detonation and add one on Snarecrafter's
-- (kromko) Update eidolon's Draconic Frenzy description
+- (Kromko) Fix Unbreakable Expertise embed in Guardian class journal
+- (Kromko) Make Catfolk Dance effect apply off-guard on a critical success
 - (Longstrider) Fix Draddeth's Edge potency bonus
 - (Longstrider) Implement and improve Plant Form effects
 - (rectulo) Fix cost and duration for Connective Current
@@ -90,13 +86,13 @@
 - (Dantar) Apply each persistent damage from dragged formula
 - (Dantar) Make clown car respect elevation and levels
 - (Dantar) Prevent chat bubbles if message isn't in the in-character style
-- (kromko) Fix not being able to remove spells from deities
+- (Kromko) Fix not being able to remove spells from deities
 - (Noisyink) Use check icon for trade accept button in unaccepted state
 - (stwlam) Prevent some some fields in the Aura RE form from resetting their values
 
 ### Data Updates
 
-- (Ambrose, kromko) Add content from Lost Omens High Seas
+- (Ambrose, Kromko) Add content from Lost Omens High Seas
 - (Ambrose) Add Animate Nightmare actor variants
 - (Ambrose) Add automation to Vrolikai's Focused Flames ability
 - (Ambrose) Add Chelaxian Scion Archetype feats and actions
@@ -144,7 +140,7 @@
 - (Dire Weasel) Update Sliding Statue's Slide to use `@Damage`
 - (hollyvalenta) Correct Arcana modifier for Dust Bunny Swarm
 - (hollyvalenta) Update Hellknight-Errant to not increase Hellknight feat count by 5
-- (kromko) Move Lead the Way to Knight Vigilant archetype
+- (Kromko) Move Lead the Way to Knight Vigilant archetype
 - (Longstrider) Fix ruffian Combat Grab requirement
 - (rectulo) Change Attack of Opportunity to Reactive Strike in Baomal
 - (rectulo) Correct spelling of "Talmandor" in For Talmandor! For…
@@ -216,14 +212,14 @@
 - (Dantar) Fix greater Endless Quiver material choices
 - (Dantar) Implement rules for Hellknight Mobility feat
 - (Dantar) Update dawnsilver-tree and shield-pistol rounds
-- (kromko) Add some missing compendium sources for physical items
-- (kromko) Clean up whitespace around inline buttons; Fix Spellsap Grenades data
-- (kromko) Fix Fire and Water Wisps' Resonance description
-- (kromko) Fix formatting of Flawless Celestial Shawl and Smoking Sword
-- (kromko) Fix invalid language keys
-- (kromko) Fix Skill Mastery overwriting all feat descriptions
-- (kromko) Remove duplicate dedication from Provocator Archetype journal page
-- (kromko) Remove remnants of pre-remaster activation from Greater Screech Shooter
+- (Kromko) Add some missing compendium sources for physical items
+- (Kromko) Clean up whitespace around inline buttons; Fix Spellsap Grenades data
+- (Kromko) Fix Fire and Water Wisps' Resonance description
+- (Kromko) Fix formatting of Flawless Celestial Shawl and Smoking Sword
+- (Kromko) Fix invalid language keys
+- (Kromko) Fix Skill Mastery overwriting all feat descriptions
+- (Kromko) Remove duplicate dedication from Provocator Archetype journal page
+- (Kromko) Remove remnants of pre-remaster activation from Greater Screech Shooter
 - (rectulo) Add description text for Grandmaster NPC
 - (rectulo) Add forgotten text in Black Belt NPC
 - (rectulo) Add missing text in Cultist description
@@ -245,7 +241,7 @@
 
 ### Under the Hood
 
-- (kromko) Remove Catfolk feat Expanded Luck and redirect it to Lucky Break
+- (Kromko) Remove Catfolk feat Expanded Luck and redirect it to Lucky Break
 - (Noisyink) Avoid duplicate feat group slots in custom campaigns slots
 - (stwlam) Remove migrations for foundry versions up to and including 10
 - (stwlam) Support retrieval of highest and lowest save from creatures
@@ -259,7 +255,7 @@
 ### Bugfixes
 
 - (Chromatic Penguin) Refresh token bars on Temp HP updates.
-- (kromko) Fix item transfer message localization
+- (Kromko) Fix item transfer message localization
 - (steve148) Update changelog link in foundry to the new one
 - (stwlam) Fix aura rule forms not updating includeSelf
 - (stwlam) Fix tokens being visible when partially clipping through a wall
@@ -275,8 +271,8 @@
 - (Ambrose) Update Ardent Armirger text and prerequisites to match Hellfire dispatches
 - (Dire Weasel) Add automation to Spirit of Vigil
 - (Dire Weasel) Brush up automation for No Stranger to Death
-- (kromko) Fix Opportune Trickster's description formatting
-- (kromko) Remove Ghoul Fever and Paralysis from Skaveling
+- (Kromko) Fix Opportune Trickster's description formatting
+- (Kromko) Remove Ghoul Fever and Paralysis from Skaveling
 - (rectulo) Fix description for Devastation Cavalry Brigade
 - (rectulo) Fix formatting in Ort Mob description
 - (rectulo) Revise Starstone Aspirant archetype details in journals
@@ -341,7 +337,7 @@
 - (Dire Weasel) Fix range of Wild Winds stance's Wind Crash Strike
 - (Dire Weasel) Fix water trait predicate for Elemental Assault effect
 - (Dire Weasel) Unify damage for Kithangian's Rasping Tongues
-- (kromko) Add slugs to Living Weapons's Strikes
+- (Kromko) Add slugs to Living Weapons's Strikes
 - (Longstrider) Fix multiclass dedications proficiencies
 - (Longstrider) Lightly brush up Swashbuckler
 - (Razytos) Remove malformed skill entry from Garadasura
@@ -400,7 +396,7 @@
 - (Ambrose) Consolidate Skill Mastery archetype feats
 - (Dantar) Automate Sanguine Tenacity's Drained mechanics
 - (Dantar) Make Arghun unique
-- (kromko) Add missing Hellfire Dispatches localization strings
+- (Kromko) Add missing Hellfire Dispatches localization strings
 
 ## 8.0.1
 
