@@ -1,3 +1,40 @@
+## 1.4.0
+
+# Highlights
+
+- (Ambrose) Add Beyond the Blood Door content
+- (Ambrose) Starfinder Adventure: Rescue on Raxil content
+- (Ambrose, Mecha Maya, Tikael) Add Absalom Station content
+
+### System Improvements
+
+- (Chromatic Penguin) Convert `AdjustmentDialog`, `CompendiumMigrationStatus`, `LootNPCsPopup`, `MigrationSummary`, `NPCSkillsEditor`, `SpellPreparationSheet`, and `TrickMagicItemPopup` to `ApplicationV2`
+- (Supe) Always use action image for unusable actions in character sheet
+
+### Bugfixes
+
+- (Chromatic Penguin) Fix opening settings menus and logging prefixes in SF2e
+- (Chromatic Penguin) Fix shield block button not untoggling after applying damage
+- (Chromatic Penguin) Fix double applied penalties when battle form statistics are compared with actor's own
+- (Chromatic Penguin) Fix PF2e style table borders in `ApplicationV2`
+- (Chromatic Penguin) Fix trait and grip toggles on battle form strikes
+- (Chromatic Penguin) Fix weapon trait toggles on attached weapons
+- (Dantar) Update weapon damage die calculation for errata
+- (stwlam) Prevent `onDeleteActions` being dropped from Choice Set rule elements
+- (Supe) Fix ammo quantity input when there is more than one type
+
+### Data Updates
+- (Ambrose) Add missing traditions from Sift the Sphere
+- (Ambrose) Add missing traits to Vulkarisu items and effect
+- (Ambrose) Fix image path for UBP item/currency
+- (Dantar) Add effects to multi-weapon aim
+- (Dantar) Fix Talphi size
+- (Dire Weasel) Fix automation for Irreproachable Contemplative
+- (kromko) Fix Gooey Engulf inline escape action's DC
+- (Longstrider) Add witchwarper dedication errata
+- (Longstrider) Fix Despair Crystal formatting and Explorer Buggy publication
+- (Longstrider) Fix Quantum Reaver and Reaction Breacher stats
+
 ## 1.3.0
 
 ### Bugfixes

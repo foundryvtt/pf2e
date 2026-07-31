@@ -1,3 +1,70 @@
+## 8.4.0
+
+### Highlights
+
+- (Ambrose, Dantar, Dogstarb, Mecha Maya, Rigo Tikael) Add Impossible Magic content
+- (Ambrose) Add Clockwork Mystery content
+- (Ambrose) Add Things Go to Hell content
+- (Rigo) Add Bastion of Blasphemies content
+
+### System Improvements
+
+- (Chromatic Penguin) Convert `AdjustmentDialog`, `CompendiumMigrationStatus`, `LootNPCsPopup`, `MigrationSummary`, `NPCSkillsEditor`, `SpellPreparationSheet`, and `TrickMagicItemPopup` to `ApplicationV2`
+- (Supe) Always use action image for unusable actions in character sheet
+
+### Bugfixes
+
+- (Chromatic Penguin) Fix shield block button not untoggling after applying damage
+- (Chromatic Penguin) Fix double applied penalties when battle form statistics are compared with actor's own
+- (Chromatic Penguin) Fix PF2e style table borders in `ApplicationV2`
+- (Chromatic Penguin) Fix trait and grip toggles on battle form strikes
+- (Chromatic Penguin) Fix weapon trait toggles on attached weapons
+- (Dantar) Update weapon damage die calculation for errata
+- (stwlam) Prevent `onDeleteActions` being dropped from Choice Set rule elements
+- (Supe) Fix ammo quantity input when there is more than one type
+
+### Data Updates
+
+- (Ambrose) Add effect to Overstuff focus spell
+- (Ambrose) Add inline rolls to Frighten Undead
+- (Ambrose) Add missing persistent damage from Iris of the Sky
+- (Ambrose) Add missing traits to Runic Warmaw
+- (Ambrose) Add slugs to Cognitive Mutagen's Flat Modifiers RE
+- (Ambrose) Add some localization updates for Impossible Magic options
+- (Ambrose) Add traits from Impossible Magic and Absalom Station, apply them to select items
+- (Ambrose) Correct action cost of Sabotage
+- (Ambrose) Correct Condition Grant RE for Overstuff spell effect
+- (Ambrose) Correct definitions on Iruxi Spirt Strike
+- (Ambrose) Correct Spectral Dagger Damage Die
+- (Ambrose) Remove Levaloch's spirit immunity
+- (Ambrose) Remove Rune of Sin and Staff-Storing Shield variants
+- (Ambrose) Update Munsahir Trooper's reaction to Reactive Strike per the publication
+- (Dantar) Add rule for Guerrilla Weaponry weapon die override
+- (Dantar) Add Treasure Vault relics
+- (Dantar) Update Devise a Stratagem according to errata
+- (Dire Weasel) Add automation for Battle Scars
+- (Dire Weasel) Add effects for Anchoring Air, Balisse Feather, Bloody Hands' Battle Reek, Fishing Spot, Sanctum Guardian's Pallid Curse Stoneriver's Measure Soul, Savor the Sting, Xotanispawn's Heat Surge, Undertow, and Unimpeded Stride
+- (Dire Weasel) Delete pre-remaster Hive Mother, Rhu-Chalik, and Twigjack
+- (Dire Weasel) Fix range for Razorbones' Hurled Bone
+- (Dire Weasel) Fix slugs for Tangle Vine and Void Warp in Arcane Tattoos
+- (Dire Weasel) Make Bully the Departed and Consume Sacrifice self effects
+- (Dire Weasel) Mark some Rejuvenation NPC abilities as deathNote
+- (Dire Weasel) Remove extraneous attack from Vault-Drowned Souls
+- (DocSchlock) Perform large audit and cleanup of Age of Ashes content
+- (hollyvalenta) Update traditions for Undertow spell
+- (kromko) Add description to Bony Barrage spell
+- (kromko) Fix Overflowing Blade link in Living Nexus journal
+- (kromko) Fix Unbreakable Expertise embed in Guardian class journal
+- (kromko) Make Catfolk Dance effect apply off-guard on a critical success
+- (kromko) Remove clarification label on Runesmith's Remote Detonation and add one on Snarecrafter's
+- (kromko) Update eidolon's Draconic Frenzy description
+- (Longstrider) Fix Draddeth's Edge potency bonus
+- (Longstrider) Implement and improve Plant Form effects
+- (rectulo) Fix cost and duration for Connective Current
+- (Rigo) Predicate Hunter's Aim cover reduction on target being Hunted Prey
+- (sgennaoui) Update Extending Rune level to 9
+- (Tikael) Fix Leap the Falls repeating its grants
+
 ## 8.3.0
 
 ## Bugfixes
