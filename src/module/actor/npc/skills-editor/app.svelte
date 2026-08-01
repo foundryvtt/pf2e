@@ -1,7 +1,7 @@
 <script lang="ts">
+    import { sluggifyLoreName } from "@item/lore.ts";
     import InlineIconButton from "@module/sheet/components/inline-icon-button.svelte";
     import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
-    import { sluggify } from "@util";
     import type { Attachment } from "svelte/attachments";
     import type { NPCSkillsEditorContext } from "./app.ts";
 
@@ -19,10 +19,12 @@
         data.untrainedSkills.find((s) => s.slug === selectedUntrained)?.slug ?? data.untrainedSkills[0]?.slug ?? "",
     );
 
-    // Prepared skills are keyed by slug: block lore names that sluggify to an existing one
+    // Prepared skills are keyed by lore slug: block names that sluggify to an existing one
     const existingLoreSlugs = $derived(new Set(data.loreSkills.map((l) => l.slug)));
     const trimmedLoreName = $derived(newLoreName.trim());
-    const isDuplicateLore = $derived(trimmedLoreName.length > 0 && existingLoreSlugs.has(sluggify(trimmedLoreName)));
+    const isDuplicateLore = $derived(
+        trimmedLoreName.length > 0 && existingLoreSlugs.has(sluggifyLoreName(trimmedLoreName)),
+    );
     // Prevents a second Enter press from double-creating while the first is in flight
     let addingLore = $state(false);
     const canAddLore = $derived(trimmedLoreName.length > 0 && !isDuplicateLore && !addingLore);
