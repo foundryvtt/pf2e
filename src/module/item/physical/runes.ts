@@ -490,6 +490,14 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         slug: "coldResistant",
         traits: ["magical"],
     },
+    convincing: {
+        name: "PF2E.ArmorPropertyRuneConvincing",
+        level: 5,
+        price: 45,
+        rarity: "common",
+        slug: "convincing",
+        traits: ["magical"],
+    },
     deathless: {
         name: "PF2E.ArmorPropertyRuneDeathless",
         level: 7,
@@ -578,6 +586,14 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         slug: "greaterColdResistant",
         traits: ["magical"],
     },
+    greaterConvincing: {
+        name: "PF2E.ArmorPropertyRuneGreaterConvincing",
+        level: 8,
+        price: 450,
+        rarity: "common",
+        slug: "greaterConvincing",
+        traits: ["magical"],
+    },
     greaterDread: {
         name: "PF2E.ArmorPropertyRuneGreaterDread",
         level: 18,
@@ -618,6 +634,22 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         slug: "greaterInvisibility",
         traits: ["illusion", "magical"],
     },
+    greaterMoonweave: {
+        name: "PF2E.ArmorPropertyRuneGreaterMoonweave",
+        level: 13,
+        price: 3000,
+        rarity: "common",
+        slug: "greaterMoonweave",
+        traits: ["magical"],
+    },
+    greaterQuenching: {
+        name: "PF2E.ArmorPropertyRuneGreaterQuenching",
+        level: 10,
+        price: 1000,
+        rarity: "common",
+        slug: "greaterQuenching",
+        traits: ["magical"],
+    },
     greaterReady: {
         name: "PF2E.ArmorPropertyRuneGreaterReady",
         level: 11,
@@ -650,12 +682,12 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         slug: "greaterStanching",
         traits: ["magical"],
     },
-    greaterQuenching: {
-        name: "PF2E.ArmorPropertyRuneGreaterQuenching",
-        level: 10,
-        price: 1000,
+    greaterSunweave: {
+        name: "PF2E.ArmorPropertyRuneGreaterSunweave",
+        level: 11,
+        price: 1200,
         rarity: "common",
-        slug: "greaterQuenching",
+        slug: "greaterSunweave",
         traits: ["magical"],
     },
     greaterSwallowSpike: {
@@ -714,6 +746,22 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         slug: "magnetizing",
         traits: ["magical"],
     },
+    majorConvincing: {
+        name: "PF2E.ArmorPropertyRuneMajorConvincing",
+        level: 16,
+        price: 9000,
+        rarity: "common",
+        slug: "majorConvincing",
+        traits: ["magical"],
+    },
+    majorMoonweave: {
+        name: "PF2E.ArmorPropertyRuneMajorMoonweave",
+        level: 17,
+        price: 14_000,
+        rarity: "common",
+        slug: "majorMoonweave",
+        traits: ["magical"],
+    },
     majorQuenching: {
         name: "PF2E.ArmorPropertyRuneMajorQuenching",
         level: 14,
@@ -746,6 +794,14 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         slug: "majorStanching",
         traits: ["magical"],
     },
+    majorSunweave: {
+        name: "PF2E.ArmorPropertyRuneMajorSunweave",
+        level: 18,
+        price: 24_000,
+        rarity: "common",
+        slug: "majorSunweave",
+        traits: ["magical"],
+    },
     majorSwallowSpike: {
         name: "PF2E.ArmorPropertyRuneMajorSwallowSpike",
         level: 16,
@@ -770,6 +826,14 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         slug: "misleading",
         traits: ["illusion", "magical"],
     },
+    mobile: {
+        name: "PF2E.ArmorPropertyRuneMobile",
+        level: 5,
+        price: 60,
+        rarity: "common",
+        slug: "mobile",
+        traits: ["magical"],
+    },
     moderateDread: {
         name: "PF2E.ArmorPropertyRuneModerateDread",
         level: 12,
@@ -777,6 +841,14 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         rarity: "uncommon",
         slug: "moderateDread",
         traits: ["emotion", "fear", "magical", "mental", "visual"],
+    },
+    moonweave: {
+        name: "PF2E.ArmorPropertyRuneMoonweave",
+        level: 5,
+        price: 140,
+        rarity: "common",
+        slug: "moonweave",
+        traits: ["magical"],
     },
     portable: {
         name: "PF2E.ArmorPropertyRunePortable",
@@ -818,12 +890,36 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         slug: "rockBraced",
         traits: ["dwarf", "magical", "saggorak"],
     },
+    safeguarding: {
+        name: "PF2E.ArmorPropertyRuneSafeguarding",
+        level: 13,
+        price: 2600,
+        rarity: "common",
+        slug: "safeguarding",
+        traits: ["magical"],
+    },
+    selfSealing: {
+        name: "PF2E.ArmorPropertyRuneSelfSealing",
+        level: 7,
+        price: 320,
+        rarity: "common",
+        slug: "selfSealing",
+        traits: ["magical"],
+    },
     shadow: {
         name: "PF2E.ArmorPropertyRuneShadow",
         level: 5,
         price: 55,
         rarity: "common",
         slug: "shadow",
+        traits: ["magical"],
+    },
+    sidestepping: {
+        name: "PF2E.ArmorPropertyRuneSidestepping",
+        level: 13,
+        price: 3000,
+        rarity: "uncommon",
+        slug: "sidestepping",
         traits: ["magical"],
     },
     sinisterKnight: {
@@ -874,6 +970,14 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         slug: "stanching",
         traits: ["magical"],
     },
+    sunweave: {
+        name: "PF2E.ArmorPropertyRuneSunweave",
+        level: 6,
+        price: 350,
+        rarity: "common",
+        slug: "sunweave",
+        traits: ["magical"],
+    },
     swallowSpike: {
         name: "PF2E.ArmorPropertyRuneSwallowSpike",
         level: 6,
@@ -896,6 +1000,14 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 12_500,
         rarity: "uncommon",
         slug: "trueStanching",
+        traits: ["magical"],
+    },
+    unnerving: {
+        name: "PF2E.ArmorPropertyRuneUnnerving",
+        level: 7,
+        price: 350,
+        rarity: "common",
+        slug: "unnerving",
         traits: ["magical"],
     },
     winged: {
@@ -1180,6 +1292,14 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         slug: "deathdrinking",
         traits: ["magical"],
     },
+    deflecting: {
+        level: 6,
+        name: "PF2E.WeaponPropertyRune.deflecting.Name",
+        price: 230,
+        rarity: "common",
+        slug: "deflecting",
+        traits: ["magical"],
+    },
     demolishing: {
         damage: {
             additional: [
@@ -1240,6 +1360,14 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 250,
         rarity: "uncommon",
         slug: "energizing",
+        traits: ["magical"],
+    },
+    energyVulnerability: {
+        level: 4,
+        name: "PF2E.WeaponPropertyRune.energyVulnerability.Name",
+        price: 90,
+        rarity: "common",
+        slug: "energyVulnerability",
         traits: ["magical"],
     },
     extending: {
@@ -1582,6 +1710,14 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 4300,
         rarity: "uncommon",
         slug: "greaterDisrupting",
+        traits: ["magical"],
+    },
+    greaterEnergyVulnerability: {
+        level: 16,
+        name: "PF2E.WeaponPropertyRune.greaterEnergyVulnerability.Name",
+        price: 9000,
+        rarity: "common",
+        slug: "greaterEnergyVulnerability",
         traits: ["magical"],
     },
     greaterExtending: {
