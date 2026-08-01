@@ -53,6 +53,7 @@ const ARMOR_PROPERTY_RUNE_TYPES = new Set([
     "majorSwallowSpike",
     "malleable",
     "misleading",
+    "mobile",
     "moderateDread",
     "portable",
     "quenching",
