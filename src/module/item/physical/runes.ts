@@ -770,6 +770,14 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         slug: "misleading",
         traits: ["illusion", "magical"],
     },
+    mobile: {
+        name: "PF2e.ArmorPropertyRuneMobile",
+        level: 5,
+        price: 160,
+        rarity: "common",
+        slug: "mobile",
+        traits: ["magical"],
+    },
     moderateDread: {
         name: "PF2E.ArmorPropertyRuneModerateDread",
         level: 12,
