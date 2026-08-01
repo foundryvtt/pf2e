@@ -1,10 +1,10 @@
 {
-    "_id": "cwetyC5o4dRyFWJZ",
-    "img": "icons/magic/death/hand-undead-skeleton-fire-pink.webp",
-    "name": "Spell Effect: Necromancer's Generosity",
+    "_id": "45PrZ9h5nrll0zr9",
+    "img": "icons/skills/wounds/blood-cells-vessel-red-orange.webp",
+    "name": "Spell Effect: Blood Infusion",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Necromancer's Generosity]</p>\n<p>You gain a +2 status bonus to saves against vitality effects.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Blood Infusion]</p>\n<p>You lose any immunity to bleed.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -12,6 +12,7 @@
             "unit": "minutes",
             "value": 1
         },
+        "fromSpell": false,
         "level": {
             "value": 1
         },
@@ -22,13 +23,9 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "predicate": [
-                    "item:trait:vitality"
-                ],
-                "selector": "saving-throw",
-                "type": "status",
-                "value": 2
+                "key": "Immunity",
+                "mode": "remove",
+                "type": "bleed"
             }
         ],
         "start": {
@@ -39,7 +36,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },
