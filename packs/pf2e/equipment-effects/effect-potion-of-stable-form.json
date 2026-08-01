@@ -22,6 +22,40 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:potion-of-stable-form",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Potion of Stable Form"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:potion-of-stable-form-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Potion of Stable Form (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "potion-of-stable-form"
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
                     {
@@ -34,6 +68,7 @@
                 "selector": [
                     "saving-throw"
                 ],
+                "slug": "potion-of-stable-form-bonus",
                 "type": "item",
                 "value": 3
             },
@@ -47,6 +82,16 @@
                 ],
                 "selector": "saving-throw",
                 "type": "save"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "potion-of-stable-form:potion-of-stable-form-greater"
+                ],
+                "selector": "saving-throw",
+                "slug": "potion-of-stable-form-bonus",
+                "value": 4
             }
         ],
         "start": {
