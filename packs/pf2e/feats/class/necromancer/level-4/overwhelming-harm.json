@@ -29,7 +29,26 @@
             "remaster": true,
             "title": "Pathfinder Impossible Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "overwhelming-harm",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:cast:actions:3",
+                    "item:slug:harm",
+                    "overwhelming-harm"
+                ],
+                "property": "area-size",
+                "value": 60
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
