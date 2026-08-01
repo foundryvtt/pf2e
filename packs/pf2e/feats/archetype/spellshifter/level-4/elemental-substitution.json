@@ -29,7 +29,55 @@
             "remaster": true,
             "title": "Pathfinder Impossible Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Spellshifter.RollOptionLabel",
+                "mergeable": true,
+                "option": "spell-shift",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Spellshifter.ElementalSubstitution.RollOptionLabel",
+                        "value": "elemental-substitution"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:shift-spell",
+                    "spell-shift:elemental-substitution"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshifter.ElementalSubstitution.Text"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.Spellshifter.ElementalSubstitution.CriticalSuccess",
+                        "title": "PF2E.Check.Result.Degree.Check.criticalSuccess"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.Spellshifter.ElementalSubstitution.Success",
+                        "title": "PF2E.Check.Result.Degree.Check.success"
+                    }
+                ]
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:shift-spell",
+                    "spell-shift:elemental-substitution"
+                ],
+                "property": "name",
+                "value": "PF2E.SpecificRule.Spellshifter.ElementalSubstitution.Title"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

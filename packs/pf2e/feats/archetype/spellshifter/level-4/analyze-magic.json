@@ -29,7 +29,55 @@
             "remaster": true,
             "title": "Pathfinder Impossible Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Spellshifter.RollOptionLabel",
+                "mergeable": true,
+                "option": "spell-shift",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Spellshifter.AnalyzeMagic.RollOptionLabel",
+                        "value": "analyze-magic"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:shift-spell",
+                    "spell-shift:analyze-magic"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshifter.AnalyzeMagic.Text"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.Spellshifter.AnalyzeMagic.CriticalSuccess",
+                        "title": "PF2E.Check.Result.Degree.Check.criticalSuccess"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.Spellshifter.AnalyzeMagic.Success",
+                        "title": "PF2E.Check.Result.Degree.Check.success"
+                    }
+                ]
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:shift-spell",
+                    "spell-shift:analyze-magic"
+                ],
+                "property": "name",
+                "value": "PF2E.SpecificRule.Spellshifter.AnalyzeMagic.Title"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
