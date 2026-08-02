@@ -164,15 +164,7 @@ const RANGED_ONLY_TRAITS: Set<WeaponTrait> = new Set([
     "thrown",
 ]);
 
-const MELEE_ONLY_TRAITS: Set<WeaponTrait> = new Set([
-    "brace",
-    "disarm",
-    "finesse",
-    "grapple",
-    "reach",
-    "shove",
-    "trip",
-]);
+const MELEE_ONLY_TRAITS: Set<WeaponTrait> = new Set(["brace", "disarm", "grapple", "reach", "shove", "trip"]);
 
 export {
     MANDATORY_RANGED_GROUPS,
