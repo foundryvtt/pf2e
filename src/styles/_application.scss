@@ -53,6 +53,13 @@
     }
 }
 
+// Chromium resolves core's relative parchment URL against the stylesheet using the var,
+// which 404s from this one. Redeclare it with a path that resolves.
+body.theme-light .application.pf2e:not(.themed),
+.application.pf2e.themed.theme-light {
+    --background: var(--parchment-texture) repeat;
+}
+
 body > .pf2e.absolute {
     position: absolute;
     z-index: var(--z-index-tooltip);
