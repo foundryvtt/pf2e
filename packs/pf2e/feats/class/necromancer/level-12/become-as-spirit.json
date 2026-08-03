@@ -31,6 +31,25 @@
         },
         "rules": [
             {
+                "key": "RollOption",
+                "label": "PF2E.SkillVariant.Natural",
+                "option": "terrain:natural",
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.movement.terrain.difficult.ignored",
+                "phase": "afterDerived",
+                "predicate": [
+                    "terrain:natural"
+                ],
+                "value": {
+                    "environment": "all",
+                    "feature": "all"
+                }
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
                     "action:escape"
