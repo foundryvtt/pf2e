@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Your mastery over the intricacies of your fascination has allowed you to infuse your own blood with additional healing properties while increasing your ability to bleed out any foes that stand against you. You gain resistance to bleed damage equal to half your level. Additionally, if an enemy within 30 feet of you is bleeding, you gain fast healing equal to half your level. This fast healing is deactivated while you have the dying condition.</p>\n<p>In addition, whenever you destroy a thrall, a creature adjacent to the thrall takes 1 persistent bleed damage. If that creature is already taking bleed damage, instead increase its bleed damage by 1. A creature can have its bleed damage increased in this way only once per round.</p>"
+            "value": "<p>Your mastery over the intricacies of your fascination has allowed you to infuse your own blood with additional healing properties while increasing your ability to bleed out any foes that stand against you. You gain resistance to bleed damage equal to half your level. Additionally, if an enemy within 30 feet of you is bleeding, you gain fast healing equal to half your level. This fast healing is deactivated while you have the @UUID[Compendium.pf2e.conditionitems.Item.Dying] condition.</p>\n<p>In addition, whenever you destroy a thrall, a creature adjacent to the thrall takes @Damage[1[bleed]] damage. If that creature is already taking bleed damage, instead increase its bleed damage by 1. A creature can have its bleed damage increased in this way only once per round.</p>"
         },
         "level": {
             "value": 12
@@ -29,7 +29,28 @@
             "remaster": true,
             "title": "Pathfinder Impossible Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "bleed",
+                "value": "floor(@actor.level/2)"
+            },
+            {
+                "key": "RollOption",
+                "option": "sanguine-mastery",
+                "toggleable": true
+            },
+            {
+                "key": "FastHealing",
+                "predicate": [
+                    "sanguine-mastery",
+                    {
+                        "not": "self:condition:dying"
+                    }
+                ],
+                "value": "floor(@actor.level/2)"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

@@ -25,7 +25,23 @@
             "remaster": true,
             "title": "Pathfinder Impossible Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "skeletal-extension",
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.reach.base",
+                "phase": "afterDerived",
+                "predicate": [
+                    "skeletal-extension"
+                ],
+                "value": 10
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

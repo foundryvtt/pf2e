@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You can move through an unwilling creature's spaces as if they were difficult terrain. Additionally, you ignore natural difficult terrain and gain a +2 circumstance bonus to Escape attempts. Whenever you destroy a thrall, you gain resistance to all damage (except force, ghost touch, spirit, or vitality) equal to half your level for 1 round.</p>"
+            "value": "<p>You can move through an unwilling creature's spaces as if they were difficult terrain. Additionally, you ignore natural difficult terrain and gain a +2 circumstance bonus to [[/act escape]] attempts. Whenever you destroy a thrall, you gain resistance to all damage (except force, ghost touch, spirit, or vitality) equal to half your level for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Become as Spirit]</p>"
         },
         "level": {
             "value": 12
@@ -29,7 +29,21 @@
             "remaster": true,
             "title": "Pathfinder Impossible Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:escape"
+                ],
+                "selector": [
+                    "acrobatics",
+                    "athletics",
+                    "unarmed-attack"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

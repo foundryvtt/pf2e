@@ -1,0 +1,55 @@
+{
+    "_id": "RT4mBRa3UlnALH3O",
+    "img": "icons/magic/control/debuff-chains-shackle-movement-red.webp",
+    "name": "Effect: Overburdening Spell",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Overburdening Spell]</p>\n<p>You take a –15-foot status penalty to your Speeds for 1 round (this penalty is doubled for climb, fly, and swim Speeds).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "type": "status",
+                "value": -15
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "climb-speed",
+                    "fly-speed",
+                    "swim-speed"
+                ],
+                "slug": "overburdening-spell-climb-fly-swim",
+                "type": "status",
+                "value": -30
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
