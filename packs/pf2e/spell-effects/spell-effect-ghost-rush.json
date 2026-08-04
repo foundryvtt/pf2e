@@ -1,0 +1,62 @@
+{
+    "_id": "1lPlwrQx2yt3PIco",
+    "img": "icons/magic/death/undead-ghost-strike-white.webp",
+    "name": "Spell Effect: Ghost Rush",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Ghost Rush]</p>\n<p>You gain a +10-foot status bonus to your Speeds, then Stride twice. This movement ignores the effects of difficult terrain, greater difficult terrain, and hazardous terrain.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "type": "status",
+                "value": 10
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.movement.terrain.difficult.ignored",
+                "value": {
+                    "environment": "all",
+                    "feature": "all"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.movement.terrain.greater.ignored",
+                "value": {
+                    "environment": "all",
+                    "feature": "all"
+                }
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
