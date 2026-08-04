@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You make use of what remains of a thrall to extend your limbs to unnatural lengths. If the next action you take is to cast a grave spell that destroys a thrall, pieces of the thrall fuse with you to extend the length of your limbs. Until the end of the turn, your reach increases by 10 feet, and you can move 15 feet whenever you Step.</p>"
+            "value": "<p>You make use of what remains of a thrall to extend your limbs to unnatural lengths. If the next action you take is to cast a grave spell that destroys a thrall, pieces of the thrall fuse with you to extend the length of your limbs. Until the end of the turn, your reach increases by 10 feet, and you can move 15 feet whenever you Step.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Skeletal Extension]</p>"
         },
         "level": {
             "value": 10
@@ -25,11 +25,38 @@
             "remaster": true,
             "title": "Pathfinder Impossible Magic"
         },
-        "rules": [],
-        "selfEffect": {
-            "name": "Effect: Skeletal Extension",
-            "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Skeletal Extension"
-        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "skeletal-extension"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:focus",
+                    "item:trait:necromancer",
+                    "spellshape:skeletal-extension"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.SkeletalExtension"
+                    }
+                ]
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
