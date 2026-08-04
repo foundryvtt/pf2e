@@ -1,16 +1,16 @@
 {
-    "_id": "AXU8RMybmic2eaqz",
+    "_id": "VGcV7RCDgmZqrlKa",
     "img": "icons/magic/death/skeleton-fish-teal.webp",
     "name": "Effect: Ectoplasmic Aura",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Ectoplasmic Aura]</p>\n<p>You gain a +1 circumstance bonus to AC.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Ectoplasmic Aura]</p>\n<p>You and all allies in a 30-foot emanation from you gain a +1 circumstance bonus to AC.</p>"
         },
         "duration": {
-            "expiry": null,
+            "expiry": "turn-start",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "minutes",
+            "value": 10
         },
         "fromSpell": false,
         "level": {
@@ -27,6 +27,25 @@
                 "selector": "ac",
                 "type": "circumstance",
                 "value": 1
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "includesSelf": false,
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Ectoplasmic Aura"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
+                "radius": 30,
+                "traits": [
+                    "necromancer",
+                    "occult",
+                    "spirit"
+                ]
             }
         ],
         "start": {
