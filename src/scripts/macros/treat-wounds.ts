@@ -46,6 +46,7 @@ async function treatWounds(options: ActionDefaultOptions): Promise<void> {
     const medicineName = _loc("PF2E.Skill.Medicine");
     const chirurgeon = CheckFeat(actor, "chirurgeon");
     const naturalMedicine = CheckFeat(actor, "natural-medicine");
+    const threePecksOfDew = CheckFeat(actor, "three-pecks-of-dew");
     const domIdAppend = fu.randomID(); // Attached to element id attributes for DOM uniqueness
     const riskySurgeryChecked = actor.getRollOptions(["medicine"]).includes("risky-surgery") ? " checked" : "";
     const dialog = new foundry.appv1.api.Dialog({
@@ -56,9 +57,10 @@ async function treatWounds(options: ActionDefaultOptions): Promise<void> {
 <form>
 <div class="form-group">
 <label for="skill-${domIdAppend}">${_loc("PF2E.Actions.TreatWounds.SkillSelect")}</label>
-<select id="skill-${domIdAppend}"${!chirurgeon && !naturalMedicine ? " disabled" : ""}>
+<select id="skill-${domIdAppend}"${!chirurgeon && !naturalMedicine && !threePecksOfDew ? " disabled" : ""}>
   ${chirurgeon ? `<option value="crafting">${_loc("PF2E.Skill.Crafting")}</option>` : ``}
   ${naturalMedicine ? `<option value="nature">${_loc("PF2E.Skill.Nature")}</option>` : ``}
+  ${threePecksOfDew ? `<option value="occultism">${_loc("PF2E.Skill.Occultism")}</option>` : ``}
   <option value="medicine">${medicineName}</option>
 </select>
 </div>
