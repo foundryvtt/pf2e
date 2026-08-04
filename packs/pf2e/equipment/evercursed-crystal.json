@@ -10,7 +10,7 @@
         "containerId": null,
         "description": {
             "gm": "<p>Most of the @UUID[Compendium.pf2e.equipment-srd.Item.Everlight Crystal]{Everlight Crystals} that once lit so much of Castle Arudora have been destroyed over the years, but those that remain have illuminated certain locations (particularly the reception halls) for hundreds of years since the curse fell—becoming cursed themselves in the process. As long as an <em>evercursed crystal</em> remains in a lantern, chandelier, sconce, or other mounting found in Bastardhall, it remains harmless and sheds light as an <em>everlight crystal</em>. As soon as a creature removes an <em>evercursed crystal</em> from its mounting, though, the light it exudes forever changes to a dim, unnerving red glow the same strength as a candle. A character takes a –1 item penalty to all saving throws against curse effects while carrying an <em>evercursed crystal</em>, but fortunately these minor cursed items lack the ability to fuse to a character.</p>",
-            "value": ""
+            "value": "<p>As long as an <em>evercursed crystal</em> remains in a lantern, chandelier, sconce, or other mounting found in Bastardhall, it sheds light as an <em>everlight crystal</em>. As soon as a creature removes an <em>evercursed crystal</em> from its mounting, though, the light it exudes forever changes to a dim, unnerving red glow the same strength as a candle.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -45,6 +45,38 @@
                 ],
                 "type": "item",
                 "value": -1
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.LitItem",
+                "option": "lit-evercursed-crystal",
+                "toggleable": true
+            },
+            {
+                "key": "TokenEffectIcon",
+                "predicate": [
+                    "lit-evercursed-crystal"
+                ],
+                "value": "icons/commodities/gems/gem-rough-square-orange-red.webp"
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "lit-evercursed-crystal"
+                ],
+                "value": {
+                    "alpha": 0.4,
+                    "animation": {
+                        "intensity": 4,
+                        "speed": 1,
+                        "type": "pulse"
+                    },
+                    "bright": 0,
+                    "color": "#ca0003",
+                    "coloration": 101,
+                    "dim": 10,
+                    "shadows": 0.2
+                }
             }
         ],
         "size": "med",

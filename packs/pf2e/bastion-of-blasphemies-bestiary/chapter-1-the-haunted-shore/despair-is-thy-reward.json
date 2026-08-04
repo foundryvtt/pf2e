@@ -17,7 +17,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A living creature ends their turn inside the watch post</p><hr /><p><strong>Effect</strong> Ghostly human soldiers manifest in the central alcove, crying out in terror as they drop their weapons and beg for mercy. Each PC in area <strong>A3</strong> becomes overwhelmed with the conviction that their own battle prowess will not save them from the danger rushing toward the building and must attempt a @Check[will|dc:22] save to avoid becoming @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} on a critical failure). The haunt then rolls initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> A living creature ends their turn inside the watch post</p><hr /><p><strong>Effect</strong> Ghostly human soldiers manifest in the central alcove, crying out in terror as they drop their weapons and beg for mercy. Each PC in area <strong>A3</strong> becomes overwhelmed with the conviction that their own battle prowess will not save them from the danger rushing toward the building and must attempt a @Check[will|dc:22|options:area-effect,inflicts:frightened] save to avoid becoming @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} on a critical failure). The haunt then rolls initiative.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -95,7 +95,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A creature that takes damage from a shadowy tail is uncomfortably tickled by the slithering appendage and must attempt a @Check[fortitude|dc:21] save to avoid becoming @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure).</p>"
+                    "value": "<p>A creature that takes damage from a shadowy tail is uncomfortably tickled by the slithering appendage and must attempt a @Check[fortitude|dc:21|options:inflicts:sickened] save to avoid becoming @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -146,7 +146,7 @@
                 "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
             },
             "reset": "<p>The haunt deactivates and then resets after 1 round in which no living creatures are within the watch post.</p>",
-            "routine": "<p>(1 action) The sound of talons scratching on the outer walls of the room and glimpses of lean, shadowy shapes flapping and scrambling at the arrow slits manifest. A PC who takes an action to [[/act seek]] these shapes and succeeds at a @Check[occultism|dc:21] check to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] recognizes the shapes as nightgaunts. Each round on its turn, these shadowy nightgaunts reach impossibly long, thin, spade-tipped tails into the room through the arrow slits or down the stove's chimney to make a shadowy tail Strike against every creature in the room as 1 action. If the door to this area remains open, the tails have an easier time reaching inside and gain a +2 circumstance bonus on their attack rolls.</p>"
+            "routine": "<p>(1 action) The sound of talons scratching on the outer walls of the room and glimpses of lean, shadowy shapes flapping and scrambling at the arrow slits manifest. A PC who takes an action to [[/act seek]] these shapes and succeeds at an Occultism check to [[/act recall-knowledge dc=21]] recognizes the shapes as nightgaunts. Each round on its turn, these shadowy nightgaunts reach impossibly long, thin, spade-tipped tails into the room through the arrow slits or down the stove's chimney to make a shadowy tail Strike against every creature in the room as 1 action. If the door to this area remains open, the tails have an easier time reaching inside and gain a +2 circumstance bonus on their attack rolls.</p>"
         },
         "saves": {
             "fortitude": {
