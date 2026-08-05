@@ -209,13 +209,13 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
         if (data.length < 4) return null;
         const rollData = resolveRollData(options.rollData);
         const item = rollData.item ?? null;
+        const actor = rollData.actor ?? item?.actor ?? null;
         const [_match, inlineType, paramString, inlineLabel] = data;
 
         switch (inlineType) {
             case "act":
                 return this.#createAction(data.groups?.slug ?? "", data.groups?.options ?? "", data.groups?.label);
             case "Check": {
-                const actor = rollData.actor ?? item?.actor ?? null;
                 return this.#createCheck({ paramString, inlineLabel, item, actor });
             }
             case "Damage":
@@ -223,7 +223,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
             case "Localize":
                 return this.#localize(paramString, options);
             case "Template":
-                return this.#createTemplateRegion(paramString, inlineLabel, item);
+                return this.#createTemplateRegion(paramString, inlineLabel, actor, item);
             default:
                 return null;
         }
@@ -275,7 +275,12 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
     }
 
     /** Create an inline template button from a `@Template` command. */
-    static #createTemplateRegion(paramString: string, label?: string, item?: ItemPF2e | null): HTMLSpanElement | null {
+    static #createTemplateRegion(
+        paramString: string,
+        label: string | undefined,
+        actor: Maybe<ActorPF2e>,
+        item: Maybe<ItemPF2e>,
+    ): HTMLSpanElement | null {
         // Get parameters from data
         const params = this.#parseInlineParams(paramString, { first: "type" });
         if (!params) return null;
@@ -293,12 +298,6 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
             ui.notifications.error("PF2E.InlineTemplateErrors.TypeUnsupported", { format: { type: params.type } });
             return null;
         }
-        if (!Number(params.distance)) {
-            ui.notifications.error("PF2E.InlineTemplateErrors.DistanceNoNumber", {
-                format: { distance: params.distance },
-            });
-            return null;
-        }
         if (params.width && Number.isNaN(+params.width)) {
             ui.notifications.error("PF2E.InlineTemplateErrors.WidthNoNumber", { format: { width: params.width } });
             return null;
@@ -307,9 +306,14 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
         params.traits ||= item?.system.traits.value?.toString() ?? null;
         params.itemUuid ||= item?.uuid ?? null;
 
+        const distance =
+            params.distance.startsWith("resolve") && (item || actor)
+                ? resolveValue(actor, item, params.distance) || 5
+                : Number(params.distance) || 5;
+
         // If no button label is entered directly create default label
         label ||= _loc("PF2E.TemplateLabel", {
-            size: params.distance,
+            size: distance,
             unit: _loc("PF2E.Foot.Label"),
             shape: _loc(`PF2E.Area.Shape.${params.type}`),
         });
@@ -343,7 +347,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
         const html = createHTMLElement("a", {
             children: [icon, label],
             classes: ["effect-area"],
-            dataset: { effectArea: "", ...R.pick(params, ["type", "distance", "traits", "itemUuid"]) },
+            dataset: { distance, effectArea: "", ...R.pick(params, ["type", "traits", "itemUuid"]) },
         });
         if (params.type === "line") html.dataset.width = params.width || "1";
         return html;
@@ -829,6 +833,20 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
     }
 }
 
+function resolveValue(actor: Maybe<ActorPF2e>, item: Maybe<ItemPF2e>, rawValue: string): number {
+    const resolve = rawValue.match(/resolve\((.+?)\)$/);
+    const value = resolve && resolve?.length > 0 ? resolve[1] : "";
+    const saferEval = (resolveString: string): number => {
+        try {
+            const rollData = item?.getRollData() ?? actor?.getRollData() ?? {};
+            return Roll.safeEval(Roll.replaceFormulaData(resolveString, rollData));
+        } catch {
+            return 0;
+        }
+    };
+    return Number(saferEval(value));
+}
+
 function getCheckDC({
     name,
     params,
@@ -855,22 +873,7 @@ function getCheckDC({
     const dc = params.dc;
     const resolvable = !!dc && dc.startsWith("resolve") && !!(item || actor);
     const immutable = params.immutable || resolvable;
-    const base = (() => {
-        if (resolvable) {
-            const resolve = dc.match(/resolve\((.+?)\)$/);
-            const value = resolve && resolve?.length > 0 ? resolve[1] : "";
-            const saferEval = (resolveString: string): number => {
-                try {
-                    const rollData = item?.getRollData() ?? actor?.getRollData() ?? {};
-                    return Roll.safeEval(Roll.replaceFormulaData(resolveString, rollData));
-                } catch {
-                    return 0;
-                }
-            };
-            return Number(saferEval(value));
-        }
-        return Number(dc) || null;
-    })();
+    const base = resolvable ? resolveValue(actor, item, dc) : Number(dc) || null;
 
     // Apply modifiers if this item is mutable. The "all" domain catches elite/weak adjustments
     if (base && actor && !immutable) {
