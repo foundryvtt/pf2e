@@ -752,7 +752,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     override async toMessage(
         event?: Maybe<PointerEvent>,
-        { create = true, data, mode }: SpellToMessageOptions = {},
+        { actualCast = false, create = true, data, mode }: SpellToMessageOptions = {},
     ): Promise<ChatMessagePF2e | undefined> {
         // NOTE: The parent toMessage() pulls "contextual data" from the DOM dataset.
         // Only spells/consumables currently use DOM data.
@@ -763,7 +763,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         // If this is for a higher level spell, heighten it first
         const castRank = Number(castData.castRank ?? "");
         if (castRank && castRank !== this.rank) {
-            return this.loadVariant({ castRank })?.toMessage(event, { create, data, mode });
+            return this.loadVariant({ castRank })?.toMessage(event, { actualCast, create, data, mode });
         }
         const message = await super.toMessage(event, { create: false, data: castData, mode });
         if (!message) return undefined;
@@ -775,6 +775,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             // Eventually we need to figure out a way to request a tradition if the ability doesn't provide one
             const tradition = spellcasting.tradition ?? this.traditions.first() ?? "arcane";
             flags.casting = {
+                actualCast,
                 // When casting from a chat message, we need to pull the resolved casting ability, not the temp one
                 id: spellcasting.original?.id ?? spellcasting.id,
                 tradition,
@@ -1202,6 +1203,7 @@ interface SpellVariantChatData {
 }
 
 interface SpellToMessageOptions {
+    actualCast?: boolean;
     create?: boolean;
     mode?: ChatMessageMode;
     data?: { castRank?: number };
