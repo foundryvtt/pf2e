@@ -835,7 +835,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
 
 function resolveValue(actor: Maybe<ActorPF2e>, item: Maybe<ItemPF2e>, rawValue: string): number {
     const resolve = rawValue.match(/resolve\((.+?)\)$/);
-    const value = resolve && resolve?.length > 0 ? resolve[1] : "";
+    const value = resolve && resolve.length > 1 ? resolve[1] : "";
     const saferEval = (resolveString: string): number => {
         try {
             const rollData = item?.getRollData() ?? actor?.getRollData() ?? {};
