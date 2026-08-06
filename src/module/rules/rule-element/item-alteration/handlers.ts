@@ -8,7 +8,7 @@ import { prepareBulkData } from "@item/physical/helpers.ts";
 import { Grade } from "@item/physical/types.ts";
 import { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values.ts";
 import type { ItemType } from "@item/types.ts";
-import { WeaponRangeIncrement } from "@item/weapon/types.ts";
+import { WeaponPropertyRuneType, WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { MANDATORY_RANGED_GROUPS } from "@item/weapon/values.ts";
 import { upgradeWeaponTrait } from "@item/weapon/helpers.ts";
 import { RARITIES, ZeroToFour, ZeroToThree } from "@module/data.ts";
@@ -23,13 +23,15 @@ import {
     StrictNumberField,
     StrictStringField,
 } from "@system/schema-data-fields.ts";
-import { objectHasKey, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { AELikeRuleElement, type AELikeChangeMode } from "../ae-like.ts";
 import { ResolvableValueField, RuleElement } from "../index.ts";
 import { adjustCreatureShieldData, getNewInterval, itemHasCounterBadge } from "./helper.ts";
 import fields = foundry.data.fields;
 import validation = foundry.data.validation;
+import { prunePropertyRunes, RUNE_DATA } from "@item/physical/runes.ts";
+import { ArmorPropertyRuneType } from "@item/armor/types.ts";
 
 /** A `SchemaField` reappropriated for validation of specific item alterations */
 class ItemAlterationHandler<TSchema extends AlterationSchema> extends fields.SchemaField<TSchema> {
@@ -949,6 +951,41 @@ const ITEM_ALTERATION_HANDLERS = {
 
                 // If this is a constructed item, have the displayed name reflect the new rune
                 data.item.name = game.pf2e.system.generateItemName(data.item);
+            }
+        },
+    }),
+    "runes-property": new ItemAlterationHandler({
+        fields: {
+            itemType: new fields.StringField({ required: true, choices: ["weapon", "armor"] }),
+            mode: new fields.StringField({ required: true, choices: ["add", "remove", "subtract"] }),
+            value: new fields.StringField({ required: true, nullable: false, blank: false } as const),
+        },
+        handle: function (data: AlterationApplicationData) {
+            const abpEnabled = game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(data.rule.actor);
+            const abpProperties = game.pf2e.settings.variants.abp === "ABPFundamentalPotency";
+            if ((abpEnabled && !abpProperties && data.fromEquipment) || !this.isValid(data)) return;
+
+            const item = data.item;
+            const itemType = data.alteration.itemType;
+            const runeSlug = sluggify(data.alteration.value, { camel: "dromedary" });
+            const runesData = RUNE_DATA[itemType].property as Record<string, unknown>;
+
+            if (!objectHasKey(runesData, runeSlug)) {
+                throw ErrorPF2e(`"${runeSlug}" is not a recognized ${itemType} property rune.`);
+            }
+
+            const propertyRunes = item.system.runes.property as string[];
+
+            if (data.alteration.mode === "add") {
+                propertyRunes.push(runeSlug);
+            } else if (propertyRunes.includes(runeSlug)) {
+                propertyRunes.splice(propertyRunes.indexOf(runeSlug), 1);
+            }
+
+            const prunedRunes = prunePropertyRunes(propertyRunes, runesData);
+            item.system.runes.property = prunedRunes as WeaponPropertyRuneType[] | ArmorPropertyRuneType[];
+            if (item instanceof Item && item.isOfType("armor", "weapon")) {
+                item.name = game.pf2e.system.generateItemName(item);
             }
         },
     }),
