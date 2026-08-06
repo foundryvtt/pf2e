@@ -971,7 +971,9 @@ const ITEM_ALTERATION_HANDLERS = {
             const runesData = RUNE_DATA[itemType].property as Record<string, unknown>;
 
             if (!objectHasKey(runesData, runeSlug)) {
-                throw ErrorPF2e(`"${runeSlug}" is not a recognized ${itemType} property rune.`);
+                throw new validation.DataModelValidationError(
+                    `"${runeSlug}" is not a recognized ${itemType} property rune.`,
+                );
             }
 
             const propertyRunes = item.system.runes.property as string[];
