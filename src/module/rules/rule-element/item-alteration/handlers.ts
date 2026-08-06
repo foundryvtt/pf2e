@@ -1,16 +1,18 @@
 import type { DataFieldOptions } from "@common/data/_types.d.mts";
 import { ItemPF2e, WeaponPF2e } from "@item";
+import { ArmorPropertyRuneType } from "@item/armor/types.ts";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ModularConfig } from "@item/base/data/system.ts";
 import { PersistentDamageValueSchema } from "@item/condition/data.ts";
 import { addOrUpgradeTrait, itemIsOfType, removeTrait } from "@item/helpers.ts";
 import { prepareBulkData } from "@item/physical/helpers.ts";
+import { prunePropertyRunes, RUNE_DATA } from "@item/physical/runes.ts";
 import { Grade } from "@item/physical/types.ts";
 import { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values.ts";
 import type { ItemType } from "@item/types.ts";
+import { upgradeWeaponTrait } from "@item/weapon/helpers.ts";
 import { WeaponPropertyRuneType, WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { MANDATORY_RANGED_GROUPS } from "@item/weapon/values.ts";
-import { upgradeWeaponTrait } from "@item/weapon/helpers.ts";
 import { RARITIES, ZeroToFour, ZeroToThree } from "@module/data.ts";
 import { nextDamageDieSize } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
@@ -23,15 +25,13 @@ import {
     StrictNumberField,
     StrictStringField,
 } from "@system/schema-data-fields.ts";
-import { ErrorPF2e, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
+import { objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { AELikeRuleElement, type AELikeChangeMode } from "../ae-like.ts";
 import { ResolvableValueField, RuleElement } from "../index.ts";
 import { adjustCreatureShieldData, getNewInterval, itemHasCounterBadge } from "./helper.ts";
 import fields = foundry.data.fields;
 import validation = foundry.data.validation;
-import { prunePropertyRunes, RUNE_DATA } from "@item/physical/runes.ts";
-import { ArmorPropertyRuneType } from "@item/armor/types.ts";
 
 /** A `SchemaField` reappropriated for validation of specific item alterations */
 class ItemAlterationHandler<TSchema extends AlterationSchema> extends fields.SchemaField<TSchema> {
