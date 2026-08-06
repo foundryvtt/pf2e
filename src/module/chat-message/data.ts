@@ -31,7 +31,7 @@ type ChatMessageFlagsPF2e = ChatMessageFlags & {
         damageRoll?: DamageRollFlag;
         context?: ChatContextFlag;
         origin?: ItemOriginFlag | null;
-        casting?: { actualCast: boolean; id: string; tradition: MagicTradition; embeddedSpell?: SpellSource } | null;
+        casting?: { actualCast?: boolean; id: string; tradition: MagicTradition; embeddedSpell?: SpellSource } | null;
         modifiers?: RawModifier[];
         dice?: RawDamageDice[];
         journalEntry?: DocumentUUID | null;
