@@ -331,16 +331,12 @@ class AuraRuleElement extends RuleElement<AuraSchema> {
     /** Resolve level values on effects */
     #processEffects(): AuraEffectData[] {
         return this.effects.map((effect) => {
-            const preselectChoices = R.mapValues(effect.preselectChoices ?? {}, (value) => {
-                return this.resolveInjectedProperties(value);
-            });
-
             return {
                 ...effect,
                 parent: this.item,
                 uuid: this.resolveInjectedProperties(effect.uuid),
                 predicate: this.resolveInjectedProperties(effect.predicate),
-                preselectChoices,
+                preselectChoices: this.resolveInjectedProperties(effect.preselectChoices ?? {}),
                 save: null,
             };
         });
