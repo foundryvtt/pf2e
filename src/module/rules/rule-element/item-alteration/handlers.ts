@@ -984,7 +984,7 @@ const ITEM_ALTERATION_HANDLERS = {
 
             const prunedRunes = prunePropertyRunes(propertyRunes, runesData);
             item.system.runes.property = prunedRunes as WeaponPropertyRuneType[] | ArmorPropertyRuneType[];
-            if (item instanceof Item && item.isOfType("armor", "weapon")) {
+            if (item instanceof Item) {
                 item.name = game.pf2e.system.generateItemName(item);
             }
         },
