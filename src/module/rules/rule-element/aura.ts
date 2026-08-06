@@ -7,6 +7,7 @@ import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import { DataUnionField, LaxArrayField, PredicateField, StrictArrayField } from "@system/schema-data-fields.ts";
 import { isImageOrVideoPath, sluggify } from "@util";
 import * as R from "remeda";
+import { createPreselectChoicesField, PreselectChoicesField } from "../helpers.ts";
 import { RuleElement, RuleElementOptions } from "./base.ts";
 import {
     ModelPropsFromRESchema,
@@ -94,6 +95,7 @@ class AuraRuleElement extends RuleElement<AuraSchema> {
                 label: "PF2E.RuleEditor.Aura.Effects.IncludesSelf",
             }),
             alterations: new StrictArrayField(new fields.EmbeddedDataField(ItemAlteration)),
+            preselectChoices: createPreselectChoicesField(),
         });
 
         const xyPairSchema = ({ integer }: { integer: boolean }): XYPairSchema => ({
@@ -328,13 +330,20 @@ class AuraRuleElement extends RuleElement<AuraSchema> {
 
     /** Resolve level values on effects */
     #processEffects(): AuraEffectData[] {
-        return this.effects.map((e) => ({
-            ...e,
-            parent: this.item,
-            uuid: this.resolveInjectedProperties(e.uuid),
-            predicate: this.resolveInjectedProperties(e.predicate),
-            save: null,
-        }));
+        return this.effects.map((effect) => {
+            const preselectChoices = R.mapValues(effect.preselectChoices ?? {}, (value) => {
+                return this.resolveInjectedProperties(value);
+            });
+
+            return {
+                ...effect,
+                parent: this.item,
+                uuid: this.resolveInjectedProperties(effect.uuid),
+                predicate: this.resolveInjectedProperties(effect.predicate),
+                preselectChoices,
+                save: null,
+            };
+        });
     }
 
     #processAppearanceData(): AuraAppearanceData {
@@ -444,6 +453,11 @@ type AuraEffectSchema = {
     includesSelf: fields.BooleanField;
     /** An array of alterations to apply to the effect before transmitting it */
     alterations: StrictArrayField<fields.EmbeddedDataField<ItemAlteration>>;
+    /**
+     * If the granted item has a `ChoiceSet`, its selection may be predetermined. The key of the record must be the
+     * `ChoiceSet`'s designated `flag` property.
+     */
+    preselectChoices: PreselectChoicesField;
 };
 
 type AuraAppearanceSchema = {

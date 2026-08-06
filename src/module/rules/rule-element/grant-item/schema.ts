@@ -1,13 +1,7 @@
 import type * as fields from "@common/data/fields.d.mts";
 import { ItemGrantDeleteAction } from "@item/base/data/system.ts";
-import {
-    StrictNumberField,
-    StrictStringField,
-    type DataUnionField,
-    type RecordField,
-    type SlugField,
-    type StrictArrayField,
-} from "@system/schema-data-fields.ts";
+import { PreselectChoicesField } from "@module/rules/helpers.ts";
+import { type SlugField, type StrictArrayField } from "@system/schema-data-fields.ts";
 import type { RuleElementSchema } from "../data.ts";
 import type { ItemAlteration } from "../item-alteration/alteration.ts";
 
@@ -40,19 +34,7 @@ type GrantItemSchema = RuleElementSchema & {
      * If the granted item has a `ChoiceSet`, its selection may be predetermined. The key of the record must be the
      * `ChoiceSet`'s designated `flag` property.
      */
-    preselectChoices: RecordField<
-        fields.StringField<string, string, true, false, false>,
-        DataUnionField<
-            | StrictStringField<string, string, true, false, false>
-            | StrictNumberField<number, number, true, false, false>,
-            true,
-            false,
-            false
-        >,
-        true,
-        true,
-        true
-    >;
+    preselectChoices: PreselectChoicesField;
 
     /** Visually nest this granted item under its granter: only applies to feats and features */
     nestUnderGranter: fields.BooleanField<boolean, boolean, false, false, false>;
