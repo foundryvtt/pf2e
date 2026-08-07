@@ -6,6 +6,7 @@ import { CompendiumBrowser } from "../browser.svelte.ts";
 import { ContentTabName } from "../data.ts";
 import { CompendiumBrowserTab } from "./base.svelte.ts";
 import { CompendiumBrowserIndexData, EquipmentFilters, RangesInputData } from "./data.ts";
+import { getUsageDetails } from "@item/physical/usage.ts";
 
 export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "equipment";
@@ -34,7 +35,8 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         const physicalItemFields = [...baseFields, "system.level.value"];
         const runedItemFields = [...physicalItemFields, "system.runes"];
         const armorAndWeaponFields = [...runedItemFields, "system.category", "system.group"];
-        const indexFields = R.unique([...armorAndWeaponFields]).sort();
+        const equipmentFields = [...physicalItemFields, "system.usage.value"];
+        const indexFields = R.unique([...armorAndWeaponFields, "system.usage.value"]).sort();
         const publications = new Set<string>();
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
@@ -57,6 +59,8 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                                 return !this.hasAllIndexFields(itemData, baseFields);
                             case "shield":
                                 return !this.hasAllIndexFields(itemData, runedItemFields);
+                            case "equipment":
+                                return !this.hasAllIndexFields(itemData, equipmentFields);
                             default:
                                 return !this.hasAllIndexFields(itemData, physicalItemFields);
                         }
@@ -87,6 +91,9 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         typeof priceValue === "string" ? Coins.fromString(priceValue) : new Coins(priceValue);
                     const coinValue = priceCoins.copperValue;
 
+                    const usageValue = system.usage?.value;
+                    const usageType = typeof usageValue === "string" ? getUsageDetails(usageValue).type : "none";
+
                     const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
                     const options: string[] = [
                         ...traits.map((t) => `trait:${t.replace(/^hb_/, "")}`),
@@ -96,6 +103,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         `type:group:${itemData.system.group ?? "none"}`,
                         `rarity:${itemData.system.traits.rarity}`,
                         `type:${itemData.type}`,
+                        `type:usage:${usageType}`,
                         this.preparePublicationSource(pubSource, publications),
                     ];
 
@@ -107,6 +115,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         level: itemData.system.level?.value ?? 0,
                         price: priceCoins,
                         rarity: itemData.system.traits.rarity,
+                        usage: usageType,
                         options: new Set(options),
                     });
                 }
@@ -124,6 +133,9 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         this.filterData.checkboxes.weaponTypes.options = {
             ...this.generateCheckboxOptions(CONFIG.PF2E.weaponCategories, { prefix: "category" }),
             ...this.generateCheckboxOptions(CONFIG.PF2E.weaponGroups, { prefix: "group" }),
+        };
+        this.filterData.checkboxes.equipmentUsage.options = {
+            ...this.generateCheckboxOptions(CONFIG.PF2E.usageTypes, { prefix: "usage" }),
         };
 
         this.filterData.traits.options = this.generateMultiselectOptions({
@@ -199,6 +211,13 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                 weaponTypes: {
                     isExpanded: false,
                     label: "PF2E.CompendiumBrowser.Filter.WeaponFilters",
+                    options: {},
+                    optionPrefix: "type",
+                    selected: [],
+                },
+                equipmentUsage: {
+                    isExpanded: false,
+                    label: "PF2E.CompendiumBrowser.Filter.UsageFilters",
                     options: {},
                     optionPrefix: "type",
                     selected: [],

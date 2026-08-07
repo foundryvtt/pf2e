@@ -710,6 +710,14 @@ export const PF2ECONFIG = {
     },
 
     usages: USAGES,
+    usageTypes: {
+        attached: "PF2E.UsageAttached",
+        carried: "PF2E.UsageCarried",
+        held: "PF2E.UsageHeld",
+        implanted: "PF2E.UsageImplanted",
+        installed: "PF2E.UsageInstalled",
+        worn: "PF2E.UsageWorn",
+    },
 
     magicTraditions,
     deityDomains,
