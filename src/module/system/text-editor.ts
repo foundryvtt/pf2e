@@ -306,10 +306,14 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
         params.traits ||= item?.system.traits.value?.toString() ?? null;
         params.itemUuid ||= item?.uuid ?? null;
 
-        const distance =
-            params.distance.startsWith("resolve") && (item || actor)
-                ? resolveValue(actor, item, params.distance) || 5
-                : Number(params.distance) || 5;
+        const isResolvable = params.distance.startsWith("resolve");
+        const distance = isResolvable ? resolveValue(actor, item, params.distance) : Number(params.distance);
+        if (!distance) {
+            ui.notifications.error("PF2E.InlineTemplateErrors.DistanceInvalid", {
+                format: { distance: params.distance },
+            });
+            return null;
+        }
 
         // If no button label is entered directly create default label
         label ||= _loc("PF2E.TemplateLabel", {
