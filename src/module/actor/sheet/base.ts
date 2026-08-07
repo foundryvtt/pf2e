@@ -247,8 +247,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             subitems: R.sortBy(item.subitems.contents, (i) => {
                 const isAmmo =
                     i.isOfType("ammo") || (i.isOfType("weapon") && item.isOfType("weapon") && i.isAmmoFor(item));
-                const isEquipment = i.system.usage.type === "installed";
-                return isAmmo ? 3 : i.isOfType("weapon") ? 0 : isEquipment ? 1 : 2;
+                return isAmmo ? 3 : i.isOfType("weapon") ? 0 : i.isAttachable ? 1 : 2;
             }),
             canBeEquipped: !item.isStowed,
             canEditQuantity:
