@@ -108,9 +108,9 @@ interface CampaignFeatureFilters extends BaseFilterData {
 interface EquipmentFilters extends BaseFilterData {
     checkboxes: {
         armorTypes: CheckboxData;
-        equipmentUsage: CheckboxData;
         itemTypes: CheckboxData;
         rarity: CheckboxData;
+        usageTypes: CheckboxData;
         weaponTypes: CheckboxData;
     };
     ranges: {

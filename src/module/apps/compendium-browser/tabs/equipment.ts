@@ -103,7 +103,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         `type:group:${itemData.system.group ?? "none"}`,
                         `rarity:${itemData.system.traits.rarity}`,
                         `type:${itemData.type}`,
-                        `type:usage:${usageType}`,
+                        `usage:${usageType}`,
                         this.preparePublicationSource(pubSource, publications),
                     ];
 
@@ -134,8 +134,8 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             ...this.generateCheckboxOptions(CONFIG.PF2E.weaponCategories, { prefix: "category" }),
             ...this.generateCheckboxOptions(CONFIG.PF2E.weaponGroups, { prefix: "group" }),
         };
-        this.filterData.checkboxes.equipmentUsage.options = {
-            ...this.generateCheckboxOptions(CONFIG.PF2E.usageTypes, { prefix: "usage" }),
+        this.filterData.checkboxes.usageTypes.options = {
+            ...this.generateCheckboxOptions(CONFIG.PF2E.usageTypes),
         };
 
         this.filterData.traits.options = this.generateMultiselectOptions({
@@ -215,11 +215,11 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     optionPrefix: "type",
                     selected: [],
                 },
-                equipmentUsage: {
+                usageTypes: {
                     isExpanded: false,
                     label: "PF2E.CompendiumBrowser.Filter.UsageFilters",
                     options: {},
-                    optionPrefix: "type",
+                    optionPrefix: "usage",
                     selected: [],
                 },
             },
