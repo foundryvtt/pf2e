@@ -27,24 +27,44 @@
         },
         "rules": [
             {
+                "key": "RollOption",
+                "option": "directed-channel",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
                 "itemType": "spell",
                 "key": "ItemAlteration",
-                "mode": "add",
+                "mode": "override",
                 "predicate": [
+                    "area-effect",
+                    "directed-channel",
                     {
                         "or": [
                             "item:slug:heal",
                             "item:slug:harm"
                         ]
-                    },
-                    "item:cast:actions:3"
-                ],
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Cleric.DirectedChannel.ItemAlterationNote"
                     }
-                ]
+                ],
+                "property": "area-type",
+                "value": "cone"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "area-effect",
+                    "directed-channel",
+                    {
+                        "or": [
+                            "item:slug:heal",
+                            "item:slug:harm"
+                        ]
+                    }
+                ],
+                "property": "area-size",
+                "value": 60
             }
         ],
         "traits": {

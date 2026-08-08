@@ -8,6 +8,7 @@ import { prepareBulkData } from "@item/physical/helpers.ts";
 import { Grade } from "@item/physical/types.ts";
 import { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values.ts";
 import type { ItemType } from "@item/types.ts";
+import { EFFECT_AREA_SHAPES } from "@item/values.ts";
 import { WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { MANDATORY_RANGED_GROUPS } from "@item/weapon/values.ts";
 import { upgradeWeaponTrait } from "@item/weapon/helpers.ts";
@@ -147,6 +148,47 @@ const ITEM_ALTERATION_HANDLERS = {
             const newValue = AELikeRuleElement.getNewValue(mode, data.item.system.area.value, data.alteration.value);
             const nearestFive = Math.floor(newValue / 5) * 5;
             data.item.system.area.value = Math.max(nearestFive, 5);
+        },
+    }),
+    "area-type": new ItemAlterationHandler({
+        fields: {
+            itemType: new fields.StringField({ required: true, choices: ["spell"] }),
+            mode: new fields.StringField({
+                required: true,
+                choices: ["override", "remove"],
+            }),
+            value: new fields.StringField({
+                required: true,
+                nullable: true,
+                choices: EFFECT_AREA_SHAPES,
+                initial: null,
+            } as const),
+        },
+        validateForItem: (_item, alteration): validation.DataModelValidationFailure | void => {
+            if (alteration.mode === "override" && !alteration.value) {
+                return new validation.DataModelValidationFailure(`value must be provided if mode is "override"`);
+            }
+        },
+        handle: function (data: AlterationApplicationData) {
+            if (!this.isValid(data)) return;
+            const mode = data.alteration.mode;
+            if (mode === "override") {
+                const newValue = AELikeRuleElement.getNewValue(
+                    mode,
+                    data.item.system.area?.type ?? "burst",
+                    data.alteration.value ?? "burst",
+                );
+                if (newValue instanceof validation.DataModelValidationFailure) {
+                    throw newValue.asError();
+                }
+                if (data.item.system.area) {
+                    data.item.system.area.type = newValue;
+                } else {
+                    data.item.system.area = { type: newValue, value: 5 };
+                }
+            } else {
+                data.item.system.area = null;
+            }
         },
     }),
     "badge-max": new ItemAlterationHandler({
