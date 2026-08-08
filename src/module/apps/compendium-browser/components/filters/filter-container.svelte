@@ -77,7 +77,7 @@
 
             button.clear-filter {
                 &:not(:hover) {
-                    background-color: var(--background);
+                    background: var(--background);
                 }
                 line-height: 1.5em;
                 position: absolute;

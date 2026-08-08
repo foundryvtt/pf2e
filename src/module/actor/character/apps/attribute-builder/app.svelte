@@ -104,10 +104,22 @@
         return null;
     }
 
+    /** Every attribute still offered by an unselected slot */
+    function getAvailableOptions(
+        slots: Record<string, { value: AttributeString[]; selected: AttributeString | null }>,
+    ): AttributeString[] {
+        return R.unique(
+            Object.values(slots)
+                .filter((s) => !s.selected)
+                .flatMap((s) => s.value),
+        );
+    }
+
     const ancestryBoosts = $derived.by(() => {
         const ancestry = data.ancestry;
         if (!ancestry) return null;
 
+        const alternate = !!ancestry.system.alternateAncestryBoosts;
         const [maxBoosts, selectedBoosts] = (() => {
             const alternateAncestryBoosts = ancestry.system.alternateAncestryBoosts;
             if (alternateAncestryBoosts) return [MAX_ALTERNATE_ANCESTRY_BOOSTS, alternateAncestryBoosts];
@@ -119,29 +131,51 @@
             return [maxBoosts, selectedBoosts];
         })();
 
+        // Alternate ancestry boosts bypass flaws
+        const flawSlots = alternate ? {} : ancestry.system.flaws;
+        const selectedFlaws = Object.values(flawSlots)
+            .map((f) => f.selected)
+            .filter((f): f is AttributeString => !!f);
+        const maxFlaws = Object.values(flawSlots).filter((f) => f.value.length > 0).length;
+        const flawsRemaining = maxFlaws - selectedFlaws.length;
+
         const netBoosted = R.difference(data.build.boosts.ancestry, data.build.flaws.ancestry);
         const remaining = maxBoosts - selectedBoosts.length;
-        const lockedBoosts = ancestry.system.alternateAncestryBoosts ? null : ancestry.lockedBoosts;
-        const lockedFlaws = ancestry.system.alternateAncestryBoosts ? null : ancestry.lockedFlaws;
+        const lockedBoosts = alternate ? null : ancestry.lockedBoosts;
+        const lockedFlaws = alternate ? null : ancestry.lockedFlaws;
+        const availableBoosts = alternate ? null : getAvailableOptions(ancestry.system.boosts);
+        const availableFlaws = getAvailableOptions(flawSlots);
 
         const buttons = createButtonRecord(attributeList, (attribute) => {
             const selected = selectedBoosts.includes(attribute);
+            const flawSelected = selectedFlaws.includes(attribute);
             return {
                 boost: {
                     selected,
                     locked: lockedBoosts?.includes(attribute),
-                    disabled: selected ? false : !remaining || netBoosted.includes(attribute),
+                    disabled: selected
+                        ? false
+                        : !remaining ||
+                          netBoosted.includes(attribute) ||
+                          !(availableBoosts?.includes(attribute) ?? true),
                 },
-                flaw: lockedFlaws?.includes(attribute) ? { selected: true, locked: true } : undefined,
+                flaw:
+                    flawSelected || flawsRemaining > 0
+                        ? {
+                              selected: flawSelected,
+                              locked: lockedFlaws?.includes(attribute),
+                              disabled: flawSelected ? false : !flawsRemaining || !availableFlaws.includes(attribute),
+                          }
+                        : undefined,
             };
         });
 
         return {
             buttons,
-            remaining,
+            remaining: remaining + flawsRemaining,
             labels: getBoostFlawLabels(ancestry.system.boosts),
             flawLabels: getBoostFlawLabels(ancestry.system.flaws),
-            alternate: !!ancestry.system.alternateAncestryBoosts,
+            alternate,
         };
     });
 
@@ -373,7 +407,12 @@
                         {@const buttonState = ancestryBoosts.buttons[attribute]}
                         <div class="row-column">
                             {#if buttonState.flaw}
-                                <AttributeButton type="flaw" {attribute} button={buttonState.flaw} onclick={() => {}} />
+                                <AttributeButton
+                                    type="flaw"
+                                    {attribute}
+                                    button={buttonState.flaw}
+                                    onclick={(attr) => foundryApp.handleAncestryFlaw(attr)}
+                                />
                             {/if}
                             <AttributeButton
                                 type="boost"

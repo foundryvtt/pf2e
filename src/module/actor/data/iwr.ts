@@ -47,10 +47,10 @@ abstract class IWR<TType extends IWRType> {
         const type = this.typeLabel;
         const disjunctor = game.i18n.getListFormatter({ style: "long", type: "disjunction" });
         const exceptions = disjunctor.format(
-            this.exceptions.map((e) => _loc(typeof e === "string" ? this.typeLabels[e] : e.label)),
+            this.exceptions.map((e) => _loc(typeof e === "string" ? (this.typeLabels[e] ?? e) : e.label)),
         );
         const doubleVs = disjunctor.format(
-            this.doubleVs?.map((e) => _loc(typeof e === "string" ? this.typeLabels[e] : e.label)) ?? [],
+            this.doubleVs?.map((e) => _loc(typeof e === "string" ? (this.typeLabels[e] ?? e) : e.label)) ?? [],
         );
         const key =
             this.exceptions.length > 0
