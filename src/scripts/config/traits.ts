@@ -686,6 +686,7 @@ const preciousMaterials: Record<PreciousMaterialType, string> = {
     "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneScarlet",
     sloughstone: "PF2E.PreciousMaterialSloughstone",
     "sovereign-steel": "PF2E.PreciousMaterialSovereignSteel",
+    throneglass: "PF2E.PreciousMaterialThroneglass",
     warpglass: "PF2E.PreciousMaterialWarpglass",
 };
 
@@ -1279,6 +1280,7 @@ const preciousMaterialDescriptions = {
     "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneDescription",
     sloughstone: "PF2E.PreciousMaterialSloughstoneDescription",
     "sovereign-steel": "PF2E.PreciousMaterialSovereignSteelDescription",
+    throneglass: "PF2E.PreciousMaterialThroneglassDescription",
     warpglass: "PF2E.PreciousMaterialWarpglassDescription",
 };
 
