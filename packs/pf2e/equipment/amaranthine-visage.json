@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>The shape of this 2-foot-tall wooden mask, worn by the secretive leaders of the elves who inhabit the Mordant Spire, mirrors the tower itself. While wearing it, your innards turn to purple smoke, giving you resistance 10 to precision damage.</p><hr /><p><strong>Activate—Eternal Renewal</strong> <span class=\"action-glyph\">r</span> (healing)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> Your dying condition would reach the value that would cause you to die</p>\n<p><strong>Effect</strong> You Sublimate Self. You lose the dying condition, gaining or increasing your wounded condition as normal, and gain fast healing 20 for 1 minute. You can use Eternal Renewal even while @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] or otherwise unable to act.</p><hr /><p><strong>Activate—Sublimate Self</strong> <span class=\"action-glyph\">2</span> (air, concentrate, polymorph)</p>\n<p><strong>Effect</strong> Your body transforms completely into purple vapor for 5 minutes, with the effects of vapor form.</p>"
+            "value": "<p>The shape of this 2-foot-tall wooden mask, worn by the secretive leaders of the elves who inhabit the Mordant Spire, mirrors the tower itself. While wearing it, your innards turn to purple smoke, giving you resistance 10 to precision damage.</p><hr /><p><strong>Activate—Eternal Renewal</strong> <span class=\"action-glyph\">r</span> (healing)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> Your @UUID[Compendium.pf2e.conditionitems.Item.Dying] condition would reach the value that would cause you to die</p>\n<p><strong>Effect</strong> You Sublimate Self. You lose the dying condition, gaining or increasing your @UUID[Compendium.pf2e.conditionitems.Item.Wounded] condition as normal, and gain fast healing 20 for 1 minute. You can use Eternal Renewal even while @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] or otherwise unable to act.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Eternal Renewal]</p><hr /><p><strong>Activate—Sublimate Self</strong> <span class=\"action-glyph\">2</span> (air, concentrate, polymorph)</p>\n<p><strong>Effect</strong> Your body transforms completely into purple vapor for 5 minutes, with the effects of @UUID[Compendium.pf2e.spells-srd.Item.Vapor Form].</p>"
         },
         "hardness": 0,
         "hp": {
@@ -34,7 +34,13 @@
             "title": "Pathfinder Lost Omens High Seas"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "precision",
+                "value": 10
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "rare",
