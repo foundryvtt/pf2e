@@ -29,7 +29,41 @@
             "remaster": true,
             "title": "Pathfinder Impossible Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "wings-of-bone-and-sinew",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            16
+                        ]
+                    }
+                ],
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "wings-of-bone-and-sinew"
+                ],
+                "selector": "fly",
+                "value": 30
+            },
+            {
+                "key": "TokenEffectIcon",
+                "predicate": [
+                    "wings-of-bone-and-sinew"
+                ],
+                "value": "icons/commodities/biological/wing-bat-pink.webp"
+            }
+        ],
+        "selfEffect": {
+            "name": "Effect: Wings of Bone and Sinew",
+            "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Wings of Bone and Sinew"
+        },
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
