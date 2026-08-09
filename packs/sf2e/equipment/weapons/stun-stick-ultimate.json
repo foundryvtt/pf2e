@@ -1,0 +1,130 @@
+{
+    "_id": "V02hmKhF0g6s6jHA",
+    "folder": "V89RPpe7fyCFC6NS",
+    "img": "systems/sf2e/icons/equipment/held-items/ivory-baton.webp",
+    "name": "Stun Stick (Ultimate)",
+    "system": {
+        "ammo": null,
+        "baseItem": "baton",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 0.1
+        },
+        "category": "simple",
+        "containerId": null,
+        "damage": {
+            "damageType": "bludgeoning",
+            "dice": 1,
+            "die": "d6"
+        },
+        "description": {
+            "value": "<p><strong>Upgrades:</strong> 3</p><hr /><p>Eyeswide detectives use this ultimate @UUID[Compendium.sf2e.equipment.Item.Stun Stick (Advanced)]{Baton} to subdue unruly perpetrators nonlethally. The handle gives the wielder a very mild electrical shock each time it's picked up or unsheathed, so agents tend to wear insulated gloves when they think a stun stick might be needed on a case.</p>\n<p><strong>Activate—Short, Sharp Shock</strong> <span class=\"action-glyph\">A</span></p>\n<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The length of the baton becomes wreathed in electrical energy that can temporarily wreak havoc on a creature's motor skills. Make a melee Strike with the stun stick. On a hit, you deal electricity damage instead of bludgeoning damage, and the target must succeed at a @Check[fortitude|dc:36] save or become @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 1} for 1 round; this is an incapacitation effect.</p>"
+        },
+        "expend": null,
+        "grade": "ultimate",
+        "group": "club",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 17
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "sp": 140000
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": null
+        },
+        "rules": [
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:id:{item|id}",
+                    "short-sharp-shock"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "value": "electricity"
+            },
+            {
+                "key": "RollOption",
+                "label": "SF2E.SpecificRule.Equipment.StunStick.ShortSharpShock",
+                "option": "short-sharp-shock",
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "item:id:{item|id}",
+                    "short-sharp-shock"
+                ],
+                "selector": [
+                    "attack-roll"
+                ],
+                "text": "SF2E.SpecificRule.Equipment.StunStick.UltimateNote",
+                "title": "SF2E.SpecificRule.Equipment.StunStick.ShortSharpShock"
+            }
+        ],
+        "runes": {
+            "potency": 0,
+            "property": [],
+            "striking": 0
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 0,
+                "property": [],
+                "striking": 0
+            }
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "analog",
+                "finesse",
+                "magical",
+                "nonlethal",
+                "parry"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        }
+    },
+    "type": "weapon"
+}

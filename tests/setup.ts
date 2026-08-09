@@ -38,8 +38,21 @@ global.game = Object.freeze({
     },
 });
 
+const foundryNamespaces = {
+    fa: "applications",
+    fav1: "appv1",
+    fc: "canvas",
+    fd: "documents",
+    fh: "helpers",
+    fu: "utils",
+} as const;
+for (const [shorthand, namespace] of Object.entries(foundryNamespaces)) {
+    const container: Record<string, unknown> = foundry;
+    container[namespace] ??= {};
+    Object.defineProperty(globalThis, shorthand, { get: () => container[namespace], configurable: true });
+}
+
 Object.assign(globalThis, {
-    SYSTEM_ID: "pf2e",
     CONFIG: { PF2E: { skills: {} } },
     Actor: MockActor,
     Item: MockItem,

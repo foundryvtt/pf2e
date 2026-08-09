@@ -29,7 +29,52 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:verdant-weapon"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Druid.PristineWeapon.DescriptionAlteration"
+                    }
+                ]
+            },
+            {
+                "definition": [
+                    "item:tag:verdant-weapon"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "materials",
+                "value": "cold-iron"
+            },
+            {
+                "definition": [
+                    "item:tag:verdant-weapon"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "materials",
+                "value": "silver"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "item:tag:verdant-weapon"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.Druid.PristineWeapon.Note",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

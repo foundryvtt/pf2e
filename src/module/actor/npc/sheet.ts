@@ -2,7 +2,7 @@ import type { NPCPF2e } from "@actor";
 import { CreatureSheetPF2e, type CreatureSheetData } from "@actor/creature/sheet.ts";
 import { applyActorGroupUpdate } from "@actor/helpers.ts";
 import { Modifier } from "@actor/modifiers.ts";
-import { NPCSkillsEditor } from "@actor/npc/skills-editor.ts";
+import { NPCSkillsEditor } from "@actor/npc/skills-editor/app.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { createAbilityViewData } from "@actor/sheet/helpers.ts";
 import { RecallKnowledgePopup } from "@actor/sheet/popups/recall-knowledge-popup.ts";
@@ -135,7 +135,9 @@ abstract class AbstractNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
         };
 
         handlers["edit-skills"] = () => {
-            new NPCSkillsEditor(this.actor).render(true);
+            // Reuse an existing editor.
+            const existing = Object.values(this.actor.apps).find((a) => a instanceof NPCSkillsEditor);
+            return (existing ?? new NPCSkillsEditor({ actor: this.actor })).render({ force: true });
         };
 
         return handlers;
@@ -400,7 +402,12 @@ class NPCSheetPF2e extends AbstractNPCSheet {
         };
 
         handlers["open-recall-breakdown"] = () => {
-            return new RecallKnowledgePopup({ identificationData: this.actor.identificationDCs }).render(true);
+            // Reuse an existing popup if one is open: constructing a second instance with the same element ID
+            // would detach the open popup's element without closing it, breaking its render state.
+            const actor = this.actor;
+            const existing = foundry.applications.instances.get("recall-knowledge-breakdown");
+            const popup = existing instanceof RecallKnowledgePopup ? existing : new RecallKnowledgePopup({ actor });
+            return popup.render({ force: true, actor });
         };
 
         handlers["roll-attribute"] = (event, anchor) => {

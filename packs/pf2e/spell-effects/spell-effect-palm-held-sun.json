@@ -1,0 +1,61 @@
+{
+    "_id": "Tt08tLMWdmGHVv4p",
+    "img": "icons/environment/cosmos/astronomy-planetary-orbits.webp",
+    "name": "Spell Effect: Palm-Held Sun",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Palm-Held Sun]</p>\n<p>You shed bright light in a 30-foot emanation (and dim light to the next 30 feet).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "TokenLight",
+                "value": {
+                    "alpha": 0.15,
+                    "animation": {
+                        "speed": 1,
+                        "type": "starlight"
+                    },
+                    "attenuation": 0.4,
+                    "bright": 30,
+                    "color": "#fff0a3",
+                    "dim": 60
+                }
+            },
+            {
+                "key": "Aura",
+                "radius": 60,
+                "slug": "palm-held-sun",
+                "traits": [
+                    "light",
+                    "vitality"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

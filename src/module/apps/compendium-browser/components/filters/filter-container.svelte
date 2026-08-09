@@ -13,6 +13,8 @@
         label: string;
     }
     const props: Props = $props();
+    // The prop only provides the initial value; this component controls isExpanded after that.
+    // svelte-ignore state_referenced_locally
     let isExpanded = $state(props.isExpanded);
 </script>
 
@@ -75,7 +77,7 @@
 
             button.clear-filter {
                 &:not(:hover) {
-                    background-color: var(--background);
+                    background: var(--background);
                 }
                 line-height: 1.5em;
                 position: absolute;

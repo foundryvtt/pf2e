@@ -1,0 +1,84 @@
+{
+    "_id": "axKDg2EZTQu0E4Il",
+    "folder": "cJoNKs2FMCJkyEDK",
+    "img": "systems/sf2e/icons/equipment/other/flashlight-yellow.webp",
+    "name": "Revealing Flashlight",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>This pale green torch has been modified to shine an ethereal wavelength of light. When activated, it emits only 30 feet of dim light and no bright light. When the light passes through a container, it reveals a silhouette of any items within. This gives the wielder a +2 item bonus to [[/act seek]] hidden treasures within the dim light. The presence of bright light counteracts this effect.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 2
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "sp": 300
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "SF2E.SpecificRule.Equipment.RevealingFlashlight.Lit",
+                "option": "revealing-flashlight-lit",
+                "toggleable": true
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "flashlight-lit"
+                ],
+                "value": {
+                    "alpha": 0.1,
+                    "bright": 0,
+                    "color": "#dfeaf1",
+                    "dim": 30,
+                    "luminosity": 0.3
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "flashlight-lit",
+                    "action:seek",
+                    "hidden-treasure"
+                ],
+                "selector": [
+                    "perception"
+                ],
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "tech"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        }
+    },
+    "type": "equipment"
+}

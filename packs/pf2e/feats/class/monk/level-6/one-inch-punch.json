@@ -57,12 +57,21 @@
                                     "feat:monastic-weaponry",
                                     "item:trait:monk"
                                 ]
+                            },
+                            {
+                                "and": [
+                                    "monastic-archer:half-increment",
+                                    "item:group:bow"
+                                ]
                             }
                         ]
                     },
                     "one-inch-punch:two"
                 ],
-                "selector": "melee-strike-damage"
+                "selector": [
+                    "melee-strike-damage",
+                    "ranged-strike-damage"
+                ]
             },
             {
                 "diceNumber": "ternary(gte(@actor.level, 18), 6, ternary(gte(@actor.level, 10), 4, 2))",
@@ -76,12 +85,21 @@
                                     "feat:monastic-weaponry",
                                     "item:trait:monk"
                                 ]
+                            },
+                            {
+                                "and": [
+                                    "monastic-archer:half-increment",
+                                    "item:group:bow"
+                                ]
                             }
                         ]
                     },
                     "one-inch-punch:three"
                 ],
-                "selector": "melee-strike-damage"
+                "selector": [
+                    "melee-strike-damage",
+                    "ranged-strike-damage"
+                ]
             }
         ],
         "traits": {

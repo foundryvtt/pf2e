@@ -1,0 +1,65 @@
+{
+    "_id": "1COfftBsjrZm7sxw",
+    "folder": "JS4hwnN0zfHi4BGg",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Peacekeeper Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You make peace with a grin and a gun. You become trained in Society or become an expert in it if you were already trained. You have familiarity with weapons with the nonlethal trait—for the purpose of proficiency, you treat any of these that are martial weapons as simple weapons and any that are advanced weapons as martial weapons.</p>\n<p>At 5th level, whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:trait:nonlethal"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.PeakeeperWeapons",
+                "sameAs": "simple",
+                "slug": "peacekeeper-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:trait:nonlethal",
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

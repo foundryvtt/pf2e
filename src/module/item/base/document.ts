@@ -627,8 +627,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         operation: Partial<DatabaseCreateOperation<ActorPF2e | null>> = {},
     ): Promise<Item[]> {
         // Convert all `ItemPF2e`s to source objects
-        const sources: PreCreate<ItemSourcePF2e>[] = data.map(
-            (d): PreCreate<ItemSourcePF2e> => (d instanceof ItemPF2e ? d.toObject() : d),
+        const sources: PreCreate<ItemSourcePF2e>[] = data.map((d): PreCreate<ItemSourcePF2e> =>
+            d instanceof ItemPF2e ? d.toObject() : d,
         );
 
         // Migrate source in case of importing from an old compendium

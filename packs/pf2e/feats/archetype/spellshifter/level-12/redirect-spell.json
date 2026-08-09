@@ -1,0 +1,94 @@
+{
+    "_id": "qH25Kn0CkSyOduO9",
+    "folder": "XiDsqcv6E4NaNOiw",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Redirect Spell",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can alter the flow of magic around you, moving a spell effect from one target to another. You gain the Redirect Magic spellshift.</p>\n<p><strong>Spellshift—Redirect Magic</strong> Through sheer force of will, you can direct a spell's energies away from its caster's intended target.</p>\n<p><strong>Critical Success</strong> You change a single target of the spell to another viable target within 30 feet of you (even if it would be outside of the spell's normal range). You can't use this spellshift to affect a creature twice with the same spell. If the spell had an initial saving throw, the new target must attempt it, possibly achieving a different result than the original target of the spell. The DC for the spell becomes your Arcana DC instead of the original caster's spell DC.</p>\n<p><strong>Success</strong> As critical success, but if the target succeeds at any required saving throw, they are unaffected, and the spell does not change targets.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Spellshifter Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Spellshifter.RollOptionLabel",
+                "mergeable": true,
+                "option": "spell-shift",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Spellshifter.RedirectMagic.RollOptionLabel",
+                        "value": "redirect-spell"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:shift-spell",
+                    "spell-shift:redirect-spell"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshifter.RedirectMagic.Text"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.Spellshifter.RedirectMagic.CriticalSuccess",
+                        "title": "PF2E.Check.Result.Degree.Check.criticalSuccess"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.Spellshifter.RedirectMagic.Success",
+                        "title": "PF2E.Check.Result.Degree.Check.success"
+                    }
+                ]
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:shift-spell",
+                    "spell-shift:redirect-spell"
+                ],
+                "property": "name",
+                "value": "PF2E.SpecificRule.Spellshifter.RedirectMagic.Title"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -3233,6 +3233,10 @@
                     "rX0kc5sOUnU77i30": {
                         "damage": "4d10+18",
                         "damageType": "piercing"
+                    },
+                    "wsZvi9jRen9soGMi": {
+                        "damage": "3d12",
+                        "damageType": "electricity"
                     }
                 },
                 "description": {
@@ -3244,26 +3248,14 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [
-                    {
-                        "damageType": "electricity",
-                        "diceNumber": 3,
-                        "dieSize": "d12",
-                        "key": "DamageDice",
-                        "predicate": [
-                            {
-                                "not": "countered-by-fire"
-                            }
-                        ],
-                        "selector": "{item|_id}-damage"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "traits": {
                     "value": [
                         "electricity",
                         "magical",
-                        "reach-25"
+                        "reach-25",
+                        "unarmed"
                     ]
                 }
             },
@@ -3306,7 +3298,8 @@
                     "value": [
                         "agile",
                         "magical",
-                        "reach-20"
+                        "reach-20",
+                        "unarmed"
                     ]
                 }
             },
@@ -3348,7 +3341,8 @@
                 "traits": {
                     "value": [
                         "magical",
-                        "reach-40"
+                        "reach-40",
+                        "unarmed"
                     ]
                 }
             },
@@ -3446,7 +3440,18 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "item:damage:type:fire"
+                        ],
+                        "selector": "damage-received",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -3554,7 +3559,28 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "divine-lightning",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "divine-lightning",
+                            "damage:type:electricity",
+                            "target:trait:unholy"
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "damage"
+                        ],
+                        "value": "spirit"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -3582,7 +3608,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>@Damage[(4d10+10)[bludgeoning]], @Check[fortitude|dc:44|basic]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
+                    "value": "<p>@Damage[(4d10+10)[bludgeoning]], @Check[fortitude|dc:44|basic|options:inflicts:unconscious]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -3599,9 +3625,6 @@
         },
         {
             "_id": "05Xc9x2UNt1YU4PT",
-            "_stats": {
-                "compendiumSource": "Actor.EJACvM31pQgDNQY3.Item.05Xc9x2UNt1YU4PT"
-            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Metallic Strikes",
             "sort": 5300000,
@@ -3614,14 +3637,85 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The sky archdragon's jaws and claw Strikes counts as any metal for the purposes of calculating immunities, resistances, and weaknesses. Perfected Flight As young sky dragon.</p>"
+                    "value": "<p>The sky archdragon's jaws and claw Strikes counts as any metal for the purposes of calculating immunities, resistances, and weaknesses.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            {
+                                "or": [
+                                    "item:slug:claw",
+                                    "item:slug:jaws"
+                                ]
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "adamantine"
+                    },
+                    {
+                        "definition": [
+                            {
+                                "or": [
+                                    "item:slug:claw",
+                                    "item:slug:jaws"
+                                ]
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "cold-iron"
+                    },
+                    {
+                        "definition": [
+                            {
+                                "or": [
+                                    "item:slug:claw",
+                                    "item:slug:jaws"
+                                ]
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "dawnsilver"
+                    },
+                    {
+                        "definition": [
+                            {
+                                "or": [
+                                    "item:slug:claw",
+                                    "item:slug:jaws"
+                                ]
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "orichalcum"
+                    },
+                    {
+                        "definition": [
+                            {
+                                "or": [
+                                    "item:slug:claw",
+                                    "item:slug:jaws"
+                                ]
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "silver"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -3643,14 +3737,26 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A sky dragon can hover in place without spending an action, and they automatically succeed at all Acrobatics checks to Maneuver in Flight.</p>"
+                    "value": "<p>A sky dragon can hover in place without spending an action, and they automatically succeed at all Acrobatics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Maneuver in Flight].</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "adjustment": {
+                            "criticalFailure": "to-success",
+                            "failure": "to-success"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "action:maneuver-in-flight"
+                        ],
+                        "selector": "acrobatics"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -3660,9 +3766,6 @@
         },
         {
             "_id": "gvL4Ckw5HBylf6Fw",
-            "_stats": {
-                "compendiumSource": "Actor.EJACvM31pQgDNQY3.Item.gvL4Ckw5HBylf6Fw"
-            },
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Steel Lightning Breath",
             "sort": 5500000,
@@ -3675,7 +3778,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon shoots a ball of electricity that deals @Damage[12d12[electricity]|options:area-damage] damage in a @Template[type:burst|distance:40] within 75 feet (@Check[reflex|dc:44|basic] save). They can't use Steel Lightning Breath again for [[/gmr 1d4 #Recharge Steel Lightning Breath]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon shoots a ball of electricity that deals @Damage[12d12[electricity]|options:area-damage] damage in a @Template[burst|distance:40] within 75 feet (@Check[reflex|dc:44|basic|options:area-effect] save). They can't use Steel Lightning Breath again for [[/gmr 1d4 #Recharge Steel Lightning Breath]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3707,7 +3810,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon rapidly coils, then unleashes crackling lightning that deals @Damage[5d12[electricity]|options:area-damage] damage in a @Template[type:emanation|distance:60]. Each creature in the area must attempt a @Check[fortitude|dc:44] save; regardless of the outcome, the creature then becomes temporarily immune for 10 minutes.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The creature takes full damage, is stunned for 1 round, and can't fly for 4 rounds.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, is stunned for 2 rounds, and can't fly for 1 minute.</p>"
+                    "value": "<p>The dragon rapidly coils, then unleashes crackling lightning that deals @Damage[5d12[electricity]|options:area-damage] damage in a @Template[emanation|distance:60]. Each creature in the area must attempt a @Check[fortitude|dc:44|options:area-effect,damaging-effect,inflicts:stunned] save; regardless of the outcome, the creature then becomes temporarily immune for 10 minutes.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The creature takes full damage, is stunned for 1 round, and can't fly for 4 rounds.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, is stunned for 2 rounds, and can't fly for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3758,7 +3861,7 @@
                 "value": 46
             },
             "allSaves": {
-                "value": ""
+                "value": "+2 status to all saves vs. magic"
             },
             "hp": {
                 "details": "",

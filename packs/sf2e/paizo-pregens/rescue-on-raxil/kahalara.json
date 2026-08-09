@@ -1,0 +1,2812 @@
+{
+    "_id": "VFl5Jh7vahzcF3l9",
+    "folder": "4NVMBpVA6SErB7bJ",
+    "img": "systems/sf2e/icons/default-icons/character.svg",
+    "items": [
+        {
+            "_id": "VgnamF76c3nC5WKI",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.ancestries.Item.PgKmsA2aKdbLU6O0"
+            },
+            "img": "systems/sf2e/icons/ancestries/elf-sf2e.webp",
+            "name": "Elf",
+            "sort": 0,
+            "system": {
+                "additionalLanguages": {
+                    "count": 0,
+                    "custom": "",
+                    "value": []
+                },
+                "alternateAncestryBoosts": [
+                    "dex",
+                    "cha"
+                ],
+                "boosts": {
+                    "0": {
+                        "value": [
+                            "dex"
+                        ]
+                    },
+                    "1": {
+                        "value": [
+                            "int"
+                        ]
+                    },
+                    "2": {
+                        "selected": "cha",
+                        "value": [
+                            "str",
+                            "dex",
+                            "con",
+                            "int",
+                            "wis",
+                            "cha"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p><em>For millennia, elves have dwelled among the stars and charted courses across the galaxy. A wide diaspora of elves have lived across a hundred worlds for many thousands of years, connected to each other by a shared history of skycraft, magic, and cosmic wonder.</em></p>\n<p>@UUID[Compendium.sf2e.journals.JournalEntry.Cf6Ej0OgFpqg2VoF.JournalEntryPage.YL5t9HQfv8YAsyw4]{Elf}</p>"
+                },
+                "flaws": {
+                    "0": {
+                        "value": [
+                            "con"
+                        ]
+                    }
+                },
+                "hands": 2,
+                "hp": 6,
+                "items": {},
+                "languages": {
+                    "custom": "",
+                    "value": [
+                        "common",
+                        "elven"
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Galactic Ancestries"
+                },
+                "reach": 5,
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.system.standardizedAncestryFeats",
+                        "priority": 10,
+                        "value": {
+                            "ancestralSkills": {
+                                "skillOne": "arcana",
+                                "skillTwo": "nature"
+                            }
+                        }
+                    },
+                    {
+                        "definition": [
+                            "item:category:martial",
+                            {
+                                "or": [
+                                    "item:trait:elf",
+                                    "item:group:bow",
+                                    "item:base:nano-edge-rapier"
+                                ]
+                            }
+                        ],
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRule.MartialProficiency.MartialElfWeapons",
+                        "predicate": [
+                            "feat:ancestral-weapon-familiarity"
+                        ],
+                        "sameAs": "simple",
+                        "slug": "martial-elf-weapons"
+                    },
+                    {
+                        "definition": [
+                            "item:trait:elf",
+                            "item:category:advanced"
+                        ],
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRule.MartialProficiency.AdvancedElfWeapons",
+                        "predicate": [
+                            "feat:ancestral-weapon-familiarity"
+                        ],
+                        "sameAs": "martial",
+                        "slug": "advanced-elf-weapons"
+                    },
+                    {
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    5
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "item:trait:elf",
+                                    "item:group:bow",
+                                    "item:base:nano-edge-rapier"
+                                ]
+                            },
+                            "feat:ancestral-weapon-familiarity"
+                        ]
+                    }
+                ],
+                "size": "med",
+                "slug": "elf",
+                "speed": 30,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "elf",
+                        "humanoid"
+                    ]
+                },
+                "vision": "low-light-vision"
+            },
+            "type": "ancestry"
+        },
+        {
+            "_id": "GAqWc5KJZ9utjkFL",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.heritages.Item.dy7TFvb8CKeuWlo2"
+            },
+            "folder": "EymjJvVlKKps8IZ5",
+            "img": "systems/sf2e/icons/default-icons/heritage.svg",
+            "name": "Ivairan Elf",
+            "sort": 0,
+            "system": {
+                "ancestry": {
+                    "name": "Elf",
+                    "slug": "elf",
+                    "uuid": "Compendium.sf2e.ancestries.Item.klv5A13hq2juAD2f"
+                },
+                "description": {
+                    "value": "<p>Before the advent of Drift travel or shadow drives, elves toured the galaxy on century-long voyages in great starship caravans. You're one of the ivairan, descended from these ancient elven travelers. Your family still upholds the traditions of your ancestors by exploring the galaxy, learning about the civilizations they meet in their travels, and charting new and unknown courses through the wilds of the Vast.</p>\n<p>During your daily preparations, you can reflect on what you've heard from fellow travelers and on your experiences visiting a city, space station, or planet. You gain the @UUID[Compendium.sf2e.feats.Item.Additional Lore] feat for a Lore subcategory about a specific place (such as Absalom Station Lore or Akiton Lore) until you make your preparations again. Since this feat is temporary, you can't use it as a prerequisite for any character option.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Galactic Ancestries"
+                },
+                "rules": [],
+                "slug": "ivairan-elf",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "heritage"
+        },
+        {
+            "_id": "ujgenFapUM3Lb8fH",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.backgrounds.Item.GaMBVGpI5HLv2fsJ"
+            },
+            "folder": "9DzgrrI9HDXpQ0Ws",
+            "img": "systems/sf2e/icons/default-icons/background.svg",
+            "name": "Diplomat",
+            "sort": 0,
+            "system": {
+                "boosts": {
+                    "0": {
+                        "selected": "cha",
+                        "value": [
+                            "cha",
+                            "int"
+                        ]
+                    },
+                    "1": {
+                        "selected": "dex",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>You've dedicated your career to facilitating peaceful alliances between different factions and peoples. You might work at an intergalactic embassy or travel aboard a starship on a mission to remote space. First contact situations are your specialty.</p>\n<p>Choose two attribute boosts. One must be to <strong>Intelligence</strong> or <strong>Charisma</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Diplomacy skill and one Lore skill for a planet of your choosing. You gain the @UUID[Compendium.sf2e.feats.Item.Group Impression] skill feat.</p>"
+                },
+                "items": {
+                    "9I7XH": {
+                        "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+                        "level": 1,
+                        "name": "Group Impression",
+                        "uuid": "Compendium.sf2e.feats.Item.Group Impression"
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "diplomat",
+                "trainedSkills": {
+                    "lore": [],
+                    "value": [
+                        "diplomacy"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "background"
+        },
+        {
+            "_id": "hL2oOurPdBdK0lCv",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.KpFetnUqTiweypZk"
+            },
+            "folder": "admZiPs6ML6NgwMt",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Group Impression",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>When you @UUID[Compendium.sf2e.actions.Item.Make an Impression], you can compare your Diplomacy check result to the Will DCs of up to 10 targets you conversed with, with no penalty. The number of targets increases to 20 if you're an expert, 50 if you're a master, and 100 if you're legendary.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "ujgenFapUM3Lb8fH",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Diplomacy"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "group-impression",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "u0WNmpn0FeNkjAB3",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.classes.Item.wu88dOKl86DTo427"
+            },
+            "img": "systems/sf2e/icons/class-icons/envoy.webp",
+            "name": "Envoy",
+            "sort": 0,
+            "system": {
+                "ancestryFeatLevels": {
+                    "value": [
+                        1,
+                        5,
+                        9,
+                        13,
+                        17
+                    ]
+                },
+                "attacks": {
+                    "advanced": 0,
+                    "martial": 1,
+                    "other": {
+                        "name": "",
+                        "rank": 0
+                    },
+                    "simple": 1,
+                    "unarmed": 1
+                },
+                "classFeatLevels": {
+                    "value": [
+                        1,
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "defenses": {
+                    "heavy": 0,
+                    "light": 1,
+                    "medium": 0,
+                    "unarmored": 1
+                },
+                "description": {
+                    "value": "<p><em>You're a master influencer. You make your way in the universe with a charming smile, quick wit, and keen sense of self-preservation. You're a leader who motivates your teammates, pushes them past their limits, and helps them through tough spots. You excel at getting others to do what you want, but you're always ready to face trouble head-on when things take a turn for the worse. You might be a con artist, diplomat, performer, or military officer—or you might take on whatever role the situation demands.</em></p>\n<p>@UUID[Compendium.sf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.r2bLZofQDDBIk6Ir]{Envoy}</p>"
+                },
+                "generalFeatLevels": {
+                    "value": [
+                        3,
+                        7,
+                        11,
+                        15,
+                        19
+                    ]
+                },
+                "hp": 8,
+                "items": {
+                    "45P9L": {
+                        "img": "systems/sf2e/icons/abilities/purple-energy-star.webp",
+                        "level": 11,
+                        "name": "Resolve",
+                        "uuid": "Compendium.sf2e.class-features.Item.Resolve"
+                    },
+                    "84rTo": {
+                        "img": "systems/sf2e/icons/abilities/blue-star-emblem-2.webp",
+                        "level": 9,
+                        "name": "Envoy Expertise",
+                        "uuid": "Compendium.sf2e.class-features.Item.Envoy Expertise"
+                    },
+                    "AwEgQ": {
+                        "img": "systems/sf2e/icons/abilities/purple-eye.webp",
+                        "level": 9,
+                        "name": "Hidden Agenda",
+                        "uuid": "Compendium.sf2e.class-features.Item.Hidden Agenda"
+                    },
+                    "GUszk": {
+                        "img": "systems/sf2e/icons/equipment/armor/armor-light-metal.webp",
+                        "level": 19,
+                        "name": "Light Armor Mastery",
+                        "uuid": "Compendium.sf2e.class-features.Item.Light Armor Mastery"
+                    },
+                    "HEh26": {
+                        "img": "systems/sf2e/icons/abilities/blue-alien-weapon.webp",
+                        "level": 15,
+                        "name": "Greater Weapon Specialization",
+                        "uuid": "Compendium.sf2e.class-features.Item.Greater Weapon Specialization"
+                    },
+                    "IiXMT": {
+                        "img": "systems/sf2e/icons/abilities/alien-mask.webp",
+                        "level": 5,
+                        "name": "Perception Expertise",
+                        "uuid": "Compendium.sf2e.class-features.Item.Perception Expertise"
+                    },
+                    "Irwfn": {
+                        "img": "icons/skills/social/diplomacy-writing-letter.webp",
+                        "level": 19,
+                        "name": "Silver Tongue",
+                        "uuid": "Compendium.sf2e.class-features.Item.Silver Tongue"
+                    },
+                    "LegLf": {
+                        "img": "systems/sf2e/icons/abilities/space-credits.webp",
+                        "level": 5,
+                        "name": "Improvised Mastery",
+                        "uuid": "Compendium.sf2e.class-features.Item.Improvised Mastery"
+                    },
+                    "PfyQf": {
+                        "img": "systems/sf2e/icons/abilities/orange-finger-beam.webp",
+                        "level": 1,
+                        "name": "Envoy Directives",
+                        "uuid": "Compendium.sf2e.class-features.Item.Envoy Directives"
+                    },
+                    "UgSip": {
+                        "img": "systems/sf2e/icons/abilities/blue-alien-energy-breath.webp",
+                        "level": 7,
+                        "name": "Weapon Specialization",
+                        "uuid": "Compendium.sf2e.class-features.Item.Weapon Specialization"
+                    },
+                    "VdmEV": {
+                        "img": "systems/sf2e/icons/abilities/blue-cannister.webp",
+                        "level": 5,
+                        "name": "Weapon Expertise",
+                        "uuid": "Compendium.sf2e.class-features.Item.Weapon Expertise"
+                    },
+                    "WE7Kk": {
+                        "img": "systems/sf2e/icons/abilities/pink-energy-surrounding-orb.webp",
+                        "level": 17,
+                        "name": "Greater Resolve",
+                        "uuid": "Compendium.sf2e.class-features.Item.Greater Resolve"
+                    },
+                    "WWSG9": {
+                        "img": "systems/sf2e/icons/equipment/other/dice.webp",
+                        "level": 15,
+                        "name": "Legendary Improvisation",
+                        "uuid": "Compendium.sf2e.class-features.Item.Legendary Improvisation"
+                    },
+                    "XkG98": {
+                        "img": "systems/sf2e/icons/abilities/blue-wing-insignia.webp",
+                        "level": 15,
+                        "name": "Reflex Mastery",
+                        "uuid": "Compendium.sf2e.class-features.Item.Reflex Mastery"
+                    },
+                    "YhYuN": {
+                        "img": "systems/sf2e/icons/abilities/green-stock-market-chart.webp",
+                        "level": 7,
+                        "name": "Fortitude Expertise",
+                        "uuid": "Compendium.sf2e.class-features.Item.Fortitude Expertise"
+                    },
+                    "ag2nL": {
+                        "img": "systems/sf2e/icons/equipment/armor/armor-medium-brown.webp",
+                        "level": 13,
+                        "name": "Light Armor Expertise",
+                        "uuid": "Compendium.sf2e.class-features.Item.Light Armor Expertise"
+                    },
+                    "dWlSO": {
+                        "img": "icons/magic/movement/abstract-ribbons-red-orange.webp",
+                        "level": 13,
+                        "name": "Tactician",
+                        "uuid": "Compendium.sf2e.class-features.Item.Tactician"
+                    },
+                    "fNLcX": {
+                        "img": "systems/sf2e/icons/abilities/alien-eye.webp",
+                        "level": 17,
+                        "name": "Incredible Senses",
+                        "uuid": "Compendium.sf2e.class-features.Item.Incredible Senses"
+                    },
+                    "gfWp2": {
+                        "img": "systems/sf2e/icons/abilities/screwdriver.webp",
+                        "level": 11,
+                        "name": "Savvy Improviser",
+                        "uuid": "Compendium.sf2e.class-features.Item.Savvy Improviser"
+                    },
+                    "hokCD": {
+                        "img": "systems/sf2e/icons/abilities/blue-target-2.webp",
+                        "level": 11,
+                        "name": "Perception Mastery",
+                        "uuid": "Compendium.sf2e.class-features.Item.Perception Mastery"
+                    },
+                    "jQHLm": {
+                        "img": "systems/sf2e/icons/abilities/blue-comet-insignia.webp",
+                        "level": 7,
+                        "name": "Leader's Confidence",
+                        "uuid": "Compendium.sf2e.class-features.Item.Leader's Confidence"
+                    },
+                    "k0kFy": {
+                        "img": "systems/sf2e/icons/abilities/blue-laser-beam-rifle.webp",
+                        "level": 13,
+                        "name": "Weapon Mastery",
+                        "uuid": "Compendium.sf2e.class-features.Item.Weapon Mastery"
+                    },
+                    "nZUtm": {
+                        "img": "systems/sf2e/icons/abilities/blue-alien-face.webp",
+                        "level": 1,
+                        "name": "Leadership Style",
+                        "uuid": "Compendium.sf2e.class-features.Item.Leadership Style"
+                    },
+                    "q3rFM": {
+                        "img": "systems/sf2e/icons/abilities/cerulean-circular-sign.webp",
+                        "level": 17,
+                        "name": "Inscrutable",
+                        "uuid": "Compendium.sf2e.class-features.Item.Inscrutable"
+                    },
+                    "vIPgB": {
+                        "img": "systems/sf2e/icons/abilities/blue-circuit-board.webp",
+                        "level": 3,
+                        "name": "Adaptive Talent",
+                        "uuid": "Compendium.sf2e.class-features.Item.Adaptive Talent"
+                    },
+                    "zhvQx": {
+                        "img": "systems/sf2e/icons/abilities/blue-military-organization-emblem.webp",
+                        "level": 3,
+                        "name": "Wise to the Game",
+                        "uuid": "Compendium.sf2e.class-features.Item.Wise to the Game"
+                    }
+                },
+                "keyAbility": {
+                    "selected": null,
+                    "value": [
+                        "cha"
+                    ]
+                },
+                "perception": 1,
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": [
+                            {
+                                "label": "PF2E.Skill.Deception",
+                                "value": "deception"
+                            },
+                            {
+                                "label": "PF2E.Skill.Diplomacy",
+                                "value": "diplomacy"
+                            },
+                            {
+                                "label": "PF2E.Skill.Intimidation",
+                                "value": "intimidation"
+                            }
+                        ],
+                        "flag": "skill",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                        "selection": "deception"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.skills.{item|flags.system.rulesSelections.skill}.rank",
+                        "value": 1
+                    },
+                    {
+                        "itemType": "action",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "class:envoy",
+                            "item:slug:get-em"
+                        ],
+                        "property": "other-tags",
+                        "value": "envoy-class"
+                    }
+                ],
+                "savingThrows": {
+                    "fortitude": 1,
+                    "reflex": 2,
+                    "will": 2
+                },
+                "skillFeatLevels": {
+                    "value": [
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "skillIncreaseLevels": {
+                    "value": [
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        14,
+                        15,
+                        16,
+                        17,
+                        18,
+                        19,
+                        20
+                    ]
+                },
+                "slug": "envoy",
+                "spellcasting": 0,
+                "trainedSkills": {
+                    "additional": 6,
+                    "value": []
+                },
+                "traits": {
+                    "rarity": "common"
+                }
+            },
+            "type": "class"
+        },
+        {
+            "_id": "xxwqs14Q8b67swo0",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.class-features.Item.f9dNcZi9kzbaGl8M"
+            },
+            "flags": {
+                "sf2e": {
+                    "itemGrants": {
+                        "getEm": {
+                            "id": "w91sv7wYvWZmkLSD",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "mOIMElPxY4JeuDAW",
+            "img": "systems/sf2e/icons/abilities/orange-finger-beam.webp",
+            "name": "Envoy Directives",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Envoys encourage their allies with directives. A directive is an order that benefits allies who follow it. Envoy directives include a way for the envoy to lead by example by spending more actions for increased effects. Directives have the auditory or visual trait depending on how you inspire your allies.</p>\n<p>You begin with one envoy directive. You can learn more directives through the envoy class, envoy class feats, and your leadership style. You can issue one directive a round. Unless otherwise stated, an envoy's directive and the benefits it grants last until the beginning of your next turn.</p>\n<p>You gain the @UUID[Compendium.sf2e.actions.Item.Get 'Em!] envoy directive.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "u0WNmpn0FeNkjAB3",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "flag": "getEm",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.sf2e.actions.Item.Get 'Em!"
+                    }
+                ],
+                "slug": "envoy-directives",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "envoy"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "HMfqTF7o78C1JJQh",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.class-features.Item.Fni0F4rfaG08nO1Y"
+            },
+            "flags": {
+                "sf2e": {
+                    "itemGrants": {
+                        "inTheSpotlight": {
+                            "id": "yVFiYhR4v3IOJeUt",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "mOIMElPxY4JeuDAW",
+            "img": "systems/sf2e/icons/abilities/blue-alien-face.webp",
+            "name": "Leadership Style",
+            "sort": 100,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Whether it comes naturally, or you trained for it, you've developed a personal style of leading others. At 1st level, select a leadership style. You become trained in the indicated leadership skill, you gain the indicated leadership perk, and know the associated leadership directive.</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.From the Front]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.From the Shadows]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Guns Blazing]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.In the Spotlight]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Infosphere Director]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Through Desperate Times]</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "u0WNmpn0FeNkjAB3",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:envoy-leadership-style"
+                            ]
+                        },
+                        "flag": "style",
+                        "key": "ChoiceSet",
+                        "prompt": "SF2E.SpecificRule.Envoy.LeadershipStyle.Prompt",
+                        "selection": "Compendium.sf2e.class-features.Item.In the Spotlight"
+                    },
+                    {
+                        "flag": "inTheSpotlight",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.system.rulesSelections.style}"
+                    }
+                ],
+                "slug": "leadership-style",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "envoy"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "w91sv7wYvWZmkLSD",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.actions.Item.cmCtfURzpbzkxWsy"
+            },
+            "flags": {
+                "sf2e": {
+                    "grantedBy": {
+                        "id": "xxwqs14Q8b67swo0",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "0U62F6g8AM76yfbe",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Get 'Em!",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>You single out an enemy for you and your allies to focus your attacks on. Select an enemy within 60 feet that you can see. You and your allies gain a +1 status bonus to attacks against that target until the beginning of your next turn.</p>\n<p><strong>Lead by Example</strong> If you used two actions, Strike the target. You gain a status bonus to the damage roll equal to your Charisma modifier. Regardless of whether the Strike hits, you and your allies gain a +1 status bonus to damage on subsequent Strikes made against the enemy until the start of your next turn. Increase the damage by 1 at 5th, 10th, 15th, and 20th levels.</p>\n<p>@UUID[Compendium.sf2e.feat-effects.Item.Effect: Get 'Em!]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "get-em",
+                "traits": {
+                    "value": [
+                        "directive",
+                        "envoy"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yVFiYhR4v3IOJeUt",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.class-features.Item.RIUhD5eldHzBsFIe"
+            },
+            "flags": {
+                "sf2e": {
+                    "grantedBy": {
+                        "id": "HMfqTF7o78C1JJQh",
+                        "onDelete": "cascade"
+                    },
+                    "itemGrants": {
+                        "dancePartner": {
+                            "id": "xEvHNY5bGxp9pzVF",
+                            "onDelete": "detach"
+                        },
+                        "impressivePerformance": {
+                            "id": "8dKIA2xitfcXt5fv",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "0MBmY0ZAzJKrKcYj",
+            "img": "systems/sf2e/icons/abilities/yellow-hand.webp",
+            "name": "In the Spotlight",
+            "sort": 200,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Whether through conversation, clever lies, dazzling performances, or threats, you rely on charm and cunning to influence others. You crave being in the spotlight.</p>\n<p><strong>Leadership Skill</strong> Performance</p>\n<p><strong>Leadership Perk</strong> You gain @UUID[Compendium.sf2e.feats.Item.Impressive Performance] as a bonus feat.</p>\n<p><strong>Leadership Directive</strong> @UUID[Compendium.sf2e.actions.Item.Dance Partner!]</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "flag": "dancePartner",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.sf2e.actions.Item.Dance Partner!"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.skills.performance.rank",
+                        "value": 1
+                    },
+                    {
+                        "flag": "impressivePerformance",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.sf2e.feats.Item.Impressive Performance"
+                    }
+                ],
+                "slug": "in-the-spotlight",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "otherTags": [
+                        "envoy-leadership-style"
+                    ],
+                    "rarity": "common",
+                    "value": [
+                        "envoy"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "xEvHNY5bGxp9pzVF",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.actions.Item.rlhZC1VPq3XixagS"
+            },
+            "flags": {
+                "sf2e": {
+                    "grantedBy": {
+                        "id": "yVFiYhR4v3IOJeUt",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "0U62F6g8AM76yfbe",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Dance Partner!",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Every good performer needs an accompanying act. Nominate yourself and an ally within 10 feet. Stride or Step, then your ally can Stride or Step as a reaction as long as they end the same distance or closer to you than they started.</p>\n<p><strong>Lead by Example</strong> If you used two actions, enemies are @UUID[Compendium.sf2e.conditions.Item.Off-Guard] to your Strikes if within reach of your selected ally, and vice-versa, until the start of your next turn. Your ally becomes @UUID[Compendium.sf2e.conditions.Item.Concealed] against ranged Strikes made by creatures within 10 feet until the start of your next turn or the ally moves, whichever comes first.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "dance-partner",
+                "traits": {
+                    "value": [
+                        "directive",
+                        "envoy",
+                        "traversal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8dKIA2xitfcXt5fv",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.xqAdXRd2gSQcqp5E"
+            },
+            "flags": {
+                "sf2e": {
+                    "grantedBy": {
+                        "id": "yVFiYhR4v3IOJeUt",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "admZiPs6ML6NgwMt",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Impressive Performance",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>Your performances inspire admiration and win you fans. You can [[/act make-an-impression skill=performance]] using Performance instead of Diplomacy. If you spend at least 10 minutes performing in front of an audience, you can Make an Impression targeting up to 10 members of the audience who were there for the whole performance, without taking the normal penalty. The number of targets increases to 20 for a 1-hour performance and 50 for a 2-hour performance.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Performance"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "impressive-performance",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "gwEPQcQTD8oManwH",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.class-features.Item.9nO9EkhE1TiS0Yh6"
+            },
+            "folder": "mOIMElPxY4JeuDAW",
+            "img": "systems/sf2e/icons/abilities/blue-circuit-board.webp",
+            "name": "Adaptive Talent",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You're quick thinking and adaptable, capable of picking up new skills and talents with little practice or training. During your daily preparations, select one skill feat that you meet the prerequisites for. You gain this skill feat until you prepare again. Since you have this feat temporarily, you can't use it as a prerequisite for a permanent character option. You can use this for effects that temporarily give you access to other abilities, such as taking @UUID[Compendium.sf2e.feats.Item.Multilingual] to temporarily learn a new language.</p>\n<p>As your envoy level increases, so does your ability to adapt to new situations. At 9th level and 15th level, increase the number of skill feats you gain this way by 1. You can use feats that you temporarily gain through adaptive talent as a prerequisite for other feats that you temporarily gain through adaptive talent, but you still can't use them as prerequisites for permanent character options.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "u0WNmpn0FeNkjAB3",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "adaptive-talent",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "envoy"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "mBViMMLvhD3bbMZM",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.class-features.Item.R478sqSSEwGEzfML"
+            },
+            "folder": "mOIMElPxY4JeuDAW",
+            "img": "systems/sf2e/icons/abilities/blue-military-organization-emblem.webp",
+            "name": "Wise to the Game",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Using your words to influence others is what you do, and you easily recognize when others attempt to use the same tactics against you. You gain a +1 status bonus to your Perception DC against attempts to @UUID[Compendium.sf2e.actions.Item.Feint] or @UUID[Compendium.sf2e.actions.Item.Lie] to you and attempts to divert your attention with @UUID[Compendium.sf2e.actions.Item.Create a Diversion], and a +1 status bonus to your Will DC against emotion effects.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "u0WNmpn0FeNkjAB3",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:lie",
+                                    "action:feint",
+                                    "action:create-a-diversion"
+                                ]
+                            }
+                        ],
+                        "selector": "perception-dc",
+                        "slug": "wise-to-the-game-perception",
+                        "type": "status",
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:emotion"
+                        ],
+                        "selector": "will-dc",
+                        "slug": "wise-to-the-game-will",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "wise-to-the-game",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "envoy"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "Ha6G6FSIK3tK9A5f",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.3iiARSS25VacP3Nc"
+            },
+            "flags": {
+                "sf2e": {
+                    "itemGrants": {
+                        "additionalLore": {
+                            "id": "wroQi8y8aG35sFlu",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "1vMsI0rRn60oXnii",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Ancestral Skills",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>You have a keen interest in the origins of your people. You become trained in the skills listed in your ancestry's skills entry. If you would automatically become trained in one of those skills (from your background or class, for example), you instead become trained in a skill of your choice.</p>\n<p>You also gain the @UUID[Compendium.sf2e.feats.Item.Additional Lore] general feat for the Lore skill associated with your ancestry (for example, androids have Android Lore and ysoki have Ysoki Lore).</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Galactic Ancestries"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.skills.{actor|flags.system.standardizedAncestryFeats.ancestralSkills.skillOne}.rank",
+                        "predicate": [
+                            {
+                                "not": "no-ancestral-skills"
+                            }
+                        ],
+                        "value": 1
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.skills.{actor|flags.system.standardizedAncestryFeats.ancestralSkills.skillTwo}.rank",
+                        "predicate": [
+                            {
+                                "not": "no-ancestral-skills"
+                            }
+                        ],
+                        "value": 1
+                    },
+                    {
+                        "flag": "additionalLore",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.sf2e.feats.Item.Additional Lore"
+                    }
+                ],
+                "slug": "ancestral-skills",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "wroQi8y8aG35sFlu",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.BocFD2KV0qgUC76x"
+            },
+            "flags": {
+                "sf2e": {
+                    "grantedBy": {
+                        "id": "Ha6G6FSIK3tK9A5f",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "admZiPs6ML6NgwMt",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Additional Lore",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>Your knowledge has expanded to encompass a new field. Choose a Lore skill subcategory. You become trained in it. At 3rd, 7th, and 15th levels, you gain an additional skill increase you can apply only to the chosen Lore subcategory.</p><hr /><p><strong>Special</strong> You can select this feat more than once. Each time you must select a new subcategory of Lore and you gain the additional skill increases to that subcategory for the listed levels.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "maxTakable": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "additional-lore",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "gBEoLTVaWqgvGChb",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.iHzfiebxLxN3ogpH"
+            },
+            "folder": "my6PDmYHQ4rBMvj1",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Size Up",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p>You spend 1 minute observing a specific individual, 10 minutes researching a specific individual on the infosphere, or 1 hour networking and gathering information. This subject is your asset. If you assess your asset via observation, you don't need to know their identity, but if you assess your asset via research or networking, you must know their identity, which requires at least two relevant pieces of information about them. Examples of relevant information could include their name, their place of origin, their current residence, the name of their parent or significant other, their employer, or their organizational affiliation. The GM determines what constitutes relevant information for this purpose, based on the asset you've selected.</p>\n<p>You gain a +1 circumstance bonus to Deception, Diplomacy, Intimidation, and Perception checks against or in relation to your asset, and a +1 circumstance bonus to attempts to @UUID[Compendium.sf2e.actions.Item.Recall Knowledge] about your asset.</p>\n<p>You gain the benefits of the 2-action @UUID[Compendium.sf2e.actions.Item.Get 'Em!] when using 1-action Get 'Em! on an asset.</p>\n<p>You can maintain a number of assets equal to your Charisma modifier. If you Size Up other assets after that, your new asset replaces a previous one.</p>\n<p>@UUID[Compendium.sf2e.feat-effects.Item.Effect: Size Up]</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "class-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "size-up",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "envoy",
+                        "exploration"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "Lua4VPKiaTNj4JYy",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.bTiv9Yd6WJR6vFys"
+            },
+            "folder": "xSwkHhqwRxO541cr",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Change of Plans",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The target of your @UUID[Compendium.sf2e.actions.Item.Get 'Em!] is reduced to 0 Hit Points.</p>\n<p><strong>Requirements</strong> You used Get 'Em! against a creature on your last turn.</p><hr /><p>When the target you directed your allies to take down falls @UUID[Compendium.sf2e.conditions.Item.Unconscious] or is destroyed, you quickly direct them at another target. You use Get 'Em! against a new target following all the normal targeting restrictions for Get 'Em! You don't count as leading by example against this new target.</p>"
+                },
+                "level": {
+                    "taken": 2,
+                    "value": 2
+                },
+                "location": "class-2",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "change-of-plans",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "envoy"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "NNBmjp07pXUBXk7b",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.zdycsO9Z0wHBZ17k"
+            },
+            "folder": "admZiPs6ML6NgwMt",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Intimidating Shot",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>You attempt to @UUID[Compendium.sf2e.actions.Item.Demoralize] a foe with your ranged weapon by firing it into the air, using ammo equal to the weapon's expend and the weapon's maximum range rather than the usual range of 30 feet. This check doesn't take a –4 circumstance penalty if the target doesn't share a language with you.</p>"
+                },
+                "level": {
+                    "taken": 2,
+                    "value": 1
+                },
+                "location": "skill-2",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Intimidation"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "intimidating-shot",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "VLi07pHHQBD4JxrD",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.2kwXTUjYYhoAGySr"
+            },
+            "folder": "952e2Tn00KbJ2FY3",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Incredible Initiative",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p>You react more quickly than others can. You gain a +2 circumstance bonus to initiative rolls.</p>"
+                },
+                "level": {
+                    "taken": 3,
+                    "value": 1
+                },
+                "location": "general-3",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "initiative",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "incredible-initiative",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "Xa6wL6kWAWnzTM5e",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.P9HCz0uR6xPHuw72"
+            },
+            "folder": "admZiPs6ML6NgwMt",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Multilingual",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>You easily pick up new languages. You learn two new languages, chosen from common languages, uncommon languages, and any others you have access to. You learn an additional language if you are or become a master in Society and again if you are or become legendary.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat multiple times. Each time, you learn additional languages.</p>"
+                },
+                "level": {
+                    "taken": 3,
+                    "value": 1
+                },
+                "location": null,
+                "maxTakable": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Society"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.build.languages.max",
+                        "value": "ternary(eq(@actor.system.skills.society.rank, 4), 2, ternary(eq(@actor.system.skills.society.rank, 3), 1, 0))"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.system.multilingualTaken",
+                        "priority": 19,
+                        "value": 0
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "flags.system.multilingualTaken",
+                        "value": 1
+                    }
+                ],
+                "slug": "multilingual",
+                "subfeatures": {
+                    "languages": {
+                        "granted": [],
+                        "slots": 2
+                    },
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "5lS8nj20P9r9uzsU",
+            "img": "systems/sf2e/icons/default-icons/lore.svg",
+            "name": "Castrovel Lore",
+            "sort": 0,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 0
+                },
+                "proficient": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "xzCIqqfWqQj6sGgb",
+            "img": "systems/sf2e/icons/default-icons/lore.svg",
+            "name": "Elf Lore",
+            "sort": 0,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 0
+                },
+                "proficient": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "cw8LepFOy70LLR9I",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.JgVv4m4sh9faVSDD"
+            },
+            "folder": "aGUZspQIi3yNxIOu",
+            "img": "systems/sf2e/icons/equipment/other/syringe.webp",
+            "name": "Celebrity Serum",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "other",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> (manipulate)</p><hr /><p>This fizzy pink concoction is mildly intoxicating and grants a +1 item bonus to Performance checks for 1 hour.</p>\n<p>@UUID[Compendium.sf2e.equipment-effects.Item.Effect: Celebrity Serum]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 30
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "celebrity-serum",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "serum"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "XvnI7t310zPzpal0",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.9gKyKIMhT4AnUwr5"
+            },
+            "folder": "cJoNKs2FMCJkyEDK",
+            "img": "systems/sf2e/icons/equipment/other/flashlight-yellow.webp",
+            "name": "Flashlight (Tactical)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>A flashlight sheds bright light. A tactical flashlight emits its light in a 60-foot radius (and dim light in the next 60 feet) and is equipped with filters, which you can close to block or dim the light. Activating the filters takes an Interact action.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 15
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "label": "SF2E.SpecificRule.Equipment.Flashlight.Lit",
+                        "option": "flashlight-lit",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "flashlight-lit"
+                        ],
+                        "value": {
+                            "alpha": 0.1,
+                            "animation": {},
+                            "bright": 60,
+                            "color": "#dfeaf1",
+                            "dim": 120,
+                            "luminosity": 0.3
+                        }
+                    }
+                ],
+                "size": "med",
+                "slug": "flashlight-tactical",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "tech"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "3VR2CtoZCi3DCz7b",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.ckRc9E6AmJRalfV4"
+            },
+            "folder": "aGUZspQIi3yNxIOu",
+            "img": "systems/sf2e/icons/equipment/other/blue-containment-vessel.webp",
+            "name": "Hypopen (Commercial)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "other",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>This tiny cylinder contains specialized nanites that either</p><ul><li>Remove the @UUID[Compendium.sf2e.conditions.Item.Fatigued] condition</li><li>Decrease the value of the @UUID[Compendium.sf2e.conditions.Item.Clumsy] or @UUID[Compendium.sf2e.conditions.Item.Sickened] condition by 1.</li></ul>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 1,
+                    "value": {
+                        "sp": 40
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "hypopen-commercial",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "nanite",
+                        "tech"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "BU2eiF847cEgPEPd",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.EnufuFPBa1U2pPDn"
+            },
+            "folder": "V89RPpe7fyCFC6NS",
+            "img": "systems/sf2e/icons/equipment/weapons/heavy-gun-long.webp",
+            "name": "Machine Gun",
+            "sort": 0,
+            "system": {
+                "ammo": {
+                    "baseType": "projectile-ammo",
+                    "builtIn": false,
+                    "capacity": 20
+                },
+                "baseItem": "machine-gun",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 2
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d8"
+                },
+                "description": {
+                    "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>These proven and reliable automatic weapons are capable of firing in short bursts or completely emptying their magazines to clear a battlefield.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "expend": 1,
+                "grade": "tactical",
+                "group": "projectile",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 80
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "range": 40,
+                "reload": {
+                    "value": "2"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "machine-gun",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "analog",
+                        "automatic"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "IABNBF1z6OEPMrGr",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.JSS89QXZggfF3OHJ"
+            },
+            "folder": "F6h7fO0Z7cgQBVRD",
+            "img": "systems/sf2e/icons/equipment/weapons/red-rounds.webp",
+            "name": "Projectile Ammo",
+            "sort": 0,
+            "system": {
+                "baseItem": "projectile-ammo",
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "craftableAs": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 40,
+                "rules": [],
+                "size": "med",
+                "slug": "projectile-ammo",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable"
+                    ]
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "ammo"
+        },
+        {
+            "_id": "7dAQqiWeU52opTQI",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.B0FiYMxy7iDiHh48"
+            },
+            "folder": "aGUZspQIi3yNxIOu",
+            "img": "systems/sf2e/icons/equipment/other/med-kit.webp",
+            "name": "Medpatch (Commercial)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "other",
+                "containerId": null,
+                "damage": {
+                    "formula": "1d6",
+                    "kind": "healing",
+                    "type": "untyped"
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> (manipulate)</p><hr /><p>Medpatches accelerate the body's natural healing. You regain @Damage[(1d6)[healing]] Hit Points and gain a +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.sf2e.equipment-effects.Item.Effect: Medpatch]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 0,
+                        "gp": 0,
+                        "pp": 0,
+                        "sp": 30
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "medpatch-commercial",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "healing",
+                        "tech"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "vmm0ZAMbnWJavbyi",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.CtWyIgI76ku9Fn8x"
+            },
+            "folder": "jjcF0lfrc3ZIoKv1",
+            "img": "icons/equipment/chest/breastplate-banded-steel-studded.webp",
+            "name": "Microcord Armor",
+            "sort": 0,
+            "system": {
+                "acBonus": 2,
+                "baseItem": "microcord-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>This light armor is woven from ultralight fibers that flex with a wearer's movements but turn hard as steel on impact.</p>"
+                },
+                "dexCap": 3,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "grade": "commercial",
+                "group": "polymer",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 25
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "microcord-armor",
+                "speedPenalty": 0,
+                "strength": 1,
+                "subitems": [
+                    {
+                        "_id": "2Tn2HjL5GaWyM2ps",
+                        "_stats": {
+                            "compendiumSource": "Compendium.sf2e.equipment.Item.5ar8OM7cYywnfTjD"
+                        },
+                        "folder": "cTmXSS0L1MClVGP3",
+                        "img": "systems/sf2e/icons/abilities/cerulean-circular-sign.webp",
+                        "name": "Glamer Projector",
+                        "sort": 0,
+                        "system": {
+                            "baseItem": null,
+                            "bulk": {
+                                "value": 0.1
+                            },
+                            "containerId": null,
+                            "description": {
+                                "value": "<p>Adjustable rings project magical holograms onto your armor, changing its appearance to match your personal style and suit any occasion. Glamer projectors come programmed with preset options, including casual, corporate, and fashion. You can customize your glamer projector using a computer, like the one in your comm unit.</p><hr /><p><strong>Activate—Glamerize!</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<p><strong>Effect</strong> You instantly change the appearance of your armor to any set of normal clothes or any other type of light or heavy armor. This upgrade is capable of changing only the appearance of your armor, not yourself or the rest of your equipment. You can copy the look of any type of clothing, but you don't gain any item bonuses provided by special types of clothing, such as luxury fashion attire. Only a creature that's benefiting from truesight or a similar effect can attempt to disbelieve this illusion, opposed by your class DC.</p>"
+                            },
+                            "equipped": {
+                                "carryType": "installed",
+                                "handsHeld": 0
+                            },
+                            "hardness": 0,
+                            "hp": {
+                                "max": 0,
+                                "value": 0
+                            },
+                            "level": {
+                                "value": 1
+                            },
+                            "material": {
+                                "grade": null,
+                                "type": null
+                            },
+                            "price": {
+                                "value": {
+                                    "sp": 100
+                                }
+                            },
+                            "publication": {
+                                "license": "ORC",
+                                "remaster": true,
+                                "title": "Starfinder Player Core"
+                            },
+                            "quantity": 1,
+                            "rules": [],
+                            "size": "med",
+                            "slug": "glamer-projector",
+                            "traits": {
+                                "rarity": "common",
+                                "value": [
+                                    "magical",
+                                    "tech"
+                                ]
+                            },
+                            "usage": {
+                                "value": "installed-in-armor"
+                            }
+                        },
+                        "type": "equipment"
+                    }
+                ],
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "tech"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "v0LYiX5jWPq4IaMW",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.z6gMut93BGlGbvz1"
+            },
+            "folder": "cJoNKs2FMCJkyEDK",
+            "img": "systems/sf2e/icons/equipment/other/blue-gizmo-small.webp",
+            "name": "Microphone",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This cordless handheld device records and transmits audio, typically to a speaker or computer.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 8
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "microphone",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "tech"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "SoSeG6FFw8fvKvBz",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.9huJDWkgN0zK5jNw"
+            },
+            "folder": "cJoNKs2FMCJkyEDK",
+            "img": "systems/sf2e/icons/equipment/other/control-panel-large.webp",
+            "name": "Portable Amp",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This small device is typically synced up to an instrument, microphone, or the audio playback on a datapad. It amplifies the audio volume, reducing the DC of Perception checks to hear the audio by 5.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 50
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "portable-amp",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "tech"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "fwuTw9xPVy4TAlcz",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.vpjJYIgYZab0UZFa"
+            },
+            "folder": "V89RPpe7fyCFC6NS",
+            "img": "systems/sf2e/icons/equipment/weapons/metal-sci-fi-gun.webp",
+            "name": "Pulsecaster Pistol",
+            "sort": 0,
+            "system": {
+                "ammo": {
+                    "baseType": "battery",
+                    "builtIn": false,
+                    "capacity": 1
+                },
+                "baseItem": "pulsecaster-pistol",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "electricity",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>This imposing pistol fires a jolt of paralyzing electricity from its barrel. Its remaining charges are visible as glowing lines of energy radiating down its body. Pulsecaster pistols are often used by bounty hunters and law enforcement who need to keep their targets alive.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "expend": 2,
+                "grade": "commercial",
+                "group": "shock",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 30
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "range": 30,
+                "reload": {
+                    "value": "1"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "pulsecaster-pistol",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "nonlethal",
+                        "tech"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "wfI4jctX0cCsmfiM",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.xBlfbu0fUmV6ucqR"
+            },
+            "folder": "aGUZspQIi3yNxIOu",
+            "img": "systems/sf2e/icons/equipment/other/syringe.webp",
+            "name": "Sharpshooter Serum (Commercial)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "other",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> (manipulate)</p><hr /><p>This smoky orange liquid enhances your senses and reduces the circumstance bonus to AC your targets gain from cover by 1 against your ranged Strikes for 5 minutes.</p>\n<p>@UUID[Compendium.sf2e.equipment-effects.Item.Effect: Sharpshooter Serum]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 4
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 1,
+                    "value": {
+                        "sp": 140
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "sharpshooter-serum-commercial",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "serum"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "rZgsGHWbANlXXDB8",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.wbKiBgYY120RyoGg"
+            },
+            "folder": "V89RPpe7fyCFC6NS",
+            "img": "systems/sf2e/icons/equipment/weapons/starknife.webp",
+            "name": "Shooting Starknife",
+            "sort": 0,
+            "system": {
+                "ammo": null,
+                "baseItem": "shooting-starknife",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d4"
+                },
+                "description": {
+                    "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>This traditional star-shaped blade design of lost Golarion is often forged from reinforced carbon steel and treated with chemicals that create an iridescent sheen. When properly balanced and honed, a shooting starknife sings as it slices through the air.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "expend": null,
+                "grade": "commercial",
+                "group": "knife",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 17
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": null
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "shooting-starknife",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "analog",
+                        "deadly-d6",
+                        "finesse",
+                        "thrown-20",
+                        "versatile-s"
+                    ]
+                },
+                "usage": {
+                    "canBeAmmo": false,
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "ccZUVEk0Hq0qP9Yu",
+            "img": "icons/sundries/gaming/playing-cards-grey.webp",
+            "name": "Credstick",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "credstick",
+                "containerId": null,
+                "description": {
+                    "value": "<p>Most people in Starfinder keep their wealth on a protected item known as a credstick. These devices are often flat and roughly the size of a human finger. They range in dimensions and quality, but at the end of the day, they're just a means of conveniently carrying and spending money. Usage of these devices is determined by the owner, and a credstick can accept or spend funds with as simple an action as tapping it near a suitable banking device. When more rigorous security is necessary, they can require audio or biometric imprints in order to activate. Some advanced credsticks even have a magical component that might require a mental password or the recitation of a specific spell to access stored funds.</p>\n<p>Credsticks aren't gateways to the entirety of one's wealth, and larger stores of credits are often kept secured in banks, personal vaults, or secure databases. Instead, a credstick is a safe and anonymous means of moving credits around without being traced. Adventurers and common citizens alike often keep a credstick on their person to handle any purchases they might be called upon to make, while also only keeping just enough credits on them that losing the credstick wouldn't result in bankruptcy.</p>\n<p>Individuals in the Pact Worlds often carry credsticks, and other civilizations that interact with the Pact often turn local funds into credits and thus carry them to spend their converted currency. Sometimes a person might carry several credsticks, dedicating each one to a different use, or simply trading the stick away if they want to make a purchase of a predefined amount. If ever the number of credsticks on a person becomes too cumbersome, it's easy enough to move the funds between individual sticks and discard emptied sticks to save on space, however a credstick always has a negligible bulk.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 1,
+                    "value": {
+                        "sp": 38
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "credstick",
+                "temporary": false,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "cChtoJ77QtIv3ZVd",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.8oT6jfnuyUWVU5Nc"
+            },
+            "folder": "VGsfnIyGP1k7iP2r",
+            "img": "icons/commodities/biological/mouth-toothed-purple.webp",
+            "name": "Wildwise Graft",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This soft purple fungus attaches to your vocal cords and extends fine filaments into portions of your brain. You can ask questions of, receive answers from, and use the Diplomacy skill with animals, plants, and fungi. This communication is rudimentary and elicits basic responses, such as \"hungry,\" \"over there,\" or \"frightened.\"</p>"
+                },
+                "equipped": {
+                    "carryType": "implanted",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 2
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 250
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "wildwise-graft",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "biotech"
+                    ]
+                },
+                "usage": {
+                    "value": "implanted"
+                }
+            },
+            "type": "equipment"
+        }
+    ],
+    "name": "Kahalara",
+    "system": {
+        "abilities": null,
+        "attributes": {
+            "hp": {
+                "temp": 0,
+                "value": 33
+            }
+        },
+        "build": {
+            "attributes": {
+                "boosts": {
+                    "1": [
+                        "con",
+                        "str",
+                        "cha",
+                        "dex"
+                    ]
+                }
+            }
+        },
+        "details": {
+            "age": {
+                "value": ""
+            },
+            "biography": {
+                "allies": "",
+                "anathema": [],
+                "appearance": "",
+                "attitude": "",
+                "backstory": "",
+                "beliefs": "",
+                "birthPlace": "",
+                "campaignNotes": "",
+                "catchphrases": "",
+                "dislikes": "",
+                "edicts": [],
+                "enemies": "",
+                "likes": "",
+                "organizations": ""
+            },
+            "ethnicity": {
+                "value": ""
+            },
+            "gender": {
+                "value": "Female"
+            },
+            "height": {
+                "value": ""
+            },
+            "keyability": {
+                "value": "str"
+            },
+            "languages": {
+                "details": "",
+                "value": [
+                    "raxi",
+                    "triaxian"
+                ]
+            },
+            "level": {
+                "value": 3
+            },
+            "nationality": {
+                "value": ""
+            },
+            "weight": {
+                "value": ""
+            },
+            "xp": {
+                "max": 1000,
+                "min": 0,
+                "value": 0
+            }
+        },
+        "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
+        "pfs": {
+            "characterNumber": null,
+            "currentFaction": "EA",
+            "levelBump": false,
+            "playerNumber": null,
+            "reputation": {
+                "EA": null,
+                "GA": null,
+                "HH": null,
+                "RO": null,
+                "VS": null,
+                "VW": null
+            },
+            "school": null
+        },
+        "resources": {
+            "heroPoints": {
+                "max": 3,
+                "value": 1
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "rank": 1
+            },
+            "athletics": {
+                "rank": 1
+            },
+            "computers": {
+                "rank": 1
+            },
+            "intimidation": {
+                "rank": 1
+            },
+            "performance": {
+                "rank": 2
+            },
+            "society": {
+                "rank": 1
+            },
+            "stealth": {
+                "rank": 1
+            }
+        }
+    },
+    "type": "character"
+}

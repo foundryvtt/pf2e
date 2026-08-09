@@ -1,0 +1,365 @@
+{
+    "_id": "7OHtBOjcVikNSo97",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "0t9SvAEgFYIzqh9E",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "8Z5YhVIwiFmDoZsn": {
+                        "damage": "3d10+17",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "WnNmmG94sRI2qaAx",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Accessory",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "ze7YuUN5rMMpTzAe": {
+                        "damage": "3d10+17",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": "<p>Damage type depends on object thrown</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 20,
+                    "max": null
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "accessory",
+                        "selection": "bludgeoning",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitBludgeoning",
+                                "value": "bludgeoning"
+                            },
+                            {
+                                "label": "PF2E.TraitPiercing",
+                                "value": "piercing"
+                            },
+                            {
+                                "label": "PF2E.TraitSlashing",
+                                "value": "slashing"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "{item|flags.system.rulesSelections.accessory}"
+                        },
+                        "selector": "{item|id}-damage"
+                    }
+                ],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "magical",
+                        "thrown"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "3XQkhOGtUD3EhhF4",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Dance Partner",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An adjacent creature whom the mannequin dealt damage to with a fist Strike since the beginning of the mannequin's last turn attempts to move away from the mannequin</p><hr /><p><strong>Effect</strong> The mannequin dances after the triggering creature, either Climbing or Striding, following the creature and staying in reach throughout its movement until the creature stops moving or the mannequin has moved up to its full Speed, whichever happens first. The mannequin gains a +2 circumstance bonus to AC and Reflex saves against reactions triggered by its movement. If it critically succeeds at a Reflex save against a reaction triggered by its movement (or if the attacker critically fails its attack roll or check), the mannequin maneuvers the creature it's following so that the latter is exposed to the reaction; the attacker rerolls the attack roll or check against the followed creature or forces the followed creature to attempt a Reflex save against the reaction instead.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "dance-partner",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "dance-partner"
+                        ],
+                        "selector": [
+                            "ac",
+                            "reflex"
+                        ],
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0S5B0v4PS5xw3Uz1",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Accessorized",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The mannequin wears accessories (typically three) that it can Draw as a free action and use as thrown weapons. The type of damage varies by the accessory, such as slashing damage for a wide-brimmed hat, piercing for a stiletto-heeled shoe, or bludgeoning for a handbag.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vj3632N65vHGyhz1",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Murderous Mannequin",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 6
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 8
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 37
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 350,
+                "temp": 0,
+                "value": 350
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "electricity",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 20
+                    }
+                ],
+                "value": 30
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "common",
+                    "diabolic",
+                    "draconic",
+                    "elven",
+                    "empyrean",
+                    "fey",
+                    "jotun"
+                ]
+            },
+            "level": {
+                "value": 15
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hell's Destiny"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 26,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 29
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 27
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 23
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 26
+            },
+            "athletics": {
+                "base": 30
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "construct",
+                "mindless"
+            ]
+        }
+    },
+    "type": "npc"
+}

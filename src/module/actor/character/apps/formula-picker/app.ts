@@ -40,7 +40,7 @@ class FormulaPicker extends SvelteApplicationMixin<
 
     declare options: FormulaPickerConfiguration;
 
-    override root = Root;
+    protected root = Root;
 
     #resolve?: (value: PhysicalItemPF2e | null) => void;
 
@@ -144,6 +144,7 @@ class FormulaPicker extends SvelteApplicationMixin<
                                 level: f.item.level,
                                 rarity: f.item.rarity,
                                 traits: f.item.traitChatData(),
+                                updatedAt: f.item._stats.modifiedTime ?? undefined,
                             },
                             quantity: mode === "prepare" ? preparedQuantity : f.batchSize,
                             selected: preparedQuantity > 0,
@@ -159,19 +160,22 @@ class FormulaPicker extends SvelteApplicationMixin<
     }
 }
 
+interface FormulaPickerState {
+    name: string;
+    resource: ResourceData | null;
+    prompt: string;
+    sections: FormulaSection[];
+}
+
 interface FormulaPickerContext extends SvelteApplicationRenderContext {
+    foundryApp: FormulaPicker;
     actor: ActorPF2e;
     ability: CraftingAbility;
     mode: "craft" | "prepare";
     onSelect: (uuid: ItemUUID) => void;
     onDeselect: (uuid: ItemUUID) => void;
     searchEngine: MiniSearch<Pick<PhysicalItemPF2e, "id" | "name">>;
-    state: {
-        name: string;
-        resource: ResourceData | null;
-        prompt: string;
-        sections: FormulaSection[];
-    };
+    state: FormulaPickerState;
 }
 
 interface FormulaSection {
@@ -193,7 +197,9 @@ interface FormulaViewData {
     traits: TraitChatData[];
     level: number | null;
     rarity: Rarity | null;
+    /** When the item was last modified, keeping its expanded summary fresh */
+    updatedAt?: number;
 }
 
 export { FormulaPicker };
-export type { FormulaPickerContext };
+export type { FormulaPickerContext, FormulaPickerState };

@@ -10,9 +10,9 @@ export class Migration943UpdateSpeedPath extends MigrationBase {
     /** Delete legacy speed object from most (likely player-character) actors. */
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         if (source.type === "npc") return;
-        const attributes: (object & { speed?: unknown; "-=speed"?: null }) | undefined = source.system.attributes;
+        const attributes = source.system.attributes;
         if (R.isPlainObject(attributes) && "speed" in attributes && R.isPlainObject(attributes.speed)) {
-            attributes["-=speed"] = null;
+            attributes.speed = _del;
         }
     }
 

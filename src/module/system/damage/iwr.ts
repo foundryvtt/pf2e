@@ -261,9 +261,11 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             return instanceApplications;
         })
         .concat(
-            ...applyOnceWeaknesses.map(
-                (w): IWRApplication => ({ category: "weakness", type: w.typeLabel, adjustment: w.value }),
-            ),
+            ...applyOnceWeaknesses.map((w): IWRApplication => ({
+                category: "weakness",
+                type: w.typeLabel,
+                adjustment: w.value,
+            })),
         )
         .sort((a, b) => {
             if (a.category === b.category) return 0;

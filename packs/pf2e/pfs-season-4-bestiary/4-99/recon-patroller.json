@@ -12,6 +12,7 @@
             "name": "Club",
             "sort": 100000,
             "system": {
+                "ammo": null,
                 "baseItem": "club",
                 "bonus": {
                     "value": 0
@@ -38,6 +39,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "club",
                 "hardness": 0,
                 "hp": {
@@ -127,6 +129,7 @@
                     "invested": null
                 },
                 "expend": 1,
+                "grade": null,
                 "group": "bow",
                 "hardness": 0,
                 "hp": {
@@ -205,6 +208,7 @@
                     "inSlot": true,
                     "invested": null
                 },
+                "grade": null,
                 "group": null,
                 "hardness": 0,
                 "hp": {
@@ -324,8 +328,20 @@
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
                 "level": {
                     "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -452,10 +468,51 @@
             "type": "melee"
         },
         {
+            "_id": "l4ff669vsx9SAkWT",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Club",
+            "sort": 800000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "2qIx8OCjSqiTApJc": {
+                        "damage": "1d6+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "thrown-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
             "_id": "q8RnxJPpBW9f5Ie5",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Forager",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -497,7 +554,7 @@
             "_id": "SjfWr7t0YSZQdt8c",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Snare Crafting",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -527,7 +584,7 @@
             "_id": "rTeH6wIQdfQpy5CH",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Hunt Prey",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -647,7 +704,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": 25
+                "value": 30
             }
         },
         "details": {
@@ -676,7 +733,11 @@
         "perception": {
             "details": "",
             "mod": 9,
-            "senses": []
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
         },
         "resources": {},
         "saves": {

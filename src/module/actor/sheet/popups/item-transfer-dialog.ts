@@ -97,6 +97,10 @@ class ItemTransferDialog extends fa.api.DialogV2<ItemTransferConfiguration> {
             buttons.push({ type: "submit", icon, label, action: mode, callback });
         }
 
+        // Close the open dialog first to avoid colliding on the shared id; this cancels the prior request.
+        // TODO: re-target in place (no close) once this moves from DialogV2 to a full ApplicationV2.
+        await foundry.applications.instances.get("item-transfer-dialog")?.close();
+
         return super.wait(Object.assign(options, { item, mode, newStack, lockStack, content, buttons }));
     }
 
@@ -117,6 +121,11 @@ class ItemTransferDialog extends fa.api.DialogV2<ItemTransferConfiguration> {
         options: fa.api.HandlebarsRenderOptions,
     ): Promise<void> {
         await super._onRender(context, options);
+        // DialogV2 never attaches a change listener to its form, so wire one up manually to drive `_onChangeForm`.
+        this.element.querySelector("form")?.addEventListener("change", (event) => {
+            const formConfig = this.options.form;
+            if (formConfig) this._onChangeForm(formConfig, event);
+        });
         this.#renderPurchasePrice();
     }
 
@@ -131,7 +140,8 @@ class ItemTransferDialog extends fa.api.DialogV2<ItemTransferConfiguration> {
     #renderPurchasePrice(): void {
         const { mode, item } = this.options;
         if (mode !== "purchase") return;
-        const quantityInput = this.element.querySelector<fa.elements.HTMLRangePickerElement>("input[name=quantity]");
+        const quantityInput =
+            this.element.querySelector<fa.elements.HTMLRangePickerElement>("range-picker[name=quantity]");
         const purchaseButton = this.element.querySelector("button[data-action=purchase]");
         if (!quantityInput || !purchaseButton) return;
         const quantity = Math.clamp(Number(quantityInput.value) || 1, 1, item.quantity);

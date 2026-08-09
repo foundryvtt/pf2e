@@ -1,0 +1,65 @@
+{
+    "_id": "n0k48pnJWIl9kMem",
+    "folder": "tDN0u55fADXBlYBh",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Overwhelming Harm",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your ability to manipulate void energy has led you to the conclusion that more is always better. Whenever you cast the 3-action version of @UUID[Compendium.pf2e.spells-srd.Item.Harm], you can extend the area to a @Template[type:emanation|distance:60].</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Mastery of Life and Death"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "overwhelming-harm",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:cast:actions:3",
+                    "item:slug:harm",
+                    "overwhelming-harm"
+                ],
+                "property": "area-size",
+                "value": 60
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "necromancer"
+            ]
+        }
+    },
+    "type": "feat"
+}

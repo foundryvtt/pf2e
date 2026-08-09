@@ -1,0 +1,64 @@
+{
+    "_id": "x8PD5easD2GdXkbh",
+    "img": "icons/skills/wounds/blood-spurt-spray-red.webp",
+    "name": "Effect: Sanguine Evasion",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Sanguine Evasion]</p>\n<p>You lose any item bonus to your AC, gain resistance 8 to physical damage, immunity to precision damage, and a fly Speed equal to your land Speed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens High Seas"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "physical",
+                "value": 8
+            },
+            {
+                "key": "Immunity",
+                "type": "precision"
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "bonus:type:item"
+                ],
+                "selector": "ac",
+                "suppress": true
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "feat:sanguine-evasion"
+                ],
+                "selector": "fly",
+                "slug": "sanguine-evasion-fly-speed",
+                "value": "@actor.system.movement.speeds.land.value"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

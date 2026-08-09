@@ -1,0 +1,80 @@
+{
+    "_id": "cKWwz7IvcwLxHhGF",
+    "folder": "BzhyIRBW6UKtg6oG",
+    "img": "systems/sf2e/icons/default-icons/background.svg",
+    "name": "Starfinder Hopeful",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "dex",
+                    "str"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You're a Starfinder megafan turned new recruit who's training at the Lorespire Complex and you're working hard to prepare for your final exam, the Commencement! You grew up watching Starfinder vidshows and playing Starfinder vidgames, you're a faithful subscriber to the Starfinder Chronicles podcast, and you obsessively follow news of the Society's exploits. You consider Starfinders celebrities and hope to meet all your favorites!</p>\n<p>Choose two attribute boosts. One must be to <strong>Strength</strong> or <strong>Dexterity</strong>, and one is a free attribute boost.</p>\n<p>You're trained in your choice of either the Acrobatics or the Athletics skill, and the Starfinder Society Lore skill. If you choose Acrobatics, you gain the @UUID[Compendium.sf2e.feats.Item.Steady Balance] skill feat. If you choose Athletics, you gain the @UUID[Compendium.sf2e.feats.Item.Combat Climber] skill feat.</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Beyond the Blood Door Player's Guide"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Acrobatics",
+                        "value": {
+                            "feat": "Compendium.sf2e.feats.Item.Steady Balance",
+                            "skill": "acrobatics"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Athletics",
+                        "value": {
+                            "feat": "Compendium.sf2e.feats.Item.Combat Climber",
+                            "skill": "athletics"
+                        }
+                    }
+                ],
+                "flag": "starfinderHopeful",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.system.rulesSelections.starfinderHopeful.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.system.rulesSelections.starfinderHopeful.feat}"
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Starfinder Society Lore"
+            ],
+            "value": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "background"
+}

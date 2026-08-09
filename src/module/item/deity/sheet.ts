@@ -93,7 +93,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
                     this.render(false);
                     return;
                 }
-                await this.item.update({ [`system.spells.{levelToRemove}`]: _del });
+                await this.item.update({ [`system.spells.${levelToRemove}`]: _del });
             });
         }
 

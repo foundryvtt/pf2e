@@ -48,17 +48,15 @@ export interface DataFieldOptions<
 
     /** The initial value of a field, or a function which assigns that initial value. */
     initial?: THasInitial extends true
-        ?
-              | TSourceProp
-              | ((data: Record<string, unknown>) => MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>)
-              | null
+        ? | TSourceProp
+          | ((data: Record<string, unknown>) => MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>)
+          | null
         : THasInitial extends false
           ? undefined
-          :
-                | TSourceProp
-                | ((data: Record<string, unknown>) => MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>)
-                | null
-                | undefined;
+          : | TSourceProp
+            | ((data: Record<string, unknown>) => MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>)
+            | null
+            | undefined;
 
     /** A localizable label displayed on forms which render this field. */
     label?: string;

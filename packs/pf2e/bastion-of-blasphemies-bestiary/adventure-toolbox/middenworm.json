@@ -1,0 +1,385 @@
+{
+    "_id": "8esAIVj311p8wg7K",
+    "folder": "tmfsq8P5yQkoYVZD",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "qsUxm87iJ0J8GGEa",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "midden-fever"
+                    ]
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "Gb31gqZ16H8M56LS": {
+                        "damage": "2d8+5",
+                        "damageType": "piercing"
+                    },
+                    "ucxqUt5udzBgrDSh": {
+                        "damage": "1d6",
+                        "damageType": "poison"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "dZNUajIJRkhCnmVf",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tails",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "TUlxQQJhS2MqtIGA": {
+                        "damage": "2d6+5",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "agile",
+                        "reach-10",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "hdMjrkTnu52467Lp",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.PqGX4Dgy9siZJitH"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Nauseating Presence",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. @Check[fortitude|dc:19|options:area-effect,inflicts:sickened,inflicts:slowed]</p>\n<p>As stench, but the aura affects a creature that sees, hears, or smells the middenworm.</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Stench]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 0,
+                        "slug": "stench",
+                        "traits": [
+                            "olfactory"
+                        ]
+                    }
+                ],
+                "slug": "stench",
+                "traits": {
+                    "value": [
+                        "aura"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "E2zhD00F7seawE3g",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Blood Drain",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> A @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], @UUID[Compendium.pf2e.conditionitems.Item.Restrained], @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], or willing creature is within reach of the middenworm's tails</p><hr /><p><strong>Effect</strong> The middenworm drains blood from the victim, which must succeed at a @Check[fortitude|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. If the creature is already drained, its drained value increases by 1 (to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 4}). The middenworm becomes @UUID[Compendium.pf2e.conditionitems.Item.Quickened] until the end of its next turn, and can use the extra action to Stride, Climb, Swim, or Strike.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "blood-drain",
+                        "toggleable": true
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "blood-drain"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PqapZUXfYvR22FK6",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Midden Fever",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:22|options:inflicts:enfeebled,inflicts:fatigued,inflicts:paralyzed]</p>\n<p><strong>Stage 1</strong> carrier with no ill effects (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 day)</p>\n<p><strong>Stage 4</strong> enfeebled 2 and @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] (1 day)</p>\n<p><strong>Stage 5</strong> @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] (1 day)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "disease"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dEZaFVyFPdvbxqS4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Middenworm",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 21
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 75,
+                "temp": 0,
+                "value": 75
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 5
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "poison",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 10
+                    },
+                    {
+                        "type": "swim",
+                        "value": 30
+                    }
+                ],
+                "value": 20
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 5
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Creepers of sewers and crawlers within urban dump sites, middenworms are dangerous scavengers. Eager to abandon their bottom-feeding ways, they're known to attack living foes, for fresh blood is their favorite repast. A middenworm is unpleasant to look at, listen to, or smell: a greasy maggot-like worm with hooked jaws at one end that peel back the folds of its body when it bites, and a nest of long, red, blood-drinking tendrils at the other.</p><h2>Giant Middenworms</h2><p>Normally, a middenworm doesn’t grow much larger than a dog, as this smaller size affords them more mobility in the sewers they frequent. Yet rarely, when middenworms have more room to grow in an area that’s particularly infused with toxic magic or fiendish influences, these creatures can grow to enormous size.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 13,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "tremorsense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 11
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 12,
+                "special": []
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "aberration",
+                "amphibious"
+            ]
+        }
+    },
+    "type": "npc"
+}

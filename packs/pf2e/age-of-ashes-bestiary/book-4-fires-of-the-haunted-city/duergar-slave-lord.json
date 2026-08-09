@@ -28,6 +28,9 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
                 "slots": {},
                 "slug": null,
                 "spelldc": {
@@ -37,7 +40,8 @@
                 },
                 "tradition": {
                     "value": "occult"
-                }
+                },
+                "traits": {}
             },
             "type": "spellcastingEntry"
         },
@@ -426,7 +430,7 @@
         {
             "_id": "zkT4pDnggpJK1FkR",
             "img": "systems/pf2e/icons/equipment/held-items/skeleton-key.webp",
-            "name": "Key to the Temple of All Gods",
+            "name": "Key",
             "sort": 700000,
             "system": {
                 "baseItem": null,
@@ -435,6 +439,7 @@
                 },
                 "containerId": null,
                 "description": {
+                    "gm": "<p>Key to the Temple of All Gods.</p>",
                     "value": ""
                 },
                 "equipped": {
@@ -629,10 +634,51 @@
             "type": "melee"
         },
         {
+            "_id": "3Px1gkPg0rUxmmXE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "+2 Status to All Saves vs. Magic",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": [
+                            "saving-throw"
+                        ],
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "dqiO3lCiS7jAYB3f",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Improved Evasion",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -657,6 +703,19 @@
                         },
                         "key": "AdjustDegreeOfSuccess",
                         "selector": "reflex"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "failure"
+                        ],
+                        "predicate": [
+                            "damaging-effect"
+                        ],
+                        "selector": "reflex",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
@@ -674,7 +733,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Light Blindness",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -704,7 +763,7 @@
             "_id": "bfmkqrbi3vcWnEQ8",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Hunt Prey",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -787,7 +846,7 @@
             "_id": "veIehkJyX5KsiJzn",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Hunter's Flurry",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "action"

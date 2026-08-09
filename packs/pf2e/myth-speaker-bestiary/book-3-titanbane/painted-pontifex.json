@@ -43,6 +43,7 @@
                     "invested": null
                 },
                 "expend": 1,
+                "grade": null,
                 "group": "sling",
                 "hardness": 0,
                 "hp": {
@@ -101,6 +102,7 @@
             "name": "Staff",
             "sort": 200000,
             "system": {
+                "ammo": null,
                 "baseItem": "staff",
                 "bonus": {
                     "value": 0
@@ -127,6 +129,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "club",
                 "hardness": 0,
                 "hp": {
@@ -195,8 +198,20 @@
                 "description": {
                     "value": "<p>These are small metal balls, typically either iron or lead, designed to be used as ammunition in slings.</p>"
                 },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
                 "level": {
                     "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -466,9 +481,6 @@
         },
         {
             "_id": "Gx4UM92EC7VaNbag",
-            "_stats": {
-                "compendiumSource": "Actor.byFpFNAiClHVHnSJ.Item.xP60aA1bWlPbW5N8"
-            },
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Sticky Paint",
             "sort": 800000,
@@ -539,7 +551,14 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "acid",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "blurb": "",
@@ -596,7 +615,8 @@
                 "value": "med"
             },
             "value": [
-                "construct"
+                "construct",
+                "mindless"
             ]
         }
     },

@@ -1,0 +1,59 @@
+{
+    "_id": "oKxsDz4g7MMAfIob",
+    "img": "icons/commodities/treasure/token-cross-gem-yellow.webp",
+    "name": "Spell Effect: Scholarly Recollection",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Scholarly Recollection]</p>\n<p>For your Perception check to Seek, or your skill check to Recall Knowledge with a skill you're trained in, you roll the triggering check twice and use the better result.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "action:seek"
+                ],
+                "removeAfterRoll": true,
+                "selector": "perception"
+            },
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "action:recall-knowledge",
+                    {
+                        "not": "proficiency:untrained"
+                    }
+                ],
+                "removeAfterRoll": true,
+                "selector": "skill-check"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

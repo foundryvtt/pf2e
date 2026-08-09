@@ -180,7 +180,7 @@ abstract class RuleElement<TSchema extends RuleElementSchema = RuleElementSchema
         if (!this.suppressWarnings) {
             const ruleName = _loc(`PF2E.RuleElement.${this.key}`);
             console.warn(
-                `PF2e System | ${ruleName} rules element on item ${name} (${uuid}) failed to validate: ${fullMessage}`,
+                `${SYSTEM_NAME} System | ${ruleName} rules element on item ${name} (${uuid}) failed to validate: ${fullMessage}`,
             );
             this.validationFailures.joint ??= new foundry.data.validation.DataModelValidationFailure(fullMessage, {
                 unresolved: true,

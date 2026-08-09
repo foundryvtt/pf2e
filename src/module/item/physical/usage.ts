@@ -1,10 +1,11 @@
 import { EquippedData } from "./data.ts";
+import type { OneToTwo } from "@module/data.ts";
 
 interface HeldUsage {
     value: string;
     type: "held";
     where?: never;
-    hands: 1 | 2;
+    hands: OneToTwo;
 }
 
 interface WornUsage {

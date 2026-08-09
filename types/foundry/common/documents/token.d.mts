@@ -82,6 +82,23 @@ export default interface BaseToken<TParent extends BaseScene | null = BaseScene 
     extends Document<TParent, TokenSchema>, fields.ModelPropsFromSchema<TokenSchema> {
     delta: BaseActorDelta<this> | null;
     light: data.LightData<this>;
+
+    /**
+     * Get the width and height of the Token in pixels.
+     * @param [data] The width and/or height in grid units (must be positive)
+     * @returns The width and height in pixels
+     */
+    getSize(data?: Partial<{ width: number; height: number }>): { width: number; height: number };
+
+    /**
+     * Get the center point of the Token's base.
+     *
+     * This elevation of the center point is always equal to the elevation of the Token. The center point
+     * is independent of the Token's depth.
+     * @param data The position and dimensions
+     * @returns The center point
+     */
+    getCenterPoint(data?: Partial<ElevatedPoint & Omit<TokenDimensions, "depth">>): ElevatedPoint;
 }
 
 interface TokenMetadata extends DocumentMetadata {

@@ -1,0 +1,53 @@
+{
+    "_id": "FTeIs1Z1Qeli4BIF",
+    "folder": "DbtBUOmAB0EiLVfI",
+    "img": "icons/magic/symbols/question-stone-yellow.webp",
+    "name": "Hybrid Study",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your extensive physical training and carefully chosen magic combine to form a unique and dangerous fighting style that's more than the sum of its parts. You choose one field of hybrid study to represent your particular combination of skills. Your hybrid study gives you a special ability, usually tied to @UUID[Compendium.pf2e.actionspf2e.Item.Spellstrike] or @UUID[Compendium.pf2e.actionspf2e.Item.Arcane Cascade], and it determines your initial conflux spell. Your hybrid study will also grant you the listed @UUID[Compendium.pf2e.classfeatures.Item.Studious Spells], starting when you gain that class feature at 7th level.</p><ul><li><p>@UUID[Compendium.pf2e.classfeatures.Item.Aloof Firmament]</p></li><li><p>@UUID[Compendium.pf2e.classfeatures.Item.Inexorable Iron]</p></li><li><p>@UUID[Compendium.pf2e.classfeatures.Item.Laughing Shadow]</p></li><li><p>@UUID[Compendium.pf2e.classfeatures.Item.Sparkling Targe]</p></li><li><p>@UUID[Compendium.pf2e.classfeatures.Item.Starlit Span]</p></li><li><p>@UUID[Compendium.pf2e.classfeatures.Item.Twisting Tree]</p></li><li><p>@UUID[Compendium.pf2e.classfeatures.Item.Unfurling Brocade]</p></li><li><p>@UUID[Compendium.pf2e.classfeatures.Item.Resurgent Maelstrom]</p></li><li><p>@UUID[Compendium.pf2e.classfeatures.Item.Twofold Tine]</p></li><li><p>@UUID[Compendium.pf2e.classfeatures.Item.Volatile Spark]</p></li></ul>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:tag:magus-hybrid-study"
+                    ]
+                },
+                "flag": "hybridStudy",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Magus.HybridStudy.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.system.rulesSelections.hybridStudy}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "magus"
+            ]
+        }
+    },
+    "type": "feat"
+}

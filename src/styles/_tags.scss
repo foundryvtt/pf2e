@@ -7,8 +7,8 @@
     flex-wrap: wrap;
     gap: var(--space-2);
     list-style-type: none;
-    margin-bottom: var(--space-2);
     padding-left: 0;
+    margin-bottom: var(--space-2);
 
     .tag,
     .tag option {
@@ -104,7 +104,6 @@ tags.tagify {
 .tags.paizo-style {
     border: none;
     gap: 0;
-    padding: 0.5em 0.05em;
 
     tag,
     .tag,
@@ -395,7 +394,8 @@ tagify-tags {
     .tagify {
         --placeholder-color: var(--color-text-subtle);
         --placeholder-color-focus: var(--color-text-subtle);
-        --tag-bg: var(--background);
+        // Tagify applies this with box-shadow, so it must be a color rather than core's --background
+        --tag-bg: light-dark(var(--bg), var(--color-cool-5-90));
         --tag-hover: var(--color-data-border);
         --tag-remove-bg: var(--color-data-border);
         --tag-remove-btn-bg--hover: var(--color-border);

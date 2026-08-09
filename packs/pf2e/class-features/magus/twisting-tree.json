@@ -1,0 +1,114 @@
+{
+    "_id": "6YJ8KFl7THkVy6Gm",
+    "folder": "DbtBUOmAB0EiLVfI",
+    "img": "icons/weapons/staves/staff-simple-gold.webp",
+    "name": "Twisting Tree",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>The staff is perhaps the simplest of weapons, but this simplicity belies its elegance and versatility. To you, a staff is casting implement and martial weapon alike—the foundation of a fighting style.</p>\n<p>While you wield a staff in one hand, the staff adjusts in shape and weight, gaining the agile trait and increasing its damage die size to 1d6. While you wield a staff in both hands, it lengthens, twists, and reshapes, gaining the parry, reach, and trip traits.</p>\n<p>While you're in @UUID[Compendium.pf2e.actionspf2e.Item.Arcane Cascade] stance, once per round you can Interact to change your grip on a staff as a free action.</p>\n<p><strong>Conflux Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Spinning Staff]</p>\n<p><strong>Studious Spells</strong> 7th: @UUID[Compendium.pf2e.spells-srd.Item.Oaken Resilience]; 11th: @UUID[Compendium.pf2e.spells-srd.Item.Slow]; 13th: @UUID[Compendium.pf2e.spells-srd.Item.Flicker]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:base:staff",
+                    "item:hands-held:1",
+                    "item:damage:die:faces:4"
+                ],
+                "property": "damage-dice-faces"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:base:staff",
+                    "item:hands-held:1"
+                ],
+                "property": "traits",
+                "value": "agile"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:base:staff",
+                    "item:hands-held:2"
+                ],
+                "property": "traits",
+                "value": "parry"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:base:staff",
+                    "item:hands-held:2"
+                ],
+                "property": "traits",
+                "value": "reach"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:base:staff",
+                    "item:hands-held:2"
+                ],
+                "property": "traits",
+                "value": "trip"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellcasting:category:prepared",
+                    "spellcasting:tradition:arcane",
+                    {
+                        "or": [
+                            "item:slug:oaken-resilience",
+                            "item:slug:slow",
+                            "item:slug:flicker"
+                        ]
+                    }
+                ],
+                "property": "other-tags",
+                "value": "studious-spell"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "magus-hybrid-study"
+            ],
+            "rarity": "common",
+            "value": [
+                "magus"
+            ]
+        }
+    },
+    "type": "feat"
+}

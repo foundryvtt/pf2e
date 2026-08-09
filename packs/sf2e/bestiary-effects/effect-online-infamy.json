@@ -1,0 +1,68 @@
+{
+    "_id": "UAk8nekzRLoGeEmW",
+    "img": "icons/commodities/tech/communications-dish-tan.webp",
+    "name": "Effect: Online Infamy",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +2 circumstance bonus to @UUID[Compendium.sf2e.actions.Item.Recall Knowledge] checks about the griefcaster, and a –1 circumstance penalty to saving throws against the griefcaster's spells and You Mad? effect.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "online-infamy",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "online-infamy",
+                    "action:recall-knowledge"
+                ],
+                "selector": [
+                    "skill-check"
+                ],
+                "slug": "online-infamy-bonus",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "online-infamy"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "slug": "online-infamy-penalty",
+                "type": "circumstance",
+                "value": -1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

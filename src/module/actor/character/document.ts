@@ -47,7 +47,7 @@ import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ActionCost } from "@item/base/data/index.ts";
 import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import type { EffectAreaShape, ItemType } from "@item/types.ts";
-import type { WeaponSource } from "@item/weapon/data.ts";
+import type { WeaponRuneSource, WeaponSource } from "@item/weapon/data.ts";
 import { processTwoHandTrait } from "@item/weapon/helpers.ts";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import {
@@ -1024,7 +1024,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 w.isEquipped &&
                 w.isInvested,
         );
-        const unarmedRunes = fu.deepClone(handwraps?._source.system.runes) ?? { potency: 0, striking: 0, property: [] };
+        const unarmedRunes: WeaponRuneSource = handwraps
+            ? R.pick(handwraps.system.runes, ["potency", "striking", "property"])
+            : { potency: 0, striking: 0, property: [] };
 
         // Add a basic unarmed strike
         const basicUnarmed = includeBasicUnarmed
@@ -1414,12 +1416,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         const handsAvailable = !weapon.system.graspingAppendage || handsReallyFree > 0;
 
-        const actionTraits: AbilityTrait[] = [
-            "attack" as const,
-            // CRB p. 544: "Due to the complexity involved in preparing bombs, Strikes to throw alchemical bombs gain
-            // the manipulate trait."
-            weapon.baseType === "alchemical-bomb" ? ("manipulate" as const) : [],
-        ].flat();
+        const actionTraits: AbilityTrait[] = ["attack"];
         for (const adjustment of strikeAdjustments) {
             adjustment.adjustTraits?.(weapon, actionTraits);
         }

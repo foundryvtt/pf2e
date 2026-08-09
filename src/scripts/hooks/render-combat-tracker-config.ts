@@ -8,6 +8,7 @@ export const RenderCombatTrackerConfig = {
             const template = await (async () => {
                 const path = `systems/${SYSTEM_ID}/templates/sidebar/encounter-tracker/config.hbs`;
                 const markup = await fa.handlebars.renderTemplate(path, {
+                    user: game.user,
                     values: {
                         deathIcon: game.settings.get(SYSTEM_ID, "deathIcon"),
                         actorsDeadAtZero: game.settings.get(SYSTEM_ID, "automation.actorsDeadAtZero"),

@@ -4,7 +4,7 @@
     "name": "Effect: Healer's Gel",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Healer's Gel (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Healer's Gel (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Healer's Gel (Greater)]</p>\n<p>You gain temporary Hit Points.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Healer's Gel], @UUID[Compendium.pf2e.equipment-srd.Item.Healer's Gel (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Healer's Gel (Major)]</p>\n<p>You gain temporary Hit Points.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -28,27 +28,14 @@
                         "predicate": [
                             {
                                 "or": [
-                                    "parent:origin:item:slug:healers-gel-lesser",
+                                    "parent:origin:item:slug:healers-gel",
                                     {
                                         "not": "parent:origin:item"
                                     }
                                 ]
                             }
                         ],
-                        "value": "Compendium.pf2e.equipment-srd.Item.Healer's Gel (Lesser)"
-                    },
-                    {
-                        "predicate": [
-                            {
-                                "or": [
-                                    "parent:origin:item:slug:healers-gel-moderate",
-                                    {
-                                        "not": "parent:origin:item"
-                                    }
-                                ]
-                            }
-                        ],
-                        "value": "Compendium.pf2e.equipment-srd.Item.Healer's Gel (Moderate)"
+                        "value": "Compendium.pf2e.equipment-srd.Item.Healer's Gel"
                     },
                     {
                         "predicate": [
@@ -62,6 +49,19 @@
                             }
                         ],
                         "value": "Compendium.pf2e.equipment-srd.Item.Healer's Gel (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:healers-gel-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Healer's Gel (Major)"
                     }
                 ],
                 "key": "ChoiceSet",
@@ -71,21 +71,21 @@
             {
                 "key": "TempHP",
                 "predicate": [
-                    "healers-gel:healers-gel-lesser"
+                    "healers-gel:healers-gel"
                 ],
                 "value": 5
             },
             {
                 "key": "TempHP",
                 "predicate": [
-                    "healers-gel:healers-gel-moderate"
+                    "healers-gel:healers-gel-greater"
                 ],
                 "value": 10
             },
             {
                 "key": "TempHP",
                 "predicate": [
-                    "healers-gel:healers-gel-greater"
+                    "healers-gel:healers-gel-major"
                 ],
                 "value": 15
             }

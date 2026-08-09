@@ -10,10 +10,11 @@ import { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/val
 import type { ItemType } from "@item/types.ts";
 import { WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { MANDATORY_RANGED_GROUPS } from "@item/weapon/values.ts";
+import { upgradeWeaponTrait } from "@item/weapon/helpers.ts";
 import { RARITIES, ZeroToFour, ZeroToThree } from "@module/data.ts";
 import { nextDamageDieSize } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import type { DamageDiceFaces } from "@system/damage/types.ts";
+import type { DamageDiceFaces, DamageDieSize } from "@system/damage/types.ts";
 import { DAMAGE_DICE_FACES } from "@system/damage/values.ts";
 import {
     DataUnionField,
@@ -341,18 +342,31 @@ const ITEM_ALTERATION_HANDLERS = {
 
             const item = data.item;
             const mode = data.alteration.mode;
-            if (!item.system.damage.die) return;
-            if (mode === "upgrade" && !item.flags[SYSTEM_ID].damageFacesUpgraded) {
-                item.system.damage.die = nextDamageDieSize({ upgrade: item.system.damage.die });
-                item.flags[SYSTEM_ID].damageFacesUpgraded = true;
-            } else if (mode === "downgrade") {
-                item.system.damage.die = nextDamageDieSize({ downgrade: item.system.damage.die });
-            } else if (mode === "override" && typeof data.alteration.value === "number") {
-                if (data.alteration.value > Number(item.system.damage.die.replace("d", ""))) {
+            const die = item.system.damage.die;
+            switch (mode) {
+                case "upgrade": {
+                    if (item.flags[SYSTEM_ID].damageFacesUpgraded || !die) return;
+                    item.system.damage.die = nextDamageDieSize({ upgrade: die });
                     item.flags[SYSTEM_ID].damageFacesUpgraded = true;
+                    break;
                 }
-                item.system.damage.die = `d${data.alteration.value}`;
+                case "downgrade": {
+                    if (!die) return;
+                    item.system.damage.die = nextDamageDieSize({ downgrade: die });
+                    break;
+                }
+                case "override": {
+                    if (typeof data.alteration.value !== "number") return;
+                    if (die && data.alteration.value > Number(die.replace("d", ""))) {
+                        item.flags[SYSTEM_ID].damageFacesUpgraded = true;
+                    }
+                    item.system.damage.die = `d${data.alteration.value}`;
+                    break;
+                }
+                default:
+                    return;
             }
+            adjustTwoHandTraitForDamageFacesChange(item, mode);
         },
     }),
     "damage-dice-number": new ItemAlterationHandler({
@@ -1130,6 +1144,42 @@ const ITEM_ALTERATION_HANDLERS = {
         },
     }),
 };
+
+/**
+ * When item alterations change weapon damage faces, keep an existing `two-hand-d*` trait in sync so
+ * `processTwoHandTrait` still applies the correct two-hand die after the base die changes.
+ */
+function adjustTwoHandTraitForDamageFacesChange(weapon: WeaponPF2e, mode: "downgrade" | "override" | "upgrade"): void {
+    const traits = weapon.system.traits;
+    const index = traits.value.findIndex((t) => t.startsWith("two-hand-d"));
+    if (index < 0) return;
+
+    const twoHandTrait = traits.value[index];
+    const newTrait = ((): string => {
+        if (mode === "upgrade") return upgradeWeaponTrait(twoHandTrait);
+        if (mode === "downgrade") {
+            const faces = Number(twoHandTrait.replace("two-hand-d", ""));
+            if (!tupleHasValue(DAMAGE_DICE_FACES, faces)) return twoHandTrait;
+            return `two-hand-${nextDamageDieSize({ downgrade: `d${faces}` as DamageDieSize })}`;
+        }
+
+        const currentDie = weapon.system.damage.die;
+        if (!currentDie) return twoHandTrait;
+
+        const dieFaces = Number(currentDie.replace("d", ""));
+        const twoHandFaces = Number(twoHandTrait.replace("two-hand-d", ""));
+        if (!tupleHasValue(DAMAGE_DICE_FACES, dieFaces) || !tupleHasValue(DAMAGE_DICE_FACES, twoHandFaces)) {
+            return twoHandTrait;
+        }
+        if (twoHandFaces > dieFaces) return twoHandTrait;
+
+        const upgraded = nextDamageDieSize({ upgrade: currentDie });
+        const upgradedFaces = Number(upgraded.replace("d", ""));
+        return upgradedFaces > dieFaces ? `two-hand-d${upgradedFaces}` : twoHandTrait;
+    })();
+
+    if (newTrait !== twoHandTrait) traits.value.splice(index, 1, newTrait as typeof twoHandTrait);
+}
 
 interface AlterationFieldOptions<
     TSchema extends AlterationSchema,

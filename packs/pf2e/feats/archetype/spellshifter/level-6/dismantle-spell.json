@@ -1,0 +1,94 @@
+{
+    "_id": "oJ7G4avFMtgSxcCd",
+    "folder": "HCqEyi33X6l0Sbby",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Dismantle Spell",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your innate power can shut down other magic. You gain the Dismantle Spell spellshift.</p>\n<p><strong>Spellshift—Dismantle Spell</strong> You attempt to counteract a spell or at least suppress its effect for a time.</p>\n<p><strong>Critical Success</strong> The spell is counteracted if its rank is no more than 1 higher than half your level rounded up.</p>\n<p><strong>Success</strong> The effects of the spell are suppressed until the start of your next turn. If the spell has a duration that is measured in rounds, its duration is extended by 1 round. If the spell does not have a duration, it targets the same creature or area as though it had just been cast at the start of your next turn.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Spellshifter Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Spellshifter.RollOptionLabel",
+                "mergeable": true,
+                "option": "spell-shift",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Spellshifter.DismantleSpell.RollOptionLabel",
+                        "value": "dismantle-spell"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:shift-spell",
+                    "spell-shift:dismantle-spell"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshifter.DismantleSpell.Text"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.Spellshifter.DismantleSpell.CriticalSuccess",
+                        "title": "PF2E.Check.Result.Degree.Check.criticalSuccess"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.Spellshifter.DismantleSpell.Success",
+                        "title": "PF2E.Check.Result.Degree.Check.success"
+                    }
+                ]
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:shift-spell",
+                    "spell-shift:dismantle-spell"
+                ],
+                "property": "name",
+                "value": "PF2E.SpecificRule.Spellshifter.DismantleSpell.Title"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

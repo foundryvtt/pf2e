@@ -111,6 +111,12 @@
                 ]
             },
             {
+                "disabledIf": [
+                    {
+                        "not": "taunt-dc-penalty"
+                    }
+                ],
+                "disabledValue": false,
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.Guardian.Bodyguard.ToggleLabel",
                 "option": "bodyguard-taunt",
@@ -123,21 +129,48 @@
                 "key": "AdjustModifier",
                 "mode": "downgrade",
                 "predicate": [
-                    "bodyguard-taunt",
-                    {
-                        "or": [
-                            "penalty:slug:taunt-attack-roll",
-                            "penalty:slug:taunt-dc"
-                        ]
-                    }
+                    "bodyguard-taunt"
                 ],
                 "selectors": [
-                    "attack-roll",
                     "class",
                     "inline-dc",
                     "spell-dc"
                 ],
+                "slug": "taunt-dc",
                 "value": -2
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "parent:origin:item:tag:bodyguard",
+                    "bodyguard-taunt"
+                ],
+                "property": "other-tags",
+                "value": "bodyguard-taunt"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "parent:origin:item:tag:bodyguard",
+                    "bodyguard-taunt"
+                ],
+                "property": "other-tags",
+                "value": "bodyguard-taunt"
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "parent:origin:item:tag:bodyguard",
+                    "bodyguard-taunt"
+                ],
+                "property": "other-tags",
+                "value": "bodyguard-taunt"
             },
             {
                 "key": "RollOption",

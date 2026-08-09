@@ -2,8 +2,22 @@
     <div class="notification warning">{{localize "PF2E.Item.Ability.CraftedItem.CraftedWithoutResources"}}</div>
 {{/if}}
 
-<div class="description" data-auto-collapse>
-    {{{description}}}
+<div class="pf2e chat-card action-card">
+    <div class="card-content" data-auto-collapse>
+        {{{data.description.value}}}
+    </div>
+
+    {{#if data.properties}}
+        <footer class="card-footer">
+            {{#each data.properties}}
+                <span>{{localize this}}</span>
+            {{/each}}
+        </footer>
+    {{else if data.levelLabel}}
+        <footer class="card-footer">
+            <span>{{data.levelLabel}}</span>
+        </footer>
+    {{/if}}
 </div>
 
 {{#if (or selfEffect craftedItem activate)}}

@@ -25,7 +25,115 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.GrantItem.GrantNew",
+                        "value": "granted"
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.GrantItem.ExistingItem",
+                        "value": "existing"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Prompt",
+                "rollOption": "verdant-weapon-origin"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:level:0",
+                        {
+                            "nor": [
+                                "item:magical",
+                                "item:trait:consumable",
+                                "item:group:firearm"
+                            ]
+                        }
+                    ],
+                    "itemType": "weapon"
+                },
+                "flag": "grantedVerdantWeapon",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "verdant-weapon-origin:granted"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        {
+                            "not": "item:trait:consumable"
+                        }
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "existingVerdantWeapon",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "verdant-weapon-origin:existing"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "adjustName": false,
+                "flag": "grantedVerdantWeapon",
+                "key": "GrantItem",
+                "predicate": [
+                    "verdant-weapon-origin:granted"
+                ],
+                "track": true,
+                "uuid": "{item|flags.system.rulesSelections.grantedVerdantWeapon}"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "verdant-weapon-origin:existing",
+                                    "item:id:{item|flags.system.rulesSelections.existingVerdantWeapon}"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "verdant-weapon-origin:granted",
+                                    "item:granter:slug:verdant-weapon"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "other-tags",
+                "value": "verdant-weapon"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:verdant-weapon"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Druid.VerdantWeapon.DescriptionAlteration"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

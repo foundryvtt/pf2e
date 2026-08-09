@@ -104,6 +104,16 @@ export function closestPointToSegment(c: Point, a: Point, b: Point): Point;
  */
 export function quadraticIntersection(p0: Point, p1: Point, center: Point, radius: number, epsilon?: number): Point[];
 
+/**
+ * Calculate the centroid non-self-intersecting closed polygon.
+ * If the polygon's area is zero, the first point of the polygon is returned, if it has at least on point,
+ * otherwise the point `{x: 0, y: 0}` is returned.
+ * @param points The points of the polygon
+ * @returns The centroid of the polygon
+ * @see {@link https://en.wikipedia.org/wiki/Centroid#Of_a_polygon}
+ */
+export function polygonCentroid(points: Point[] | number[]): Point;
+
 declare global {
     /**
      * @property x  The x-coordinate of intersection

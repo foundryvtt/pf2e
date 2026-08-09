@@ -1,0 +1,187 @@
+{
+    "_id": "NtGdK8tDXRVVnPx6",
+    "folder": "OGc8zntOuiWqXCx9",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "u7BUtYh0ObAAFmaJ",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Foolish Intruders",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The PCs manifest in Elovai's psychic storm</p><hr /><p><strong>Effect</strong> Elovai laughs at the PCs' foolish intrusion, the sound growing in intensity until it violently shakes the very platforms the PCs are standing on. Each creature on a platform must attempt a @Check[reflex|dc:22] save. The hazard then rolls initiative.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.sf2e.conditions.Item.Off-Guard] until the end of their next turn.</p>\n<p><strong>Failure</strong> The creature falls @UUID[Compendium.sf2e.conditions.Item.Prone].</p>\n<p><strong>Critical Failure</strong> The creature falls prone and takes @Damage[2d8[bludgeoning]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Lva9Kxnd62PH8gVm",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "False Manifestation",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Elovai either causes a real, unoccupied platform to become invisible, or she causes a false, illusory platform to appear. A creature who Interacts with the false platform or with the space where the invisible platform is may immediately attempt a @Check[will|dc:22] save to disbelieve the change. A creature who critically succeeds on this check to disbelieve also earns one Disable success.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "illusion",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "F0oP2tvH609LK3Zy",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Malevolent Wind",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Elovai manifests a sudden gust of wind localized on a single creature. That creature must succeed on a @Check[fortitude|dc:22] save or be pushed 10 feet in a direction of Elovai's choice. On a critical failure, she can instead push them up to 20 feet. A creature who would fall off a platform due to this forced movement may attempt to [[/act grab-an-edge dc=22]].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1NaDRJhtuGPae5yB",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Platform Dissolution",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Elovai causes one of the floating platforms in the psychic storm to burst apart into its component atoms, then reform a few seconds later. All creatures on the platform must attempt a @Check[reflex|dc:22] save with the following results.</p><hr /><p><strong>Critical Success</strong> The creature uses the force of the burst to propel themselves upwards long enough for the platform to reform beneath them, then the creature lands gently in the same location they started in.</p>\n<p><strong>Success</strong> The creature jumps up in time to avoid falling, but is thrown off balance by the force of the dissolution and lands @UUID[Compendium.sf2e.conditions.Item.Prone] in the same location they started in.</p>\n<p><strong>Failure</strong> The creature falls off the platform and through the storm, as described in terrain.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature additionally takes @Damage[(2d8+7)[piercing]] damage from the force of the dissolution.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Elovai's Interference",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 15
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Elovai laughs maniacally as the whole psychic storm bends to her will.</p>",
+            "disable": "<p>@Check[arcana|dc:20] (trained) or @Check[occultism|dc:20] (trained) to magically disrupt Elovai's control, @Check[nature|dc:21] (expert), @Check[religion|dc:21] (expert), @Check[survival|dc:21] (expert), or @Check[thievery|dc:21] (trained) to understand and unravel the underpinnings of the psychic storm, or @Check[will|dc:23] save to disbelieve Elovai's illusions; three total successes are required to disable the hazard.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Society Scenario #1-26: Final Gambit: Part Two"
+            },
+            "reset": "",
+            "routine": "<p>(3 actions) The hazard uses Platform Dissolution, then alternates between using either False Manifestation or Malevolent Wind.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

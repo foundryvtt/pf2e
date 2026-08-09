@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { FormulaPicker } from "@actor/character/apps/formula-picker/app.ts";
 import type { ChatMessageMode } from "@client/config.d.mts";
-import { AbilityItemPF2e, FeatPF2e } from "@item";
+import type { AbilityItemPF2e, FeatPF2e, ItemPF2e } from "@item";
 import { extractEphemeralEffects } from "@module/rules/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { ErrorPF2e, getActionGlyph, htmlQuery, htmlQueryAll, tupleHasValue } from "@util";
@@ -53,9 +53,12 @@ async function createUseActionMessage(
         traits: item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
     });
 
+    // The `getChatData` overrides can't be called on a union, so call it through the base type.
+    const baseItem: ItemPF2e<ActorPF2e> = item;
+    const data = await baseItem.getChatData();
     const content = await fa.handlebars.renderTemplate(`systems/${SYSTEM_ID}/templates/chat/action/collapsed.hbs`, {
         actor: item.actor,
-        description: item.description,
+        data,
         selfEffect: !!item.system.selfEffect,
         craftedItem: craftedItem?.toAnchor({ attrs: { draggable: "true" } }).outerHTML,
         withoutResources: craftedItem && !consumeResources,
@@ -162,50 +165,35 @@ interface ApplyDamageFromMessageParams {
 async function shiftAdjustDamage(message: ChatMessagePF2e, multiplier: number, rollIndex: number): Promise<void> {
     const content = await fa.handlebars.renderTemplate(
         `systems/${SYSTEM_ID}/templates/chat/damage/adjustment-dialog.hbs`,
+        { uid: fu.randomID() },
     );
-    const AdjustmentDialog = class extends foundry.appv1.api.Dialog {
-        override activateListeners($html: JQuery): void {
-            super.activateListeners($html);
-            $html[0].querySelector("input")?.focus();
-        }
-    };
     const isHealing = multiplier < 0;
-    new AdjustmentDialog({
-        title: _loc(isHealing ? "PF2E.UI.shiftModifyHealingTitle" : "PF2E.UI.shiftModifyDamageTitle"),
+    const adjustment = await foundry.applications.api.DialogV2.input<number>({
+        id: "shift-adjust-damage-{id}",
+        window: { title: _loc(isHealing ? "PF2E.UI.shiftModifyHealingTitle" : "PF2E.UI.shiftModifyDamageTitle") },
         content,
-        buttons: {
-            ok: {
-                label: _loc("PF2E.OK"),
-                callback: async ($dialog: JQuery) => {
-                    // In case of healing, multipler will have negative sign. The user will expect that positive
-                    // modifier would increase healing value, while negative would decrease.
-                    const adjustment = (Number($dialog[0].querySelector("input")?.value) || 0) * Math.sign(multiplier);
-                    applyDamageFromMessage({
-                        message,
-                        multiplier,
-                        addend: adjustment,
-                        promptModifier: false,
-                        rollIndex,
-                    });
-                },
-            },
-            cancel: {
-                label: "Cancel",
+        ok: {
+            callback: (_event, button) => {
+                const input = button.form?.elements.namedItem("adjustment");
+                const value = input instanceof HTMLInputElement ? Number(input.value) || 0 : 0;
+                // In case of healing, multiplier will have negative sign. The user will expect that positive
+                // modifier would increase healing value, while negative would decrease.
+                return value * Math.sign(multiplier);
             },
         },
-        default: "ok",
-        close: () => {
-            toggleOffShieldBlock(message.id);
-        },
-    }).render(true);
+    });
+    if (typeof adjustment === "number") {
+        applyDamageFromMessage({ message, multiplier, addend: adjustment, promptModifier: false, rollIndex });
+    } else {
+        toggleOffShieldBlock(message.id);
+    }
 }
 
 /** Toggle off the Shield Block button on a damage chat message */
 function toggleOffShieldBlock(messageId: string): void {
-    for (const app of ["#chat-log", "#chat-popout"]) {
-        const selector = `${app} > li.chat-message[data-message-id="${messageId}"] button[data-action=shield-block]`;
-        const button = htmlQuery(document.body, selector);
-        button?.classList.remove("shield-activated");
+    const selector = `li.chat-message[data-message-id="${messageId}"] button[data-action=shieldBlock]`;
+    for (const chatLogDOM of htmlQueryAll(document.body, "#chat, #chat-popout")) {
+        htmlQuery(chatLogDOM, selector)?.classList.remove("shield-activated");
     }
     CONFIG.PF2E.chatDamageButtonShieldToggle = false;
 }

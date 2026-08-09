@@ -23,7 +23,7 @@ import type {
     CompendiumBrowser,
     CompendiumBrowserSettings,
     CompendiumBrowserSources,
-} from "@module/apps/compendium-browser/browser.ts";
+} from "@module/apps/compendium-browser/browser.svelte.ts";
 import type { EffectsPanel } from "@module/apps/effects-panel.ts";
 import type {
     ActorDirectoryPF2e,
@@ -297,6 +297,7 @@ type ConfiguredConfig = Config<
 
 declare global {
     type SystemId = "pf2e" | "sf2e";
+    type SystemName = "PF2e" | "SF2e";
     const BUILD_MODE: "development" | "production";
     const CONDITION_SOURCES: ConditionSource[];
     const EN_JSON: typeof EnJSON;
@@ -316,6 +317,7 @@ declare global {
     namespace globalThis {
         const game: GamePF2e;
         const SYSTEM_ID: SystemId;
+        const SYSTEM_NAME: SystemName;
         export import fa = foundry.applications;
         export import fav1 = foundry.appv1;
         export import fc = foundry.canvas;

@@ -12,7 +12,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p><strong>Frequency</strong> once per minute</p><hr /><p>You're an experienced warrior who can tap into your predatory instincts and completely focus on a single creature you can detect—to the exclusion of everything else. Those incapable of understanding these instincts might even believe you've lost your senses. The GM rolls a secret counteract check against any illusion, morph, or polymorph effect on a target, but only for the purposes of determining whether you see through it, with a counteract rank of 6 and a counteract modifier equal to your Perception modifier.</p>\n<p>You get a +2 status bonus to Perception checks when you [[/act seek]] the chosen creature and to Survival checks to [[/act track]] the chosen creature, but all other creatures become hidden to you. This lasts 1 minute, until the target dies, or until you fall @UUID[Compendium.sf2e.conditions.Item.Unconscious], whichever comes first. If you take damage, you can voluntarily end your trance as a reaction, which has the concentrate trait.</p>"
+            "value": "<p><strong>Frequency</strong> once per minute</p><hr /><p>You're an experienced warrior who can tap into your predatory instincts and completely focus on a single creature you can detect—to the exclusion of everything else. Those incapable of understanding these instincts might even believe you've lost your senses. The GM rolls a secret counteract check against any illusion, morph, or polymorph effect on a target, but only for the purposes of determining whether you see through it, with a counteract rank of 6 and a counteract modifier equal to your Perception modifier.</p>\n<p>You get a +2 status bonus to Perception checks when you [[/act seek]] the chosen creature and to Survival checks to [[/act track]] the chosen creature, but all other creatures become @UUID[Compendium.sf2e.conditions.Item.Hidden] to you. This lasts 1 minute, until the target dies, or until you fall @UUID[Compendium.sf2e.conditions.Item.Unconscious], whichever comes first. If you take damage, you can voluntarily end your trance as a reaction, which has the concentrate trait.</p>"
         },
         "frequency": {
             "max": 1,
@@ -29,7 +29,37 @@
             "remaster": true,
             "title": "Starfinder Galactic Ancestries"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "predatory-trance",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "predatory-trance",
+                    "action:seek"
+                ],
+                "selector": [
+                    "perception"
+                ],
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "predatory-trance",
+                    "action:track"
+                ],
+                "selector": [
+                    "survival"
+                ],
+                "type": "status",
+                "value": 2
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

@@ -329,6 +329,8 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
                     return "fa-solid fa-dot-circle";
                 case "line":
                     return "fa-solid fa-horizontal-rule";
+                case "ring":
+                    return "fa-regular fa-circle";
                 case "square":
                     return "fa-solid fa-square";
                 default:

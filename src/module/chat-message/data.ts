@@ -129,6 +129,7 @@ interface AreaAttackContextFlag {
     identifier: string;
     domains: string[];
     options: string[];
+    dc?: Omit<CheckDC, "statistic">;
     outcome?: never;
 }
 

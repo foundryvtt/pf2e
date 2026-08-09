@@ -1291,13 +1291,25 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             persistentDamage.length ? await this.createEmbeddedDocuments("Item", persistentDamage) : []
         ) as ConditionPF2e<this>[];
 
+        const persistentDamages = game.i18n.getListFormatter({ style: "long", type: "conjunction" }).format(
+            result.persistent.map((instance) => {
+                const formula = instance.head.expression;
+                const damageType = _loc(CONFIG.PF2E.damageRollFlavors[instance.type]);
+                return instance.type === "bleed"
+                    ? _loc(`${locPrefix}.PersistentEntry.bleed`, { formula, damageType })
+                    : _loc(`${locPrefix}.PersistentEntry.default`, { formula, damageType });
+            }),
+        );
+        const persistentOnly =
+            persistentCreated.length > 0 && (!hitPoints.max || finalDamage - damageAbsorbedByActor === 0);
+
         // Send chat message
         const hpStatement = ((): string | null => {
             if (isHealing) {
                 return hitPoints.value === hitPoints.max ? `${locPrefix}.AtFullHealth` : `${locPrefix}.HealedForN`;
             }
             if (!hitPoints.max || finalDamage - damageAbsorbedByActor === 0) {
-                return persistentCreated ? null : `${locPrefix}.TakesNoDamage`;
+                return persistentOnly ? `${locPrefix}.StartsTakingDamage` : `${locPrefix}.TakesNoDamage`;
             }
             return damageAbsorbedByShield > 0
                 ? damageResult.totalApplied > 0
@@ -1324,6 +1336,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 .map((s) =>
                     _loc(s, {
                         actor: token.name.replace(/[<>]/g, ""),
+                        persistentDamages: persistentDamages,
                         hpDamage: Math.abs(damageResult.totalApplied),
                         absorbedDamage: damageAbsorbedByShield,
                         shieldDamage,
@@ -1347,7 +1360,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             {
                 breakdown,
                 statements,
-                persistent: persistentCreated.map((p) => p.system.persistent?.damage.formula).filter(R.isDefined),
+                persistent: persistentOnly
+                    ? []
+                    : persistentCreated.map((p) => p.system.persistent?.damage.formula).filter(R.isDefined),
                 iwr: {
                     applications: result.applications,
                     visibility: this.hasPlayerOwner ? "all" : "gm",
@@ -1939,6 +1954,20 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             for (const token of this.getActiveTokens(true, true)) {
                 token.reset();
             }
+        }
+
+        // Recalculate encounter metrics if this actor's level, adjustment, or alliance changed
+        const detailsChanged = changed.system?.details ?? {};
+        const attributesChanged = changed.system?.attributes ?? {};
+        if (
+            game.combats.size > 0 &&
+            ("level" in detailsChanged || "alliance" in detailsChanged || "adjustment" in attributesChanged)
+        ) {
+            const encounters = game.combats.filter((c) => c.combatants.some((combatant) => combatant.actor === this));
+            for (const encounter of encounters) {
+                encounter.metrics = encounter.analyze();
+            }
+            if (encounters.length > 0) ui.combat.render({ parts: ["metrics"] });
         }
 
         // Remove the death overlay if present upon hit points being increased

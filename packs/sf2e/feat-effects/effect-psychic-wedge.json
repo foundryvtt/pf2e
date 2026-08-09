@@ -1,0 +1,50 @@
+{
+    "_id": "S3GNkuot8Ll6m0vK",
+    "img": "icons/magic/control/voodoo-doll-pain-damage-tan.webp",
+    "name": "Effect: Psychic Wedge",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Psychic Wedge]</p>\n<p>You take a –1 status penalty to saving throws against the origin's other innate spells.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "spellcasting:innate",
+                    "origin:signature:{item|origin.signature}"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": -1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 6
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

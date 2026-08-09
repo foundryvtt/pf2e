@@ -1,0 +1,65 @@
+{
+    "_id": "DXXhDkXQ6AdBty1G",
+    "img": "icons/commodities/treasure/bust-pharaoh-gold-blue.webp",
+    "name": "Effect: Art 'Collector'",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.backgrounds.Item.Art 'Collector']</p>\n<p>You gain a +2 circumstance bonus to saving throws against mental effects if this is the first time you've chosen a piece of artwork as your inspiration, or a +1 circumstance bonus if you've chosen that artwork more than once.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 24
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Bastion of Blasphemies Player's Guide"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": 2
+                    }
+                ],
+                "flag": "artCollector",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.BastionOfBlasphemies.Background.ArtCollector.Prompt"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:mental"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": "@item.flags.system.rulesSelections.artCollector"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

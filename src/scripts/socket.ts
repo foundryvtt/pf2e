@@ -9,14 +9,14 @@ function activateSocketListener(): void {
         switch (message.request) {
             case "itemTransfer":
                 if (game.user.isActiveGM) {
-                    console.debug(`PF2e System | Received item-transfer request from ${sender.name}`);
+                    console.debug(`${SYSTEM_NAME} System | Received item-transfer request from ${sender.name}`);
                     const transfer = new ItemTransfer(message.data);
                     transfer.enact(sender);
                 }
                 break;
             case "refreshSceneControls":
                 if (!game.user.isGM && message.data.layer === ui.controls.control?.name) {
-                    console.debug("PF2e System | Refreshing Scene Controls");
+                    console.debug(`${SYSTEM_NAME} System | Refreshing Scene Controls`);
                     ui.controls.render({ reset: true });
                 }
                 break;

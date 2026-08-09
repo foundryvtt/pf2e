@@ -379,8 +379,8 @@
         },
         {
             "_id": "hhRccIBA0AFYl4Su",
-            "img": "systems/pf2e/icons/equipment/held-items/key-purple.webp",
-            "name": "Key Ring (Opens Locks in Summershade Quarry)",
+            "img": "icons/sundries/misc/key-steel-purple.webp",
+            "name": "Key Ring",
             "sort": 600000,
             "system": {
                 "baseItem": null,
@@ -389,6 +389,7 @@
                 },
                 "containerId": null,
                 "description": {
+                    "gm": "<p>Laslunn's key ring opens locks in Summershade Quarry.</p>",
                     "value": ""
                 },
                 "equipped": {
@@ -678,7 +679,14 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "AdjustModifier",
+                        "selector": "ranged-strike-attack-roll",
+                        "slug": "volley",
+                        "suppress": true
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -735,14 +743,25 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Laslunn has manacles in hand and is adjacent to a creature.</p>\n<hr />\n<p><strong>Effect</strong> Laslunn attempts to bind the creature's wrists or ankles with the manacles. If she succeeds at an attack roll with a [[/r 1d20+28 #Manacles]]{+28} modifier against the target's AC, she applies the manacles to the creature's wrists or legs.</p>"
+                    "value": "<p><strong>Requirements</strong> Laslunn has manacles in hand and is adjacent to a creature.</p>\n<hr />\n<p><strong>Effect</strong> Laslunn attempts to bind the creature's wrists or ankles with the manacles. If she succeeds at an attack roll with a @Check[efficient-capture|against:ac]{+28} modifier against the target's AC, she applies the manacles to the creature's wrists or legs.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "SpecialStatistic",
+                        "slug": "efficient-capture",
+                        "type": "attack-roll"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "efficient-capture-attack-roll",
+                        "value": 28
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

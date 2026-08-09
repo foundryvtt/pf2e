@@ -1,0 +1,51 @@
+{
+    "_id": "NSGtb7a9NrcwIpcu",
+    "img": "icons/magic/perception/hand-eye-black.webp",
+    "name": "Effect: Voracious Bite (Recall Knowledge)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Voracious Bite]</p>\n<p>You gain a +2 status bonus to your next Recall Knowledge check to recall information about creatures with the same trait as the target.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 13
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:heritage:suskillon-cutoff-shirren",
+                    "action:recall-knowledge"
+                ],
+                "removeAfterRoll": true,
+                "selector": [
+                    "skill-check"
+                ],
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

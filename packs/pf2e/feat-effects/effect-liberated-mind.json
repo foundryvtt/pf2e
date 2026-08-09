@@ -24,7 +24,16 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "removeAfterRoll": "if-enabled",
+                "predicate": [
+                    "item:trait:mental",
+                    {
+                        "or": [
+                            "inflicts:confused",
+                            "inflicts:controlled"
+                        ]
+                    }
+                ],
+                "removeAfterRoll": true,
                 "selector": [
                     "saving-throw"
                 ],

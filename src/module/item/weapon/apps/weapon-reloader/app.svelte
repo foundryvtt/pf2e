@@ -1,9 +1,11 @@
 <script lang="ts">
     import ItemTraits from "@module/sheet/components/item-traits.svelte";
+    import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import type { ReloadWeaponContext } from "./app.ts";
     import ItemSummary from "@module/sheet/components/item-summary.svelte";
     import HeavyBullets from "../../../../../../static/assets/icons/heavy-bullets.svg?raw";
-    const { state: data, foundryApp }: ReloadWeaponContext = $props();
+    const { foundryApp, getState }: ReloadWeaponContext & SvelteAppProps<ReloadWeaponContext> = $props();
+    const data = $derived(getState());
     const openStates: Record<string, boolean> = $state({});
 </script>
 
@@ -55,7 +57,12 @@
                     <ItemTraits traits={ammo.traits} rarity={ammo.rarity} />
                 {/if}
             </button>
-            <ItemSummary uuid={ammo.uuid} open={!!openStates[ammo.uuid]} exclude={["traits"]} />
+            <ItemSummary
+                uuid={ammo.uuid}
+                version={ammo.updatedAt}
+                open={!!openStates[ammo.uuid]}
+                exclude={["traits"]}
+            />
         </div>
     {/each}
 </div>

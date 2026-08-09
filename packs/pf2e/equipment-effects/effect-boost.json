@@ -4,7 +4,7 @@
     "name": "Effect: Boost",
     "system": {
         "description": {
-            "value": "<p>The boosted weapon deals an additional damage die of the listed size to the next attack you make.</p><p>The damage from this trait increases to 2 dice for advanced-grade and superior-grade weapons, 3 dice for elite-grade and ultimate-grade weapons, and 4 dice for paragon-grade weapons. On a critical hit, roll these after doubling the weapon's damage. Multiple boosts have no effect.</p>"
+            "value": "<p>The boosted weapon deals an additional damage die of the listed size to the next attack you make.</p>\n<p>The damage from this trait increases to 2 dice for advanced-grade and superior-grade weapons, 3 dice for elite-grade and ultimate-grade weapons, and 4 dice for paragon-grade weapons. On a critical hit, roll these after doubling the weapon's damage. Multiple boosts have no effect.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -50,9 +50,7 @@
                     ]
                 },
                 "flag": "weapon",
-                "rollOption": "item:boosted",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.Weapon",
                 "predicate": [
                     {
                         "or": [
@@ -60,7 +58,9 @@
                             "self:type:character"
                         ]
                     }
-                ]
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon",
+                "rollOption": "item:boosted"
             }
         ],
         "start": {

@@ -4,17 +4,17 @@
     "name": "Effect: Devil You Know",
     "system": {
         "description": {
-            "value": "You gain a +1 circumstance bonus to your next skill check against that creature before the end of your next turn. If you're a master in Devil Lore or Hellknight Lore, the bonus increases to +2."
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Devil You Know]</p>\n<p>You gain a +1 circumstance bonus to your next skill check against the marked creature. If you're a master in Devil Lore or Hellknight Lore, the bonus increases to +2.</p>"
         },
         "duration": {
-            "expiry": null,
+            "expiry": "turn-end",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "rounds",
+            "value": 1
         },
         "fromSpell": false,
         "level": {
-            "value": 1
+            "value": 4
         },
         "publication": {
             "license": "ORC",
@@ -24,14 +24,14 @@
         "rules": [
             {
                 "key": "TokenMark",
-                "slug": "devil-you-know",
-                "uuid": ""
+                "slug": "devil-you-know"
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
                     "target:mark:devil-you-know"
                 ],
+                "removeAfterRoll": "if-enabled",
                 "selector": [
                     "skill-check"
                 ],

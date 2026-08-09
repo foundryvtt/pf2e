@@ -1,0 +1,72 @@
+{
+    "_id": "iZgvkZJ14Su7jWNE",
+    "img": "icons/magic/death/undead-skeleton-tusk-purple.webp",
+    "name": "Effect: Pallid Curse (Failure)",
+    "system": {
+        "description": {
+            "value": "<p>You becomes sickened 2 and gains weakness to void 5 (weakness 10 on a critical failure).</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 12
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": 5
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": 10
+                    }
+                ],
+                "flag": "pallidCurse",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "granter": "detach"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Sickened"
+            },
+            {
+                "key": "Weakness",
+                "type": "void",
+                "value": "@item.flags.system.rulesSelections.pallidCurse"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

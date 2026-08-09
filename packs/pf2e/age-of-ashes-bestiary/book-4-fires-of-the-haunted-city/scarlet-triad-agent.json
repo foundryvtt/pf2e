@@ -1002,14 +1002,25 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The Scarlet Triad agent has manacles in hand and is adjacent to a creature.</p>\n<hr />\n<p><strong>Effect</strong> The Scarlet Triad agent attempts to bind the creature's wrists or ankles with the manacles. If they succeed at an attack roll with a [[/r 1d20+24]]{+24 modifier} against the target's AC, they apply the manacles.</p>"
+                    "value": "<p><strong>Requirements</strong> The Scarlet Triad agent has manacles in hand and is adjacent to a creature.</p>\n<hr />\n<p><strong>Effect</strong> The Scarlet Triad agent attempts to bind the creature's wrists or ankles with the manacles. If they succeed at an attack roll with a @Check[efficient-capture|against:ac]{+24} modifier against the target's AC, they apply the manacles.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "SpecialStatistic",
+                        "slug": "efficient-capture",
+                        "type": "attack-roll"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "efficient-capture-attack-roll",
+                        "value": 24
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

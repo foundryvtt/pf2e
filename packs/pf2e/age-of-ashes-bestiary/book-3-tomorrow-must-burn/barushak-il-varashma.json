@@ -2712,8 +2712,8 @@
         },
         {
             "_id": "omPyHCBiVsSmjHtN",
-            "img": "systems/pf2e/icons/equipment/held-items/key-purple.webp",
-            "name": "Keys to Each Dormitory Door and Slave Manacles",
+            "img": "icons/sundries/misc/key-steel-purple.webp",
+            "name": "Keys",
             "sort": 3800000,
             "system": {
                 "baseItem": null,
@@ -2722,6 +2722,7 @@
                 },
                 "containerId": null,
                 "description": {
+                    "gm": "<p>Barushak's keys to each dormitory door and slave manacles.</p>",
                     "value": ""
                 },
                 "equipped": {
@@ -2954,14 +2955,25 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Barushak has manacles in hand and is adjacent to a creature.</p>\n<hr />\n<p><strong>Effect</strong> Barushak attempts to bind the creature's wrists or ankles with the manacles. He must succeed at an attack roll with a [[/r 1d20+21 #Manacles]]{+21} modifier against the target's AC.</p>"
+                    "value": "<p><strong>Requirements</strong> Barushak has manacles in hand and is adjacent to a creature.</p>\n<hr />\n<p><strong>Effect</strong> Barushak attempts to bind the creature's wrists or ankles with the manacles. He must succeed at an attack roll with a @Check[efficient-capture|against:ac]{+21} modifier against the target's AC.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "SpecialStatistic",
+                        "slug": "efficient-capture",
+                        "type": "attack-roll"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "efficient-capture-attack-roll",
+                        "value": 21
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

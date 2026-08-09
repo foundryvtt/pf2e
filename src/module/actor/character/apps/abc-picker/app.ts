@@ -31,10 +31,16 @@ interface ABCItemRef {
     hidden: boolean;
 }
 
+interface ABCPickerState {
+    prompt: string;
+    itemType: AhBCDType;
+    items: ABCItemRef[];
+}
+
 interface ABCPickerContext extends SvelteApplicationRenderContext {
     actor: CharacterPF2e;
     foundryApp: ABCPicker;
-    state: { prompt: string; itemType: AhBCDType; items: ABCItemRef[] };
+    state: ABCPickerState;
 }
 
 /** A `Compendium`-like application for presenting A(H)BCD options for a character */
@@ -62,6 +68,19 @@ class ABCPicker extends SvelteApplicationMixin<
         initialized.window.icon = CONFIG.Item.typeIcons[initialized.itemType];
         initialized.uniqueId = `abc-picker-${initialized.itemType}-${initialized.actor.uuid}`;
         return initialized;
+    }
+
+    protected override async _onFirstRender(
+        context: ABCPickerContext,
+        options: fa.ApplicationRenderOptions,
+    ): Promise<void> {
+        await super._onFirstRender(context, options);
+        this.options.actor.apps[this.id] = this;
+    }
+
+    protected override _tearDown(options: fa.ApplicationClosingOptions): void {
+        delete this.options.actor.apps[this.id];
+        super._tearDown(options);
     }
 
     /** Gather all items of the request type from the world and across all item compendiums. */
@@ -142,4 +161,5 @@ class ABCPicker extends SvelteApplicationMixin<
     }
 }
 
-export { ABCPicker, type ABCPickerContext };
+export { ABCPicker };
+export type { ABCPickerContext, ABCPickerState };

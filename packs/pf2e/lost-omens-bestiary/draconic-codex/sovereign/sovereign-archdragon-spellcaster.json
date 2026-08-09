@@ -440,7 +440,7 @@
             },
             "folder": "6JF73zNhT8zbp1qC",
             "img": "icons/magic/symbols/star-solid-gold.webp",
-            "name": "Wish (doesn't require secondary casters)",
+            "name": "Wish (Doesn't Require Secondary Casters)",
             "sort": 600000,
             "system": {
                 "area": null,
@@ -1493,7 +1493,7 @@
             },
             "folder": "iDjm2cXyRAe4VZ35",
             "img": "systems/pf2e/icons/spells/tongues.webp",
-            "name": "Truespeech (constant)",
+            "name": "Truespeech (Constant)",
             "sort": 2200000,
             "system": {
                 "area": null,
@@ -1895,7 +1895,7 @@
             },
             "folder": "7cyoYPoPYA01mErU",
             "img": "systems/pf2e/icons/spells/suggestion.webp",
-            "name": "Suggestion (at will)",
+            "name": "Suggestion (At Will)",
             "sort": 2800000,
             "system": {
                 "area": null,
@@ -3049,7 +3049,8 @@
                 "traits": {
                     "value": [
                         "magical",
-                        "reach-20"
+                        "reach-20",
+                        "unarmed"
                     ]
                 }
             },
@@ -3074,7 +3075,7 @@
                 "damageRolls": {
                     "TLs6f0wcfhfF31kG": {
                         "damage": "4d8+27",
-                        "damageType": "bludgeoning"
+                        "damageType": "slashing"
                     }
                 },
                 "description": {
@@ -3092,7 +3093,8 @@
                     "value": [
                         "agile",
                         "magical",
-                        "reach-15"
+                        "reach-15",
+                        "unarmed"
                     ]
                 }
             },
@@ -3134,7 +3136,8 @@
                 "traits": {
                     "value": [
                         "magical",
-                        "reach-25"
+                        "reach-25",
+                        "unarmed"
                     ]
                 }
             },
@@ -3228,7 +3231,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>90 feet. @Check[will|dc:40|options:area-effect,inflicts:frightened]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>90 feet. @Check[will|dc:44|options:area-effect,inflicts:frightened]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -3369,7 +3372,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The dragon's armor glows with a golden light. The dragon gains a +2 status bonus to AC and resistance 25 to acid, cold, electricity, fire, and sonic damage. Each enemy in a @Template[type:emanation|distance:20] must succeed at a @Check[fortitude|dc:46] save or be @UUID[Compendium.pf2e.conditionitems.Item.Dazzled]. All these effects last until the end of the dragon's next turn.</p>"
+                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The dragon's armor glows with a golden light. The dragon gains a +2 status bonus to AC and resistance 25 to acid, cold, electricity, fire, and sonic damage. Each enemy in a @Template[emanation|distance:20] must succeed at a @Check[fortitude|dc:46|options:area-effect,inflicts:dazzled] save or be @UUID[Compendium.pf2e.conditionitems.Item.Dazzled]. All these effects last until the end of the dragon's next turn.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -3419,7 +3422,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>@Damage[(4d10+12)[bludgeoning]], @Check[fortitude|dc:46|basic]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
+                    "value": "<p>@Damage[(4d10+12)[bludgeoning]], @Check[fortitude|dc:46|basic|options:inflicts:unconscious]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -3472,9 +3475,6 @@
         },
         {
             "_id": "gVysuocf31WAu1OM",
-            "_stats": {
-                "compendiumSource": "Actor.fHnpW5gLQ63Bakts.Item.gVysuocf31WAu1OM"
-            },
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Sovereign's Rebuke",
             "sort": 5600000,
@@ -3487,7 +3487,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon unleashes a roar charged with psychic energy, dealing @Damage[24d6[mental]|options:area-damage] damage in a @Template[type:cone|distance:60] (@Check[will|dc:46|basic] save). A creature who fails their save is also @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round (or @UUID[Compendium.pf2e.conditionitems.Item.Controlled] by the dragon for 1 round on critical failure). The dragon can't use Sovereign's Rebuke again for [[/gmr 1d4 #Recharge Sovereign's Rebuke]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon unleashes a roar charged with psychic energy, dealing @Damage[24d6[mental]|options:area-damage] damage in a @Template[type:cone|distance:60] (@Check[will|dc:46|basic|options:area-effect,inflicts:confused,inflicts:controlled] save). A creature who fails their save is also @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round (or @UUID[Compendium.pf2e.conditionitems.Item.Controlled] by the dragon for 1 round on critical failure). The dragon can't use Sovereign's Rebuke again for [[/gmr 1d4 #Recharge Sovereign's Rebuke]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3537,7 +3537,7 @@
                 "value": 50
             },
             "allSaves": {
-                "value": ""
+                "value": "+1 status to all saves vs. magic"
             },
             "hp": {
                 "details": "",

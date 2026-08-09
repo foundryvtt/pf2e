@@ -1,0 +1,59 @@
+{
+    "_id": "YxzBnkm20uEg4HtJ",
+    "img": "icons/equipment/neck/collar-carved-bone-teeth-ring.webp",
+    "name": "Effect: Shark Tooth Charm",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Shark Tooth Charm]</p>\n<p>You receive a +1 item bonus to your attempt to Escape using Acrobatics. If you roll a success, you get a critical success instead (if you roll a critical failure, you get a failure instead).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:escape"
+                ],
+                "removeAfterRoll": true,
+                "selector": "acrobatics",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better",
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:escape"
+                ],
+                "selector": "acrobatics"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,50 @@
+{
+    "_id": "gnD8X7SpMaHet941",
+    "img": "icons/magic/unholy/strike-beam-blood-small-red-blue.webp",
+    "name": "Effect: Blood in the Water",
+    "system": {
+        "description": {
+            "value": "<p>Until the beginning of their next turn, the ulat-kini gains 9 temporary Hit Points and a +4 status bonus to their Strikes' damage rolls.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Hell's Destiny"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": 9
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "strike-damage"
+                ],
+                "type": "status",
+                "value": 4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

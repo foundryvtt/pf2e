@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Bard</strong> When you succeed at a check to Recall Knowledge, you gain additional information or context. When you critically succeed at a check to Recall Knowledge, you get additional information or context or can ask an additional follow-up question (the GM chooses which).</p>\n<p><strong>Thaumaturge</strong> Having heard and scrutinized every rumor or story in the book, you know for a fact that if you've heard something at all, you've probably heard about it at great length. When you succeed or critically succeed at a check to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge], you can ask an additional follow-up question. At the GM's discretion, you might gain even more additional context than normal.</p>"
+            "value": "<p><strong>Bard</strong> When you succeed at a check to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge], you gain additional information or context. When you critically succeed at a check to Recall Knowledge, you get additional information or context or can ask an additional follow-up question (the GM chooses which).</p>\n<p><strong>Thaumaturge</strong> Having heard and scrutinized every rumor or story in the book, you know for a fact that if you've heard something at all, you've probably heard about it at great length. When you succeed or critically succeed at a check to Recall Knowledge, you can ask an additional follow-up question. At the GM's discretion, you might gain even more additional context than normal.</p>"
         },
         "level": {
             "value": 8
@@ -47,17 +47,37 @@
                 "itemId": "{item|id}",
                 "key": "ItemAlteration",
                 "mode": "override",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:bard",
+                            "class:thaumaturge",
+                            "feat:bard-dedication",
+                            "feat:thaumaturge-dedication"
+                        ]
+                    }
+                ],
                 "property": "description",
                 "value": [
                     {
                         "predicate": [
-                            "class:bard"
+                            {
+                                "or": [
+                                    "class:bard",
+                                    "feat:bard-dedication"
+                                ]
+                            }
                         ],
                         "text": "PF2E.SpecificRule.Feat.KnowItAll.Bard"
                     },
                     {
                         "predicate": [
-                            "class:thaumaturge"
+                            {
+                                "or": [
+                                    "class:thaumaturge",
+                                    "feat:thaumaturge-dedication"
+                                ]
+                            }
                         ],
                         "text": "PF2E.SpecificRule.Feat.KnowItAll.Thaumaturge"
                     }

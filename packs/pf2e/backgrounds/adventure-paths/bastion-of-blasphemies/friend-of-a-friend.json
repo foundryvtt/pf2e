@@ -1,0 +1,65 @@
+{
+    "_id": "ACwPXdM1kNB2KsHX",
+    "folder": "Fm5p6wB8119OY5cS",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Friend of a Friend",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "con",
+                    "str"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You've long taken pride in your health and physique, and a big part of maintaining this is making sure that what you put in your body isn't going to undermine your regimen. You're talented at cooking food or preparing drinks and take delight in helping others get healthy or to enjoy a good meal. This has made it easy for you to make friends, of course, but it has also helped to protect you from poisons and diseases—a talent that's served you well in your career as an adventurer. Ironically, you've never previously met Florin Kindler—but you happen to be friends with one or more of the other PCs who she approached to join her expedition. Once you met her, you managed to impress her on the first night of the journey east by including one of her favorite foods or drinks in the night's meal. Just a knack you've always had. Food is a great way to make friends. Or, in the case of certain unpleasant and even dangerous repasts (such as the pre-rotted Nidalese Shuddercheese), a great way to test friendships—or even end them.</p>\n<p>Choose two attribute boosts. One must be to <strong>Constitution</strong> or <strong>Strength</strong>, and one is a free attribute boost.</p>\n<p>You are trained in the Athletics skill and a Lore skill associated with any sort of food or drink. You gain a +2 circumstance bonus to saving throws against poison and disease, and to any checks made to counteract poison or disease.</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Bastion of Blasphemies Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:poison",
+                            "item:trait:disease"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw",
+                    "counteract-check"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "trainedSkills": {
+            "lore": [],
+            "value": [
+                "athletics"
+            ]
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": []
+        }
+    },
+    "type": "background"
+}

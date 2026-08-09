@@ -1,0 +1,123 @@
+{
+    "_id": "Vr3w3t028ZKDg0mO",
+    "folder": "LkjMKhSIthBOzEc0",
+    "img": "systems/pf2e/icons/actions/TwoActions.webp",
+    "name": "Dragon Breath (Eidolon)",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>Your eidolon exhales a blast of destructive energy that deals @Damage[(ceil(@actor.level / 2))d6[untyped]|options:area-damage] damage to all creatures in an area with a basic Reflex save against your spell DC. Your eidolon then can't use Dragon Breath again for the next [[/r 1d4 #rounds]]{1d4 rounds}. At 3rd level and every 2 levels thereafter, the damage increases by 1d6.</p>\n<p>When the eidolon gains this ability, you choose the area—a @Template[type:line|distance:60] or a @Template[type:cone|distance:30]—as well as the damage type—acid, cold, electricity, fire, piercing, poison, or void. You can instead choose force if your eidolon has the arcane trait, spirit if they have the divine trait, or mental if they have the occult trait. If you model your eidolon after a specific type of dragon, your GM might allow you to choose from additional damage types.</p>\n<p>Dragon Breath has the tradition trait of your eidolon and the trait matching the damage type chosen (unless you choose piercing damage).</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.BreathWeapon.Shape.Cone.Label",
+                        "value": "cone"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BreathWeapon.Shape.Line.Label",
+                        "value": "line"
+                    }
+                ],
+                "flag": "shape",
+                "key": "ChoiceSet",
+                "rollOption": "dragon-breath-shape"
+            },
+            {
+                "choices": {
+                    "config": "damageTypes"
+                },
+                "flag": "dragonBreathDamage",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType",
+                "rollOption": "dragon-breath-damage"
+            },
+            {
+                "choices": {
+                    "config": "magicTraditions"
+                },
+                "flag": "dragonBreathTradition",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Tradition"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "description",
+                "value": [
+                    {
+                        "predicate": [
+                            "dragon-breath-shape:cone"
+                        ],
+                        "text": "PF2E.SpecificRule.Summoner.Eidolon.Dragon.DragonBreath.Description.Cone.Base"
+                    },
+                    {
+                        "predicate": [
+                            "dragon-breath-shape:line"
+                        ],
+                        "text": "PF2E.SpecificRule.Summoner.Eidolon.Dragon.DragonBreath.Description.Line.Base"
+                    }
+                ]
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "property": "damage-type",
+                "selectors": [
+                    "{item|id}-inline-damage"
+                ],
+                "slug": "base",
+                "value": "{item|flags.system.rulesSelections.dragonBreathDamage}"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{item|flags.system.rulesSelections.dragonBreathTradition}"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "nor": [
+                            "dragon-breath-damage:bludgeoning",
+                            "dragon-breath-damage:piercing",
+                            "dragon-breath-damage:slashing"
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "{item|flags.system.rulesSelections.dragonBreathDamage}"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "name",
+                "value": "PF2E.SpecificRule.Summoner.Eidolon.Dragon.DragonBreath.Label"
+            }
+        ],
+        "traits": {
+            "value": [
+                "eidolon"
+            ]
+        }
+    },
+    "type": "action"
+}

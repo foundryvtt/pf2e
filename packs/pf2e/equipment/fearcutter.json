@@ -1,0 +1,118 @@
+{
+    "_id": "w7usWIc20eklVVXT",
+    "img": "icons/weapons/swords/sword-guard-flanged-purple.webp",
+    "name": "Fearcutter",
+    "system": {
+        "ammo": null,
+        "baseItem": "longsword",
+        "bonus": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 1
+        },
+        "category": "martial",
+        "containerId": null,
+        "damage": {
+            "damageType": "slashing",
+            "dice": 1,
+            "die": "d6"
+        },
+        "description": {
+            "value": "<p>In his days as an adventurer, Eragayl Arudora made a name for himself as a champion of Shelyn. Devoted to the cause of grandeur, Eragayl eschewed the typical glaive of her champions and instead focused his skills on the longsword and shield. It was his shield that gained Shelyn's blessings, but by the time he retired and began building Castle Arudora, Eragayl's sword, <em>Fearcutter</em>, was arguably his most legendary belonging. With this blade, he slew countless undead and fiends, including the monstrous sahkil Vormingundur, who for many years tormented a dozen small settlements along the southwest border of Varno before meeting his end on this blade's edge.</p>\n<p><em>Fearcutter</em> is a <em>+2 striking astral vitalizing longsword</em> that grants a +2 item bonus to saving throws against fear effects while you carry it unsheathed. When you critically hit a creature with the unholy trait with <em>Fearcutter</em>, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p><hr /><p><strong>Activate—Cut Fear</strong> <span class=\"action-glyph\">1</span> (divine, manipulate)</p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> You swing <em>Fearcutter</em> through the air near a frightened creature. Reduce that creature's frightened value by 1.</p><hr /><p><strong>Activate—Cut Cruelty</strong> <span class=\"action-glyph\">2</span> (divine, manipulate)</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> You brandish <em>Fearcutter</em> forcefully, and the sword casts a 5th-rank @UUID[Compendium.pf2e.spells-srd.Item.Crisis of Faith] (@Check[will|dc:29] save) at an unholy target in range.</p>"
+        },
+        "expend": null,
+        "grade": null,
+        "group": "sword",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 12
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 2000
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": null
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:fear"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "target:trait:unholy"
+                ],
+                "selector": [
+                    "{item|id}-attack"
+                ],
+                "text": "PF2E.SpecificRule.Equipment.Fearcutter.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "runes": {
+            "potency": 2,
+            "property": [
+                "astral",
+                "disrupting"
+            ],
+            "striking": 1
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 2,
+                "property": [
+                    "astral",
+                    "disrupting"
+                ],
+                "striking": 1
+            }
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "versatile-p"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        }
+    },
+    "type": "weapon"
+}
