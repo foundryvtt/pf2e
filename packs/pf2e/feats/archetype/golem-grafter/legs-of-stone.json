@@ -32,23 +32,16 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "vs. Shove (Legs of Stone)",
                 "predicate": [
-                    "action:shove"
+                    {
+                        "or": [
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
                 ],
                 "selector": [
-                    "fortitude-dc"
-                ],
-                "type": "status",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "vs. Trip (Legs of Stone)",
-                "predicate": [
-                    "action:trip"
-                ],
-                "selector": [
+                    "fortitude-dc",
                     "reflex-dc"
                 ],
                 "type": "status",
