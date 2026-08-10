@@ -1,0 +1,54 @@
+{
+    "_id": "YdRhso3b64wgdB4D",
+    "img": "icons/commodities/bones/skull-bowl-brown.webp",
+    "name": "Spell Effect: Calcification (Success)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Calcification]</p>\n<p>You are slowed 1 and have weakness 5 to bludgeoning. If you are incorporeal you lose the incorporeal trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+            },
+            {
+                "key": "Weakness",
+                "type": "bludgeoning",
+                "value": 5
+            },
+            {
+                "key": "ActorTraits",
+                "remove": [
+                    "incorporeal"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

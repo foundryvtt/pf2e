@@ -33,7 +33,36 @@
             "remaster": true,
             "title": "Pathfinder Impossible Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.system.automaton.enhancements.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ResilientChassis",
+                    "predicate": [
+                        {
+                            "not": "enhancement:resilient-chassis"
+                        }
+                    ],
+                    "value": "resilient-chassis"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.system.automaton.enhancements.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ResilientChassis",
+                    "predicate": [
+                        {
+                            "not": "enhancement:resilient-chassis"
+                        }
+                    ],
+                    "value": "resilient-chassis"
+                }
+            }
+        ],
         "selfEffect": {
             "name": "Effect: Resilient Chassis",
             "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Resilient Chassis"

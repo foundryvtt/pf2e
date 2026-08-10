@@ -35,7 +35,24 @@
             "title": "Starfinder Absalom Station"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:search",
+                            "action:seek"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "perception"
+                ],
+                "type": "item",
+                "value": 2
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "uncommon",

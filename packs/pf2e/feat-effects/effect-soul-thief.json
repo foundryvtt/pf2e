@@ -1,0 +1,51 @@
+{
+    "_id": "evFqVITRiK6AZd6d",
+    "img": "icons/magic/death/undead-skeleton-lich-armor.webp",
+    "name": "Effect: Soul Thief",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Soul Thief]</p>\n<p>You gain the unholy and undead traits, and you gain void healing.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 20
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "add": [
+                    "undead",
+                    "unholy"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.hp.negativeHealing",
+                "value": true
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

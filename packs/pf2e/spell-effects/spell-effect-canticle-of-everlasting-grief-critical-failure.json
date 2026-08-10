@@ -1,0 +1,90 @@
+{
+    "_id": "zHeVGnIj9zl3h6ez",
+    "img": "systems/pf2e/icons/spells/canticle-of-everlasting-grief.webp",
+    "name": "Spell Effect: Canticle of Everlasting Grief (Critical Failure)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Canticle of Everlasting Grief]</p>\n<p>You can't benefit from circumstance or status bonuses, and are frightened 4. Your allies are also affected by the curse while within 15 feet of you.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "bonus:type:circumstance",
+                            "bonus:type:status"
+                        ]
+                    }
+                ],
+                "selector": "all",
+                "suppress": true
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 4
+                    }
+                ],
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "granter": "detach"
+                },
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Frightened"
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "includesSelf": false,
+                        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Canticle of Everlasting Grief (Critical Failure)"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
+                "radius": 15,
+                "slug": "canticle-of-everlasting-grief",
+                "traits": [
+                    "auditory",
+                    "curse",
+                    "emotion",
+                    "fear",
+                    "mental"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

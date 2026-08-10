@@ -1,0 +1,49 @@
+{
+    "_id": "BCWpJb8yCCA8aGT8",
+    "img": "icons/magic/death/undead-ghost-scream-teal.webp",
+    "name": "Effect: Become as Spirit",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Become as Spirit]</p>\n<p>You gain resistance to all damage (except force, ghost touch, spirit, or vitality) equal to half your level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 12
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "exceptions": [
+                    "force",
+                    "ghost-touch",
+                    "spirit",
+                    "vitality"
+                ],
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": "floor(@actor.level/2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

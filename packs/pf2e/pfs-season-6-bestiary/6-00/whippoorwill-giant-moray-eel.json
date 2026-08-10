@@ -76,8 +76,8 @@
                             "ambush"
                         ],
                         "selectors": [
-                            "strike-attack-roll",
-                            "strike-damage"
+                            "jaws-attack-roll",
+                            "jaws-damage"
                         ],
                         "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
                     }
@@ -104,14 +104,42 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The giant moray eel has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] in its jaws</p><hr /><p><strong>Effect</strong> The giant moray eel uses its second set of jaws to pull the prey into its gullet. The eel deals @Damage[(1d6+2)[piercing]] damage to the grabbed creature and gains a +2 circumstance bonus to its Swallow Whole attempts and to the DC for the creature to @UUID[Compendium.pf2e.actionspf2e.Item.Escape]. This effect ends if the target Escapes or the giant moray eel Swallows it Whole.</p>"
+                    "value": "<p><strong>Requirements</strong> The giant moray eel has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] in its jaws</p><hr /><p><strong>Effect</strong> The giant moray eel uses its second set of jaws to pull the prey into its gullet. The eel deals @Damage[(1d6+2)[piercing]] damage to the grabbed creature and gains a +2 circumstance bonus to its Swallow Whole attempts and to the DC for the creature to [[/act escape]]. This effect ends if the target Escapes or the giant moray eel Swallows it Whole.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "pharyngeal-jaws",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:swallow-whole",
+                            "pharyngeal-jaws"
+                        ],
+                        "selector": "athletics",
+                        "slug": "pharyngeal-jaws-swallow-whole",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:escape",
+                            "pharyngeal-jaws"
+                        ],
+                        "selector": "athletics-dc",
+                        "slug": "pharyngeal-jaws-escape",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

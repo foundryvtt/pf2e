@@ -1,0 +1,58 @@
+{
+    "_id": "FmqbQqLxUZ2FTN7z",
+    "img": "systems/pf2e/icons/spells/canticle-of-everlasting-grief.webp",
+    "name": "Spell Effect: Canticle of Everlasting Grief (Success)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Canticle of Everlasting Grief]</p>\n<p>You can't benefit from circumstance or status bonuses, and are frightened 1.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "bonus:type:circumstance",
+                            "bonus:type:status"
+                        ]
+                    }
+                ],
+                "selector": "all",
+                "suppress": true
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "granter": "detach"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Frightened"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

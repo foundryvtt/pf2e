@@ -1,0 +1,52 @@
+{
+    "_id": "92AQMrhyd4QmygcE",
+    "img": "icons/commodities/bones/skull-tusked-grey.webp",
+    "name": "Effect: Watchful Presence",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +2 status bonus to Perception checks but take a –2 penalty to saving throws against fear effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 13
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "perception",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:fear"
+                ],
+                "selector": "saving-throw",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

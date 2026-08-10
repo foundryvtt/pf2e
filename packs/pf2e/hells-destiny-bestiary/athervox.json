@@ -1773,7 +1773,7 @@
                 "rules": [
                     {
                         "key": "Aura",
-                        "radius": 0,
+                        "radius": 90,
                         "slug": "frightful-presence",
                         "traits": [
                             "emotion",
@@ -1808,14 +1808,22 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>20 feet.</p>\n<p>After Athervox uses her Poison Breath, a cloud of poison gas continues to emanate from her body for 1 round. Any creature that ends their turn in the miasma takes @Damage[4d6[poison]] damage (@Check[fortitude|dc:39|basic] save). Any creature in the miasma is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] and treats other creatures as concealed. Athervox can see through this concealment.</p>"
+                    "value": "<p>20 feet. After Athervox uses her Poison Breath, a cloud of poison gas continues to emanate from her body for 1 round. Any creature that ends their turn in the miasma takes @Damage[4d6[poison]|options:area-damage] damage (@Check[fortitude|dc:39|basic|options:area-effect] save). Any creature in the miasma is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] and treats other creatures as concealed. Athervox can see through this concealment.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Miasma]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "poison-breath-inline-damage",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [

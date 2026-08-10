@@ -4,7 +4,10 @@
     "img": "icons/magic/fire/explosion-flame-lightning-strike.webp",
     "name": "Plasma Whirl",
     "system": {
-        "area": null,
+        "area": {
+            "type": "cone",
+            "value": 30
+        },
         "cost": {
             "value": ""
         },
@@ -17,7 +20,7 @@
             }
         },
         "description": {
-            "value": "<p>You reach up to the stars and create a temporary portal that allows a blast of plasma to pass through the battlefield. The plasma deals electricity and fire damage with a basic Reflex save. The number of actions you spend when Casting this Spell determines the area and other parameters.</p>\n<p><span class=\"action-glyph\">1</span> This spell is a @Template[type:cone|distance:15], dealing @Damage[2d6[electricity]|options:area-damage] damage and @Damage[2d6[fire]|options:area-damage] damage.</p>\n<p><span class=\"action-glyph\">2</span>This spell is a @Template[type:cone|distance:30], dealing @Damage[5d6[electricity]|options:area-damage] damage and @Damage[5d6[fire]|options:area-damage] damage.</p>\n<p><span class=\"action-glyph\">3</span> This spell is a @Template[type:cone|distance:60], dealing @Damage[5d6[electricity]|options:area-damage] damage and @Damage[5d6[fire]|options:area-damage] damage. Creatures that fail their saves become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure) due to their exposure to cosmic radiation.</p><hr /><p><strong>Heightened (+2)</strong> The damage increases by 1d6 for each damage type with the 1-action version, or by 2d6 for each damage type for the 2- and 3-action versions.</p>"
+            "value": "<p>You reach up to the stars and create a temporary portal that allows a blast of plasma to pass through the battlefield. The plasma deals electricity and fire damage with a basic Reflex save. The number of actions you spend when Casting this Spell determines the area and other parameters.</p>\n<p><span class=\"action-glyph\">1</span> This spell is a 15-foot cone, dealing 2d6 electricity damage and 2d6 fire damage.</p>\n<p><span class=\"action-glyph\">2</span> This spell is a 30-foot cone, dealing 5d6 electricity damage and 5d6 fire damage.</p>\n<p><span class=\"action-glyph\">3</span> This spell is a 60-foot cone, dealing 5d6 electricity damage and 5d6 fire damage. Creatures that fail their saves become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure) due to their exposure to cosmic radiation.</p><hr /><p><strong>Heightened (+2)</strong> The damage increases by 1d6 for each damage type with the 1-action version, or by 2d6 for each damage type for the 2- and 3-action versions.</p>"
         },
         "duration": {
             "sustained": false,
@@ -32,7 +35,6 @@
                 "sort": 1,
                 "system": {
                     "area": {
-                        "type": "cone",
                         "value": 15
                     },
                     "damage": {
@@ -76,7 +78,6 @@
                 "sort": 3,
                 "system": {
                     "area": {
-                        "type": "cone",
                         "value": 60
                     },
                     "damage": {
@@ -119,10 +120,6 @@
                 "overlayType": "override",
                 "sort": 2,
                 "system": {
-                    "area": {
-                        "type": "cone",
-                        "value": 30
-                    },
                     "damage": {
                         "XgeYtzNCyFSsgHhx": {
                             "applyMod": false,
@@ -178,7 +175,10 @@
         },
         "traits": {
             "rarity": "common",
-            "traditions": [],
+            "traditions": [
+                "arcane",
+                "primal"
+            ],
             "value": [
                 "concentrate",
                 "electricity",

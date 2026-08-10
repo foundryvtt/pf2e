@@ -29,7 +29,36 @@
             "remaster": true,
             "title": "Pathfinder Impossible Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.system.automaton.enhancements.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.UndeadHunter",
+                    "predicate": [
+                        {
+                            "not": "enhancement:undead-hunter"
+                        }
+                    ],
+                    "value": "undead-hunter"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.system.automaton.enhancements.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.UndeadHunter",
+                    "predicate": [
+                        {
+                            "not": "enhancement:undead-hunter"
+                        }
+                    ],
+                    "value": "undead-hunter"
+                }
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
