@@ -1116,7 +1116,7 @@ const ITEM_ALTERATION_HANDLERS = {
 
                     // Ensure melee weapons gaining thrown-N stay melee, so a thrown alt-usage can be generated.
                     if (
-                        data.item instanceof WeaponPF2e &&
+                        itemIsOfType(data.item, "weapon") &&
                         !data.item.altUsageType &&
                         /^thrown-\d{1,3}$/.test(resolvedTrait)
                     ) {
