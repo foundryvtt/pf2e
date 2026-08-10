@@ -436,6 +436,7 @@ const spellTraits = {
     incarnate: "PF2E.TraitIncarnate",
     incorporeal: "PF2E.TraitIncorporeal",
     inhaled: "PF2E.TraitInhaled",
+    junk: "PF2E.TraitJunk",
     light: "PF2E.TraitLight",
     linguistic: "PF2E.TraitLinguistic",
     litany: "PF2E.TraitLitany",
@@ -469,6 +470,7 @@ const spellTraits = {
     teleportation: "PF2E.TraitTeleportation",
     thrall: "PF2E.TraitThrall",
     transfer: "PF2E.TraitTransfer",
+    traversal: "PF2E.TraitTraversal",
     trial: "PF2E.TraitTrial",
     "true-name": "PF2E.TraitTrueName",
     visual: "PF2E.TraitVisual",
@@ -947,9 +949,11 @@ const actionTraits = {
     ...spellTraits,
     ...weaponActionTraits,
     "certain-kill": "PF2E.TraitCertainKill",
+    "living-hologram": "PF2E.TraitLivingHologram",
     skirmish: "PF2E.TraitSkirmish",
     station: "PF2E.TraitStation",
     summon: "PF2E.TraitSummon",
+    verthani: "PF2E.TraitVerthani",
 };
 
 const effectTraits = R.omit(actionTraits, [
@@ -1639,6 +1643,7 @@ const traitDescriptions = {
     "jousting-d6": "PF2E.TraitDescriptionJousting",
     "jousting-d8": "PF2E.TraitDescriptionJousting",
     "jousting-d10": "PF2E.TraitDescriptionJousting",
+    junk: "PF2E.TraitDescriptionJunk",
     kami: "PF2E.TraitDescriptionKami",
     kashrishi: "PF2E.TraitDescriptionKashrishi",
     "keep-stone": "PF2E.PreciousMaterialKeepStoneDescription",
