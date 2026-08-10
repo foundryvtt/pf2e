@@ -1,0 +1,74 @@
+{
+    "_id": "DUI99Do6bexbwnfh",
+    "folder": "FSNnPgMOy8JVEnXb",
+    "img": "systems/sf2e/icons/default-icons/background.svg",
+    "name": "Off-the-Grid Owner",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "con",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>No matter how wondrous and advanced modern technology becomes, to many it will never compare to the raw beauty and strength of the natural world and its countless inhabitants. You're one of these people, or you grew up among them, and prioritizing the happiness of yourself and your trusty companion, you know how to live off the bounty of the natural world to survive without needing the modern conveniences that keep others from forming a bond with a pet like yours.</p>\n<p>Choose two attribute boosts. One must be to <strong>Constitution</strong> or <strong>Wisdom</strong>, and one is a free attribute boost.</p>\n<p>You're trained in your choice of either the Nature or Survival skill as well as the Labor Lore skill. You gain the Pet skill feat.</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Nature",
+                        "value": {
+                            "skill": "nature"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Survival",
+                        "value": {
+                            "skill": "survival"
+                        }
+                    }
+                ],
+                "flag": "off-the-grid-owner",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.system.rulesSelections.off-the-grid-owner.skill}.rank",
+                "value": 1
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Labor Lore"
+            ],
+            "value": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "background"
+}

@@ -1,0 +1,154 @@
+{
+    "_id": "5TGgljErrluk0gTb",
+    "folder": "WXKipnCCPj9jrktD",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "7NlXefjfn0RAVmrT",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Rotting Gurgle",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A starship ends its movement or takes an action in the hazard's zone</p><hr /><p><strong>Effect</strong> The carcass makes a caustic droplets Strike against the triggering starship. A starship that takes damage to its Hull Points from this attack is covered in decomposing slime that causes all starships to be @UUID[Compendium.sf2e.conditions.Item.Concealed] to it until the crew spends 1 hour cleaning the hull or until it gains 1 Shield Point.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GtyajiAKdXVrcJl8",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Caustic Droplets",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "JCqE7Rfd0I6sfFym": {
+                        "damage": "4d10+16",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": false,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Extinct Astral Behemoth",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 25
+            },
+            "emitsSound": "encounter",
+            "hardness": 16,
+            "hp": {
+                "details": "",
+                "max": 70,
+                "temp": 0,
+                "value": 70
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "object-immunities"
+                },
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 13
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "bludgeoning",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>The hulking carcass of a primal beast floats in frozen chunks suspended in a spray of its brightly pigmented blood. The hazard is a Large starship object.</p>",
+            "disable": "<p>@Check[nature|dc:28] (expert; gunnery) to release death gases and blood safely, or @Check[piloting|dc:26] (trained; pilot's console) to evade the hazard's secretions</p>",
+            "isComplex": false,
+            "level": {
+                "value": 9
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Tech Core"
+            },
+            "reset": "<p>The hazard resets over the course of the round and is ready to trigger again 1 round later.</p>",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "value": 21
+            },
+            "reflex": {
+                "value": 15
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "starship"
+            ]
+        }
+    },
+    "type": "hazard"
+}
