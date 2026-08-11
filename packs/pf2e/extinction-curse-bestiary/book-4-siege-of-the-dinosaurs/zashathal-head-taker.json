@@ -12,6 +12,7 @@
             "name": "Ankylostar",
             "sort": 100000,
             "system": {
+                "ammo": null,
                 "baseItem": "morningstar",
                 "bonus": {
                     "value": 2
@@ -38,6 +39,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "club",
                 "hardness": 0,
                 "hp": {
@@ -110,6 +112,7 @@
             "name": "Stoneraiser Javelin",
             "sort": 200000,
             "system": {
+                "ammo": null,
                 "baseItem": "javelin",
                 "bonus": {
                     "value": 2
@@ -136,6 +139,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "dart",
                 "hardness": 0,
                 "hp": {
@@ -547,7 +551,26 @@
                         ],
                         "selector": "fortitude",
                         "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    },
+                    {
+                        "definition": [
+                            "damage:category:physical",
+                            {
+                                "or": [
+                                    "item:type:melee",
+                                    "item:type:weapon"
+                                ]
+                            },
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "key": "Resistance",
+                        "label": "PF2E.IWR.Custom.PhysicalWeaponsOnly",
+                        "type": "custom",
+                        "value": 14
                     }
                 ],
                 "slug": null,
@@ -819,15 +842,7 @@
                 "temp": 0,
                 "value": 250
             },
-            "resistances": [
-                {
-                    "exceptions": [
-                        "weapons"
-                    ],
-                    "type": "physical",
-                    "value": 14
-                }
-            ],
+            "resistances": [],
             "speed": {
                 "otherSpeeds": [],
                 "value": 35
