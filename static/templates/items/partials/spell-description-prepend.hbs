@@ -1,4 +1,6 @@
-{{#if traditions}}<p><strong>{{localize "PF2E.SpellTraditionsLabel"}}</strong> {{traditions}}</p>{{/if}}
+{{#if traditions}}
+    <p><strong>{{localize "PF2E.SpellTraditionsLabel"}}</strong> {{traditions}}</p>
+{{/if}}
 {{#if (or cast cost secondaryCasters)}}
     <p class="item-block-line">
         {{#if cast}}
@@ -40,6 +42,14 @@
         {{/if}}
     </p>
 {{/if}}
+{{#if requirements}}
+    <p class="item-block-line">
+        <span>
+            <strong>{{localize "PF2E.SpellRequirementsLabel"}}</strong>
+            {{requirements}}
+        </span>
+    </p>
+{{/if}}
 {{#if (or range targets area)}}
     <p class="item-block-line{{#unless (or defense duration)}} last{{/unless}}">
         {{#if range}}
@@ -52,7 +62,8 @@
         {{#if area}}
             <span>
                 <strong>{{localize "PF2E.Area.Label"}}</strong>
-                <span {{#unless (eq area.label area.baseLabel)}}class="adjusted" data-tooltip="{{localize "PF2E.Item.Spell.BaseValue" value=area.baseLabel}}"{{/unless}}>
+                <span {{#unless (eq area.label area.baseLabel)}}class="adjusted"
+                    data-tooltip="{{localize "PF2E.Item.Spell.BaseValue" value=area.baseLabel}}" {{/unless}}>
                     {{area.label}}
                 </span>
             </span>
@@ -83,4 +94,6 @@
     </p>
 {{/if}}
 
-{{#if (or traditions cast cost secondaryCasters primaryCheck secondaryChecks range targets area defense duration)}}<hr class="item-block-divider" />{{/if}}
+{{#if (or traditions cast cost secondaryCasters requirements primaryCheck secondaryChecks range targets area defense duration)}}
+    <hr class="item-block-divider" />
+{{/if}}
