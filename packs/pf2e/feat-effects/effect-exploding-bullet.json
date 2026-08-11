@@ -1,0 +1,137 @@
+{
+    "_id": "uJFqgFpVfopQbMhq",
+    "img": "icons/weapons/ammunition/ammo-shell-round-brass.webp",
+    "name": "Effect: Exploding Bullet",
+    "system": {
+        "description": {
+            "value": "<p>Granted by Exploding Bullet.</p>\n<p>Your Strike gains the arcane trait and the chosen energy trait. The firearm has scatter 5 feet (or +1 status to splash if it already had scatter). Scatter splash damage uses the chosen energy type.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "explodingBullet",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EnergyType",
+                "rollOption": "exploding-bullet"
+            },
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:group:firearm"
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "explodingBulletWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.system.rulesSelections.explodingBulletWeapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "arcane"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.system.rulesSelections.explodingBulletWeapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "{item|flags.system.rulesSelections.explodingBullet}"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:id:{item|flags.system.rulesSelections.explodingBulletWeapon}",
+                    "item:trait:scatter"
+                ],
+                "priority": 10,
+                "property": "other-tags",
+                "value": "exploding-bullet-native-scatter"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:id:{item|flags.system.rulesSelections.explodingBulletWeapon}",
+                    {
+                        "not": "item:trait:scatter"
+                    }
+                ],
+                "priority": 20,
+                "property": "traits",
+                "value": "scatter-5"
+            },
+            {
+                "damageCategory": "splash",
+                "damageType": "{item|flags.system.rulesSelections.explodingBullet}",
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:tag:exploding-bullet-native-scatter"
+                ],
+                "selector": "{item|flags.system.rulesSelections.explodingBulletWeapon}-damage",
+                "slug": "exploding-bullet-scatter-bonus",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:id:{item|flags.system.rulesSelections.explodingBulletWeapon}"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "scatter",
+                "value": "{item|flags.system.rulesSelections.explodingBullet}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

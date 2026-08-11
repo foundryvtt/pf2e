@@ -1,0 +1,107 @@
+{
+    "_id": "OJg3cA6viR3sA3jB",
+    "img": "icons/sundries/survival/cuffs-shackles-steel.webp",
+    "name": "Effect: Manacles",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Manacles (Poor)], @UUID[Compendium.pf2e.equipment-srd.Item.Manacles (Simple)], @UUID[Compendium.pf2e.equipment-srd.Item.Manacles (Average)], @UUID[Compendium.pf2e.equipment-srd.Item.Manacles (Good)], @UUID[Compendium.pf2e.equipment-srd.Item.Manacles (Superior)]</p>\n<p><strong>Legs</strong> You take a –15-foot circumstance penalty to your Speeds</p>\n<p><strong>Wrists</strong> You must succeed at a DC 5 flat check any time you use a manipulate action or else that action fails.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.BodyParts.Legs",
+                        "value": "legs"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BodyParts.Wrists",
+                        "value": "wrists"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.BodyParts.Prompt",
+                "rollOption": "manacles"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "manacles:legs"
+                ],
+                "selector": "all-speeds",
+                "type": "circumstance",
+                "value": -15
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "manacles:wrists",
+                    "item:trait:manipulate"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Equipment.Manacles.WristsNote"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "manacles:wrists",
+                    "item:trait:manipulate"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Equipment.Manacles.WristsNote"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "manacles:wrists",
+                    "item:trait:manipulate"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Equipment.Manacles.WristsNote"
+                    }
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

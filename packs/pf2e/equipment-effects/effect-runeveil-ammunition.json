@@ -1,0 +1,47 @@
+{
+    "_id": "qIU22bx5I6d6peRW",
+    "img": "systems/pf2e/icons/equipment/consumables/ammunition/stepping-stone-shot.webp",
+    "name": "Effect: Runeveil Ammunition",
+    "system": {
+        "description": {
+            "value": "<p>Pulsing, cracked glyphs scar the surface of runeveil ammunition, seeming to flake and crumble when handled roughly. When activated runeveil ammunition hits a target that can Cast Spells, it's engulfed in a personal cloud of glowing dust. Until the beginning of your next turn, the target takes a –2 status penalty to spell attack rolls and spell DCs.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "spell-attack-roll",
+                    "spell-dc"
+                ],
+                "type": "status",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

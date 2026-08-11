@@ -4,7 +4,7 @@
     "name": "Spell Effect: Necromancer's Generosity",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Necromancer's Generosity]</p>\n<p>You gain a +2 status bonus to saves against vitality effects for the duration.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Necromancer's Generosity]</p>\n<p>You gain a +2 status bonus to saves against vitality effects.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,15 +16,15 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Secrets of Magic"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "vitality"
+                    "item:trait:vitality"
                 ],
                 "selector": "saving-throw",
                 "type": "status",

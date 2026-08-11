@@ -1,0 +1,66 @@
+{
+    "_id": "Gy4kgvDhMsxIUd8m",
+    "folder": "9uj0D0bw3eBw9pd8",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Azlanti Researcher",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>Sorrina Westyr put out a call for people with an interest in Azlanti history and you've been waiting for this chance all your life. You're here and you're ready to get elbows deep into Azlanti artifacts!</p>\n<p>Choose two attribute boosts. One must be to <strong>Wisdom</strong> or <strong>Charisma</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Religion skill and the Azlant Lore skill. Add Azlanti to your list of known languages. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Student of the Canon] skill feat</p>"
+        },
+        "items": {
+            "zIFEr": {
+                "img": "icons/sundries/books/book-red-exclamation.webp",
+                "level": 1,
+                "name": "Student of the Canon",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Student of the Canon"
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Society Clockwork Mystery Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.build.languages.granted",
+                "value": {
+                    "slug": "azlanti",
+                    "source": "{item|name}"
+                }
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Azlant Lore"
+            ],
+            "value": [
+                "religion"
+            ]
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "background"
+}

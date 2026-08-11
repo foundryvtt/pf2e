@@ -6,6 +6,20 @@
                 "Text": "The target must succeed at a @Check[reflex|dc:16|name:Antler Arrow] save or become stuck to the surface, taking the critical specialization effects of a bow",
                 "Title": "Antler Arrow"
             },
+            "DaybreakAmmunition": {
+                "Text": "When activated daybreak ammunition hits a target, the missile flares with an aura of bright light in a @Template[type:emanation|distance:10] from the target for 1 round. Each creature in the area must attempt a @Check[fortitude|dc:18] save. Creatures with darkvision take a –2 circumstance penalty to this save.",
+                "Title": "Daybreak Ammunition"
+            },
+            "DisruptionAmmunition": {
+                "Greater": {
+                    "Text": "When activated disruption ammunition hits a target, it attempts to counteract one active spell effect that the target is Sustaining with a +20 counteract check modifier (counteract rank 6).",
+                    "Title": "Disruption Ammunition (Greater)"
+                },
+                "Normal": {
+                    "Text": "When activated disruption ammunition hits a target, it attempts to counteract one active spell effect that the target is Sustaining with a +11 counteract check modifier (counteract rank 3).",
+                    "Title": "Disruption Ammunition"
+                }
+            },
             "ExplosiveAmmunition": {
                 "Greater": {
                     "Text": "The missile explodes in a @Template[burst|distance:10], dealing @Damage[10d6[fire]|options:area-damage] damage to each creature in the area (including the target). Each creature must attempt a @Check[reflex|dc:30|basic|name:Explosive Ammunition|options:area-effect] save.",
@@ -15,6 +29,10 @@
                     "Text": "The missile explodes in a @Template[burst|distance:10], dealing @Damage[6d6[fire]|options:area-damage] damage to each creature in the area (including the target). Each creature must attempt a @Check[reflex|dc:25|basic|name:Explosive Ammunition|options:area-effect] save.",
                     "Title": "Explosive Ammunition"
                 }
+            },
+            "EscalationAmmunition": {
+                "Text": "The target must attempt a @Check[fortitude|dc:30] save. On a failure, the target rolls the next saving throw it attempts within the next minute against a spell or magical effect twice and takes the worse result.",
+                "Title": "Escalation Ammunition"
             },
             "ExsanguinatingAmmunition": {
                 "Greater": {
@@ -37,6 +55,20 @@
             "GlueBullet": {
                 "Text": "On a hit, the target takes a –10-foot circumstance penalty to its Speeds for [[/r 2d4 #rounds]]{2d4 rounds}. On a critical hit, the target is also @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{Immobilized}. @UUID[Compendium.pf2e.equipment-effects.Item.dBjXvsLFezo2fGRa]{Effect: Glue Bullet}.",
                 "Title": "Glue Bullet"
+            },
+            "GravebaneAmmunition": {
+                "Greater": {
+                    "Text": "On a successful Strike, the attack deals an additional @Damage[1d10[vitality]] damage to creatures with void healing. If the target takes vitality damage, it must succeed at a @Check[fortitude|dc:19] save or become @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 1} (or @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 2} on a critical failure) until the start of your next turn.",
+                    "Title": "Gravebane Ammunition (Greater)"
+                },
+                "Normal": {
+                    "Text": "On a successful Strike, the attack deals an additional @Damage[2d10[vitality]] damage to creatures with void healing. If the target takes vitality damage, it must succeed at a @Check[fortitude|dc:27] save or become @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 1} (or @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 2} on a critical failure) until the start of your next turn.",
+                    "Title": "Gravebane Ammunition"
+                }
+            },
+            "MagekillerBullet": {
+                "Text": "Each time within the next week an affected target Casts a Spell, it must attempt a @Check[flat|dc:11]. On a failure, it takes @Damage[2d12[force]] damage.",
+                "Title": "Magekiller Bullet"
             },
             "MeteorShot": {
                 "CriticalFailureText": "On a critical failure, the weapon misfires.",
@@ -72,6 +104,20 @@
                     "Title": "Ooze Ammunition (Moderate)"
                 }
             },
+            "ShatterpointAmmunition": {
+                "Greater": {
+                    "Text": "The damage the ammunition deals ignores the target's Hardness if it's 8 or lower. In addition, the target takes @Damage[2d8[persistent,sonic]] damage.",
+                    "Title": "Shatterpoint Ammunition (Greater)"
+                },
+                "Major": {
+                    "Text": "The damage the ammunition deals ignores the target's Hardness if it's 12 or lower. In addition, the target takes @Damage[3d8[persistent,sonic]] damage.",
+                    "Title": "Shatterpoint Ammunition (Major)"
+                },
+                "Normal": {
+                    "Text": "The damage the ammunition deals ignores the target's Hardness if it's 4 or lower. In addition, the target takes @Damage[1d8[persistent,sonic]] damage.",
+                    "Title": "Shatterpoint Ammunition"
+                }
+            },
             "ShiningAmmunition": {
                 "Text": "The ammunition sheds bright light in a 20-foot radius (and dim light to the next 20 feet) for 10 minutes. If it hits a target, it sticks, causing the target to shed light in the same radius. @UUID[Compendium.pf2e.equipment-effects.Item.Sf6UO6vgCeicggOK]{Effect: Shining Ammunition}",
                 "Title": "Shining Ammunition"
@@ -97,6 +143,7 @@
                     "Chuul": "Chuul",
                     "Gogiteth": "Gogiteth",
                     "Gug": "Gug",
+                    "Ofalth": "Ofalth",
                     "Otyugh": "Otyugh"
                 },
                 "GugSqueezeNote": "Your multiple joints allow you to fit through tight spaces as if you were a Medium creature."
@@ -200,6 +247,7 @@
                 "Tusk": "Tusk",
                 "Tusks": "Tusks",
                 "Vine": "Vine",
+                "VoidFrond": "Void Frond",
                 "WaterSpout": "Water Spout",
                 "Wave": "Wave",
                 "Web": "Web",
@@ -293,12 +341,12 @@
                 "Kaiju": "Kaiju"
             },
             "Note": {
-                "Grab": "You can spend an action immediately after a hit to @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr]{Grab} the target",
+                "Grab": "You can spend an action immediately after a hit to @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr]{Grab} the target.",
                 "GrabbingTrunk": {
                     "Text": "A creature up to two sizes smaller that's hit by your trunk is @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed}. If you succeed at your @UUID[Compendium.pf2e.actionspf2e.Item.PMbdMWc2QroouFGD]{Grapple} check against a creature grabbed by your trunk, you can reposition the creature to another space within your trunk's reach.",
                     "Title": "Grabbing Trunk"
                 },
-                "Shove": "You can spend an action immediately after a hit to push the target 5 feet with the effects of a successful @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{Shove}"
+                "Shove": "You can spend an action immediately after a hit to push the target 5 feet with the effects of a successful @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{Shove}."
             },
             "OozeForm": {
                 "ChoiceSet": {
@@ -308,6 +356,14 @@
                     "OchreJelly": "Ochre Jelly"
                 },
                 "GelatinousCubeNote": "A creature hit by your cube face Strike must succeed at a @Check[fortitude|against:spell|traits:incapacitation] save against your spell DC or be @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.6uEgoh53GbXuHpTF]{Paralyzed} for 1 round on a critical failure); this save has the incapacitation trait."
+            },
+            "PlantForm": {
+                "ChoiceSet": {
+                    "Arboreal": "Arboreal",
+                    "Flytrap": "Flytrap",
+                    "Moonflower": "Moonflower",
+                    "VoidPalm": "Void Palm"
+                }
             },
             "WormForm": {
                 "Hybrid": "Hybrid",
@@ -913,8 +969,10 @@
                 "Radiation": "radiation",
                 "RadiationPoison": "radiation poison",
                 "RangedWeaponAttacks": "ranged weapon attacks",
+                "SkeletonCrew": "skeleton crew",
                 "SpellsFromAllTraditions": "spells from all traditions",
                 "Spirits": "spirits",
+                "SpiritFromFiends": "spirit damage from fiends",
                 "StrikesCreatureSheddingBrightLight": "strikes by a creature shedding bright light",
                 "Treerazer": "Treerazer",
                 "UnholyBludgeoningPiercingSlashing": "unholy bludgeoning, piercing and slashing damage",
@@ -1158,6 +1216,7 @@
                             "Ape": "Ape",
                             "Bat": "Bat",
                             "BatGiant": "Giant Bat",
+                            "BatSmall": "Small Bat",
                             "Boar": "Boar",
                             "Centipede": "Centipede",
                             "Cobra": "Cobra",
@@ -1165,6 +1224,7 @@
                             "Dog": "Dog",
                             "Dove": "Dove",
                             "Fish": "Fish",
+                            "InsectSmall": "Small Insect",
                             "Fox": "Fox",
                             "Lizard": "Lizard",
                             "Mantis": "Mantis",
@@ -1641,7 +1701,7 @@
             },
             "FlotsamTerror": {
                 "Attacks": {
-                    "FloatsamLabel": "Floatsam",
+                    "FlotsamLabel": "Flotsam",
                     "SharpEdgeLabel": "Sharp Edge"
                 }
             },
@@ -2787,6 +2847,7 @@
                 "CriticalHit": "Soulfired Pot Broken by a Critical Hit"
             },
             "SovereignDragon": {
+                "InspireEnvoyArchdragon": "Sovereign Archdragon",
                 "InspireEnvoyDragonAdult": "Adult Sovereign Dragon",
                 "InspireEnvoyDragonAncient": "Ancient Sovereign Dragon",
                 "InspireEnvoyDragonChoice": "Dragon Granting the Effect",
@@ -3980,6 +4041,7 @@
             "Moist": "In Moist Environments",
             "Moonlight": "In Moonlight",
             "Mountains": "In Mountains",
+            "Natural": "In Natural Terrain",
             "Navigate": "To Navigate",
             "NearTheOcean": "Near The Ocean",
             "NighttimeWithMoonVisible": "Nighttime, with the Moon Visible",
@@ -4604,9 +4666,14 @@
             },
             "BodyParts": {
                 "Arms": "Arms",
+                "Bones": "Bones",
                 "Head": "Head",
+                "Joints": "Joints",
                 "Legs": "Legs",
-                "Torso": "Torso"
+                "Muscles": "Muscles",
+                "Prompt": "Select a body part.",
+                "Torso": "Torso",
+                "Wrists": "Wrists"
             },
             "BonusLabel": {
                 "NegativeOne": "-1",
@@ -5026,7 +5093,7 @@
                         "Description": "Training and magical assistance from your spiritual companions have improved your weapon technique. Your proficiency rank for simple weapons and unarmed attacks increases to expert."
                     },
                     "summoner": {
-                        "Description": "Training and magic improved your weapon technique. Your proficiency rank for simple weapons and unarmed attacks increases to expert."
+                        "Description": "Training and magic have improved your weapon technique. Your proficiency rank for simple weapons and unarmed attacks increases to expert."
                     }
                 },
                 "Spellcaster": {
@@ -5046,8 +5113,8 @@
                         "Master": "Primal magic answers your command. Your proficiency ranks for spell attack modifier and spell DC increase to master."
                     },
                     "magus": {
-                        "Expert": "Your fundamental understanding of magic improves, making your spells harder to resist. Your proficiency ranks for arcane spell attack rolls and spell DCs increase to expert.",
-                        "Master": "You fortify your spells with masterful prowess. Your proficiency ranks for arcane spell attack rolls and spell DCs increase to master."
+                        "Expert": "Your fundamental understanding of magic improves, making your spells harder to resist. Your proficiency ranks for your spell attack modifier and spell DC increase to expert.",
+                        "Master": "You fortify your spells with masterful prowess. Your proficiency ranks for your spell attack modifier and spell DC increase to master."
                     },
                     "oracle": {
                         "Expert": "The intricacy of your divine power has grown clearer over time. Your proficiency ranks for divine spell attack rolls and spell DCs increase to expert.",
@@ -5065,8 +5132,8 @@
                         "Master": "You have achieved mastery over the magic in your blood. Your proficiency ranks for spell attack modifier and spell DC for spells of your bloodline's tradition increase to master."
                     },
                     "summoner": {
-                        "Expert": "As your connection to your eidolon deepens, the power of your spells increases. Your proficiency ranks for spell attack modifier and spell DC for spells of your eidolon's tradition increase to expert.",
-                        "Master": "Your connection to your eidolon is strong enough to grant you mastery over associated spells. Your proficiency ranks for spell attack modifier and spell DC for spells of your eidolon's tradition increase to master."
+                        "Expert": "As your connection to your eidolon deepens, the power of your spells increases. Your proficiency ranks for your spell attack modifier and spell DC statistics increase to expert.",
+                        "Master": "Your connection to your eidolon is strong enough to grant you mastery over associated spells. Your proficiency ranks for spell attack modifiers and spell DCs increase to master."
                     },
                     "witch": {
                         "Expert": "You've learned to better control the power your patron has granted you. Your proficiency ranks for spell attack modifier and spell DC increase to expert.",
@@ -5106,10 +5173,10 @@
                     },
                     "SpellSwapping": "**Swapping Spells in Your Repertoire**",
                     "summoner": {
-                        "PartOne": "The collection of spells you can cast is called your spell repertoire. At 1st level, you learn two 1st-level spells of your choice and five cantrips of your choice. You choose these from the common spells from the tradition corresponding to your eidolon, or from other spells from that tradition to which you have access. You can cast any spell in your spell repertoire by using a spell slot of an appropriate spell level. Your spell slots and the spells in your spell repertoire are separate. If a feat or other ability adds a spell to your spell repertoire, it doesn't give you another spell slot, and vice versa.",
-                        "PartTwo": "You add to this spell repertoire as you increase in level. Each time you get a spell slot (see the Summoner Spells per Day table), you add a spell of the same level to your spell repertoire. At 2nd level, you select another 1st-level spell. At 3rd level, you add the first 2nd-level spell to your repertoire. At 4th level you gain your second and your spell repertoire reaches its maximum size of five spells.",
-                        "PartThree": "At 5th level, in addition to adding two 3rd-level spells to your repertoire, you lose your lowest level of spell slots. Any time you lose a level of spell slots, you lose two spells in your repertoire as well. These can come from spells you already know or out of the number of new spells you're learning. On levels in which you don't change your spell slots, you can swap out multiple spells, as described below.",
-                        "SpellSwapping": "As you gain new spells in your repertoire, you might want to replace some of the spells you previously learned. Each time you gain a level and learn new spells, you can swap out one of your old spells for a different spell of the same level. If it's a level at which you lose a set of lower-level slots, you can replace the two in either order. You can also instead swap a cantrip. You can also swap out spells by retraining during downtime."
+                        "PartOne": "The collection of spells you can cast is called your spell repertoire. At 1st level, you learn one 1st-rank spell of your choice and five cantrips of your choice. You choose these from the common spells from the tradition corresponding to your eidolon, or from other spells from that tradition to which you have access. You can cast any spell in your spell repertoire by using a spell slot of an appropriate spell rank.",
+                        "PartThree": "Though you gain them at the same rate, your spell slots and the spells in your spell repertoire are separate. If a feat or other ability adds a spell to your spell repertoire, it wouldn't give you another spell slot or vice versa",
+                        "PartTwo": "You add to this spell repertoire as you increase in level. Each time you get a spell slot (see the Summoner Spells per Day table), you add a spell to your spell repertoire of the same rank. At 2nd level, you select another 1st-rank spell. At 3rd level, you add the first 2nd-rank spell to your repertoire. At 4th level, you gain your second 2nd-rank spell, and so on. When you add spells, you might select a higher-rank version of a spell you already have so that you can cast a heightened version of that spell.",
+                        "SpellSwapping": "As you gain new spells in your repertoire, you might want to replace some of the spells you previously learned. Each time you gain a level and learn new spells, you can swap out one of your old spells for a different spell of the same rank. This spell can be a cantrip, but you can't swap out link spells. You can also swap out spells by retraining during downtime."
                     }
                 },
                 "WeaponExpertise": {
@@ -5134,11 +5201,17 @@
                     "magus": {
                         "Description": "You've dedicated yourself to learning the intricacies of your weapons. Your proficiency ranks for simple weapons, martial weapons, and unarmed attacks increase to expert."
                     },
+                    "necromancer": {
+                        "Description": "You've dedicated yourself to learning the intricacies of your weapons. Your proficiency ranks for simple weapons and unarmed attacks increase to expert."
+                    },
                     "oracle": {
                         "Description": "You've dedicated yourself to learning the intricacies of your weapons. Your proficiency ranks for simple weapons, martial weapons, and unarmed attacks increase to expert."
                     },
                     "psychic": {
                         "Description": "Training and magic have improved your weapon technique. Your proficiency rank for simple weapons and unarmed attacks increases to expert."
+                    },
+                    "runesmith": {
+                        "Description": "You've dedicated yourself to learning the intricacies of your weapons. Your proficiency ranks for simple weapons, martial weapons, and unarmed attacks increase to expert."
                     },
                     "sorcerer": {
                         "Description": "You've improved your combat skill. Your proficiency ranks for simple weapons and unarmed attacks increase to expert."
@@ -5212,6 +5285,10 @@
                 "RestorativeStrike": {
                     "Note": "You can target a second willing creature to heal the same amount from the spell. This creature can be outside of the spell's range, provided it's adjacent to the enemy you hit."
                 },
+                "SacredDefense": {
+                    "ReligionDCThirty": "DC 30 Religion",
+                    "ReligionDCForty": "DC 40 Religion"
+                },
                 "SacredGround": {
                     "Harmful": "A creature that remains in the area for the entire 10 minutes regains @Damage[(@actor.level)[void,healing]|traits:healing,void]{Hit Points} equal to your level. This activity has the healing and void traits and heals undead creatures (or other creatures with void healing).",
                     "Healing": "A creature that remains in the area for the entire 10 minutes regains @Damage[(@actor.level)[vitality,healing]|traits:healing,vitality]{Hit Points} equal to your level. This activity has the healing and vitality traits and heals living creatures."
@@ -5219,8 +5296,14 @@
                 "SapLife": {
                     "Note": "When you cast a <em>harm</em> spell and damage at least one living creature, you regain @Damage[(@item.rank)[healing]] Hit Points."
                 },
+                "SelectiveEnergy": {
+                    "ItemAlterationNote": "You can designate up to 5 creatures in the area. They are not targeted by the spell."
+                },
                 "SharedReplenishment": {
                     "Note": "You can grant the temporary Hit Points from Replenishment of War to an ally within 10 feet instead of gaining them yourself."
+                },
+                "VoidSiphon": {
+                    "Note": "Any living creature that critically fails its save against a <em>harm</em> spell you cast is @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{Drained 1}."
                 }
             },
             "Commander": {
@@ -5752,7 +5835,7 @@
                     "CutAirAndSea": "Cut Air and Sea"
                 },
                 "CommandersSignet": {
-                    "General":  {
+                    "General": {
                         "EffectLabel": "Effect: General's Signet",
                         "Label": "General's Signet"
                     }
@@ -5863,12 +5946,18 @@
                 "InstinctCrown": {
                     "QuickTemperedToggle": "Instinct Crown — Quick Tempered"
                 },
+                "IrisOfTheSky": {
+                    "RollOptionLabel": "Iris of the Sky - Sear the Sky"
+                },
                 "LieutenantsSash": {
                     "ToggleLabel": "Lieutenant's Sash — Bonus to AC and saves against reactions"
                 },
                 "LionsShield": {
                     "LionsBiteLabel": "Lion's Bite",
                     "LionsHeadLabel": "Lion's Head"
+                },
+                "Manacles": {
+                    "WristsNote": "You must succeed at a @Check[flat|dc:5|name:Manacles|showDC:all] any time you use a manipulate action or else that action fails."
                 },
                 "MantisEmbrace": {
                     "CrushingEmbraceLabel": "Crushing Embrace"
@@ -7071,6 +7160,9 @@
                 "AscendantPsychic": {
                     "TelepathyRange": "Increase the range of your limited telepathy to 120 feet."
                 },
+                "DiplomaticRetreat": {
+                    "ToggleLabel": "Diplomatic Retreat Target — DCs"
+                },
                 "Glowsilk": {
                     "LabelFungus": "Glowsilk Lashunta (fungus)"
                 }
@@ -7148,6 +7240,12 @@
                 },
                 "Spellstrike": {
                     "RechargeNote": "You recharge your Spellstrike when you cast a conflux spell that takes at least 1 action to cast."
+                },
+                "StarlitSpan": {
+                    "Note": "While you're in @UUID[Compendium.pf2e.actionspf2e.Item.HbejhIywqIufrmVM]{Arcane Cascade} stance, your ranged attacks ignore any lesser cover your allies would grant to your target."
+                },
+                "StudiousSpells": {
+                    "Addendum": "When you cast a studious spell, you can use @UUID[Compendium.pf2e.actionspf2e.Item.HbejhIywqIufrmVM]{Arcane Cascade} as a free action as your next action this turn."
                 },
                 "UnfurlingBrocade": {
                     "QiInfusedFabric": {
@@ -7308,6 +7406,9 @@
                 "MartialWayangWeapons": "Martial Wayang Weapons",
                 "MinotaurWeapons": "Minotaur Weapons",
                 "MonasticArchery": "Monastic Archery",
+                "PeacekeeperHeavy": "Peacekeeper Heavy Armor",
+                "PeacekeeperMedium": "Peacekeeper Medium Armor",
+                "PeakeeperWeapons": "Peacekeeper Weapons",
                 "PerformativeWeapons": "Gladiator Performative Weapons",
                 "PirateWeapons": "Pirate Weapons",
                 "SimpleBombsFirearms": "Simple Bombs & Firearms",
@@ -7451,6 +7552,29 @@
                     "CriticalNote": "The target takes @Damage[(@weapon.system.damage.dice)[persistent,poison]]{persistent poison damage} equal to the number of weapon damage dice",
                     "HoodedNote": "The target is also @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} until the start of your next turn.",
                     "StrikeLabel": "Venomous Spit"
+                }
+            },
+            "Necromancer": {
+                "FatalMethod": {
+                    "Prompt": "Select a fatal method.",
+                    "Puppeteer": {
+                        "ThrallProliferation": {
+                            "Addendum": "Once per round when you cast _create thrall_, you can create one additional thrall in range.",
+                            "Label": "Thrall Proliferation"
+                        }
+                    },
+                    "Reaper": {
+                        "ThrallTeamwork": {
+                            "Addendum": "Once per round after you cast _create thrall_, you can make a melee Strike as a free action against a creature within your melee reach that is adjacent to at least one of your thralls.",
+                            "Label": "Thrall Teamwork"
+                        }
+                    }
+                },
+                "GrimFascination": {
+                    "Prompt": "Select a grim fascination.",
+                    "ThrallEnhancement": {
+                        "Label": "Thrall Enhancement"
+                    }
                 }
             },
             "Nephilim": {
@@ -7633,6 +7757,7 @@
                 "Deity": "Select a deity.",
                 "DeitysDomain": "Select a deity's domain.",
                 "DieSize": "Select a die size.",
+                "DifficultyClass": "Select a DC.",
                 "DragonBreathWeapon": "Select a dragon's breath weapon.",
                 "Effect": "Select an effect.",
                 "Element": "Select an element.",
@@ -8349,6 +8474,9 @@
                 "SpinedFingertips": "Spined Fingertips",
                 "SpringLoadedLegs": "Spring-Loaded Legs"
             },
+            "SpellEffectBindHeroicSpirit": {
+                "CriticalHitNote": "Whenever you critically hit a creature with a Strike, you can create a thrall in a space adjacent to the target of the Strike."
+            },
             "SpellEffectBoneFlense": {
                 "Label": "Bone Flense"
             },
@@ -8362,6 +8490,17 @@
             },
             "SpellEffectFieryBody": {
                 "Note": "The attacker takes @Damage[(ternary(gte(@item.level,9),4,3))d6[fire]] damage."
+            },
+            "SpellEffectFishingSpot": {
+                "AggressivePerch": "Aggressive Perch",
+                "BurblingBarbel": "Burbling Barbel",
+                "DashingDace": "Dashing Dace",
+                "Ghoulfish": "Ghoulfish",
+                "MusicalTrout": "Musical Trout",
+                "PrimordialBass": "Primordial Bass",
+                "Prompt": "Select a fish.",
+                "ScholarSalmon": "Scholar Salmon",
+                "Vigocarp": "Vigocarp"
             },
             "SpellEffectFurnaceForm": {
                 "Note": "The attacker takes @Damage[3d6[fire]] damage."
@@ -8461,6 +8600,9 @@
                 "Prompt": "Select a dream.",
                 "Voyaging": "Dream of Voyaging"
             },
+            "SpellEffectSynesthesia": {
+                "Note": "You must succeed at a @Check[flat|dc:5|name:Synesthesia|showDC:all] each time you use a concentrate action, or the action fails and is wasted."
+            },
             "SpellEffectTemptFate": {
                 "Note": "If the saving throw's result is a success, it becomes a critical success. If it's a failure, it becomes a critical failure, and the critical failure can't be reduced by abilities that usually reduce critical failure."
             },
@@ -8508,6 +8650,44 @@
                 "Tenth": "10th-Rank",
                 "Third": "3rd-Rank"
             },
+            "Spellshifter": {
+                "AnalyzeMagic": {
+                    "CriticalSuccess": "You learn information about the spell or effect as if you had critically succeeded at a skill check to Identify Magic using the appropriate skill for its magical tradition.",
+                    "RollOptionLabel": "Analyze Magic",
+                    "Success": "You learn information about the spell or effect as if you had succeeded at a skill check to Identify Magic using the appropriate skill for its magical tradition.",
+                    "Text": "Once you've homed in on a spell or magical effect, you can study its unique magical signature to immediately understand exactly what it does. ",
+                    "Title": "Spellshift—Analyze Magic"
+                    },
+                 "DismantleSpell": {
+                    "CriticalSuccess": "The spell is counteracted if its rank is no more than 1 higher than half your level rounded up.",
+                    "RollOptionLabel": "Dismantle Spell",
+                    "Success": "The effects of the spell are suppressed until the start of your next turn. If the spell has a duration that is measured in rounds, its duration is extended by 1 round. If the spell does not have a duration, it targets the same creature or area as though it had just been cast at the start of your next turn.",
+                    "Text": "You attempt to counteract a spell or at least suppress its effect for a time. ",
+                    "Title": "Spellshift—Dismantle Spell"
+                    },
+                "ElementalSubstitution": {
+                    "CriticalSuccess": "If the targeted spell inflicts acid, cold, electricity, fire, or sonic damage, you change its damage type to your choice of one of acid, cold, electricity, fire, or sonic damage. If the effect has a duration, it inflicts damage of its new type for 1 minute, then returns to normal.",
+                    "RollOptionLabel": "Elemental Substitution",
+                    "Success": "As critical success, except if the effect has a duration, it inflicts damage of its new type until the beginning of your next turn, then returns to normal.",
+                    "Text": "Raw elemental energy is the fuel powering some of the most iconic spells of destruction ever devised, and you've discovered a method for realigning the magical pathways through which that energy flows into the material world. ",
+                    "Title": "Spellshift—Elemental Substitution"
+                    },
+                "RedirectMagic": {
+                    "CriticalSuccess": "You change a single target of the spell to another viable target within 30 feet of you (even if it would be outside of the spell's normal range). You can't use this spellshift to affect a creature twice with the same spell. If the spell had an initial saving throw, the new target must attempt it, possibly achieving a different result than the original target of the spell. The DC for the spell becomes your Arcana DC instead of the original caster's spell DC.",
+                    "RollOptionLabel": "Redirect Magic",
+                    "Success": "As critical success, but if the target succeeds at any required saving throw, they are unaffected, and the spell does not change targets.",
+                    "Text": "Through sheer force of will, you can direct a spell's energies away from its caster's intended target.",
+                    "Title": "Spellshift—Redirect Magic"
+                    },
+                "ShiftBurden": {
+                    "CriticalSuccess": "If the spell is sustainable, you can Sustain the spell as a free action as though you had cast the spell. For the remainder of the spell's duration, you can Sustain the spell as though you were the caster.",
+                    "RollOptionLabel": "Shift Burden",
+                    "Success": "If the spell is sustainable, you can Sustain the spell as a free action as though you had cast the spell.",
+                    "Text": "You share the burden of a spell, allowing you to share control with the caster. If Sustaining a spell with this spellshift causes a creature to attempt a saving throw, it is attempted against the higher of your class DC or spell DC. If the spell requires a spell attack roll, make the attack using your Arcana modifier instead of the spell's normal spell attack modifier.",
+                    "Title": "Spellshift—Shift Burden"
+                    },
+                    "RollOptionLabel": "Spell Shift"
+                },
             "SpellTrickster": {
                 "AgileHand": {
                     "CriticalFailureNote": "If you critically fail, the spell ends and you can't use this modification again for 24 hours.",
@@ -8681,6 +8861,7 @@
                 "NonLethal": "If your next action is to Cast a Spell that deals damage and doesn't have the death or void trait, that spell gains the nonlethal trait.",
                 "OstentatiousArrivalManifestEidolon": "All creatures except you in a @Template[type:emanation|distance:10] around the creature you summoned or manifested take @Damage[(@actor.level)d4[@actor.flags.system.spellshape.arrivalDamage]|options:area-damage]. If the creature you summoned or manifested has the acid, cold, electricity, fire, sonic, or water trait, the damage is that type instead (or cold damage for the water trait). If the creature has more than one of these traits, you choose which damage type to deal.",
                 "OstentatiousArrivalSummonSpell": "All creatures in a @Template[type:emanation|distance:10] around the creature you summoned or manifested take @Damage[(@item.level)d4[@actor.flags.system.spellshape.arrivalDamage]|options:area-damage] damage. If the creature you summoned or manifested has the acid, cold, electricity, fire, sonic, or water trait, the damage is that type instead (or cold damage for the water trait). If the creature has more than one of these traits, you choose which damage type to deal.",
+                "OverburdeningSpell": "If the next action you use is to Cast a Spell that targets a single creature, unless the target is unaffected by the spell, the target takes a –15-foot status penalty to its Speeds for 1 round (this penalty is doubled for climb, fly, and swim Speeds). @UUID[Compendium.pf2e.feat-effects.Item.RT4mBRa3UlnALH3O]{Effect: Overburdening Spell}",
                 "OverwhelmingBreath": "If you use your next action to Cast a Spell that has the monk trait and no duration, the spell and any Strikes you make as a result of casting it ignore an amount of the target's resistance to physical damage equal to your level.",
                 "OverwhelmingEnergy": "If the next action you use is to Cast a Spell, the spell ignores an amount of the target's resistance to acid, cold, electricity, fire, or sonic damage equal to your level. This applies to all damage the spell deals, including persistent damage and damage caused by an ongoing effect of the spell, such as the wall created by wall of fire. A creature's immunities are unaffected.",
                 "PitchPerfectProjection": "If your next action this round is to Cast a Spell or use an action that creates an auditory effect with a range, increase that range by 30 feet.",
@@ -8688,6 +8869,7 @@
                 "PurifyingSpell": "If the next action you use is to cast _heal_ targeting a single living creature, you can attempt to counteract a disease or poison affecting the target, in addition to the other benefits of _heal_. If you do, _heal_ gains the water trait.",
                 "QuickenedCasting": "If your next action is to cast a cantrip or a spell that is at least 2 ranks lower than the highest-rank spell slot you have, reduce the number of actions to cast it by 1 (minimum 1 action).",
                 "ReachSpell": "If the next action you use is to Cast a Spell that has a range, increase that spell's range by 30 feet. As is standard for increasing spell ranges, if the spell normally has a range of touch, you extend its range to 30 feet.",
+                "ReachOfTheDead": "You cast that spell from one of your thralls within 60 feet. That thrall becomes the point of origin for your spell; calculate range and cover from its space instead of yours. The thrall is then destroyed.",
                 "Remediate": "If your next action is to use your divine font to cast a 3-action heal or harm spell, you can harness the residual energy to counterbalance opposing forces. In addition to its normal effects, you use your heal or harm spell to attempt to counteract one divine effect in the spell's area.",
                 "ReverberatingSpell": "The spell deals an additional @Damage[1d8[sonic]] damage and all creatures who fail their save against the spell are @UUID[Compendium.pf2e.conditionitems.Item.9PR9y0bi4JPKnHPR]{Deafened} for 1 round. Targets who critically fail their saves against this spell are instead deafened for 1 minute. The spell gains the sonic trait.",
                 "RockslideSpell": "A number of 5-foot squares in the area equal to the spell rank become difficult terrain for 1 round. These squares must be on the ground, and the entire area of difficult terrain must be contiguous. The spell gains the earth trait.",
@@ -8696,6 +8878,7 @@
                 "SecondaryDetonationArray": "If your next action is to Cast a Spell that deals damage, has no duration, and affects an area, a glowing magic circle appears in a @Template[burst|distance:5] within that area. At the beginning of your next turn, the circle detonates, dealing @Damage[(@item.level)d6[force]|options:area-damage] damage to all creatures within the circle, with a @Check[reflex|against:spell|options:area-effect,damaging-effect]. If the spell dealt a different type of damage, the circle deals @Damage[(@item.level)d6[@actor.flags.system.spellshape.arrayDamage]|options:area-damage]{this type of damage instead} (or one type of your choice if the spell could deal multiple types of damage)",
                 "SeneschalSpell": "If your next action is to Cast a Spell and your charge is within 30 feet, you can have the spell originate from your charge instead. That creature can use their reaction to roughly complete the spell's incantation, which gives the spell the subtle trait for you (but not for them) as the manifestation appears solely around your charge.",
                 "SinbladedSpell": "If you either succeed on your attack roll or the target fails its saving throw against the spell, you deal @Damage[(@item.rank)[bleed]] damage to the target.",
+                "SkeletalExtension": "If the next action you take is to cast a grave spell that destroys a thrall, until the end of the turn your reach increases by 10 feet, and you can move 15 feet whenever you Step. @UUID[Compendium.pf2e.feat-effects.Item.CM7kDXU9Mf06oT4A]{Effect: Skeletal Extension}",
                 "SnowdriftSpell": "Select one creature affected by the spell on the ground. Each square on the ground under or adjacent to the creature fills with ankle-deep snow. Those squares are difficult terrain until the beginning of your next turn. A creature can Interact to clear a square of snow, and the snow in a square melts if that square is exposed to a fire effect.",
                 "SowSpell": "If your next action is to Cast a Spell using 1 action or 2 actions, the spell instead plants itself in an adjacent square. You must make all decisions regarding the spell at the time you cast it. Within the next 10 minutes, you can direct your sown spell to sprout and produce the spell's effects as a reaction, which is triggered when a creature enters the sown spell's space or a square adjacent to it. You can have only one sown spell at a time, and if you don't trigger the spell within 10 minutes, it dissipates and the spell is lost. A creature can notice the sown spell with a successful Perception check against your spell DC.",
                 "SpellShroud": "If your next action is to Cast a Spell that targets you, you surround yourself in a @Template[emanation|distance:15] of dense magical mist that lasts until the start of your next turn. All creatures within the cloud become @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed}, and all creatures outside the cloud are concealed to creatures within it.",
@@ -8707,6 +8890,7 @@
                 "TimelineSplittingSpell": "You Cast two Spells that each take 1 or 2 actions to cast. These can't be the same spell heightened to two different levels. You expend the resources for both spells, such as spell slots, Focus Points, and material components. Determine the immediate results for both spells, including attack rolls, saving throws, damage, and any other dice rolls. Then, choose which of the two spells takes effect, using the previously made rolls. The other spell's resources are still expended, but the spell has no effect as the magic disappears the other timeline.",
                 "UnlimitedPotential": "If your next action is to Cast a Spell of 5th level or lower that has no duration, you don't expend the prepared spell as you cast it.",
                 "UnusualComposition": "If your next action is to cast a composition spell that is auditory or visual, you can have it affect creatures who can witness it with any sense, not just those the traits indicate, even including special senses like tremorsense. You can choose to exclude any senses you choose.",
+                "VampiricSpell": "You gain temporary Hit Points equal to half the initial damage a single creature takes from this spell; calculate these temporary Hit Points using the creature that took the most damage from the spell. These temporary Hit Points last for 1 minute.",
                 "VigorousAnthem": "You and all affected allies gain temporary HP equal to 3 + your Charisma modifier that last for 1 minute. @UUID[Compendium.pf2e.feat-effects.Item.7AzGhIOx4Df5Cicr]{Effect: Vigorous Anthem}",
                 "WhatCouldHaveBeen": "If your next action is to Cast a Spell that summons a creature, that creature is another version of you. This creature remains the type of creature you summoned and has largely the same abilities (plus the following adjustments), but it clearly resembles you, likely sharing some distinguishing features, such as mannerisms, speech patterns, tattoos, or clothing. The summoned creature gains a +1 status bonus to any skill check in which you're trained, a +2 status bonus if you're an expert, a +3 status bonus if you're a master, or a +4 status bonus if you're legendary. The creature also takes a –2 penalty to all skills in which you're untrained.",
                 "WidenSpell": "If the next action you use is to Cast a Spell that has an area of a burst, cone, or line and does not have a duration, increase the area of that spell. Add 5 feet to the radius of a burst that normally has a radius of at least 10 feet (a burst with a smaller radius is not affected). Add 5 feet to the length of a cone or line that is normally 15 feet long or smaller, and add 10 feet to the length of a larger cone or line.",
@@ -8843,6 +9027,23 @@
                 }
             },
             "Summoner": {
+                "Eidolon": {
+                    "Dragon": {
+                        "DragonBreath": {
+                            "Description": {
+                                "Cone": {
+                                    "Base": "Your eidolon exhales a blast of destructive energy that deals @Damage[(ceil(@actor.level / 2))d6[untyped]|options:area-damage] damage to all creatures in a @Template[type:cone|distance:30] with a @Check[reflex|basic|options:area-effect] save against your spell DC. Your eidolon then can't use Dragon Breath again for the next [[/r 1d4 #Recharge Dragon Breath]]{1d4 rounds}. At 3rd level and every 2 levels thereafter, the damage increases by 1d6.",
+                                    "Double": "Your eidolon exhales a blast of destructive energy that deals @Damage[(ceil(@actor.level / 2)*2)d6[untyped]|options:area-damage] damage to all creatures in a @Template[type:cone|distance:60] with a @Check[reflex|basic|options:area-effect] save against your spell DC. Your eidolon then can't use Dragon Breath again for the next [[/r 1d4 #Recharge Dragon Breath]]{1d4 rounds}. At 3rd level and every 2 levels thereafter, the damage increases by 1d6."
+                                },
+                                "Line": {
+                                    "Base": "Your eidolon exhales a blast of destructive energy that deals @Damage[(ceil(@actor.level / 2))d6[untyped]|options:area-damage] damage to all creatures in a @Template[type:line|distance:60] with a @Check[reflex|basic|options:area-effect] save against your spell DC. Your eidolon then can't use Dragon Breath again for the next [[/r 1d4 #Recharge Dragon Breath]]{1d4 rounds}. At 3rd level and every 2 levels thereafter, the damage increases by 1d6.",
+                                    "Double": "Your eidolon exhales a blast of destructive energy that deals @Damage[(ceil(@actor.level / 2)*2)d6[untyped]|options:area-damage] damage to all creatures in a @Template[type:line|distance:120] with a @Check[reflex|basic|options:area-effect] save against your spell DC. Your eidolon then can't use Dragon Breath again for the next [[/r 1d4 #Recharge Dragon Breath]]{1d4 rounds}. At 3rd level and every 2 levels thereafter, the damage increases by 1d6."
+                                }
+                            },
+                            "Label": "Dragon Breath"
+                        }
+                    }
+                },
                 "OstentatiousArrival": {
                     "Label": "Ostentatious Arrival: Creature Trait."
                 }
@@ -9560,6 +9761,11 @@
         }
     },
     "SF2E": {
+        "BattleForm": {
+            "Note": {
+                "Grab": "You can spend an action immediately after a hit to @UUID[Compendium.sf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr]{Grab} the target."
+            }
+        },
         "NPCAbility": {
             "AeonGuard": {
                 "Commander": {
@@ -9599,6 +9805,22 @@
                 "JuniorOfficer": {
                     "RallyTheTroops": {
                         "Prompt": "Did your movement end next to the officer?"
+                    }
+                }
+            },
+            "Feskagazar": {
+                "DeliverInjection": {
+                    "AxonPeeler": {
+                        "Note": "@Check[fortitude|dc:21]. On a failure, the target is @UUID[Compendium.sf2e.conditions.Item.i3OJZU2nk64Df3xm]{Clumsy 1}.",
+                        "RollOptionLabel": "Axon Peeler"
+                    },
+                    "BloodBoiler": {
+                        "Note": "@Check[fortitude|dc:21]. On a failure, the target is @UUID[Compendium.sf2e.conditions.Item.fesd1n5eVhpCSS18]{Sickened 1}.",
+                        "RollOptionLabel": "Blood Boiler"
+                    },
+                    "CryoSting": {
+                        "Note": "@Check[fortitude|dc:21]. On a failure, the target takes @Damage[1d6[persistent,bludgeoning]] damage.",
+                        "RollOptionLabel": "Cryo Sting"
                     }
                 }
             },
@@ -9813,8 +10035,8 @@
                 "Magboots": {
                     "ClimbMetalSurfaces": "Magboots — Climb metal surfaces"
                 },
-                "UltralightWings": {
-                    "WingsDeployed": "Ultralight Wings — Wings Deployed"
+                "RevealingFlashlight": {
+                    "Lit": "Flashlight Lit"
                 },
                 "SolarianCrystals": {
                     "Gluon": {
@@ -9841,6 +10063,17 @@
                     "WeaponPotency": {
                         "Label": "Weapon Potency"
                     }
+                },
+                "StunStick": {
+                    "AdvancedNote": "On a hit, you deal electricity damage instead of bludgeoning damage, and the target must succeed at a @Check[fortitude|dc:20] save or become @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1} for 1 round; this is an incapacitation effect.",
+                    "EliteNote": "On a hit, you deal electricity damage instead of bludgeoning damage, and the target must succeed at a @Check[fortitude|dc:31] save or become @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1} for 1 round; this is an incapacitation effect.",
+                    "ShortSharpShock": "Short, Sharp Shock",
+                    "SuperiorNote": "On a hit, you deal electricity damage instead of bludgeoning damage, and the target must succeed at a @Check[fortitude|dc:28] save or become @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1} for 1 round; this is an incapacitation effect.",
+                    "UltimateNote": "On a hit, you deal electricity damage instead of bludgeoning damage, and the target must succeed at a @Check[fortitude|dc:36] save or become @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1} for 1 round; this is an incapacitation effect.",
+                    "ParagonNote": "On a hit, you deal electricity damage instead of bludgeoning damage, and the target must succeed at a @Check[fortitude|dc:40] save or become @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1} for 1 round; this is an incapacitation effect."
+                },
+                "UltralightWings": {
+                    "WingsDeployed": "Ultralight Wings — Wings Deployed"
                 },
                 "Upgrades": {
                     "Weapon": {
@@ -9890,6 +10123,11 @@
                             "CriticalNoteTactical": "On a critically successful Strike, the target becomes unable to make sound. The target can't use sonic attacks, nor can it use actions with the auditory trait. This also prevents the target from casting spells due to the incantations or sounds involved in casting, with the exception of subtle spells. The target can resist the effects of the silencer with a successful @Check[will|dc:27] save."
                         }
                     }
+                }
+            },
+            "Gnarefuroid": {
+                "HullborneGnarefuroid": {
+                    "Carapace": "Hullborne Gnarefuroid Carapace"
                 }
             },
             "Hellknight": {
@@ -10038,6 +10276,11 @@
                         "Viral": "Viral Order"
                     },
                     "Prompt": "Select a Bond"
+                }
+            },
+            "Nuar": {
+                "ThoughtPiercingHorns": {
+                    "Note": "The target also becomes @UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 2} until the beginning of your next turn."
                 }
             },
             "Operative": {

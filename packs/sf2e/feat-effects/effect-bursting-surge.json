@@ -1,0 +1,51 @@
+{
+    "_id": "MXV9PRH3mK7o6TDP",
+    "img": "systems/sf2e/icons/spells/moonlight-ray.webp",
+    "name": "Effect: Bursting Surge",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Bursting Surge].</p>\n<p>Your circuitry exudes bright light in a @Template[emanation|distance:10] and dim light 10 feet beyond that.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 13
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "TokenLight",
+                "value": {
+                    "bright": 10,
+                    "color": "#9b7337",
+                    "dim": 20,
+                    "shadows": 0.2
+                }
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Nanite Surge (Bonus)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

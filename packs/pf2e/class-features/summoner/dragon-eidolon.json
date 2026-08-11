@@ -1,0 +1,78 @@
+{
+    "_id": "JttI3raKFGG4C8up",
+    "folder": "lfC1sbtzTalNS6Tl",
+    "img": "icons/creatures/abilities/dragon-fire-breath-orange.webp",
+    "name": "Dragon Eidolon",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Because dragons have a strong connection to magic, their minds can often leave an echo floating in the Astral Plane. Such an entity is extremely powerful but unable to interact with the outside world on their own. Dragon eidolons manifest in the powerful, scaled forms they had in life; most take the form of great dragons (albeit smaller), but some manifest as drakes or other draconic beings. You have forged a connection with such a dragon eidolon and together, you seek to grow as powerful as an archdragon.</p>\n<p><strong>Tradition</strong> choose arcane, divine, occult, or primal</p>\n<p><strong>Traits</strong> astral, dragon, eidolon, and the trait matching the eidolon's tradition</p>\n<p><strong>Home Plane</strong> Astral Plane</p><hr /><p><strong>Size</strong> Medium</p>\n<p><strong>Suggested Attacks</strong> claw (slashing), horn (piercing), jaws (piercing), tail (bludgeoning), wing (bludgeoning)</p>\n<p><strong>Eidolon Attributes</strong> Con +1, Int +1, Wis +0, Cha +1</p>\n<p><strong>Skills</strong> Intimidation and the skill matching the eidolon's tradition (Arcana for arcane, Religion for divine, Occultism for occult, or Nature for primal)</p>\n<p><strong>Senses</strong> darkvision</p>\n<p><strong>Language</strong> Draconic</p>\n<p><strong>Speed</strong> 25 feet</p><hr /><p><strong>Initial (1st)—@UUID[Compendium.pf2e.actionspf2e.Item.Dragon Breath (Eidolon)]{Dragon Breath}</strong> <span class=\"action-glyph\">2</span> (eidolon) Your eidolon exhales a blast of destructive energy that deals @Damage[(ceil(@actor.level / 2))d6[untyped]|options:area-damage] damage to all creatures in an area with a basic @Check[reflex|basic|against:spell|options:area-effect] save against your spell DC. Your eidolon then can't use Dragon Breath again for the next [[/gmr 1d4 #rounds]]{1d4 rounds}. At 3rd level and every 2 levels thereafter, the damage increases by 1d6. When the eidolon gains this ability, you choose the area—a @Template[type:line|distance:60] or a @Template[type:cone|distance:30]—as well as the damage type—acid, cold, electricity, fire, piercing, poison, or void. You can instead choose force if your eidolon has the arcane trait, spirit if they have the divine trait, or mental if they have the occult trait. If you model your eidolon after a specific type of dragon, your GM might allow you to choose from additional damage types. Dragon Breath has the tradition trait of your eidolon and the trait matching the damage type chosen (unless you choose piercing damage).</p>\n<p><strong>Symbiosis (7th)—@UUID[Compendium.pf2e.actionspf2e.Item.Draconic Frenzy]</strong> <span class=\"action-glyph\">2</span> (eidolon) Your eidolon makes one Strike with their primary unarmed attack and two Strikes with their secondary unarmed attack (in any order). If any of these attacks critically hits an enemy, your eidolon instantly recovers the use of their Dragon Breath.</p>\n<p><strong>Transcendence (17th)—Empower Breath</strong> <span class=\"action-glyph\">F</span> (concentrate, eidolon)</p>\n<p><strong>Frequency</strong> once per minute</p><hr /><p><strong>Effect</strong> Your eidolon gathers the power of the mightiest archdragons to make their magical breath even more spectacular. If your eidolon's next action is to use Dragon Breath, both the number of damage dice and area of Dragon Breath are doubled.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "config": "magicTraditions"
+                },
+                "flag": "eidolonTradition",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Tradition"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.eidolon.tradition",
+                "value": "{item|flags.system.rulesSelections.eidolonTradition}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.arcana.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.intimidation.rank",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "languages": {
+                "granted": [
+                    "draconic"
+                ],
+                "slots": 0
+            },
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "summoner-eidolon"
+            ],
+            "rarity": "common",
+            "value": [
+                "summoner"
+            ]
+        }
+    },
+    "type": "feat"
+}

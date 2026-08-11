@@ -1,0 +1,60 @@
+{
+    "_id": "Olqa9St9mtKsRKN6",
+    "folder": "nviqEMM3DG4KIHj6",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Death Speaker",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your voice and magic speak to the core existence within undead creatures, circumventing the need for the creature to comprehend. Your spells and abilities ignore the mindless trait and any immunity to emotion, fear, or mental effects when targeting or affecting undead creatures. Additionally, you gain a +1 circumstance bonus when you attempt to [[/act make-an-impression]] on and make a [[/act request]] of an undead creature.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:trait:undead",
+                    {
+                        "or": [
+                            "action:make-an-impression",
+                            "action:request"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "diplomacy"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "necromancer"
+            ]
+        }
+    },
+    "type": "feat"
+}

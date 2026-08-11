@@ -4,7 +4,7 @@
     "name": "Effect: Chatterer of Follies",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Chatterer of Follies]</p>\n<p>You take a -1 status penalty to Will saves against your enchantment spells and your illusion spells.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Chatterer of Follies]</p>\n<p>You take a -1 status penalty to Will saves against your illusion and mental spells.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -16,9 +16,9 @@
             "value": 6
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Secrets of Magic"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
         },
         "rules": [
             {
@@ -26,12 +26,14 @@
                 "predicate": [
                     {
                         "or": [
-                            "enchantment",
-                            "illusion"
+                            "item:trait:mental",
+                            "item:trait:mental"
                         ]
                     }
                 ],
-                "selector": "will",
+                "selector": [
+                    "will"
+                ],
                 "type": "status",
                 "value": -1
             }

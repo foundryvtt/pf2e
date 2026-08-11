@@ -1,0 +1,43 @@
+{
+    "_id": "b51OqfRimlvzYhV3",
+    "folder": "P92zF88yOWXlZEmG",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Clinging Gnarefuroid",
+    "system": {
+        "ancestry": {
+            "name": "Gnarefuroid",
+            "slug": "gnarefuroid",
+            "uuid": "Compendium.sf2e.ancestries.Item.bXICmub6qvXdiveN"
+        },
+        "description": {
+            "value": "<p>Gnarefuroids accustomed to turbulent environments overproduce adhesive resin and develop appendages capable of powerful suction. Improve your climb Speed to 20 feet. You become trained in Athletics. If you would automatically become trained in Athletics (from your background or class, for example), you instead become trained in a skill of your choice. You gain the @UUID[Compendium.sf2e.feats.Item.Combat Climber] skill feat.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "climb",
+                "value": 20
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.athletics.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Combat Climber"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

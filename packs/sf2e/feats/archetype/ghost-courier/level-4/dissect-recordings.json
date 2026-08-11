@@ -1,0 +1,57 @@
+{
+    "_id": "C6YUmy4PN0flf6Tz",
+    "folder": "Vr3iwsPkjpsIIWiQ",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Dissect Recordings",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've spent hours going through limdive footage, and now you're an expert at finding hidden details in recordings. You become trained in Computers; if you're already trained, you instead become trained in another skill of your choice. You gain the @UUID[Compendium.sf2e.feats.Item.Hologram Skeptic] skill feat. Additionally, when you critically fail your check to @UUID[Compendium.sf2e.actions.Item.Decipher Writing], @UUID[Compendium.sf2e.actions.Item.Recall Knowledge], or [[/act seek]] by watching recorded footage, you fail instead.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Ghost Courier Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Hologram Skeptic"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.computers.rank",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,52 @@
+{
+    "_id": "kHZd9NWwctrZEhFD",
+    "img": "icons/magic/death/skull-pile-glowing-pink.webp",
+    "name": "Effect: Battle Reek",
+    "system": {
+        "description": {
+            "value": "<p>You take a –2 circumstance penalty to saves against fear and to recover from the sickened condition.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 16
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure: Prey for Death"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:fear",
+                            "action:retch"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

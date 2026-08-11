@@ -1,0 +1,48 @@
+{
+    "_id": "MUOZtcVJPkLJtDP5",
+    "img": "icons/magic/lightning/claws-unarmed-strike-teal.webp",
+    "name": "Spell Effect: Living Thunderbolt",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Living Thunderbolt]</p>\n<p>You You gain a fly Speed of 60 feet and resistance against electricity.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 12
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": 60
+            },
+            {
+                "key": "Resistance",
+                "type": "electricity",
+                "value": "ternary(gte(@item.level,10),20,ternary(gte(@item.level,8),15,10))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

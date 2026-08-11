@@ -1,0 +1,77 @@
+{
+    "_id": "8uyo7y5zqRUT1kbt",
+    "folder": "jrz6uG0OCHxnCOPo",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Recharging Flurry",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You're wielding two melee weapons, each in a different hand.</p><hr /><p>The clash of steel fuels your magic, preparing you to unleash another magic-infused assault. Make one Strike with each of your weapons, then recharge your Spellstrike (regardless of whether the Strikes hit). Your multiple attack penalty increases after each Strike as normal. If the second Strike targets a creature you haven't attacked yet this turn, its multiple attack penalty is –4 if it's your second attack this turn (–3 if you're using an agile weapon) or –8 if it's your third or further Strike (–6 with an agile weapon).</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "twofold tine hybrid study"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "Recharging Flurry",
+                "option": "recharging-flurry-reduced-map",
+                "toggleable": true
+            },
+            {
+                "key": "MultipleAttackPenalty",
+                "label": "Recharging Flurry",
+                "predicate": [
+                    "recharging-flurry-reduced-map",
+                    "item:melee",
+                    "item:trait:agile"
+                ],
+                "selector": "attack",
+                "value": -3
+            },
+            {
+                "key": "MultipleAttackPenalty",
+                "label": "Recharging Flurry",
+                "predicate": [
+                    "recharging-flurry-reduced-map",
+                    "item:melee",
+                    {
+                        "not": "item:trait:agile"
+                    }
+                ],
+                "selector": "attack",
+                "value": -4
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "magus"
+            ]
+        }
+    },
+    "type": "feat"
+}

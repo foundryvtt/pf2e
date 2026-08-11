@@ -1,0 +1,49 @@
+{
+    "_id": "ryYPYH9WEYHuGqon",
+    "folder": "91KhVcSWt9lEZoMF",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Plentiful Cirrisensors",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've acclimated to constantly using multiple cirrisensors in all directions as a defense mechanism. You can't be flanked by creatures of your level or lower.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.offGuardable",
+                "value": "@actor.level"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gnarefuroid"
+            ]
+        }
+    },
+    "type": "feat"
+}

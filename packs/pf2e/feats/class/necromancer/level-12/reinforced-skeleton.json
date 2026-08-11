@@ -1,0 +1,98 @@
+{
+    "_id": "Qc1ffiQRocCUD1JH",
+    "folder": "zBjy0cEpohedFGGQ",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Reinforced Skeleton",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You take on the toughness and lightness of bone. You gain resistance equal to half your level to two damage types; one is your choice of cold, electricity, or fire, and the other is your choice of slashing or piercing. You also gain a +5-foot status bonus to your Speeds. Whenever you destroy a thrall, this bonus to your Speeds increases to +10 feet for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Reinforced Skeleton]</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "bone grim fascination"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    }
+                ],
+                "flag": "resistanceOne",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Resistance"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitPiercing",
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "value": "slashing"
+                    }
+                ],
+                "flag": "resistanceTwo",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Resistance"
+            },
+            {
+                "key": "Resistance",
+                "type": [
+                    "{item|flags.system.rulesSelections.resistanceOne}",
+                    "{item|flags.system.rulesSelections.resistanceTwo}"
+                ],
+                "value": "floor(@actor.level/2)"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "slug": "reinforced-skeleton",
+                "type": "status",
+                "value": 5
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "necromancer"
+            ]
+        }
+    },
+    "type": "feat"
+}
