@@ -1,0 +1,58 @@
+{
+    "_id": "G62fNtluvSHPdRdI",
+    "img": "icons/skills/melee/strike-axe-red.webp",
+    "name": "Effect: Dirty Fighting (Success)",
+    "system": {
+        "description": {
+            "value": "<p>You take a –2 circumstance penalty to attack rolls, or if you're a troop, a –2 circumstance penalty to your DCs for damaging effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Hell's Destiny"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:trait:troop"
+                    }
+                ],
+                "selector": "attack-roll",
+                "type": "circumstance",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:trait:troop"
+                ],
+                "selector": "inline-dc",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
