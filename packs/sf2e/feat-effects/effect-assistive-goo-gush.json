@@ -1,0 +1,46 @@
+{
+    "_id": "9ShdNY94n869OXem",
+    "img": "icons/creatures/slimes/slime-blob-pseudopods-green.webp",
+    "name": "Effect: Assistive Goo Gush",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Assistive Goo Gush]</p>\n<p>The DC of any flat check you roll to recover from persistent damage is reduced as though you are assisted.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "authors": "Starfinder Absalom Station",
+            "license": "ORC",
+            "remaster": true,
+            "title": ""
+        },
+        "rules": [
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "subtract",
+                "property": "pd-recovery-dc",
+                "value": 5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

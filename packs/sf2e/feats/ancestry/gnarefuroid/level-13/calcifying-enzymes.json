@@ -25,7 +25,21 @@
             "remaster": true,
             "title": "Starfinder Absalom Station"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "calcifying-enzymes"
+                ],
+                "type": "physical",
+                "value": "max(@actor.conditions.clumsy.badge.value,@actor.conditions.drained.badge.value,@actor.conditions.enfeebled.badge.value)"
+            },
+            {
+                "key": "RollOption",
+                "option": "calcifying-enzymes",
+                "toggleable": true
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
