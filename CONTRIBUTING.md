@@ -6,7 +6,7 @@ If you would like to contribute to the project then I welcome all support. If yo
 
 ## Setup
 
-The project uses webpack to package the SASS files needed for a build and can create a local distribution for your own Foundry server. If you want to give it a go yourself follow these steps:
+The project uses vite to bundle the ES module and compile the SASS files needed for a build and can create a local distribution for your own Foundry server. If you want to give it a go yourself follow these steps:
 
 - Clone the repo into a local folder in your dev environment `git clone https://github.com/foundryvtt/pf2e.git`
 
@@ -34,7 +34,11 @@ As new OGL and/or ORC content is released by Paizo, we would like to incorporate
 
 ### Pull Requests
 
-Pull requests ("PRs") can be made by anyone. PRs titles should be in imperative mood and state clearly and concisely what is being changed. A description is often needed to expand on any details. For new contributors, CI actions must be manually triggered by the system maintainers. It will automatically trigger for subsequent pull requests after a first one is merged into `master`.
+Pull requests ("PRs") can be made by anyone. PRs titles should be in imperative mood and state clearly and concisely what is being changed. A description is often needed to expand on any details.
+
+A pull request may not contain any AI-written changes. PRs noticed as having any AI-written changes will be summarily closed without merging.
+
+For new contributors, CI actions must be manually triggered by the system maintainers. It will automatically trigger for subsequent pull requests after a first one is merged into `master`.
 
 #### Prettier
 
