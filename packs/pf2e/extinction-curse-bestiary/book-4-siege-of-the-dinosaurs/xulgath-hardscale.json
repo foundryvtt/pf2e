@@ -670,7 +670,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The hardscale uses the @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Shield Block] reaction, and the opponent that triggered Shield Block is adjacent to the hardscale and is not more than one size larger than it</p>\n<hr />\n<p><strong>Effect</strong> The hardscale makes an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Shove] the opponent. This shove doesn't increase the hardscale's multiple attack penalty. If they roll a critical failure, they get a failure instead. If they roll a success, they get a critical success instead.</p>"
+                    "value": "<p><strong>Trigger</strong> The hardscale uses the @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Shield Block] reaction, and the opponent that triggered Shield Block is adjacent to the hardscale and is not more than one size larger than it</p>\n<hr />\n<p><strong>Effect</strong> The hardscale makes an Athletics check to [[/act shove options=aggressive-block]] the opponent. This shove doesn't increase the hardscale's multiple attack penalty. If they roll a critical failure, they get a failure instead. If they roll a success, they get a critical success instead.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -685,23 +685,10 @@
                         },
                         "key": "AdjustDegreeOfSuccess",
                         "predicate": [
-                            "action:shove"
+                            "action:shove",
+                            "aggressive-block"
                         ],
-                        "selector": "athletics",
-                        "type": "skill"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalFailure",
-                            "success"
-                        ],
-                        "predicate": [
-                            "action:shove"
-                        ],
-                        "selector": "athletics",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "selector": "athletics"
                     }
                 ],
                 "slug": null,
