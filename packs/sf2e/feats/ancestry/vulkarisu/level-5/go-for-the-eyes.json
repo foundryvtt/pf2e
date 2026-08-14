@@ -25,11 +25,23 @@
             "remaster": true,
             "title": "Beyond the Blood Door Player's Guide"
         },
-        "rules": [],
-        "selfEffect": {
-            "name": "Effect: Go for the Eyes!",
-            "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Go for the Eyes!"
-        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "go-for-the-eyes",
+                "toggleable": true
+            },
+            {
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "go-for-the-eyes"
+                ],
+                "selectors": [
+                    "skill-check"
+                ],
+                "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Go for the Eyes! (Ephemeral)"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
