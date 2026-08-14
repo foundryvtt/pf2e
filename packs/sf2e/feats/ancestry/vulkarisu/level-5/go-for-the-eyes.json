@@ -34,7 +34,14 @@
             {
                 "key": "EphemeralEffect",
                 "predicate": [
-                    "go-for-the-eyes"
+                    "action:feint",
+                    "go-for-the-eyes",
+                    {
+                        "gt": [
+                            "target:size",
+                            "self:size"
+                        ]
+                    }
                 ],
                 "selectors": [
                     "skill-check"
