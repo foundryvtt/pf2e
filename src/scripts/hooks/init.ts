@@ -74,8 +74,7 @@ export const Init = {
                 for (const pair of mirrorPacks) {
                     if (!R.isPlainObject(pair)) continue;
                     if (R.isString(pair.pf2e) && R.isString(pair.sf2e)) {
-                        const from = game.system.id === "pf2e" ? pair.sf2e : pair.pf2e;
-                        const to = game.system.id === "pf2e" ? pair.pf2e : pair.sf2e;
+                        const [from, to] = game.system.id === "pf2e" ? [pair.sf2e, pair.pf2e] : [pair.pf2e, pair.sf2e];
                         CONFIG.compendium.uuidRedirects[`Compendium.${key}.${from}`] = `Compendium.${key}.${to}`;
                     }
                 }
