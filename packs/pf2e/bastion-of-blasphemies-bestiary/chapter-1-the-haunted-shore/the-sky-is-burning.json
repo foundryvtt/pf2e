@@ -17,7 +17,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A living creature ends their turn inside the schoolroom</p><hr /><p><strong>Effect</strong> Harrowing shrieks and frightening howls echo from the skies above as smoke plumes down into the rooms below. All creatures in the schoolhouse (areas <strong>A4</strong> a–A4c) must attempt a @Check[fortitude|dc:21] save to avoid becoming @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} from the smoke (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure). The haunt then rolls initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> A living creature ends their turn inside the schoolroom</p><hr /><p><strong>Effect</strong> Harrowing shrieks and frightening howls echo from the skies above as smoke plumes down into the rooms below. All creatures in the schoolhouse (areas <strong>A4a–A4c</strong>) must attempt a @Check[fortitude|dc:21|options:area-effect,inflicts:sickened] save to avoid becoming @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} from the smoke (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure). The haunt then rolls initiative.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -64,7 +64,10 @@
                     "remaster": false,
                     "title": ""
                 },
-                "range": null,
+                "range": {
+                    "increment": null,
+                    "max": 80
+                },
                 "rules": [
                     {
                         "key": "Immunity",

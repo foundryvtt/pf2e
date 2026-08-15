@@ -765,6 +765,7 @@ const featTraits = {
     additive3: "PF2E.TraitAdditive3",
     aftermath: "PF2E.TraitAftermath",
     alchemical: "PF2E.TraitAlchemical",
+    ancestry: "PF2E.TraitAncestry",
     anchoring: "PF2E.TraitAnchoring",
     apparition: "PF2E.TraitApparition",
     archetype: "PF2E.TraitArchetype",
