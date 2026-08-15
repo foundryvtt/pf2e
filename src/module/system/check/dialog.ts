@@ -20,7 +20,7 @@ const COVER_LEVELS = {
     none: 0,
     lesser: 1,
     standard: 2,
-    greater: 3,
+    greater: 4,
     "greater-prone": 4,
 } as const;
 
