@@ -1,0 +1,55 @@
+{
+    "_id": "7SFfnWTAUIjnbMfR",
+    "img": "icons/creatures/reptiles/snake-poised-white.webp",
+    "name": "Effect: Asp Coil",
+    "system": {
+        "description": {
+            "value": "<p>Irabel's Strikes deal piercing damage while she's in Asp Stance, and she gains a +1 circumstance bonus to AC.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "The Dead God's Hand"
+        },
+        "rules": [
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "property": "damage-type",
+                "selectors": [
+                    "fist-damage"
+                ],
+                "value": "piercing"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "ac"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
