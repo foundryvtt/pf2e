@@ -855,6 +855,7 @@ const consumableTraits = {
     additive2: "PF2E.TraitAdditive2",
     additive3: "PF2E.TraitAdditive3",
     alchemical: "PF2E.TraitAlchemical",
+    artifact: "PF2E.TraitArtifact",
     attack: "PF2E.TraitAttack",
     auditory: "PF2E.TraitAuditory",
     aura: "PF2E.TraitAura",
