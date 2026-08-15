@@ -1,11 +1,30 @@
+import { ActorPF2e } from "@actor";
 import { MODIFIER_TYPES, Modifier, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import type { ApplicationV1Options } from "@client/appv1/api/application-v1.d.mts";
 import type { ChatMessageMode } from "@client/config.d.mts";
+import { EffectPF2e } from "@item";
+import { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data.ts";
+import { ChoiceSetRuleElement } from "@module/rules/rule-element/choice-set/rule-element.ts";
 import type { RollSubstitution } from "@module/rules/synthetics.ts";
-import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
+import { ErrorPF2e, htmlQuery, objectHasKey, setHasElement } from "@util";
 import * as R from "remeda";
 import type { RollTwiceOption } from "../rolls.ts";
 import type { CheckCheckContext } from "./types.ts";
+
+const COVER_EFFECT_UUIDS = {
+    pf2e: "Compendium.pf2e.other-effects.Item.I9lfZUiCwMiGogVi",
+    sf2e: "Compendium.sf2e.other-effects.Item.I9lfZUiCwMiGogVi",
+} as const;
+
+const COVER_LEVELS = {
+    none: 0,
+    lesser: 1,
+    standard: 2,
+    greater: 3,
+    "greater-prone": 4,
+} as const;
+
+const COVER_LEVEL_OPTIONS = R.mapValues(COVER_LEVELS, (_, level) => `PF2E.Roll.Dialog.Check.Cover.${level}`);
 
 /**
  * Dialog for excluding certain modifiers before rolling a check.
@@ -21,6 +40,8 @@ export class CheckModifiersDialog extends fav1.api.Application {
     /** Has the promise been resolved? */
     isResolved = false;
 
+    /** Offer a way to set/override cover */
+    #cover?: TargetCoverData;
     /** A set of originally enabled modifiers to circumvent hideIfDisabled for manual disables */
     #originallyEnabled: Set<Modifier>;
 
@@ -43,6 +64,7 @@ export class CheckModifiersDialog extends fav1.api.Application {
         this.check = check;
         this.resolve = resolve;
         this.context = context;
+        this.#cover = getCoverData(context.target?.actor);
         this.#originallyEnabled = new Set(check.modifiers.filter((m) => m.enabled));
     }
 
@@ -76,6 +98,8 @@ export class CheckModifiersDialog extends fav1.api.Application {
             fortune,
             none,
             misfortune,
+            coverOptions: this.#cover?.isProne ? COVER_LEVEL_OPTIONS : R.omit(COVER_LEVEL_OPTIONS, ["greater-prone"]),
+            coverLevel: this.#cover?.selected ?? this.#cover?.original,
         };
     }
 
@@ -191,6 +215,90 @@ export class CheckModifiersDialog extends fav1.api.Application {
         toggle?.addEventListener("click", async () => {
             await game.user.update({ [`flags.${SYSTEM_ID}.settings.showCheckDialogs`]: toggle.checked });
         });
+
+        // Cover Select
+        const coverSelect = htmlQuery<HTMLSelectElement>(html, `select[name="overrideCover"]`);
+        coverSelect?.addEventListener("change", async () => {
+            if (!this.context.target?.actor || !this.#cover) return;
+
+            const level = coverSelect.value;
+            if (!objectHasKey(COVER_LEVELS, level) || (level === "greater-prone" && !this.#cover.isProne)) {
+                throw ErrorPF2e("Unexpected override-cover level");
+            }
+
+            const coverUuid = COVER_EFFECT_UUIDS[SYSTEM_ID];
+            const coverEffect = await fromUuid<EffectPF2e>(coverUuid);
+            if (!coverEffect) {
+                throw ErrorPF2e("Couldn't find the cover effect in the compendium");
+            }
+
+            const original = this.#cover.original;
+            const previous = this.#cover.selected;
+            const options = (this.context.options ??= new Set());
+            const bonus = COVER_LEVELS[level];
+
+            this.#cover.selected = level;
+
+            // Retrieve all the target source items excluding existing cover effects
+            const coverIds = R.pipe(
+                this.context.target.actor.itemTypes.effect,
+                R.filter((effect) => effect.sourceId === coverUuid),
+                R.map((effect) => effect.id),
+            );
+            const items = R.filter(
+                foundry.utils.deepClone(this.context.target.actor._source.items),
+                (item) => !R.isIncludedIn(item._id, coverIds),
+            );
+
+            // Create the new cover effect source even if `0` (when original wasn't `0` to indicate overridden state)
+            if (level !== "none" || original !== "none") {
+                const source = coverEffect.toObject();
+                if (level !== original) {
+                    source.name = _loc("PF2E.Roll.Dialog.Check.Cover.Overridden");
+                }
+                const choiceRule = source.system.rules.find((rule): rule is ChoiceSetSource => {
+                    return rule.key === "ChoiceSet" && (rule as ChoiceSetSource).flag === "cover";
+                });
+                if (choiceRule) {
+                    choiceRule.selection = { bonus, level };
+                }
+                items.push(source);
+            }
+
+            // Replace target with a new clone containing the new cover effect
+            this.context.target.actor = this.context.target.actor.clone({ items }, { keepId: true });
+
+            // Replace the context DC value and statistic with the new ones
+            if (this.context.dc?.slug) {
+                const statistic = this.context.target.actor.getStatistic(this.context.dc.slug)?.dc;
+
+                if (statistic) {
+                    this.context.dc.value = statistic.value;
+                    this.context.dc.statistic = statistic;
+                }
+            }
+
+            // Remove the previous context roll options
+            if (previous && previous !== "none") {
+                options.delete(`target:cover-level:${previous}`);
+                options.delete(`target:cover-bonus:${COVER_LEVELS[previous]}`);
+            } else if (original !== "none") {
+                const levelOption = options.find((x) => x.startsWith("target:cover-level:"));
+                const bonusOption = options.find((x) => x.startsWith("target:cover-bonus:"));
+                if (levelOption) {
+                    options.delete(levelOption);
+                }
+                if (bonusOption) {
+                    options.delete(bonusOption);
+                }
+            }
+
+            // Add the new context roll options
+            if (level !== "none") {
+                options.add(`target:cover-level:${level}`);
+                options.add(`target:cover-bonus:${bonus}`);
+            }
+        });
     }
 
     override async close(options?: { force?: boolean }): Promise<void> {
@@ -205,6 +313,41 @@ export class CheckModifiersDialog extends fav1.api.Application {
     }
 }
 
+function getCoverData(actor: Maybe<ActorPF2e>): TargetCoverData | undefined {
+    if (!actor) return;
+
+    const isProne = actor.conditions.hasType("prone");
+    const effectUuid = COVER_EFFECT_UUIDS[SYSTEM_ID];
+
+    const highestLevel = R.pipe(
+        actor.itemTypes.effect,
+        R.filter((effect) => effect.sourceId === effectUuid),
+        R.map((effect): CoverLevel => {
+            const rule = effect.rules.find((rule) => rule instanceof ChoiceSetRuleElement);
+            const level =
+                R.isPlainObject(rule?.selection) && objectHasKey(COVER_LEVELS, rule.selection.level)
+                    ? rule.selection.level
+                    : "none";
+            return level === "greater-prone" && !isProne ? "none" : level;
+        }),
+        R.firstBy((level) => COVER_LEVELS[level]),
+    );
+
+    return {
+        isProne,
+        original: highestLevel ?? "none",
+    };
+}
+
+type CoverLevel = keyof typeof COVER_LEVELS;
+
+type TargetCoverData = {
+    isProne: boolean;
+    /** The highest cover value before any user override */
+    original: CoverLevel;
+    selected?: CoverLevel;
+};
+
 interface CheckDialogData {
     appId: string;
     modifiers: RawModifier[];
@@ -216,6 +359,8 @@ interface CheckDialogData {
     fortune: boolean;
     none: boolean;
     misfortune: boolean;
+    coverOptions: Partial<Record<CoverLevel, string>>;
+    coverLevel: CoverLevel | undefined;
 }
 
 interface RollSubstitutionDialogData extends RollSubstitution {
