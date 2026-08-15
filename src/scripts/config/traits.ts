@@ -1053,6 +1053,7 @@ const hazardTraits = {
 const vehicleTraits = {
     artifact: "PF2E.TraitArtifact",
     clockwork: "PF2E.TraitClockwork",
+    divine: "PF2E.TraitDivine",
     magical: "PF2E.TraitMagical",
     tech: "PF2E.TraitTech",
     teleportation: "PF2E.TraitTeleportation",
