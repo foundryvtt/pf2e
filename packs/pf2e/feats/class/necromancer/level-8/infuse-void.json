@@ -25,7 +25,33 @@
             "remaster": true,
             "title": "Pathfinder Impossible Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "infuse-void"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "damageType": "void",
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:focus",
+                    "item:trait:necromancer",
+                    "spellshape:infuse-void"
+                ],
+                "selector": "spell-damage",
+                "value": "@spell.rank"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

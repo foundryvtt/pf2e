@@ -154,6 +154,5 @@ function calculateXP(
     };
 }
 
-export { xpFromEncounter } from "./dialog.ts";
-export { calculateXP };
+export { calculateXP, rewardEncounterBudgets, xpCreatureDifferences };
 export type { ThreatRating, XPCalculation };

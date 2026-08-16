@@ -12,14 +12,25 @@
         },
         "category": "offensive",
         "description": {
-            "value": "<p>The special forces unit has trained snipers in its ranks. Increase the range of its Short Salvo ability to 120 feet and its damage to @Damage[5d10[piercing]] damage. Troops with these bows can't be war mages, can't have shields, and can't be mounted.</p>"
+            "value": "<p>The special forces unit has trained snipers in its ranks. Increase the range of its Short Salvo ability to 120 feet and its damage to 5d10 piercing damage. Troops with these bows can't be war mages, can't have shields, and can't be mounted.</p>"
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
             "title": "Pathfinder Adventure Path: Hell's Destiny"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "property": "dice-faces",
+                "selectors": [
+                    "short-salvo-inline-damage"
+                ],
+                "slug": "base",
+                "value": 10
+            }
+        ],
         "traits": {
             "value": []
         }

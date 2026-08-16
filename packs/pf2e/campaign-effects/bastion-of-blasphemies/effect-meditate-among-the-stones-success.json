@@ -1,16 +1,17 @@
 {
-    "_id": "TCTBI4kVQVqRh9XN",
-    "img": "icons/skills/social/thumbs-down.webp",
-    "name": "Not Falling for That",
+    "_id": "NRWqw3wosKAnoWPl",
+    "folder": "EyFlvf0LyNMOSKCz",
+    "img": "icons/magic/holy/meditation-chi-focus-blue.webp",
+    "name": "Effect: Meditate Among the Stones (Success)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Not Falling for That]</p>\n<p>You gain a +1 circumstance bonus to your AC and a +5-foot status bonus to your Speed.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.adventure-specific-actions.Item.Meditate Among the Stones]</p>\n<p>You gain a +1 circumstance bonus to your next Intelligence-based skill check.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "minutes",
-            "value": 1
+            "unit": "hours",
+            "value": 24
         },
         "fromSpell": false,
         "level": {
@@ -19,26 +20,17 @@
         "publication": {
             "license": "ORC",
             "remaster": true,
-            "title": "Starfinder Absalom Station"
+            "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
         },
         "rules": [
             {
                 "key": "FlatModifier",
+                "removeAfterRoll": "if-enabled",
                 "selector": [
-                    "ac"
+                    "int-skill-check"
                 ],
-                "slug": "not-falling-for-that-ac-bonus",
                 "type": "circumstance",
                 "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "selector": [
-                    "all-speeds"
-                ],
-                "slug": "not-falling-for-that-speed-bonus",
-                "type": "status",
-                "value": 5
             }
         ],
         "start": {
