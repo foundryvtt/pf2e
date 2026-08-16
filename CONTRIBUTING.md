@@ -34,11 +34,11 @@ As new OGL and/or ORC content is released by Paizo, we would like to incorporate
 
 ### Pull Requests
 
-Pull requests ("PRs") can be made by anyone. PRs titles should be in imperative mood and state clearly and concisely what is being changed. A description is often needed to expand on any details.
+Pull requests ("PRs") can be made by anyone. PRs titles should be in imperative mood and state clearly and concisely what is being changed. A description is often needed to expand on any details. For new contributors, CI actions must be manually triggered by the system maintainers. It will automatically trigger for subsequent pull requests after a first one is merged into `master`.
+
+Unsolicited new features are generally not accepted. If you'd like to contribute one, first find or open an issue detailing the feature gap. From there, we can discuss solutions you have in mind and--if we prefer to go a different direction--possibly save you some headache and wasted effort.
 
 A pull request may not contain any AI-written changes. PRs noticed as having any AI-written changes will be summarily closed without merging.
-
-For new contributors, CI actions must be manually triggered by the system maintainers. It will automatically trigger for subsequent pull requests after a first one is merged into `master`.
 
 #### Prettier
 
