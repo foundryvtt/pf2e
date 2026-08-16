@@ -1,6 +1,6 @@
 {
     "_id": "0NZuvpCVr21WcQtH",
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/locket-of-sealed-nightmares.webp",
+    "img": "icons/equipment/neck/necklace-carved-stone-wood.webp",
     "name": "Locket of Sealed Nightmares",
     "system": {
         "baseItem": null,
@@ -41,13 +41,15 @@
                 "predicate": [
                     {
                         "or": [
-                            "illusion",
-                            "unconscious",
-                            "fatigue"
+                            "item:trait:illusion",
+                            "inflicts:unconscious",
+                            "inflicts:fatigued"
                         ]
                     }
                 ],
-                "selector": "saving-throw",
+                "selector": [
+                    "saving-throw"
+                ],
                 "type": "item",
                 "value": 4
             }

@@ -174,7 +174,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                 name: "hmr-handler",
                 apply: "serve",
                 handleHotUpdate(context) {
-                    if (context.file.startsWith(outDir)) return;
+                    if (context.file.startsWith(path.resolve(outDir))) return;
                     if (context.file.endsWith("en.json")) {
                         const basePath = context.file.slice(context.file.indexOf("lang/"));
                         console.debug(`Updating lang file at ${basePath}`);

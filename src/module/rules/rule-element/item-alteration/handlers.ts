@@ -1131,44 +1131,41 @@ const ITEM_ALTERATION_HANDLERS = {
         },
         handle: function (data: AlterationApplicationData) {
             if (!this.isValid(data)) return;
-            const resolvedTrait = R.isPlainObject(data.alteration.value)
-                ? `${data.alteration.value.trait}-${data.rule.resolveValue(data.alteration.value.annotation)}`
-                : data.alteration.value;
+            const { item, alteration, rule } = data;
+            const resolvedTrait = R.isPlainObject(alteration.value)
+                ? `${alteration.value.trait}-${rule.resolveValue(alteration.value.annotation)}`
+                : alteration.value;
             const documentClasses: Record<string, typeof ItemPF2e> = CONFIG.PF2E.Item.documentClasses;
-            const validTraits = documentClasses[data.item.type].validTraits;
+            const validTraits = documentClasses[item.type].validTraits;
             if (!objectHasKey(validTraits, resolvedTrait)) {
                 throw new validation.DataModelValidationError(`${resolvedTrait} is not a valid choice`);
             }
 
-            const newValue = AELikeRuleElement.getNewValue(
-                data.alteration.mode,
-                data.item.system.traits.value,
-                resolvedTrait,
-            );
-            if (!newValue) return;
-            if (newValue instanceof validation.DataModelValidationFailure) {
-                throw newValue.asError();
-            }
-            if (data.item.system.traits.value) {
-                if (data.alteration.mode === "add") {
-                    addOrUpgradeTrait(data.item.system.traits, newValue);
+            const newValue = AELikeRuleElement.getNewValue(alteration.mode, item.system.traits.value, resolvedTrait);
+            if (!newValue || !item.system.traits.value) return;
+            if (newValue instanceof validation.DataModelValidationFailure) throw newValue.asError();
+            if (alteration.mode === "add") {
+                addOrUpgradeTrait(item.system.traits, newValue);
+                if (!(item instanceof ItemPF2e)) return;
 
-                    // Add specific hardcoded handling for modular. Assume BPS if no value given
-                    // todo: add support for modular configs in the annotation property.
-                    if (data.item instanceof Item && data.item.isOfType("weapon", "melee") && newValue === "modular") {
-                        const modular = (data.item.system.traits.config.modular ??= []);
-                        const bps: ModularConfig[] = [
-                            { damageType: "bludgeoning", traits: [] },
-                            { damageType: "piercing", traits: [] },
-                            { damageType: "slashing", traits: [] },
-                        ];
-                        modular.push(
-                            ...bps.filter((c): c is ModularConfig => !modular.some((m) => R.isDeepEqual(c, m))),
-                        );
-                    }
-                } else if (["subtract", "remove"].includes(data.alteration.mode)) {
-                    removeTrait(data.item.system.traits, newValue);
+                // Ensure melee weapons gaining thrown-N stay melee, so a thrown alt-usage can be generated.
+                if (item.isOfType("weapon") && !item.altUsageType && /^thrown-\d{1,3}$/.test(resolvedTrait)) {
+                    item.system.range = null;
                 }
+
+                // Add specific hardcoded handling for modular. Assume BPS if no value given
+                // todo: add support for modular configs in the annotation property.
+                if (item.isOfType("weapon", "melee") && newValue === "modular") {
+                    const modular = (item.system.traits.config.modular ??= []);
+                    const bps: ModularConfig[] = [
+                        { damageType: "bludgeoning", traits: [] },
+                        { damageType: "piercing", traits: [] },
+                        { damageType: "slashing", traits: [] },
+                    ];
+                    modular.push(...bps.filter((c): c is ModularConfig => !modular.some((m) => R.isDeepEqual(c, m))));
+                }
+            } else if (["subtract", "remove"].includes(alteration.mode)) {
+                removeTrait(item.system.traits, newValue);
             }
         },
     }),
