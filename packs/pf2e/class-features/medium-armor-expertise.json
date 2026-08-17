@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>You've learned to defend yourself better against attacks. Your proficiency ranks for light armor, medium armor, and unarmored defense increase to expert.</p>\n<p><strong>Inventor</strong> If you have a medium or heavy armor innovation, you gain access to the critical specialization effect with your armor innovation.</p>"
+            "value": "<p>@Localize[PF2E.SpecificRule.ClassFeatures.MediumArmorExpertise.GeneralDescription]</p>\n<p><strong>Inventor</strong> @Localize[PF2E.SpecificRule.ClassFeatures.MediumArmorExpertise.inventor.Description]</p>"
         },
         "level": {
             "value": 11
@@ -24,7 +24,32 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.ClassFeatures.MediumArmorExpertise.GeneralDescription"
+                    },
+                    {
+                        "predicate": [
+                            "class:inventor"
+                        ],
+                        "text": "PF2E.SpecificRule.ClassFeatures.MediumArmorExpertise.inventor.Description"
+                    }
+                ]
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{actor|class.slug}"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {
                 "light": {
