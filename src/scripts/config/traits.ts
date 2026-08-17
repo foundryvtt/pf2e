@@ -1598,6 +1598,7 @@ const traitDescriptions = {
     inventor: "PF2E.TraitDescriptionInventor",
     invested: "PF2E.TraitDescriptionInvested",
     investigator: "PF2E.TraitDescriptionInvestigator",
+    invocation: "PF2E.TraitDescriptionInvocation",
     izalguun: "PF2E.TraitDescriptionIzalguun",
     "jousting-d4": "PF2E.TraitDescriptionJousting",
     "jousting-d6": "PF2E.TraitDescriptionJousting",
