@@ -163,7 +163,7 @@ interface RegionPlacementOptions<TRegion extends Region> {
      * placement of the Region shape and display a warning.
      */
     preConfirm?: (args: {
-        event: PIXI.FederatedEvent;
+        event: PIXI.FederatedPointerEvent;
         document: TRegion["document"];
         regionIndex: number;
         regionCount: number;
@@ -177,7 +177,7 @@ interface RegionPlacementOptions<TRegion extends Region> {
      * the Region shape and display a warning.
      */
     preSkip?: (args: {
-        event: PIXI.FederatedEvent;
+        event: PIXI.FederatedPointerEvent;
         document: TRegion["document"];
         regionIndex: number;
         regionCount: number;
