@@ -1,0 +1,95 @@
+{
+    "_id": "rzkFYGr1EsvJUWAI",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "2ALW0h3RqtvkcTq1",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Activate Security Measures",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature uses an area attack, such as a grenade or spell that affects an area, that impacts the planet's surface</p><hr /><p><strong>Effect</strong> A sinkhole opens beneath each creature within 100 feet of the area effect's impact. Each creature must attempt a @Check[reflex|dc:28] save. The hazard then rolls initiative if it hasn't already.</p><hr /><p><strong>Success</strong> The creature avoids falling into a sinkhole and instead moves to an adjacent empty space of its choice.</p>\n<p><strong>Failure</strong> The creature is pulled into a sinkhole and begins sinking. It's @UUID[Compendium.sf2e.conditions.Item.Immobilized] until it frees itself with a successful check to disable the hazard. If a creature is stuck for 2 consecutive rounds, it sinks beneath the surface and must hold its breath or begin suffocating. An adjacent creature can free a stuck creature with a successful @Check[athletics|dc:30] check.</p>\n<p><strong>Critical Failure</strong> As failure, except the creature is @UUID[Compendium.sf2e.conditions.Item.Grabbed] instead of immobilized, and it's immediately pulled underground and must hold its breath or begin suffocating.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Ancient Security Measures",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 20
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>An ancient security system triggers and initiates a localized attack on detected hostiles. A noise somewhere between the rumbling of rock and the blare of an automated alarm system envelops the area as the ground begins to shake. Unnaturally precise sinkholes open beneath everyone nearby</p>",
+            "disable": "<p>@Check[athletics|dc:28] to forcibly climb out to an adjacent square, @Check[acrobatics|dc:28] to nimbly squeeze out of a sinkhole to an adjacent square; the sinkholes are permanent, and creatures that later enter the space of a sinkhole must attempt a Reflex save as if targeted by Activate Security Measures (see below)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 9
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Secrets of the Swarm Adventure Path"
+            },
+            "reset": "",
+            "routine": "<p>(1 action) On the hazard's initiative, each sinkhole crushes each creature within it with gravitational forces from the planet's core. Affected creatures take @Damage[5d8[bludgeoning]] damage (@Check[fortitude|dc:28|basic] save).</p><hr><p><strong>Special</strong> If any of the Stewards are pulled underground due to this complication and then freed by the PCs, the Stewards surrender and consent to be remanded to the proper authorities.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

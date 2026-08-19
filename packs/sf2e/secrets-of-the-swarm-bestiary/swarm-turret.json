@@ -1,0 +1,151 @@
+{
+    "_id": "E2E2CByahWb3E0f5",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "kyCGbkzaaid64tRK",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Opening Salvo",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The hub activates the turret</p><hr /><p><strong>Effect</strong> The trap makes a laser bile Strike against a creature in the room; the trap rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jIwjR0NEFRDWBRfk",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Laser Bile",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "riLXB9UZ7eEuqUDm": {
+                        "damage": "1d10+6",
+                        "damageType": "acid"
+                    },
+                    "yuJsLsJHrLGXau6T": {
+                        "damage": "1d10+6",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 90,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Swarm Turret",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 28
+            },
+            "emitsSound": "encounter",
+            "hardness": 17,
+            "hp": {
+                "details": "",
+                "max": 70,
+                "temp": 0,
+                "value": 70
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 23
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The szynegation hub rearranges its scavenged walls to reveal a mounted gun turret aimed at the room's occupants.</p>",
+            "disable": "<p>@Check[computers|dc:27] (expert) or Medicine (expert) to reprogram the turret, @Check[crafting|dc:29] (expert) to sever the power source, @Check[thievery|dc:26] (expert) to disable the turret</p>",
+            "isComplex": true,
+            "level": {
+                "value": 9
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Secrets of the Swarm Adventure Path"
+            },
+            "reset": "<p>(3 actions) The trap makes a laser bile Strike against up to three creatures in range or multiple Strikes against one creature in range if it has no additional targets.</p>",
+            "routine": "<p>The trap resets after 1 minute.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 21
+            },
+            "reflex": {
+                "value": 15
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "tech",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}
