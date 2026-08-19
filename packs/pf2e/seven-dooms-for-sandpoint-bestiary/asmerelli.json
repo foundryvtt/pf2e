@@ -2269,10 +2269,6 @@
                     "5e991ECo6DefTVOW": {
                         "damage": "1d6+2",
                         "damageType": "piercing"
-                    },
-                    "vSW6nIVzw4oGdbQf": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -2287,7 +2283,17 @@
                     "increment": 60,
                     "max": null
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
+                    }
+                ],
                 "slug": "shortbow",
                 "traits": {
                     "value": [

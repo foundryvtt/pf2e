@@ -1,0 +1,294 @@
+{
+    "_id": "6FznXlUAA64jVh1V",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "Y24qdpQYCF2Nbwsg",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "7tyuY1WlSRDQ46wf": {
+                        "damage": "2d10+6",
+                        "damageType": "slashing"
+                    },
+                    "bxw5UKdKcErUnElx": {
+                        "category": "persistent",
+                        "damage": "1d12",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "magical",
+                        "reach-10",
+                        "versatile-b"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "IWW81O708TXjJLYS",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Shock",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "mM9AjddNKZBoD4qC": {
+                        "damage": "2d12+6",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": null,
+                    "max": 60
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "2JmDrtvhB4DzRTvk",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Balance Fields",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The crystal-pulse construct would be affected by an effect with the electricity trait or by any spell</p><hr /><p><strong>Effect</strong> The construct vents energy in an attempt to stabilize its animating fields. All creatures within a @Template[type:emanation|distance:10] take @Damage[8d6[untyped]|options:area-damage] damage (@Check[reflex|dc:28|basic] save). If the triggering effect had the electricity trait, this is electricity damage, and if it was triggered by a spell, this is force damage. If the reaction is triggered by an electricity spell, the damage is either electricity or force, whichever would be more detrimental to creatures in the area, as determined by the GM.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qpWk46JKYfzsVElQ",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Charged Suspension",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Electrical fields intensify around a target creature within 60 feet, attempting to lift it from the ground. The target must attempt a @Check[fortitude|dc:29] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.sf2e.conditions.Item.Suppressed] for 1 round.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.sf2e.conditions.Item.Immobilized] until it [[/act escape dc=29]]{Escapes} and is also suppressed for 1 round.</p>\n<p><strong>Critical Failure</strong> As failure, but suppressed for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Q8mG9CuInWLde01s",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Shocking Deformation",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The construct temporarily flies apart into its constituent elements until its fields bring it back together. All creatures in a @Template[type:emanation|distance:30] take 6d6 slashing plus @Damage[3d12[electricity]|options:area-damage] damage with a @Check[reflex|dc:29|basic] save. The crystal-pulse construct then reforms itself in any space large enough for it within the emanation. This movement does not provoke reactions.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "electricity"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Crystal-Pulse Construct",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 0
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 0
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 10
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "value": 10
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 10
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>A crystal-pulse construct is a volatile and unpredictable creature, formed when an electrical field holds magically charged crystals in suspension. Existing in a constant state of flux, the construct must vent magical and electrical energy almost constantly to stabilize its form.</p>\n<p>While crystal-pulse constructs sometimes form spontaneously when lightning strikes a magical environment or other powerful currents encounter magically charged minerals, only deliberately calibrated constructs have the necessary equilibrium to remain animated for long. These stabler constructs are most commonly found guarding the laboratories of wizards and elementalists or wandering the Plane of Metal.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Secrets of the Swarm Adventure Path"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 0,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "skills": {},
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "construct",
+                "mindless"
+            ]
+        }
+    },
+    "type": "npc"
+}

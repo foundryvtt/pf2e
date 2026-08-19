@@ -1,0 +1,111 @@
+{
+    "_id": "MMa4HXee9qyc1r4C",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "CYPGeECbiW2FGjpA",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Malevolent Notice",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves within 30 feet of the improperly stored szandite crystals</p><hr /><p><strong>Effect</strong> All creatures within 30 feet of the exposed szandite crystals form a sudden mental link with the Krethiskar Swarm mind. Their vision is momentarily filled with the image of insectile eyes as a malevolent will threatens to overpower them. Each creature in the area must attempt a @Check[will|dc:24] save. The hazard then rolls initiative.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 1} for 1 round.</p>\n<p><strong>Failure</strong> The creature is stupefied 1 for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature is stupefied 1 for 1 minute and @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 2}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Reactive Szandite",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 21
+            },
+            "emitsSound": "encounter",
+            "hardness": 14,
+            "hp": {
+                "details": "",
+                "max": 56,
+                "temp": 0,
+                "value": 56
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 10
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "bludgeoning",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>Improperly stored szandite crystals form a temporary mental link between the Swarm mind and nearby creatures.</p>",
+            "disable": "<p>@Check[arcana|dc:25] (trained) or @Check[occultism|dc:25] (trained) to sever the connection through the crystals, @Check[crafting|dc:21] or @Check[physical-science-lore|dc:21] to properly seal the crate, @Check[will|dc:28] save to overcome the immense willpower of the Swarm, or @UUID[Compendium.sf2e.spells.Item.Dispel Magic] (3rd rank; counteract DC 21); three total successes are required to disable the hazard</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Secrets of the Swarm Adventure Path"
+            },
+            "reset": "",
+            "routine": "<p>(3 actions) The hazard loses 1 action each turn for each success earned to disable it. The Swarm mind uses all of its actions on its turn to fix its mental gaze on a number of targets equal to the number of actions remaining in its routine, boring into their minds. The creatures take @Damage[(2d8+9)[mental]] damage (@Check[will|dc:24|basic] save).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 18
+            },
+            "reflex": {
+                "value": 11
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}
