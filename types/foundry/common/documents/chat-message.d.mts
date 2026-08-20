@@ -1,46 +1,56 @@
 import Roll from "@client/dice/roll.mjs";
 import { AudioFilePath, ChatMessageStyle, DocumentOwnershipNumber } from "@common/constants.mjs";
 import { DocumentFlags } from "@common/data/_module.mjs";
-import { Document, DocumentMetadata } from "../abstract/_module.mjs";
+import { Document, DocumentClassMetadata } from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
 import BaseUser from "./user.mjs";
 
 /**
- * The ChatMessage document model.
- * @memberof documents
- *
- * @param data    Initial data from which to construct the document.
- * @property data The constructed data object for the document.
+ * The ChatMessage Document.
+ * Defines the DataSchema and common behaviors for a ChatMessage which are shared between both client and server.
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default class BaseChatMessage<TUser extends BaseUser | null = BaseUser | null> extends Document<
     null,
     ChatMessageSchema
 > {
-    static override get metadata(): ChatMessageMetadata;
+    /* -------------------------------------------- */
+    /*  Model Configuration                         */
+    /* -------------------------------------------- */
+
+    static override get metadata(): Readonly<ChatMessageMetadata>;
 
     static override defineSchema(): ChatMessageSchema;
 
     override getUserLevel(user: BaseUser): DocumentOwnershipNumber;
 }
 
-export default interface BaseChatMessage<TUser extends BaseUser | null>
+export default interface BaseChatMessage<TUser extends BaseUser | null = BaseUser | null>
     extends Document<null, ChatMessageSchema>, Omit<fields.ModelPropsFromSchema<ChatMessageSchema>, "author"> {
     get documentName(): ChatMessageMetadata["name"];
 
     author: TUser;
 }
 
+interface ChatMessageMetadata extends DocumentClassMetadata {
+    name: "ChatMessage";
+    collection: "messages";
+    label: "DOCUMENT.ChatMessage";
+    labelPlural: "DOCUMENT.ChatMessages";
+    hasTypeData: true;
+    baseTypeAllowed: true;
+    isPrimary: true;
+}
+
 declare type ChatMessageSchema = {
     /** The _id which uniquely identifies this ChatMessage document */
     _id: fields.DocumentIdField;
-    /** An ChatMessage subtype which configures the system data model applied */
+    /** The type of this chat message, in BaseChatMessage.metadata.types */
     type: fields.DocumentTypeField<string, string, true, false, true, BaseChatMessage>;
-    /** The system data object */
+    /** Data for a ChatMessage subtype, defined by a System or Module */
     system: fields.TypeDataField;
     /** The message style from CONST.CHAT_MESSAGE_STYLES */
     style: fields.NumberField<ChatMessageStyle, ChatMessageStyle, true, true, true>;
-    /** The _id of the User document who generated this message */
     author: fields.ForeignDocumentField<BaseUser, true, false, true>;
     /** The timestamp at which point this message was generated */
     timestamp: fields.NumberField<number, number, true, false, true>;
@@ -62,7 +72,7 @@ declare type ChatMessageSchema = {
     emote: fields.BooleanField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object of creation and access information. */
+    /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };
 
@@ -87,14 +97,4 @@ declare type ChatSpeakerSchema = {
 
 export type ChatSpeakerData = fields.SourceFromSchema<ChatSpeakerSchema>;
 
-interface ChatMessageMetadata extends DocumentMetadata {
-    name: "ChatMessage";
-    collection: "messages";
-    label: "DOCUMENT.ChatMessage";
-    labelPlural: "DOCUMENT.ChatMessages";
-    isPrimary: true;
-}
-
 export type ChatMessageSource = fields.SourceFromSchema<ChatMessageSchema>;
-
-export {};

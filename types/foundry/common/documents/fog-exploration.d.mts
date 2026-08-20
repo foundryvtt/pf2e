@@ -1,20 +1,24 @@
 import { ImageFilePath } from "@common/constants.mjs";
-import { DatabaseUpdateCallbackOptions, Document, DocumentMetadata } from "../abstract/_module.mjs";
+import { DatabaseUpdateCallbackOptions, Document, DocumentClassMetadata } from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
 import { BaseScene, BaseUser } from "./_module.mjs";
 
 /**
- * The Document definition for FogExploration.
- * Defines the DataSchema and common behaviors for FogExploration which are shared between both client and server.
- * @memberof documents
- *
- * @param data    Initial data from which to construct the FogExploration
- * @param context Construction context options
+ * The FogExploration Document.
+ * Defines the DataSchema and common behaviors for a FogExploration which are shared between both client and server.
  */
 export default class BaseFogExploration extends Document<null, FogExplorationSchema> {
-    static override get metadata(): FogExplorationMetadata;
+    /* ---------------------------------------- */
+    /*  Model Configuration                     */
+    /* ---------------------------------------- */
+
+    static override get metadata(): Readonly<FogExplorationMetadata>;
 
     static override defineSchema(): FogExplorationSchema;
+
+    /* ---------------------------------------- */
+    /*  Database Event Handlers                 */
+    /* ---------------------------------------- */
 
     protected override _preUpdate(
         changed: DeepPartial<this["_source"]>,
@@ -28,7 +32,7 @@ export default interface BaseFogExploration
     get documentName(): FogExplorationMetadata["name"];
 }
 
-interface FogExplorationMetadata extends DocumentMetadata {
+interface FogExplorationMetadata extends DocumentClassMetadata {
     name: "FogExploration";
     collection: "fog";
     label: "DOCUMENT.FogExploration";
@@ -39,17 +43,20 @@ interface FogExplorationMetadata extends DocumentMetadata {
 type FogExplorationSchema = {
     /** The _id which uniquely identifies this FogExploration document */
     _id: fields.DocumentIdField;
-    /** The _id of the Scene document to which this fog applies */
-    scene: fields.ForeignDocumentField<BaseScene>;
     /** The _id of the User document to which this fog applies */
     user: fields.ForeignDocumentField<BaseUser>;
-    /** The base64 png image of the explored fog polygon */
+    /** The _id of the Scene document to which this fog applies */
+    scene: fields.ForeignDocumentField<BaseScene>;
+    level: fields.DocumentIdField<string, true, true, true>;
+    /** The base64 image/jpeg of the explored fog polygon */
     explored: fields.FilePathField<ImageFilePath, ImageFilePath, true>;
-    /** The object of scene positions which have been explored at a certain vision radius */
+    /** Optional custom exploration data */
     positions: fields.ObjectField<object>;
     /** The timestamp at which this fog exploration was last updated */
     timestamp: fields.NumberField<number, number, false, true, true>;
+    /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
+    _stats: fields.DocumentStatsField;
 };
 
 export type FogExplorationSource = fields.SourceFromSchema<FogExplorationSchema>;

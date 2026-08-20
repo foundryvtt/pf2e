@@ -1,7 +1,7 @@
 import {
     DatabaseUpdateCallbackOptions,
     Document,
-    DocumentMetadata,
+    DocumentClassMetadata,
     EmbeddedCollection,
 } from "@common/abstract/_module.mjs";
 import { DocumentOwnershipNumber, EdgeRestrictionType, RegionVisibilityType } from "../constants.mjs";
@@ -9,11 +9,19 @@ import { BaseShapeData } from "../data/data.mjs";
 import * as fields from "../data/fields.mjs";
 import { BaseRegionBehavior, BaseScene, BaseUser } from "./_module.mjs";
 
+/**
+ * The Region Document.
+ * Defines the DataSchema and common behaviors for a Region which are shared between both client and server.
+ */
 export default class BaseRegion<TParent extends BaseScene | null = BaseScene | null> extends Document<
     TParent,
     RegionSchema
 > {
-    static override get metadata(): RegionMetadata;
+    /* -------------------------------------------- */
+    /*  Model Configuration                         */
+    /* -------------------------------------------- */
+
+    static override get metadata(): Readonly<RegionMetadata>;
 
     static override defineSchema(): RegionSchema;
 
@@ -49,7 +57,7 @@ export default interface BaseRegion<TParent extends BaseScene | null = BaseScene
     readonly behaviors: EmbeddedCollection<BaseRegionBehavior<this>>;
 }
 
-interface RegionMetadata extends DocumentMetadata {
+interface RegionMetadata extends DocumentClassMetadata {
     name: "Region";
     collection: "regions";
     label: "DOCUMENT.Region";
@@ -83,11 +91,14 @@ type RegionSchema = {
     }>;
     /** A collection of embedded RegionBehavior objects */
     behaviors: fields.EmbeddedCollectionField<BaseRegionBehavior<BaseRegion>>;
+    /** The region visibility*/
     visibility: fields.NumberField<RegionVisibilityType, RegionVisibilityType, true>;
     highlightMode: fields.StringField<RegionHighlightMode, RegionHighlightMode, true, false, true>;
     displayMeasurements: fields.BooleanField;
+    hidden: fields.BooleanField;
     /** Whether this region is locked or not */
     locked: fields.BooleanField;
+    /** An object which configures ownership of this Region */
     ownership: fields.DocumentOwnershipField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
@@ -100,12 +111,8 @@ type RegionSchema = {
 export type RegionHighlightMode = "shapes" | "coverage";
 
 type RegionElevationSchema = {
-    /** null -> -Infinity */
     bottom: fields.NumberField<number, number, true>;
-    /** null -> +Infinity */
     top: fields.NumberField<number, number, true>;
 };
 
 export type RegionSource = fields.SourceFromSchema<RegionSchema>;
-
-export {};

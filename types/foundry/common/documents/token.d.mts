@@ -1,6 +1,6 @@
 import { TerrainData } from "@client/data/terrain-data.mjs";
 import { ElevatedPoint } from "@common/_types.mjs";
-import Document, { DocumentMetadata } from "@common/abstract/document.mjs";
+import Document from "@common/abstract/document.mjs";
 import {
     ImageFilePath,
     TokenDisplayMode,
@@ -13,30 +13,30 @@ import * as data from "../data/data.mjs";
 import * as fields from "../data/fields.mjs";
 import { BaseActorDelta, BaseScene } from "./_module.mjs";
 import { TokenDimensions, TokenPosition } from "./_types.mjs";
+import { DocumentClassMetadata } from "@common/abstract/_module.mjs";
 
 /**
- * The Token document model.
- * @param data Initial data from which to construct the document.
- * @property data The constructed data object for the document.
+ * The Token Document.
+ * Defines the DataSchema and common behaviors for a Token which are shared between both client and server.
  */
 export default class BaseToken<TParent extends BaseScene | null = BaseScene | null> extends Document<
     TParent,
     TokenSchema
 > {
-    static override get metadata(): TokenMetadata;
+    /* -------------------------------------------- */
+    /*  Model Configuration                         */
+    /* -------------------------------------------- */
+
+    static override get metadata(): Readonly<TokenMetadata>;
 
     static override defineSchema(): TokenSchema;
 
     static override LOCALIZATION_PREFIXES: string[];
 
-    /**
-     * The fields of the data model for which changes count as a movement action.
-     */
+    /** The fields of the data model for which changes count as a movement action. */
     static readonly MOVEMENT_FIELDS: ["x", "y", "elevation", "width", "height", "shape"];
 
-    /**
-     * Are the given positions equal?
-     */
+    /** Are the given positions equal? */
     static arePositionsEqual(position1: TokenPosition, position2: TokenPosition): boolean;
 
     /** The default icon used for newly created Token documents */
@@ -76,6 +76,14 @@ export default class BaseToken<TParent extends BaseScene | null = BaseScene | nu
      * @returns The width and height in pixels
      */
     getSize(data?: { width?: number; height?: number }): { width: number; height: number };
+
+    /* -------------------------------------------- */
+    /*  Document Methods                            */
+    /* -------------------------------------------- */
+
+    override getUserLevel(user: foundry.documents.BaseUser): CONST.DocumentOwnershipNumber;
+
+    override toObject(source?: boolean): this["_source"];
 }
 
 export default interface BaseToken<TParent extends BaseScene | null = BaseScene | null>
@@ -101,7 +109,7 @@ export default interface BaseToken<TParent extends BaseScene | null = BaseScene 
     getCenterPoint(data?: Partial<ElevatedPoint & Omit<TokenDimensions, "depth">>): ElevatedPoint;
 }
 
-interface TokenMetadata extends DocumentMetadata {
+interface TokenMetadata extends DocumentClassMetadata {
     name: "Token";
     collection: "tokens";
     label: "DOCUMENT.Token";
@@ -123,10 +131,7 @@ type TokenSchema = {
     actorId: fields.ForeignDocumentField<string>;
     /** Does this Token uniquely represent a singular Actor, or is it one of many? */
     actorLink: fields.BooleanField;
-    /**
-     * The ActorDelta embedded document which stores the differences between this token and the base actor it
-     * represents.
-     */
+    /** The ActorDelta embedded document which stores the differences between this token and the base actor it represents. */
     delta: ActorDeltaField;
     /** The x-coordinate of the top-left corner of the Token */
     x: fields.NumberField<number, number, true, false, true>;
@@ -138,12 +143,17 @@ type TokenSchema = {
     width: fields.NumberField<number, number, true, false, true>;
     /** The height of the Token in grid units */
     height: fields.NumberField<number, number, true, false, true>;
+    /** The depth of the Token in grid units */
     depth: fields.NumberField<number, number, true, false, true>;
+    /** The shape of the Token */
     shape: fields.NumberField<TokenShapeType, TokenShapeType, false, true, true>;
+    /** The level ID */
     level: fields.DocumentIdField<string, true, false, true>;
     /** The token's texture on the canvas. */
     texture: data.TextureData;
+    /** The sort order */
     sort: fields.NumberField<number, number, true, false, true>;
+    /** Is the Token currently locked? A locked token cannot be moved or rotated via standard keyboard or mouse interaction. */
     locked: fields.BooleanField;
     /** Prevent the Token image from visually rotating? */
     lockRotation: fields.BooleanField;
@@ -173,7 +183,7 @@ type TokenSchema = {
     sight: fields.SchemaField<{
         /** Should vision computation and rendering be active for this Token? */
         enabled: fields.BooleanField;
-        /** How far in distance units the Token can see without the aid of a light source */
+        /** How far in distance units the Token can see without the aid of a light source. If null, the sight range is unlimited. */
         range: fields.NumberField<number, number, true, true, true>;
         /** An angle at which the Token can see relative to their direction of facing */
         angle: fields.AngleField;
@@ -190,27 +200,40 @@ type TokenSchema = {
         /** An advanced customization for contrast within the visible area */
         contrast: fields.NumberField<number, number, true, false>;
     }>;
-    /** An array of detection modes which are available to this Token */
+    /** A record of detection modes which are available to this Token */
     detectionModes: fields.TypedObjectField<
         fields.SchemaField<{
-            /** Whether or not this detection mode is presently enabled */
+            /** Whether or not this detection mode is presently enabled. */
             enabled: fields.BooleanField;
-            /** The maximum range in distance units at which this mode can detect targets */
+            /**
+             * The maximum range in distance units at which this mode
+             * can detect targets. If null, which is only possible for modes in the document source, the detection range is
+             * unlimited. On document preparation null is converted to Infinity.
+             */
             range: fields.NumberField<number, number, true, true, true>;
         }>
     >;
+    /** Configuration of occlusion options */
     occludable: fields.SchemaField<{
+        /** Occlusion radius. */
         radius: fields.NumberField<number, number, false, false>;
     }>;
+    /** Configuration of the Dynamic Token Ring */
     ring: fields.SchemaField<{
+        /** Dynamic Token ring is enabled? */
         enabled: fields.BooleanField;
         colors: fields.SchemaField<{
+            /** Color of the ring. */
             ring: fields.ColorField;
+            /** Color of the background (behind the token, inside the ring). */
             background: fields.ColorField;
         }>;
+        /** Numerical bitmask to toggle effects. Default: 0x01 */
         effects: fields.NumberField<number, number, true, false, true>;
         subject: fields.SchemaField<{
+            /** Scale of the subject texture. */
             scale: fields.NumberField;
+            /** Path of the subject texture. */
             texture: fields.FilePathField<ImageFilePath>;
         }>;
     }>;
@@ -238,6 +261,7 @@ type TokenSchema = {
             checkpoint: fields.BooleanField<boolean, boolean, true, false, false>;
             intermediate: fields.BooleanField<boolean, boolean, true, false, false>;
             userId: fields.ForeignDocumentField<string, true, true, false>;
+            movementId: fields.StringField<string, string, true, false, false>;
             subpathId: fields.StringField<string, string, true, false, false>;
             cost: fields.NumberField<number, number, true, true, false>;
         }>
@@ -250,6 +274,9 @@ type TokenSchema = {
 
 export type TokenSource = fields.SourceFromSchema<TokenSchema>;
 
+/**
+ * A special subclass of EmbeddedDocumentField which allows construction of the ActorDelta to be lazily evaluated.
+ */
 export class ActorDeltaField extends fields.EmbeddedDocumentField<Document> {
     override initialize(
         value: fields.MaybeSchemaProp<object, true, true, true>,

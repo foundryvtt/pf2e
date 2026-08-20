@@ -1,6 +1,8 @@
 import { DocumentUUID } from "@client/utils/helpers.mjs";
 import { DataField } from "@common/data/fields.mjs";
 import { DataModel, Document } from "./_module.mjs";
+import BaseUser from "@common/documents/user.mjs";
+import { DocumentOwnershipString, UserPermission, UserRoleName } from "@common/constants.mjs";
 
 export type DataSchema = { [K in string]: DataField<unknown, unknown> };
 
@@ -56,6 +58,10 @@ export interface DataModelUpdateOptions {
     /** An advanced option used specifically and internally by the ActorDelta model */
     restoreDelta?: boolean;
 }
+
+export type DatabaseAction = "get" | "create" | "update" | "delete";
+
+export type DatabaseWriteAction = Exclude<DatabaseAction, "get">;
 
 export interface DatabaseGetOperation<TParent extends Document | null> {
     action: "get";
@@ -168,13 +174,16 @@ export interface DatabaseDeleteCallbackOptions extends Omit<
     "action" | "deleteAll" | "ids" | "pack" | "parent" | "noHook"
 > {}
 
-export type DatabaseAction = "get" | "create" | "update" | "delete";
-
 export type DatabaseOperation<TParent extends Document | null> =
     | DatabaseGetOperation<TParent>
     | DatabaseCreateOperation<TParent>
     | DatabaseUpdateOperation<TParent>
     | DatabaseDeleteOperation<TParent>;
+
+export type DatabaseWriteOperation<TParent extends Document | null> = Exclude<
+    DatabaseOperation<TParent>,
+    DatabaseGetOperation<TParent>
+>;
 
 export interface DocumentSocketRequest {
     /** The type of Document being transacted */
@@ -187,4 +196,29 @@ export interface DocumentSocketRequest {
     userId: string;
     /** Should the response be broadcast to other connected clients? */
     broadcast: boolean;
+}
+
+export type DocumentPermissionTest = (user: BaseUser, document: Document, data?: object) => boolean;
+
+type MetadataPermission = UserRoleName | UserPermission | DocumentOwnershipString | ((...args: unknown[]) => boolean);
+
+export interface DocumentClassMetadata {
+    name: string;
+    label: string;
+    coreTypes: readonly string[];
+    collection: string;
+    embedded: Record<string, string>;
+    permissions: {
+        view: MetadataPermission;
+        create: MetadataPermission;
+        update: MetadataPermission;
+        delete: MetadataPermission;
+    };
+    hasTypeData: boolean;
+    /** If the Document class has type data, can users normally create instances of the "base" type? */
+    baseTypeAllowed?: boolean;
+    indexed: boolean;
+    compendiumIndexFields: string[];
+    preserveOnImport: string[];
+    schemaVersion?: string;
 }

@@ -1,18 +1,17 @@
-import { Document, DocumentMetadata } from "../abstract/_module.mjs";
+import { Document, DocumentClassMetadata } from "../abstract/_module.mjs";
 import { FOLDER_DOCUMENT_TYPES, FolderDocumentType } from "../constants.mjs";
 import * as fields from "../data/fields.mjs";
 
 /**
- * The Folder Document model.
- *
- * @param data Initial data from which to construct the document.
- * @property data The constructed data object for the document.
+ * The Folder Document.
+ * Defines the DataSchema and common behaviors for a Folder which are shared between both client and server.
  */
 export default class BaseFolder extends Document<null, FolderSchema> {
     /* ---------------------------------------- */
     /*  Model Configuration                     */
     /* ---------------------------------------- */
-    static override get metadata(): FolderMetadata;
+
+    static override get metadata(): Readonly<FolderMetadata>;
 
     static override defineSchema(): FolderSchema;
 
@@ -30,7 +29,7 @@ export default interface BaseFolder extends Document<null, FolderSchema>, fields
     get documentName(): FolderMetadata["name"];
 }
 
-interface FolderMetadata extends DocumentMetadata {
+interface FolderMetadata extends DocumentClassMetadata {
     name: "Folder";
     collection: "folders";
     label: "DOCUMENT.Folder";
@@ -46,9 +45,10 @@ type FolderSchema = {
     /** The name of this Folder */
     name: fields.StringField<string, string, true, false, false>;
     /** The document type which this Folder contains, from CONST.FOLDER_DOCUMENT_TYPES */
-    type: fields.StringField<FolderDocumentType, FolderDocumentType, true, false, false>;
+    type: fields.DocumentTypeField<FolderDocumentType, FolderDocumentType, true, false, true, BaseFolder>;
     /** An HTML description of the contents of this folder */
     description: fields.StringField<string, string, false, false, true>;
+    /** The _id of a parent Folder which contains this Folder */
     folder: fields.ForeignDocumentField<BaseFolder>;
     /** The sorting mode used to organize documents within this Folder, in ["a", "m"] */
     sorting: fields.StringField<FolderSortingMode, FolderSortingMode, true, false, true>;
@@ -58,7 +58,7 @@ type FolderSchema = {
     color: fields.ColorField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object of creation and access information. */
+    /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };
 

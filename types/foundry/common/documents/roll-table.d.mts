@@ -1,10 +1,10 @@
 import { ImageFilePath } from "@common/constants.mjs";
-import { Document, DocumentMetadata, EmbeddedCollection } from "../abstract/_module.mjs";
+import { Document, DocumentClassMetadata, EmbeddedCollection } from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
 import { BaseFolder, BaseTableResult } from "./_module.mjs";
 
 /**
- * The Document definition for a RollTable.
+ * The RollTable Document.
  * Defines the DataSchema and common behaviors for a RollTable which are shared between both client and server.
  */
 export default class BaseRollTable extends Document<null, RollTableSchema> {
@@ -12,23 +12,24 @@ export default class BaseRollTable extends Document<null, RollTableSchema> {
     /*  Model Configuration                         */
     /* -------------------------------------------- */
 
-    static override get metadata(): RollTableMetadata;
+    static override get metadata(): Readonly<RollTableMetadata>;
 
-    static override defineSchema(): RollTableSchema;
+    static override LOCALIZATION_PREFIXES: string[];
 
     /** The default icon used for newly created Macro documents */
     static DEFAULT_ICON: ImageFilePath;
+
+    static override defineSchema(): RollTableSchema;
 }
 
 export default interface BaseRollTable
     extends Document<null, RollTableSchema>, fields.ModelPropsFromSchema<RollTableSchema> {
-    /** A reference to the Collection of TableResult instances in this document, indexed by _id. */
     readonly results: EmbeddedCollection<BaseTableResult<this>>;
 
     get documentName(): (typeof BaseRollTable)["metadata"]["name"];
 }
 
-interface RollTableMetadata extends DocumentMetadata {
+interface RollTableMetadata extends DocumentClassMetadata {
     name: "RollTable";
     collection: "tables";
     indexed: true;
@@ -48,7 +49,6 @@ type RollTableSchema = {
     /** The HTML text description for this RollTable document */
     description: fields.HTMLField;
     /** A Collection of TableResult embedded documents which belong to this RollTable */
-    // biome-ignore lint/suspicious/noExplicitAny:
     results: fields.EmbeddedCollectionField<BaseTableResult<BaseRollTable>>;
     /** The Roll formula which determines the results chosen from the table */
     formula: fields.StringField<string>;

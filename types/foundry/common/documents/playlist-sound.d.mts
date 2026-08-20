@@ -1,22 +1,25 @@
-import { AudioFilePath, DocumentOwnershipLevel } from "@common/constants.mjs";
-import { Document, DocumentMetadata } from "../abstract/_module.mjs";
+import { AudioFilePath } from "@common/constants.mjs";
+import { Document, DocumentClassMetadata } from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
-import { BasePlaylist, BaseUser } from "./_module.mjs";
+import { BasePlaylist } from "./_module.mjs";
 
-/** The PlaylistSound document model. */
+/**
+ * The PlaylistSound Document.
+ * Defines the DataSchema and common behaviors for a PlaylistSound which are shared between both client and server.
+ */
 export default class BasePlaylistSound<TParent extends BasePlaylist | null = BasePlaylist | null> extends Document<
     TParent,
     PlaylistSoundSchema
 > {
-    static override get metadata(): PlaylistSoundMetadata;
+    /* -------------------------------------------- */
+    /*  Model Configuration                         */
+    /* -------------------------------------------- */
+
+    static override get metadata(): Readonly<PlaylistSoundMetadata>;
 
     static override defineSchema(): PlaylistSoundSchema;
 
-    override testUserPermission(
-        user: BaseUser,
-        permission: DocumentOwnershipLevel,
-        { exact }?: { exact?: boolean },
-    ): boolean;
+    static override LOCALIZATION_PREFIXES: string[];
 }
 
 export default interface BasePlaylistSound<TParent extends BasePlaylist | null = BasePlaylist | null>
@@ -24,12 +27,13 @@ export default interface BasePlaylistSound<TParent extends BasePlaylist | null =
     getDocumentName: PlaylistSoundMetadata["name"];
 }
 
-interface PlaylistSoundMetadata extends DocumentMetadata {
+interface PlaylistSoundMetadata extends DocumentClassMetadata {
     name: "PlaylistSound";
     collection: "sounds";
     indexed: true;
     label: "DOCUMENT.PlaylistSound";
     labelPlural: "DOCUMENT.PlaylistSounds";
+    compendiumIndexFields: ["name", "sort"];
 }
 
 type PlaylistSoundSchema = {
@@ -41,6 +45,8 @@ type PlaylistSoundSchema = {
     description: fields.StringField;
     /** The audio file path that is played by this sound */
     path: fields.FilePathField<AudioFilePath>;
+    /** A channel in CONST.AUDIO_CHANNELS where this sound is played */
+    channel: fields.StringField<string, string, true, false, true>;
     /** Is this sound currently playing? */
     playing: fields.BooleanField;
     /** The time in seconds at which playback was paused */
