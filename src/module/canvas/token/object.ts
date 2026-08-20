@@ -42,6 +42,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
                 shape.points = shape.points.map((c, i) => (i % 2 === 0 ? c + bounds.x : c + bounds.y));
                 return shape;
             }
+            case PIXI.SHAPES.ELIP:
             case PIXI.SHAPES.CIRC: {
                 const shape = this.shape.clone();
                 const center = this.center;
