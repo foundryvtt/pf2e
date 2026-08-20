@@ -1,5 +1,8 @@
-import type { PlaceablesLayerPointerEvent } from "@client/canvas/layers/base/placeables-layer.d.mts";
-import type { ConeShapeData, LineShapeData } from "@common/data/data.d.mts";
+import type {
+    PlaceablesLayerEvent,
+    PlaceablesLayerPointerEvent,
+} from "@client/canvas/layers/base/placeables-layer.d.mts";
+import type { ConeShapeData, LineShapeData, EmanationShapeData, TokenShapeData } from "@common/data/data.d.mts";
 import { RegionDocumentPF2e } from "@scene";
 import { RegionPF2e } from "../index.ts";
 
@@ -80,5 +83,28 @@ export class RegionLayerPF2e extends fc.layers.RegionLayer<RegionPF2e> {
             placed.updateSource({ rotation });
             this._updateDragPreview(event);
         }
+    }
+
+    /** Fit an emanation region shape base to underlying token while drawing with the region tools. */
+    protected override _createDragShapeData(event: PlaceablesLayerEvent<RegionPF2e>): foundry.data.BaseShapeData {
+        const shape = super._createDragShapeData(event) as EmanationShapeData;
+        if (canvas?.scene && shape?.type === "emanation" && shape?.base?.type === "token") {
+            const gridSize = canvas.grid.size;
+            const inBoundTokens = canvas.scene.tokens.filter((token) => {
+                const { x, y, width, height } = token;
+                return (
+                    event.interactionData.origin.x.between(x, x + width * gridSize) &&
+                    event.interactionData.origin.y.between(y, y + height * gridSize)
+                );
+            });
+            if (inBoundTokens.length === 1) {
+                const base = shape.base as TokenShapeData;
+                base.shape = inBoundTokens[0].shape;
+                base.width = inBoundTokens[0].width;
+                base.height = inBoundTokens[0].height;
+                event.interactionData.origin = inBoundTokens[0].getCenterPoint();
+            }
+        }
+        return shape;
     }
 }
