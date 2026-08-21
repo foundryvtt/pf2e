@@ -1,23 +1,13 @@
-<form autocomplete="off">
-    <div class="form-group">
-        <label>{{localize "PF2E.Actor.Creature.Configure.Alliance.Label"}}</label>
-        <select name="system.details.alliance">
-            {{#each alliances as |option|}}
-                <option value="{{option.value}}"{{#if option.selected}} selected="selected"{{/if}}>{{localize option.label}}</option>
-            {{/each}}
-        </select>
-        <p class="hint">{{localize "PF2E.Actor.Creature.Configure.Alliance.Hint"}}</p>
-    </div>
-    <div class="form-group">
-        <label>{{localize "PF2E.Actor.NPC.Configure.Lootable.Label"}}</label>
-        <select name="{{concat "flags." systemId ".lootable"}}">
-            {{#each lootable as |option|}}
-                <option value="{{option.value}}"{{#if option.selected}} selected="selected"{{/if}}>{{localize option.label}}</option>
-            {{/each}}
-        </select>
-        <p class="hint">{{{localize "PF2E.Actor.NPC.Configure.Lootable.Hint"}}}</p>
-    </div>
-    <button type="submit">
-        <i class="fa-solid fa-floppy-disk"></i> {{localize "SETTINGS.Save"}}
-    </button>
-</form>
+<div class="form-group">
+    <label for="{{rootId}}-lootable">{{localize "PF2E.Actor.NPC.Configure.Lootable.Label"}}</label>
+    <select
+        id="{{rootId}}-lootable"
+        name="{{concat "flags." systemId ".lootable"}}"
+        aria-describedby="{{rootId}}-lootable-hint"
+    >
+        {{#each lootable as |option|}}
+            <option value="{{option.value}}"{{#if option.selected}} selected="selected"{{/if}}>{{localize option.label}}</option>
+        {{/each}}
+    </select>
+    <p id="{{rootId}}-lootable-hint" class="hint">{{{lootableHint}}}</p>
+</div>
