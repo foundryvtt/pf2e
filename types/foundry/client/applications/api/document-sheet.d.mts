@@ -147,8 +147,12 @@ export interface DocumentSheetConfiguration<TDocument extends Document = Documen
     editPermission: number;
     /** Can this sheet class be used to create a new Document? */
     canCreate: boolean;
+    /** Can the Document be imported into the World from a Compendium Collection? */
+    canImport: boolean;
     /** Allow sheet configuration as a header button */
     sheetConfig: boolean;
+    /** Allow ownership configuration as a header button */
+    ownershipConfig: boolean;
 }
 
 export interface DocumentSheetRenderOptions extends ApplicationRenderOptions {

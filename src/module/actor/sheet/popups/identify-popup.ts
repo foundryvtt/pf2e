@@ -6,7 +6,9 @@ import { dcAdjustmentOptions, type DCAdjustment } from "@module/dc.ts";
 import { htmlQuery, objectHasKey, signedInteger } from "@util";
 
 class IdentifyItemPopup extends fa.api.HandlebarsApplicationMixin<
-    AbstractConstructorOf<fa.api.ApplicationV2> & { DEFAULT_OPTIONS: DeepPartial<IdentifyPopupConfiguration> }
+    AbstractConstructorOf<fa.api.ApplicationV2<IdentifyPopupConfiguration>> & {
+        DEFAULT_OPTIONS: DeepPartial<IdentifyPopupConfiguration>;
+    }
 >(fa.api.ApplicationV2) {
     declare options: IdentifyPopupConfiguration;
 
@@ -36,7 +38,7 @@ class IdentifyItemPopup extends fa.api.HandlebarsApplicationMixin<
     protected override _initializeApplicationOptions(
         options: Partial<IdentifyPopupConfiguration>,
     ): IdentifyPopupConfiguration {
-        const initialized = super._initializeApplicationOptions(options) as IdentifyPopupConfiguration;
+        const initialized = super._initializeApplicationOptions(options);
         initialized.uniqueId = `identify-item-${initialized.item.uuid}`;
         return initialized;
     }

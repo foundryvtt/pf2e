@@ -1,35 +1,61 @@
 import { ALLIANCES } from "@actor/creature/values.ts";
-import type { ActorFlagsPF2e } from "@actor/data/base.ts";
 import { createSheetOptions, SheetOptions } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, setHasElement } from "@util";
 import type { BaseCreatureSource, CreatureActorType, CreatureSystemSource } from "./data.ts";
 import type { CreaturePF2e } from "./document.ts";
 
 /** A DocumentSheet presenting additional, per-actor settings */
-abstract class CreatureConfig<TActor extends CreaturePF2e> extends fav1.api.DocumentSheet<TActor> {
+abstract class CreatureConfig<TActor extends CreaturePF2e> extends fa.api.HandlebarsApplicationMixin<
+    AbstractConstructorOf<fa.api.DocumentSheetV2<fa.api.DocumentSheetConfiguration<CreaturePF2e>>> & {
+        DEFAULT_OPTIONS: DeepPartial<fa.api.DocumentSheetConfiguration>;
+    }
+>(fa.api.DocumentSheetV2) {
+    static override DEFAULT_OPTIONS: DeepPartial<fa.api.DocumentSheetConfiguration> = {
+        classes: ["creature-config"],
+        position: { width: 450 },
+        sheetConfig: false,
+        window: { contentClasses: ["standard-form"] },
+        form: { closeOnSubmit: true },
+    };
+
+    constructor(options: Omit<DeepPartial<fa.api.DocumentSheetConfiguration>, "document"> & { document: TActor }) {
+        const existing = fa.instances.get(CreatureConfig.#uniqueId(options.document));
+        if (existing instanceof CreatureConfig) return existing;
+        super(options);
+    }
+
+    static #uniqueId(document: { uuid: string | null }): string {
+        return `creature-config-${(document.uuid ?? fu.randomID()).replaceAll(".", "-")}`;
+    }
+
+    protected static configParts(settings: string): Record<string, fa.api.HandlebarsTemplatePart> {
+        return {
+            alliance: { template: `systems/${SYSTEM_ID}/templates/actors/creature/config-alliance.hbs` },
+            settings: { template: settings },
+            footer: { template: "templates/generic/form-footer.hbs" },
+        };
+    }
+
+    get actor(): TActor {
+        return this.document as TActor;
+    }
+
     override get title(): string {
         const namespace = this.actor.isOfType("character") ? "Character" : "NPC";
         return _loc(`PF2E.Actor.${namespace}.Configure.Title`);
     }
 
-    override get template(): string {
-        return `systems/${SYSTEM_ID}/templates/actors/${this.actor.type}/config.hbs`;
+    protected override _initializeApplicationOptions(
+        options: DeepPartial<fa.api.DocumentSheetConfiguration<CreaturePF2e>>,
+    ): fa.api.DocumentSheetConfiguration<CreaturePF2e> {
+        const initialized = super._initializeApplicationOptions(options);
+        initialized.uniqueId = CreatureConfig.#uniqueId(initialized.document);
+        return initialized;
     }
 
-    get actor(): TActor {
-        return this.object;
-    }
-
-    static override get defaultOptions(): fav1.api.DocumentSheetV1Options {
-        const options = super.defaultOptions;
-        options.sheetConfig = false;
-        options.width = 450;
-        return options;
-    }
-
-    override async getData(
-        options: Partial<fav1.api.DocumentSheetV1Options> = {},
-    ): Promise<CreatureConfigData<TActor>> {
+    protected override async _prepareContext(
+        options: fa.api.DocumentSheetRenderOptions,
+    ): Promise<CreatureConfigContext<TActor>> {
         const actor = this.actor;
         const source: BaseCreatureSource<CreatureActorType, CreatureSystemSource> = actor._source;
         const alliance =
@@ -46,35 +72,42 @@ abstract class CreatureConfig<TActor extends CreaturePF2e> extends fav1.api.Docu
         };
 
         return {
-            ...(await super.getData(options)),
+            ...(await super._prepareContext(options)),
+            document: actor,
             alliances: createSheetOptions(allianceOptions, { value: [alliance] }),
+            buttons: [{ type: "submit", icon: "fa-solid fa-floppy-disk", label: "SETTINGS.Save" }],
             systemId: SYSTEM_ID,
-            systemFlags: actor.flags[SYSTEM_ID],
         };
     }
 
-    /** Remove stored property if it's set to default; otherwise, update */
-    override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        const key = "system.details.alliance";
-        const alliance = formData[key];
+    /** Remove the stored property if it's set to default; otherwise, update */
+    protected override _processFormData(
+        event: SubmitEvent | null,
+        form: HTMLFormElement,
+        formData: fa.ux.FormDataExtended,
+    ): Record<string, unknown> {
+        const data: Record<string, unknown> = super._processFormData(event, form, formData);
+        const path = "system.details.alliance";
+        const alliance = fu.getProperty(data, path);
 
         if (alliance === "default") {
-            delete formData[key];
-            formData["system.details.alliance"] = _del;
+            fu.setProperty(data, path, _del);
         } else if (alliance === "neutral") {
-            formData[key] = null;
+            fu.setProperty(data, path, null);
         } else if (!setHasElement(ALLIANCES, alliance)) {
             throw ErrorPF2e("Unrecognized alliance");
         }
 
-        return super._updateObject(event, formData);
+        return data;
     }
 }
 
-interface CreatureConfigData<TActor extends CreaturePF2e> extends fav1.api.DocumentSheetData<TActor> {
+/** DocumentSheetRenderContext<TActor>` causes TS depth errors */
+interface CreatureConfigContext<TActor extends CreaturePF2e> extends fa.api.DocumentSheetRenderContext {
+    document: TActor;
     alliances: SheetOptions;
+    buttons: fa.FormFooterButton[];
     systemId: SystemId;
-    systemFlags: ActorFlagsPF2e[SystemId];
 }
 
-export { CreatureConfig, type CreatureConfigData };
+export { CreatureConfig, type CreatureConfigContext };
