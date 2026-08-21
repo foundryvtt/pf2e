@@ -734,7 +734,7 @@ export default interface Token<TDocument extends TokenDocument = TokenDocument> 
     get layer(): TokenLayer<this>;
 }
 
-type TokenShape = Extract<PlaceableShape, PIXI.Circle | PIXI.Polygon | PIXI.Rectangle>;
+type TokenShape = Extract<PlaceableShape, PIXI.Ellipse | PIXI.Circle | PIXI.Polygon | PIXI.Rectangle>;
 
 interface TokenResourceData {
     attribute: string;
