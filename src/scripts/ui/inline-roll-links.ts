@@ -320,7 +320,14 @@ export class InlineRollLinks {
         }
         const { actor: actorFromHTML, item, message } = resolveActorAndItemFromHTML(link);
         const actor = actorFromHTML ?? game.user.character;
-        const area = { type: dataset.type, value: Number(dataset.distance) || 5 };
+        const area = {
+            type: dataset.type,
+            value: Number(dataset.distance),
+            width: Number(dataset.width) || undefined,
+            angle: Number(dataset.angle) || undefined,
+            innerWidth: Number(dataset.innerWidth) || undefined,
+            outerWidth: Number(dataset.outerWidth) || undefined,
+        };
         const shape = shapeDataFromEffectArea(area, actor);
         if (!shape) return;
         const data: DeepPartial<fd.RegionSource> = {

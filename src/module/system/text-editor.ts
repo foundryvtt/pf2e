@@ -303,11 +303,55 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
             ui.notifications.error("PF2E.InlineTemplateErrors.WidthNoNumber", { format: { width: params.width } });
             return null;
         }
+        if (params.innerWidth && Number.isNaN(+params.innerWidth)) {
+            ui.notifications.error("PF2E.InlineTemplateErrors.InnerWidthNoNumber", {
+                format: { innerWidth: params.innerWidth },
+            });
+            return null;
+        }
+        if (params.outerWidth && Number.isNaN(+params.outerWidth)) {
+            ui.notifications.error("PF2E.InlineTemplateErrors.OuterWidthNoNumber", {
+                format: { outerWidth: params.outerWidth },
+            });
+            return null;
+        }
+        if (params.angle && Number.isNaN(+params.angle)) {
+            ui.notifications.error("PF2E.InlineTemplateErrors.AngleNoNumber", { format: { width: params.angle } });
+            return null;
+        }
         // If no traits are entered manually use the traits from rollOptions if available
         params.traits ||= item?.system.traits.value?.toString() ?? null;
         params.itemUuid ||= item?.uuid ?? null;
 
         // If no button label is entered directly create default label
+        if (params.width) {
+            label ||= _loc("PF2E.TemplateWidthLabel", {
+                size: params.distance,
+                width: params.width,
+                unit: _loc("PF2E.Foot.Label"),
+                shape: _loc(`PF2E.Area.Shape.${params.type}`),
+            });
+        }
+
+        if (params.angle) {
+            label ||= _loc("PF2E.TemplateAngleLabel", {
+                size: params.distance,
+                angle: params.angle,
+                unit: _loc("PF2E.Foot.Label"),
+                shape: _loc(`PF2E.Area.Shape.${params.type}`),
+            });
+        }
+
+        if (params.innerWidth || params.outerWidth) {
+            label ||= _loc("PF2E.TemplateRingLabel", {
+                size: params.distance,
+                innerWidth: params.innerWidth || 2.5,
+                outerWidth: params.outerWidth || 2.5,
+                unit: _loc("PF2E.Foot.Label"),
+                shape: _loc(`PF2E.Area.Shape.${params.type}`),
+            });
+        }
+
         label ||= _loc("PF2E.TemplateLabel", {
             size: params.distance,
             unit: _loc("PF2E.Foot.Label"),
@@ -343,9 +387,20 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
         const html = createHTMLElement("a", {
             children: [icon, label],
             classes: ["effect-area"],
-            dataset: { effectArea: "", ...R.pick(params, ["type", "distance", "traits", "itemUuid"]) },
+            dataset: {
+                effectArea: "",
+                ...R.pick(params, [
+                    "type",
+                    "distance",
+                    "width",
+                    "angle",
+                    "innerWidth",
+                    "outerWidth",
+                    "traits",
+                    "itemUuid",
+                ]),
+            },
         });
-        if (params.type === "line") html.dataset.width = params.width || "1";
         return html;
     }
 
