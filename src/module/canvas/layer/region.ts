@@ -2,7 +2,13 @@ import type {
     PlaceablesLayerEvent,
     PlaceablesLayerPointerEvent,
 } from "@client/canvas/layers/base/placeables-layer.d.mts";
-import type { ConeShapeData, LineShapeData, EmanationShapeData, TokenShapeData } from "@common/data/data.d.mts";
+import type {
+    BaseShapeData,
+    ConeShapeData,
+    LineShapeData,
+    EmanationShapeData,
+    TokenShapeData,
+} from "@common/data/data.d.mts";
 import { RegionDocumentPF2e } from "@scene";
 import { RegionPF2e } from "../index.ts";
 
@@ -86,24 +92,18 @@ export class RegionLayerPF2e extends fc.layers.RegionLayer<RegionPF2e> {
     }
 
     /** Fit an emanation region shape base to underlying token while drawing with the region tools. */
-    protected override _createDragShapeData(event: PlaceablesLayerEvent<RegionPF2e>): foundry.data.BaseShapeData {
+    protected override _createDragShapeData(event: PlaceablesLayerEvent<RegionPF2e>): BaseShapeData {
         const shape = super._createDragShapeData(event) as EmanationShapeData;
-        if (canvas?.scene && shape?.type === "emanation" && shape?.base?.type === "token") {
-            const gridSize = canvas.grid.size;
-            const inBoundTokens = canvas.scene.tokens.filter((token) => {
-                const { x, y, width, height } = token;
-                return (
-                    event.interactionData.origin.x.between(x, x + width * gridSize) &&
-                    event.interactionData.origin.y.between(y, y + height * gridSize)
-                );
-            });
-            if (inBoundTokens.length === 1) {
-                const base = shape.base as TokenShapeData;
-                base.shape = inBoundTokens[0].shape;
-                base.width = inBoundTokens[0].width;
-                base.height = inBoundTokens[0].height;
-                event.interactionData.origin = inBoundTokens[0].getCenterPoint();
-            }
+        if (!canvas?.scene || shape?.type !== "emanation" || shape?.base?.type !== "token") return shape;
+        const { x, y } = event.interactionData.origin;
+        const tokens = canvas.tokens.quadtree.getObjects(new PIXI.Rectangle(x, y, 0, 0));
+        const token = tokens.values().next().value?.document;
+        if (tokens.size === 1 && token) {
+            const base = shape.base as TokenShapeData;
+            base.shape = token.shape;
+            base.width = token.width;
+            base.height = token.height;
+            event.interactionData.origin = token.getCenterPoint();
         }
         return shape;
     }
