@@ -7,7 +7,7 @@ import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import { DataUnionField, LaxArrayField, PredicateField, StrictArrayField } from "@system/schema-data-fields.ts";
 import { isImageOrVideoPath, sluggify } from "@util";
 import * as R from "remeda";
-import { createPreselectChoicesField, PreselectChoicesField } from "../helpers.ts";
+import { createPreselectChoicesField, type PreselectChoicesField } from "../helpers.ts";
 import { RuleElement, RuleElementOptions } from "./base.ts";
 import {
     ModelPropsFromRESchema,

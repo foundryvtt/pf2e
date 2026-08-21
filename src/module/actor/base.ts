@@ -41,7 +41,7 @@ import {
 } from "@module/rules/helpers.ts";
 import type { RuleElementSynthetics } from "@module/rules/index.ts";
 import type { RuleElement } from "@module/rules/rule-element/base.ts";
-import { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data.ts";
+import type { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data.ts";
 import type { RollOptionRuleElement } from "@module/rules/rule-element/roll-option/rule-element.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { ScenePF2e } from "@scene/document.ts";

@@ -1,7 +1,7 @@
 import type * as fields from "@common/data/fields.d.mts";
 import { ItemGrantDeleteAction } from "@item/base/data/system.ts";
-import { PreselectChoicesField } from "@module/rules/helpers.ts";
-import { type SlugField, type StrictArrayField } from "@system/schema-data-fields.ts";
+import type { PreselectChoicesField } from "@module/rules/helpers.ts";
+import type { SlugField, StrictArrayField } from "@system/schema-data-fields.ts";
 import type { RuleElementSchema } from "../data.ts";
 import type { ItemAlteration } from "../item-alteration/alteration.ts";
 
