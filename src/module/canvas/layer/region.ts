@@ -94,7 +94,7 @@ export class RegionLayerPF2e extends fc.layers.RegionLayer<RegionPF2e> {
     /** Fit an emanation region shape base to underlying token while drawing with the region tools. */
     protected override _createDragShapeData(event: PlaceablesLayerEvent<RegionPF2e>): BaseShapeData {
         const shape = super._createDragShapeData(event) as EmanationShapeData;
-        if (!canvas?.scene || shape?.type !== "emanation" || shape?.base?.type !== "token") return shape;
+        if (!this.templateMode || shape.type !== "emanation" || shape.base.type !== "token") return shape;
         const { x, y } = event.interactionData.origin;
         const tokens = canvas.tokens.quadtree.getObjects(new PIXI.Rectangle(x, y, 0, 0));
         const token = tokens.values().next().value?.document;
