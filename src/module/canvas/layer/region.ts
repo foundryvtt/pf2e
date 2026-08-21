@@ -1,5 +1,8 @@
-import type { PlaceablesLayerPointerEvent } from "@client/canvas/layers/base/placeables-layer.d.mts";
-import type { ConeShapeData, LineShapeData } from "@common/data/data.d.mts";
+import type {
+    PlaceablesLayerEvent,
+    PlaceablesLayerPointerEvent,
+} from "@client/canvas/layers/base/placeables-layer.d.mts";
+import type { ConeShapeData, LineShapeData, RingShapeData, SpecificShapeData } from "@common/data/data.d.mts";
 import { RegionDocumentPF2e } from "@scene";
 import { RegionPF2e } from "../index.ts";
 
@@ -80,5 +83,28 @@ export class RegionLayerPF2e extends fc.layers.RegionLayer<RegionPF2e> {
             placed.updateSource({ rotation });
             this._updateDragPreview(event);
         }
+    }
+
+    /** Fit an emanation region shape base to underlying token while drawing with the region tools. */
+    protected override _createDragShapeData(
+        event: PlaceablesLayerEvent<RegionPF2e>,
+    ): DeepPartial<Exclude<SpecificShapeData, RingShapeData>["_source"]> {
+        const shape = super._createDragShapeData(event);
+        if (!this.templateMode || shape.type !== "emanation" || shape.base?.type !== "token") return shape;
+        const { x, y } = event.interactionData.origin;
+        const tokens = canvas.tokens.quadtree
+            .getObjects(new PIXI.Rectangle(x, y, 0, 0))
+            .values()
+            .filter((t) => t.actor?.isOfType("creature", "army", "hazard"))
+            .toArray();
+        if (tokens.length === 1) {
+            const token = tokens[0].document;
+            const base = shape.base;
+            base.shape = token.shape;
+            base.width = token.width;
+            base.height = token.height;
+            event.interactionData.origin = token.getCenterPoint();
+        }
+        return shape;
     }
 }
