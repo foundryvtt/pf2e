@@ -1,17 +1,17 @@
 import { User } from "@client/documents/_module.mjs";
 import { SceneControl } from "../../applications/ui/scene-controls.mjs";
 import AmbientLight from "../placeables/light.mjs";
-import { PlaceablesLayerOptions } from "./_types.mjs";
-import PlaceablesLayer, { PlaceablesLayerPointerEvent } from "./base/placeables-layer.mjs";
+import { PlaceablesLayerPointerEvent } from "./base/placeables-layer.mjs";
+import { ShapeLayer, ShapeLayerOptions } from "./mixins/shapes.mjs";
 
 /**
  * The Lighting Layer which ambient light sources as part of the CanvasEffectsGroup.
  * @category Canvas
  */
-export default class LightingLayer<TObject extends AmbientLight = AmbientLight> extends PlaceablesLayer<TObject> {
+export default class LightingLayer<TObject extends AmbientLight = AmbientLight> extends ShapeLayer<TObject> {
     static override documentName: "AmbientLight";
 
-    static override get layerOptions(): PlaceablesLayerOptions;
+    static override get layerOptions(): ShapeLayerOptions;
 
     override get hookName(): string;
 

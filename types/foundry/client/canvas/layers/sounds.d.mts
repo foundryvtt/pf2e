@@ -6,8 +6,9 @@ import Sound from "../../audio/sound.mjs";
 import AmbientSound from "../placeables/sound.mjs";
 import { PointEffectSourceData } from "../sources/point-effect-source.mjs";
 import PointSoundSource from "../sources/point-sound-source.mjs";
-import { AmbientSoundPlaybackConfig, PlaceablesLayerOptions } from "./_types.mjs";
-import PlaceablesLayer, { PlaceablesLayerPointerEvent } from "./base/placeables-layer.mjs";
+import { AmbientSoundPlaybackConfig } from "./_types.mjs";
+import { PlaceablesLayerPointerEvent } from "./base/placeables-layer.mjs";
+import { ShapeLayer, ShapeLayerOptions } from "./mixins/shapes.mjs";
 
 export interface AmbientSoundEffect {
     /* The type of effect in CONFIG.soundEffects */
@@ -20,14 +21,14 @@ export interface AmbientSoundEffect {
  * This Canvas Layer provides a container for AmbientSound objects.
  * @category Canvas
  */
-export default class SoundsLayer<TObject extends AmbientSound = AmbientSound> extends PlaceablesLayer<TObject> {
+export default class SoundsLayer<TObject extends AmbientSound = AmbientSound> extends ShapeLayer<TObject> {
     /** Track whether to actively preview ambient sounds with mouse cursor movements */
     livePreview: boolean;
 
     /** A mapping of ambient audio sources which are active within the rendered Scene */
     sources: Collection<string, PointSoundSource<TObject>>;
 
-    static override get layerOptions(): PlaceablesLayerOptions;
+    static override get layerOptions(): ShapeLayerOptions;
 
     static override documentName: "AmbientSound";
 
