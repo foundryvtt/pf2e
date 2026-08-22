@@ -221,7 +221,7 @@ export default abstract class ApplicationV2<
      * Subclasses may override this method to customize how the application is inserted.
      * @param element The element to insert
      */
-    protected _insertElement(element: HTMLElement): void;
+    protected _insertElement(element: HTMLElement): Promise<void>;
 
     /* -------------------------------------------- */
     /*  Closing                                     */
@@ -359,6 +359,13 @@ export default abstract class ApplicationV2<
      * @param options      Provided render options
      */
     protected _onRender(context: object, options: TRenderOptions): Promise<void>;
+
+    /**
+     * Perform post-render finalization actions.
+     * @param context Prepared context data.
+     * @param options Provided render options.
+     */
+    protected _postRender(context: ApplicationRenderContext, options: TRenderOptions): Promise<void>;
 
     /**
      * Actions performed before closing the Application.
