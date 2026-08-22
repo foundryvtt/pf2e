@@ -120,6 +120,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (tab) tab.initial = "biography";
         }
 
+        sheetData.effectiveMaxHP = Math.max(actor.hitPoints.max - actor.hitPoints.unrecoverable, 0);
+
         sheetData.numberToRank = R.mapToObj([0, 1, 2, 3, 4] as const, (n) => [n, _loc(`PF2E.ProficiencyLevel${n}`)]);
 
         sheetData.senses = condenseSenses(this.actor.perception.senses.contents);
@@ -1649,6 +1651,8 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     crafting: CraftingSheetData;
     data: CharacterSystemSheetData;
     deity: DeityPF2e<CharacterPF2e> | null;
+    /** Max HP minus unrecoverable HP */
+    effectiveMaxHP: number;
     hasStamina: boolean;
     /** This actor has actual containers for stowing, rather than just containers serving as a UI convenience */
     hasRealContainers: boolean;
