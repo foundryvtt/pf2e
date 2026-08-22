@@ -224,6 +224,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             actor: this.actor,
             tokenId: token ? `${token.parent?.id}.${token.id}` : null,
             item: this,
+            showIcon: this.img !== `systems/${SYSTEM_ID}/icons/default-icons/${this.type}.svg`,
             data: await this.getChatData(undefined, rollOptions),
         };
 
