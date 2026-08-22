@@ -26,10 +26,7 @@ import { DataModelValidationFailure } from "./validation-failure.mjs";
  *
  * An Error may be thrown which provides a custom error message explaining the reason the value is invalid.
  */
-type DataFieldValidator = (
-    value: unknown,
-    options: DataFieldValidationOptions,
-) => boolean | DataModelValidationFailure | void;
+type DataFieldValidator = (value: unknown, options: DataFieldValidationOptions) => boolean | void;
 
 export interface DataFieldOptions<
     TSourceProp,

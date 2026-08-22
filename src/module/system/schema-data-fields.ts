@@ -341,10 +341,7 @@ class DataUnionField<
         return super.clean(value, options, _state) as MaybeProp;
     }
 
-    protected override _validateType(
-        value: unknown,
-        options?: DataFieldValidationOptions | undefined,
-    ): boolean | void | validation.DataModelValidationFailure {
+    protected override _validateType(value: unknown, options?: DataFieldValidationOptions | undefined): boolean | void {
         const errors: { field: TField; result: validation.DataModelValidationFailure }[] = [];
         for (const field of this.fields) {
             const result = field.validate(value, options);
@@ -360,15 +357,15 @@ class DataUnionField<
 
         // Attempt to determine which error is the most relevant based on simple heuristics
         if (Array.isArray(value)) {
-            return errors.findLast((e) => e.field instanceof fields.ArrayField)?.result ?? lastError;
+            throw errors.findLast((e) => e.field instanceof fields.ArrayField)?.result ?? lastError;
         } else if (typeof value === "object") {
             // This is not exhaustive, but it only needs to catch the most common cases
-            return (
+            throw (
                 errors.findLast((e) => e.field instanceof fields.ObjectField || e.field instanceof fields.SchemaField)
                     ?.result ?? lastError
             );
         } else {
-            return lastError;
+            throw lastError;
         }
     }
 
@@ -619,12 +616,10 @@ class RecordField<
         return upstreamCleaned;
     }
 
-    protected override _validateType(
-        values: unknown,
-        options?: DataFieldValidationOptions,
-    ): boolean | validation.DataModelValidationFailure | void {
+    protected override _validateType(values: unknown, options?: DataFieldValidationOptions): boolean | void {
         super._validateType(values, options);
-        return this.validateValues(values, options);
+        const failure = this.validateValues(values, options);
+        if (failure) throw failure;
     }
 
     override initialize(
