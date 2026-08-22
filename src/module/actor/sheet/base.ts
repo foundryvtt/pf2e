@@ -778,23 +778,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                 if (event.ctrlKey) return sellItem();
 
                 const content = document.createElement("p");
-                content.innerText = _loc("PF2E.SellItemQuestion", { item: item.name });
-                return new foundry.appv1.api.Dialog({
-                    title: _loc("PF2E.SellItemConfirmHeader"),
+                content.textContent = _loc("PF2E.SellItemQuestion", { item: item.name });
+                const confirmed = await foundry.applications.api.DialogV2.confirm({
+                    id: "sell-item-confirm-{id}",
+                    window: { title: "PF2E.SellItemConfirmHeader" },
                     content: content.outerHTML,
-                    buttons: {
-                        Yes: {
-                            icon: fa.fields.createFontAwesomeIcon("check").outerHTML,
-                            label: _loc("COMMON.Yes"),
-                            callback: sellItem,
-                        },
-                        cancel: {
-                            icon: fa.fields.createFontAwesomeIcon("times").outerHTML,
-                            label: _loc("COMMON.Cancel"),
-                        },
-                    },
-                    default: "Yes",
-                }).render(true);
+                    yes: { default: true },
+                    no: { default: false },
+                });
+                if (confirmed) return sellItem();
             },
             "toggle-container": async (event) => {
                 const item = await inventoryItemFromDOM(event);
@@ -1443,26 +1435,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
 
     /** Render confirmation dialog to sell all treasure */
     async #onClickSellAllTreasure(): Promise<void> {
-        const content = await fa.handlebars.renderTemplate(
-            `systems/${SYSTEM_ID}/templates/actors/sell-all-treasure-dialog.hbs`,
-        );
-
-        new foundry.appv1.api.Dialog({
-            title: _loc("PF2E.SellAllTreasureTitle"),
-            content,
-            buttons: {
-                yes: {
-                    icon: fa.fields.createFontAwesomeIcon("check").outerHTML,
-                    label: "Yes",
-                    callback: async () => this.actor.inventory.sellAllTreasure(),
-                },
-                cancel: {
-                    icon: fa.fields.createFontAwesomeIcon("times").outerHTML,
-                    label: "Cancel",
-                },
-            },
-            default: "cancel",
-        }).render(true);
+        const confirmed = await foundry.applications.api.DialogV2.confirm({
+            id: "sell-all-treasure-{id}",
+            window: { title: "PF2E.SellAllTreasureTitle" },
+            content: `<p class="note">${_loc("PF2E.SellAllTreasureQuestion")}</p>`,
+        });
+        if (confirmed) await this.actor.inventory.sellAllTreasure();
     }
 
     protected openTagSelector(anchor: HTMLElement, options: Partial<TagSelectorOptions> = {}): void {
