@@ -113,7 +113,7 @@ export interface DatabaseCreateOperation<TParent extends Document | null> {
 
 export interface DatabaseCreateCallbackOptions extends Omit<
     Partial<DatabaseCreateOperation<null>>,
-    "action" | "data" | "pack" | "parent" | "noHook"
+    "action" | "documentName" | "data" | "pack" | "parent" | "noHook"
 > {}
 
 export interface DatabaseUpdateOperation<TParent extends Document | null> {
@@ -156,7 +156,7 @@ export interface DatabaseUpdateOperation<TParent extends Document | null> {
 
 export interface DatabaseUpdateCallbackOptions extends Omit<
     Partial<DatabaseUpdateOperation<null>>,
-    "action" | "pack" | "parent" | "restoreDelta" | "noHook" | "updates"
+    "action" | "documentName" | "pack" | "parent" | "restoreDelta" | "noHook" | "updates"
 > {}
 
 export interface DatabaseDeleteOperation<TParent extends Document | null> {
@@ -193,7 +193,7 @@ export interface DatabaseDeleteOperation<TParent extends Document | null> {
 
 export interface DatabaseDeleteCallbackOptions extends Omit<
     Partial<DatabaseDeleteOperation<null>>,
-    "action" | "deleteAll" | "ids" | "pack" | "parent" | "noHook"
+    "action" | "documentName" | "deleteAll" | "ids" | "pack" | "parent" | "noHook"
 > {}
 
 export type DatabaseAction = "get" | "create" | "update" | "delete";
