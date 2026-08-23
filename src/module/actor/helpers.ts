@@ -1036,7 +1036,7 @@ async function applyActorGroupUpdate(
         operations.push({
             action: "update",
             documentName: "Actor",
-            updates: [actorUpdates],
+            updates: [{ ...actorUpdates, _id: actor.id }],
             parent: actor.parent,
             render: lastRender === "actorUpdate",
         });
