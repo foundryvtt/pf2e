@@ -1,0 +1,60 @@
+{
+    "_id": "5dzfU0Sc78HZVplo",
+    "img": "icons/skills/melee/weapons-crossed-swords-black-gray.webp",
+    "name": "Effect: Force Fling",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Force Fling]</p>\n<p>Any physical damage your weapon would deal for the Strike is force damage instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:melee",
+                    {
+                        "not": "item:trait:unarmed"
+                    },
+                    {
+                        "or": [
+                            "item:damage:type:bludgeoning",
+                            "item:damage:type:piercing",
+                            "item:damage:type:slashing"
+                        ]
+                    }
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "value": "force"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
