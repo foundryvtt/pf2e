@@ -153,10 +153,7 @@ const ITEM_ALTERATION_HANDLERS = {
     "area-type": new ItemAlterationHandler({
         fields: {
             itemType: new fields.StringField({ required: true, choices: ["spell"] }),
-            mode: new fields.StringField({
-                required: true,
-                choices: ["override", "remove"],
-            }),
+            mode: new fields.StringField({ required: true, choices: ["override", "remove"] }),
             value: new fields.StringField({
                 required: true,
                 nullable: true,
@@ -178,14 +175,9 @@ const ITEM_ALTERATION_HANDLERS = {
                     data.item.system.area?.type ?? "burst",
                     data.alteration.value ?? "burst",
                 );
-                if (newValue instanceof validation.DataModelValidationFailure) {
-                    throw newValue.asError();
-                }
-                if (data.item.system.area) {
-                    data.item.system.area.type = newValue;
-                } else {
-                    data.item.system.area = { type: newValue, value: 5 };
-                }
+                if (newValue instanceof validation.DataModelValidationFailure) throw newValue.asError();
+                data.item.system.area ??= { type: newValue, value: 5 };
+                data.item.system.area.type = newValue;
             } else {
                 data.item.system.area = null;
             }
