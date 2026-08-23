@@ -1,5 +1,7 @@
 import { CharacterPF2e } from "@actor";
 import { CharacterAttributesSource, CharacterResourcesSource } from "@actor/character/data.ts";
+import { applyActorGroupUpdate } from "@actor/helpers.ts";
+import { ActorGroupUpdate } from "@actor/types.ts";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
@@ -135,22 +137,15 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
             }
         }
 
-        // Updated actor with the sweet fruits of rest
+        const operations: Partial<ActorGroupUpdate> = { itemCreates, itemUpdates };
         const hasActorUpdates = Object.keys({ ...actorUpdates.attributes, ...actorUpdates.resources }).length > 0;
         if (hasActorUpdates || actor.flags[SYSTEM_ID].dailyCraftingComplete) {
-            await actor.update(
-                { [`flags.${SYSTEM_ID}.dailyCraftingComplete`]: false, system: actorUpdates },
-                { render: false },
-            );
+            operations.actorUpdates = {
+                [`flags.${SYSTEM_ID}.dailyCraftingComplete`]: false,
+                system: actorUpdates,
+            };
         }
-
-        if (itemCreates.length > 0) {
-            await actor.createEmbeddedDocuments("Item", itemCreates, { render: false });
-        }
-
-        if (itemUpdates.length > 0) {
-            await actor.updateEmbeddedDocuments("Item", itemUpdates, { render: false });
-        }
+        await applyActorGroupUpdate(actor, operations, { render: false });
 
         if (recharges.affected.frequencies) {
             statements.push(localize("Message.Frequencies"));
