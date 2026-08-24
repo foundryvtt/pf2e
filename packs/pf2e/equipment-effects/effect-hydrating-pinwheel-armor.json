@@ -1,0 +1,58 @@
+{
+    "_id": "GCobOAImsG2S5DUz",
+    "img": "icons/commodities/treasure/brooch-spiral-blue.webp",
+    "name": "Effect: Hydrating Pinwheel - Armor",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Hydrating Pinwheel], @UUID[Compendium.pf2e.equipment-srd.Item.Hydrating Pinwheel (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Hydrating Pinwheel (Major)]</p>\n<p>You gain resistance to persistent acid and persistent fire damage</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "damage:type:fire",
+                    "damage:category:persistent"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.PersistentFire",
+                "type": "custom",
+                "value": 3
+            },
+            {
+                "definition": [
+                    "damage:type:acid",
+                    "damage:category:persistent"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.PersistentAcid",
+                "type": "custom",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
