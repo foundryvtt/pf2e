@@ -1,0 +1,101 @@
+{
+    "_id": "cnXMsdpxulpt9Ipl",
+    "folder": "Kr8jv3smQk84ZUuR",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "ioIfYhTclHySf3OF",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "The Blood Door Opens",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A PC leaves area <strong>B1</strong></p><hr /><p><strong>Effect</strong> The blood rend unleashes a terrifying psychic emanation. All creatures in area B must attempt a @Check[will|dc:16] save, with the following results. The trap then rolls initiative.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 3} and @UUID[Compendium.sf2e.conditions.Item.Fleeing] for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Blood Rend",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 4
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A crimson, spherical rend in space roils with arcane lightning. The surface boils and drips a steady flow of blood.</p>",
+            "disable": "<p>@Check[arcana|dc:17], @Check[nature|dc:17], @Check[occultism|dc:17] or @Check[religion|dc:17] (trained) while within 10 feet to close the rend; additional DC 17 (trained) skills based on aided civilians; or @UUID[Compendium.sf2e.spells.Item.Dispel Magic] (1st rank; counteract DC 15); three total successes are required to disable the blood rend.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Society Scenario #2-01: The First Cut"
+            },
+            "reset": "",
+            "routine": "<p>(3 actions) The trap shoots one crimson lightning bolt per action at a hostile creature within 90 feet (at different targets, if possible), dealing @Damage[1d4[electricity]] damage and @Damage[1d4[mental]] damage (@Check[reflex|dc:16|basic]). </p><p>Each creature that was dealt mental damage can choose to embrace the blood rend's murderous impulses; if they do, they double the mental damage they took and become @UUID[Compendium.sf2e.conditions.Item.Quickened] 1 for 1 round. The additional action can be used only to Strike or Stride toward an enemy creature. The trap loses one action for each successful disable check. </p><p>On the third round and every 3 rounds thereafter, the blood rend creates 1 bloodspawned screecher in an unoccupied space within 15 feet, which joins the battle.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap",
+                "unholy"
+            ]
+        }
+    },
+    "type": "hazard"
+}
