@@ -25,24 +25,54 @@
             {
                 "key": "DamageAlteration",
                 "mode": "override",
-                "predicate": [
-                    "item:melee",
-                    {
-                        "not": "item:trait:unarmed"
-                    },
-                    {
-                        "or": [
-                            "item:damage:type:bludgeoning",
-                            "item:damage:type:piercing",
-                            "item:damage:type:slashing"
-                        ]
-                    }
-                ],
                 "property": "damage-type",
                 "selectors": [
                     "strike-damage"
                 ],
-                "value": "force"
+                "value": "force",
+                "predicate": [
+                    {
+                        "not": "item:trait:unarmed"
+                    },
+                    "item:melee",
+                    "item:damage:category:physical"
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SpellEffectForceFling.RollOptionLabel",
+                "option": "new-target",
+                "toggleable": true
+            },
+            {
+                "key": "MultipleAttackPenalty",
+                "predicate": [
+                    {
+                        "not": "item:trait:unarmed"
+                    },
+                    "agile",
+                    "item:melee",
+                    "item:damage:category:physical",
+                    "new-target"
+                ],
+                "selector": "attack",
+                "value": -3
+            },
+            {
+                "key": "MultipleAttackPenalty",
+                "predicate": [
+                    {
+                        "nor": [
+                            "item:trait:unarmed",
+                            "agile"
+                        ]
+                    },
+                    "item:melee",
+                    "item:damage:category:physical",
+                    "new-target"
+                ],
+                "selector": "attack",
+                "value": -4
             }
         ],
         "start": {
