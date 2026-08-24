@@ -1,8 +1,146 @@
 {
-    "_id": "eSS9gEzLAY4mqfIk",
+    "_id": "LuSYDwJDljws2IR3",
     "folder": "ba8bbnwb3JiQ8agS",
     "img": "systems/pf2e/icons/iconics/portraits/kyra.webp",
     "items": [
+        {
+            "_id": "CpcTGfkN7cXZH1Ig",
+            "img": "systems/pf2e/icons/default-icons/background.svg",
+            "name": "Acolyte",
+            "sort": 900000,
+            "system": {
+                "boosts": {
+                    "0": {
+                        "selected": "wis",
+                        "value": [
+                            "int",
+                            "wis"
+                        ]
+                    },
+                    "1": {
+                        "selected": "cha",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>You spent your early days in a religious monastery or cloister. You may have traveled out into the world to spread the message of your religion or because you cast away the teachings of your faith, but deep down, you'll always carry within you the lessons you learned.</p>\n<p>Choose two attribute boosts. One must be to <strong>Intelligence</strong> or <strong>Wisdom</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Religion skill and the Scribing Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Student of the Canon] skill feat.</p>"
+                },
+                "items": {
+                    "1v9gz": {
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
+                        "level": 1,
+                        "name": "Student of the Canon",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Student of the Canon"
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "acolyte",
+                "trainedSkills": {
+                    "lore": [
+                        "Scribing"
+                    ],
+                    "value": [
+                        "religion"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "background"
+        },
+        {
+            "_id": "kBIIC8bdbOLVo0GJ",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Student of the Canon",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>You've researched many faiths enough to recognize notions about them that are unlikely to be true.</p>\n<p>If you roll a critical failure at a Religion check to Decipher Writing of a religious nature or to Recall Knowledge about the tenets of faiths, you get a failure instead.</p>\n<p>When attempting to Recall Knowledge about the tenets of your own faith, if you roll a failure, you get a success instead, and if you roll a success, you get a critical success instead.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "CpcTGfkN7cXZH1Ig",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Religion"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:recall-knowledge",
+                                    "action:decipher-writing"
+                                ]
+                            }
+                        ],
+                        "selector": "religion",
+                        "text": "When you roll a critical failure at a Religion check to Decipher Writing of a religious nature or to Recall Knowledge about the tenets of faiths, you get a failure instead.",
+                        "title": "{item|name}"
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:recall-knowledge",
+                                    "your-faith"
+                                ]
+                            }
+                        ],
+                        "selector": "religion",
+                        "text": "When attempting to Recall Knowledge about the tenets of your own faith, if you roll a failure, you get a success instead, and if you roll a success, you get a critical success instead.",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": "student-of-the-canon",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
         {
             "_id": "pX7qEBjjBx3G6Xbn",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
@@ -31,9 +169,6 @@
         },
         {
             "_id": "Z81ram2Iy3rw3Tfv",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
-            },
             "img": "icons/containers/bags/pack-leather-white-tan.webp",
             "name": "Backpack",
             "sort": 1800000,
@@ -95,12 +230,9 @@
         },
         {
             "_id": "qUeTbHUIBZ90W1tC",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fyYnQf1NAx9fWFaS"
-            },
             "img": "icons/sundries/survival/rope-wrapped-brown.webp",
             "name": "Rope",
-            "sort": -6250,
+            "sort": 1900000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -153,9 +285,6 @@
         },
         {
             "_id": "AeyVOdOygbZqdw8n",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.VnPh324pKwd2ZB66"
-            },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/waterskin.webp",
             "name": "Waterskin",
             "sort": 2000000,
@@ -211,12 +340,9 @@
         },
         {
             "_id": "9mCFAyPeIIwXjVFI",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UlIxxLm71UdRgCFE"
-            },
             "img": "icons/commodities/stone/geode-raw-tan.webp",
             "name": "Flint and Steel",
-            "sort": -25000,
+            "sort": 2200000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -269,12 +395,9 @@
         },
         {
             "_id": "xIJ0URfss9RcwoNc",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fagzYdmfYyMQ6J77"
-            },
             "img": "icons/containers/ammunition/quiver-simple-brown.webp",
             "name": "Bedroll",
-            "sort": -100000,
+            "sort": 2500000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -327,12 +450,9 @@
         },
         {
             "_id": "QvagXxyvIs31BQnV",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.81aHsD27HFGnq1Nt"
-            },
             "img": "icons/sundries/survival/soap.webp",
             "name": "Soap",
-            "sort": -3125,
+            "sort": 2600000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -384,75 +504,7 @@
             "type": "equipment"
         },
         {
-            "_id": "JcT95fov0TZL02ll",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
-            },
-            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
-            "name": "Religious Symbol (Wooden)",
-            "sort": 2900000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "option": "has-religious-symbol",
-                        "requiresEquipped": false
-                    }
-                ],
-                "size": "med",
-                "slug": "religious-symbol-wooden",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "other"
-                }
-            },
-            "type": "equipment"
-        },
-        {
             "_id": "MetJbxHe8EOTin6k",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UCH4myuFnokGv0vF"
-            },
             "img": "systems/pf2e/icons/equipment/weapons/sling.webp",
             "name": "Sling",
             "sort": 3100000,
@@ -517,7 +569,7 @@
                 },
                 "rules": [],
                 "runes": {
-                    "potency": 0,
+                    "potency": 1,
                     "property": [],
                     "striking": 0
                 },
@@ -541,9 +593,6 @@
         },
         {
             "_id": "rnm1ZBIQpbHekUh9",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MKSeXwUm56c15MZa"
-            },
             "img": "systems/pf2e/icons/equipment/weapons/sling-bullets.webp",
             "name": "Sling Bullets",
             "sort": 3200000,
@@ -603,9 +652,6 @@
         },
         {
             "_id": "Kf9Fu77b4kHAwSUm",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.grmaV4GdoGD7sKbn"
-            },
             "img": "icons/weapons/swords/scimitar-worn-blue.webp",
             "name": "Scimitar",
             "sort": 3300000,
@@ -692,9 +738,6 @@
         },
         {
             "_id": "NJbmlgfNIqA916E9",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.B6B7tBWJSqOBz5zz"
-            },
             "img": "systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp",
             "name": "Gold Pieces",
             "sort": 3400000,
@@ -709,8 +752,7 @@
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
+                    "carryType": "worn"
                 },
                 "hardness": 0,
                 "hp": {
@@ -725,6 +767,7 @@
                     "type": null
                 },
                 "price": {
+                    "per": 1,
                     "value": {
                         "gp": 1
                     }
@@ -734,10 +777,11 @@
                     "remaster": true,
                     "title": "Pathfinder Player Core"
                 },
-                "quantity": 4,
+                "quantity": 50,
                 "rules": [],
                 "size": "med",
                 "slug": "gold-pieces",
+                "temporary": false,
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -746,13 +790,10 @@
             "type": "treasure"
         },
         {
-            "_id": "eOSBpHxtlgcUAjS4",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.5Ew82vBF9YfaiY9f"
-            },
-            "img": "systems/pf2e/icons/equipment/treasure/currency/silver-pieces.webp",
-            "name": "Silver Pieces",
-            "sort": 3500000,
+            "_id": "MMzLCr4ed8nfmXx0",
+            "img": "systems/pf2e/icons/equipment/treasure/currency/copper-pieces.webp",
+            "name": "Copper Pieces",
+            "sort": 3600000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -764,8 +805,7 @@
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
+                    "carryType": "worn"
                 },
                 "hardness": 0,
                 "hp": {
@@ -780,8 +820,9 @@
                     "type": null
                 },
                 "price": {
+                    "per": 1,
                     "value": {
-                        "sp": 1
+                        "cp": 1
                     }
                 },
                 "publication": {
@@ -789,10 +830,11 @@
                     "remaster": true,
                     "title": "Pathfinder Player Core"
                 },
-                "quantity": 4,
+                "quantity": 9,
                 "rules": [],
                 "size": "med",
-                "slug": "silver-pieces",
+                "slug": "copper-pieces",
+                "temporary": false,
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -832,19 +874,19 @@
                         "max": 5,
                         "prepared": [
                             {
-                                "id": "d6bJpH64gvMuRB2Y"
+                                "id": "LgaA3J1gogIS9Jpa"
                             },
                             {
-                                "id": "nKyGxIGgNWrb0PtV"
+                                "id": "XAwa8FI7LpmBEEwa"
                             },
                             {
-                                "id": "MPYwmGo1q2vRKnCq"
+                                "id": "xxFxXv4EqqJD4qKv"
                             },
                             {
-                                "id": "ojldnn6VyxdYCbIx"
+                                "id": "P8c8JbDpqu4W3BQn"
                             },
                             {
-                                "id": "jSrOB1zAkJcgQqZ6"
+                                "id": "GxhmEhYfMe78gFEr"
                             }
                         ]
                     },
@@ -852,34 +894,62 @@
                         "max": 3,
                         "prepared": [
                             {
-                                "id": "IbRiCTTbZOa5fH1D"
+                                "id": "K3a699xVPhn9EK7P"
                             },
                             {
-                                "id": "wj9x00w5gzi3aM3g"
+                                "id": "lXTo5hyDei9Nl4W4"
                             },
                             {
-                                "id": "Hmi6sz1NrfRrbOjA"
+                                "id": "cjRA7T0VQeM6ZdO6"
                             }
                         ]
                     },
                     "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "98z4PnpVZLlZBlMG"
+                            },
+                            {
+                                "id": "9bcum35M65atsRXj"
+                            },
+                            {
+                                "id": "NXxC5usD5iAqcoY2"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "FQOFuy6JLioGWkh8"
+                            },
+                            {
+                                "id": "4FYwhlwarI16zMnH"
+                            },
+                            {
+                                "id": "xFEeHKSlnVBQVrKc"
+                            }
+                        ]
+                    },
+                    "slot4": {
                         "max": 2,
                         "prepared": [
                             {
-                                "id": "M8TNYwsDPIIxxObL"
+                                "id": "sAj8BgNwMnFk03eB"
                             },
                             {
-                                "id": "fuwatODYvRHUjmIK"
+                                "id": "cz6aQPfxHJKULWt5"
                             }
                         ]
                     }
                 },
                 "slug": null,
                 "spelldc": {
-                    "dc": 19,
+                    "dc": 21,
                     "item": 0,
                     "mod": 4,
-                    "value": 9
+                    "value": 11
                 },
                 "tradition": {
                     "value": "divine"
@@ -892,7 +962,7 @@
             "_id": "56JUzOsJdjeF6GRF",
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Divine Font (Healing)",
-            "sort": 4500000,
+            "sort": 4800000,
             "system": {
                 "ability": {
                     "value": "wis"
@@ -919,30 +989,52 @@
                     "value": false
                 },
                 "slots": {
-                    "slot2": {
-                        "max": 4,
+                    "slot3": {
                         "prepared": [
                             {
-                                "id": "vgxeRA8wqtYDKdzb"
+                                "id": "EjaZK2YL8pbiA4Be"
                             },
                             {
-                                "id": "vgxeRA8wqtYDKdzb"
+                                "id": "EjaZK2YL8pbiA4Be"
                             },
                             {
-                                "id": "vgxeRA8wqtYDKdzb"
+                                "id": "EjaZK2YL8pbiA4Be"
                             },
                             {
-                                "id": "vgxeRA8wqtYDKdzb"
+                                "id": "EjaZK2YL8pbiA4Be"
+                            },
+                            {
+                                "id": "EjaZK2YL8pbiA4Be"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "EjaZK2YL8pbiA4Be"
+                            },
+                            {
+                                "id": "EjaZK2YL8pbiA4Be"
+                            },
+                            {
+                                "id": "EjaZK2YL8pbiA4Be"
+                            },
+                            {
+                                "id": "EjaZK2YL8pbiA4Be"
+                            },
+                            {
+                                "id": "EjaZK2YL8pbiA4Be"
                             }
                         ]
                     }
                 },
                 "slug": null,
                 "spelldc": {
-                    "dc": 19,
+                    "dc": 21,
                     "item": 0,
                     "mod": 4,
-                    "value": 9
+                    "value": 11
                 },
                 "tradition": {
                     "value": "divine"
@@ -961,21 +1053,21 @@
                     "value": "wis"
                 },
                 "attack": {
-                    "breakdown": "Wisdom +4, Trained +5",
+                    "breakdown": "Wisdom +4, Trained +7",
                     "name": "Focus Spells",
                     "notes": [],
-                    "totalModifier": 9,
-                    "value": 9
+                    "totalModifier": 11,
+                    "value": 11
                 },
                 "autoHeightenLevel": {
                     "value": null
                 },
                 "dc": {
-                    "breakdown": "Base Spell DC 10, Wisdom +4, Trained +5",
+                    "breakdown": "Base Spell DC 10, Wisdom +4, Trained +7",
                     "name": "Focus Spells",
                     "notes": [],
-                    "totalModifier": 9,
-                    "value": 19
+                    "totalModifier": 11,
+                    "value": 21
                 },
                 "description": {
                     "value": ""
@@ -995,10 +1087,10 @@
                 "slots": {},
                 "slug": null,
                 "spelldc": {
-                    "dc": 19,
+                    "dc": 21,
                     "item": 0,
                     "mod": 4,
-                    "value": 9
+                    "value": 11
                 },
                 "tradition": {
                     "value": "divine"
@@ -1009,9 +1101,6 @@
         },
         {
             "_id": "0cj4yxFbmLXwZh2R",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.YMQr577asquZIP65"
-            },
             "img": "icons/equipment/chest/breastplate-metal-scaled-grey.webp",
             "name": "Scale Mail",
             "sort": 5400000,
@@ -1032,7 +1121,7 @@
                     "carryType": "worn",
                     "handsHeld": 0,
                     "inSlot": true,
-                    "invested": null
+                    "invested": true
                 },
                 "grade": null,
                 "group": "composite",
@@ -1061,7 +1150,7 @@
                 "quantity": 1,
                 "rules": [],
                 "runes": {
-                    "potency": 0,
+                    "potency": 1,
                     "property": [],
                     "resilient": 0
                 },
@@ -1077,13 +1166,10 @@
             "type": "armor"
         },
         {
-            "_id": "M7SCWgZu9qxr1o3Z",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.L9ZV076913otGtiB"
-            },
+            "_id": "5dXC7C0P00Maikz5",
             "img": "systems/pf2e/icons/equipment/adventuring-gear/rations.webp",
             "name": "Rations",
-            "sort": -12500,
+            "sort": 2300000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -1141,10 +1227,7 @@
             "type": "consumable"
         },
         {
-            "_id": "vgxeRA8wqtYDKdzb",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs"
-            },
+            "_id": "EjaZK2YL8pbiA4Be",
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
             "sort": 0,
@@ -1337,10 +1420,92 @@
             "type": "spell"
         },
         {
-            "_id": "vkUHK4f1L3FVrgTQ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
+            "_id": "w9CfbASxJILsbwax",
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/channel-protection-amulet.webp",
+            "name": "Channel Protection Amulet",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This nugget of polished tektite is trapped in a cage of braided wire and hangs from a silken cord. When wearing this amulet, you gain resistance 5 against damage from @UUID[Compendium.pf2e.spells-srd.Item.Harm] spells if you're living, or against @UUID[Compendium.pf2e.spells-srd.Item.Heal] spells if you're undead.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": true
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 56
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "definition": [
+                            {
+                                "or": [
+                                    {
+                                        "and": [
+                                            "self:mode:living",
+                                            "item:type:spell",
+                                            "item:slug:harm"
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "self:mode:undead",
+                                            "item:type:spell",
+                                            "item:slug:heal"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "key": "Resistance",
+                        "label": "PF2E.SpecificRule.Equipment.ChannelProtectionAmuletLabel",
+                        "type": "custom",
+                        "value": 5
+                    }
+                ],
+                "size": "med",
+                "slug": "channel-protection-amulet",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "worn"
+                }
             },
+            "type": "equipment"
+        },
+        {
+            "_id": "Z9TZWS4OMrW3GrQi",
             "img": "icons/sundries/lights/torch-brown.webp",
             "name": "Torch",
             "sort": 0,
@@ -1474,68 +1639,7 @@
             "type": "equipment"
         },
         {
-            "_id": "u0iQoPBc6NILEsEi",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.s1vB3HdXjMigYAnY"
-            },
-            "img": "icons/containers/bags/pouch-gold-green.webp",
-            "name": "Healer's Toolkit",
-            "sort": 0,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds]. If you wear your healer's toolkit, you can draw and replace it as part of the action that uses it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 5
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "healers-toolkit",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "other"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "lkKwiOkzfz2Ple0n",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.oJKZi8OQgmVXHOc0"
-            },
+            "_id": "JydGFuxlr6YzD08B",
             "img": "icons/magic/fire/blast-jet-stream-embers-red.webp",
             "name": "Fire Ray",
             "sort": 0,
@@ -1611,13 +1715,230 @@
             "type": "spell"
         },
         {
-            "_id": "F9qLrE08qZR8EfYZ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.xShIDyydOMkGvGNb"
+            "_id": "s64CCg60NGGhxE1o",
+            "img": "systems/pf2e/icons/equipment/wands/magic-wands/magic-wand.webp",
+            "name": "Wand of Mending (Rank 1)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "wand",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated rank.</p>\n<p><strong>Craft Requirements</strong> Supply a casting of the spell at the listed rank.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 60
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "magic-wand-1st-rank-spell",
+                "spell": {
+                    "_id": "xALPG8qxI1FoZjmZ",
+                    "flags": {
+                        "core": {
+                            "sourceId": "Compendium.pf2e.spells-srd.Item.dINQzhqGmIsqGMUY"
+                        }
+                    },
+                    "img": "systems/pf2e/icons/spells/mending.webp",
+                    "name": "Mending",
+                    "sort": 0,
+                    "system": {
+                        "area": null,
+                        "cost": {
+                            "value": ""
+                        },
+                        "counteraction": false,
+                        "damage": {},
+                        "defense": null,
+                        "description": {
+                            "value": "<p>You repair the target item. You restore 5 Hit Points per spell rank to the target, potentially removing the @UUID[Compendium.pf2e.conditionitems.Item.Broken] condition if this repairs it past the item's Broken Threshold. You can't replace lost pieces or repair an object that's been completely destroyed.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You can target a non-magical object of 1 Bulk or less.</p>\n<p><strong>Heightened (3rd)</strong> You can target a non-magical object of 2 Bulk or less, or a magical object of 1 Bulk or less.</p>"
+                        },
+                        "duration": {
+                            "sustained": false,
+                            "value": ""
+                        },
+                        "heightening": {
+                            "levels": {
+                                "2": {
+                                    "target": {
+                                        "value": "non-magical object of 1 Bulk or less"
+                                    }
+                                },
+                                "3": {
+                                    "target": {
+                                        "value": "non-magical object of 2 Bulk or less, or a magical object of 1 Bulk or less"
+                                    }
+                                }
+                            },
+                            "type": "fixed"
+                        },
+                        "level": {
+                            "value": 1
+                        },
+                        "location": {
+                            "heightenedLevel": 1,
+                            "value": null
+                        },
+                        "publication": {
+                            "license": "ORC",
+                            "remaster": true,
+                            "title": "Pathfinder Player Core"
+                        },
+                        "range": {
+                            "value": "touch"
+                        },
+                        "requirements": "",
+                        "rules": [],
+                        "slug": "mending",
+                        "target": {
+                            "value": "non-magical object of light Bulk or less"
+                        },
+                        "time": {
+                            "value": "10 minutes"
+                        },
+                        "traits": {
+                            "rarity": "common",
+                            "traditions": [
+                                "arcane",
+                                "divine",
+                                "occult",
+                                "primal"
+                            ],
+                            "value": [
+                                "concentrate",
+                                "manipulate"
+                            ]
+                        }
+                    },
+                    "type": "spell"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "wand"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": false,
+                    "max": 1,
+                    "value": 1
+                }
             },
+            "type": "consumable"
+        },
+        {
+            "_id": "GFD0WwgN3dgcB2zF",
+            "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/human.svg",
+            "name": "Human",
+            "sort": 0,
+            "system": {
+                "additionalLanguages": {
+                    "count": 1,
+                    "custom": "",
+                    "value": []
+                },
+                "boosts": {
+                    "0": {
+                        "selected": "str",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    },
+                    "1": {
+                        "selected": "wis",
+                        "value": [
+                            "str",
+                            "dex",
+                            "con",
+                            "int",
+                            "wis",
+                            "cha"
+                        ]
+                    },
+                    "2": {
+                        "value": []
+                    }
+                },
+                "description": {
+                    "value": "<p><em>As unpredictable and varied as any of Golarion's peoples, humans have exceptional drive and the capacity to endure and expand. Though many civilizations thrived before humanity rose to prominence, humans have built some of the greatest and the most terrible societies throughout the course of history, and today they are the most populous people in the realms around the Inner Sea.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.45SK8rdbbxvEHfMn.JournalEntryPage.7pU8yM7yPMw92SY3]{Human}</em></p>"
+                },
+                "flaws": {
+                    "0": {
+                        "value": []
+                    }
+                },
+                "hands": 2,
+                "hp": 8,
+                "items": {},
+                "languages": {
+                    "custom": "",
+                    "value": [
+                        "common"
+                    ]
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "reach": 5,
+                "rules": [],
+                "size": "med",
+                "slug": "human",
+                "speed": 25,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "human",
+                        "humanoid"
+                    ]
+                },
+                "vision": "normal"
+            },
+            "type": "ancestry"
+        },
+        {
+            "_id": "1xy1yJBR6T2TKk3w",
             "img": "systems/pf2e/icons/equipment/adventuring-gear/chalk.webp",
             "name": "Chalk",
-            "sort": -50000,
+            "sort": 2100000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -1676,94 +1997,12 @@
             "type": "consumable"
         },
         {
-            "_id": "zyMBUbjQRR3wZodo",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
-            },
-            "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/human.svg",
-            "name": "Human",
-            "sort": 0,
-            "system": {
-                "additionalLanguages": {
-                    "count": 1,
-                    "custom": "",
-                    "value": []
-                },
-                "boosts": {
-                    "0": {
-                        "selected": "wis",
-                        "value": [
-                            "cha",
-                            "con",
-                            "dex",
-                            "int",
-                            "str",
-                            "wis"
-                        ]
-                    },
-                    "1": {
-                        "selected": "str",
-                        "value": [
-                            "str",
-                            "dex",
-                            "con",
-                            "int",
-                            "wis",
-                            "cha"
-                        ]
-                    },
-                    "2": {
-                        "value": []
-                    }
-                },
-                "description": {
-                    "value": "<p><em>As unpredictable and varied as any of Golarion's peoples, humans have exceptional drive and the capacity to endure and expand. Though many civilizations thrived before humanity rose to prominence, humans have built some of the greatest and the most terrible societies throughout the course of history, and today they are the most populous people in the realms around the Inner Sea.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.45SK8rdbbxvEHfMn.JournalEntryPage.7pU8yM7yPMw92SY3]{Human}</em></p>"
-                },
-                "flaws": {
-                    "0": {
-                        "value": []
-                    }
-                },
-                "hands": 2,
-                "hp": 8,
-                "items": {},
-                "languages": {
-                    "custom": "",
-                    "value": [
-                        "common"
-                    ]
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "reach": 5,
-                "rules": [],
-                "size": "med",
-                "slug": "human",
-                "speed": 25,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "human",
-                        "humanoid"
-                    ]
-                },
-                "vision": "normal"
-            },
-            "type": "ancestry"
-        },
-        {
-            "_id": "COdMOURTcyKGBIkI",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.heritages.Item.hFBwsVcSnNCJoimo"
-            },
+            "_id": "1V36vjpzh6RPdmwd",
             "flags": {
                 "pf2e": {
                     "itemGrants": {
                         "armorProficiency": {
-                            "id": "TuKbqvjYa4wZVGWb",
+                            "id": "4fJX6zKVpaFmKKBR",
                             "onDelete": "detach"
                         }
                     }
@@ -1816,14 +2055,11 @@
             "type": "heritage"
         },
         {
-            "_id": "TuKbqvjYa4wZVGWb",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.feats-srd.Item.BStw1cANwx5baL6d"
-            },
+            "_id": "4fJX6zKVpaFmKKBR",
             "flags": {
                 "pf2e": {
                     "grantedBy": {
-                        "id": "COdMOURTcyKGBIkI",
+                        "id": "1V36vjpzh6RPdmwd",
                         "onDelete": "cascade"
                     }
                 }
@@ -1901,6 +2137,11 @@
                     }
                 ],
                 "slug": "armor-proficiency",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -1911,148 +2152,7 @@
             "type": "feat"
         },
         {
-            "_id": "qlfM8SKyTfcOFY0T",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.backgrounds.Item.CAjQrHZZbALE7Qjy"
-            },
-            "img": "systems/pf2e/icons/default-icons/background.svg",
-            "name": "Acolyte",
-            "sort": 0,
-            "system": {
-                "boosts": {
-                    "0": {
-                        "selected": "wis",
-                        "value": [
-                            "int",
-                            "wis"
-                        ]
-                    },
-                    "1": {
-                        "selected": "cha",
-                        "value": [
-                            "cha",
-                            "con",
-                            "dex",
-                            "int",
-                            "str",
-                            "wis"
-                        ]
-                    }
-                },
-                "description": {
-                    "value": "<p>You spent your early days in a religious monastery or cloister. You may have traveled out into the world to spread the message of your religion or because you cast away the teachings of your faith, but deep down, you'll always carry within you the lessons you learned.</p>\n<p>Choose two attribute boosts. One must be to <strong>Intelligence</strong> or <strong>Wisdom</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Religion skill and the Scribing Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Student of the Canon] skill feat.</p>"
-                },
-                "items": {
-                    "1v9gz": {
-                        "img": "icons/sundries/books/book-red-exclamation.webp",
-                        "level": 1,
-                        "name": "Student of the Canon",
-                        "uuid": "Compendium.pf2e.feats-srd.Item.Student of the Canon"
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [],
-                "slug": "acolyte",
-                "trainedSkills": {
-                    "lore": [
-                        "Scribing"
-                    ],
-                    "value": [
-                        "religion"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "background"
-        },
-        {
-            "_id": "X9dqSajCP1L4zXK3",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.feats-srd.Item.x7EMZNMavris2aHY"
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Student of the Canon",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "skill",
-                "description": {
-                    "value": "<p>You've researched many faiths enough to recognize notions about them that are unlikely to be true. If you roll a critical failure at a Religion check to Decipher Writing of a religious nature or to Recall Knowledge about the tenets of faiths, you get a failure instead. When attempting to Recall Knowledge about the tenets of your own faith, if you roll a failure, you get a success instead, and if you roll a success, you get a critical success instead.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "qlfM8SKyTfcOFY0T",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "trained in Religion"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:recall-knowledge",
-                                    "action:decipher-writing"
-                                ]
-                            }
-                        ],
-                        "selector": "religion",
-                        "text": "When you roll a critical failure at a Religion check to Decipher Writing of a religious nature or to Recall Knowledge about the tenets of faiths, you get a failure instead.",
-                        "title": "{item|name}"
-                    },
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:recall-knowledge",
-                                    "your-faith"
-                                ]
-                            }
-                        ],
-                        "selector": "religion",
-                        "text": "When attempting to Recall Knowledge about the tenets of your own faith, if you roll a failure, you get a success instead, and if you roll a success, you get a critical success instead.",
-                        "title": "{item|name}"
-                    }
-                ],
-                "slug": "student-of-the-canon",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general",
-                        "skill"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "c6UyiUmxpKZAUtkr",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.classes.Item.EizrWvUPMS67Pahd"
-            },
+            "_id": "n0WxcFdCSUTTXxsc",
             "img": "systems/pf2e/icons/classes/cleric.webp",
             "name": "Cleric",
             "sort": 0,
@@ -2208,6 +2308,7 @@
                     }
                 },
                 "keyAbility": {
+                    "selected": null,
                     "value": [
                         "wis"
                     ]
@@ -2260,22 +2361,18 @@
                     ]
                 },
                 "traits": {
-                    "rarity": "common",
-                    "value": []
+                    "rarity": "common"
                 }
             },
             "type": "class"
         },
         {
-            "_id": "wIXqSTrGTefHXyKe",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.classfeatures.Item.DutW12WMFPHBoLTH"
-            },
+            "_id": "2o6O77gGSGSkd7JZ",
             "flags": {
                 "pf2e": {
                     "itemGrants": {
                         "sarenrae": {
-                            "id": "Kg9wvcpbHCZv4Wns",
+                            "id": "BirykXbu1EIaaX66",
                             "onDelete": "detach"
                         }
                     }
@@ -2298,7 +2395,7 @@
                 "level": {
                     "value": 1
                 },
-                "location": "c6UyiUmxpKZAUtkr",
+                "location": "n0WxcFdCSUTTXxsc",
                 "prerequisites": {
                     "value": []
                 },
@@ -2433,6 +2530,11 @@
                     }
                 ],
                 "slug": "deity",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2443,13 +2545,10 @@
             "type": "feat"
         },
         {
-            "_id": "fH8atYGleAEJ1rzU",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.classfeatures.Item.AvNbdGSOTWNRgcxs"
-            },
+            "_id": "W7OHdSKSLmJAOlUC",
             "img": "icons/weapons/axes/axe-double-gold.webp",
             "name": "Cleric Spellcasting",
-            "sort": 100,
+            "sort": 0,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2464,7 +2563,7 @@
                 "level": {
                     "value": 1
                 },
-                "location": "c6UyiUmxpKZAUtkr",
+                "location": "n0WxcFdCSUTTXxsc",
                 "prerequisites": {
                     "value": []
                 },
@@ -2475,6 +2574,11 @@
                 },
                 "rules": [],
                 "slug": "cleric-spellcasting",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2485,15 +2589,12 @@
             "type": "feat"
         },
         {
-            "_id": "tSkjvYC5zWQ5tsRH",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.classfeatures.Item.tyrBwBTzo5t9Zho7"
-            },
+            "_id": "HZpYpU6ij1lBegKB",
             "flags": {
                 "pf2e": {
                     "itemGrants": {
                         "cloisteredCleric": {
-                            "id": "LylYvNRAac3vaCgn",
+                            "id": "RnlwYCQHhartT5q1",
                             "onDelete": "detach"
                         }
                     }
@@ -2501,7 +2602,7 @@
             },
             "img": "icons/magic/symbols/question-stone-yellow.webp",
             "name": "Doctrine",
-            "sort": 200,
+            "sort": 0,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2516,7 +2617,7 @@
                 "level": {
                     "value": 1
                 },
-                "location": "c6UyiUmxpKZAUtkr",
+                "location": "n0WxcFdCSUTTXxsc",
                 "prerequisites": {
                     "value": []
                 },
@@ -2545,6 +2646,11 @@
                     }
                 ],
                 "slug": "doctrine",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2555,15 +2661,12 @@
             "type": "feat"
         },
         {
-            "_id": "RRkSGLeis6td02W4",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.classfeatures.Item.Qejo7FUWQtPTpgWH"
-            },
+            "_id": "dvXkbKkE3PDlcojX",
             "flags": {
                 "pf2e": {
                     "itemGrants": {
                         "firstDoctrineCloisteredCleric": {
-                            "id": "cBbWqA8ZmmZAFcKq",
+                            "id": "QS9pgqpdlA5vaLEb",
                             "onDelete": "detach"
                         }
                     }
@@ -2571,7 +2674,7 @@
             },
             "img": "icons/magic/symbols/question-stone-yellow.webp",
             "name": "First Doctrine",
-            "sort": 300,
+            "sort": 0,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2586,7 +2689,7 @@
                 "level": {
                     "value": 1
                 },
-                "location": "c6UyiUmxpKZAUtkr",
+                "location": "n0WxcFdCSUTTXxsc",
                 "prerequisites": {
                     "value": []
                 },
@@ -2603,6 +2706,11 @@
                     }
                 ],
                 "slug": "first-doctrine",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2613,13 +2721,10 @@
             "type": "feat"
         },
         {
-            "_id": "rIPiP5P1zRHds7AA",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.classfeatures.Item.gblTFUOgolqFS9v4"
-            },
+            "_id": "1GKZfRk0vPkCAGU9",
             "img": "icons/magic/fire/flame-burning-hand-white.webp",
             "name": "Divine Font (Healing)",
-            "sort": 400,
+            "sort": 0,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2634,7 +2739,7 @@
                 "level": {
                     "value": 1
                 },
-                "location": "c6UyiUmxpKZAUtkr",
+                "location": "n0WxcFdCSUTTXxsc",
                 "prerequisites": {
                     "value": []
                 },
@@ -2671,6 +2776,11 @@
                     }
                 ],
                 "slug": "divine-font",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2681,15 +2791,12 @@
             "type": "feat"
         },
         {
-            "_id": "G1h2E4GpcTYR9MCM",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.classfeatures.Item.OnfrrwCfDFCFw0tc"
-            },
+            "_id": "HSBeT5RJAUeInG8t",
             "flags": {
                 "pf2e": {
                     "itemGrants": {
                         "secondDoctrineCloisteredCleric": {
-                            "id": "RcPdpzvxGHzzRjbo",
+                            "id": "GcbYk38vkXTBtmlh",
                             "onDelete": "detach"
                         }
                     }
@@ -2697,7 +2804,7 @@
             },
             "img": "icons/magic/symbols/question-stone-yellow.webp",
             "name": "Second Doctrine",
-            "sort": 1500,
+            "sort": 0,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2712,7 +2819,7 @@
                 "level": {
                     "value": 3
                 },
-                "location": "c6UyiUmxpKZAUtkr",
+                "location": "n0WxcFdCSUTTXxsc",
                 "prerequisites": {
                     "value": []
                 },
@@ -2729,6 +2836,11 @@
                     }
                 ],
                 "slug": "second-doctrine",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2739,14 +2851,58 @@
             "type": "feat"
         },
         {
-            "_id": "Kg9wvcpbHCZv4Wns",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.deities.Item.BNycwu3I21dTh4D9"
+            "_id": "dL7zWdCfxyXEecJb",
+            "img": "icons/creatures/eyes/human-single-blue.webp",
+            "name": "Perception Expertise",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You remain alert to threats around you. Your proficiency rank for Perception increases to expert.</p>"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": "n0WxcFdCSUTTXxsc",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": true,
+                    "title": "Pathfinder Rage of Elements"
+                },
+                "rules": [],
+                "slug": "perception-expertise",
+                "subfeatures": {
+                    "proficiencies": {
+                        "perception": {
+                            "attribute": null,
+                            "rank": 2
+                        }
+                    },
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
             },
+            "type": "feat"
+        },
+        {
+            "_id": "BirykXbu1EIaaX66",
             "flags": {
                 "pf2e": {
                     "grantedBy": {
-                        "id": "wIXqSTrGTefHXyKe",
+                        "id": "2o6O77gGSGSkd7JZ",
                         "onDelete": "cascade"
                     }
                 }
@@ -2806,14 +2962,11 @@
             "type": "deity"
         },
         {
-            "_id": "LylYvNRAac3vaCgn",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.classfeatures.Item.ZZzLMOUAtBVgV1DF"
-            },
+            "_id": "RnlwYCQHhartT5q1",
             "flags": {
                 "pf2e": {
                     "grantedBy": {
-                        "id": "tSkjvYC5zWQ5tsRH",
+                        "id": "HZpYpU6ij1lBegKB",
                         "onDelete": "cascade"
                     }
                 }
@@ -2860,6 +3013,11 @@
                     }
                 ],
                 "slug": "cloistered-cleric",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
                 "traits": {
                     "otherTags": [
                         "cleric-doctrine"
@@ -2873,14 +3031,11 @@
             "type": "feat"
         },
         {
-            "_id": "bqm5yMhResfF8HVt",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.feats-srd.Item.hT4INKGtly4QY8KN"
-            },
+            "_id": "hUUZqmNvLZSFxbpu",
             "flags": {
                 "pf2e": {
                     "grantedBy": {
-                        "id": "cBbWqA8ZmmZAFcKq",
+                        "id": "QS9pgqpdlA5vaLEb",
                         "onDelete": "cascade"
                     }
                 }
@@ -2922,6 +3077,11 @@
                     }
                 ],
                 "slug": "domain-initiate",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2932,19 +3092,16 @@
             "type": "feat"
         },
         {
-            "_id": "cBbWqA8ZmmZAFcKq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.classfeatures.Item.aiwxBj5MjnafCMyn"
-            },
+            "_id": "QS9pgqpdlA5vaLEb",
             "flags": {
                 "pf2e": {
                     "grantedBy": {
-                        "id": "RRkSGLeis6td02W4",
+                        "id": "dvXkbKkE3PDlcojX",
                         "onDelete": "cascade"
                     },
                     "itemGrants": {
                         "domainInitiate": {
-                            "id": "bqm5yMhResfF8HVt",
+                            "id": "hUUZqmNvLZSFxbpu",
                             "onDelete": "detach"
                         }
                     }
@@ -2984,6 +3141,11 @@
                     }
                 ],
                 "slug": "first-doctrine-cloistered-cleric",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2994,14 +3156,11 @@
             "type": "feat"
         },
         {
-            "_id": "RcPdpzvxGHzzRjbo",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.classfeatures.Item.sa7BWfnyCswAvBVa"
-            },
+            "_id": "GcbYk38vkXTBtmlh",
             "flags": {
                 "pf2e": {
                     "grantedBy": {
-                        "id": "G1h2E4GpcTYR9MCM",
+                        "id": "HSBeT5RJAUeInG8t",
                         "onDelete": "cascade"
                     }
                 }
@@ -3037,9 +3196,12 @@
                 "subfeatures": {
                     "proficiencies": {
                         "fortitude": {
+                            "attribute": null,
                             "rank": 2
                         }
-                    }
+                    },
+                    "senses": {},
+                    "suppressedFeatures": []
                 },
                 "traits": {
                     "rarity": "common",
@@ -3051,173 +3213,7 @@
             "type": "feat"
         },
         {
-            "_id": "WIL4nrmhlsuakIOI",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.feats-srd.Item.RmiMUZlae6yGUyXY"
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Haughty Obstinacy",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "ancestry",
-                "description": {
-                    "value": "<p>Your powerful ego makes it harder for others to order you around. If you roll a success on a saving throw against a mental effect that attempts to directly control your actions, you critically succeed instead. If a creature rolls a failure on a check to @UUID[Compendium.pf2e.actionspf2e.Item.Coerce] you using Intimidation, it gets a critical failure instead (so it can't try to Coerce you again for 1 week).</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "ancestry-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [
-                    {
-                        "adjustment": {
-                            "success": "one-degree-better"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "predicate": [
-                            "mental",
-                            "inflicts:controlled"
-                        ],
-                        "selector": "will",
-                        "type": "save"
-                    }
-                ],
-                "slug": "haughty-obstinacy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "human"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "SV98iEUMnSw1qo3B",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.feats-srd.Item.zYhcEX4JnrZ08HfV"
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Healing Hands",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>Your vitality is even more vibrant and restorative. When you cast @UUID[Compendium.pf2e.spells-srd.Item.Heal], you roll d10s instead of d8s.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "class-2",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "healing font"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "item:slug:heal"
-                        ],
-                        "property": "dice-faces",
-                        "selectors": [
-                            "spell-damage",
-                            "spell-healing"
-                        ],
-                        "slug": "base",
-                        "value": 10
-                    }
-                ],
-                "slug": "healing-hands",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cleric"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "QzoXV7yIzpgvM0Aq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.feats-srd.Item.KpFetnUqTiweypZk"
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Group Impression",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "skill",
-                "description": {
-                    "value": "<p>When you @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression], you can compare your Diplomacy check result to the Will DCs of up to 10 targets you conversed with, with no penalty. The number of targets increases to 20 if you're an expert, 50 if you're a master, and 100 if you're legendary.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "skill-2",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "trained in Diplomacy"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [],
-                "slug": "group-impression",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general",
-                        "skill"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "B70KNt9YerAAHeKx",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.feats-srd.Item.BStw1cANwx5baL6d"
-            },
+            "_id": "7FftquZrDj3UChXn",
             "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Armor Proficiency (Medium)",
             "sort": 0,
@@ -3291,6 +3287,11 @@
                     }
                 ],
                 "slug": "armor-proficiency",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -3301,297 +3302,346 @@
             "type": "feat"
         },
         {
-            "_id": "LCS69OtbeKgIyawl",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Y7UD64foDbDMV9sx"
-            },
-            "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
-            "name": "Scroll of Cleanse Affliction (Rank 2)",
+            "_id": "wwEgJY0PX1h7S43Z",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Haughty Obstinacy",
             "sort": 0,
             "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
+                "actionType": {
+                    "value": "passive"
                 },
-                "category": "scroll",
-                "containerId": null,
-                "damage": null,
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
                 "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction]</p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>The spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack modifier and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical costs are provided when a scroll is created, so you don't need to provide them when casting from a scroll. If the spell requires a locus, you must have that locus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
+                    "value": "<p>Your powerful ego makes it harder for others to order you around. If you roll a success on a saving throw against a mental effect that attempts to directly control your actions, you critically succeed instead. If a creature rolls a failure on a check to @UUID[Compendium.pf2e.actionspf2e.Item.Coerce] you using Intimidation, it gets a critical failure instead (so it can't try to Coerce you again for 1 week).</p>"
                 },
                 "level": {
-                    "value": 3
+                    "value": 1
                 },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 12
-                    }
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder GM Core"
+                    "title": "Pathfinder Player Core"
                 },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "scroll-of-2nd-rank-spell",
-                "spell": {
-                    "_id": "RjIoRO371bIlR028",
-                    "flags": {
-                        "core": {
-                            "sourceId": "Compendium.pf2e.spells-srd.Item.SUKaxVZW2TlM8lu0"
-                        }
-                    },
-                    "img": "icons/consumables/fruit/berry-clustered-white.webp",
-                    "name": "Cleanse Affliction",
-                    "sort": 0,
-                    "system": {
-                        "area": null,
-                        "cost": {
-                            "value": ""
+                "rules": [
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
                         },
-                        "counteraction": true,
-                        "damage": {},
-                        "defense": null,
-                        "description": {
-                            "value": "<p>Gentle restorative magic pushes back the effects of toxins and more complex maladies. Choose an affliction on the target, such as a curse, disease, or poison. If it has advanced past stage one, reduce the stage by one. This reduction can be applied only once to a given case of an affliction, with the case ending when it's completely cured. Although the reduction can't occur again, heightened versions of this spell attempt to counteract with each casting.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> Attempt to counteract the affliction if it is a disease or poison.</p>\n<p><strong>Heightened (4th)</strong> Attempt to counteract the affliction if it is a curse, disease, or poison.</p>"
-                        },
-                        "duration": {
-                            "sustained": false,
-                            "value": ""
-                        },
-                        "level": {
-                            "value": 2
-                        },
-                        "location": {
-                            "heightenedLevel": 2,
-                            "value": null
-                        },
-                        "publication": {
-                            "license": "ORC",
-                            "remaster": true,
-                            "title": "Pathfinder Player Core"
-                        },
-                        "range": {
-                            "value": "touch"
-                        },
-                        "requirements": "",
-                        "rules": [],
-                        "slug": "cleanse-affliction",
-                        "target": {
-                            "value": "1 willing creature"
-                        },
-                        "time": {
-                            "value": "2"
-                        },
-                        "traits": {
-                            "rarity": "common",
-                            "traditions": [
-                                "divine",
-                                "occult",
-                                "primal"
-                            ],
-                            "value": [
-                                "concentrate",
-                                "healing",
-                                "manipulate"
-                            ]
-                        }
-                    },
-                    "type": "spell"
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "mental",
+                            "inflicts:controlled"
+                        ],
+                        "selector": "will",
+                        "type": "save"
+                    }
+                ],
+                "slug": "haughty-obstinacy",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
                 },
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "concentrate",
-                        "consumable",
+                        "human"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "jiRChFEVmYUdvJRc",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Healing Hands",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>Your vitality is even more vibrant and restorative. When you cast @UUID[Compendium.pf2e.spells-srd.Item.Heal], you roll d10s instead of d8s.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "class-2",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "healing font"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "item:slug:heal"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "spell-damage",
+                            "spell-healing"
+                        ],
+                        "slug": "base",
+                        "value": 10
+                    }
+                ],
+                "slug": "healing-hands",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cleric"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "bdoW3QwqMRoXEPzz",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Group Impression",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>When you @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression], you can compare your Diplomacy check result to the Will DCs of up to 10 targets you conversed with, with no penalty. The number of targets increases to 20 if you're an expert, 50 if you're a master, and 100 if you're legendary.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "skill-2",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Diplomacy"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "group-impression",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "MyKLWrqbXJXHheIm",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Cooperative Nature",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>The short human life span lends perspective and has taught you from a young age to set aside differences and work with others to achieve greatness. You gain a +4 circumstance bonus on checks to Aid.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "ancestry-5",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:aid"
+                        ],
+                        "selector": "check",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
+                "slug": "cooperative-nature",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "human"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "N5di0WNSKkTzLuL1",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Communal Healing",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You're an exceptional conduit for vitality and, as you channel it through you, you can divert some to heal yourself or another creature. When you cast the @UUID[Compendium.pf2e.spells-srd.Item.Heal] spell to heal a single creature, choose another willing living creature within range of your <em>heal</em> to regain Hit Points equal to the <em>heal</em> spell's rank.</p>"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": "class-4",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "item:slug:heal",
+                            {
+                                "lt": [
+                                    "item:cast:actions",
+                                    3
+                                ]
+                            }
+                        ],
+                        "selector": "spell-healing",
+                        "text": "PF2E.SpecificRule.Cleric.CommunalHealing.Note",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": "communal-healing",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cleric",
                         "healing",
-                        "magical",
-                        "manipulate",
-                        "scroll"
+                        "vitality"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "feat"
         },
         {
-            "_id": "ErXuxc0NYpFKrJO9",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Y7UD64foDbDMV9sx"
-            },
-            "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
-            "name": "Scroll of Resist Energy (Rank 2)",
+            "_id": "NICbcQCAtMECGzGC",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Battle Medicine",
             "sort": 0,
             "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
+                "actionType": {
+                    "value": "action"
                 },
-                "category": "scroll",
-                "containerId": null,
-                "damage": null,
+                "actions": {
+                    "value": 1
+                },
+                "category": "skill",
                 "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Resist Energy]</p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>The spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack modifier and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical costs are provided when a scroll is created, so you don't need to provide them when casting from a scroll. If the spell requires a locus, you must have that locus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
+                    "value": "<p><strong>Requirements</strong> You're holding or wearing a healer's toolkit.</p>\n<hr />\n<p>You can patch up wounds, even in combat. Attempt a Medicine check with the same DC as for @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds] and restore the corresponding amount of HP; this doesn't remove the wounded condition. As with Treat Wounds, you can attempt checks against higher DCs if you have the minimum proficiency rank. The target is then @UUID[Compendium.pf2e.feat-effects.Item.Effect: Battle Medicine Immunity]{immune} to your Battle Medicine for 1 day. This does not make them immune to, or otherwise count as, Treat Wounds.</p>"
                 },
                 "level": {
-                    "value": 3
+                    "value": 1
                 },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 12
-                    }
+                "location": "skill-4",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Medicine"
+                        }
+                    ]
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder GM Core"
+                    "title": "Pathfinder Player Core"
                 },
-                "quantity": 1,
                 "rules": [],
-                "size": "med",
-                "slug": "scroll-of-2nd-rank-spell",
-                "spell": {
-                    "_id": "OMn94ruZn4LNjJwu",
-                    "flags": {
-                        "core": {
-                            "sourceId": "Compendium.pf2e.spells-srd.Item.Fr58LDSrbndgld9n"
-                        }
-                    },
-                    "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
-                    "name": "Resist Energy",
-                    "sort": 0,
-                    "system": {
-                        "area": null,
-                        "cost": {
-                            "value": ""
-                        },
-                        "counteraction": false,
-                        "damage": {},
-                        "defense": null,
-                        "description": {
-                            "value": "<p>A shield of elemental energy protects a creature against one type of energy damage. Choose acid, cold, electricity, fire, or sonic damage. The target and its gear gain resistance 5 against the damage type you chose.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Resist Energy]</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The resistance increases to 10, and you can target up to two creatures.</p>\n<p><strong>Heightened (7th)</strong> The resistance increases to 15, and you can target up to five creatures.</p>"
-                        },
-                        "duration": {
-                            "sustained": false,
-                            "value": "10 minutes"
-                        },
-                        "heightening": {
-                            "levels": {
-                                "4": {
-                                    "target": {
-                                        "value": "2 creatures"
-                                    }
-                                },
-                                "7": {
-                                    "target": {
-                                        "value": "5 creatures"
-                                    }
-                                }
-                            },
-                            "type": "fixed"
-                        },
-                        "level": {
-                            "value": 2
-                        },
-                        "location": {
-                            "heightenedLevel": 2,
-                            "value": null
-                        },
-                        "publication": {
-                            "license": "ORC",
-                            "remaster": true,
-                            "title": "Pathfinder Player Core"
-                        },
-                        "range": {
-                            "value": "touch"
-                        },
-                        "requirements": "",
-                        "rules": [],
-                        "slug": "resist-energy",
-                        "target": {
-                            "value": "1 creature"
-                        },
-                        "time": {
-                            "value": "2"
-                        },
-                        "traits": {
-                            "rarity": "common",
-                            "traditions": [
-                                "arcane",
-                                "divine",
-                                "occult",
-                                "primal"
-                            ],
-                            "value": [
-                                "concentrate",
-                                "manipulate"
-                            ]
-                        }
-                    },
-                    "type": "spell"
+                "slug": "battle-medicine",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
                 },
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "concentrate",
-                        "consumable",
-                        "magical",
+                        "general",
+                        "healing",
                         "manipulate",
-                        "scroll"
+                        "skill"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "feat"
         },
         {
-            "_id": "d6bJpH64gvMuRB2Y",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4gBIw4IDrSfFHik4"
-            },
+            "_id": "LgaA3J1gogIS9Jpa",
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 0,
+            "sort": 100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3672,13 +3722,10 @@
             "type": "spell"
         },
         {
-            "_id": "nKyGxIGgNWrb0PtV",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.qwZBXN6zBoB9BHXE"
-            },
+            "_id": "XAwa8FI7LpmBEEwa",
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 0,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3754,13 +3801,10 @@
             "type": "spell"
         },
         {
-            "_id": "MPYwmGo1q2vRKnCq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.izcxFQFwf3woCnFs"
-            },
+            "_id": "xxFxXv4EqqJD4qKv",
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 0,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3815,13 +3859,10 @@
             "type": "spell"
         },
         {
-            "_id": "ojldnn6VyxdYCbIx",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4"
-            },
+            "_id": "P8c8JbDpqu4W3BQn",
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 0,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3879,13 +3920,10 @@
             "type": "spell"
         },
         {
-            "_id": "jSrOB1zAkJcgQqZ6",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.SnjhtQYexDtNDdEg"
-            },
+            "_id": "GxhmEhYfMe78gFEr",
             "img": "icons/magic/control/debuff-energy-hold-yellow.webp",
             "name": "Stabilize",
-            "sort": 0,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3942,13 +3980,10 @@
             "type": "spell"
         },
         {
-            "_id": "IbRiCTTbZOa5fH1D",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.XSujb7EsSwKl19Uu"
-            },
+            "_id": "K3a699xVPhn9EK7P",
             "img": "systems/pf2e/icons/spells/bless.webp",
             "name": "Bless",
-            "sort": 0,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -4007,13 +4042,10 @@
             "type": "spell"
         },
         {
-            "_id": "wj9x00w5gzi3aM3g",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.8xRzLhwGL7Dgy3EZ"
-            },
+            "_id": "lXTo5hyDei9Nl4W4",
             "img": "systems/pf2e/icons/spells/sanctuary.webp",
             "name": "Sanctuary",
-            "sort": 0,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -4067,13 +4099,10 @@
             "type": "spell"
         },
         {
-            "_id": "Hmi6sz1NrfRrbOjA",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.yHujiDQPdtXW797e"
-            },
+            "_id": "cjRA7T0VQeM6ZdO6",
             "img": "icons/magic/control/energy-stream-link-teal.webp",
             "name": "Spirit Link",
-            "sort": 0,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -4147,13 +4176,69 @@
             "type": "spell"
         },
         {
-            "_id": "M8TNYwsDPIIxxObL",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.9HpwDN4MYQJnW0LG"
+            "_id": "98z4PnpVZLlZBlMG",
+            "img": "icons/consumables/fruit/berry-clustered-white.webp",
+            "name": "Cleanse Affliction",
+            "sort": 1000000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": true,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Gentle restorative magic pushes back the effects of toxins and more complex maladies. Choose an affliction on the target, such as a curse, disease, or poison. If it has advanced past stage one, reduce the stage by one. This reduction can be applied only once to a given case of an affliction, with the case ending when it's completely cured. Although the reduction can't occur again, heightened versions of this spell attempt to counteract with each casting.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> Attempt to counteract the affliction if it is a disease or poison.</p>\n<p><strong>Heightened (4th)</strong> Attempt to counteract the affliction if it is a curse, disease, or poison.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "value": "uCa63ASRihr7gGVe"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "cleanse-affliction",
+                "target": {
+                    "value": "1 willing creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "healing",
+                        "manipulate"
+                    ]
+                }
             },
+            "type": "spell"
+        },
+        {
+            "_id": "9bcum35M65atsRXj",
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 0,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -4209,13 +4294,10 @@
             "type": "spell"
         },
         {
-            "_id": "fuwatODYvRHUjmIK",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.WPu3UE3kTXSLqO40"
-            },
+            "_id": "NXxC5usD5iAqcoY2",
             "img": "icons/skills/melee/strike-sword-slashing-red.webp",
             "name": "Spiritual Armament",
-            "sort": 0,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -4358,9 +4440,1089 @@
                 }
             },
             "type": "spell"
+        },
+        {
+            "_id": "4FYwhlwarI16zMnH",
+            "img": "icons/magic/life/ankh-gold-blue.webp",
+            "name": "Heroism",
+            "sort": 1300000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You unlock the target's inner heroism, granting it a +1 status bonus to attack rolls, Perception checks, saving throws, and skill checks.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The status bonus increases to +2.</p>\n<p><strong>Heightened (9th)</strong> The status bonus increases to +3.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Heroism]</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "10 minutes"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "value": "uCa63ASRihr7gGVe"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "heroism",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "xFEeHKSlnVBQVrKc",
+            "img": "systems/pf2e/icons/spells/searing-light.webp",
+            "name": "Holy Light",
+            "sort": 1400000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": true,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "5d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "fire"
+                    }
+                },
+                "defense": null,
+                "description": {
+                    "value": "<p>You shine a blazing ray of light tinged with holy energy. Make a ranged spell attack. The ray deals 5d6 fire damage. If the target has the unholy trait, you deal an extra 5d6 spirit damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<p>If the light passes through an area of magical darkness or targets a creature affected by magical darkness, holy light attempts to counteract the darkness. If you need to determine whether the light passes through an area of darkness, draw a line between yourself and the spell's target.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fire damage increases by 2d6, and the spirit damage against unholy creatures increases by 2d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "value": "uCa63ASRihr7gGVe"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [
+                    {
+                        "damageType": "spirit",
+                        "diceNumber": "(@spell.level*2)-1",
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:trait:unholy"
+                        ],
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
+                "slug": "holy-light",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "primal"
+                    ],
+                    "value": [
+                        "attack",
+                        "concentrate",
+                        "fire",
+                        "holy",
+                        "light",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "x5Ah9oVfAsQeeADf",
+            "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
+            "name": "Scroll of Clear Mind (Rank 2)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "scroll",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Clear Mind]</p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>The spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack modifier and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical costs are provided when a scroll is created, so you don't need to provide them when casting from a scroll. If the spell requires a locus, you must have that locus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 12
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "scroll-of-2nd-rank-spell",
+                "spell": {
+                    "_id": "JjnJE2o7grABZaD2",
+                    "flags": {
+                        "core": {
+                            "sourceId": "Compendium.pf2e.spells-srd.Item.EfFMLVbmkBWmzoLF"
+                        }
+                    },
+                    "img": "systems/pf2e/icons/spells/detect-alignment.webp",
+                    "name": "Clear Mind",
+                    "sort": 0,
+                    "system": {
+                        "area": null,
+                        "cost": {
+                            "value": ""
+                        },
+                        "counteraction": true,
+                        "damage": {},
+                        "defense": null,
+                        "description": {
+                            "value": "<p>You drive mental contamination from the target's mind. Attempt to counteract an effect of your choice imposing one of these conditions on the target: @UUID[Compendium.pf2e.conditionitems.Item.Fleeing], @UUID[Compendium.pf2e.conditionitems.Item.Frightened], and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]. If you failed to counteract the effect but you would have if its counteract rank were 2 lower, instead suppress the effect until the beginning of your next turn. The effect's duration doesn't elapse while it's suppressed. This spell can't counteract or suppress conditions that are part of curses, diseases, or a natural state of the target.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Add @UUID[Compendium.pf2e.conditionitems.Item.Confused], @UUID[Compendium.pf2e.conditionitems.Item.Controlled], and @UUID[Compendium.pf2e.conditionitems.Item.Slowed] to the list of conditions.</p>\n<p><strong>Heightened (6th)</strong> Add @UUID[Compendium.pf2e.conditionitems.Item.Doomed] to the list of conditions.</p>\n<p><strong>Heightened (8th)</strong> Add @UUID[Compendium.pf2e.conditionitems.Item.Stunned] to the list of conditions.</p>"
+                        },
+                        "duration": {
+                            "sustained": false,
+                            "value": ""
+                        },
+                        "level": {
+                            "value": 2
+                        },
+                        "location": {
+                            "heightenedLevel": 2,
+                            "value": null
+                        },
+                        "publication": {
+                            "license": "ORC",
+                            "remaster": true,
+                            "title": "Pathfinder Player Core"
+                        },
+                        "range": {
+                            "value": "touch"
+                        },
+                        "requirements": "",
+                        "rules": [],
+                        "slug": "clear-mind",
+                        "target": {
+                            "value": "1 willing creature"
+                        },
+                        "time": {
+                            "value": "2"
+                        },
+                        "traits": {
+                            "rarity": "common",
+                            "traditions": [
+                                "divine",
+                                "occult",
+                                "primal"
+                            ],
+                            "value": [
+                                "concentrate",
+                                "healing",
+                                "manipulate",
+                                "mental"
+                            ]
+                        }
+                    },
+                    "type": "spell"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "consumable",
+                        "healing",
+                        "magical",
+                        "manipulate",
+                        "mental",
+                        "scroll"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "h29OAEBJrCuyR56j",
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "thirdDoctrineCloisteredCleric": {
+                            "id": "5vv7yZt6bSzVIAYc",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
+            "name": "Third Doctrine",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You gain the third benefit of your doctrine:</p>\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Third Doctrine (Cloistered Cleric)]{Cloistered Cleric}</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Third Doctrine (Warpriest)]{Warpriest}</li>\n</ul>"
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": "n0WxcFdCSUTTXxsc",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "flag": "thirdDoctrineCloisteredCleric",
+                        "key": "GrantItem",
+                        "uuid": "{actor|flags.system.cleric.thirdDoctrine}"
+                    }
+                ],
+                "slug": "third-doctrine",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cleric"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "5vv7yZt6bSzVIAYc",
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "h29OAEBJrCuyR56j",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/magic/light/orb-hands-humanoid-yellow.webp",
+            "name": "Third Doctrine (Cloistered Cleric)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Your proficiency ranks for the spell attack modifier and spell DC statistics increase to expert.</p>"
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "third-doctrine-cloistered-cleric",
+                "subfeatures": {
+                    "proficiencies": {
+                        "spellcasting": {
+                            "attribute": null,
+                            "rank": 2
+                        }
+                    },
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cleric"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "ZiRO4G0pHpIMsSmH",
+            "folder": "7lOz2qjHsSKpU7HO",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Selective Energy",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>As you call down divine power, you can prevent some enemies from benefiting or some allies from being hurt. When you cast a version of @UUID[Compendium.pf2e.spells-srd.Item.Harm] or @UUID[Compendium.pf2e.spells-srd.Item.Heal] that has an area, you can designate up to 5 creatures in the area. They are not targeted by the spell.</p>"
+                },
+                "level": {
+                    "taken": 6,
+                    "value": 6
+                },
+                "location": "class-6",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "area-effect",
+                            {
+                                "or": [
+                                    "item:slug:heal",
+                                    "item:slug:harm"
+                                ]
+                            }
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "PF2E.SpecificRule.Cleric.SelectiveEnergy.ItemAlterationNote"
+                            }
+                        ]
+                    }
+                ],
+                "slug": "selective-energy",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cleric"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "QYb7c9gfnXZ9uiua",
+            "folder": "dYkg05JEhiF1J6gL",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Unusual Treatment",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>Your medical training extends to less obvious conditions. When you succeed against a DC 20 check to @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds], you can also reduce the value of one @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] condition on the patient by 1. If you're able to treat more than one creature at once, choose only one to gain this benefit. A creature can benefit from Unusual Treatment only once per day. If the condition results from an affliction, the affliction isn't cured, though the condition is reduced as long as the affliction remains at that stage. If you are a master in Medicine, add the @UUID[Compendium.pf2e.conditionitems.Item.Drained] condition to the list of conditions you can remove if you succeed at a DC 30 check. If you are legendary in Medicine, you reduce the chosen condition by 2 instead of by 1.</p>"
+                },
+                "level": {
+                    "taken": 6,
+                    "value": 2
+                },
+                "location": "skill-6",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "expert in Medicine"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "unusual-treatment",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "SgTWwCU7mdkl7djJ",
+            "folder": "68m1OED3fDU3fIfR",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Toughness",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p>Your body can withstand more punishment than most before succumbing. Increase your maximum Hit Points by your level. You reduce the DC of recovery checks by 1.</p>"
+                },
+                "level": {
+                    "taken": 7,
+                    "value": 1
+                },
+                "location": "general-7",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "hp",
+                        "value": "@actor.level"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "subtract",
+                        "path": "system.attributes.dying.recoveryDC",
+                        "value": 1
+                    }
+                ],
+                "slug": "toughness",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "7C5NqvSVBgaHIwVi",
+            "img": "icons/containers/bags/pouch-gold-green.webp",
+            "name": "Healer's Toolkit (Expanded)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds]. Expanded healer's toolkits provide a +1 item bonus to such checks. If you wear your healer's toolkit, you can draw and replace its tools as part of the action that uses them.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 50
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:administer-first-aid",
+                                    "action:treat-disease",
+                                    "action:treat-poison",
+                                    "action:treat-wounds"
+                                ]
+                            }
+                        ],
+                        "selector": "medicine",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
+                "size": "med",
+                "slug": "healers-toolkit-expanded",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "DwgNFUdolamP5xfP",
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-silver.webp",
+            "name": "Religious Symbol (Silver)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
+                "size": "med",
+                "slug": "religious-symbol-silver",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "Joe1LUGAgvzVq81e",
+            "img": "systems/pf2e/icons/equipment/wands/magic-wands/magic-wand.webp",
+            "name": "Wand of Resist Energy (Rank 2)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "wand",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Resist Energy]</p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated rank.</p>\n<p><strong>Craft Requirements</strong> Supply a casting of the spell at the listed rank.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 5
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 160
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "magic-wand-2nd-rank-spell",
+                "spell": {
+                    "_id": "zEG5AnvfeYbOMH8p",
+                    "_stats": {
+                        "compendiumSource": "Compendium.pf2e.spells-srd.Item.Fr58LDSrbndgld9n"
+                    },
+                    "folder": "lPzcDrjGDFbzuF2r",
+                    "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
+                    "name": "Resist Energy",
+                    "sort": 0,
+                    "system": {
+                        "area": null,
+                        "cost": {
+                            "value": ""
+                        },
+                        "counteraction": false,
+                        "damage": {},
+                        "defense": null,
+                        "description": {
+                            "value": "<p>A shield of elemental energy protects a creature against one type of energy damage. Choose acid, cold, electricity, fire, or sonic damage. The target and its gear gain resistance 5 against the damage type you chose.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Resist Energy]</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The resistance increases to 10, and you can target up to two creatures.</p>\n<p><strong>Heightened (7th)</strong> The resistance increases to 15, and you can target up to five creatures.</p>"
+                        },
+                        "duration": {
+                            "sustained": false,
+                            "value": "10 minutes"
+                        },
+                        "heightening": {
+                            "levels": {
+                                "4": {
+                                    "target": {
+                                        "value": "2 creatures"
+                                    }
+                                },
+                                "7": {
+                                    "target": {
+                                        "value": "5 creatures"
+                                    }
+                                }
+                            },
+                            "type": "fixed"
+                        },
+                        "level": {
+                            "value": 2
+                        },
+                        "location": {
+                            "heightenedLevel": 2,
+                            "value": null
+                        },
+                        "publication": {
+                            "license": "ORC",
+                            "remaster": true,
+                            "title": "Pathfinder Player Core"
+                        },
+                        "range": {
+                            "value": "touch"
+                        },
+                        "requirements": "",
+                        "rules": [],
+                        "slug": "resist-energy",
+                        "target": {
+                            "value": "1 creature"
+                        },
+                        "time": {
+                            "value": "2"
+                        },
+                        "traits": {
+                            "rarity": "common",
+                            "traditions": [
+                                "arcane",
+                                "divine",
+                                "occult",
+                                "primal"
+                            ],
+                            "value": [
+                                "concentrate",
+                                "manipulate"
+                            ]
+                        }
+                    },
+                    "type": "spell"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "magical",
+                        "manipulate",
+                        "wand"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": false,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "sAj8BgNwMnFk03eB",
+            "folder": "7cyoYPoPYA01mErU",
+            "img": "icons/equipment/shield/heater-steel-segmented-purple.webp",
+            "name": "Planar Tether",
+            "sort": 500000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You stitch the target to its current plane. While the target is affected by <em>planar tether</em>, the spell attempts to counteract any teleportation effect that would move the target, or any effect that would transport it to a different plane. <em>Planar tether</em>'s duration is determined by the target's Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The effect's duration is 1 minute.</p>\n<p><strong>Failure</strong> The effect's duration is 10 minutes.</p>\n<p><strong>Critical Failure</strong> The effect's duration is 1 hour.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "varies"
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "value": "uCa63ASRihr7gGVe"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "planar-tether",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "cz6aQPfxHJKULWt5",
+            "folder": "7cyoYPoPYA01mErU",
+            "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
+            "name": "Unfettered Movement",
+            "sort": 1250000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You repel effects that would hinder a creature or slow its movement. While under this spell's effect, the target ignores effects that would give them a circumstance penalty to Speed. When they attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] an effect that has them @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], or @UUID[Compendium.pf2e.conditionitems.Item.Restrained], they automatically succeed unless the effect is magical and of a higher rank than the <em>unfettered movement</em> spell.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Unfettered Movement]</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "10 minutes"
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "value": "uCa63ASRihr7gGVe"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "unfettered-movement",
+                "target": {
+                    "value": "1 creature touched"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "FQOFuy6JLioGWkh8",
+            "folder": "4fJHnYFqH0VjZXPv",
+            "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
+            "name": "Crisis of Faith",
+            "sort": 1500000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "6d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "mental"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You assault the target's faith, riddling the creature with doubt and mental turmoil that deal 6d6 mental damage, or 6d8 mental damage if it can cast divine spells. The effects are determined by its Will save.</p>\n<p>To many deities, casting this spell on a follower of your own deity without significant cause is anathema.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage; if the target can cast divine spells, it's @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target takes double damage, is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round, and can't cast divine spells for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6 (or by 2d8 if the target is a divine spellcaster).</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "value": "uCa63ASRihr7gGVe"
+                },
+                "overlays": {
+                    "Fs08rHTZAfROKKzu": {
+                        "_id": "Fs08rHTZAfROKKzu",
+                        "name": "Crisis of Faith (Vs. Divine)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "0": {
+                                    "formula": "6d8"
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "0": "2d8"
+                                }
+                            }
+                        }
+                    },
+                    "noPVUX8Ocln52MKm": {
+                        "_id": "noPVUX8Ocln52MKm",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {}
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "crisis-of-faith",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
         }
     ],
-    "name": "Kyra (Level 3)",
+    "name": "Kyra (Level 7)",
     "prototypeToken": {
         "name": "Kyra",
         "ring": {
@@ -4382,16 +5544,22 @@
             "bonusbulk": 0,
             "hp": {
                 "temp": 0,
-                "value": 32
+                "value": 71
             }
         },
         "build": {
             "attributes": {
                 "boosts": {
                     "1": [
+                        "wis",
                         "str",
                         "dex",
+                        "cha"
+                    ],
+                    "5": [
                         "wis",
+                        "str",
+                        "dex",
                         "cha"
                     ]
                 }
@@ -4456,7 +5624,7 @@
             },
             "level": {
                 "min": 1,
-                "value": 3
+                "value": 7
             },
             "nationality": {
                 "value": ""
@@ -4537,7 +5705,7 @@
                 "rank": 0
             },
             "medicine": {
-                "rank": 1
+                "rank": 2
             },
             "nature": {
                 "rank": 0
@@ -4549,7 +5717,7 @@
                 "rank": 1
             },
             "religion": {
-                "rank": 2
+                "rank": 3
             },
             "society": {
                 "rank": 0
