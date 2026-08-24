@@ -129,6 +129,50 @@ const ITEM_ALTERATION_HANDLERS = {
             adjustCreatureShieldData(item);
         },
     }),
+    area: new ItemAlterationHandler({
+        fields: {
+            itemType: new fields.StringField({ required: true, choices: ["spell"] }),
+            mode: new fields.StringField({ required: true, choices: ["override", "remove"] }),
+            value: new fields.SchemaField(
+                {
+                    type: new fields.StringField({
+                        required: false,
+                        nullable: true,
+                        choices: EFFECT_AREA_SHAPES,
+                        initial: undefined,
+                    }),
+                    size: new fields.NumberField({
+                        required: false,
+                        nullable: true,
+                        initial: undefined,
+                    }),
+                },
+                { required: true, nullable: true, initial: null },
+            ),
+        },
+        validateForItem: (_item, alteration): validation.DataModelValidationFailure | void => {
+            if (
+                alteration.mode === "override" &&
+                !(R.isPlainObject(alteration.value) && ("type" in alteration.value || "size" in alteration.value))
+            ) {
+                return new validation.DataModelValidationFailure(
+                    `value: must be provided and contain type or size if mode is "override"`,
+                );
+            }
+        },
+        handle: function (data: AlterationApplicationData) {
+            if (!this.isValid(data)) return;
+            const mode = data.alteration.mode;
+            if (mode === "override") {
+                const newType = data.alteration.value?.type ?? data.item.system.area?.type ?? "burst";
+                const newSize = data.alteration.value?.size ?? data.item.system.area?.value ?? 5;
+                const nearestFive = Math.floor(newSize / 5) * 5;
+                data.item.system.area = { type: newType, value: Math.max(nearestFive, 5) };
+            } else {
+                data.item.system.area = null;
+            }
+        },
+    }),
     "area-size": new ItemAlterationHandler({
         fields: {
             itemType: new fields.StringField({ required: true, choices: ["spell"] }),
@@ -148,39 +192,6 @@ const ITEM_ALTERATION_HANDLERS = {
             const newValue = AELikeRuleElement.getNewValue(mode, data.item.system.area.value, data.alteration.value);
             const nearestFive = Math.floor(newValue / 5) * 5;
             data.item.system.area.value = Math.max(nearestFive, 5);
-        },
-    }),
-    "area-type": new ItemAlterationHandler({
-        fields: {
-            itemType: new fields.StringField({ required: true, choices: ["spell"] }),
-            mode: new fields.StringField({ required: true, choices: ["override", "remove"] }),
-            value: new fields.StringField({
-                required: true,
-                nullable: true,
-                choices: EFFECT_AREA_SHAPES,
-                initial: null,
-            } as const),
-        },
-        validateForItem: (_item, alteration): validation.DataModelValidationFailure | void => {
-            if (alteration.mode === "override" && !alteration.value) {
-                return new validation.DataModelValidationFailure(`value must be provided if mode is "override"`);
-            }
-        },
-        handle: function (data: AlterationApplicationData) {
-            if (!this.isValid(data)) return;
-            const mode = data.alteration.mode;
-            if (mode === "override") {
-                const newValue = AELikeRuleElement.getNewValue(
-                    mode,
-                    data.item.system.area?.type ?? "burst",
-                    data.alteration.value ?? "burst",
-                );
-                if (newValue instanceof validation.DataModelValidationFailure) throw newValue.asError();
-                data.item.system.area ??= { type: newValue, value: 5 };
-                data.item.system.area.type = newValue;
-            } else {
-                data.item.system.area = null;
-            }
         },
     }),
     "badge-max": new ItemAlterationHandler({
