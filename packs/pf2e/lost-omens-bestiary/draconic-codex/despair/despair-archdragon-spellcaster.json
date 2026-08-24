@@ -3079,14 +3079,25 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 60 feet loses the frightened condition</p><hr /><p><strong>Effect</strong> The dragon feasts upon the fear that leaves the triggering creature's body, gaining 9d8 temporary Hit Points that last for 1 minute.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within 60 feet loses the @UUID[Compendium.pf2e.conditionitems.Item.Frightened] condition</p><hr /><p><strong>Effect</strong> The dragon feasts upon the fear that leaves the triggering creature's body, gaining 9d8 temporary Hit Points that last for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.system.consumeFear",
+                        "value": 9
+                    }
+                ],
+                "selfEffect": {
+                    "name": "Effect: Consume Fear",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Consume Fear"
+                },
                 "slug": null,
                 "traits": {
                     "value": [
