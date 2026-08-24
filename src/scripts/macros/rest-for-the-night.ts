@@ -1,7 +1,7 @@
 import { CharacterPF2e } from "@actor";
 import { CharacterAttributesSource, CharacterResourcesSource } from "@actor/character/data.ts";
 import { applyActorGroupUpdate } from "@actor/helpers.ts";
-import { ActorGroupUpdate } from "@actor/types.ts";
+import type { ActorGroupUpdate } from "@actor/types.ts";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
