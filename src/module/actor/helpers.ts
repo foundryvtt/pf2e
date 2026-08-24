@@ -1,5 +1,6 @@
 import { ActorProxyPF2e, type ActorPF2e } from "@actor";
 import type { Rolled } from "@client/dice/_module.d.mts";
+import type { DatabaseWriteOperation } from "@common/abstract/_module.mjs";
 import type { HexColorString } from "@common/constants.d.mts";
 import type { ItemPF2e, MeleePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import type { AbilityTrait } from "@item/ability/types.ts";
@@ -1030,7 +1031,7 @@ async function applyActorGroupUpdate(
               ? "create"
               : "actorUpdate";
 
-    const operations: foundry.documents.DatabaseWriteOperation[] = [];
+    const operations: DatabaseWriteOperation[] = [];
 
     if (actorUpdates) {
         operations.push({
@@ -1069,11 +1070,7 @@ async function applyActorGroupUpdate(
             render: lastRender === "delete",
         });
     }
-
-    // we bundle all the operations into a single server query
-    if (operations.length > 0) {
-        await foundry.documents.modifyBatch(operations);
-    }
+    await foundry.documents.modifyBatch(operations);
 }
 
 export {

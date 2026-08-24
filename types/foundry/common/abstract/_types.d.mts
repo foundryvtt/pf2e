@@ -204,6 +204,11 @@ export type DatabaseOperation<TParent extends Document | null> =
     | DatabaseUpdateOperation<TParent>
     | DatabaseDeleteOperation<TParent>;
 
+export type DatabaseWriteOperation<TParent extends Document | null = Document | null> = Exclude<
+    DatabaseOperation<TParent>,
+    DatabaseGetOperation<TParent>
+>;
+
 export interface DocumentSocketRequest {
     /** The type of Document being transacted */
     type: string;
