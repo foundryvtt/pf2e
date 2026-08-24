@@ -1,0 +1,90 @@
+{
+    "_id": "5dzfU0Sc78HZVplo",
+    "img": "icons/skills/melee/weapons-crossed-swords-black-gray.webp",
+    "name": "Effect: Force Fling",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Force Fling]</p>\n<p>Any physical damage your weapon would deal for the Strike is force damage instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "property": "damage-type",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "value": "force",
+                "predicate": [
+                    {
+                        "not": "item:trait:unarmed"
+                    },
+                    "item:melee",
+                    "item:damage:category:physical"
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SpellEffectForceFling.RollOptionLabel",
+                "option": "new-target",
+                "toggleable": true
+            },
+            {
+                "key": "MultipleAttackPenalty",
+                "predicate": [
+                    {
+                        "not": "item:trait:unarmed"
+                    },
+                    "agile",
+                    "item:melee",
+                    "item:damage:category:physical",
+                    "new-target"
+                ],
+                "selector": "attack",
+                "value": -3
+            },
+            {
+                "key": "MultipleAttackPenalty",
+                "predicate": [
+                    {
+                        "nor": [
+                            "item:trait:unarmed",
+                            "agile"
+                        ]
+                    },
+                    "item:melee",
+                    "item:damage:category:physical",
+                    "new-target"
+                ],
+                "selector": "attack",
+                "value": -4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
