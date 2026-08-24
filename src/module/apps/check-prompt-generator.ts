@@ -4,8 +4,8 @@ import type HTMLRangePickerElement from "@client/applications/elements/range-pic
 import type FormDataExtended from "@client/applications/ux/form-data-extended.d.mts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { PROFICIENCY_RANKS } from "@module/data.ts";
-import { adjustDC, calculateDC, calculateSimpleDC, DCAdjustment } from "@module/dc.ts";
-import { signedInteger, tupleHasValue } from "@util";
+import { adjustDC, calculateDC, calculateSimpleDC, dcAdjustmentOptions, DCAdjustment } from "@module/dc.ts";
+import { tupleHasValue } from "@util";
 import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
 
@@ -131,14 +131,7 @@ class CheckPromptGenerator extends fa.api.HandlebarsApplicationMixin(fa.api.Appl
     }
 
     #prepareDCAdjustments(): SelectData[] {
-        return Object.entries(CONFIG.PF2E.dcAdjustments)
-            .filter(([value]) => value !== "normal")
-            .map(([value, label]) => {
-                return {
-                    value,
-                    label: `${_loc(label).titleCase()} (${signedInteger(adjustDC(0, value as DCAdjustment))})`,
-                };
-            });
+        return dcAdjustmentOptions({ includeNormal: false });
     }
 
     protected override async _onRender(context: object, options: fa.ApplicationRenderOptions): Promise<void> {

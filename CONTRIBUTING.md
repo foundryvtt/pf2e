@@ -6,11 +6,18 @@ If you would like to contribute to the project then I welcome all support. If yo
 
 ## Setup
 
+### Prerequisites
+
+- Node.js 24.14 or newer.
+- pnpm, which is used to run the project's scripts. The version is pinned in the `packageManager` field of `package.json`. pnpm switches to the pinned version automatically, so you do not need to install a matching version by hand; the latest will do. See https://pnpm.io/installation for installation instructions. The standalone script is the recommended method.
+
+### Building
+
 The project uses vite to bundle the ES module and compile the SASS files needed for a build and can create a local distribution for your own Foundry server. If you want to give it a go yourself follow these steps:
 
 - Clone the repo into a local folder in your dev environment `git clone https://github.com/foundryvtt/pf2e.git`
 
-- From within the clone's folder, Install dependencies with `npm ci`.
+- From within the clone's folder, Install dependencies with `npm ci`. The repo's lockfile is `package-lock.json`, so dependencies are installed with npm; pnpm is currently only used to run the scripts below.
 
 - You'll now need to create a symbolic link between the build folder ("dist") and your Foundry data folder. This can be done manually or by running `npm run link` and following the instructions.
 

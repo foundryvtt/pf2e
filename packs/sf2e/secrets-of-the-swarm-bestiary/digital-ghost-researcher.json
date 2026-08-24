@@ -1,0 +1,438 @@
+{
+    "_id": "hRylKll5ctnVkzvB",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "6pCKpb84uJQ5rfq1",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Self-Defense Pistol",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "bLGXtEY7dVV296fT": {
+                        "damage": "2d8+10",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 30,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "kMbo511kyLy9XIg2",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Sharpened Probe",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "QqkGcwvmw1NMxmUu": {
+                        "damage": "2d6+10",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "tech"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "IqHVc9kJi2Gu2WlK",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Techsense (Imprecise) 30 feet",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A digital ghost senses creatures and items with the tech trait at the listed range.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bMYUj5D2BECNG1rc",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Backup",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>An offline copy of the digital ghost is stored in a device. When an active digital ghost is destroyed, it reforms after [[/gmr 2d4 #days]]{2d4 days} within the device that the copy is stored in, fully healed, but with no memory of what destroyed them. A digital ghost can be permanently removed from that device by attempting a @Check[computers|dc:24] check against the digital ghost's Will DC.</p>\n<p>On a success, the copy of the digital ghost is purged from the device, and no new copies will be generated. On a critical success, any active copies are also purged.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "tech"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "76nTWet1UH9JzrPB",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Device Bound",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The digital ghost researcher can stray only 120 feet from the Szandite Archive.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "tech"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0890yZFNlpoAkYqy",
+            "img": "systems/sf2e/icons/actions/ThreeActions.webp",
+            "name": "Malware Infection",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The digital ghost attempts to infect an item with the tech trait being held or used by a creature within 30 feet. The bearer can attempt a @Check[will|dc:26] save.</p><hr /><p><strong>Critical Success</strong> The item is unaffected, and the digital ghost can't use Malware Infection for 1 week.</p>\n<p><strong>Success</strong> The item is unaffected.</p>\n<p><strong>Failure</strong> The item becomes glitching 2.</p>\n<p><strong>Critical Failure</strong> The item becomes glitching 2, and an offline digital ghost based on the bearer is created on the device in [[/gmr 2d4 #days]]{2d4 days}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "tech"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nK0YavlmWxPjOl1E",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Virtual Arms",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A digital ghost's weapons deal mental damage, have the ghost killer upgrade, and disappear if dropped.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "ghost-touch"
+                    }
+                ],
+                "slug": "virtual-arms",
+                "traits": {
+                    "value": [
+                        "tech"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XwqetcJO95gbY0zv",
+            "img": "systems/sf2e/icons/default-icons/lore.svg",
+            "name": "Infosphere Lore",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 18
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "q8CxJ4AQLYLFn74h",
+            "img": "systems/sf2e/icons/default-icons/lore.svg",
+            "name": "Szandite Lore",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 18
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Digital Ghost Researcher",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 3
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": 6
+            },
+            "str": {
+                "mod": -5
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 26
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "backup",
+                "max": 110,
+                "temp": 0,
+                "value": 110
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "mental"
+                    ],
+                    "type": "all-damage",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 25
+                    }
+                ],
+                "value": 0
+            }
+        },
+        "details": {
+            "blurb": "Variant digital ghost",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "szandite",
+                    "krethiskarian"
+                ]
+            },
+            "level": {
+                "value": 8
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Some vidgamers are so terminally online that they can manifest as a digital ghost.</p><hr /><p>Digital ghosts are data constructs crafted from forgotten user accounts and metadata that are gathered and formatted into a simulacrum of the source user.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Secrets of the Swarm Adventure Path"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "techsense (imprecise) 30 feet",
+            "mod": 11,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 19
+            }
+        },
+        "skills": {
+            "computers": {
+                "base": 18
+            },
+            "society": {
+                "base": 16
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "construct",
+                "incorporeal",
+                "tech"
+            ]
+        }
+    },
+    "type": "npc"
+}

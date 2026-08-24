@@ -594,10 +594,6 @@
                     "30ry283q61e5tvp0a58c9n": {
                         "damage": "2d8+10",
                         "damageType": "piercing"
-                    },
-                    "wwyhu95d8624fb7s2t8c": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -612,7 +608,17 @@
                     "increment": 100,
                     "max": null
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
