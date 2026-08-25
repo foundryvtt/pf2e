@@ -394,7 +394,12 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     override async _drawEffects(): Promise<void> {
         await super._drawEffects();
         await this.animation;
-        if (this.auras.size === 0) return this.auras.reset();
+
+        if (this.auras.size === 0) {
+            await this.auras.reset();
+            if (this.document.auras.size > 0) Hooks.callAll("pf2e.aurasChanged", this);
+            return;
+        }
 
         // Determine whether a redraw is warranted by comparing current and updated radius/appearance data
         const changedAndDeletedAuraSlugs = Array.from(this.auras.entries())
@@ -412,7 +417,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             .map(([slug]) => slug);
         const newAuraSlugs = Array.from(this.document.auras.keys()).filter((s) => !this.auras.has(s));
 
-        return this.auras.reset([changedAndDeletedAuraSlugs, newAuraSlugs].flat());
+        await this.auras.reset([changedAndDeletedAuraSlugs, newAuraSlugs].flat());
+
+        if (changedAndDeletedAuraSlugs.length > 0 || newAuraSlugs.length > 0) Hooks.callAll("pf2e.aurasChanged", this);
     }
 
     /** Emulate a pointer hover ("pointerover") event */
