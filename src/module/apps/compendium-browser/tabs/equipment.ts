@@ -106,6 +106,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         uuid: itemData.uuid,
                         level: itemData.system.level?.value ?? 0,
                         price: priceCoins,
+                        priceInCopper: coinValue,
                         rarity: itemData.system.traits.rarity,
                         options: new Set(options),
                     });
