@@ -76,6 +76,9 @@ export abstract class CompendiumBrowserTab {
         // Load the index and populate filter data
         await this.loadData();
 
+        // Remove checkboxes for empty filters
+        this.#pruneEmptyFilterOptions();
+
         // Initialize MiniSearch
         const wordSegmenter =
             "Segmenter" in Intl
@@ -241,6 +244,17 @@ export abstract class CompendiumBrowserTab {
             inputMin: lower,
             inputMax: upper,
         };
+    }
+
+    /** Removes checkboxes that would provide empty list when toggled */
+    #pruneEmptyFilterOptions(): void {
+        if (!this.filterData || !("checkboxes" in this.filterData)) return;
+        const present = new Set(this.indexData.flatMap((e) => [...(e.options ?? [])]));
+        const checkboxes: Record<string, CheckboxData> = this.filterData.checkboxes;
+        for (const [key, checkbox] of R.entries(checkboxes)) {
+            const prefix = checkbox.optionPrefix ?? key;
+            checkbox.options = R.pickBy(checkbox.options, (_v, k) => present.has(`${prefix}:${k}`));
+        }
     }
 
     /** Generates a localized and sorted options from config data
