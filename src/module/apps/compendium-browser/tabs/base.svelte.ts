@@ -250,6 +250,7 @@ export abstract class CompendiumBrowserTab {
     #pruneEmptyFilterOptions(): void {
         if (!this.filterData || !("checkboxes" in this.filterData || "traits" in this.filterData)) return;
         const present = new Set(this.indexData.flatMap((e) => [...(e.options ?? [])]));
+
         if ("checkboxes" in this.filterData) {
             const checkboxes: Record<string, CheckboxData> = this.filterData.checkboxes;
             for (const [key, checkbox] of R.entries(checkboxes)) {
