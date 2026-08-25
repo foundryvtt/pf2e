@@ -8,6 +8,7 @@ import { PhysicalItemPF2e, type ItemPF2e } from "@item";
 import { isSpellConsumableUUID } from "@item/consumable/spell-consumables.ts";
 import { placeRegionFromItem } from "@item/helpers.ts";
 import { Coins } from "@item/physical/helpers.ts";
+import { CAST_A_SPELL_OPTION } from "@item/spell/values.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { effectTraits } from "@scripts/config/traits.ts";
 import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair.ts";
@@ -16,7 +17,6 @@ import { CheckDC } from "@system/degree-of-success.ts";
 import { CheckDCReference } from "@system/statistic/index.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, sluggify, tupleHasValue } from "@util";
 import { ChatMessagePF2e, CheckContextChatFlag } from "../index.ts";
-import { CAST_A_SPELL_OPTION } from "@item/spell/values.ts";
 
 class ChatCards {
     static #lastClick = 0;
@@ -144,7 +144,7 @@ class ChatCards {
                     return;
                 }
                 case "spell-variant": {
-                    const actualCast = message.flags[SYSTEM_ID].origin?.rollOptions?.includes(CAST_A_SPELL_OPTION);
+                    const actualCast = !!message.flags[SYSTEM_ID].origin?.rollOptions?.includes(CAST_A_SPELL_OPTION);
                     const castRank = Number(htmlQuery(html, "div.chat-card")?.dataset.castRank) || 1;
                     const overlayIds = button.dataset.overlayIds?.split(",").map((id) => id.trim());
                     if (overlayIds) {

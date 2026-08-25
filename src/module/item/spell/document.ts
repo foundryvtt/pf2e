@@ -771,6 +771,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         const messageSource = message.toObject();
         const flags = messageSource.flags[SYSTEM_ID];
+        // The spell was actually cast and not simply sent to chat
+        if (actualCast && flags.origin?.rollOptions) {
+            flags.origin.rollOptions.push(CAST_A_SPELL_OPTION);
+        }
         const spellcasting = this.spellcasting;
         if (spellcasting?.statistic) {
             // Eventually we need to figure out a way to request a tradition if the ability doesn't provide one
@@ -793,11 +797,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                     options: [...dc.options],
                     messageMode: mode,
                 };
-            }
-
-            // We actually cast the spell and not simply send it to chat
-            if (actualCast && flags.origin?.rollOptions) {
-                flags.origin.rollOptions.push(CAST_A_SPELL_OPTION);
             }
         }
 
