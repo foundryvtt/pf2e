@@ -4,10 +4,10 @@
     "name": "Effect: Curse of Boiling Blood",
     "system": {
         "description": {
-            "value": "<p>The creature gains weakness to fire 20 and is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} at all times.</p>"
+            "value": "<p>You gain weakness to fire 20 and are slowed 1.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -28,6 +28,9 @@
             },
             {
                 "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
                 "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
             }
         ],
