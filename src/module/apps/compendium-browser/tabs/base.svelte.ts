@@ -76,7 +76,7 @@ export abstract class CompendiumBrowserTab {
         // Load the index and populate filter data
         await this.loadData();
 
-        // Remove checkboxes for empty filters
+        // Remove checkboxes for empty filters and traits with no associated entries
         this.#pruneEmptyFilterOptions();
 
         // Initialize MiniSearch
