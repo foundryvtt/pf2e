@@ -65,6 +65,7 @@ import { SpellArea, SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSyst
 import { createDescriptionPrepend, createSpellRankLabel, getPassiveDefenseLabel } from "./helpers.ts";
 import { SpellOverlayCollection } from "./overlay.ts";
 import type { MagicTradition, SpellTrait } from "./types.ts";
+import { CAST_A_SPELL_OPTION } from "./values.ts";
 
 class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     readonly parentItem: ConsumablePF2e<TParent> | null;
@@ -775,7 +776,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             // Eventually we need to figure out a way to request a tradition if the ability doesn't provide one
             const tradition = spellcasting.tradition ?? this.traditions.first() ?? "arcane";
             flags.casting = {
-                actualCast,
                 // When casting from a chat message, we need to pull the resolved casting ability, not the temp one
                 id: spellcasting.original?.id ?? spellcasting.id,
                 tradition,
@@ -793,6 +793,11 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                     options: [...dc.options],
                     messageMode: mode,
                 };
+            }
+
+            // We actually cast the spell and not simply send it to chat
+            if (actualCast && flags.origin?.rollOptions) {
+                flags.origin.rollOptions.push(CAST_A_SPELL_OPTION);
             }
         }
 
