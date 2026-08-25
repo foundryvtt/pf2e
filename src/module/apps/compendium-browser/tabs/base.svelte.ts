@@ -246,14 +246,21 @@ export abstract class CompendiumBrowserTab {
         };
     }
 
-    /** Removes checkboxes that would provide empty list when toggled */
+    /** Removes checkboxes and traits that would provide empty list when toggled */
     #pruneEmptyFilterOptions(): void {
-        if (!this.filterData || !("checkboxes" in this.filterData)) return;
+        if (!this.filterData || !("checkboxes" in this.filterData || "traits" in this.filterData)) return;
         const present = new Set(this.indexData.flatMap((e) => [...(e.options ?? [])]));
-        const checkboxes: Record<string, CheckboxData> = this.filterData.checkboxes;
-        for (const [key, checkbox] of R.entries(checkboxes)) {
-            const prefix = checkbox.optionPrefix ?? key;
-            checkbox.options = R.pickBy(checkbox.options, (_v, k) => present.has(`${prefix}:${k}`));
+        if ("checkboxes" in this.filterData) {
+            const checkboxes: Record<string, CheckboxData> = this.filterData.checkboxes;
+            for (const [key, checkbox] of R.entries(checkboxes)) {
+                const prefix = checkbox.optionPrefix ?? key;
+                checkbox.options = R.pickBy(checkbox.options, (_v, k) => present.has(`${prefix}:${k}`));
+            }
+        }
+
+        if ("traits" in this.filterData) {
+            const traits = this.filterData.traits;
+            traits.options = traits.options.filter((t) => present.has(`trait:${t.value}`));
         }
     }
 
