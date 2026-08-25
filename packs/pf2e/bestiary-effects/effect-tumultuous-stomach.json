@@ -1,10 +1,10 @@
 {
-    "_id": "itdoXvcDo8wwmTME",
-    "img": "icons/magic/light/explosion-glow-spiral-teal.webp",
-    "name": "Effect: Despoiler",
+    "_id": "5AJNGTSiz4FzE04K",
+    "img": "icons/creatures/fish/squid-kraken-teal.webp",
+    "name": "Effect: Tumultuous Stomach",
     "system": {
         "description": {
-            "value": "<p>You take a –2 circumstance penalty to all saving throws against poisons, diseases, and drugs.</p>"
+            "value": "<p>You are swallowed and take a –2 circumstance penalty to attack rolls.</p>"
         },
         "duration": {
             "expiry": null,
@@ -12,27 +12,26 @@
             "unit": "unlimited",
             "value": -1
         },
+        "fromSpell": false,
         "level": {
-            "value": 17
+            "value": 1
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
-            "title": "Pathfinder Monster Core 2"
+            "title": "Pathfinder Lost Omens High Seas"
         },
         "rules": [
             {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "cascade"
+                },
+                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Engulf and Swallow Whole"
+            },
+            {
                 "key": "FlatModifier",
-                "predicate": [
-                    {
-                        "or": [
-                            "item:trait:poison",
-                            "item:trait:disease",
-                            "item:trait:drug"
-                        ]
-                    }
-                ],
-                "selector": "saving-throw",
+                "selector": "attack-roll",
                 "type": "circumstance",
                 "value": -2
             }
@@ -45,7 +44,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },
