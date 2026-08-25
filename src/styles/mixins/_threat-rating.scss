@@ -1,0 +1,27 @@
+/**
+ * Threat-rating colors shared by the encounter tracker's and XP macro's metrics.
+ * Legibility on light backgrounds comes from the crisp shadow edge
+ */
+@mixin threat-rating-colors {
+    text-shadow: 1px 1px 1px var(--color-shadow-dark);
+
+    &.trivial {
+        color: aqua;
+    }
+
+    &.low {
+        color: lime;
+    }
+
+    &.moderate {
+        color: yellow;
+    }
+
+    &.severe {
+        color: orange;
+    }
+
+    &.extreme {
+        color: red;
+    }
+}

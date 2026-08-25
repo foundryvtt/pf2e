@@ -72,6 +72,16 @@
                         "value": "enfeebled"
                     },
                     {
+                        "label": "PF2E.SpecificRule.Rogue.Debilitation.Frightened.Label",
+                        "predicate": [
+                            {
+                                "not": "debilitation:frightened"
+                            },
+                            "feat:heartless-debilitations"
+                        ],
+                        "value": "frightened"
+                    },
+                    {
                         "label": "PF2E.SpecificRule.Rogue.Debilitation.OffGuard.Label",
                         "predicate": [
                             {
@@ -164,6 +174,16 @@
                             "feat:vicious-debilitations"
                         ],
                         "value": "weakness"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Rogue.Debilitation.WeaknessHeartless.Label",
+                        "predicate": [
+                            {
+                                "not": "debilitation:weakness-heartless"
+                            },
+                            "feat:heartless-debilitations"
+                        ],
+                        "value": "weakness-heartless"
                     }
                 ],
                 "toggleable": true
@@ -185,6 +205,15 @@
                 ],
                 "selector": "strike-damage",
                 "text": "PF2E.SpecificRule.Rogue.Debilitation.Enfeebled.Note"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "second-debilitation:frightened",
+                    "target:condition:off-guard"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.Rogue.Debilitation.Frightened.Note"
             },
             {
                 "key": "Note",
@@ -284,6 +313,15 @@
                 ],
                 "selector": "strike-damage",
                 "text": "PF2E.SpecificRule.Rogue.Debilitation.Weakness.Note"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "second-debilitation:weakness-heartless",
+                    "target:condition:off-guard"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.Rogue.Debilitation.WeaknessHeartless.Note"
             }
         ],
         "traits": {

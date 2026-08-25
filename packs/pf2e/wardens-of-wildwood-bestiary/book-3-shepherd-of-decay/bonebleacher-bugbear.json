@@ -467,10 +467,6 @@
                     "value": 26
                 },
                 "damageRolls": {
-                    "SLaDmk9EYQH1nJvs": {
-                        "damage": "1d6",
-                        "damageType": "fire"
-                    },
                     "rFpujaBIniE0yHMR": {
                         "damage": "1d8+12",
                         "damageType": "slashing"
@@ -485,7 +481,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
+                    }
+                ],
                 "slug": "battle-axe",
                 "traits": {
                     "value": [

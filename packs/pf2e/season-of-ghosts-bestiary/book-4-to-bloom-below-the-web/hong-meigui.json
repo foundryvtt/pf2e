@@ -1171,10 +1171,6 @@
                         "damage": "1d6",
                         "damageType": "electricity"
                     },
-                    "R2YWDQuWLoy0oAKY": {
-                        "damage": "1d6",
-                        "damageType": "fire"
-                    },
                     "x6F9Sc17L5ujTfhb": {
                         "damage": "2d6+11",
                         "damageType": "slashing"
@@ -1202,25 +1198,13 @@
                         "title": "PF2E.WeaponPropertyRune.shock.Name"
                     },
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
+                        "definition": [
+                            "item:id:{item|_id}"
                         ],
-                        "selector": [
-                            "urumi-damage"
-                        ],
-                        "text": "PF2E.WeaponPropertyRune.flaming.Note.criticalSuccess",
-                        "title": "PF2E.WeaponPropertyRune.flaming.Name"
-                    },
-                    {
-                        "category": "persistent",
-                        "critical": true,
-                        "damageType": "fire",
-                        "diceNumber": 1,
-                        "dieSize": "d10",
-                        "key": "DamageDice",
-                        "label": "PF2E.WeaponPropertyRune.flaming.Name",
-                        "selector": "strike-damage"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
                     }
                 ],
                 "slug": "urumi",

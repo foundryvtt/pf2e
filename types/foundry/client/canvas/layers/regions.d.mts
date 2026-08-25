@@ -5,16 +5,17 @@ import { DatabaseCreateOperation } from "@common/abstract/_types.mjs";
 import { BaseShapeData } from "@common/data/data.mjs";
 import { SceneControl } from "../../applications/ui/scene-controls.mjs";
 import Region from "../placeables/region.mjs";
-import { CanvasHistoryEvent, PlaceablesLayerOptions, RegionPlacementOptions } from "./_types.mjs";
-import PlaceablesLayer, { PlaceablesLayerPointerEvent } from "./base/placeables-layer.mjs";
+import { CanvasHistoryEvent, RegionPlacementOptions } from "./_types.mjs";
+import { PlaceablesLayerPointerEvent } from "./base/placeables-layer.mjs";
+import { ShapeLayer, ShapeLayerOptions } from "./mixins/shapes.mjs";
 import TokenLayer from "./tokens.mjs";
 
 /**
  * The Regions Container.
  * @category Canvas
  */
-export default class RegionLayer<TObject extends Region = Region> extends PlaceablesLayer<TObject> {
-    static override get layerOptions(): PlaceablesLayerOptions;
+export default class RegionLayer<TObject extends Region = Region> extends ShapeLayer<TObject> {
+    static override get layerOptions(): ShapeLayerOptions;
 
     static override documentName: "Region";
 
@@ -229,6 +230,9 @@ export default class RegionLayer<TObject extends Region = Region> extends Placea
     protected override _onDragLeftStart(event: PlaceablesLayerPointerEvent<TObject>): void;
 
     protected override _onDragLeftMove(event: PlaceablesLayerPointerEvent<TObject>): void;
+
+    /** Update the drag preview. Called when the shape has changed. */
+    protected _updateDragPreview(event: PlaceablesLayerPointerEvent<TObject>): void;
 
     protected override _onDragLeftDrop(event: PlaceablesLayerPointerEvent<TObject>): void;
 

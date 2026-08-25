@@ -12,7 +12,18 @@
             "value": ""
         },
         "counteraction": false,
-        "damage": {},
+        "damage": {
+            "XcDcYouXGuqfPnsH": {
+                "applyMod": false,
+                "category": null,
+                "formula": "8d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "force"
+            }
+        },
         "defense": {
             "save": {
                 "basic": true,
@@ -20,7 +31,7 @@
             }
         },
         "description": {
-            "value": "<p>You rip out a portion of an elemental plane and smash it into your plane, unleashing a chaotic maelstrom. When you Cast this Spell, choose an elemental plane. The collision deals @Damage[8d6[force]] damage and @Damage[8d8[untyped]] damage of a type depending on the chosen plane to each creature in the area with a basic Reflex save. A creature that fails the saving throw is also pushed 25 feet away from the center of the burst (or 50 feet on a critical failure). Each creature whose movement is stopped by a firm surface, such as a well, takes bludgeoning damage equal to the remaining number of feet it would've moved. The area also becomes difficult terrain and hazardous terrain that lasts for a year and a day or until counteracted by a spell or effect such as dispel magic. Any creature that ends its turn in the hazardous terrain takes @Damage[15[untyped]] damage of a type depending on the chosen plane.</p><ul><li><p><strong>Plane of Air</strong> The damage dealt is acid damage, and the spell gains the air trait.</p></li><li><p><strong>Plane of Earth</strong> The damage dealt is bludgeoning damage, and the spell gains the earth trait.</p></li><li><p><strong>Plane of Fire</strong> The damage dealt is fire damage, and the spell gains the fire trait.</p></li><li><p><strong>Plane of Metal</strong> The damage dealt is slashing damage, and the spell gains the metal trait.</p></li><li><p><strong>Plane of Water</strong> The damage dealt is cold damage, and the spell gains the water trait.</p></li><li><p><strong>Plane of Wood</strong> The damage dealt is piercing damage, and the spell gains the wood trait.</p>\n</li></ul>"
+            "value": "<p>You rip out a portion of an elemental plane and smash it into your plane, unleashing a chaotic maelstrom. When you Cast this Spell, choose an elemental plane. The collision deals 8d6 force damage and 8d8 damage of a type depending on the chosen plane to each creature in the area with a basic Reflex save. A creature that fails the saving throw is also pushed 25 feet away from the center of the burst (or 50 feet on a critical failure). Each creature whose movement is stopped by a firm surface, such as a well, takes bludgeoning damage equal to the remaining number of feet it would've moved. The area also becomes difficult terrain and hazardous terrain that lasts for a year and a day or until counteracted by a spell or effect such as @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]. Any creature that ends its turn in the hazardous terrain takes @Damage[15[untyped]] damage of a type depending on the chosen plane.</p><ul><li><p><strong>Plane of Air</strong> The damage dealt is acid damage, and the spell gains the air trait.</p></li><li><p><strong>Plane of Earth</strong> The damage dealt is bludgeoning damage, and the spell gains the earth trait.</p></li><li><p><strong>Plane of Fire</strong> The damage dealt is fire damage, and the spell gains the fire trait.</p></li><li><p><strong>Plane of Metal</strong> The damage dealt is slashing damage, and the spell gains the metal trait.</p></li><li><p><strong>Plane of Water</strong> The damage dealt is cold damage, and the spell gains the water trait.</p></li><li><p><strong>Plane of Wood</strong> The damage dealt is piercing damage, and the spell gains the wood trait.</p></li></ul>"
         },
         "duration": {
             "sustained": false,
@@ -196,7 +207,80 @@
             "value": "300 feet"
         },
         "requirements": "",
-        "rules": [],
+        "rules": [
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:trait:air"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "{item|id}-inline-damage"
+                ],
+                "value": "acid"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:trait:earth"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "{item|id}-inline-damage"
+                ],
+                "value": "bludgeoning"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:trait:fire"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "{item|id}-inline-damage"
+                ],
+                "value": "fire"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:trait:metal"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "{item|id}-inline-damage"
+                ],
+                "value": "slashing"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:trait:water"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "{item|id}-inline-damage"
+                ],
+                "value": "cold"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:trait:wood"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "{item|id}-inline-damage"
+                ],
+                "value": "piercing"
+            }
+        ],
         "target": {
             "value": ""
         },

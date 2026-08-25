@@ -2704,10 +2704,6 @@
                     "MfRRpOxxbVcnqvLv": {
                         "damage": "2d10+12",
                         "damageType": "slashing"
-                    },
-                    "qNr1MsZJBEZ3UZJF": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -2719,7 +2715,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
+                    }
+                ],
                 "slug": "falchion",
                 "traits": {
                     "value": [

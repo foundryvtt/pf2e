@@ -21,6 +21,26 @@
         },
         "rules": [
             {
+                "key": "RollOption",
+                "label": "PF2E.NPCAbility.UnionOrganizer.Solidarity.Name",
+                "option": "solidarity",
+                "suboptions": [
+                    {
+                        "label": "PF2E.WeaponRange10",
+                        "value": "10"
+                    },
+                    {
+                        "label": "PF2E.WeaponRange20",
+                        "value": "20"
+                    },
+                    {
+                        "label": "PF2E.WeaponRange30",
+                        "value": "30"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
                 "itemId": "{item|id}",
                 "key": "ItemAlteration",
                 "mode": "override",
@@ -35,7 +55,10 @@
                     }
                 ],
                 "key": "Aura",
-                "radius": 10
+                "predicate": [
+                    "solidarity"
+                ],
+                "radius": "@item.flags.system.rulesSelections.solidarity"
             }
         ],
         "traits": {
