@@ -88,7 +88,6 @@ interface AbilityViewData {
     traits: TraitViewData[];
     glyph: string | null;
     frequency: Frequency | null;
-    usable: boolean;
     has: {
         aura: boolean;
         deathNote: boolean;

@@ -430,8 +430,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 ...baseData,
                 img: ((): ImageFilePath => {
                     const actionIcon = getActionIcon(item.actionCost);
-                    if (!baseData.usable) return actionIcon;
-
                     const defaultIcon = ItemPF2e.getDefaultArtwork(item._source).img;
                     const commonFeatIcon = "icons/sundries/books/book-red-exclamation.webp";
                     const isDefaultImage = [actionIcon, defaultIcon, commonFeatIcon].includes(item.img);
