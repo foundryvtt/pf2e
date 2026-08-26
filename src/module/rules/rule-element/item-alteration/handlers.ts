@@ -162,8 +162,7 @@ const ITEM_ALTERATION_HANDLERS = {
         },
         handle: function (data: AlterationApplicationData) {
             if (!this.isValid(data)) return;
-            const mode = data.alteration.mode;
-            if (mode === "override") {
+            if (data.alteration.mode === "override") {
                 const newType = data.alteration.value?.type ?? data.item.system.area?.type ?? "burst";
                 const newSize = data.alteration.value?.size ?? data.item.system.area?.value ?? 5;
                 const nearestFive = Math.floor(newSize / 5) * 5;
