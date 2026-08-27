@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import type { DexterityModifierCapData } from "@actor/character/types.ts";
-import type { LabeledSpeed, SenseData } from "@actor/creature/data.ts";
+import type { SenseData } from "@actor/creature/data.ts";
 import type {
     DamageDicePF2e,
     DeferredDamageDiceOptions,
@@ -47,7 +47,7 @@ interface RuleElementSynthetics {
     >;
     modifierAdjustments: ModifierAdjustmentSynthetics;
     modifiers: ModifierSynthetics;
-    movementTypes: { [K in MovementType]?: DeferredMovementType[] };
+    movementTypes: { [K in MovementType]?: MovementTypeSynthetic[] };
     multipleAttackPenalties: Record<string, MAPSynthetic[]>;
     resources: Record<string, SpecialResourceRuleElement>;
     rollNotes: Record<string, RollNotePF2e[]>;
@@ -91,13 +91,19 @@ type DeferredMovementType = DeferredValue<BaseSpeedSynthetic | null>;
 type DeferredEphemeralEffect = DeferredPromise<EffectSource | ConditionSource | null>;
 type DeferredStrike = (runes?: WeaponRuneSource) => WeaponPF2e<ActorPF2e> | null;
 
-interface BaseSpeedSynthetic extends Omit<LabeledSpeed, "label" | "type"> {
+interface MovementTypeSynthetic {
+    dependsOn: MovementType[];
+    deferred: DeferredMovementType;
+}
+
+interface BaseSpeedSynthetic {
     type: MovementType;
-    /**
-     * Whether this speed is derived from a creature's land speed:
-     * used as a cue to prevent double-application of modifiers
-     */
-    derivedFromLand: boolean;
+    value: number;
+    source: string | null;
+    force: boolean;
+    /** Raw BaseSpeed value; used to classify equal / scaled / independent after the parent exists */
+    formula: string | number;
+    dependsOn: MovementType[];
 }
 
 interface MAPSynthetic {
@@ -165,6 +171,7 @@ interface PotencySynthetic {
 
 export type {
     BaseSpeedSynthetic,
+    MovementTypeSynthetic,
     CritSpecEffect,
     DamageDiceSynthetics,
     DeferredDamageDice,
