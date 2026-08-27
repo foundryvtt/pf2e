@@ -15,7 +15,7 @@ function isValuesList(obj: unknown): obj is ValuesList {
         R.isObjectType(obj) &&
         "value" in obj &&
         Array.isArray(obj.value) &&
-        obj.value.every((v) => typeof v === "string")
+        obj.value.every((v) => R.isIncludedIn(typeof v, ["string", "number"]))
     );
 }
 
@@ -58,9 +58,11 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
                 const chosen = Array.from(new Set([...manuallyChosen, ...automaticallyChosen]));
                 return { chosen, flat: true, disabled: automaticallyChosen };
             } else if (isValuesList(preparedProperty) && isValuesList(sourceProperty)) {
-                const manuallyChosen: string[] = sourceProperty.value.map((v) => v.toString());
-                const automaticallyChosen = preparedProperty.value.filter(
-                    (v): v is string => !manuallyChosen.includes(v),
+                const manuallyChosen = sourceProperty.value.map((v) => v.toString());
+                const automaticallyChosen = R.pipe(
+                    preparedProperty.value,
+                    R.map((v) => v.toString()),
+                    R.filter((v) => !manuallyChosen.includes(v)),
                 );
                 const chosen = Array.from(new Set([...manuallyChosen, ...automaticallyChosen]));
                 return { chosen, flat: false, disabled: automaticallyChosen };
