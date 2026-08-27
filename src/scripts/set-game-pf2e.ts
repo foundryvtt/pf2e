@@ -13,7 +13,6 @@ import { DicePF2e } from "@scripts/dice.ts";
 import {
     calculateXP,
     editPersistent,
-    encouragingWords,
     launchTravelSheet,
     perceptionForSelected,
     raiseAShield,
@@ -23,7 +22,6 @@ import {
     stealthForSelected,
     steelYourResolve,
     takeABreather,
-    treatWounds,
     xpFromEncounter,
 } from "@scripts/macros/index.ts";
 import { remigrate } from "@scripts/system/remigrate.ts";
@@ -52,13 +50,11 @@ export const SetGamePF2e = {
         }
         // keep the old action functions around until everything has been converted
         for (const [name, action] of Object.entries({
-            encouragingWords,
             raiseAShield,
             restForTheNight,
             earnIncome: EarnIncomeDialog.create,
             steelYourResolve,
             takeABreather,
-            treatWounds,
             ...ActionMacros,
         })) {
             actions[name] = action;

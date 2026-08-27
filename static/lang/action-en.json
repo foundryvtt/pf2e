@@ -383,21 +383,22 @@
             },
             "EncouragingWords": {
                 "BadArgs": "This action must be performed with exactly one character or NPC.",
-                "Cancel": "Cancel",
-                "ContentLabel1": "Diplomacy DC:",
-                "ContentLabel2": "DC Modifier:",
-                "ContentMain": "Select a target DC. Remember that you can't attempt a heal above your proficiency. Attempting to do so will downgrade the DC and amount healed to the highest you're capable of.",
-                "ContentOption1": "Trained DC 15",
-                "ContentOption2": "Expert DC 20, +5 Stamina",
-                "ContentOption3": "Master DC 30, +15 Stamina",
-                "ContentOption4": "Legendary DC 40, +25 Stamina",
+                "Content": "Select a target DC. Remember that you can't attempt a heal above your proficiency. Attempting to do so will downgrade the DC and amount healed to the highest you're capable of.",
                 "CritFailure": "Critical Failure",
                 "CritSuccess": "Critical Success",
+                "DC": {
+                    "Expert": "Expert DC 20, +5 Stamina",
+                    "Label": "Diplomacy DC",
+                    "Legendary": "Legendary DC 40, +25 Stamina",
+                    "Master": "Master DC 30, +15 Stamina",
+                    "Mod": "DC Modifier",
+                    "Trained": "Trained DC 15"
+                },
                 "Damage": "Damage",
+                "Description": "<p><strong>Prerequisites</strong> Trained in Diplomacy</p>\n<p><strong>Requirements</strong> The target ally lost Stamina Points within the last round</p>\n<hr />\n<p>You give an ally within 30 feet a quick pep talk, helping them recover. Attempt a Diplomacy check. The DC is usually 15, though the GM might adjust it based on the circumstances. If you have expert proficiency in Diplomacy, you can instead attempt a DC 20 check to increase the Stamina Points recovered by 5; if you have master proficiency, you can attempt a DC 30 check to increase the Stamina Points by 15; if you have legendary proficiency, you can attempt a DC 40 check to increase the Stamina Points by 25. No matter the result, the ally is temporarily immune to Encouraging Words until they either @UUID[Compendium.pf2e.actionspf2e.Item.Take a Breather] or rest for the day.</p>",
                 "Failure": "Failure",
                 "NotTrained": "{name} is not trained in Diplomacy and doesn't know how to use Encouraging Words.",
                 "Recovery": "Stamina Recovery",
-                "StaminaNotEnabled": "The Stamina variant is not enabled.",
                 "Success": "Success",
                 "Title": "Encouraging Words"
             },
@@ -1148,6 +1149,7 @@
                     "Mod": "DC Modifier",
                     "Trained": "Trained DC 15"
                 },
+                "Description": "<p><strong>Requirements</strong> You're wearing or holding a @UUID[Compendium.pf2e.equipment-srd.Item.Healer's Toolkit].</p>\n<hr />\n<p>You spend 10 minutes treating one injured living creature (targeting yourself, if you so choose). The target is then temporarily @UUID[Compendium.pf2e.feat-effects.Item.Effect: Treat Wounds Immunity]{immune} to Treat Wounds actions for 1 hour, but this interval overlaps with the time you spent treating (so a patient can be treated once per hour, not once per 70 minutes).</p>\n<p>The Medicine check DC is usually 15, though the GM might adjust it based on the circumstances, such as treating a patient outside in a storm, or treating magically cursed wounds. If you're an expert in Medicine, you can instead attempt a DC 20 check to increase the Hit Points regained by 10; if you're a master of Medicine, you can instead attempt a DC 30 check to increase the Hit Points regained by 30; and if you're legendary, you can instead attempt a DC 40 check to increase the Hit Points regained by 50. The damage dealt on a critical failure remains the same.</p>\n<p>If you succeed at your check, you can continue treating the target to grant additional healing. If you treat it for a total of 1 hour, double the Hit Points it regains from Treat Wounds.</p>\n<p>The result of your Medicine check determines how many Hit Points the target regains.</p>",
                 "Error": "{name} is not trained in {skill}.",
                 "Feats": {
                     "MortalHealing": "Mortal Healing",

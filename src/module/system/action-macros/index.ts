@@ -40,6 +40,7 @@ import * as feint from "./deception/feint.ts";
 import * as impersonate from "./deception/impersonate.ts";
 import * as lie from "./deception/lie.ts";
 import { bonMot } from "./diplomacy/bon-mot.ts";
+import * as encouragingWords from "./diplomacy/encouraging-words.ts";
 import * as gatherInformation from "./diplomacy/gather-information.ts";
 import * as makeAnImpression from "./diplomacy/make-an-impression.ts";
 import * as request from "./diplomacy/request.ts";
@@ -57,6 +58,7 @@ import * as demoralize from "./intimidation/demoralize.ts";
 import * as administerFirstAid from "./medicine/administer-first-aid.ts";
 import * as treatDisease from "./medicine/treat-disease.ts";
 import * as treatPoison from "./medicine/treat-poison.ts";
+import * as treatWounds from "./medicine/treat-wounds.ts";
 import * as commandAnAnimal from "./nature/command-an-animal.ts";
 import * as perform from "./performance/perform.ts";
 import { drive } from "./piloting/drive.ts";
@@ -134,6 +136,7 @@ export const ActionMacros = {
 
     // Diplomacy
     bonMot,
+    encouragingWords: encouragingWords.legacy,
     gatherInformation: gatherInformation.legacy,
     makeAnImpression: makeAnImpression.legacy,
     request: request.legacy,
@@ -150,6 +153,7 @@ export const ActionMacros = {
     administerFirstAid: administerFirstAid.legacy,
     treatDisease: treatDisease.legacy,
     treatPoison: treatPoison.legacy,
+    treatWounds: treatWounds.legacy,
 
     // Nature
     commandAnAnimal: commandAnAnimal.legacy,
@@ -195,6 +199,7 @@ const SystemActions: Action[] = [
     disarm.action,
     dismiss,
     dropProne,
+    encouragingWords.action,
     escape.action,
     feint.action,
     fly,
@@ -241,6 +246,7 @@ const SystemActions: Action[] = [
     track.action,
     treatDisease.action,
     treatPoison.action,
+    treatWounds.action,
     trip.action,
     tumbleThrough.action,
 ];
