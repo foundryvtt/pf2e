@@ -199,7 +199,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                 by: "rank",
                 direction: "asc",
                 options: {
-                    name: { label: "Name", type: "alpha" },
+                    name: { label: "PF2E.NameLabel", type: "alpha" },
                     rank: { label: "PF2E.Item.Spell.Rank.Label", type: "numeric" },
                 },
                 type: "numeric",
