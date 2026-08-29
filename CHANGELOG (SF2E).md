@@ -1,3 +1,38 @@
+## 1.4.1
+
+### System Improvements
+
+- (ChromaticPenguin) Convert XP macro to `ApplicationV2`
+- (Dantar) Allow item alteration RE to add thrown trait
+- (stwlam) Remove system intervention in creating chat bubbles following changes in FVTT 14.366
+- (stwlam) Automatically swap out standardized ancestry traits with parent actors' ancestry traits
+
+### Bugfixes
+
+- (ChromaticPenguin) Restore rules-accurate measured-template coverage
+- (ChromaticPenguin) Fix duplicate lore prevention in NPC skill editor
+- (ChromaticPenguin) Fix light mode parchment backgrounds
+- (ChromaticPenguin) Support choosing ancestry attribute boosts and flaws with multiple options
+- (Dantar) Apply materials from base damage to splash damage roll
+- (kromko) Localize takable-once option on feat details tab
+- (kromko) Prevent Actor sheet from erroring when IWR references a homebrew damage type that doesn't exist in the world
+- (stwlam) Keep finesse trait on ranged weapons generated from thrown usage variants
+
+### Data Updates
+
+- (Ambrose) Add missing languages for Gnarefuroid and Vulkarisu ancestries
+- (DocSchlock) Brush up Guilt of the Grave World
+- (kromko) Add predicate to Urog's Conglobation Immobilized RE
+- (Longstrider) Add skill feat link to Clinging Gnarefuroid heritage
+- (Longstrider) Add skill feat link to Vault Diviner background
+- (Longstrider) Brush up Absalom Station archetypes
+- (Longstrider) Brush up Absalom Station items
+- (Longstrider) Brush up gnarefuroid feats
+- (Longstrider) Brush up nuar feats
+- (Longstrider) Brush up vulkarisu feats
+- (Longstrider) Fix some SF weapon categories
+- (Tikael) Add icons for new Starfinder ancestries
+
 ## 1.4.0
 
 # Highlights

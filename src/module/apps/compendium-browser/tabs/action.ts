@@ -119,7 +119,7 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
                 by: "name",
                 direction: "asc",
                 options: {
-                    name: { label: "Name", type: "alpha" },
+                    name: { label: "PF2E.NameLabel", type: "alpha" },
                 },
                 type: "alpha",
             },

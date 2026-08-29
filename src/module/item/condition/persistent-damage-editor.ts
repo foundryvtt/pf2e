@@ -16,7 +16,9 @@ interface PersistentDamageEditorRenderOptions extends fa.api.HandlebarsRenderOpt
 }
 
 class PersistentDamageEditor extends fa.api.HandlebarsApplicationMixin<
-    AbstractConstructorOf<fa.api.ApplicationV2<fa.ApplicationConfiguration, PersistentDamageEditorRenderOptions>> & {
+    AbstractConstructorOf<
+        fa.api.ApplicationV2<PersistentDamageEditorConfiguration, PersistentDamageEditorRenderOptions>
+    > & {
         DEFAULT_OPTIONS: DeepPartial<PersistentDamageEditorConfiguration>;
     }
 >(fa.api.ApplicationV2) {
@@ -56,7 +58,7 @@ class PersistentDamageEditor extends fa.api.HandlebarsApplicationMixin<
     protected override _initializeApplicationOptions(
         options: Partial<PersistentDamageEditorConfiguration>,
     ): PersistentDamageEditorConfiguration {
-        const initialized = super._initializeApplicationOptions(options) as PersistentDamageEditorConfiguration;
+        const initialized = super._initializeApplicationOptions(options);
         initialized.uniqueId = `persistent-damage-editor-${initialized.actor.uuid}`;
         return initialized;
     }

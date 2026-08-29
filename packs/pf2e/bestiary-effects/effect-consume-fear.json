@@ -1,0 +1,49 @@
+{
+    "_id": "oYeMCbirbpPZTlQL",
+    "img": "icons/magic/death/undead-mammal-fire-breath-pink.webp",
+    "name": "Effect: Consume Fear",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "labels": null,
+            "reevaluate": null,
+            "type": "formula",
+            "value": "(@actor.flags.system.consumeFear)d8"
+        },
+        "description": {
+            "value": "<p>You gain temporary Hit Points.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core 2"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@item.badge.value"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

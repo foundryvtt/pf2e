@@ -29,7 +29,7 @@
 </script>
 
 <div class="container" aria-busy={isMigrating}>
-    <dl>
+    <dl class="striped">
         <dt>{_loc("DOCUMENT.FIELDS.name.label")}</dt>
         <dd>{data.label}</dd>
         <dt>{_loc("PF2E.CompendiumMigrationStatus.Document")}</dt>
@@ -102,42 +102,15 @@
         max-width: 20rem;
     }
 
-    dl {
-        display: grid;
-        grid-template-columns: max-content 1fr;
-        margin: 0;
+    dl.striped {
         user-select: text;
 
-        dt,
-        dd {
-            padding: var(--space-3) var(--space-8);
-        }
-
-        // stripe alternating label/value rows
-        dt:nth-of-type(odd),
-        dd:nth-of-type(odd) {
-            background: var(--table-row-color-odd);
-        }
-
-        dt:nth-of-type(even),
-        dd:nth-of-type(even) {
-            background: var(--table-row-color-even);
-        }
-
         dt {
-            font-weight: bold;
-            margin: 0;
             text-align: end;
-            text-shadow: none;
         }
 
-        dd {
-            margin: 0;
-            overflow-wrap: break-word;
-
-            .empty {
-                color: var(--color-text-secondary);
-            }
+        dd .empty {
+            color: var(--color-text-secondary);
         }
     }
 

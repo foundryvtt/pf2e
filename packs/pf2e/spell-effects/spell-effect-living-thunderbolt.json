@@ -14,7 +14,7 @@
         },
         "fromSpell": false,
         "level": {
-            "value": 12
+            "value": 6
         },
         "publication": {
             "license": "ORC",
@@ -30,7 +30,7 @@
             {
                 "key": "Resistance",
                 "type": "electricity",
-                "value": "ternary(gte(@item.level,10),20,ternary(gte(@item.level,8),15,10))"
+                "value": "max(2,floor(@item.level/2) -1)*5"
             }
         ],
         "start": {

@@ -273,10 +273,7 @@ export abstract class DataField<
      * @returns A boolean to indicate with certainty whether the value is valid
      * @throws An error with a specific reason the value is invalid
      */
-    protected _validateType(
-        value: unknown,
-        options?: DataFieldValidationOptions,
-    ): boolean | DataModelValidationFailure | void;
+    protected _validateType(value: unknown, options?: DataFieldValidationOptions): boolean | void;
 
     /**
      * For fields which have hierarchical data structures, define how their inner fields should be validated.
@@ -683,10 +680,7 @@ export class SchemaField<
     /*  Data Validation                             */
     /* -------------------------------------------- */
 
-    protected override _validateType(
-        data: object,
-        options?: DataFieldValidationOptions,
-    ): boolean | DataModelValidationFailure | void;
+    protected override _validateType(data: object, options?: DataFieldValidationOptions): boolean | void;
 
     protected override _validateRecursive(value: unknown, options?: DataFieldValidationOptions): boolean | void;
 
@@ -908,7 +902,7 @@ export class TypedObjectField<
 
     protected override _cleanType(data: object, options: DataModelCleaningOptions): object;
 
-    protected override _validateType(data: object, options?: object): DataModelValidationFailure | void;
+    protected override _validateType(data: object, options?: object): boolean | void;
 
     override _validateModel(
         changes: Record<string, SourceFromDataField<TField>>,
@@ -1538,10 +1532,7 @@ export class JSONField<
 export class AnyField extends DataField {
     protected override _cast(value: unknown): unknown;
 
-    protected override _validateType(
-        value: unknown,
-        options?: DataFieldValidationOptions,
-    ): boolean | DataModelValidationFailure | void;
+    protected override _validateType(value: unknown, options?: DataFieldValidationOptions): boolean | void;
 }
 
 /**
@@ -1691,10 +1682,7 @@ export class TypeDataField<
         options?: Record<string, unknown>,
     ): MaybeSchemaProp<TModelProp, true, false, true>;
 
-    protected override _validateType(
-        data: unknown,
-        options?: DataFieldValidationOptions,
-    ): void | DataModelValidationFailure;
+    protected override _validateType(data: unknown, options?: DataFieldValidationOptions): boolean | void;
 
     override _validateModel(changes: TSourceProp, options?: DataFieldValidationOptions): void;
 
@@ -1752,10 +1740,7 @@ export class TypedSchemaField<
 
     protected override _validateSpecial(value: JSONValue | undefined): boolean | void;
 
-    protected override _validateType(
-        value: unknown,
-        options?: DataFieldValidationOptions,
-    ): boolean | DataModelValidationFailure | void;
+    protected override _validateType(value: unknown, options?: DataFieldValidationOptions): boolean | void;
 
     override initialize(
         value: MaybeSchemaProp<SourceFromTypedSchemaTypes<TTypes>, TRequired, TNullable, THasInitial>,
