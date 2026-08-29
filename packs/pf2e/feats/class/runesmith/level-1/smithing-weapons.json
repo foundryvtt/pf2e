@@ -25,7 +25,31 @@
             "remaster": true,
             "title": "Pathfinder Impossible Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "damage",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Runesmith.SmithingWeapons.TargetBearsRune",
+                "option": "smithing-weapons",
+                "toggleable": true
+            },
+            {
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "predicate": [
+                    "smithing-weapons",
+                    {
+                        "or": [
+                            "item:group:hammer",
+                            "item:group:knife",
+                            "item:group:pick"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "value": 1
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
