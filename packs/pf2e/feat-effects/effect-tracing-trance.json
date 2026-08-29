@@ -26,6 +26,40 @@
                 "inMemoryOnly": true,
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:invocation"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Runesmith.TracingTrance.Note"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:invocation",
+                            "item:slug:dance-of-bloody-ink",
+                            "item:slug:song-of-glorious-invocation"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Runesmith.TracingTrance.Note"
+                    }
+                ]
             }
         ],
         "start": {
