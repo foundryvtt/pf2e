@@ -25,11 +25,26 @@
             "remaster": true,
             "title": "Pathfinder Impossible Magic"
         },
-        "rules": [],
-        "selfEffect": {
-            "name": "Effect: Rune Ward",
-            "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Rune Ward"
-        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "rune-ward",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "rune-ward",
+                    "item:type:spell"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
