@@ -67,8 +67,8 @@ function getUsageDetails(usage: string): UsageDetails {
         return { value: usage, type: "attached", where };
     }
 
-    if (usage.startsWith("installed-in") || usage.startsWith("installed-on")) {
-        const where = usage.replace(/^installed-in-/, "").replace(/^installed-on-/, "");
+    if (/^installed-(?:i|o)n-/.test(usage)) {
+        const where = usage.replace(/^installed-(?:i|o)n-/, "");
         return { value: usage, type: "installed", where };
     }
 
