@@ -35,7 +35,55 @@
                 "key": "FlatModifier",
                 "predicate": [
                     "rune-ward",
-                    "item:type:spell"
+                    "item:type:spell",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:trait:arcane",
+                                    {
+                                        "gte": [
+                                            "skill:arcana:rank",
+                                            1
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:trait:primal",
+                                    {
+                                        "gte": [
+                                            "skill:nature:rank",
+                                            1
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:trait:occult",
+                                    {
+                                        "gte": [
+                                            "skill:occultism:rank",
+                                            1
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:trait:divine",
+                                    {
+                                        "gte": [
+                                            "skill:religion:rank",
+                                            1
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
                 ],
                 "selector": [
                     "ac",
