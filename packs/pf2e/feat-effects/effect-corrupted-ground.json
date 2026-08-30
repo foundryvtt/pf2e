@@ -1,0 +1,49 @@
+{
+    "_id": "qW4nH8kP2vXcLm9R",
+    "img": "icons/magic/unholy/barrier-fire-pink.webp",
+    "name": "Effect: Corrupted Ground",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Corrupted Ground]</p>\n<p>When a holy creature or psychopomp ends its turn within 10 feet of you, it takes @Damage[(max(1,floor((@actor.level -2)/4)*2))[spirit]|options:area-damage] damage. If it's a holy living creature, it takes an additional @Damage[(max(1,floor((@actor.level -2)/4)*2))[void]|options:area-damage] damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "Aura",
+                "radius": 10,
+                "slug": "corrupted-ground",
+                "traits": [
+                    "occult",
+                    "spirit",
+                    "unholy",
+                    "void"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

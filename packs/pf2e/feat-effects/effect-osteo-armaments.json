@@ -1,0 +1,136 @@
+{
+    "_id": "hK9cM3wR7gBpXn2L",
+    "img": "icons/commodities/bones/bone-jaw-white.webp",
+    "name": "Effect: Osteo Armaments",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Osteo Armaments]</p>\n<p>You create a weapon of bone and sinew. The weapon falls apart and is destroyed after 1 hour, if you aren't holding it at the end of your turn, or if you use Osteo Armaments again.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        {
+                            "nor": [
+                                "item:category:unarmed",
+                                "item:magical",
+                                "item:trait:consumable"
+                            ]
+                        }
+                    ],
+                    "itemType": "weapon"
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "cascade",
+                    "granter": "cascade"
+                },
+                "uuid": "{item|flags.system.rulesSelections.weapon}"
+            },
+            {
+                "fromEquipment": false,
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:granter:id:{item|id}"
+                ],
+                "property": "runes-potency",
+                "value": "ternary(gte(@actor.level,16),3,ternary(gte(@actor.level,10),2,1))"
+            },
+            {
+                "fromEquipment": false,
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:granter:id:{item|id}"
+                ],
+                "property": "runes-striking",
+                "value": "ternary(gte(@actor.level,19),3,ternary(gte(@actor.level,12),2,1))"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Necromancer.OsteoArmaments.DecayingToggle",
+                "option": "osteo-armaments-decaying",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            8
+                        ]
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "definition": [
+                    "item:granter:id:{item|id}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "osteo-armaments-decaying",
+                    {
+                        "lt": [
+                            "self:level",
+                            15
+                        ]
+                    }
+                ],
+                "property": "property-runes",
+                "value": "decaying"
+            },
+            {
+                "definition": [
+                    "item:granter:id:{item|id}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "osteo-armaments-decaying",
+                    {
+                        "gte": [
+                            "self:level",
+                            15
+                        ]
+                    }
+                ],
+                "property": "property-runes",
+                "value": "greater-decaying"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
