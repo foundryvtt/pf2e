@@ -416,6 +416,13 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             fu.mergeObject(updates, { "system.level.taken": currentSource.system.level.taken });
         }
 
+        if (itemIsOfType(currentSource, "class") && itemIsOfType(latestSource, "class")) {
+            const selected = currentSource.system.keyAbility.selected;
+            if (selected && latestSource.system.keyAbility.value.includes(selected)) {
+                fu.mergeObject(updates, { "system.keyAbility.selected": selected });
+            }
+        }
+
         if (options.update) {
             await this.update(updates, { diff: false, recursive: false });
         } else {
