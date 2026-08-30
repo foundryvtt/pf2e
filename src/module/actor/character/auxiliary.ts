@@ -190,7 +190,7 @@ class WeaponAuxiliaryAction {
             if (effect instanceof EffectPF2e) {
                 const data = { ...effect.toObject(), _id: null };
                 data.system.traits.otherTags.push("tower-shield");
-                data.system.duration = { expiry: "turn-start", unit: "rounds", value: 1 };
+                data.system.duration = { expiry: "turn-start", unit: "rounds", value: 1, sustained: false };
                 type ChoiceSetSource = RuleElementSource & { selection?: unknown };
                 const rule = data.system.rules.find((r): r is ChoiceSetSource => r.key === "ChoiceSet");
                 if (rule) rule.selection = { bonus: 4, level: "greater" };
