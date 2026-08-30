@@ -41,6 +41,30 @@
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": "no"
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": "yes"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            8
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Necromancer.OsteoArmaments.Prompt",
+                "rollOption": "osteo-armaments-decaying"
+            },
+            {
                 "key": "GrantItem",
                 "onDeleteActions": {
                     "grantee": "cascade",
@@ -71,27 +95,13 @@
                 "value": "ternary(gte(@actor.level,19),3,ternary(gte(@actor.level,12),2,1))"
             },
             {
-                "key": "RollOption",
-                "label": "PF2E.SpecificRule.Necromancer.OsteoArmaments.DecayingToggle",
-                "option": "osteo-armaments-decaying",
-                "predicate": [
-                    {
-                        "gte": [
-                            "self:level",
-                            8
-                        ]
-                    }
-                ],
-                "toggleable": true
-            },
-            {
                 "definition": [
                     "item:granter:id:{item|id}"
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
                 "predicate": [
-                    "osteo-armaments-decaying",
+                    "osteo-armaments-decaying:yes",
                     {
                         "lt": [
                             "self:level",
@@ -109,7 +119,7 @@
                 "key": "AdjustStrike",
                 "mode": "add",
                 "predicate": [
-                    "osteo-armaments-decaying",
+                    "osteo-armaments-decaying:yes",
                     {
                         "gte": [
                             "self:level",
