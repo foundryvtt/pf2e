@@ -1,0 +1,114 @@
+{
+    "_id": "1yCSoehK9FLJNn7U",
+    "folder": "KBJvTNeq8803Byz7",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "d2p10unGmay5ipvb",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Tainted Taste",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A non-hryngar creature drinks from the fountain</p><hr /><p><strong>Effect</strong> The creature must attempt a @Check[fortitude|dc:22] save with the following effects; the drinker is then temporarily immune to the water's Tainted Taste for 24 hours.</p><hr /><p><strong>Critical Success</strong> The target is healed @Damage[4d8[healing]] Hit Points, and any wounded condition it has is removed.</p>\n<p><strong>Success</strong> The target regains @Damage[2d8[healing]] Hit Points, and its wounded condition is removed.</p>\n<p><strong>Failure</strong> The target regains @Damage[1d8[healing]] Hit Points and gains the @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} condition.</p>\n<p><strong>Critical Failure</strong> The target takes @Damage[1d8[poison]] damage and gains the @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} condition.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "healing",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Twisted Fountain",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 21
+            },
+            "emitsSound": "encounter",
+            "hardness": 9,
+            "hp": {
+                "details": "",
+                "max": 30,
+                "temp": 0,
+                "value": 30
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "object-immunities"
+                },
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained) to realize the water is dangerous; spotting the fountain is DC 0</p>",
+                "value": 6
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Water pours from this carved dwarf's mouth and has a sharp, rusty flavor.</p>",
+            "disable": "<p>@Check[thievery|dc:16] (trained) to plug up the mouth and cause the fountain to deactivate as long as it remains plugged, @Check[religion|dc:21] (expert) to pray to gods opposed to Droskar to exorcise the magic and permanently halt the water flow, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (2nd rank; counteract DC 16) to suppress the trap's tainted taste effect for 10 minutes</p>",
+            "isComplex": false,
+            "level": {
+                "value": 2
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "The Dead God's Hand"
+            },
+            "reset": "<p>The twisted fountain resets instantly.</p>",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "value": 11
+            },
+            "reflex": {
+                "value": 5
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "poison",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

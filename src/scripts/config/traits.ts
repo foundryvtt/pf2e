@@ -693,6 +693,7 @@ const preciousMaterials: Record<PreciousMaterialType, string> = {
     "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneScarlet",
     sloughstone: "PF2E.PreciousMaterialSloughstone",
     "sovereign-steel": "PF2E.PreciousMaterialSovereignSteel",
+    throneglass: "PF2E.PreciousMaterialThroneglass",
     warpglass: "PF2E.PreciousMaterialWarpglass",
 };
 
@@ -861,6 +862,7 @@ const consumableTraits = {
     additive2: "PF2E.TraitAdditive2",
     additive3: "PF2E.TraitAdditive3",
     alchemical: "PF2E.TraitAlchemical",
+    artifact: "PF2E.TraitArtifact",
     attack: "PF2E.TraitAttack",
     auditory: "PF2E.TraitAuditory",
     aura: "PF2E.TraitAura",
@@ -1058,6 +1060,7 @@ const hazardTraits = {
 const vehicleTraits = {
     artifact: "PF2E.TraitArtifact",
     clockwork: "PF2E.TraitClockwork",
+    divine: "PF2E.TraitDivine",
     magical: "PF2E.TraitMagical",
     tech: "PF2E.TraitTech",
     teleportation: "PF2E.TraitTeleportation",
@@ -1287,6 +1290,7 @@ const preciousMaterialDescriptions = {
     "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneDescription",
     sloughstone: "PF2E.PreciousMaterialSloughstoneDescription",
     "sovereign-steel": "PF2E.PreciousMaterialSovereignSteelDescription",
+    throneglass: "PF2E.PreciousMaterialThroneglassDescription",
     warpglass: "PF2E.PreciousMaterialWarpglassDescription",
 };
 

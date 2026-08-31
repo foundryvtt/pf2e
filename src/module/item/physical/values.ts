@@ -34,6 +34,7 @@ const PRECIOUS_MATERIAL_TYPES = new Set([
     "sisterstone-scarlet",
     "sloughstone",
     "sovereign-steel",
+    "throneglass",
     "warpglass",
 ] as const);
 

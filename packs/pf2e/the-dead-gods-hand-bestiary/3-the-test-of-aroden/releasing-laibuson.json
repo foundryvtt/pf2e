@@ -1,0 +1,112 @@
+{
+    "_id": "T4qvQ4Vnc7UzIxhv",
+    "folder": "ezSmYppC00medNPX",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "d2p10unGmay5ipvb",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Customer Feedback",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature damages any of the gemstones or fails a check while attempting to Disable one</p><hr /><p><strong>Effect</strong> A colorful arc of energy leaps from the glowing gems to surround Laibuson and the triggering creature, causing @Damage[4d8[mental]] damage (@Check[will|dc:25|basic] save) to each. The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Releasing Laibuson",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 28
+            },
+            "emitsSound": "encounter",
+            "hardness": 15,
+            "hp": {
+                "details": "",
+                "max": 30,
+                "temp": 0,
+                "value": 30
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "object-immunities"
+                },
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 20
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Five colorful gemstones circle the glass barrier separating the PCs from the quartermaster. Careful manipulation of the gems, which can be turned like knobs, might overload one or more of them.</p>",
+            "disable": "<p>@Check[arcana|dc:27] or @Check[occultism|dc:27] or @Check[thievery|dc:30] on the circle of gemstones to deactivate one gemstone, extinguishing its glow. A critical success on the check deactivates two gemstones, while a failure triggers the trap and a critical failure not only triggers the trap but resets a previously disabled gemstone. When all five gemstones are deactivated or destroyed, the trap becomes inert, releasing Laibuson.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 7
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "The Dead God's Hand"
+            },
+            "reset": "<p>The trap deactivates if a round passes without any attempts to disable or damage the gems, then resets and can reactivate again immediately.</p>",
+            "routine": "<p>(1 action; arcane, mental) On its turn, the trap continues to antagonize Laibuson and one randomly determined PC, causing @Damage[4d8[mental]] damage (@Check[will|dc:25|basic] save) to each. On a critical failure, the creature also becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for the remainder of this vision.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 18
+            },
+            "reflex": {
+                "value": 12
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

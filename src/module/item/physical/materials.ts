@@ -271,6 +271,23 @@ const WEAPON_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "rare",
         },
     },
+    throneglass: {
+        low: {
+            level: 2,
+            price: 20,
+            rarity: "rare",
+        },
+        standard: {
+            level: 8,
+            price: 350,
+            rarity: "rare",
+        },
+        high: {
+            level: 16,
+            price: 6000,
+            rarity: "rare",
+        },
+    },
     warpglass: {
         low: null,
         standard: null,
@@ -744,6 +761,23 @@ const OBJECT_MATERIAL_VALUATION_DATA: MaterialValuationData = {
         high: {
             level: 17,
             price: 8000,
+            rarity: "rare",
+        },
+    },
+    throneglass: {
+        low: {
+            level: 2,
+            price: 20,
+            rarity: "rare",
+        },
+        standard: {
+            level: 8,
+            price: 350,
+            rarity: "rare",
+        },
+        high: {
+            level: 16,
+            price: 6000,
             rarity: "rare",
         },
     },
