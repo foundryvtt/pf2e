@@ -94,6 +94,7 @@ type DeferredStrike = (runes?: WeaponRuneSource) => WeaponPF2e<ActorPF2e> | null
 interface MovementTypeSynthetic {
     dependsOn: MovementType[];
     deferred: DeferredMovementType;
+    test: (options?: { test?: string[] | Set<string> }) => boolean;
 }
 
 interface BaseSpeedSynthetic {

@@ -26,7 +26,6 @@ import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { ItemAttacher } from "@module/apps/item-attacher.ts";
 import { Rarity, SIZE_SLUGS, SIZES, ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
-import { classifySpeedDeriveKind, getDeriveParentType } from "@module/rules/rule-element/base-speed.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { LightLevels } from "@scene/data.ts";
@@ -35,7 +34,7 @@ import { CheckDC } from "@system/degree-of-success.ts";
 import { Predicate } from "@system/predication.ts";
 import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@system/statistic/index.ts";
 import { PerceptionStatistic } from "@system/statistic/perception.ts";
-import { SpeedStatistic } from "@system/statistic/speed.ts";
+import { classifySpeedDeriveKind, getDeriveParentType, SpeedStatistic } from "@system/statistic/speed.ts";
 import { ErrorPF2e, localizer, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { CreatureMovementData, CreatureResources, CreatureSystemData, VisionLevel, VisionLevels } from "./data.ts";
@@ -842,12 +841,14 @@ abstract class CreaturePF2e<
         };
 
         const pending = new Set<MovementType>(MOVEMENT_TYPES);
-        // prepare movement types in order of dependencies
+        // prepare movement types in order of dependencies (skip synthetics whose predicate fails)
         for (const _Round of R.range(0, MOVEMENT_TYPES.length)) {
             const ready = MOVEMENT_TYPES.filter(
                 (type) =>
                     pending.has(type) &&
-                    (synthetics[type] ?? []).every((entry) => entry.dependsOn.every((dep) => !pending.has(dep))),
+                    (synthetics[type] ?? [])
+                        .filter((entry) => entry.test({ test: baseSpeedOptions }))
+                        .every((entry) => entry.dependsOn.every((dep) => !pending.has(dep))),
             );
             if (ready.length === 0) break;
             for (const type of ready) {

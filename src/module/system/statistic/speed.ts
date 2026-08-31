@@ -7,6 +7,45 @@ import * as R from "remeda";
 import { BaseStatistic } from "./base.ts";
 import { BaseStatisticData, BaseStatisticTraceData } from "./data.ts";
 
+const SPEED_VALUE_PATTERN = /movement\.speeds\.(land|burrow|climb|fly|swim)\.value/;
+
+/**
+ * How a BaseSpeed formula that reads another speed's total is built in prepareMovementData.
+ *
+ * - equal: Resolved number matches the parent speed's total (e.g. fly = land.value). Treat as the same
+ *   speed: reuse the parent's base and modifier domains so shared bonuses apply once and stack normally.
+ * - scaled: Formula uses parent.value but the result differs (e.g. land.value * 0.5). Parent modifiers are
+ *   already in that number; only apply modifiers on this movement type's domain afterward.
+ * - independent: Fixed value, reads .base only, or min/max chose a constant floor/cap. Build like a normal
+ *   speed with full modifier domains (all-speeds, speed, type-speed).
+ */
+type SpeedDeriveKind = "equal" | "scaled" | "independent";
+
+function getDeriveParentType(formula: string | number, dependsOn: MovementType[]): MovementType | null {
+    if (dependsOn.length === 0) return null;
+    if (typeof formula === "string") {
+        const fromValue = dependsOn.find((type) => formula.includes(`speeds.${type}.value`));
+        if (fromValue) return fromValue;
+    }
+    return dependsOn[0] ?? null;
+}
+
+function classifySpeedDeriveKind(
+    formula: string | number,
+    resolved: number,
+    parentValue: number | undefined,
+): SpeedDeriveKind {
+    if (typeof formula !== "string" || parentValue === undefined || !SPEED_VALUE_PATTERN.test(formula)) {
+        return "independent";
+    }
+    if (resolved === parentValue) return "equal";
+    if (/\b(?:min|max)\s*\(/i.test(formula)) {
+        const literals = [...formula.matchAll(/(?<![.\w])(\d+)(?![.\w])/g)].map((m) => Number(m[1]));
+        if (literals.includes(resolved)) return "independent";
+    }
+    return "scaled";
+}
+
 /** Keep one copy of a multi-selector FlatModifier. */
 function dedupeModifiersByRule(modifiers: Modifier[]): Modifier[] {
     const seen = new Set<NonNullable<Modifier["rule"]>>();
@@ -78,7 +117,7 @@ class SpeedStatistic<TActor extends ActorPF2e, TType extends MovementType | "tra
             const shared = this.modifiers.filter((m) => m.enabled && fromParent(m));
             const childOnly = this.modifiers.filter((m) => m.enabled && m.value !== 0 && !fromParent(m));
             const displayBase = this.base + shared.reduce((sum, m) => sum + m.value, 0);
-            const typeLabel = localize(`Type.${parent.type.capitalize()}`);
+            const typeLabel = localize(`Type.${this.type.capitalize()}`);
             const baseKey = this.source ? "BaseWithSource" : "BaseLabel";
             const baseLabel = localize(baseKey, { value: displayBase, type: typeLabel, source: this.source });
             const components = childOnly.map((m) => `${m.label} ${m.signedValue}`);
@@ -172,5 +211,5 @@ interface LandSpeedStatisticTraceData extends SpeedStatisticTraceData<"land"> {
     step: number;
 }
 
-export { SpeedStatistic };
+export { SpeedStatistic, classifySpeedDeriveKind, getDeriveParentType };
 export type { LandSpeedStatisticTraceData, SpeedStatisticTraceData };
