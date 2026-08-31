@@ -6,7 +6,6 @@ on:
   push:
     branches: [v13-dev, v14-dev]
   workflow_dispatch:
-    branches: [v13-dev, v14-dev]
 
 jobs:
   build:
@@ -24,8 +23,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - uses: pnpm/action-setup@v4
-        with:
-          version: 10
 
       - name: Cache NPM Deps
         id: cache-npm

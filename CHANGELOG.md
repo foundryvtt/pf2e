@@ -1,3 +1,97 @@
+## 8.4.1
+
+### System Improvements
+
+- (ChromaticPenguin) Convert XP macro to `ApplicationV2`
+- (Dantar) Allow item alteration RE to add thrown trait
+- (stwlam) Remove system intervention in creating chat bubbles following changes in FVTT 14.366
+
+### Bugfixes
+
+- (ChromaticPenguin) Restore rules-accurate measured-template coverage
+- (ChromaticPenguin) Fix duplicate lore prevention in NPC skill editor
+- (ChromaticPenguin) Fix light mode parchment backgrounds
+- (ChromaticPenguin) Support choosing ancestry attribute boosts and flaws with multiple options
+- (Dantar) Apply materials from base damage to splash damage roll
+- (kromko) Localize takable-once option on feat details tab
+- (kromko) Prevent Actor sheet from erroring when IWR references a homebrew damage type that doesn't exist in the world
+- (stwlam) Keep finesse trait on ranged weapons generated from thrown usage variants
+
+### Data Updates
+
+- (Ambrose) Add Attack Modifier to Taunting Monk's Skull Ectoplasmic Spit
+- (Ambrose) Add Grant Items to Veil Dancer and World Rouser Dedications
+- (Ambrose) Add icon to Revealing Mist item
+- (Ambrose) Add journal link to Jotunborn ancestry
+- (Ambrose) Add Lamentation of Sinister Deals Animist apparition
+- (Ambrose) Add links to actions and journal entries to Impossible Magic archetype dedications
+- (Ambrose) Add missing "wizard-arcane-school" tag to Impossible Magic Arcane schools
+- (Ambrose) Add missing occult tradition to Feral Shades and add missing predicate to Spiritual Scar
+- (Ambrose) Add Runesmith stealth errata
+- (Ambrose) Add tags to Hell's Destiny Commander tactics
+- (Ambrose) Condense Medium Armor Expertise class feature
+- (Ambrose) Condense Potion of Stable Form Effects
+- (Ambrose) Correct action cost of Pierce the Sky
+- (Ambrose) Correct missing attribute in Runesmith Dedication class DCs
+- (Ambrose) Correct tags on Ready, Aim, Fire! and slugs on Aberrant Bloodline class features
+- (Ambrose) Correct School of Quantic Control's category
+- (Ambrose) Localize Spellshifter Spell Shift options
+- (Ambrose) Refresh select spells on Monster Core Hryngar actors
+- (Ambrose) Remove empty Grant RE and add mode to Reaper's item alteration RE
+- (Ambrose) Remove vitality immunity from Cranium Preserver
+- (Ambrose) Update Class journals and add missing content to Archetype journals
+- (bjornestol) Change Remaining Air effect to floor con modifier
+- (D4wnstar) Fix prone condition description
+- (Dantar) Implement resonance effect of Vital Amplification Aeon Stone
+- (Dire Weasel) Add automation for Amaranthine Visage, Cavnakash's Profane Gift, Warshard Wight's Drain Life, Pharyngeal Jaws, some Necromancer feats
+- (Dire Weasel) Add description alteration automation for Selective Energy
+- (Dire Weasel) Add description automation for Cleric's Void Siphon
+- (Dire Weasel) Add effects for Draconic Miasma, Lightning Catcher, Manacles, Resin Crust, Sacred Defense
+- (Dire Weasel) Merge effects for Hallucinogenic Pollen
+- (Dire Weasel) Add heightening to Mask of Terror
+- (Dire Weasel) Add skill choice automation to Captivator Dedication
+- (Dire Weasel) Add some aura effect for Bastion of Blasphemies
+- (Dire Weasel) Add some spell effects for Impossible Magic
+- (Dire Weasel) Add spell effects for Calcification, Fey Disappearance, Canticle of Everlasting Grief, Synesthesia
+- (Dire Weasel) Fix damage for Planar Collision
+- (Dire Weasel) Fix heightening area for Aberrant Whispers
+- (Dire Weasel) Fix inline damage for Incarnate Wild Rose
+- (Dire Weasel) Fix selector for Cutthroat Grapple effect
+- (Dire Weasel) Remove Note from Guillotine Golem's Decapitation
+- (Dire Weasel) Remove spurious REs from Warp Pillar's Time Shift
+- (Dire Weasel) Use inline actions on some EC NPCs
+- (DocSchlock) Large-scale brush up Extinction Curse
+- (DocSchlock) Fix Multishot Stance not applying to Triple Shot
+- (hokon3) Fix dragon eidolon not giving correct skill
+- (kromko) Add missing publication data to Impossible Magic spells and rituals
+- (kromko) Change Occult Spellcasting to Bard Spellcasting and update its description
+- (kromko) Fix Memento Mori staff spell link, Greater Retrieval Prism description and some minor formatting issues
+- (kromko) Fix some items that don't pass validation
+- (kromko) Fix Twofold Tine Gravity Well link
+- (kromko) Remove class-specific Spell Repertoires and have the base description use localized strings
+- (kromko) Update publication source for Backfire Mantle, Noxious Incense and Soothing Scents
+- (kromko) Update Staff of nature's cunning variants descriptions
+- (KStick) Set includesSelf explicitly on Thermal Nimbus aura effect
+- (Longstrider) Add Thrall trait description
+- (Longstrider) Fix Empowered Breath's doubled damage dice
+- (Longstrider) Fix Twisting Tree description
+- (neonyuzu) Correct action cost for Share Vision spell
+- (nobbyfix) Update publication source for Command a Thrall
+- (nythz) Add new Impossible Magic property runes
+- (rectulo) Add description for Bodach
+- (Reiaka) Fix captivator dedication level
+- (Rigo) Audit some Bastion of Blasphemies content and add effects for adventure-specific action
+- (Rigo) Grant trained Will save proficiency instead of expert with Necromancer
+- (sgennaoui) Add augmentation automation to IM Automaton feats (#22808)
+- (Shaunymon) Add missing traditions to Spectral Blade
+- (Shaunymon) Correct Giant Monitor Lizard AC
+- (Tikael) Add missing flourish trait to Isgeri Slayer's action
+- (Tikael) Fix number of actions for Begone spell
+
+### Miscellaneous
+
+- (stwlam) Update CONTRIBUTING.md with statements on AI (don't use it) and submitting feature PRs (talk to us first)
+
 ## 8.4.0
 
 ### Highlights

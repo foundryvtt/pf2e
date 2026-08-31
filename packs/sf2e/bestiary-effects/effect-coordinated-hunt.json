@@ -1,0 +1,54 @@
+{
+    "_id": "P0PjncVUqsdDFfhv",
+    "img": "icons/magic/perception/eye-ringed-glow-angry-small-red.webp",
+    "name": "Effect: Coordinated Hunt",
+    "system": {
+        "description": {
+            "value": "<p>After the szandite stalker attempts a Strike at a Large or smaller target (regardless of success or failure), the next Strike one of the stalker's allies makes against the same target gains a +2 circumstance bonus to the attack roll.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Secrets of the Swarm Adventure Path"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "coordinated-hunt",
+                "uuid": ""
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:coordinated-hunt"
+                ],
+                "selector": [
+                    "attack-roll"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

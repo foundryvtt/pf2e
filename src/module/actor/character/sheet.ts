@@ -120,6 +120,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (tab) tab.initial = "biography";
         }
 
+        sheetData.effectiveMaxHP = Math.max(actor.hitPoints.max - actor.hitPoints.unrecoverable, 0);
+
         sheetData.numberToRank = R.mapToObj([0, 1, 2, 3, 4] as const, (n) => [n, _loc(`PF2E.ProficiencyLevel${n}`)]);
 
         sheetData.senses = condenseSenses(this.actor.perception.senses.contents);
@@ -428,14 +430,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 ...baseData,
                 img: ((): ImageFilePath => {
                     const actionIcon = getActionIcon(item.actionCost);
-                    if (!baseData.usable) return actionIcon;
-
                     const defaultIcon = ItemPF2e.getDefaultArtwork(item._source).img;
                     const commonFeatIcon = "icons/sundries/books/book-red-exclamation.webp";
                     const isDefaultImage = [actionIcon, defaultIcon, commonFeatIcon].includes(item.img);
-                    return !isDefaultImage && item.isOfType("action")
-                        ? item.img
-                        : (item.system.selfEffect?.img ?? actionIcon);
+                    if (item.isOfType("action") && !isDefaultImage) {
+                        return item.img;
+                    }
+                    return item.system.selfEffect?.img ?? (baseData.usable && !isDefaultImage ? item.img : actionIcon);
                 })(),
                 feat: item.isOfType("feat") ? item : null,
                 toggles: item.system.traits.toggles?.getSheetData() ?? [],
@@ -1649,6 +1650,8 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     crafting: CraftingSheetData;
     data: CharacterSystemSheetData;
     deity: DeityPF2e<CharacterPF2e> | null;
+    /** Max HP minus unrecoverable HP */
+    effectiveMaxHP: number;
     hasStamina: boolean;
     /** This actor has actual containers for stowing, rather than just containers serving as a UI convenience */
     hasRealContainers: boolean;

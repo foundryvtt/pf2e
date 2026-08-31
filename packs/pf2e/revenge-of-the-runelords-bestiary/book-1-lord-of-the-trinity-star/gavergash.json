@@ -2198,10 +2198,6 @@
                     "GjfKFaWXOeBonWFq": {
                         "damage": "1d6",
                         "damageType": "electricity"
-                    },
-                    "hOS4fvBw0C4sX7jC": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -2213,7 +2209,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
+                    }
+                ],
                 "slug": "bec-de-corbin",
                 "traits": {
                     "value": [

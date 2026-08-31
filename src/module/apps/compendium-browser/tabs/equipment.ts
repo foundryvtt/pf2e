@@ -106,6 +106,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         uuid: itemData.uuid,
                         level: itemData.system.level?.value ?? 0,
                         price: priceCoins,
+                        priceInCopper: coinValue,
                         rarity: itemData.system.traits.rarity,
                         options: new Set(options),
                     });
@@ -219,7 +220,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                 by: "level",
                 direction: "asc",
                 options: {
-                    name: { label: "Name", type: "alpha" },
+                    name: { label: "PF2E.NameLabel", type: "alpha" },
                     level: { label: "PF2E.LevelLabel", type: "numeric" },
                     price: { label: "PF2E.PriceLabel", type: "numeric" },
                 },

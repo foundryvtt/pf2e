@@ -1,4 +1,5 @@
 import { ProficiencyRank } from "@item/base/data/index.ts";
+import { signedInteger } from "@util";
 import { Rarity } from "./data.ts";
 
 /**
@@ -99,6 +100,16 @@ function adjustDCByRarity(dc: number, rarity: Rarity = "common"): number {
     return adjustDC(dc, rarityToDCAdjustment(rarity));
 }
 
+/** The difficulty adjustments as select options, each labeled with the modifier it applies */
+function dcAdjustmentOptions({ includeNormal = true } = {}): { value: DCAdjustment; label: string }[] {
+    return Object.entries(CONFIG.PF2E.dcAdjustments)
+        .filter(([value]) => includeNormal || value !== "normal")
+        .map(([value, label]) => ({
+            value: value as DCAdjustment,
+            label: `${_loc(label).titleCase()} (${signedInteger(adjustDC(0, value as DCAdjustment))})`,
+        }));
+}
+
 interface DCOptions {
     pwol?: boolean;
     rarity?: Rarity;
@@ -162,6 +173,7 @@ function createDifficultyScale(dc: number, startAt: DCAdjustment): number[] {
 export {
     adjustDC,
     adjustDCByRarity,
+    dcAdjustmentOptions,
     calculateDC,
     calculateSimpleDC,
     calculateSpellDC,
