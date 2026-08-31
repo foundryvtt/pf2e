@@ -90,7 +90,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         // Items with embed-type usages are equipped if they have a parent that is equipped
         // @todo do the same for non-weapon attachments and affixed.
         // subitem carryType is overriden to match the parent during prep, and weapons rely on that behavior.
-        if (this.system.usage.type === "installed") return !!this.parentItem?.isEquipped;
+        if (this.isAttachable) return !!this.parentItem?.isEquipped;
         return isEquipped(this.system.usage, this.system.equipped);
     }
 
@@ -513,7 +513,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
         // Create attachment source data.
         // If it is unattributed special ammo, lock in the time so removal doesn't re-prompt
-        const validCarryTypes = ["attached", "installed"] as const;
+        const validCarryTypes = ["attached", "etched", "installed"] as const;
         const attachmentSource = item.toObject();
         attachmentSource.system.quantity = quantity;
         attachmentSource.system.equipped = {

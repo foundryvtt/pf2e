@@ -43,7 +43,15 @@ interface ImplantedUsage {
     hands?: 0;
 }
 
-type UsageDetails = HeldUsage | WornUsage | AttachedUsage | InstalledUsage | CarriedUsage | ImplantedUsage;
+interface EtchedUsage {
+    value: string;
+    type: "etched";
+    where: string;
+    hands?: 0;
+}
+
+type UsageDetails =
+    HeldUsage | WornUsage | AttachedUsage | InstalledUsage | CarriedUsage | ImplantedUsage | EtchedUsage;
 
 type UsageType = UsageDetails["type"];
 
@@ -65,6 +73,11 @@ function getUsageDetails(usage: string): UsageDetails {
     if (usage.startsWith("attached-to")) {
         const where = usage.replace(/^attached-to-/, "");
         return { value: usage, type: "attached", where };
+    }
+
+    if (usage.startsWith("etched-onto")) {
+        const where = usage.replace(/^etched-onto-/, "");
+        return { value: usage, type: "etched", where };
     }
 
     if (usage.startsWith("installed-in")) {

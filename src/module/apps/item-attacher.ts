@@ -78,7 +78,7 @@ class ItemAttacher extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV
             item: this.item,
             choices: this.choices.map((i, index) => ({ label: i.name, value: index })),
             user: game.user,
-            requiresCrafting: !!this.item.actor?.skills?.crafting && this.item.system.usage.type !== "installed",
+            requiresCrafting: !!this.item.actor?.skills?.crafting && this.item.isAttachable,
         };
     }
 

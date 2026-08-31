@@ -28,7 +28,7 @@ import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { WeaponDamage, WeaponFlags, WeaponSource, WeaponSystemData } from "./data.ts";
-import { processTwoHandTrait } from "./helpers.ts";
+import { isWeaponPotencyRune, processTwoHandTrait, setRunesFromAttachments } from "./helpers.ts";
 import { WeaponTraitToggles } from "./trait-toggles.ts";
 import type {
     BaseWeaponType,
@@ -235,8 +235,16 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         }
 
         const usage = candidate.system.usage;
+
         if (this.system.grade && usage.type === "installed" && usage.value in WEAPON_UPGRADES) {
             return true;
+        }
+
+        if (usage.type === "etched") {
+            return (
+                candidate.system.usage.value in WEAPON_UPGRADES &&
+                (isWeaponPotencyRune(candidate) || !!this.system.runes.potency)
+            );
         }
 
         return false;
@@ -429,6 +437,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         this.flags[SYSTEM_ID].damageFacesUpgraded = false;
 
         // Prepare and limit runes
+        setRunesFromAttachments(this);
         ABP.cleanupRunes(this);
         const runes = this.system.runes;
         runes.effects = [];
@@ -527,10 +536,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         if (!traits.value.some((t) => t === "magical" || setHasElement(MAGIC_TRADITIONS, t))) {
             const hasRunes = runes.potency > 0 || runes.striking > 0 || runes.property.length > 0;
             const hasMagicUpgrade =
-                isSF2e &&
-                this.subitems.some(
-                    (s) => s.system.usage.type === "installed" && s.system.traits.value.includes("magical"),
-                );
+                isSF2e && this.subitems.some((s) => s.isAttachable && s.system.traits.value.includes("magical"));
             if (hasRunes || hasMagicUpgrade) traits.value.push("magical");
         }
 
