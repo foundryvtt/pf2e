@@ -33,7 +33,8 @@
                 "slug": null,
                 "traits": {
                     "value": [
-                        "agile"
+                        "agile",
+                        "unarmed"
                     ]
                 }
             },
@@ -53,14 +54,41 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>The depression atop a kappa's head is filled with water. Spilling, evaporating, or otherwise removing all the water from the top of a kappa's head reduces all their Speeds to 5 feet until the basin is again filled with water. A kappa who becomes @UUID[Compendium.pf2e.conditionitems.Item.Prone] must succeed at a @Check[reflex|dc:15] save or spill their water, and a kappa who becomes @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] automatically spills their water.</p>\n<p>If a kappa is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], @UUID[Compendium.pf2e.conditionitems.Item.Restrained], or stunned, another creature can attempt to spill the water from their bowl by spending a single action, which has the attack and manipulate traits, to attempt an Athletics check against the kappa's Fortitude DC. On a success, the creature spills the kappa's water.</p>"
+                    "value": "<p>The depression atop a kappa's head is filled with water. Spilling, evaporating, or otherwise removing all the water from the top of a kappa's head reduces all their Speeds to 5 feet until the basin is again filled with water. A kappa who becomes @UUID[Compendium.pf2e.conditionitems.Item.Prone] must succeed at a @Check[reflex|dc:15] save or spill their water, and a kappa who becomes @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] automatically spills their water.</p>\n<p>If a kappa is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], @UUID[Compendium.pf2e.conditionitems.Item.Restrained], or @UUID[Compendium.pf2e.conditionitems.Item.Stunned], another creature can attempt to spill the water from their bowl by spending a single action, which has the attack and manipulate traits, to attempt an @Check[athletics|against:fortitude|name:Spill Head Bowl|rollerRole:target|traits:attack,manipulate] check against the kappa's Fortitude DC. On a success, the creature spills the kappa's water.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.Kappa.HeadBowl.Spilled",
+                        "option": "spilled-head-bowl",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            {
+                                "not": "spilled-head-bowl"
+                            }
+                        ],
+                        "selector": "land",
+                        "value": 15
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            {
+                                "not": "spilled-head-bowl"
+                            }
+                        ],
+                        "selector": "swim",
+                        "value": 40
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -155,10 +183,10 @@
                 "otherSpeeds": [
                     {
                         "type": "swim",
-                        "value": 40
+                        "value": 5
                     }
                 ],
-                "value": 15
+                "value": 5
             }
         },
         "details": {
@@ -218,7 +246,10 @@
                 "special": [
                     {
                         "base": 9,
-                        "label": "to Grapple"
+                        "label": "to Grapple",
+                        "predicate": [
+                            "action:grapple"
+                        ]
                     }
                 ]
             },
