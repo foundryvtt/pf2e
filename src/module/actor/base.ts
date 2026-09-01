@@ -130,6 +130,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         });
     }
 
+    declare _migrationSource?: this["_source"];
+
     static override getDefaultArtwork(actorData: ActorSourcePF2e): {
         img: ImageFilePath;
         texture: { src: ImageFilePath | VideoFilePath };
@@ -712,6 +714,15 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         source: Record<string, unknown>,
         options?: DocumentConstructionContext<TParent>,
     ): this["_source"] {
+        // Record unpruned source data if a migration is necessary
+        if (game.pf2e.system.worldNeedsMigration && !this._migrationSource) {
+            Object.defineProperty(this, "_migrationSource", {
+                value: fu.deepClone(source),
+                writable: false,
+                enumerable: false,
+            });
+            Object.seal(this._migrationSource);
+        }
         const initialized = super._initializeSource(source, options);
 
         if (options?.pack && initialized._id) {

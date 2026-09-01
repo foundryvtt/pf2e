@@ -39,6 +39,7 @@ import type { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import type { ActorsPF2e } from "@module/collection/actors.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import type { MacroPF2e } from "@module/macro.ts";
+import { MigrationRunner } from "@module/migration/index.ts";
 import type { RuleElement, RuleElements } from "@module/rules/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import type { RegionBehaviorPF2e, RegionDocumentPF2e, ScenePF2e, TokenDocumentPF2e } from "@scene";
@@ -178,9 +179,11 @@ interface GamePF2e extends Game<
             xpFromEncounter: typeof xpFromEncounter;
         };
         system: {
+            migrationRunner: MigrationRunner | null;
             moduleArt: ModuleArt;
             remigrate: typeof remigrate;
             sluggify: typeof sluggify;
+            worldNeedsMigration: boolean;
             generateItemName: (item: PhysicalItemPF2e) => string;
         };
         variantRules: {
