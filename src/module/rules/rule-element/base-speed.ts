@@ -7,6 +7,18 @@ import { RuleElement, RuleElementOptions } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 import fields = foundry.data.fields;
 
+const SPEED_TYPE_PATTERN = /movement\.speeds\.(land|burrow|climb|fly|swim)/g;
+
+function getSpeedFormulaDependsOn(formula: unknown, selfType: MovementType): MovementType[] {
+    if (typeof formula !== "string") return [];
+    const found = new Set<MovementType>();
+    for (const match of formula.matchAll(SPEED_TYPE_PATTERN)) {
+        const type = match[1];
+        if (tupleHasValue(MOVEMENT_TYPES, type) && type !== selfType) found.add(type);
+    }
+    return [...found];
+}
+
 /**
  * @category RuleElement
  */
@@ -30,6 +42,7 @@ class BaseSpeedRuleElement extends RuleElement<BaseSpeedRuleSchema> {
             ...super.defineSchema(),
             selector: new fields.StringField({ required: true, blank: false, initial: undefined }),
             value: new ResolvableValueField({ required: true, nullable: false, initial: undefined }),
+            force: new fields.BooleanField({ required: false, nullable: false, initial: false }),
         };
     }
 
@@ -40,23 +53,31 @@ class BaseSpeedRuleElement extends RuleElement<BaseSpeedRuleSchema> {
             return this.failValidation("Unrecognized or missing selector");
         }
 
-        const speed = this.#createMovementType(speedType);
         const synthetics = (this.actor.synthetics.movementTypes[speedType] ??= []);
-        synthetics.push(speed);
+        synthetics.push({
+            dependsOn: getSpeedFormulaDependsOn(this.value, speedType),
+            deferred: this.#createMovementType(speedType),
+            test: (options = {}) => this.test(options.test ?? []),
+        });
     }
 
     #createMovementType(type: MovementType): DeferredMovementType {
+        const dependsOn = getSpeedFormulaDependsOn(this.value, type);
         return (options: { test?: string[] | Set<string> } = {}): BaseSpeedSynthetic | null => {
             if (!this.test(options.test ?? [])) return null;
             const value = Math.trunc(Number(this.resolveValue(this.value)));
-            if (!(value > 0)) {
+            if (!(value > 0 || (this.force && value === 0))) {
                 if (!Number.isInteger(value)) this.failValidation("Failed to resolve value");
                 return null;
             }
-            // Whether this speed is derived from the creature's land speed
-            const derivedFromLand =
-                type !== "land" && typeof this.value === "string" && this.value.includes("movement.speeds.land.value");
-            return { type: type, value, source: this.getReducedLabel(), derivedFromLand };
+            return {
+                type,
+                value,
+                source: this.getReducedLabel(),
+                force: this.force,
+                formula: typeof this.value === "string" || typeof this.value === "number" ? this.value : value,
+                dependsOn,
+            };
         };
     }
 }
@@ -68,6 +89,7 @@ interface BaseSpeedRuleElement extends RuleElement<BaseSpeedRuleSchema>, ModelPr
 type BaseSpeedRuleSchema = RuleElementSchema & {
     selector: fields.StringField<string, string, true, false, false>;
     value: ResolvableValueField<true, false, true>;
+    force: fields.BooleanField<boolean, boolean, false, false, true>;
 };
 
 export { BaseSpeedRuleElement };
