@@ -39,10 +39,6 @@ function classifySpeedDeriveKind(
         return "independent";
     }
     if (resolved === parentValue) return "equal";
-    if (/\b(?:min|max)\s*\(/i.test(formula)) {
-        const literals = [...formula.matchAll(/(?<![.\w])(\d+)(?![.\w])/g)].map((m) => Number(m[1]));
-        if (literals.includes(resolved)) return "independent";
-    }
     return "scaled";
 }
 
