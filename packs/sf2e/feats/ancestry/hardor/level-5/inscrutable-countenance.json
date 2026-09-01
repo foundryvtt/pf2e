@@ -1,0 +1,65 @@
+{
+    "_id": "UTmVcOgRfa1fPOUY",
+    "folder": "BeFiMIGuvaP0BSq3",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Inscrutable Countenance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your face lacks most of the expressive features other creatures use to read nonverbal cues, and combined with your silence, this works to your advantage in social situations. You're trained in Deception (or another skill of your choice if you were already trained in Deception), and you gain a +1 circumstance bonus to Deception checks to Lie to non-plant creatures and to Deception DCs against [[/act sense-motive]] checks.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Secrets of the Swarm Adventure Path"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.deception.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:lie",
+                    {
+                        "not": [
+                            "target:trait:plant"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "deception"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "hardor"
+            ]
+        }
+    },
+    "type": "feat"
+}

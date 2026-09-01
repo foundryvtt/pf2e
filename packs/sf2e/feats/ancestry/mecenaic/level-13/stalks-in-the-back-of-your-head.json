@@ -1,0 +1,60 @@
+{
+    "_id": "nV4ScbT5hmlRTzL8",
+    "folder": "pGO7WqB5VfDsPPTr",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Stalks in the Back of Your Head",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>There's no difference between front and back for a mecenaic. You can look, move, and point your arms in either direction interchangeably. You aren't @UUID[Compendium.sf2e.conditions.Item.Off-Guard] when flanked and gain a +1 circumstance bonus to Perception checks for initiative.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Secrets of the Swarm Adventure Path"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.flankable",
+                "value": false
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "initiative"
+                ],
+                "selector": [
+                    "perception"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "mecenaic"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -59,7 +59,7 @@ const ancestryTraits = {
     goblin: "PF2E.TraitGoblin",
     goloma: "PF2E.TraitGoloma",
     halfling: "PF2E.TraitHalfling",
-    hardor: "PF2E.Hardor",
+    hardor: "PF2E.TraitHardor",
     hobgoblin: "PF2E.TraitHobgoblin",
     human: "PF2E.TraitHuman",
     hungerseed: "PF2E.TraitHungerseed",

@@ -1,0 +1,66 @@
+{
+    "_id": "xyC4FOTjDiSdpTVa",
+    "folder": "ErNpcgA1p2zXhee9",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Serious-Minded",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You don't have time to let your emotions control your actions. You gain a +1 circumstance bonus to saving throws against emotion effects. Additionally, if you roll a success on a saving throw against an emotion effect, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Secrets of the Swarm Adventure Path"
+        },
+        "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "predicate": [
+                            "item:trait:emotion"
+                        ],
+                        "selector": "saving-throw",
+                        "text": "PF2E.SpecificRule.Emotion",
+                        "title": "{item|name}"
+                    },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "emotion"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "mecenaic"
+            ]
+        }
+    },
+    "type": "feat"
+}

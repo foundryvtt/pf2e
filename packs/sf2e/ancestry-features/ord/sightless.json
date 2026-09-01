@@ -1,0 +1,66 @@
+{
+    "_id": "NFwrlLWp7PmEFnOx",
+    "folder": "5e4VtCvLVUD5xEcT",
+    "img": "icons/magic/perception/mask-stone-eyes-orange.webp",
+    "name": "Sightless",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestryfeature",
+        "description": {
+            "value": "<p>Ords don't have eyes or equivalent physical organs. You are immune to sight-based effects and automatically fail sight-based Perception checks.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Secrets of the Swarm Adventure Path"
+        },
+        "rules": [
+            {
+                "key": "Sense",
+                "mode": "remove",
+                "value": "vision"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "item:trait:visual"
+                ],
+                "selector": [
+                    "saving-throw",
+                    "skill-check"
+                ],
+                "text": "{item|description}",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "selector": [
+                    "perception"
+                ],
+                "text": "{item|description}",
+                "title": "{item|name}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

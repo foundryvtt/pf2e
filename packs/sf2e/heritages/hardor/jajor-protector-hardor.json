@@ -1,0 +1,45 @@
+{
+    "_id": "8c20Uhhy4TfAuYeH",
+    "folder": "k7ZPbkp3BvhXAvWJ",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Jajor Protector Hardor",
+    "system": {
+        "ancestry": {
+            "name": "Hardor",
+            "slug": "hardor",
+            "uuid": "Compendium.sf2e.ancestries.Item.PlNDe6phAadFXxCN"
+        },
+        "description": {
+            "value": "<p>The dangers on Dorjo have always come from the natural world, rather than other sapient beings, but the greater galaxy has exposed your people to a new kind of danger. You've honed your body to be even sturdier than your fellow hardors so that when threats arrive, you can be among the first to face them. You gain 12 Hit Points from your ancestry instead of 10. You gain a +1 status bonus to Fortitude saves against disease.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Secrets of the Swarm Adventure Path"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "disease"
+                ],
+                "selector": [
+                    "fortitude"
+                ],
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.ancestryhp",
+                "value": 12
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}
