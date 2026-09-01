@@ -1,8 +1,8 @@
 {
-    "_id": "0IZcIdwkVArBV1G9",
-    "folder": "CN9WYMWyLjSZFoRZ",
+    "_id": "fKBtPjgZMRUkXw7S",
+    "folder": "BeFiMIGuvaP0BSq3",
     "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
-    "name": "Widest Field of View",
+    "name": "Thick Skin",
     "system": {
         "actionType": {
             "value": "passive"
@@ -12,29 +12,24 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You can process enough visual information that you can see in all directions at once. You permanently gain all-around vision, meaning you can't be flanked. Additionally, you can [[/act seek]] in two directions at once.</p>"
+            "value": "<p>Forged by the blowing sands of Dorjo and the teeth of thousands of microscopic predators, your skin has become calloused and strong. You gain piercing resistance equal to half your level (minimum 1).</p>"
         },
         "level": {
-            "value": 17
+            "value": 5
         },
         "prerequisites": {
-            "value": [
-                {
-                    "value": "Wide Field of View"
-                }
-            ]
+            "value": []
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
-            "title": "Starfinder Galactic Ancestries"
+            "title": "Starfinder Secrets of the Swarm Adventure Path"
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "system.attributes.flanking.flankable",
-                "value": false
+                "damageType": "piercing",
+                "key": "Resistance",
+                "value": "max(1,floor(@actor.level/2))"
             }
         ],
         "subfeatures": {
@@ -45,7 +40,7 @@
         "traits": {
             "rarity": "common",
             "value": [
-                "izalguun"
+                "hardor"
             ]
         }
     },
