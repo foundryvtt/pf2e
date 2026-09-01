@@ -1122,6 +1122,20 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 // If this is an automatic weapon, add the area usage at the very end
                 attack.altUsages.push(this.prepareAreaAttack(weapon, { handsReallyFree }));
             }
+
+            // Combination weapons only present the selected usage. Thrown attacks of the melee usage remain available
+            // while in melee mode.
+            const comboMode = weapon.system.traits.toggles.combination?.selected;
+            if (comboMode === "melee") {
+                attack.canAttack = false;
+                attack.altUsages = attack.altUsages.filter(
+                    (usage) => usage.type === "strike" && (usage.item.altUsageType === "melee" || usage.item.isThrown),
+                );
+            } else if (comboMode === "ranged") {
+                attack.altUsages = attack.altUsages.filter(
+                    (usage) => usage.item.altUsageType !== "melee" && !(usage.item.isThrown && usage.item.comboSibling),
+                );
+            }
         }
 
         // Finally, position subitem weapons directly below their parents
