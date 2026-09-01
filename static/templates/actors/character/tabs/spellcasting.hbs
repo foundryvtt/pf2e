@@ -1,9 +1,103 @@
-<div class="tab spellcasting spellbook-pane" data-group="primary" data-tab="spellcasting">
+<div class="tab spellcasting spellbook-pane{{#if hideSpellSlotHeaders}} hide-slot-headers{{/if}}" data-group="primary" data-tab="spellcasting">
     <nav class="sub-nav" data-group="spell-collections">
         <a data-tab="known-spells" data-group="spell-collections">{{localize "PF2E.Actor.Character.Spellcasting.Tab.KnownSpells"}}</a>
         <a class="rituals" data-tab="rituals" data-group="spell-collections">{{localize "PF2E.Actor.Character.Spellcasting.Tab.Rituals"}}</a>
         <a data-tab="activations" data-group="spell-collections">{{localize "PF2E.Actor.Character.Spellcasting.Tab.Activations"}}</a>
     </nav>
+
+    <div class="search">
+        <input type="search" spellcheck="false" placeholder="{{localize "PF2E.Actor.Character.Spellcasting.Search"}}" />
+        <a
+            class="toggle-slot-headers{{#if hideSpellSlotHeaders}} active{{/if}}"
+            data-action="toggle-slot-headers"
+            data-tooltip="PF2E.Actor.Character.Spellcasting.ToggleSlotHeaders"
+        ><i class="fa-solid fa-fw fa-list-ul"></i></a>
+        <button
+            type="button"
+            class="advanced-toggle"
+            data-action="toggle-spell-filters"
+            data-tooltip="{{localize "PF2E.Actor.Character.Spellcasting.AdvancedFilter"}}"
+            aria-expanded="false"
+        ><i class="fa-solid fa-fw fa-filter"></i></button>
+    </div>
+
+    <section class="spell-filters" hidden>
+        <div class="filter-group" data-filter="rank">
+            <h4>{{localize "PF2E.Actor.Character.Spellcasting.FilterRank"}}</h4>
+            <div class="chips">
+                {{#each spellFilterOptions.ranks as |rank|}}
+                    <label class="chip">
+                        <input type="checkbox" data-filter="rank" value="{{rank.value}}" />
+                        <span>{{rank.label}}</span>
+                    </label>
+                {{/each}}
+            </div>
+        </div>
+        {{#if (gt spellFilterOptions.traditions.length 1)}}
+            <div class="filter-group" data-filter="tradition">
+                <h4>{{localize "PF2E.Actor.Character.Spellcasting.FilterTradition"}}</h4>
+                <div class="chips">
+                    {{#each spellFilterOptions.traditions as |tradition|}}
+                        <label class="chip">
+                            <input type="checkbox" data-filter="tradition" value="{{tradition.value}}" />
+                            <span>{{tradition.label}}</span>
+                        </label>
+                    {{/each}}
+                </div>
+            </div>
+        {{/if}}
+        <div class="filter-group" data-filter="actionCost">
+            <h4>{{localize "PF2E.Actor.Character.Spellcasting.FilterActionCost"}}</h4>
+            <div class="chips">
+                {{#each spellFilterOptions.actionCosts as |cost|}}
+                    <label class="chip">
+                        <input type="checkbox" data-filter="actionCost" value="{{cost.value}}" />
+                        <span>{{{cost.label}}}</span>
+                    </label>
+                {{/each}}
+            </div>
+        </div>
+        <div class="filter-group" data-filter="save">
+            <h4>{{localize "PF2E.Actor.Character.Spellcasting.FilterSave"}}</h4>
+            <div class="chips">
+                {{#each spellFilterOptions.saves as |save|}}
+                    <label class="chip">
+                        <input type="checkbox" data-filter="save" value="{{save.value}}" />
+                        <span>{{save.label}}</span>
+                    </label>
+                {{/each}}
+            </div>
+        </div>
+        {{#if spellFilterOptions.damageTypes.length}}
+            <div class="filter-group" data-filter="damageType">
+                <h4>{{localize "PF2E.Actor.Character.Spellcasting.FilterDamageType"}}</h4>
+                <div class="chips">
+                    {{#each spellFilterOptions.damageTypes as |dt|}}
+                        <label class="chip">
+                            <input type="checkbox" data-filter="damageType" value="{{dt.value}}" />
+                            <span>{{dt.label}}</span>
+                        </label>
+                    {{/each}}
+                </div>
+            </div>
+        {{/if}}
+        <div class="filter-group" data-filter="sustained">
+            <h4>{{localize "PF2E.Actor.Character.Spellcasting.FilterSustained"}}</h4>
+            <div class="chips">
+                <label class="chip">
+                    <input type="checkbox" data-filter="sustained" value="yes" />
+                    <span>{{localize "PF2E.Actor.Character.Spellcasting.FilterSustainedYes"}}</span>
+                </label>
+                <label class="chip">
+                    <input type="checkbox" data-filter="sustained" value="no" />
+                    <span>{{localize "PF2E.Actor.Character.Spellcasting.FilterSustainedNo"}}</span>
+                </label>
+            </div>
+        </div>
+        <button type="button" class="clear-filters" data-action="clear-spell-filters">
+            {{localize "PF2E.Actor.Character.Spellcasting.FilterClear"}}
+        </button>
+    </section>
 
     <div class="spell-collections" data-panels>
         {{#if toggles.spellcasting}}{{> (resolvePath "templates/actors/partials/toggles.hbs") toggles=toggles.spellcasting}}{{/if}}
