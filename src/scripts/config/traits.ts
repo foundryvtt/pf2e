@@ -2,6 +2,7 @@ import { OtherArmorTag } from "@item/armor/types.ts";
 import { BackgroundTrait } from "@item/background/types.ts";
 import { ClassTrait } from "@item/class/types.ts";
 import { OtherConsumableTag } from "@item/consumable/types.ts";
+import { OtherEquipmentTag } from "@item/equipment/index.ts";
 import { PreciousMaterialType } from "@item/physical/types.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { OtherWeaponTag } from "@item/weapon/types.ts";
@@ -705,6 +706,10 @@ const otherConsumableTags: Record<OtherConsumableTag, string> = {
     "alchemical-food": "PF2E.Item.Physical.OtherTag.AlchemicalFood",
     "alchemical-tool": "PF2E.Item.Physical.OtherTag.AlchemicalTool",
     herbal: "PF2E.Item.Physical.OtherTag.Herbal",
+};
+
+const otherEquipmentTags: Record<OtherEquipmentTag, string> = {
+    rune: "PF2E.Item.Equipment.OtherTag.Rune",
 };
 
 const otherWeaponTags: Record<OtherWeaponTag, string> = {
@@ -1958,6 +1963,7 @@ export {
     npcAttackTraits,
     otherArmorTags,
     otherConsumableTags,
+    otherEquipmentTags,
     otherWeaponTags,
     preciousMaterials,
     shieldTraits,
