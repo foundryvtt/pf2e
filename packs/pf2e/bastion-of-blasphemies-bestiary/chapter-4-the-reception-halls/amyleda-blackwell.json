@@ -855,10 +855,6 @@
                     "xXJfJzQAyZL7irMn": {
                         "damage": "2d6+9",
                         "damageType": "slashing"
-                    },
-                    "y8gkWJyY4S8TjfjP": {
-                        "damage": "1d6",
-                        "damageType": "electricity"
                     }
                 },
                 "description": {
@@ -870,7 +866,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "shock"
+                    }
+                ],
                 "slug": "bladed-scarf",
                 "subjectToMAP": true,
                 "traits": {
