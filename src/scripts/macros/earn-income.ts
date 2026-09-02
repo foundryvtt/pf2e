@@ -227,7 +227,7 @@ class EarnIncomeDialog extends fa.api.HandlebarsApplicationMixin(fa.api.Applicat
         const dc = calculateDC(level);
         const label = await fa.handlebars.renderTemplate(`systems/${SYSTEM_ID}/templates/chat/action/header.hbs`, {
             glyph: null,
-            subtitle: game.i18n.format("PF2E.ActionsCheck.x", { type: skill.label }),
+            subtitle: _loc("PF2E.ActionsCheck.x", { type: skill.label }),
             title: "PF2E.Actions.EarnIncome.Title",
         });
         const roll = await skill.roll({
