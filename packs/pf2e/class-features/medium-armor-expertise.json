@@ -24,7 +24,32 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.ClassFeatures.MediumArmorExpertise.GeneralDescription"
+                    },
+                    {
+                        "predicate": [
+                            "class:inventor"
+                        ],
+                        "text": "PF2E.SpecificRule.ClassFeatures.MediumArmorExpertise.inventor.Description"
+                    }
+                ]
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{actor|class.slug}"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {
                 "light": {
