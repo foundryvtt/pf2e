@@ -29,7 +29,22 @@
             "remaster": true,
             "title": "Starfinder Galactic Ancestries"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.Terrain.ZeroGravity",
+                "option": "terrain:zero-gravity",
+                "toggleable": true
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "terrain:zero-gravity"
+                ],
+                "selector": "fly",
+                "value": "@actor.system.movement.speeds.swim.value"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
