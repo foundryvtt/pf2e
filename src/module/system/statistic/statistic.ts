@@ -411,7 +411,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         })();
 
         const self = this.actor;
-        const domains = this.domains;
+        const domains = [...this.domains, ...(args.extraDomains ?? [])];
         const selfToken = args.token ?? self.getActiveTokens(true, true).shift() ?? null;
         const selfIsTarget = self === args.target || (!args.target && this.type === "saving-throw");
         const item = args.item ?? null;
@@ -609,7 +609,11 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         }
 
         const clonedStatistic = selfIsTarget ? rollContext.target?.statistic : rollContext.origin?.statistic;
-        const modifiers = clonedStatistic?.check.modifiers ?? this.modifiers;
+        const extraDomainModifiers =
+            (args.extraDomains?.length ?? 0) > 0
+                ? extractModifiers(selfActor.synthetics, args.extraDomains ?? [], { test: [...options] })
+                : [];
+        const modifiers = [...(clonedStatistic?.check.modifiers ?? this.modifiers), ...extraDomainModifiers];
         const check = new CheckModifier(this.parent.slug, { modifiers }, extraModifiers);
         const roll = await Check.roll(check, context, null, args.callback);
 
@@ -661,6 +665,8 @@ interface StatisticRollParameters {
     extraRollNotes?: (RollNotePF2e | RollNoteSource)[];
     /** Any additional options that should be used in the roll. */
     extraRollOptions?: string[];
+    /** Additional domains that should be used in the roll. */
+    extraDomains?: string[];
     /** Additional modifiers */
     modifiers?: Modifier[];
     /** The originating item of this attack, if any */
