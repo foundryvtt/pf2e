@@ -34,7 +34,24 @@
             "title": "Pathfinder Howl of the Wild"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.Chair.ToggleLabel",
+                "option": "in-the-chair",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "force": true,
+                "key": "BaseSpeed",
+                "predicate": [
+                    "in-the-chair"
+                ],
+                "selector": "land",
+                "value": "min(20,@actor.system.movement.speeds.swim.value)"
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "common",
