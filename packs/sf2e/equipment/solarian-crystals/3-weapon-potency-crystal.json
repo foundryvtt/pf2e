@@ -92,6 +92,70 @@
                 "slug": "weapon-potency",
                 "type": "item",
                 "value": 3
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "label": "PF2E.Item.Weapon.Rune.Potency",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "action:disarm",
+                                    "3-potency-crystal:solar-weapon",
+                                    {
+                                        "or": [
+                                            "solar-weapon-trait-one:disarm",
+                                            "solar-weapon-trait-two:disarm"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "action:grapple",
+                                    "3-potency-crystal:solar-weapon",
+                                    {
+                                        "or": [
+                                            "solar-weapon-trait-one:grapple",
+                                            "solar-weapon-trait-two:grapple"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "action:shove",
+                                    "3-potency-crystal:solar-weapon",
+                                    {
+                                        "or": [
+                                            "solar-weapon-trait-one:shove",
+                                            "solar-weapon-trait-two:shove"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "action:trip",
+                                    "3-potency-crystal:solar-weapon",
+                                    {
+                                        "or": [
+                                            "solar-weapon-trait-one:trip",
+                                            "solar-weapon-trait-two:trip"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": [
+                    "athletics"
+                ],
+                "type": "item",
+                "value": 3
             }
         ],
         "size": "med",
