@@ -1466,14 +1466,6 @@
                     "0": {
                         "damage": "4d6+16",
                         "damageType": "piercing"
-                    },
-                    "1": {
-                        "damage": "1d6",
-                        "damageType": "electricity"
-                    },
-                    "2": {
-                        "damage": "1d6",
-                        "damageType": "bleed"
                     }
                 },
                 "description": {
@@ -1485,7 +1477,26 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greaterShock"
+                    },
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "wounding"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

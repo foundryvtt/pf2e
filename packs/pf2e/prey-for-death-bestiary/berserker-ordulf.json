@@ -182,10 +182,6 @@
                     "Px4A4Sb5V6t5x0s9": {
                         "damage": "3d12+11",
                         "damageType": "slashing"
-                    },
-                    "zOnew4dT12cSEzB4": {
-                        "damage": "1d6",
-                        "damageType": "electricity"
                     }
                 },
                 "description": {
@@ -197,7 +193,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greaterShock"
+                    }
+                ],
                 "slug": "greatsword",
                 "traits": {
                     "value": [

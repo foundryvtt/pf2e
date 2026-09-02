@@ -387,10 +387,6 @@
                     "value": 11
                 },
                 "damageRolls": {
-                    "GaqOh6v60eSZowpI": {
-                        "damage": "1d6",
-                        "damageType": "electricity"
-                    },
                     "MDqayK2PLShCZnux": {
                         "damage": "2d8+5",
                         "damageType": "piercing"
@@ -408,7 +404,17 @@
                     "increment": 100,
                     "max": null
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "shock"
+                    }
+                ],
                 "slug": "composite-longbow",
                 "traits": {
                     "value": [
