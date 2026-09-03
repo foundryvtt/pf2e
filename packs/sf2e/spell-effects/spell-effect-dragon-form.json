@@ -28,9 +28,12 @@
                         "label": "PF2E.Dragon.Abysium",
                         "value": {
                             "breathShape": "cone",
+                            "burrowSpeed": 0,
+                            "climbSpeed": 0,
                             "damageType": "poison",
                             "dragonType": "abysium",
                             "saveType": "fortitude",
+                            "swimSpeed": 0,
                             "tradition": "arcane"
                         }
                     },
@@ -38,9 +41,12 @@
                         "label": "PF2E.Dragon.Akashic",
                         "value": {
                             "breathShape": "cone",
+                            "burrowSpeed": 0,
+                            "climbSpeed": 0,
                             "damageType": "mental",
                             "dragonType": "akashic",
                             "saveType": "will",
+                            "swimSpeed": 0,
                             "tradition": "occult"
                         }
                     },
@@ -48,9 +54,12 @@
                         "label": "PF2E.Dragon.Cosmic",
                         "value": {
                             "breathShape": "cone",
+                            "burrowSpeed": 0,
+                            "climbSpeed": 0,
                             "damageType": "spirit",
                             "dragonType": "cosmic",
                             "saveType": "will",
+                            "swimSpeed": 0,
                             "tradition": "divine"
                         }
                     },
@@ -58,9 +67,12 @@
                         "label": "PF2E.Dragon.Host",
                         "value": {
                             "breathShape": "line",
+                            "burrowSpeed": 0,
+                            "climbSpeed": 40,
                             "damageType": "piercing",
                             "dragonType": "host",
                             "saveType": "reflex",
+                            "swimSpeed": 0,
                             "tradition": "primal"
                         }
                     }
@@ -180,8 +192,11 @@
                         }
                     },
                     "speeds": {
+                        "burrow": "{item|flags.system.rulesSelections.dragonForm.burrowSpeed}",
+                        "climb": "{item|flags.system.rulesSelections.dragonForm.climbSpeed}",
                         "fly": 100,
-                        "land": 40
+                        "land": 40,
+                        "swim": "{item|flags.system.rulesSelections.dragonForm.swimSpeed}"
                     },
                     "strikes": {
                         "claw": {
@@ -228,14 +243,6 @@
                         "dragon"
                     ]
                 }
-            },
-            {
-                "key": "BaseSpeed",
-                "predicate": [
-                    "dragon-form:host"
-                ],
-                "selector": "climb",
-                "value": 40
             },
             {
                 "key": "Resistance",
@@ -344,6 +351,12 @@
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "selector": "jaws-damage"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "fly-speed",
+                "type": "status",
+                "value": "match(when(gte(@item.level, 8), 20))"
             }
         ],
         "start": {
