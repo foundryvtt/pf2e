@@ -53,29 +53,16 @@
 - (Dantar) Force base speeds for Werecreature Dedication
 - (Dire Weasel) Add automation for Kappa's Head Bowl
 - (Dire Weasel) Add automation for Titan Centipede's Impaling Critical
-- (Dire Weasel) Add effect for Clinging Suckers
-- (Dire Weasel) Add effect for Consume Fear
-- (Dire Weasel) Add effect for Raw Nerve's Accelerating Inquest
-- (Dire Weasel) Add effect for Sheriff's Blessing
-- (Dire Weasel) Add effect for Taiga Linnorm's Curse of Endless Storms
-- (Dire Weasel) Add effects for Thatchling's Curse
+- (Dire Weasel) Add effects for several NPC abilities
 - (Dire Weasel) Add inline checks to Quandary
-- (Dire Weasel) Add inline roll options to Captivating Pollen
-- (Dire Weasel) Add inline roll options to Incarnate Deific Herald
-- (Dire Weasel) Add links to some feat descriptions
-- (Dire Weasel) Add some inline healing links
-- (Dire Weasel) Add spell effect for Consecrate Flesh
-- (Dire Weasel) Add spell effect for Know the Enemy
-- (Dire Weasel) Add Tumultuous Stomach effect for Pelagiadaemon's Swallow Whole
-- (Dire Weasel) Brush up Noppera-Bo
-- (Dire Weasel) Brush up The Chewer
+- (Dire Weasel) Add inline roll options to Captivating Pollen and Incarnate Deific Herald
+- (Dire Weasel) Add spell effect for Consecrate Flesh and Know the Enemy
+- (Dire Weasel) Brush up Noppera-Bo and The Chewer
 - (Dire Weasel) Condense effects for Witchflame failure
 - (Dire Weasel) Fix damage for Living Thunderbolt
 - (Dire Weasel) Fix display of Sanctum Guardian's immunity to starvation and thirst
-- (Dire Weasel) Fix missing predicate for Overflowing Blade
-- (Dire Weasel) Fix some effect predicates with duplicate `item:`
+- (Dire Weasel) Fix predicates for Overflowing Blade and several effects
 - (Dire Weasel) Fix some publication sources
-- (Dire Weasel) Fix some terrain predicates
 - (Dire Weasel) Fix traditions for Bone Spray
 - (Dire Weasel) Improve automation for Stick a Fork in It
 - (Dire Weasel) Unify damage for Irlgaunt's Regurgitate Gastrolith
@@ -95,9 +82,8 @@
 - (Longstrider) Change Dwarf Battalion's Shields Up! from reaction to single action
 - (Longstrider) Fix minor typos in Necromancer and Runesmith class journals
 - (Rigo) Update several TokenLight rule elements to use Adaptive Attenuation
-- (SpartanCPA) Enable shock rune automation on NPCs in Adventures
+- (SpartanCPA) Add proper shock and flaming runes to NPCs
 - (SpartanCPA) Localize increased degree of success for emotion effects
-- (SpartanCPA) Support flaming runes on NPC attacks
 - (Suldrun45) Fix Undead Familiar and Glyph Familiar number of abilities
 - (Tikael) Change icon for Bastion of Blasphemies background effect
 - (TroelsL) Fix Vorrea Talminari malformed JSON
