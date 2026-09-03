@@ -38,6 +38,7 @@
 - (Dantar) Add REs for travel-speed bonuses
 - (Dire Weasel) Fix some terrain predicates
 - (kromko) Fix Light Armor Mastery embed in Envoy class journal
+- (kromko) Fix localization key for DoS upgrade against emotion effect
 - (kromko) Remove out of place controlled description from in front of Conditions page in SF GM Screen journal
 - (Longstrider) Brush up bantrid feat descriptions
 - (Longstrider) Make solarian potency crystal bonus apply to maneuvers
@@ -46,6 +47,7 @@
 - (SpartanCPA) Localize increased degree of success for emotion effects
 - (SpartanCPA) Support flaming runes on NPC attacks
 - (theksi) Add SFS 2-01 actors
+- (Tikael) Add icons for Secrets of the Swarm ancestries
 
 ### Under the Hood
 

@@ -35,9 +35,11 @@
 
 - (Ambrose) Add effect to Hydrating Pinwheel's armor activation
 - (Ambrose) Add icons to select consumables
+- (Ambrose) Add inline checks to World Rouser archetype feats
 - (Ambrose) Add level 7 iconic pregens
 - (Ambrose) Correct Caligni Hunter's Encircling Command text
 - (Ambrose) Correct cost of Major Convincing Rune
+- (Ambrose) Correct errors with Demon Form spell effect
 - (Ambrose) Correct typos and remove damage inlines from Hydrating Pinwheel
 - (Ambrose) Remove Circlet of Allure and redirect to Remaster reprint
 - (Ambrose) Remove parenthetical from Refugee background
@@ -71,6 +73,7 @@
 - (kromko) Fix Aberrant Eidolon link in summoner's journal
 - (kromko) Fix formatting of spell slots table in Wizard class journal
 - (kromko) Fix inline template in Fungal Curtain
+- (kromko) Fix localization key for DoS upgrade against emotion effect
 - (kromko) Fix Medium Armor Expertise showing inventor text for every class
 - (kromko) Fix styling of some tables
 - (kromko) Remove empty prerequisites from dedications in archetype journal
