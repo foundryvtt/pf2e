@@ -63,6 +63,7 @@ async function createDescriptionPrepend(
         secondaryCasters: spell.system.ritual?.secondary.casters || null,
         primaryCheck: spell.system.ritual?.primary.check?.trim() || null,
         secondaryChecks: spell.system.ritual?.secondary.checks.trim() || null,
+        requirements: spell.system.requirements?.trim() || null,
         range: spell.system.range.value.trim() || null,
         targets: spell.system.target.value.trim() || null,
         area: areaLabel,
