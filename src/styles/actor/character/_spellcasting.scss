@@ -7,6 +7,47 @@
         flex-basis: 20%;
     }
 
+    > .search {
+        align-items: center;
+        display: flex;
+        position: relative;
+        padding: var(--space-10) var(--space-8) 0;
+
+        &::before {
+            content: "\f002";
+            color: var(--input-text-color);
+            font-family: var(--font-awesome);
+            font-weight: bold;
+            position: absolute;
+            left: 1rem;
+        }
+
+        input {
+            border: 1px solid var(--color-pf-alternate);
+            background-color: rgba(28, 28, 28, 0.1);
+            padding-left: 1.75rem;
+            height: 1.625rem;
+            line-height: 1.625rem;
+            flex: 1;
+            min-width: 0;
+        }
+
+        a.toggle-slot-headers {
+            color: var(--color-pf-alternate);
+            flex: 0 0 auto;
+            margin-left: var(--space-6);
+
+            &:hover,
+            &.active {
+                color: var(--color-pf-primary);
+            }
+        }
+    }
+
+    &.hide-slot-headers .header-row {
+        display: none;
+    }
+
     .spell-collections {
         overflow-y: auto;
         scrollbar-gutter: stable;

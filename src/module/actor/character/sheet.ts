@@ -18,7 +18,7 @@ import type {
     HeritagePF2e,
     PhysicalItemPF2e,
 } from "@item";
-import { ItemPF2e, ItemProxyPF2e } from "@item";
+import { ItemPF2e, ItemProxyPF2e, type SpellPF2e } from "@item";
 import { TraitToggleViewData } from "@item/ability/trait-toggles.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { isSpellConsumableUUID } from "@item/consumable/spell-consumables.ts";
@@ -50,6 +50,7 @@ import {
 } from "@util";
 import { createTooltipster } from "@util/destroyables.ts";
 import { UUIDUtils } from "@util/uuid.ts";
+import MiniSearch from "minisearch";
 import * as R from "remeda";
 import { CreatureSheetPF2e } from "../creature/sheet.ts";
 import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies.ts";
@@ -85,6 +86,14 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     /** Non-persisted tweaks to formula data */
     #formulaQuantities: Record<string, number> = {};
 
+    /** Index of this PC's spells for the spell tab text filter */
+    #spellSearchEngine = new MiniSearch<Pick<SpellPF2e<TActor>, "id" | "name">>({
+        fields: ["name"],
+        idField: "id",
+        processTerm: (t) => (t.length > 1 ? t.toLocaleLowerCase(game.i18n.lang) : null),
+        searchOptions: { combineWith: "AND", prefix: true },
+    });
+
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         options.classes = [...options.classes, "character"];
@@ -92,6 +101,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         options.height = 750;
         options.scrollY.push(".tab[data-tab=spellcasting] > [data-panels]", ".tab.active .tab-content");
         options.dragDrop.push({ dragSelector: "ol[data-strikes] > li, ol[data-elemental-blasts] > li" });
+        options.filters = [
+            ...options.filters,
+            {
+                inputSelector: ".tab[data-tab=spellcasting] > .search input[type=search]",
+                contentSelector: ".tab[data-tab=spellcasting]",
+            },
+        ];
         options.tabs = [
             { navSelector: "nav.sheet-navigation", contentSelector: ".sheet-content", initial: "character" },
             { navSelector: "nav.actions-nav", contentSelector: ".actions-panels", initial: "encounter" },
@@ -271,6 +287,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         sheetData.hasNormalSpellcasting = sheetData.spellCollectionGroups["known-spells"].some(
             (s) => s.usesSpellProficiency,
         );
+        sheetData.hideSpellSlotHeaders = !!game.settings.get(SYSTEM_ID, "spellcasting.hideSlotHeaders");
 
         // ensure saves are displayed in the following order:
         sheetData.data.saves = {
@@ -395,7 +412,25 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             };
         });
 
+        this.#spellSearchEngine.removeAll();
+        this.#spellSearchEngine.addAll(actor.itemTypes.spell.map((s) => R.pick(s, ["id", "name"])));
+
         return sheetData;
+    }
+
+    protected override _onSearchFilter(
+        event: KeyboardEvent,
+        query: string,
+        rgx: RegExp,
+        html: HTMLElement | null,
+    ): void {
+        super._onSearchFilter(event, query, rgx, html);
+        if (!html?.classList.contains("spellcasting")) return;
+        const matches: Set<string> =
+            query.length > 1 ? new Set(this.#spellSearchEngine.search(query).map((s) => String(s.id))) : new Set();
+        for (const row of htmlQueryAll(html, "li.spell[data-item-id]")) {
+            row.hidden = query.length > 1 && !matches.has(row.dataset.itemId ?? "");
+        }
     }
 
     /** Prepares all ability-type items that create an action in the sheet */
@@ -820,6 +855,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         handlers["rest"] = async (event) => {
             return game.pf2e.actions.restForTheNight({ event, actors: this.actor });
+        };
+
+        // SPELLCASTING
+
+        handlers["toggle-slot-headers"] = () => {
+            const current = game.settings.get(SYSTEM_ID, "spellcasting.hideSlotHeaders");
+            return game.settings.set(SYSTEM_ID, "spellcasting.hideSlotHeaders", !current);
         };
 
         // MAIN TAB
@@ -1665,6 +1707,8 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     showPFSTab: boolean;
     spellCollectionGroups: Record<SpellcastingTabSlug, SpellcastingSheetData[]>;
     hasNormalSpellcasting: boolean;
+    /** Whether the user has collapsed the spell slot rank headers on the spellcasting tab */
+    hideSpellSlotHeaders: boolean;
     tabVisibility: CharacterSheetTabVisibility;
     actions: {
         encounter: Record<"action" | "reaction" | "free", { label: string; actions: CharacterAbilityViewData[] }>;
