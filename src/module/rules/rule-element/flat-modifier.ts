@@ -105,7 +105,7 @@ class FlatModifierRuleElement extends RuleElement<FlatModifierSchema> {
                 [
                     new StrictStringField<"if-enabled">({ required: false, nullable: false, choices: ["if-enabled"] }),
                     new StrictBooleanField({ required: false, nullable: false, initial: undefined }),
-                    new PredicateField({ required: false, nullable: false, initial: undefined }),
+                    new PredicateField({ required: false, nullable: false, initial: undefined } as const),
                 ],
                 { required: false, nullable: false, initial: false },
             ),
