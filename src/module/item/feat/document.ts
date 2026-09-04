@@ -349,13 +349,55 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return rollOptions;
     }
 
-    protected override embedHTMLString(config: DocumentHTMLEmbedConfig & { hr?: boolean }): string {
-        const list = this.system.prerequisites?.value?.map((item) => item.value).join(", ") ?? "";
+    protected override embedHTMLString(
+        config: DocumentHTMLEmbedConfig & {
+            hr?: boolean;
+            traits?: boolean;
+            publication?: boolean;
+            header?: boolean;
+            trailingLink?: boolean;
+        },
+    ): string {
+        // Add header with Item link and feat level
+        const header = config.header
+            ? `<h2>@UUID[${this.uuid}] <span style="float:right">${_loc("PF2E.Item.Feat.LevelN", { level: this.level })}</span></h2>`
+            : "";
+
+        // Non-common rarity followed by alphabetically ordered traits
+        const traits = config.traits
+            ? this.system.traits.value
+                  .map((t) => _loc(CONFIG.PF2E.featTraits[t]))
+                  .sort((a, b) => a.localeCompare(b))
+                  .reduce(
+                      (allTraits, t) => allTraits + `<li class="tag traits">${t}</li>`,
+                      this.system.traits.rarity !== "common"
+                          ? `<li class="tag rarity ${this.system.traits.rarity}">${_loc(CONFIG.PF2E.rarityTraits[this.system.traits.rarity])}</li>`
+                          : "",
+                  )
+            : "";
+
+        const prerequisites = this.system.prerequisites?.value?.map((item) => item.value).join(", ") ?? "";
+
+        // For dedication feats, remove the journal link at the end
+        const description =
+            config.trailingLink === false
+                ? this.description.replace(/<p>@UUID\[[^\]]+\](?:\{[^}]+\})?<\/p>$/, "")
+                : this.description;
+
+        // Right-aligned publication label
+        const publication = config.publication
+            ? `<p><span style="float:right"><em>${_loc("PF2E.Item.Feat.PublicationSource", { publication: this.system.publication.title })}</em></span></p>`
+            : "";
+
         return (
-            (list
-                ? `<p><strong>${_loc("PF2E.FeatPrereqLabel")}</strong> ${list}</p>` +
+            header +
+            (traits ? `<ul class="tags paizo-style">${traits}</ul>` : "") +
+            (prerequisites
+                ? `<p><strong>${_loc("PF2E.FeatPrereqLabel")}</strong> ${prerequisites}</p>` +
                   (config.hr === false ? "" : "<hr>")
-                : "") + this.description
+                : "") +
+            description +
+            publication
         );
     }
 
