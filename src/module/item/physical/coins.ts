@@ -10,6 +10,31 @@ import { COIN_DENOMINATIONS, CURRENCY_DENOMINATIONS, DENOMINATION_RATES } from "
  * @todo rename later
  */
 class Coins implements RawCoins {
+    /** Cached number formatters */
+    static #numberFormatters: Record<string, Intl.NumberFormat> = {};
+
+    /** Construct and return an `Intl.NumberFormatter` for use in string outputs. */
+    static #getNumberFormatter(options: Required<Pick<CoinStringParams, "comma" | "decimal">>): Intl.NumberFormat {
+        const stringOptions = JSON.stringify(options);
+        if (Coins.#numberFormatters[stringOptions]) return Coins.#numberFormatters[stringOptions];
+        const minimumFractionDigits = options.decimal ? 2 : 0;
+        const maximumFractionDigits = minimumFractionDigits;
+        const formatter = new Intl.NumberFormat(game.i18n.lang, {
+            minimumFractionDigits,
+            maximumFractionDigits,
+            useGrouping: options.comma,
+        });
+        return (Coins.#numberFormatters[stringOptions] = formatter);
+    }
+
+    constructor(data?: Partial<Record<CurrencyDenomination, number>> | number | null) {
+        this.#givenUnit = R.isObjectType(data) ? R.keys(data)[0] : null;
+        const object = typeof data === "number" ? { cp: data } : (data ?? {});
+        for (const type of CURRENCY_DENOMINATIONS) {
+            this[type] = Math.max(Math.floor(Math.abs(object[type] ?? 0)), 0);
+        }
+    }
+
     declare cp: number;
     declare sp: number;
     declare gp: number;
@@ -22,14 +47,6 @@ class Coins implements RawCoins {
      * This is used to maintain "0 cp" in certain min price situations like the compendium browser.
      */
     #givenUnit: CurrencyDenomination | null;
-
-    constructor(data?: Partial<Record<CurrencyDenomination, number>> | number | null) {
-        this.#givenUnit = R.isObjectType(data) ? R.keys(data)[0] : null;
-        const object = typeof data === "number" ? { cp: data } : (data ?? {});
-        for (const denomination of CURRENCY_DENOMINATIONS) {
-            this[denomination] = Math.max(Math.floor(Math.abs(object[denomination] ?? 0)), 0);
-        }
-    }
 
     /** The total value of this coins in copper */
     get copperValue(): number {
@@ -146,47 +163,40 @@ class Coins implements RawCoins {
     }
 
     /** Creates a new price string such as "5 gp" from this object */
-    toString({ short = false, unit = "primary", decimal = false }: CoinStringParams = {}): string {
-        // Convert system denomination to gp/credits. This is a single value display
-        const normalize = unit === "primary";
+    toString({ short = false, unit = "primary", decimal = false, comma = false }: CoinStringParams = {}): string {
+        const coins = this.normalized();
+        if (SYSTEM_ID === "sf2e") unit = unit === "upb" ? "upb" : "credits";
+        else if (unit === "primary") unit = CURRENCY_DENOMINATIONS.find((d) => coins[d]) ?? "gp";
 
-        if (tupleHasValue(COIN_DENOMINATIONS, unit) || (SYSTEM_ID === "pf2e" && unit === "primary" && decimal)) {
-            const denomination = unit === "primary" ? "gp" : unit;
-            const divider = DENOMINATION_RATES[denomination];
-            const value = this.copperValue / divider;
-            const unitLabel = _loc(`PF2E.CurrencyAbbreviations.${denomination}`);
-            return `${decimal ? value.toFixed(2) : value} ${unitLabel}`;
-        } else if (SYSTEM_ID === "sf2e" || unit === "credits") {
-            const value = Math.ceil(this.copperValue / 10);
-            return short ? String(value) : `${value} ${_loc("PF2E.CurrencyAbbreviations.credits")}`;
+        // Convert system denomination to gp/credits. This is a single value display
+        if (tupleHasValue(CURRENCY_DENOMINATIONS, unit)) {
+            const formatter = Coins.#getNumberFormatter({ decimal, comma });
+            const value = this.copperValue / DENOMINATION_RATES[unit];
+            const unitLabel = short && unit === "credits" ? "" : ` ${_loc(`PF2E.CurrencyAbbreviations.${unit}`)}`;
+            return `${formatter.format(value)} ${unitLabel}`;
         }
 
-        // Simplify to GP if normalization is enabled
-        const coins = normalize ? this.normalized() : this;
-
         // Return 0 in the default denomination if there's nothing
-        if (CURRENCY_DENOMINATIONS.every((denomination) => !coins[denomination])) {
+        if (CURRENCY_DENOMINATIONS.every((d) => !coins[d])) {
             const zeroUnit = (unit === "raw" ? this.#givenUnit : null) ?? (SYSTEM_ID === "pf2e" ? "gp" : "credits");
             return `0 ${_loc(`PF2E.CurrencyAbbreviations.${zeroUnit}`)}`;
         }
 
         // Display all denomations from biggest to smallest (see Adventurer's Pack)
         const parts: string[] = [];
+        const formatter = Coins.#getNumberFormatter({ decimal, comma });
         for (const partialDenom of CURRENCY_DENOMINATIONS) {
-            const value = coins[partialDenom];
+            const resolvedCoins = unit === "raw" ? this : coins;
+            const value = resolvedCoins[partialDenom];
             const unitLabel = _loc(`PF2E.CurrencyAbbreviations.${partialDenom}`);
-            if (value) parts.push(`${value} ${unitLabel}`);
+            if (value) parts.push(`${formatter.format(value)} ${unitLabel}`);
         }
-
-        return parts.join(", ");
+        return game.i18n.getListFormatter({ style: "narrow" }).format(parts);
     }
 
     /** Returns the coins normalized to the system currency */
     normalized(): Coins {
-        if (SYSTEM_ID === "sf2e") {
-            return new Coins({ credits: Math.ceil(this.copperValue / 10) });
-        }
-
+        if (SYSTEM_ID === "sf2e") return new Coins({ credits: Math.ceil(this.copperValue / 10) });
         const coins = new Coins({ cp: this.copperValue });
         coins.sp = Math.floor(coins.cp / 10);
         coins.cp = coins.cp % 10;
@@ -206,8 +216,10 @@ interface CoinStringParams {
      *   If the system is pf2e and decimals is false, then 5 sp will be shown as 5 sp, but 50 sp will be shown as 5 gp.
      */
     unit?: CurrencyDenomination | "primary" | "raw";
-    /** If enabled, the result is shown with decimals regardless of value, unless its credits */
+    /** Show the result with decimals regardless of value, unless it is credits. */
     decimal?: boolean;
+    /** Separate whole numbers of greater than three digits by commas. */
+    comma?: boolean;
 }
 
 export { Coins, type RawCoins };

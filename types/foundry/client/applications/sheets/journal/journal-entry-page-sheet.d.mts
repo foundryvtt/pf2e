@@ -10,9 +10,9 @@ export interface JournalPageSheetConfiguration extends DocumentSheetConfiguratio
     /** Whether the sheet includes additional table of contents elements besides its title. */
     includeTOC?: boolean;
     /** Whether the sheet is in edit or view mode. */
-    mode?: "edit" | "view";
+    mode: "edit" | "view";
     /** Classes appended to the page's root element when embedded in another sheet in view mode */
-    viewClasses?: string;
+    viewClasses: string[];
 }
 
 /**

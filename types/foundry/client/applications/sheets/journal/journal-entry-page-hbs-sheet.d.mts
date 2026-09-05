@@ -1,20 +1,20 @@
-import { DocumentSheetRenderContext } from "@client/applications/api/document-sheet.mjs";
+import { DocumentSheetRenderContext, DocumentSheetRenderOptions } from "@client/applications/api/document-sheet.mjs";
 import { FormDataExtended } from "@client/applications/ux/_module.mjs";
 import HandlebarsApplicationMixin, {
     HandlebarsRenderOptions,
     HandlebarsTemplatePart,
 } from "../../api/handlebars-application.mjs";
-import JournalEntryPageSheet from "./journal-entry-page-sheet.mjs";
+import JournalEntryPageSheet, { JournalPageSheetConfiguration } from "./journal-entry-page-sheet.mjs";
 
-/**
- * @import {ApplicationRenderContext} from "../../_types.mjs"
- * @import {HandlebarsTemplatePart, HandlebarsRenderOptions} from "../../api/handlebars-application.mjs"
- */
+export interface JournalEntryPageHandlebarsSheetRenderOptions
+    extends DocumentSheetRenderOptions, HandlebarsRenderOptions {}
 
 /**
  * An abstract subclass that contains specialised handlebars logic for JournalEntryPageSheets.
  */
-export default class JournalEntryPageHandlebarsSheet extends HandlebarsApplicationMixin(JournalEntryPageSheet) {
+export default class JournalEntryPageHandlebarsSheet extends HandlebarsApplicationMixin(
+    JournalEntryPageSheet<JournalPageSheetConfiguration, JournalEntryPageHandlebarsSheetRenderOptions>,
+) {
     /**
      * Handlebars parts to render in edit mode.
      */
@@ -32,13 +32,13 @@ export default class JournalEntryPageHandlebarsSheet extends HandlebarsApplicati
      */
     protected _prepareContentContext(
         context: DocumentSheetRenderContext,
-        options: HandlebarsRenderOptions,
+        options: JournalEntryPageHandlebarsSheetRenderOptions,
     ): Promise<void>;
 
     protected override _preparePartContext(
         partId: string,
         context: DocumentSheetRenderContext,
-        options: HandlebarsRenderOptions,
+        options: JournalEntryPageHandlebarsSheetRenderOptions,
     ): Promise<DocumentSheetRenderContext>;
 
     /**
@@ -46,7 +46,7 @@ export default class JournalEntryPageHandlebarsSheet extends HandlebarsApplicati
      */
     protected _prepareFooterContext(
         context: DocumentSheetRenderContext,
-        options: HandlebarsRenderOptions,
+        options: JournalEntryPageHandlebarsSheetRenderOptions,
     ): Promise<void>;
 
     /**
@@ -54,7 +54,7 @@ export default class JournalEntryPageHandlebarsSheet extends HandlebarsApplicati
      */
     protected _prepareHeaderContext(
         context: DocumentSheetRenderContext,
-        options: HandlebarsRenderOptions,
+        options: JournalEntryPageHandlebarsSheetRenderOptions,
     ): Promise<void>;
 
     protected override _prepareSubmitData(

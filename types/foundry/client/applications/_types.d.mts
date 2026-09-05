@@ -85,7 +85,7 @@ export interface ApplicationFormConfiguration {
     closeOnSubmit: boolean;
 }
 
-interface ApplicationTabsConfiguration {
+export interface ApplicationTabsConfiguration {
     /** An array of tab configuration data */
     tabs: { id: string; icon?: string; label?: string; tooltip?: string }[];
     /** The tab in this group that will be active on first render */
