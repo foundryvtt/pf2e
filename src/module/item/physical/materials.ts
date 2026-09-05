@@ -1067,6 +1067,19 @@ const SHIELD_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "uncommon",
         },
     },
+    dragonhide: {
+        low: null,
+        standard: {
+            level: 8,
+            price: 400,
+            rarity: "uncommon",
+        },
+        high: {
+            level: 16,
+            price: 8000,
+            rarity: "uncommon",
+        },
+    },
     djezet: {
         low: null,
         standard: {
