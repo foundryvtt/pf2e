@@ -855,6 +855,23 @@ const BUCKLER_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "common",
         },
     },
+    dragonhide: {
+        low: null,
+        standard: {
+            level: 8,
+            price: 400,
+            hardness: 2,
+            maxHP: 8,
+            rarity: "uncommon",
+        },
+        high: {
+            level: 16,
+            price: 8000,
+            hardness: 5,
+            maxHP: 20,
+            rarity: "uncommon",
+        },
+    },
     dawnsilver: {
         low: null,
         standard: {
@@ -1071,12 +1088,16 @@ const SHIELD_MATERIAL_VALUATION_DATA: MaterialValuationData = {
         low: null,
         standard: {
             level: 8,
-            price: 400,
+            price: 440,
+            hardness: 4,
+            maxHP: 16,
             rarity: "uncommon",
         },
         high: {
             level: 16,
-            price: 8000,
+            price: 8800,
+            hardness: 7,
+            maxHP: 28,
             rarity: "uncommon",
         },
     },
