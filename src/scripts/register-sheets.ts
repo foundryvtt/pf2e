@@ -33,6 +33,7 @@ import { ShieldSheetPF2e } from "@item/shield/sheet.ts";
 import { SpellSheetPF2e } from "@item/spell/sheet.ts";
 import { TreasureSheetPF2e } from "@item/treasure/sheet.ts";
 import { WeaponSheetPF2e } from "@item/weapon/sheet.ts";
+import { RunePageSheet } from "@module/journal-entry-page/rune/sheet.ts";
 import { UserConfigPF2e } from "@module/user/sheet.ts";
 import { SceneConfigPF2e } from "@scene/sheet.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
@@ -167,6 +168,9 @@ export function registerSheets(): void {
             makeDefault: true,
         });
     }
+
+    // JOURNAL ENTRY PAGE
+    fa.apps.DocumentSheetConfig.registerSheet(fd.JournalEntryPage, "pf2e", RunePageSheet, { types: ["rune"] });
 
     // USER
     fd.collections.Users.unregisterSheet("core", foundry.applications.sheets.UserConfig);

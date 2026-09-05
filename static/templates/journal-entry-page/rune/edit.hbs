@@ -1,0 +1,64 @@
+<div class="standard-form scrollable">
+    {{formGroup systemFields.category value=source.system.category options=categories rootId=rootId}}
+    {{formGroup systemFields.traits.fields.rarity value=source.system.traits.rarity options=rarities rootId=rootId}}
+    {{formGroup systemFields.traits.fields.value value=source.system.traits.value options=traits rootId=rootId}}
+    {{formGroup systemFields.usage.fields.text value=source.system.usage.text rootId=rootId}}
+    {{formGroup systemFields.craft.fields.text value=source.system.craft.text rootId=rootId}}
+
+    <fieldset>
+        <legend>{{localize "PF2E.JournalEntryPage.Rune.FIELDS.variants.label"}}</legend>
+        <p class="hint">{{localize "PF2E.JournalEntryPage.Rune.FIELDS.variants.hint"}}</p>
+
+        <nav class="sheet-tabs tabs"
+                aria-roledescription="{{localize "SHEETS.FormNavLabel"}}">
+            {{#each variants as |tab|}}
+                <div class="tab" data-level="{{tab.level}}">
+                    <a data-action="tab" data-group="variants" data-tab="{{tab.id}}"
+                    {{#if tab.active}} class="active"{{/if}}>
+                        <span>{{localize tab.label}}</span>
+                    </a>
+                    <button type="button" class="icon inline-control fa-solid fa-x" data-action="deleteVariant"
+                            data-tooltip aria-label="{{../actionTooltips.deleteVariant}}"
+                            {{disabled (eq variants.length 1)}}></button>
+                </div>
+            {{/each}}
+            <button type="button" class="add-variant inline-control icon fa-solid fa-plus" data-action="addVariant"
+                    data-tooltip aria-label="{{actionTooltips.addVariant}}"></button>
+        </nav>
+        {{#each variants as |variant|}}
+            <div class="variant tab standard-form{{#if variant.active}} active{{/if}}" data-group="variants"
+                 data-tab="{{variant.id}}">
+                 <div class="form-group">
+                    <label for="{{concat ../rootId "-system.variants." variant.level ".level"}}">
+                        {{~localize "PF2E.LevelLabel"}}</label>
+                        <div class="form-fields">
+                            <input type="number" name="{{concat "system.variants." variant.level ".level"}}" data-level
+                                   id="{{concat ../rootId "-system.variants." variant.level ".level"}}"
+                                   value="{{variant.level}}" min="0" max="99" step="1" />
+                        </div>
+                 </div>
+                {{formGroup ../variantFields.name value=variant.name placeholder=../source.name rootId=../rootId
+                            name=(concat "system.variants." variant.level ".name")}}
+                {{formGroup ../variantFields.price value=variant.price rootId=../rootId units=../priceUnit
+                            name=(concat "system.variants." variant.level ".price")}}
+                {{formGroup ../variantFields.addendum value=variant.addendum rootId=../rootId
+                            name=(concat "system.variants." variant.level ".addendum")}}
+            </div>
+        {{/each}}
+    </fieldset>
+
+    <fieldset class="publication">
+        <legend>{{localize "PF2E.Publication.Label"}}</legend>
+        <div class="data">
+            {{formInput publicationFields.title value=source.system.publication.title classes="title"
+                        id=(concat rootId "-publication.title") placeholder=(localize "PF2E.Publication.Title")
+                        aria-label=(localize "PF2E.Publication.Title")}}
+            {{formGroup publicationFields.authors value=source.system.publication.authors rootId=rootId
+                        classes="authors"}}
+            {{formGroup publicationFields.license value=source.system.publication.license rootId=rootId
+                        classes="license" options=publicationLicenses}}
+            {{formGroup publicationFields.remaster value=source.system.publication.remaster rootId=rootId
+                        classes="remaster"}}
+        </div>
+    </fieldset>
+</div>
