@@ -855,23 +855,6 @@ const BUCKLER_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "common",
         },
     },
-    dragonhide: {
-        low: null,
-        standard: {
-            level: 8,
-            price: 400,
-            hardness: 2,
-            maxHP: 8,
-            rarity: "uncommon",
-        },
-        high: {
-            level: 16,
-            price: 8000,
-            hardness: 5,
-            maxHP: 20,
-            rarity: "uncommon",
-        },
-    },
     dawnsilver: {
         low: null,
         standard: {
@@ -904,6 +887,23 @@ const BUCKLER_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             hardness: 6,
             maxHP: 24,
             rarity: "rare",
+        },
+    },
+    dragonhide: {
+        low: null,
+        standard: {
+            level: 8,
+            price: 400,
+            hardness: 2,
+            maxHP: 8,
+            rarity: "uncommon",
+        },
+        high: {
+            level: 16,
+            price: 8000,
+            hardness: 5,
+            maxHP: 20,
+            rarity: "uncommon",
         },
     },
     duskwood: {
@@ -1084,23 +1084,6 @@ const SHIELD_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "uncommon",
         },
     },
-    dragonhide: {
-        low: null,
-        standard: {
-            level: 8,
-            price: 440,
-            hardness: 4,
-            maxHP: 16,
-            rarity: "uncommon",
-        },
-        high: {
-            level: 16,
-            price: 8800,
-            hardness: 7,
-            maxHP: 28,
-            rarity: "uncommon",
-        },
-    },
     djezet: {
         low: null,
         standard: {
@@ -1116,6 +1099,23 @@ const SHIELD_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             hardness: 8,
             maxHP: 32,
             rarity: "rare",
+        },
+    },
+    dragonhide: {
+        low: null,
+        standard: {
+            level: 8,
+            price: 440,
+            hardness: 4,
+            maxHP: 16,
+            rarity: "uncommon",
+        },
+        high: {
+            level: 16,
+            price: 8800,
+            hardness: 7,
+            maxHP: 28,
+            rarity: "uncommon",
         },
     },
     duskwood: {
