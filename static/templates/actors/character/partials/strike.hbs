@@ -1,7 +1,9 @@
 <li class="strike{{#if action.ready}} ready{{/if}}" {{#unless action.visible}}hidden{{/unless}} data-strike data-action-index="{{index}}">
-    <div class="item-image variant-strike framed{{#if action.ready}} ready{{/if}}" data-action="strike-attack" data-variant-index="0">
+    <div class="item-image variant-strike framed{{#if action.ready}} ready{{/if}}"
+        {{#if (or action.canAttack action.altUsages.length)}}data-action="strike-attack" data-variant-index="0"{{/if}}
+        {{#unless action.canAttack}}{{#if action.altUsages.length}}data-alt-usage="0"{{/if}}{{/unless}}>
         <img src="{{action.item.img}}" />
-        <i class="fa-solid fa-dice-d20" inert></i>
+        {{#if (or action.canAttack action.altUsages.length)}}<i class="fa-solid fa-dice-d20" inert></i>{{/if}}
     </div>
     <section>
         {{#unless omitName}}
@@ -33,10 +35,7 @@
                              data-tooltip aria-label="{{localize "PF2E.Actions.AutoFire.Title"}}" />
                     {{else if usage.item.isRanged}}
                         <i class="alt-usage-icon fa-regular fa-bullseye-arrow" inert
-                           data-tooltip aria-label="{{localize "PF2E.Item.Weapon.MeleeUsage.Label"}}"></i>
-                    {{else}}
-                        <img class="alt-usage-icon" src="{{resolvePath "icons/mdi/sword.svg"}}"
-                             data-tooltip aria-label="{{localize "PF2E.Item.Weapon.MeleeUsage.Label"}}" />
+                           data-tooltip aria-label="{{localize "PF2E.Item.Weapon.RangedUsage.Label"}}"></i>
                     {{/if}}
                     {{#> attackDamage usage altUsageIndex=index}}{{/attackDamage}}
                 </div>
