@@ -4,7 +4,7 @@
     "name": "Effect: Dwarven Reinforcement",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Dwarven Reinforcement]</p>\n<p>An item of your choice gains a circumstance bonus to Hardness.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Dwarven Reinforcement]</p>\n<p>An item of your choice gains a bonus to Hardness.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -27,7 +27,8 @@
                     "ownedItems": true,
                     "types": [
                         "armor",
-                        "shield"
+                        "shield",
+                        "weapon"
                     ]
                 },
                 "flag": "item",
@@ -35,30 +36,11 @@
                 "prompt": "PF2E.SpecificRule.Prompt.Item"
             },
             {
-                "choices": [
-                    {
-                        "label": "PF2E.ProficiencyLevel2",
-                        "value": "1"
-                    },
-                    {
-                        "label": "PF2E.ProficiencyLevel3",
-                        "value": "2"
-                    },
-                    {
-                        "label": "PF2E.ProficiencyLevel4",
-                        "value": "3"
-                    }
-                ],
-                "flag": "hardness",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Dwarf.DwarvenReinforcement.Prompt"
-            },
-            {
                 "itemId": "{item|flags.pf2e.rulesSelections.item}",
                 "key": "ItemAlteration",
                 "mode": "add",
                 "property": "hardness",
-                "value": "{item|flags.system.rulesSelections.hardness}"
+                "value": "ternary(gte(@item.origin.skills.crafting.rank,4),3,ternary(gte(@item.origin.skills.crafting.rank,3),2,1))"
             }
         ],
         "start": {
