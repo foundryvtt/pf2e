@@ -1,0 +1,81 @@
+{
+    "_id": "7xzdcYREm0zdkBwc",
+    "img": "icons/creatures/abilities/cougar-pounce-stalk-black.webp",
+    "name": "Effect: Alter Dweomer",
+    "system": {
+        "description": {
+            "value": "<ul><li><p><strong>Divine</strong> You gain a +1 status bonus to all skill checks.</p></li><li><p><strong>Occult</strong> You become invisible.</p></li><li><p><strong>Primal</strong> You gain 10 temporary Hit Points.</p></li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core 2"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitDivine",
+                        "value": "divine"
+                    },
+                    {
+                        "label": "PF2E.TraitOccult",
+                        "value": "occult"
+                    },
+                    {
+                        "label": "PF2E.TraitPrimal",
+                        "value": "primal"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Tradition",
+                "rollOption": "alter-dweomer"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "alter-dweomer:divine"
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "alter-dweomer:occult"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Invisible"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "alter-dweomer:primal"
+                ],
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
