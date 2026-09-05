@@ -39,6 +39,7 @@ import { TokenRulerPF2e } from "@module/canvas/token/ruler.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { ActorsPF2e } from "@module/collection/actors.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
+import { RunePageSystemData } from "@module/journal-entry-page/rune/data.ts";
 import { MacroPF2e } from "@module/macro.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import {
@@ -105,9 +106,7 @@ export class Load {
         CONFIG.Actor.dataModels.vehicle = VehicleSystemData;
 
         // Item system data models
-        if (BUILD_MODE !== "production") {
-            CONFIG.Item.dataModels.affliction = AfflictionSystemData;
-        }
+        if (BUILD_MODE === "development") CONFIG.Item.dataModels.affliction = AfflictionSystemData;
         CONFIG.Item.dataModels.action = AbilitySystemData;
         CONFIG.Item.dataModels.campaignFeature = CampaignFeatureSystemData;
         CONFIG.Item.dataModels.class = ClassSystemData;
@@ -118,6 +117,9 @@ export class Load {
         CONFIG.Item.dataModels.kit = KitSystemData;
         CONFIG.Item.dataModels.melee = MeleeSystemData;
         CONFIG.Item.dataModels.treasure = TreasureSystemData;
+
+        // Journal Entry Page system data models
+        if (BUILD_MODE === "development") CONFIG.JournalEntryPage.dataModels.rune = RunePageSystemData;
 
         // Assign canvas-related classes
         CONFIG.Canvas.doorControlClass = DoorControlPF2e;

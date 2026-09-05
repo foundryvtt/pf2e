@@ -2491,4 +2491,4 @@ export {
     getRuneValuationData,
     prunePropertyRunes,
 };
-export type { RuneData, WeaponPropertyRuneData };
+export type { RuneData, RuneTrait, WeaponPropertyRuneData };

@@ -1,8 +1,11 @@
+import type { NumberFieldOptions } from "@common/data/_types.d.mts";
 import { PrunedSchemaField } from "@system/schema-data-fields.ts";
+import { ErrorPF2e } from "@util";
 import * as R from "remeda";
 import { Coins } from "./coins.ts";
 import type { Price } from "./index.ts";
 import { COIN_DENOMINATIONS } from "./values.ts";
+
 import fields = foundry.data.fields;
 
 class PriceField extends fields.SchemaField<PriceSchema, fields.SourceFromSchema<PriceSchema>, Price> {
@@ -33,6 +36,18 @@ class PriceField extends fields.SchemaField<PriceSchema, fields.SourceFromSchema
     }
 }
 
+/** A currency value stored as a discrete quantity of copper pieces  */
+class CoppersField extends fields.NumberField<number, Coins, true, false, true> {
+    protected static override get _defaults(): NumberFieldOptions<number, boolean, boolean, boolean> {
+        return { ...super._defaults, required: true, nullable: false, integer: true, min: 0, initial: 0 };
+    }
+
+    override initialize(value: unknown): Coins {
+        if (typeof value !== "number") throw ErrorPF2e("Unexpected coins value");
+        return new Coins({ cp: value }).normalized();
+    }
+}
+
 type CoinsSchema = {
     cp: fields.NumberField<number, number, false, false, false>;
     sp: fields.NumberField<number, number, false, false, false>;
@@ -46,4 +61,4 @@ type PriceSchema = {
     sizeSensitive: fields.BooleanField<boolean, boolean, false, false, false>;
 };
 
-export { PriceField };
+export { CoppersField, PriceField };

@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor/base.ts";
-import { Currency } from "@item/physical/types.ts";
+import { CurrencyDenomination } from "@item/physical/types.ts";
 import { COIN_DENOMINATIONS } from "@item/physical/values.ts";
 
 /** Simple dialog to add currency of various denominations to an actor */
@@ -69,7 +69,7 @@ class UpdateCurrencyDialog extends fa.api.HandlebarsApplicationMixin(fa.api.Appl
         formData: fa.ux.FormDataExtended,
     ) {
         const data = formData.object;
-        const currency: Record<Currency, number> = {
+        const currency: Record<CurrencyDenomination, number> = {
             pp: Number(data.pp) || 0,
             gp: Number(data.gp) || 0,
             sp: Number(data.sp) || 0,
