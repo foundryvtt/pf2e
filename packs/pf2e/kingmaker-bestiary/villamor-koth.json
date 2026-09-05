@@ -29,7 +29,7 @@
                     "die": "d12"
                 },
                 "description": {
-                    "value": "<p>This large battle axe is too heavy to wield with only one hand. Many greataxes incorporate two blades, and they are often \"bearded\", having a hook at the bottom to increase the strength of their chopping power.</p>"
+                    "value": "<p>This large battle axe is too heavy to wield with only one hand. Many greataxes incorporate two blades, and they are often \"bearded,\" having a hook at the bottom to increase the strength of their chopping power.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -56,9 +56,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": null,
@@ -68,7 +68,9 @@
                 "rules": [],
                 "runes": {
                     "potency": 2,
-                    "property": [],
+                    "property": [
+                        "grievous"
+                    ],
                     "striking": 1
                 },
                 "size": "med",
@@ -79,7 +81,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "magical",
                         "sweep"
                     ]
                 },
@@ -143,9 +144,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": null,
@@ -280,11 +281,22 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "grievous"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": [
+                        "magical",
                         "sweep"
                     ]
                 }
@@ -430,7 +442,29 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "damage:category:physical",
+                            {
+                                "or": [
+                                    "item:type:melee",
+                                    "item:type:weapon"
+                                ]
+                            },
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "key": "Resistance",
+                        "label": "PF2E.IWR.Custom.PhysicalWeaponsOnly",
+                        "predicate": [
+                            "self:effect:rage"
+                        ],
+                        "type": "custom",
+                        "value": 7
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -529,7 +563,30 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "disabledIf": [
+                            {
+                                "not": "self:effect:rage"
+                            }
+                        ],
+                        "disabledValue": false,
+                        "key": "RollOption",
+                        "option": "giants-lunge",
+                        "toggleable": true
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "giants-lunge",
+                            "item:melee"
+                        ],
+                        "property": "traits",
+                        "value": "reach-10"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -587,7 +644,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Villamor begins raging. He gains 19 temporary Hit Points. This frenzy lasts for 1 minute, until there are no enemies he can perceive, or until he falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], whichever comes first. He can't voluntarily stop raging. While he is raging, he deals 12 additional Damage with melee weapons and unarmed attacks. This additional damage is halved if his weapon or unarmed attack is agile. While raging, Villamor Koth's AC is 33.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Rage]</p>"
+                    "value": "<p>Villamor begins raging. He gains 19 temporary Hit Points. This frenzy lasts for 1 minute, until there are no enemies he can perceive, or until he falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], whichever comes first. He can't voluntarily stop raging. While he is raging, he deals 12 additional Damage with melee weapons and unarmed attacks. This additional damage is halved if his weapon or unarmed attack is agile. While raging, Villamor Koth's AC is 33.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -612,6 +669,10 @@
                         "value": -2
                     }
                 ],
+                "selfEffect": {
+                    "name": "Effect: Rage",
+                    "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Rage"
+                },
                 "slug": null,
                 "traits": {
                     "rarity": "common",
