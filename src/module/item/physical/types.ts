@@ -10,7 +10,7 @@ type BaseMaterialThickness = "thin" | "standard" | "structure";
 type BaseMaterial = { type: BaseMaterialType; thickness: BaseMaterialThickness };
 
 type CoinDenomination = "pp" | "gp" | "sp" | "cp";
-type Currency = CoinDenomination | "credits" | "upb";
+type CurrencyDenomination = CoinDenomination | "credits" | "upb";
 
 type PhysicalItemTrait = ArmorTrait | ConsumableTrait | EquipmentTrait | ShieldTrait | WeaponTrait;
 type PhysicalItemType = SetElement<typeof PHYSICAL_ITEM_TYPES>;
@@ -28,7 +28,7 @@ interface StackDefinition {
 export type {
     BaseMaterial,
     CoinDenomination,
-    Currency,
+    CurrencyDenomination,
     Grade,
     PhysicalItemTrait,
     PhysicalItemType,

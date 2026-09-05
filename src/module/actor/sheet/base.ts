@@ -263,8 +263,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             isSellable: editable && item.isOfType("treasure") && !item.isCurrency,
             itemSize: sizeDifference !== 0 ? itemSize : null,
             unitBulk: actor.isOfType("loot") ? createBulkPerLabel(item) : null,
-            unitPrice: item.price.value.toString({ short: true, unit: priceUnit }),
-            assetValue: item.assetValue.toString({ short: true, unit: priceUnit }),
+            unitPrice: item.price.value.toString({ short: true, unit: priceUnit, comma: true }),
+            assetValue: item.assetValue.toString({ short: true, unit: priceUnit, comma: true }),
             hidden: false,
         };
     }

@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import type { EnrichmentOptions } from "@client/applications/ux/text-editor.d.mts";
 import type { RawItemChatData } from "@item/base/data/index.ts";
 import { Coins, PhysicalItemPF2e } from "@item/physical/index.ts";
-import type { Currency } from "@item/physical/types.ts";
+import type { CurrencyDenomination } from "@item/physical/types.ts";
 import { COIN_DENOMINATIONS, COIN_DENOMINATION_BY_VALUE } from "@item/physical/values.ts";
 import type { TreasureSource, TreasureSystemData } from "./data.ts";
 
@@ -18,7 +18,7 @@ class TreasurePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
     }
 
     /** Returns the unit of money if there is one, otherwise null.  */
-    get unit(): Currency | null {
+    get unit(): CurrencyDenomination | null {
         if (this.system.slug === "upb") return "upb";
         if (this.system.category === "credstick") return "credits";
         if (this.isCoinage) {

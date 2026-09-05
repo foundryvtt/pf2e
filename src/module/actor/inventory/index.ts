@@ -5,7 +5,7 @@ import { ContainerPF2e, ItemPF2e, ItemProxyPF2e, KitPF2e, PhysicalItemPF2e } fro
 import { ItemSourcePF2e, KitSource, PhysicalItemSource, TreasureSource } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { Coins } from "@item/physical/helpers.ts";
-import type { Currency } from "@item/physical/types.ts";
+import type { CurrencyDenomination } from "@item/physical/types.ts";
 import { CURRENCY_TYPES, DENOMINATION_RATES } from "@item/physical/values.ts";
 import { DelegatedCollection, ErrorPF2e, groupBy } from "@util";
 import * as R from "remeda";
@@ -75,18 +75,24 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
         }
     }
 
-    addCoins(coins: Partial<Record<Currency, number>>, options: { combineStacks?: boolean } = {}): Promise<void> {
+    addCoins(
+        coins: Partial<Record<CurrencyDenomination, number>>,
+        options: { combineStacks?: boolean } = {},
+    ): Promise<void> {
         // todo: deprecation warning
         return this.addCurrency(coins, options);
     }
 
-    removeCoins(coins: Partial<Record<Currency, number>>, options?: { byValue?: boolean }): Promise<boolean> {
+    removeCoins(
+        coins: Partial<Record<CurrencyDenomination, number>>,
+        options?: { byValue?: boolean },
+    ): Promise<boolean> {
         // todo: deprecation warning
         return this.removeCurrency(coins, options);
     }
 
     async addCurrency(
-        coins: Partial<Record<Currency, number>>,
+        coins: Partial<Record<CurrencyDenomination, number>>,
         { combineStacks = true }: { combineStacks?: boolean } = {},
     ): Promise<void> {
         const topLevelCoins = this.actor.itemTypes.treasure.filter((item) => combineStacks && item.isCurrency);
@@ -127,7 +133,7 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
     }
 
     async removeCurrency(
-        coins: Partial<Record<Currency, number>>,
+        coins: Partial<Record<CurrencyDenomination, number>>,
         { byValue = true }: { byValue?: boolean } = {},
     ): Promise<boolean> {
         // Store what we have available. This is a copy. Exist early if total value is insufficient
