@@ -301,7 +301,7 @@ abstract class RuleElement<TSchema extends RuleElementSchema = RuleElementSchema
             });
         }
         if (typeof value === "string") {
-            const saferEval = (formula: string): number => {
+            const saferEval = (formula: string): RuleValue => {
                 try {
                     // If any resolvables were not provided for this formula, return the default value
                     const unresolveds = formula.match(/@[a-z0-9.]+/gi) ?? [];
@@ -311,33 +311,30 @@ abstract class RuleElement<TSchema extends RuleElementSchema = RuleElementSchema
                             warn &&
                             !unresolveds.every((u) => u.startsWith("@target.") || u.startsWith("@actor.conditions."));
                         this.ignored = true;
-                        if (shouldWarn) {
-                            this.failValidation(`unable to resolve formula, "${formula}"`);
-                        }
-                        return Number(defaultValue);
+                        if (shouldWarn) this.failValidation(`unable to resolve formula, "${formula}"`);
+                        return defaultValue;
                     }
                     return Roll.safeEval(formula);
                 } catch {
                     this.failValidation(`unable to evaluate formula, "${formula}"`);
-                    return 0;
+                    return defaultValue;
                 }
             };
 
             // Include worn armor as resolvable for PCs since there is guaranteed to be no more than one
-            if (this.actor.isOfType("character")) {
-                resolvables.armor = this.actor.wornArmor;
-            }
+            if (this.actor.isOfType("character")) resolvables.armor = this.actor.wornArmor;
 
             const trimmed = value.trim();
-            return (trimmed.includes("@") || /^-?\d+$/.test(trimmed)) && evaluate
-                ? saferEval(
-                      Roll.replaceFormulaData(trimmed, {
-                          ...this.actor.getRollData(),
-                          item: this.item,
-                          ...resolvables,
-                      }),
-                  )
-                : trimmed;
+            if (/^(?:-?\d+|null)$/.test(trimmed)) return JSON.parse(trimmed);
+            if (!evaluate || !trimmed.includes("@")) return trimmed;
+            const withDataReplaced = Roll.replaceFormulaData(trimmed, {
+                ...this.actor.getRollData(),
+                item: this.item,
+                ...resolvables,
+            });
+
+            // Intercept "null" since roll evaluation will throw on non-numeric results
+            return withDataReplaced === "null" ? null : saferEval(withDataReplaced);
         }
         return defaultValue;
     }
