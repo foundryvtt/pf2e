@@ -144,6 +144,11 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
         this.modifierLabel = this.getReducedLabel();
         const bracket = this.brackets.findLast((b) => b.start <= (this.item.system.level?.value ?? 0));
         if (bracket) this.overrides = fu.mergeObject(this.overrides, bracket.value);
+        for (const selection of Object.values(this.item.flags[SYSTEM_ID].rulesSelections)) {
+            if (!R.isPlainObject(selection) || !R.isPlainObject(selection.speeds)) continue;
+            const extra = R.pickBy(selection.speeds, (value) => typeof value === "number" && value > 0);
+            if (!R.isEmpty(extra)) fu.mergeObject(this.overrides.speeds, extra);
+        }
         for (const trait of this.overrides.traits) {
             const currentTraits = actor.system.traits;
             if (!currentTraits.value.includes(trait)) currentTraits.value.push(trait);
@@ -390,15 +395,17 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
         }
     }
 
-    /** Add, remove, replace and/or adjust speeds */
+    /** Add, remove, replace and/or adjust speeds. Unless no speeds are present, unmentioned movement types are removed. */
     #prepareSpeeds(): void {
         const actor = this.actor;
+        const speeds = this.overrides.speeds;
+        if (R.isEmpty(speeds)) return;
+
         for (const type of MOVEMENT_TYPES) {
-            const speedOverride = this.resolveValue(this.overrides.speeds[type], null);
-            if (typeof speedOverride !== "number") continue;
+            const speedOverride = this.resolveValue(speeds[type], null);
             actor.synthetics.movementTypes[type] = [];
 
-            if (speedOverride === 0) {
+            if (typeof speedOverride !== "number") {
                 delete actor.rollOptions.all[`speed:${type}`];
                 if (type !== "land") {
                     actor.system.movement.speeds[type] = null;
