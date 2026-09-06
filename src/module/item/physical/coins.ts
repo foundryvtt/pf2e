@@ -2,8 +2,8 @@ import type { Size } from "@module/data.ts";
 import { tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { PartialPrice, RawCoins } from "./data.ts";
-import type { Currency } from "./types.ts";
-import { COIN_DENOMINATIONS, CURRENCY_TYPES, DENOMINATION_RATES } from "./values.ts";
+import type { CurrencyDenomination } from "./types.ts";
+import { COIN_DENOMINATIONS, CURRENCY_DENOMINATIONS, DENOMINATION_RATES } from "./values.ts";
 
 /**
  * Money helper class that exposes methods to perform operations on coins without side effects.
@@ -21,26 +21,26 @@ class Coins implements RawCoins {
      * What unit to show in toString() if the value is 0 and units is "raw".
      * This is used to maintain "0 cp" in certain min price situations like the compendium browser.
      */
-    #givenUnit: Currency | null;
+    #givenUnit: CurrencyDenomination | null;
 
-    constructor(data?: Partial<Record<Currency, number>> | number | null) {
+    constructor(data?: Partial<Record<CurrencyDenomination, number>> | number | null) {
         this.#givenUnit = R.isObjectType(data) ? R.keys(data)[0] : null;
         const object = typeof data === "number" ? { cp: data } : (data ?? {});
-        for (const type of CURRENCY_TYPES) {
-            this[type] = Math.max(Math.floor(Math.abs(object[type] ?? 0)), 0);
+        for (const denomination of CURRENCY_DENOMINATIONS) {
+            this[denomination] = Math.max(Math.floor(Math.abs(object[denomination] ?? 0)), 0);
         }
     }
 
     /** The total value of this coins in copper */
     get copperValue(): number {
-        return CURRENCY_TYPES.reduce((r, t) => r + this[t] * DENOMINATION_RATES[t], 0);
+        return CURRENCY_DENOMINATIONS.reduce((r, t) => r + this[t] * DENOMINATION_RATES[t], 0);
     }
 
     get goldValue(): number {
         return this.copperValue / 100;
     }
 
-    plus(coins: Partial<Record<Currency, number>>): Coins {
+    plus(coins: Partial<Record<CurrencyDenomination, number>>): Coins {
         const other = new Coins(coins);
         return new Coins({
             pp: this.pp + other.pp,
@@ -55,7 +55,7 @@ class Coins implements RawCoins {
     /** Multiply by a number and clean up result */
     scale(factor: number): Coins {
         const result = new Coins(this);
-        for (const type of CURRENCY_TYPES) {
+        for (const type of CURRENCY_DENOMINATIONS) {
             result[type] *= factor;
         }
 
@@ -66,7 +66,7 @@ class Coins implements RawCoins {
             result.cp += (result.sp % 1) * 10;
 
             // Some computations like 2.8 % 1 evaluate to 0.79999, so we can't just floor
-            for (const denomination of CURRENCY_TYPES) {
+            for (const denomination of CURRENCY_DENOMINATIONS) {
                 result[denomination] = Math.floor(Number(result[denomination].toFixed(1)));
             }
         }
@@ -116,7 +116,7 @@ class Coins implements RawCoins {
         }
 
         // This requires preprocessing, as large gold values contain , for their value
-        const priceTag = CURRENCY_TYPES.reduce(
+        const priceTag = CURRENCY_DENOMINATIONS.reduce(
             (s, denomination) => {
                 const localizedDenomination = _loc(`PF2E.CurrencyAbbreviations.${denomination}`);
                 if (localizedDenomination === denomination) return s;
@@ -165,14 +165,14 @@ class Coins implements RawCoins {
         const coins = normalize ? this.normalized() : this;
 
         // Return 0 in the default denomination if there's nothing
-        if (CURRENCY_TYPES.every((denomination) => !coins[denomination])) {
+        if (CURRENCY_DENOMINATIONS.every((denomination) => !coins[denomination])) {
             const zeroUnit = (unit === "raw" ? this.#givenUnit : null) ?? (SYSTEM_ID === "pf2e" ? "gp" : "credits");
             return `0 ${_loc(`PF2E.CurrencyAbbreviations.${zeroUnit}`)}`;
         }
 
         // Display all denomations from biggest to smallest (see Adventurer's Pack)
         const parts: string[] = [];
-        for (const partialDenom of CURRENCY_TYPES) {
+        for (const partialDenom of CURRENCY_DENOMINATIONS) {
             const value = coins[partialDenom];
             const unitLabel = _loc(`PF2E.CurrencyAbbreviations.${partialDenom}`);
             if (value) parts.push(`${value} ${unitLabel}`);
@@ -205,7 +205,7 @@ interface CoinStringParams {
      * - primary: normalizes to gp in pf2e or credits in sf2e.
      *   If the system is pf2e and decimals is false, then 5 sp will be shown as 5 sp, but 50 sp will be shown as 5 gp.
      */
-    unit?: Currency | "primary" | "raw";
+    unit?: CurrencyDenomination | "primary" | "raw";
     /** If enabled, the result is shown with decimals regardless of value, unless its credits */
     decimal?: boolean;
 }
