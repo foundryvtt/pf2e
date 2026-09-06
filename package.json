@@ -17,9 +17,9 @@
         "pretest": "npm run lint",
         "test": "vitest run",
         "migrate": "tsx ./build/run-migration.ts",
-        "lint": "eslint && npm run prettier:scss-svelte",
+        "lint": "eslint --cache && npm run prettier:scss-svelte",
         "prettier:scss-svelte": "prettier --check src/styles src/**/*.svelte",
-        "lint:fix": "eslint --fix && prettier --write src/styles src/**/*.svelte"
+        "lint:fix": "eslint --cache --fix && prettier --write src/styles src/**/*.svelte"
     },
     "author": "The (P|S)F2E System Developers",
     "license": "Apache-2.0",
