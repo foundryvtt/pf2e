@@ -144,11 +144,6 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
         this.modifierLabel = this.getReducedLabel();
         const bracket = this.brackets.findLast((b) => b.start <= (this.item.system.level?.value ?? 0));
         if (bracket) this.overrides = fu.mergeObject(this.overrides, bracket.value);
-        for (const selection of Object.values(this.item.flags[SYSTEM_ID].rulesSelections)) {
-            if (!R.isPlainObject(selection) || !R.isPlainObject(selection.speeds)) continue;
-            const extra = R.pickBy(selection.speeds, (value) => typeof value === "number" && value > 0);
-            if (!R.isEmpty(extra)) fu.mergeObject(this.overrides.speeds, extra);
-        }
         for (const trait of this.overrides.traits) {
             const currentTraits = actor.system.traits;
             if (!currentTraits.value.includes(trait)) currentTraits.value.push(trait);
