@@ -90,7 +90,11 @@ class ItemSpellcasting<TActor extends CreaturePF2e = CreaturePF2e> implements Sp
         const message = options.message ?? true;
         if (message && this.canCast(spell, { origin: spell.parentItem })) {
             spell.system.location.value = this.id;
-            await spell.toMessage(null, { mode: options.messageMode, data: { castRank: spell.rank } });
+            await spell.toMessage(null, {
+                actualCast: true,
+                mode: options.messageMode,
+                data: { castRank: spell.rank },
+            });
         }
     }
 

@@ -97,7 +97,8 @@ abstract class SettingsMenuPF2e extends fav1.api.FormApplication {
 
         const { highlightSetting } = this.options;
         if (highlightSetting) {
-            const formGroup = htmlClosest(htmlQuery(html, `label[for="${highlightSetting}"]`), ".form-group");
+            // Match on the control's name: label ids have a template-side prefix
+            const formGroup = htmlClosest(htmlQuery(html, `[name="${highlightSetting}"]`), ".form-group");
             if (formGroup) formGroup.style.animation = "glow 0.75s infinite alternate";
         }
     }

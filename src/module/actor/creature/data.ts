@@ -194,7 +194,6 @@ interface LabeledSpeed extends Omit<LabeledNumber, "exceptions"> {
     type: Exclude<MovementType, "land">;
     source?: string;
     total?: number;
-    derivedFromLand?: boolean;
 }
 
 /** Creature initiative statistic */

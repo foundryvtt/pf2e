@@ -29,7 +29,33 @@
             "remaster": true,
             "title": "Starfinder Galaxy Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.Terrain.LowGravity",
+                "option": "terrain:low-gravity",
+                "toggleable": true
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.Terrain.ZeroGravity",
+                "option": "terrain:zero-gravity",
+                "toggleable": true
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "or": [
+                            "terrain:low-gravity",
+                            "terrain:zero-gravity"
+                        ]
+                    }
+                ],
+                "selector": "fly",
+                "value": "@actor.system.movement.speeds.swim.value"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

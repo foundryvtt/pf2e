@@ -145,34 +145,14 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Whenever the luminous ooze's electricity immunity prevents it from taking damage, it gains 8 temporary HP. Until the end of its next turn, the luminous ooze's pseudopod Strike deals an additional @Damage[1d6[electricity]] damage.</p>"
+                    "value": "<p>Whenever the luminous ooze's electricity immunity prevents it from taking damage, it gains 8 temporary HP. Until the end of its next turn, the luminous ooze's pseudopod Strike deals an additional 1d6 points of electricity damage.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Lightning Catcher]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "lightning-catcher",
-                        "toggleable": true
-                    },
-                    {
-                        "damageType": "electricity",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "lightning-catcher"
-                        ],
-                        "selector": "strike-damage",
-                        "traits": [
-                            "electricity"
-                        ]
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -195,7 +175,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The ooze glows with blinding brightness. All creatures within a @Template[emanation|distance:30] must attempt a @Check[fortitude|dc:21] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] until the end of its next turn.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] until the end of its next turn.</p>"
+                    "value": "<p>The ooze glows with blinding brightness. All creatures within a @Template[emanation|distance:30] must attempt a @Check[fortitude|dc:21|options:area-effect,inflicts:dazzled,inflicts:blinded] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] until the end of its next turn.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] until the end of its next turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",

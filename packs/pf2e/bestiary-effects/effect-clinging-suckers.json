@@ -1,0 +1,52 @@
+{
+    "_id": "FQX3YY3iFTtAtw1k",
+    "img": "icons/commodities/biological/tentacle-purple-white.webp",
+    "name": "Effect: Clinging Suckers",
+    "system": {
+        "description": {
+            "value": "<p>If you are Medium or smaller, you take a –5-foot status penalty to your Speeds.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "lte": [
+                            "self:size",
+                            2
+                        ]
+                    }
+                ],
+                "selector": "all-speeds",
+                "type": "status",
+                "value": -5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

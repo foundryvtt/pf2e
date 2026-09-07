@@ -1,0 +1,111 @@
+{
+    "_id": "SWJYGmyXEJ3MMpx7",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "LUwDouv9KbvZAZvP",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Dizzying Assault",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature ends its turn within 15 feet of the dish</p><hr /><p><strong>Effect</strong> The swarm biomass uses the dish to amplify its buzz to dissuade any attacker. The nullifier deals @Damage[(6d8+16)[sonic]] damage to the triggering creature (@Check[reflex|dc:26|basic] save). On a failed save, the creature is @UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 1} for 1 minute, and on a critical failure, the creature is also @UUID[Compendium.sf2e.conditions.Item.Confused] for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "object-immunities"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental",
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Swarm Nullifier",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 22
+            },
+            "emitsSound": "encounter",
+            "hardness": 15,
+            "hp": {
+                "details": "",
+                "max": 60,
+                "temp": 0,
+                "value": 60
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 18
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Quivering Swarm biomass covers the metal dish of an old abandoned signal repeater.</p>",
+            "disable": "<p>@Check[computers|dc:26] or @Check[crafting|dc:26] to shut down the amplifier, @Check[medicine|dc:26] to inject the biomass with an inhibitor (automatic if the PCs use the sedative they created by earning 7 or more Research Points)</p>",
+            "isComplex": false,
+            "level": {
+                "value": 8
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Secrets of the Swarm Adventure Path"
+            },
+            "reset": "<p>The trap resets immediately after 1 minute (or after 15 minutes if injected with the experimental inhibitor).</p>",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "value": 20
+            },
+            "reflex": {
+                "value": 12
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

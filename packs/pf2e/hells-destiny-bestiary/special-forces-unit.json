@@ -74,7 +74,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The special forces unit draws and fires a barrage of arrows from their shortbows. The salvo is a @Template[type:burst|distance:10] within 60 feet that deals @Damage[5d8[piercing]|options:area-damage] damage (@Check[reflex|dc:34|basic] save). When the special forces unit is reduced to 2 segments, this area decreases to a @Template[type:burst|distance:5].</p>"
+                    "value": "<p>The special forces unit draws and fires a barrage of arrows from their shortbows. The salvo is a @Template[type:burst|distance:10] within 60 feet that deals @Damage[5d8[piercing]|options:area-damage] damage (@Check[reflex|dc:34|basic|options:area-effect] save). When the special forces unit is reduced to 2 segments, this area decreases to a @Template[type:burst|distance:5].</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -103,7 +103,11 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The special forces unit attacks each enemy in a @Template[type:emanation|distance:5] with its various blades, with a @Check[reflex|dc:34|basic] save. The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[(3d6+2)[slashing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(5d6+7)[slashing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(8d6+10)[slashing]|options:area-damage] damage</p>"
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The special forces unit attacks each enemy in a @Template[type:emanation|distance:5] with its various blades, with a @Check[reflex|dc:34|basic|options:area-effect] save. The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[(3d6+2)[slashing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(5d6+7)[slashing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(8d6+10)[slashing]|options:area-damage] damage</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
                 },
                 "publication": {
                     "license": "OGL",

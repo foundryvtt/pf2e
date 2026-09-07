@@ -5,8 +5,8 @@ import { ContainerPF2e, ItemPF2e, ItemProxyPF2e, KitPF2e, PhysicalItemPF2e } fro
 import { ItemSourcePF2e, KitSource, PhysicalItemSource, TreasureSource } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { Coins } from "@item/physical/helpers.ts";
-import type { Currency } from "@item/physical/types.ts";
-import { CURRENCY_TYPES, DENOMINATION_RATES } from "@item/physical/values.ts";
+import type { CurrencyDenomination } from "@item/physical/types.ts";
+import { CURRENCY_DENOMINATIONS, DENOMINATION_RATES } from "@item/physical/values.ts";
 import { DelegatedCollection, ErrorPF2e, groupBy } from "@util";
 import * as R from "remeda";
 import { InventoryBulk } from "./bulk.ts";
@@ -75,24 +75,30 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
         }
     }
 
-    addCoins(coins: Partial<Record<Currency, number>>, options: { combineStacks?: boolean } = {}): Promise<void> {
+    addCoins(
+        coins: Partial<Record<CurrencyDenomination, number>>,
+        options: { combineStacks?: boolean } = {},
+    ): Promise<void> {
         // todo: deprecation warning
         return this.addCurrency(coins, options);
     }
 
-    removeCoins(coins: Partial<Record<Currency, number>>, options?: { byValue?: boolean }): Promise<boolean> {
+    removeCoins(
+        coins: Partial<Record<CurrencyDenomination, number>>,
+        options?: { byValue?: boolean },
+    ): Promise<boolean> {
         // todo: deprecation warning
         return this.removeCurrency(coins, options);
     }
 
     async addCurrency(
-        coins: Partial<Record<Currency, number>>,
+        coins: Partial<Record<CurrencyDenomination, number>>,
         { combineStacks = true }: { combineStacks?: boolean } = {},
     ): Promise<void> {
         const topLevelCoins = this.actor.itemTypes.treasure.filter((item) => combineStacks && item.isCurrency);
         const coinsByDenomination = groupBy(topLevelCoins, (item) => item.unit);
         const updates = createActorGroupUpdate();
-        for (const denomination of CURRENCY_TYPES) {
+        for (const denomination of CURRENCY_DENOMINATIONS) {
             const quantity = coins[denomination] ?? 0;
             if (quantity <= 0) continue;
             const item = coinsByDenomination.get(denomination)?.at(0);
@@ -127,7 +133,7 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
     }
 
     async removeCurrency(
-        coins: Partial<Record<Currency, number>>,
+        coins: Partial<Record<CurrencyDenomination, number>>,
         { byValue = true }: { byValue?: boolean } = {},
     ): Promise<boolean> {
         // Store what we have available. This is a copy. Exist early if total value is insufficient
@@ -137,11 +143,11 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
 
         // Variables to store the final operation we need to perform
         // Sometimes a coin may need to be added, for example removing 1 cp from 1 gp needs to also add 9 cp
-        const removeResult = R.mapToObj(CURRENCY_TYPES, (d) => [d, 0]);
-        const addResult = R.mapToObj(CURRENCY_TYPES, (d) => [d, 0]);
+        const removeResult = R.mapToObj(CURRENCY_DENOMINATIONS, (d) => [d, 0]);
+        const addResult = R.mapToObj(CURRENCY_DENOMINATIONS, (d) => [d, 0]);
 
         // Phase 1 - remove exact without converting or splitting
-        for (const type of CURRENCY_TYPES) {
+        for (const type of CURRENCY_DENOMINATIONS) {
             const toRemove = Math.min(coins[type] ?? 0, actorCoins[type]);
             removeResult[type] = toRemove;
             actorCoins[type] -= toRemove;
@@ -182,7 +188,7 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
             removeResult.pp += valueToRemove / 1000;
 
             // Phase 4 - Simplify and cancel out additions / removals
-            for (const type of CURRENCY_TYPES) {
+            for (const type of CURRENCY_DENOMINATIONS) {
                 const min = Math.min(addResult[type], removeResult[type]);
                 addResult[type] -= min;
                 removeResult[type] -= min;

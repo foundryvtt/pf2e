@@ -76,11 +76,21 @@ export interface DatabaseGetOperation<TParent extends Document | null> {
 }
 
 export interface DatabaseCreateOperation<TParent extends Document | null> {
+    /** The action of this database operation **/
     action: "create";
-    /** Whether the database operation is broadcast to other connected clients */
-    broadcast: boolean;
     /** An array of data objects from which to create Documents */
     data: object[];
+    /** The Document name **/
+    documentName: string;
+    /** Whether the database operation is broadcast to other connected clients */
+    broadcast?: boolean;
+    /** Control the object of any created Documents */
+    controlObject?: boolean;
+    /**
+     * Is the operation a dry run?
+     * If so, an empty result array is returned before the Documents are created.
+     */
+    dryRun?: boolean;
     /** Retain the _id values of provided data instead of generating new ids */
     keepId?: boolean;
     /** Retain the _id values of embedded document data instead of generating new ids for each embedded document */
@@ -103,23 +113,31 @@ export interface DatabaseCreateOperation<TParent extends Document | null> {
 
 export interface DatabaseCreateCallbackOptions extends Omit<
     Partial<DatabaseCreateOperation<null>>,
-    "action" | "data" | "pack" | "parent" | "noHook"
+    "action" | "documentName" | "data" | "pack" | "parent" | "noHook"
 > {}
 
 export interface DatabaseUpdateOperation<TParent extends Document | null> {
+    /** The action of this database operation **/
     action: "update";
-    /** Whether the database operation is broadcast to other connected clients */
-    broadcast: boolean;
+    /** The Document name **/
+    documentName: string;
     /**
      * An array of data objects used to update existing Documents.
      * Each update object must contain the _id of the target Document
      */
     updates: object[];
+    /** Whether the database operation is broadcast to other connected clients */
+    broadcast?: boolean;
     /**
      * Difference each update object against current Document data and only use differential data for the update
      * operation
      */
     diff?: boolean;
+    /**
+     * Is the operation a dry run?
+     * If so, an empty result array is returned before the Documents are created.
+     */
+    dryRun?: boolean;
     /** The timestamp when the operation was performed */
     modifiedTime?: number;
     /** Merge objects recursively. If false, inner objects will be replaced explicitly. Use with caution! */
@@ -138,17 +156,25 @@ export interface DatabaseUpdateOperation<TParent extends Document | null> {
 
 export interface DatabaseUpdateCallbackOptions extends Omit<
     Partial<DatabaseUpdateOperation<null>>,
-    "action" | "pack" | "parent" | "restoreDelta" | "noHook" | "updates"
+    "action" | "documentName" | "pack" | "parent" | "restoreDelta" | "noHook" | "updates"
 > {}
 
 export interface DatabaseDeleteOperation<TParent extends Document | null> {
+    /** The action of this database operation **/
     action: "delete";
-    /** Whether the database operation is broadcast to other connected clients */
-    broadcast: boolean;
+    /** The Document name **/
+    documentName: string;
     /** An array of Document ids which should be deleted */
     ids: string[];
+    /** Whether the database operation is broadcast to other connected clients */
+    broadcast?: boolean;
     /** Delete all documents in the Collection, regardless of _id */
     deleteAll?: boolean;
+    /**
+     * Is the operation a dry run?
+     * If so, an empty result array is returned before the Documents are created.
+     */
+    dryRun?: boolean;
     /** The timestamp when the operation was performed */
     modifiedTime?: number;
     /** Block the dispatch of hooks related to this operation */
@@ -161,11 +187,13 @@ export interface DatabaseDeleteOperation<TParent extends Document | null> {
     pack?: string | null;
     /** A parent Document UUID provided when the parent instance is unavailable */
     parentUuid?: DocumentUUID;
+    /** The mapping of IDs of deleted Documents to the UUIDs of the Documents that replace the deleted Documents */
+    replacements?: Record<string, string>;
 }
 
 export interface DatabaseDeleteCallbackOptions extends Omit<
     Partial<DatabaseDeleteOperation<null>>,
-    "action" | "deleteAll" | "ids" | "pack" | "parent" | "noHook"
+    "action" | "documentName" | "deleteAll" | "ids" | "pack" | "parent" | "noHook"
 > {}
 
 export type DatabaseAction = "get" | "create" | "update" | "delete";
@@ -175,6 +203,11 @@ export type DatabaseOperation<TParent extends Document | null> =
     | DatabaseCreateOperation<TParent>
     | DatabaseUpdateOperation<TParent>
     | DatabaseDeleteOperation<TParent>;
+
+export type DatabaseWriteOperation<TParent extends Document | null = Document | null> = Exclude<
+    DatabaseOperation<TParent>,
+    DatabaseGetOperation<TParent>
+>;
 
 export interface DocumentSocketRequest {
     /** The type of Document being transacted */

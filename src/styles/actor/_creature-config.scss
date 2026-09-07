@@ -1,0 +1,20 @@
+.creature-config {
+    // The hint's link to the global lootable default reads as a content link, not a form button
+    button.inline-link {
+        @include inline-link;
+
+        cursor: var(--cursor-pointer);
+        display: inline;
+        font-family: inherit;
+        font-size: inherit;
+        height: unset;
+        line-height: inherit;
+        min-height: unset;
+        width: unset;
+
+        &:disabled {
+            cursor: default;
+            opacity: 0.75;
+        }
+    }
+}

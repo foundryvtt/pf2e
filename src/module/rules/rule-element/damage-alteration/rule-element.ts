@@ -7,7 +7,6 @@ import type { ModelPropsFromRESchema, RuleElementSchema } from "../data.ts";
 import { ResolvableValueField, RuleElement } from "../index.ts";
 import { DamageAlteration } from "./alteration.ts";
 import fields = foundry.data.fields;
-import DataModelValidationFailure = foundry.data.validation.DataModelValidationFailure;
 
 /** Alter certain aspects of individual components (modifiers and dice) of a damage roll. */
 class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
@@ -31,7 +30,7 @@ class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
                 required: true,
                 nullable: true,
                 initial: null,
-                validate: (value, options): boolean | DataModelValidationFailure => {
+                validate: (value, options): boolean => {
                     if (typeof value === "string" && /^\{\w+\|.+\}$/.test(value)) return true;
                     const source = options.source ?? options.model?._source;
                     if (!R.isPlainObject(source)) throw Error("unexpected missing source object");

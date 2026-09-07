@@ -17,6 +17,13 @@ export const CanvasReady = {
             game.pf2e.effectPanel.render({ force: true });
 
             if (!canvas.scene) return;
+
+            // Effect-area containment is only measurable while the scene is viewed. Pick up walls that changed
+            // while it wasn't
+            if (game.user.isActiveGM && canvas.scene.regions.some((r) => r.isMeasuredArea)) {
+                canvas.scene.updateTokenRegions();
+            }
+
             for (const token of canvas.tokens.placeables) {
                 // Redraw effects on visible tokens
                 if (token.visible) token.renderFlags.set({ redrawEffects: true });

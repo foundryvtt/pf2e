@@ -1,9 +1,41 @@
 // Application V2
 .application {
-    // Stack a dialog's buttons in full-width rows: for skill/option pickers with several buttons
-    &.dialog.column-buttons .form-footer {
+    // Stack an application's buttons in full-width rows: for skill/option pickers and long button labels
+    &.column-buttons .form-footer {
         align-items: stretch;
         flex-direction: column;
+    }
+
+    // Two-column term/value list with striped rows: terms hug their content, values take the rest
+    dl.striped {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        margin: 0;
+
+        dt,
+        dd {
+            margin: 0;
+            padding: var(--space-3) var(--space-8);
+        }
+
+        dt:nth-of-type(odd),
+        dd:nth-of-type(odd) {
+            background: var(--table-row-color-odd);
+        }
+
+        dt:nth-of-type(even),
+        dd:nth-of-type(even) {
+            background: var(--table-row-color-even);
+        }
+
+        dt {
+            font-weight: bold;
+            text-shadow: none;
+        }
+
+        dd {
+            overflow-wrap: break-word;
+        }
     }
 
     .window-content.compact {

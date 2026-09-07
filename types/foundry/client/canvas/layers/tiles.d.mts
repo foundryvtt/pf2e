@@ -2,21 +2,21 @@ import TileHUD from "@client/applications/hud/tile-hud.mjs";
 import { Point } from "@common/_types.mjs";
 import { SceneControl } from "../../applications/ui/scene-controls.mjs";
 import Tile from "../placeables/tile.mjs";
-import { PlaceablesLayerOptions } from "./_types.mjs";
-import PlaceablesLayer, { PlaceablesLayerPointerEvent } from "./base/placeables-layer.mjs";
+import { PlaceablesLayerPointerEvent } from "./base/placeables-layer.mjs";
+import { ShapeLayer, ShapeLayerOptions } from "./mixins/shapes.mjs";
 
 /**
  * A PlaceablesLayer designed for rendering the visual Scene for a specific vertical cross-section.
  * @category Canvas
  */
-export default class TilesLayer<TObject extends Tile = Tile> extends PlaceablesLayer<TObject> {
+export default class TilesLayer<TObject extends Tile = Tile> extends ShapeLayer<TObject> {
     static override documentName: "Tile";
 
     /* -------------------------------------------- */
     /*  Layer Attributes                            */
     /* -------------------------------------------- */
 
-    static override get layerOptions(): PlaceablesLayerOptions;
+    static override get layerOptions(): ShapeLayerOptions;
 
     override get hookName(): string;
 

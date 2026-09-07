@@ -27,9 +27,36 @@
         },
         "rules": [
             {
-                "choices": {
-                    "config": "magicTraditions"
-                },
+                "choices": [
+                    {
+                        "label": "PF2E.TraitArcane",
+                        "value": {
+                            "skill": "arcana",
+                            "tradition": "arcane"
+                        }
+                    },
+                    {
+                        "label": "PF2E.TraitDivine",
+                        "value": {
+                            "skill": "religion",
+                            "tradition": "divine"
+                        }
+                    },
+                    {
+                        "label": "PF2E.TraitOccult",
+                        "value": {
+                            "skill": "occultism",
+                            "tradition": "occult"
+                        }
+                    },
+                    {
+                        "label": "PF2E.TraitPrimal",
+                        "value": {
+                            "skill": "nature",
+                            "tradition": "primal"
+                        }
+                    }
+                ],
                 "flag": "eidolonTradition",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Tradition"
@@ -38,12 +65,12 @@
                 "key": "ActiveEffectLike",
                 "mode": "override",
                 "path": "flags.system.eidolon.tradition",
-                "value": "{item|flags.system.rulesSelections.eidolonTradition}"
+                "value": "{item|flags.system.rulesSelections.eidolonTradition.tradition}"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "system.skills.arcana.rank",
+                "path": "system.skills.{item|flags.system.rulesSelections.eidolonTradition.skill}.rank",
                 "value": 1
             },
             {

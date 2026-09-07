@@ -1,0 +1,65 @@
+{
+    "_id": "Tz1nFtwF8cALXB87",
+    "folder": "pzBMXIoXFXS8o1VH",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Sharpest Teeth",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Vampires have nothing on your ability to draw blood with every bite. When you successfully hit with your jaws unarmed attack, your target takes 1 persistent bleed damage, or @Damage[1d4[persistent,bleed]] damage on a critical hit.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "fanged binnaquid heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Secrets of the Swarm Adventure Path"
+        },
+        "rules": [
+            {
+                "critical": "true",
+                "damageType": "bleed",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "selector": "jaws-damage"
+            },
+            {
+                "critical": false,
+                "damageCategory": "persistent",
+                "damageType": "bleed",
+                "key": "FlatModifier",
+                "selector": [
+                    "jaws-damage"
+                ],
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "binnaquid"
+            ]
+        }
+    },
+    "type": "feat"
+}

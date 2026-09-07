@@ -279,7 +279,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         }
 
         for (const anchor of htmlQueryAll(html, "a[data-action=delete-variant]")) {
-            anchor.addEventListener("click", () => {
+            anchor.addEventListener("click", async () => {
                 const id = anchor.dataset.id;
                 if (id) {
                     const variant = this.item.loadVariant({ overlayIds: [id] });
@@ -288,26 +288,15 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                             `Spell ${this.item.name} (${this.item.uuid}) does not have a variant with id: ${id}`,
                         );
                     }
-                    new foundry.appv1.api.Dialog({
-                        title: _loc("PF2E.Item.Spell.Variants.DeleteDialogTitle"),
+                    const confirmed = await foundry.applications.api.DialogV2.confirm({
+                        id: "delete-spell-variant-{id}",
+                        window: { title: "PF2E.Item.Spell.Variants.DeleteDialogTitle" },
                         content: `<p>${_loc("PF2E.Item.Spell.Variants.DeleteDialogText", {
                             variantName: variant.name,
                         })}</p>`,
-                        buttons: {
-                            delete: {
-                                icon: fa.fields.createFontAwesomeIcon("trash").outerHTML,
-                                label: _loc("PF2E.DeleteShortLabel"),
-                                callback: () => {
-                                    this.item.overlays.deleteOverlay(id);
-                                },
-                            },
-                            cancel: {
-                                icon: fa.fields.createFontAwesomeIcon("times").outerHTML,
-                                label: _loc("COMMON.Cancel"),
-                            },
-                        },
-                        default: "cancel",
-                    }).render(true);
+                        yes: { label: "PF2E.DeleteShortLabel", icon: "fa-solid fa-trash" },
+                    });
+                    if (confirmed) this.item.overlays.deleteOverlay(id);
                 }
             });
         }

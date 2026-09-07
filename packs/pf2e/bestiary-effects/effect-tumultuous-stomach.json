@@ -1,0 +1,51 @@
+{
+    "_id": "5AJNGTSiz4FzE04K",
+    "img": "icons/creatures/fish/squid-kraken-teal.webp",
+    "name": "Effect: Tumultuous Stomach",
+    "system": {
+        "description": {
+            "value": "<p>You are swallowed and take a –2 circumstance penalty to attack rolls.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens High Seas"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "cascade"
+                },
+                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Engulf and Swallow Whole"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "attack-roll",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

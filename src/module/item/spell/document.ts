@@ -65,6 +65,7 @@ import { SpellArea, SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSyst
 import { createDescriptionPrepend, createSpellRankLabel, getPassiveDefenseLabel } from "./helpers.ts";
 import { SpellOverlayCollection } from "./overlay.ts";
 import type { MagicTradition, SpellTrait } from "./types.ts";
+import { CAST_A_SPELL_OPTION } from "./values.ts";
 
 class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     readonly parentItem: ConsumablePF2e<TParent> | null;
@@ -752,7 +753,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     override async toMessage(
         event?: Maybe<PointerEvent>,
-        { create = true, data, mode }: SpellToMessageOptions = {},
+        { actualCast = false, create = true, data, mode }: SpellToMessageOptions = {},
     ): Promise<ChatMessagePF2e | undefined> {
         // NOTE: The parent toMessage() pulls "contextual data" from the DOM dataset.
         // Only spells/consumables currently use DOM data.
@@ -763,13 +764,17 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         // If this is for a higher level spell, heighten it first
         const castRank = Number(castData.castRank ?? "");
         if (castRank && castRank !== this.rank) {
-            return this.loadVariant({ castRank })?.toMessage(event, { create, data, mode });
+            return this.loadVariant({ castRank })?.toMessage(event, { actualCast, create, data, mode });
         }
         const message = await super.toMessage(event, { create: false, data: castData, mode });
         if (!message) return undefined;
 
         const messageSource = message.toObject();
         const flags = messageSource.flags[SYSTEM_ID];
+        // The spell was actually cast and not simply sent to chat
+        if (actualCast && flags.origin?.rollOptions) {
+            flags.origin.rollOptions.push(CAST_A_SPELL_OPTION);
+        }
         const spellcasting = this.spellcasting;
         if (spellcasting?.statistic) {
             // Eventually we need to figure out a way to request a tradition if the ability doesn't provide one
@@ -1202,6 +1207,7 @@ interface SpellVariantChatData {
 }
 
 interface SpellToMessageOptions {
+    actualCast?: boolean;
     create?: boolean;
     mode?: ChatMessageMode;
     data?: { castRank?: number };

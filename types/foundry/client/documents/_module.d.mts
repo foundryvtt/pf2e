@@ -12,6 +12,7 @@ export * as collections from "./collections/_module.mjs";
 
 export { default as Setting } from "./setting.mjs";
 
+import { DatabaseWriteOperation, Document } from "@common/abstract/_module.mjs";
 import { default as Actor } from "./actor.mjs";
 import Adventure from "./adventure.mjs";
 import { default as Cards } from "./cards.mjs";
@@ -84,3 +85,42 @@ export type WorldDocument =
 
 export type CompendiumDocument =
     Actor<null> | Adventure | Cards | Item<null> | JournalEntry | Macro | Playlist | RollTable | Scene;
+
+/**
+ * Bundle multiple {@link Document}-modification operations into a single, batched request. The modifications
+ * are made in sequence without a network delay between each. This can be useful when, for example, it is desirable that
+ * there not be an unpredictable delay between operations due to latency. For certain operations there may also be a
+ * need to ensure there will never be a mixed state: either all must succeed, or all must fail.
+ *
+ * The nature of batched modifications does have some limitations:
+ * - Unlike with a sequence of unbatched operations, a batched operation is unable to reference the result of a prior
+ *   operation in the same batch.
+ * - A cancellation (via, for example, {@link Document#_preUpdate}) or exception thrown by a single operation will
+ *   cancel the entire batch. No changes will be made.
+ *
+ * @example Modify an Actor and two TokenDocuments
+ * Update an Actor's size category along with the dimensions of that Actor's related TokenDocuments across multiple
+ * Scenes.
+ * ```js
+ * foundry.documents.modifyBatch([
+ *   {
+ *     action: "update",
+ *     documentName: "Actor",
+ *     updates: [{_id: "Ay52yVxCgusBct1b", "system.size": "big"}],
+ *   },
+ *   {
+ *     action: "update",
+ *     documentName: "Token",
+ *     updates: [{_id: "30pnHJciHu4CvPnz", width: 2, height: 2}],
+ *     parent: sceneA
+ *   },
+ *   {
+ *     action: "update",
+ *     documentName: "Token",
+ *     updates: [{_id: "knSU5NQVXeIQQeHi", width: 2, height: 2}],
+ *     parent: sceneB
+ *   }
+ * ]);
+ * ```
+ */
+export function modifyBatch(operations: DatabaseWriteOperation[]): Promise<Document[][]>;

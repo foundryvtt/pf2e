@@ -1,6 +1,6 @@
 {
     "name": "foundry-pf2e",
-    "version": "8.4.0",
+    "version": "8.5.0",
     "description": "",
     "private": true,
     "type": "module",
@@ -17,15 +17,16 @@
         "pretest": "npm run lint",
         "test": "vitest run",
         "migrate": "tsx ./build/run-migration.ts",
-        "lint": "eslint && npm run prettier:scss-svelte",
+        "lint": "eslint --cache && npm run prettier:scss-svelte",
         "prettier:scss-svelte": "prettier --check src/styles src/**/*.svelte",
-        "lint:fix": "eslint --fix && prettier --write src/styles src/**/*.svelte"
+        "lint:fix": "eslint --cache --fix && prettier --write src/styles src/**/*.svelte"
     },
     "author": "The (P|S)F2E System Developers",
     "license": "Apache-2.0",
     "engines": {
         "node": ">=24.14.0"
     },
+    "packageManager": "pnpm@10.34.5",
     "devDependencies": {
         "@eslint/js": "^10.0.1",
         "@eslint/json": "^1.2.0",
@@ -105,7 +106,7 @@
     "allowScripts": {
         "classic-level@3.0.0": true,
         "esbuild@0.28.1": true,
-        "svelte-preprocess@6.0.5": true,
-        "unrs-resolver@1.12.2": true
+        "fsevents@2.3.3": true,
+        "svelte-preprocess@6.0.5": true
     }
 }

@@ -135,13 +135,32 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
     }
 
+    override prepareSiblingData(): void {
+        if (!this.actor) return;
+        const subfeatures = this.system.subfeatures;
+        if (!featCanHaveKeyOptions(this)) {
+            subfeatures.suppressedFeatures = [];
+        } else if (subfeatures.suppressedFeatures.length) {
+            const uuids: string[] = subfeatures.suppressedFeatures;
+            const feats = this.actor.itemTypes.feat.filter((f) => uuids.includes(f.sourceId ?? ""));
+            suppressFeats(feats);
+        }
+    }
+
     override prepareActorData(): void {
         const actor = this.actor;
-        if (!actor?.isOfType("character")) {
-            throw ErrorPF2e("Feats much be embedded in PC-type actors");
+        if (!actor?.isOfType("character")) throw ErrorPF2e("Feats much be embedded in PC-type actors");
+
+        // Swap out the standardized ancestry trait with the parent actor's ancestry trait
+        const traits = this.system.traits.value;
+        const standardizedAncestryIndex = traits.indexOf("ancestry");
+        if (standardizedAncestryIndex !== -1) {
+            const ancestrySlug = actor.ancestry?.slug;
+            const isAncestryTrait = objectHasKey(CONFIG.PF2E.ancestryTraits, ancestrySlug);
+            if (isAncestryTrait) traits.splice(standardizedAncestryIndex, 1, ancestrySlug);
+            else traits.splice(standardizedAncestryIndex, 1);
         }
 
-        // Exit early if the feat is being suppressed
         if (this.suppressed) return;
 
         // Set a self roll option for this feat(ure)
@@ -270,19 +289,6 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         });
         for (const grant of this.grants.filter((g): g is FeatPF2e<NonNullable<TParent>> => g.isOfType("feat"))) {
             grant.system.level.taken = this.system.level.taken;
-        }
-    }
-
-    override prepareSiblingData(): void {
-        if (!this.actor) return;
-
-        const subfeatures = this.system.subfeatures;
-        if (!featCanHaveKeyOptions(this)) {
-            subfeatures.suppressedFeatures = [];
-        } else if (subfeatures.suppressedFeatures.length) {
-            const uuids: string[] = subfeatures.suppressedFeatures;
-            const feats = this.actor.itemTypes.feat.filter((f) => uuids.includes(f.sourceId ?? ""));
-            suppressFeats(feats);
         }
     }
 

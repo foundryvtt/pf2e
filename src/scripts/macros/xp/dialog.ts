@@ -1,205 +1,138 @@
-import { ActorPF2e, HazardPF2e } from "@actor";
-import { fontAwesomeIcon, htmlQuery } from "@util";
-import type { XPCalculation } from "./index.ts";
+import type { ActorPF2e, HazardPF2e } from "@actor";
+import { isReallyPC } from "@actor/helpers.ts";
+import { TextEditorPF2e } from "@system/text-editor.ts";
+import { createHTMLElement, localizer } from "@util";
+import * as R from "remeda";
+import { rewardEncounterBudgets, xpCreatureDifferences, type XPCalculation } from "./index.ts";
 
-function getHazards(actors: ActorPF2e[]): HazardPF2e[] {
-    return actors.filter((a): a is HazardPF2e => a.type === "hazard");
-}
-
-function getLevels(actors: ActorPF2e[], alliance: string): number[] {
-    return actors.filter((a) => a.alliance === alliance).map((a) => a.level);
-}
-
-function dialogTemplate(xp: XPCalculation): string {
-    return `
-<h2>XP</h2>
-<table>
-    <tr>
-        <th>${_loc("PF2E.Encounter.Budget.PartySize")}</th>
-        <td>${xp.partySize}</td>
-    </tr>
-    <tr>
-        <th>${_loc("PF2E.Encounter.Budget.PartyLevel")}</th>
-        <td>${xp.partyLevel}</td>
-    </tr>
-    <tr>
-        <th>${_loc("PF2E.Encounter.Budget.Threat")}</th>
-        <td>${_loc("PF2E.Encounter.Budget.Threats." + xp.rating)} (${xp.totalXP} XP)</td>
-    </tr>
-    <tr>
-        <th>${_loc("PF2E.Encounter.Budget.Reward")}</th>
-        <td>${xp.xpPerPlayer} XP</td>
-    </tr>
-</table>
-<h2>${_loc("PF2E.Encounter.Budget.EncounterBudget")}</h2>
-<table class="pf2-table">
-    <tr>
-        <th>${_loc("PF2E.Encounter.Budget.Threat")}</th>
-        <th>${_loc("PF2E.Encounter.Budget.XPBudget")}</th>
-        <th>${_loc("PF2E.Encounter.Budget.XPNeeded")}</th>
-        <th>${_loc("PF2E.Encounter.Budget.Reward")}</th>
-    </tr>
-    <tr>
-        <td>${_loc("PF2E.Encounter.Budget.Threats.trivial")}</td>
-        <td>${xp.encounterBudgets.trivial}</td>
-        <td>${xp.encounterBudgets.trivial - xp.totalXP}</td>
-        <td>40</td>
-    </tr>
-    <tr>
-        <td>${_loc("PF2E.Encounter.Budget.Threats.low")}</td>
-        <td>${xp.encounterBudgets.low}</td>
-        <td>${xp.encounterBudgets.low - xp.totalXP}</td>
-        <td>60</td>
-    </tr>
-    <tr>
-        <td>${_loc("PF2E.Encounter.Budget.Threats.moderate")}</td>
-        <td>${xp.encounterBudgets.moderate}</td>
-        <td>${xp.encounterBudgets.moderate - xp.totalXP}</td>
-        <td>80</td>
-    </tr>
-    <tr>
-        <td>${_loc("PF2E.Encounter.Budget.Threats.severe")}</td>
-        <td>${xp.encounterBudgets.severe}</td>
-        <td>${xp.encounterBudgets.severe - xp.totalXP}</td>
-        <td>120</td>
-    </tr>
-    <tr>
-        <td>${_loc("PF2E.Encounter.Budget.Threats.extreme")}</td>
-        <td>${xp.encounterBudgets.extreme}</td>
-        <td>${xp.encounterBudgets.extreme - xp.totalXP}</td>
-        <td>160</td>
-    </tr>
-</table>
-<h2>${_loc("PF2E.Encounter.CreatureXPAndRole.CreatureXPAndRole")}</h2>
-<table class="pf2-table">
-    <tr>
-        <th>${_loc("PF2E.Encounter.CreatureXPAndRole.CreatureLevel")}</th>
-        <th>XP</th>
-        <th>${_loc("PF2E.Encounter.CreatureXPAndRole.SuggestedRole")}</th>
-    </tr>
-    <tr>
-        <td>${xp.partyLevel - 4}</td>
-        <td>10</td>
-        <td>${_loc("PF2E.Encounter.CreatureXPAndRole.CreatureLevels.-4")}</td>
-    </tr>
-    <tr>
-        <td>${xp.partyLevel - 3}</td>
-        <td>15</td>
-        <td>${_loc("PF2E.Encounter.CreatureXPAndRole.CreatureLevels.-3")}</td>
-    </tr>
-    <tr>
-        <td>${xp.partyLevel - 2}</td>
-        <td>20</td>
-        <td>${_loc("PF2E.Encounter.CreatureXPAndRole.CreatureLevels.-2")}</td>
-    </tr>
-    <tr>
-        <td>${xp.partyLevel - 1}</td>
-        <td>30</td>
-        <td>${_loc("PF2E.Encounter.CreatureXPAndRole.CreatureLevels.-1")}</td>
-    </tr>
-    <tr>
-        <td>${xp.partyLevel}</td>
-        <td>40</td>
-        <td>${_loc("PF2E.Encounter.CreatureXPAndRole.CreatureLevels.0")}</td>
-    </tr>
-    <tr>
-        <td>${xp.partyLevel + 1}</td>
-        <td>60</td>
-        <td>${_loc("PF2E.Encounter.CreatureXPAndRole.CreatureLevels.1")}</td>
-    </tr>
-    <tr>
-        <td>${xp.partyLevel + 2}</td>
-        <td>80</td>
-        <td>${_loc("PF2E.Encounter.CreatureXPAndRole.CreatureLevels.2")}</td>
-    </tr>
-    <tr>
-        <td>${xp.partyLevel + 3}</td>
-        <td>120</td>
-        <td>${_loc("PF2E.Encounter.CreatureXPAndRole.CreatureLevels.3")}</td>
-    </tr>
-    <tr>
-        <td>${xp.partyLevel + 4}</td>
-        <td>160</td>
-        <td>${_loc("PF2E.Encounter.CreatureXPAndRole.CreatureLevels.4")}</td>
-    </tr>
-</table>`;
-}
-
-const askLevelPopupTemplate = (): string => {
-    const partySize = Math.trunc(Number(localStorage.getItem("xpMacroPartySize") ?? 4));
-    const partyLevel = Math.trunc(Number(localStorage.getItem("xpMacroPartyLevel") ?? 1));
-    return `
-    <form>
-    <div class="form-group">
-        <label>${_loc("PF2E.Encounter.Budget.PartySize")}</label>
-        <input id="party-size" name="party-size" type="number" value="${partySize}">
-    </div>
-    <div class="form-group">
-        <label>${_loc("PF2E.Encounter.Budget.PartyLevel")}</label>
-        <input id="party-level" name="party-level" type="number" value="${partyLevel}">
-    </div>
-    </form>
-    `;
-};
-
-function showXP(partyLevel: number, partySize: number, npcLevels: number[], hazards: HazardPF2e[]): void {
-    const pwol = game.pf2e.settings.variants.pwol.enabled;
-    const xp = game.pf2e.gm.calculateXP(partyLevel, partySize, npcLevels, hazards, { pwol });
-    new foundry.appv1.api.Dialog({
-        title: "XP",
-        content: dialogTemplate(xp),
-        buttons: {},
-    }).render(true);
-}
-
-function askPartyLevelAndSize(npcLevels: number[], hazards: HazardPF2e[]): void {
-    new foundry.appv1.api.Dialog({
-        title: "Party Information",
-        content: askLevelPopupTemplate,
-        buttons: {
-            no: {
-                icon: fontAwesomeIcon("times").outerHTML,
-                label: "Cancel",
-            },
-            yes: {
-                icon: fontAwesomeIcon("calculator").outerHTML,
-                label: "Calculate XP",
-                callback: ($html) => {
-                    const html = $html[0];
-                    const partySize = Math.abs(
-                        Math.trunc(Number(htmlQuery<HTMLInputElement>(html, "[name=party-size]")?.value || 1)),
-                    );
-                    const partyLevel = Math.abs(
-                        Math.trunc(Number(htmlQuery<HTMLInputElement>(html, "[name=party-level]")?.value || 1)),
-                    );
-
-                    // persist for future uses
-                    localStorage.setItem("xpMacroPartySize", partySize.toString());
-                    localStorage.setItem("xpMacroPartyLevel", partyLevel.toString());
-                    showXP(partyLevel, partySize, npcLevels, hazards);
-                },
-            },
-        },
-        default: "yes",
-    }).render(true);
-}
-
-function xpFromEncounter(): void {
-    const actors = canvas.tokens.controlled.flatMap((a) => a.actor ?? []).filter((a) => !a.traits.has("minion"));
-    const npcLevels = getLevels(actors, "opposition");
-    const pcLevels = getLevels(actors, "party");
-    const hazards = getHazards(actors);
+/** Calculate and display XP for the selected tokens, prompting for party data if no PC tokens are selected */
+async function xpFromEncounter(): Promise<void> {
+    const actors: ActorPF2e[] = canvas.tokens.controlled
+        .flatMap((t) => t.actor ?? [])
+        .filter((a) => !a.traits.has("minion"));
+    const npcLevels = actors.filter((a) => a.alliance === "opposition").map((a) => a.level);
+    const hazards = actors.filter((a): a is HazardPF2e => a.type === "hazard");
     if (npcLevels.length === 0 && hazards.length === 0) {
-        ui.notifications.error(
-            `You must select at least one opposition and/or hazard token and optionally all PC tokens`,
-        );
+        ui.notifications.error("PF2E.ErrorMessage.NoOppositionTokenSelected", { localize: true });
         return;
     }
-    if (pcLevels.length === 0) {
-        askPartyLevelAndSize(npcLevels, hazards);
-    } else {
-        showXP(pcLevels[0], pcLevels.length, npcLevels, hazards);
+
+    // Party level is the rounded mean of the selected PCs, matching encounter-tracker metrics
+    const pcs = actors.filter((a) => a.alliance === "party" && isReallyPC(a));
+    const party =
+        pcs.length > 0
+            ? { level: Math.round(R.meanBy(pcs, (a) => a.level)), size: pcs.length }
+            : await askPartyLevelAndSize();
+    if (!party) return;
+
+    const pwol = game.pf2e.settings.variants.pwol.enabled;
+    const xp = game.pf2e.gm.calculateXP(party.level, party.size, npcLevels, hazards, { pwol });
+    new XPFromEncounterResults({ xp }).render({ force: true });
+}
+
+/** Prompt for party size and level, persisting the entries for future runs. Resolves null on cancel or dismissal. */
+async function askPartyLevelAndSize(): Promise<{ level: number; size: number } | null> {
+    const storedSize = Math.trunc(Number(localStorage.getItem("xpMacroPartySize") ?? 4));
+    const storedLevel = Math.trunc(Number(localStorage.getItem("xpMacroPartyLevel") ?? 1));
+    const content = `
+        <div class="form-group">
+            <label for="xp-party-size">${_loc("PF2E.Encounter.Budget.PartySize")}</label>
+            <input type="number" id="xp-party-size" name="size" value="${storedSize}" min="1" step="1" autofocus />
+        </div>
+        <div class="form-group">
+            <label for="xp-party-level">${_loc("PF2E.Encounter.Budget.PartyLevel")}</label>
+            <input type="number" id="xp-party-level" name="level" value="${storedLevel}" min="1" step="1" />
+        </div>`;
+    const result: unknown = await fa.api.DialogV2.input({
+        id: "xp-party-prompt-{id}",
+        window: { title: "PF2E.Encounter.PartyInformation" },
+        content,
+        ok: { label: "PF2E.Encounter.CalculateXP", icon: "fa-solid fa-calculator" },
+        buttons: [{ action: "cancel", label: "COMMON.Cancel", icon: "fa-solid fa-xmark" }],
+    });
+    // The cancel button resolves to its action string, dismissal to null
+    if (!R.isPlainObject(result)) return null;
+
+    const size = Math.abs(Math.trunc(Number(result.size) || 1));
+    const level = Math.abs(Math.trunc(Number(result.level) || 1));
+    localStorage.setItem("xpMacroPartySize", size.toString());
+    localStorage.setItem("xpMacroPartyLevel", level.toString());
+    return { level, size };
+}
+
+/** A static display of an XP calculation for the tokens selected when the macro was invoked */
+class XPFromEncounterResults extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV2) {
+    // Definite-assignment: the constructor's early-return path never constructs an instance
+    #xp!: XPCalculation;
+
+    constructor(options: DeepPartial<fa.ApplicationConfiguration> & { xp: XPCalculation }) {
+        // Reuse an open instance, replacing its data: a re-run refreshes the snapshot without moving the window
+        const existing = foundry.applications.instances.get("xp-from-encounter");
+        if (existing instanceof XPFromEncounterResults) {
+            existing.#xp = options.xp;
+            return existing;
+        }
+        super(options);
+        this.#xp = options.xp;
     }
+
+    static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
+        id: "xp-from-encounter",
+        window: { title: "PF2E.Encounter.XP" },
+        position: { width: 480 },
+    };
+
+    static override PARTS: Record<string, fa.api.HandlebarsTemplatePart> = {
+        base: { template: `systems/${SYSTEM_ID}/templates/macros/xp/results.hbs`, root: true, scrollable: [""] },
+    };
+
+    protected override async _prepareContext(options: fa.ApplicationRenderOptions): Promise<XPFromEncounterContext> {
+        const xp = this.#xp;
+        return {
+            ...(await super._prepareContext(options)),
+            metrics: this.#prepareMetrics(),
+            budgetRows: R.keys(rewardEncounterBudgets).map((rating) => ({
+                threat: _loc(`PF2E.Encounter.Budget.Threats.${rating}`),
+                budget: xp.encounterBudgets[rating],
+                needed: xp.encounterBudgets[rating] - xp.totalXP,
+                reward: rewardEncounterBudgets[rating],
+            })),
+            creatureRows: [...xpCreatureDifferences].map(([delta, creatureXP]) => ({
+                level: xp.partyLevel + delta,
+                xp: creatureXP,
+                role: _loc(`PF2E.Encounter.CreatureXPAndRole.CreatureLevels.${delta}`),
+            })),
+        };
+    }
+
+    /** Threat/award/budget/party summary, in the same style as the encounter tracker's metrics */
+    #prepareMetrics(): XPFromEncounterContext["metrics"] {
+        const xp = this.#xp;
+        const localize = localizer("PF2E.Encounter.Metrics");
+        const threat = createHTMLElement("div", {
+            innerHTML: localize("Threat", { threat: _loc(`PF2E.Encounter.Budget.Threats.${xp.rating}`) }),
+        });
+        TextEditorPF2e.convertXMLNode(threat, "threat", { classes: ["value", xp.rating] });
+        const award = createHTMLElement("div", { innerHTML: localize("Award.Label", { xp: xp.xpPerPlayer }) });
+        TextEditorPF2e.convertXMLNode(award, "award", { classes: ["value"] });
+
+        return {
+            threat: threat.innerHTML,
+            award: award.innerHTML,
+            budget: localize("Budget", {
+                spent: xp.totalXP,
+                max: xp.encounterBudgets.moderate,
+                partyLevel: xp.partyLevel,
+            }),
+            partySize: localize("PartySize", { size: xp.partySize }),
+        };
+    }
+}
+
+interface XPFromEncounterContext extends fa.ApplicationRenderContext {
+    metrics: { threat: string; award: string; budget: string; partySize: string };
+    budgetRows: { threat: string; budget: number; needed: number; reward: number }[];
+    creatureRows: { level: number; xp: number; role: string }[];
 }
 
 export { xpFromEncounter };

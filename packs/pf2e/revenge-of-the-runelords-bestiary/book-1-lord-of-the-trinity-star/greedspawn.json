@@ -257,10 +257,6 @@
                     "Pe7Oo3l6R3fkA8IT": {
                         "damage": "2d8+12",
                         "damageType": "slashing"
-                    },
-                    "o15arZlrfgQPPGnQ": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -272,7 +268,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
+                    }
+                ],
                 "slug": "glaive",
                 "traits": {
                     "value": [

@@ -1,0 +1,611 @@
+{
+    "_id": "vP8x4oN80AWooZ0Y",
+    "folder": "ezSmYppC00medNPX",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "8buI413D6qIYMtcQ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.lrqWKtJrjb55iHtw"
+            },
+            "img": "icons/equipment/head/helm-barbute-rounded-orange.webp",
+            "name": "Deravon's Helm",
+            "sort": 100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p><em>Deravon's helm</em> is crafted with crown-like embellishments to give it an unmistakable air of authority. Crafted of gold with silver filigree incorporating images of swords, jewels, and most of all, the Eye of Aroden (from which the tines of the crown extend), Deravon's helm is much lighter than would be expected. Downward swooping guards adorn the sides of the helm while leaving the face fully visible. It grants you a +1 item bonus to Intimidation checks made to [[/act demoralize]].</p>\n<p><strong>Activate—Bow Before Aroden</strong> <span class=\"action-glyph\">2</span> (auditory, concentrate, linguistic, mental)</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> You issue a command to a humanoid within 30 feet to bow down before Aroden's glory. The targeted creature must make a @Check[will|dc:18] save to resist being compelled to drop @UUID[Compendium.pf2e.conditionitems.Item.Prone] as its first action on their next turn (on a critical failure, the target must spend all three actions on its next turn remaining prone). If the target is a human, they take a –1 status penalty to the save.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 4
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 90
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "The Dead God's Hand"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:demoralize"
+                        ],
+                        "selector": [
+                            "intimidation"
+                        ],
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
+                "size": "med",
+                "slug": "deravons-helm",
+                "traits": {
+                    "rarity": "unique",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "wornheadwear"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "rVJPQWrhpBXliEVp",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Ghostly Sword",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "Clmt8CoiEkW3qLLU": {
+                        "damage": "2d8+10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "KqOz4L732GrEqNJn",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Helm Dependent",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Deravon is incorporeal, but the magical helm he wears is physical, perched atop his head as securely as if he were a physical creature. He cannot pass through solid objects while wearing his helm, but without it he is weakened. A PC can remove his helm with a @Check[athletics|dc:27] check to [[/act disarm]], and if Deravon's ghost critically fails a Reflex save, he must immediately attempt a second Reflex save against the same DC. On a failure, his helm topples from his head. While he can move through solid objects while his helm is off, he can't use Aeon Stars or Bow Before Me, and is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as long as he remains without his helm.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.Deravon.HelmetDependent.RollOptionLabel",
+                        "option": "item:slug:deravons-helm",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "Immunity",
+                        "predicate": [
+                            "item:slug:deravons-helm"
+                        ],
+                        "type": "spirit"
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            {
+                                "not": "item:slug:deravons-helm"
+                            }
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+                    },
+                    {
+                        "itemType": "action",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            {
+                                "not": "item:slug:deravons-helm"
+                            },
+                            {
+                                "or": [
+                                    "item:slug:aeon-stars-curse",
+                                    "item:slug:bow-before-me"
+                                ]
+                            }
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "PF2E.NPCAbility.Deravon.HelmetDependent.Note"
+                            }
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "m41xKimIh9ELZu6i",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.unR8VVR4yyRnsmnB"
+            },
+            "folder": "LOmu7fmjWOthtbvt",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Rejuvenation",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>Destroying Deravon's link to the world—his magical helm—prevents him from rejuvenating and allows him to move on to the afterlife once he is destroyed.</p><hr /><p>When a ghost is destroyed, it re-forms after [[/br 2d4 #days]]{2d4 days} within the location it's bound to, fully healed. A ghost can be permanently destroyed only if someone determines the reason for its existence and sets right whatever prevents the spirit from resting.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "itemId": "{item|id}",
+                        "key": "ItemAlteration",
+                        "mode": "override",
+                        "property": "name",
+                        "value": "PF2E.NPCAbility.Ghost.Rejuvenation.Name"
+                    }
+                ],
+                "slug": "ghost-rejuvenation",
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hi8V1Vo6HBTxFobd",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Site Bound",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Deravon's ghost can travel anywhere in the Sanctum of Aroden (areas <strong>B29–B34</strong>) but not beyond.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EVSeiFnwGCTwhKxp",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "p52lQS3VKK447diy",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Aeon Star's Curse",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Deravon's ghost has four tiny motes of darkness that constantly orbit the glowing helm atop his head. When he activates the Aeon Star's Curse, one of these motes of darkness fires from its orbit to strike a living creature within 120 feet. That creature takes @Damage[5d6[spirit]] damage and must attempt a @Check[will|dc:28] save. An expended Aeon Star returns to its orbit around Deravon's head automatically after 1 hour has passed, but if no Aeon Stars orbit his head, Deravon's ghost can't activate Aeon Star's Curse, and the Athletics check to [[/act disarm]] his helm drops to DC 23.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d6[spirit]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[4d6[spirit]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} with an unlimited duration.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[8d6[spirit]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} with an unlimited duration. In addition, they suffer from an overwhelming conviction that, at any moment, the Aeon Star might appear in the sky above, portending the end of all things. As long as they remain outdoors during the day or indoors or underground at any time of day, the cursed character is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] from this constant distraction. While outdoors at night, the cursed character is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} from this spiritual conviction.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "aeon-stars-curse",
+                "traits": {
+                    "value": [
+                        "curse",
+                        "divine",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Q6ZSS30ezbo9Xsc0",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Bow Before Me",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> Deravon's ghost can use the \"Bow Before Aroden\" activation of his helm at will as a single action once per round rather than once per day as a two-action activity, as long as the command he issues is to bow before him and not before Aroden.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "concentrate",
+                        "divine",
+                        "linguistic",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OCpQqaQnTir9ueI4",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Slice of Death",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Deravon's ghost swings his ghostly longsword in an arc before him, unleashing a @Template[type:cone|distance:30] of void energy. Creatures in the area take @Damage[8d6[void]|options:area-damage] damage and must make a @Check[fortitude|dc:28] save against the following additional effects. Deravon's ghost can't use Slice Of Death for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature takes no damage and is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and an additional @Damage[2d6[persistent,void]|options:area-damage] damage as their flesh begins to rot away.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, @Damage[2d6[persistent,void]|options:area-damage] damage, and becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as long as they continue taking the persistent void damage as their body begins to stiffen up as if from rigor mortis.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "A1I5M0YoEb1IC5aV",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Aroden Lore",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 18
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Deravon's Ghost",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 6
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": 3
+            },
+            "str": {
+                "mod": -5
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 25
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 115,
+                "temp": 0,
+                "value": 115
+            },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "spirit",
+                        "vitality"
+                    ],
+                    "type": "all-damage",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 25
+                    }
+                ],
+                "value": 0
+            }
+        },
+        "details": {
+            "blurb": "Male human ghost",
+            "languages": {
+                "details": "",
+                "value": [
+                    "azlanti",
+                    "common",
+                    "empyrean",
+                    "necril"
+                ]
+            },
+            "level": {
+                "value": 9
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "The Dead God's Hand"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "darkvision",
+            "mod": 18,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 16
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 19
+            },
+            "intimidation": {
+                "base": 19,
+                "special": [
+                    {
+                        "base": 20,
+                        "label": "to Demoralize",
+                        "predicate": [
+                            "action:demoralize"
+                        ]
+                    }
+                ]
+            },
+            "religion": {
+                "base": 16
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "ghost",
+                "incorporeal",
+                "spirit",
+                "undead",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

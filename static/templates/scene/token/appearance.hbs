@@ -1,15 +1,39 @@
 <div class="tab scrollable{{#if tab.active}} active{{/if}}" data-group="{{tab.group}}" data-tab="{{tab.id}}">
-    {{formGroup fields.texture.fields.src value=source.texture.src rootId=rootId}}
-    {{#if randomImgEnabled}}
-    {{formGroup fields.randomImg value=source.randomImg classes="slim" rootId=rootId}}
-    {{else if hasAlternates}}
-    <div class="form-group">
-        <label for="{{rootId}}-alternateImages">{{localize "TOKEN.ImageAlts"}}</label>
-        <select id="{{rootId}}-alternateImages" class="alternate-images" name="alternateImages">
-            {{selectOptions alternateImages selected=source.texture.src blank=""}}
-        </select>
+    <div class="token-image-group">
+        {{formGroup fields.texture.fields.src value=source.texture.src classes="full-width" rootId=rootId}}
+        <p class="hint texture-src-warning" {{#unless usingSubject}}hidden{{/unless}}>
+            <i class="icon fa-solid fa-exclamation-triangle" inert></i> {{localize "TOKEN.ImagePathOverridden"}}
+        </p>
+        {{#if randomImgEnabled}}
+        {{formGroup fields.randomImg value=source.randomImg classes="slim" rootId=rootId}}
+        {{else if hasAlternates}}
+        <div class="form-group">
+            <label for="{{rootId}}-alternateImages">{{localize "TOKEN.ImageAlts"}}</label>
+            <select id="{{rootId}}-alternateImages" class="alternate-images" name="alternateImages">
+                {{selectOptions alternateImages selected=source.texture.src blank=""}}
+            </select>
+        </div>
+        {{/if}}
+        {{#if imagePreview}}
+        <div class="{{imagePreview.cls}}">
+            {{#if imagePreview.isVideo}}
+            <video class="token-image-thumb" src="{{imagePreview.src}}" autoplay muted loop playsinline
+                   disablepictureinpicture></video>
+            {{else}}
+            <img class="token-image-thumb" src="{{imagePreview.src}}" alt="{{localize "TOKEN.ImagePreview"}}">
+            {{/if}}
+            <div class="token-image-controls">
+                <button type="button" class="cycle-prev icon fa-solid fa-chevron-left" data-action="cycleImage"
+                        data-delta="-1" aria-label="{{localize "TOKEN.ImageCyclePrev"}}"
+                        {{#unless imagePreview.hasPrev}} disabled{{/unless}}></button>
+                <span class="counter">{{imagePreview.current}} / {{imagePreview.total}}</span>
+                <button type="button" class="cycle-next icon fa-solid fa-chevron-right" data-action="cycleImage"
+                        data-delta="1" aria-label="{{localize "TOKEN.ImageCycleNext"}}"
+                        {{#unless imagePreview.hasNext}} disabled{{/unless}}></button>
+            </div>
+        </div>
+        {{/if}}
     </div>
-    {{/if}}
 
     {{#if shapes}}
     {{formGroup fields.shape value=source.shape choices=shapes classes="slim" rootId=rootId}}

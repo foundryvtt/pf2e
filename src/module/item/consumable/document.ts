@@ -135,7 +135,8 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             if (actor.spellcasting?.canCastConsumable(this)) {
                 this.castEmbeddedSpell();
             } else if (actor.itemTypes.feat.some((feat) => feat.slug === "trick-magic-item")) {
-                trickMagicItem(this);
+                const consumed = await trickMagicItem(this);
+                if (!consumed) return;
             } else {
                 const formatParams = { actor: actor.name, spell: this.name };
                 const message = _loc("PF2E.LackCastConsumableCapability", formatParams);

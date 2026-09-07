@@ -14,7 +14,7 @@ type Size = (typeof SIZES)[number];
 const RARITIES = Object.freeze(["common", "uncommon", "rare", "unique"] as const);
 type Rarity = (typeof RARITIES)[number];
 
-interface ValuesList<T extends string = string> {
+interface ValuesList<T extends string | number = string | number> {
     value: T[];
 }
 

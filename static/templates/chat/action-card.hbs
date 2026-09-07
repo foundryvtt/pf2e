@@ -1,6 +1,6 @@
 <div class="pf2e chat-card action-card" data-actor-id="{{actor.id}}" data-item-id="{{item.id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
     <header class="card-header flexrow">
-        <img src="{{item.img}}" alt="{{item.name}}" />
+        {{#if showIcon}}<img src="{{item.img}}" alt="{{item.name}}" />{{/if}}
         <h3>{{item.name}}{{#if item.actionCost}} {{{actionGlyph item.actionCost}}}{{/if}}</h3>
         <div class="tags paizo-style" data-tooltip-class="pf2e">
             {{#each data.traits as |trait|}}

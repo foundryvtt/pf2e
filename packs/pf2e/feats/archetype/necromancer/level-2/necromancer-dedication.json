@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You can cast spells like a necromancer, gaining a dirge with four common occult cantrips of your choice. You gain the Cast a Spell activity. You can prepare two cantrips each day from your dirge. You're trained in the spell attack modifier and spell DC statistics. Your key spellcasting attribute for necromancer archetype spells is Intelligence, and they are occult necromancer spells. You become trained in Occultism; if you were already trained in Occultism, you instead become trained in a skill of your choice.</p>\n<p>Once per turn you can use a single action to create a single thrall within 30 feet. This action has the concentrate, manipulate, necromancer, occult, and thrall traits. You can use the Command a Thrall action as described in the thrall trait.</p>"
+            "value": "<p>You can cast spells like a necromancer, gaining a dirge with four common occult cantrips of your choice. You gain the Cast a Spell activity. You can prepare two cantrips each day from your dirge. You're trained in the spell attack modifier and spell DC statistics. Your key spellcasting attribute for necromancer archetype spells is Intelligence, and they are occult necromancer spells. You become trained in Occultism; if you were already trained in Occultism, you instead become trained in a skill of your choice.</p>\n<p>Once per turn you can use a single action to create a single thrall within 30 feet. This action has the concentrate, manipulate, necromancer, occult, and thrall traits. You can use the @UUID[Compendium.pf2e.actionspf2e.Item.Command a Thrall] action as described in the thrall trait.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.lVDaKaD2XM8hLd9v]</p>"
         },
         "level": {
             "value": 2
@@ -29,9 +29,20 @@
             "remaster": true,
             "title": "Pathfinder Impossible Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.occultism.rank",
+                "value": 1
+            }
+        ],
         "subfeatures": {
-            "proficiencies": {},
+            "proficiencies": {
+                "spellcasting": {
+                    "rank": 1
+                }
+            },
             "senses": {},
             "suppressedFeatures": []
         },

@@ -1,4 +1,4 @@
-import { DataSchema, Document, TypeDataModel } from "@common/abstract/_module.mjs";
+import { DataSchema, TypeDataModel } from "@common/abstract/_module.mjs";
 import { AudioFilePath, ImageFilePath } from "@common/constants.mjs";
 import { DocumentConstructionContext } from "../common/_types.mjs";
 import { ActiveEffectSource } from "../common/documents/active-effect.mjs";
@@ -426,7 +426,7 @@ export default interface Config<
      * Configuration for the JournalEntryPage embedded document type.
      */
     JournalEntryPage: {
-        dataModels: Record<string, ConstructorOf<TypeDataModel<Document, DataSchema>>>;
+        dataModels: Record<string, ConstructorOf<TypeDataModel<documents.JournalEntryPage, DataSchema>>>;
         defaultType: string;
         documentClass: typeof documents.JournalEntryPage;
         sidebarIcon: string;

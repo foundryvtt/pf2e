@@ -108,16 +108,18 @@
         <Traits bind:traits={filter.traits} />
     </FilterContainer>
     {#each Object.entries(filter.checkboxes) as [key, checkbox]}
-        <FilterContainer
-            isExpanded={checkbox.isExpanded}
-            clearButton={{
-                options: { visible: checkbox.selected.length > 0 },
-                clear: getClearFunction(checkbox),
-            }}
-            label={checkbox.label}
-        >
-            <Checkboxes bind:checkbox={filter.checkboxes[key as keyof BrowserFilter["checkboxes"]]} />
-        </FilterContainer>
+        {#if !R.isEmpty(checkbox.options)}
+            <FilterContainer
+                isExpanded={checkbox.isExpanded}
+                clearButton={{
+                    options: { visible: checkbox.selected.length > 0 },
+                    clear: getClearFunction(checkbox),
+                }}
+                label={checkbox.label}
+            >
+                <Checkboxes bind:checkbox={filter.checkboxes[key as keyof BrowserFilter["checkboxes"]]} />
+            </FilterContainer>
+        {/if}
     {/each}
     {#if filter.source}
         <FilterContainer

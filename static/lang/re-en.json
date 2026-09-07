@@ -962,6 +962,8 @@
                 "MagicalWood": "magical wood",
                 "NonMagicalAttacks": "non-magical attacks",
                 "NonWeapons": "non-weapons",
+                "PersistentAcid": "persistent acid",
+                "PersistentFire": "persistent fire",
                 "PersistentPoison": "persistent poison",
                 "PhysicalRangedAttacks": "physical ranged attacks",
                 "PhysicalWeaponsOnly": "physical (weapons only)",
@@ -971,9 +973,11 @@
                 "RangedWeaponAttacks": "ranged weapon attacks",
                 "SkeletonCrew": "skeleton crew",
                 "SpellsFromAllTraditions": "spells from all traditions",
-                "Spirits": "spirits",
                 "SpiritFromFiends": "spirit damage from fiends",
+                "Spirits": "spirits",
+                "Starvation": "starvation",
                 "StrikesCreatureSheddingBrightLight": "strikes by a creature shedding bright light",
+                "Thirst": "thirst",
                 "Treerazer": "Treerazer",
                 "UnholyBludgeoningPiercingSlashing": "unholy bludgeoning, piercing and slashing damage",
                 "VoidZonKuthonFollowers": "void from followers of Zon-Kuthon",
@@ -1095,6 +1099,7 @@
             },
             "BastardhallPhantom": {
                 "SupportRank": {
+                    "Prompt": "Select a support rank.",
                     "RequirementAddendum": {
                         "RankOne": "This ability requires support rank 1."
                     },
@@ -1178,6 +1183,9 @@
                 "GaseousAdaptation": {
                     "Name": "Gaseous Adaptation"
                 }
+            },
+            "CaydserrisArudora": {
+                "FearfulClaw": "Fearful Claw"
             },
             "ChangeFormation": {
                 "Loose": {
@@ -1553,6 +1561,12 @@
                 "TargetFeintOrTraitorousBetrayal": "Target off-guard due to Feint or Traitorous Betrayal"
             },
             "DemonInfuseWeapons": "Deal chaotic instead of evil damage",
+            "Deravon": {
+                "HelmDependent": {
+                    "Note": "This ability is not usable without Deravon's Helmet equipped",
+                    "RollOptionLabel": "Deravon's Helm is equipped"
+                }
+            },
             "DespairDragon": {
                 "CursedMemories": {
                     "Name": "Cursed Memories"
@@ -2033,6 +2047,11 @@
                 },
                 "WaterfallTorrent": {
                     "Name": "Waterfall Torrent"
+                }
+            },
+            "Kappa": {
+                "HeadBowl": {
+                    "Spilled": "Spilled Head Bowl"
                 }
             },
             "KeepUpWithMe": {
@@ -2691,6 +2710,26 @@
                     }
                 }
             },
+            "SanctumKnight": {
+                "AeonStar": {
+                    "Black": {
+                        "Label": "Black Aeon Star",
+                        "RollOptionLabel": "Black Aeon Star used"
+                    },
+                    "Gold": {
+                        "Label": "Gold Aeon Star",
+                        "RollOptionLabel": "Gold Aeon Star used"
+                    },
+                    "Green": {
+                        "Label": "Green Aeon Star",
+                        "RollOptionLabel": "Green Aeon Star used"
+                    },
+                    "White": {
+                        "Label": "White Aeon Star",
+                        "RollOptionLabel": "White Aeon Star used"
+                    }
+                }
+            },
             "Sangrist": {
                 "BloodVigor": {
                     "FastHealing": {
@@ -2761,6 +2800,12 @@
                     "One": "One Lizard",
                     "Three": "Three Lizards",
                     "Two": "Two Lizards"
+                }
+            },
+            "Shulgurk": {
+                "AnadiPoison": {
+                    "Label": "Anadi Poison",
+                    "Text": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:17]</p><p><strong>Maximum Duration</strong> 4 rounds</p><p><strong>Stage 1</strong> @Damage[1d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} (1 round)</p><p><strong>Stage 2</strong> @Damage[1d6[poison]] damage, off-guard, and @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} (1 round)</p>"
                 }
             },
             "Siabrae": {
@@ -4031,6 +4076,7 @@
             "JunglesOrFlowerFields": "In Jungles or Flower Fields",
             "JunkOrDebris": "In Junk or Debris",
             "Lair": "In Lair",
+            "Land": "On Land",
             "Lava": "In Lava",
             "LeyLine": "Near Ley Line",
             "Lie": "To Lie",
@@ -4666,9 +4712,14 @@
             },
             "BodyParts": {
                 "Arms": "Arms",
+                "Bones": "Bones",
                 "Head": "Head",
+                "Joints": "Joints",
                 "Legs": "Legs",
-                "Torso": "Torso"
+                "Muscles": "Muscles",
+                "Prompt": "Select a body part.",
+                "Torso": "Torso",
+                "Wrists": "Wrists"
             },
             "BonusLabel": {
                 "NegativeOne": "-1",
@@ -5049,6 +5100,12 @@
                     },
                     "wizard": {
                         "Description": "Magical power has improved your body's resiliency. Your proficiency rank for Fortitude saves increases to expert."
+                    }
+                },
+                "MediumArmorExpertise": {
+                    "GeneralDescription": "You've learned to defend yourself better against attacks. Your proficiency ranks for light armor, medium armor, and unarmored defense increase to expert.",
+                    "inventor": {
+                        "Description": "If you have a medium or heavy armor innovation, you gain access to the critical specialization effect with your armor innovation."
                     }
                 },
                 "PerceptionMastery": {
@@ -5731,6 +5788,9 @@
                     "RollOptionLabel": "Mycelium Armor — Extra poison damage"
                 }
             },
+            "Emotion": {
+                "Note": "If you roll a success on a saving throw against an emotion effect, you get a critical success instead."
+            },
             "EnvenomCompanion": {
                 "RollOptionLabel": "Envenom Companion — First hit of the round",
                 "DamageNote": "A creature that is damaged by this poison must attempt a @Check[fortitude|traits:poison] save. On a failure, it's also @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} for 1 round."
@@ -5802,6 +5862,15 @@
                 "CaressOfTheGreatSerpent": {
                     "SerpentsKiss": "Serpent's Kiss"
                 },
+                "CarverCutter": {
+                    "ChopDown": {
+                        "Label": "Carver-Cutter — Chop Down",
+                        "Note": "On a hit, the creature is @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} for 1 minute."
+                    }
+                },
+                "Chair": {
+                    "ToggleLabel": "In the chair"
+                },
                 "ChaliceOfJustice": {
                     "SipOfJustice": {
                         "Note": "Whenever you critically hit an unholy creature with the <em>chalice of justice</em>, the creature is @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} for 1 round."
@@ -5811,6 +5880,11 @@
                 "ChaplainsCudgel": {
                     "BowToAHigherPowerLabel": "Chaplain's Cudgel — Bow to a Higher Power",
                     "CastTwoActionSpellLabel": "Cast a divine spell that takes two or more actions"
+                },
+                "ChimerasClaw": {
+                    "CatHead": "Screaming Cat Head",
+                    "DragonHead": "Horned Dragon Head",
+                    "GoatHead": "Snorting Goat Head"
                 },
                 "ChimeraFlail": {
                     "BurstingBreathUsedLabel": "Chimera Flail — Bursting Breath Used",
@@ -5950,6 +6024,9 @@
                 "LionsShield": {
                     "LionsBiteLabel": "Lion's Bite",
                     "LionsHeadLabel": "Lion's Head"
+                },
+                "Manacles": {
+                    "WristsNote": "You must succeed at a @Check[flat|dc:5|name:Manacles|showDC:all] any time you use a manipulate action or else that action fails."
                 },
                 "MantisEmbrace": {
                     "CrushingEmbraceLabel": "Crushing Embrace"
@@ -7567,6 +7644,12 @@
                     "ThrallEnhancement": {
                         "Label": "Thrall Enhancement"
                     }
+                },
+                "OsteoArmaments": {
+                    "Prompt": "Did you destroy an adjacent thrall?"
+                },
+                "PoisonDrinker": {
+                    "Note": "You can spend a reaction to regain Hit Points equal to the level of the poison (or double the spell's rank if the poison was caused by a spell), and gain as much nourishment as one square meal."
                 }
             },
             "Nephilim": {
@@ -8208,6 +8291,24 @@
                     "Wrath": "Wrath"
                 }
             },
+            "Runesmith": {
+                "GenerationalRuneSinger": {
+                    "Description": "You can Trace a Rune with song at will and at a range of 60 feet. When you do, you use the 2-action version as a single action without needing an artisan's toolkit, and this action doesn't have the manipulate trait. You must be able to sing in a clear voice."
+                },
+                "ProdigalRuneSinger": {
+                    "Description": "Once per round, you can Trace a Rune with song alone. When you do, you use the 2-action version as a single action without needing an artisan's toolkit, and this action doesn't have the manipulate trait. You must be able to sing in a clear voice."
+                },
+                "RuneSinger": {
+                    "Description": "Once per 10 minutes, you can Trace a Rune with song alone. When you do, you use the 2-action version as a single action without needing an artisan's toolkit, and this action doesn't have the manipulate trait. You must be able to sing in a clear voice."
+                },
+                "SeekTheHiddenGlyphs": {
+                    "SearchLabel": "Seek the Hidden Glyphs (searching for magical traps)"
+                },
+                "TargetBearsRune": "Target bears your rune",
+                "TracingTrance": {
+                    "Note": "You can't use invocation actions this turn."
+                }
+            },
             "Ryphorian": {
                 "BondedTandemFeint": {
                     "Note": "The target is also @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} to melee and ranged attacks that you or your bonded partner attempt against it until the end of your next turn."
@@ -8494,6 +8595,9 @@
                 "ScholarSalmon": "Scholar Salmon",
                 "Vigocarp": "Vigocarp"
             },
+            "SpellEffectForceFling": {
+                "RollOptionLabel": "Force Fling — Target is a creature you haven’t attacked yet this turn"
+            },
             "SpellEffectFurnaceForm": {
                 "Note": "The attacker takes @Damage[3d6[fire]] damage."
             },
@@ -8563,13 +8667,6 @@
             "SpellEffectMindSwap": {
                 "RollOptionLabel": "Mind Swap — Impersonate the Other Target of Mind Swap"
             },
-            "SpellEffectNecrotize": {
-                "Bones": "Bones",
-                "Joints": "Joints",
-                "Legs": "Legs",
-                "Muscles": "Muscles",
-                "Prompt": "Select a body part."
-            },
             "SpellEffectOverstuff": {
                 "Addendum": "If you spend an action to end this condition, you succeed automatically."
             },
@@ -8598,6 +8695,9 @@
                 "Insight": "Dream of Insight",
                 "Prompt": "Select a dream.",
                 "Voyaging": "Dream of Voyaging"
+            },
+            "SpellEffectSynesthesia": {
+                "Note": "You must succeed at a @Check[flat|dc:5|name:Synesthesia|showDC:all] each time you use a concentrate action, or the action fails and is wasted."
             },
             "SpellEffectTemptFate": {
                 "Note": "If the saving throw's result is a success, it becomes a critical success. If it's a failure, it becomes a critical failure, and the critical failure can't be reduced by abilities that usually reduce critical failure."
@@ -8653,37 +8753,37 @@
                     "Success": "You learn information about the spell or effect as if you had succeeded at a skill check to Identify Magic using the appropriate skill for its magical tradition.",
                     "Text": "Once you've homed in on a spell or magical effect, you can study its unique magical signature to immediately understand exactly what it does. ",
                     "Title": "Spellshift—Analyze Magic"
-                    },
-                 "DismantleSpell": {
+                },
+                "DismantleSpell": {
                     "CriticalSuccess": "The spell is counteracted if its rank is no more than 1 higher than half your level rounded up.",
                     "RollOptionLabel": "Dismantle Spell",
                     "Success": "The effects of the spell are suppressed until the start of your next turn. If the spell has a duration that is measured in rounds, its duration is extended by 1 round. If the spell does not have a duration, it targets the same creature or area as though it had just been cast at the start of your next turn.",
                     "Text": "You attempt to counteract a spell or at least suppress its effect for a time. ",
                     "Title": "Spellshift—Dismantle Spell"
-                    },
+                },
                 "ElementalSubstitution": {
                     "CriticalSuccess": "If the targeted spell inflicts acid, cold, electricity, fire, or sonic damage, you change its damage type to your choice of one of acid, cold, electricity, fire, or sonic damage. If the effect has a duration, it inflicts damage of its new type for 1 minute, then returns to normal.",
                     "RollOptionLabel": "Elemental Substitution",
                     "Success": "As critical success, except if the effect has a duration, it inflicts damage of its new type until the beginning of your next turn, then returns to normal.",
                     "Text": "Raw elemental energy is the fuel powering some of the most iconic spells of destruction ever devised, and you've discovered a method for realigning the magical pathways through which that energy flows into the material world. ",
                     "Title": "Spellshift—Elemental Substitution"
-                    },
+                },
                 "RedirectMagic": {
                     "CriticalSuccess": "You change a single target of the spell to another viable target within 30 feet of you (even if it would be outside of the spell's normal range). You can't use this spellshift to affect a creature twice with the same spell. If the spell had an initial saving throw, the new target must attempt it, possibly achieving a different result than the original target of the spell. The DC for the spell becomes your Arcana DC instead of the original caster's spell DC.",
                     "RollOptionLabel": "Redirect Magic",
                     "Success": "As critical success, but if the target succeeds at any required saving throw, they are unaffected, and the spell does not change targets.",
                     "Text": "Through sheer force of will, you can direct a spell's energies away from its caster's intended target.",
                     "Title": "Spellshift—Redirect Magic"
-                    },
+                },
                 "ShiftBurden": {
                     "CriticalSuccess": "If the spell is sustainable, you can Sustain the spell as a free action as though you had cast the spell. For the remainder of the spell's duration, you can Sustain the spell as though you were the caster.",
                     "RollOptionLabel": "Shift Burden",
                     "Success": "If the spell is sustainable, you can Sustain the spell as a free action as though you had cast the spell.",
                     "Text": "You share the burden of a spell, allowing you to share control with the caster. If Sustaining a spell with this spellshift causes a creature to attempt a saving throw, it is attempted against the higher of your class DC or spell DC. If the spell requires a spell attack roll, make the attack using your Arcana modifier instead of the spell's normal spell attack modifier.",
                     "Title": "Spellshift—Shift Burden"
-                    },
-                    "RollOptionLabel": "Spell Shift"
                 },
+                "RollOptionLabel": "Spell Shift"
+            },
             "SpellTrickster": {
                 "AgileHand": {
                     "CriticalFailureNote": "If you critically fail, the spell ends and you can't use this modification again for 24 hours.",
@@ -9705,6 +9805,7 @@
             "Arctic": "Arctic",
             "Desert": "Desert",
             "Forest": "Forest",
+            "LowGravity": "Low Gravity",
             "Mountain": "Mountain",
             "Muddy": "Muddy",
             "Plains": "Plains",

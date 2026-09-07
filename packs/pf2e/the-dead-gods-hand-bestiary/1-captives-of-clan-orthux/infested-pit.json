@@ -1,0 +1,104 @@
+{
+    "_id": "qIRiI1tpccmNJSre",
+    "folder": "KBJvTNeq8803Byz7",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "cFENTPXyBh5jhCQf",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Jostle Webbing",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A Small or larger creature steps onto the webbing over the pit</p><hr /><p><strong>Effect</strong> The jostled webbing alerts Shulgurk to the intruders as well as the spider swarm in the pit below. The trap and the spider swarm roll initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "object-immunities"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Infested Pit",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained); realizing that the floor gives when trod upon suggests a pit below has a DC of 0</p>",
+                "value": 7
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A thick sheet of webbing covers a 10-by-10-foot pit that's 20 feet deep, the top edge of which is protected by flame spraying pipes and the depths of which are infested with spiders.</p>",
+            "disable": "<p>@Check[thievery|dc:17] to obstruct the pipe's flow and prevent it from shooting out flames (a critical success causes the fire to backfire, making the pump device in area <strong>A16</strong> explode and inflicting @Damage[4d6[fire]] damage [@Check[reflex|dc:20|basic] save] to Shulgurk there).</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "The Dead God's Hand"
+            },
+            "reset": "<p>Shulgurk can refill one jug with specially formulated alchemist's fire once per day.</p>",
+            "routine": "<p>(1 action) On the trap's initiative, Shulgurk manipulates his alchemical contraption in area <strong>A16</strong> to spray fire across the pit at floor level. This spray of fire swiftly burns away the web floor, and any creature standing on it falls into the 20-foot-deep pit unless it Grabs an Edge with a successful @Check[reflex|dc:17] save. Creatures standing on the web floor or those located at floor level at the pit's entrance (including those that have Grabbed an Edge but have yet to move out of danger) take @Damage[(1d6+3)[fire]] damage (@Check[reflex|dc:17|basic] save). Creatures adjacent to the pit to the north or south take @Damage[1d6[fire]] damage (@Check[reflex|dc:15|basic] save). The spiders in the pit avoid exiting the pit entirely out of fear of the flames. Each time he triggers the flames, Shulgurk, delighted at the chaos, shouts gleeful insults through the pipes at the \"pitiful wretches,\" certain that his \"little friends\" in the pit will take care of them well enough. \"Devoured by spiders,\" he cackles. \"A fitting end for insignificant insects!\"</p><p>Each time this trap takes its action for the round, it diminishes the supply of alchemist's fire in one of the jugs attached to the infernal machine in area <strong>A16</strong> by one use; after 3 rounds (and thus after one of the machine's three jugs is emptied), Shulgurk ceases to use the trap ,and it becomes inert.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

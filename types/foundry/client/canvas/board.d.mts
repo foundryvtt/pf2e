@@ -2,7 +2,7 @@ import { CanvasDimensions } from "@client/_types.mjs";
 import { Point } from "@common/_types.mjs";
 import { CanvasPerformanceMode } from "@common/constants.mjs";
 import { GridlessGrid, HexagonalGrid, SquareGrid } from "@common/grid/_module.mjs";
-import { AmbientLightDocument, RegionDocument, Scene, TokenDocument, User } from "../documents/_module.mjs";
+import { AmbientLightDocument, Level, RegionDocument, Scene, TokenDocument, User } from "../documents/_module.mjs";
 import { CanvasEdges } from "./geometry/edges/edges.mjs";
 import {
     CanvasVisibility,
@@ -194,6 +194,9 @@ export default class Canvas<
 
     /** A reference to the grid of the currently displayed Scene document, or null if the Canvas is currently blank. */
     get grid(): SquareGrid | HexagonalGrid | GridlessGrid;
+
+    /** The level currently being viewed, or null if the canvas is blank. */
+    get level(): Level | null;
 
     /** A flag for whether the game Canvas is ready to be used. False if the canvas is not yet drawn, true otherwise. */
     get ready(): boolean;

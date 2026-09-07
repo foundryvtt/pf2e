@@ -488,7 +488,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
     /** Open actor configuration for this sheet's creature */
     #onConfigureActor(): void {
         if (!this.actorConfigClass) return;
-        new this.actorConfigClass(this.actor).render(true);
+        new this.actorConfigClass({ document: this.actor }).render(true);
     }
 
     #onClickBrowseSpells(anchor: HTMLElement): void {

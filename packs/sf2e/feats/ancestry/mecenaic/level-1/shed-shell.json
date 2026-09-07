@@ -1,0 +1,81 @@
+{
+    "_id": "2ApgqRLCCigv1r6Y",
+    "folder": "yfSfxivq9ZSAMFJT",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Shed Shell",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 3
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>When you need extra mobility, you can leave your cumbersome, protective shell behind. When you don't have your shell, your Speeds increases by 5 feet; you gain a +2 status bonus to Acrobatics, Stealth, and Thievery checks; and you gain weakness to physical damage equal to half your level (rounded up). You can't use any actions that require a shell until you return to your shell by using Shed Shell again. Regrowing a new shell takes 1 week of downtime, but a variety of prosthetic shells are available, as @UUID[Compendium.sf2e.equipment.Item.Prosthetic Limb].</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Secrets of the Swarm Adventure Path"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "shed-shell",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "shed-shell"
+                ],
+                "selector": [
+                    "acrobatics",
+                    "stealth",
+                    "thievery"
+                ],
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "shed-shell"
+                ],
+                "selector": [
+                    "land-speed"
+                ],
+                "value": 5
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "shed-shell"
+                ],
+                "type": "physical",
+                "value": "ceil(@actor.level/2)"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "manipulate",
+                "mecenaic"
+            ]
+        }
+    },
+    "type": "feat"
+}

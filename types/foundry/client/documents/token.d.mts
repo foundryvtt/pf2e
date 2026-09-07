@@ -813,7 +813,7 @@ export interface TokenUpdateOperation<TParent extends Scene | null> extends Data
 
 export interface TokenUpdateCallbackOptions extends Omit<
     TokenUpdateOperation<null>,
-    "action" | "pack" | "parent" | "restoreDelta" | "noHook" | "updates"
+    "action" | "documentName" | "pack" | "parent" | "restoreDelta" | "noHook" | "updates"
 > {}
 
 export {};

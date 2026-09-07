@@ -382,6 +382,12 @@ export default class PlaceablesLayer<TObject extends PlaceableObject = Placeable
 
     protected override _onDragLeftDrop(event: PlaceablesLayerPointerEvent<TObject>): void;
 
+    /**
+     * Commit the drag-left drop.
+     * @param event    The pointer event.
+     */
+    protected _commitDragLeftDrop(event: PlaceablesLayerPointerEvent<TObject>): Promise<void>;
+
     protected override _onDragLeftCancel(event: PlaceablesLayerPointerEvent<TObject>): void;
 
     protected override _onClickRight(event: PlaceablesLayerPointerEvent<TObject>): void;

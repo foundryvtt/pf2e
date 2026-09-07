@@ -1,10 +1,10 @@
 {
     "_id": "K3r1lfbtCTf3dFhV",
-    "img": "icons/weapons/staves/staff-forked-wood.webp",
+    "img": "icons/tools/cooking/fork-steel-grey.webp",
     "name": "Effect: Stick a Fork in It",
     "system": {
         "description": {
-            "value": "<p>The creature takes a –10-foot circumstance penalty to its Speeds.</p>"
+            "value": "<p>On a success or failure, you take a –10-foot circumstance penalty to your Speeds. On a critical failure, you are immobilized.</p>"
         },
         "duration": {
             "expiry": null,
@@ -16,16 +16,51 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Bestiary 3"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core 2"
         },
         "rules": [
             {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "stick-a-fork-in-it"
+            },
+            {
                 "key": "FlatModifier",
-                "selector": "speed",
+                "predicate": [
+                    {
+                        "or": [
+                            "stick-a-fork-in-it:success",
+                            "stick-a-fork-in-it:failure"
+                        ]
+                    }
+                ],
+                "selector": "all-speeds",
                 "type": "circumstance",
                 "value": -10
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "stick-a-fork-in-it:critical-failure"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized"
             }
         ],
         "start": {

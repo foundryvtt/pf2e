@@ -1,0 +1,387 @@
+{
+    "_id": "h2shgfJ8gfnJKSWI",
+    "folder": "JRJm2AGJI3Vc5pj5",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "lOZDXXXdycjjgNA6",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "exhausting-torpor"
+                    ]
+                },
+                "bonus": {
+                    "value": 5
+                },
+                "damageRolls": {
+                    "DfHjg5Mtda6KhSUT": {
+                        "damage": "1d4+1",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "vf2vSvr1yUnDwXfF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZuU1UNjUFwXGsIld",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Corpse",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Until the next time they act, the weary appears to be an unanimated corpse. They have an automatic result of 22 on Deception checks and DCs to pass as a corpse.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "corpse",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "corpse"
+                        ],
+                        "selector": [
+                            "deception-dc",
+                            "deception"
+                        ],
+                        "slug": "corpse-bonus",
+                        "value": 22
+                    },
+                    {
+                        "key": "SubstituteRoll",
+                        "predicate": [
+                            "corpse"
+                        ],
+                        "required": true,
+                        "selectors": [
+                            "deception-dc",
+                            "deception"
+                        ],
+                        "slug": "corpse-bonus",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7o9ClX1WvFtuB9k8",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Empty Yawn",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The weary's jaws stretch open to an unnatural extent, giving cry to a horrific, chilling wail of exhaustion that cuts into the minds of nearby living creatures. Instilled in their thoughts is the sensation of the anguish of being dead, yet conscious of the body's slow decay. Living creatures within a @Template[type:emanation|distance:20] take @Damage[1d6[mental]|options:area-damage] damage with a @Check[will|dc:16] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "divine",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "41Vfddl8MiZCqPrJ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Exhausting Torpor",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When a living creature is bitten by a weary, the undead infects the living flesh with the exhaustion of the grave. The creature bitten must attempt a @Check[fortitude|dc:16] save or become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 round (@UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} for 1 round on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kFJbxAJJdT4VfXVg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Overwhelming Numbers",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A weary gains a +2 circumstance bonus on melee attack rolls against a target who has been struck earlier in that round by a different weary.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "overwhelming-numbers",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": [
+                            "melee-attack-roll"
+                        ],
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Weary",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 0
+            },
+            "int": {
+                "mod": -2
+            },
+            "str": {
+                "mod": 1
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 14
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 9,
+                "temp": 0,
+                "value": 9
+            },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 15
+            },
+            "weaknesses": [
+                {
+                    "type": "vitality",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": -1
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>While the method of creating the weary is a well-kept secret of hryngar worshippers of Droskar, there's nothing preventing other unholy spellcasters from transforming those who have worked themselves into an early grave into these pitiful, unsettling monsters. The weary don't understand that they've died, only that they're overwhelmed with a deep, aching exhaustion that fills them with a wretched hatred. Content to lie in a slowly rotting heap until they sense the approach of living creatures, when the weary lurch into activity it is with cries of pain and hopelessness. These undead creatures appear as rotting corpses who creep and crawl about on all fours, bodies too worn out to properly hold themselves fully upright.</p>\n<p>Unlike zombies, which the weary are sometimes mistaken for, these undead retain their minds and memories of the final several agonizing weeks that led up to their deaths. They can rarely remember farther back than these final weeks and almost never remember their own names. While they're capable of communication, they typically have nothing more to say then to moan and agonize over their pain, and to beg those they attack to end their suffering even as they do their best to chew and gnaw at the living meat that vexes them so.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "The Dead God's Hand"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "darkvision",
+            "mod": 5,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 4
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 4
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 5
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 4
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "undead",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

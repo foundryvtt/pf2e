@@ -1369,14 +1369,6 @@
                     "7rzsyfkcrcwuOYr7": {
                         "damage": "4d8+19",
                         "damageType": "slashing"
-                    },
-                    "wP508eeF5NG7xwhg": {
-                        "damage": "1d6",
-                        "damageType": "fire"
-                    },
-                    "ytG1auD5T0xFUEDz": {
-                        "damage": "1d4",
-                        "damageType": "spirit"
                     }
                 },
                 "description": {
@@ -1390,28 +1382,22 @@
                 "range": null,
                 "rules": [
                     {
-                        "category": "persistent",
-                        "critical": "true",
-                        "damageType": "fire",
-                        "diceNumber": 1,
-                        "dieSize": "d10",
-                        "key": "DamageDice",
-                        "label": "PF2E.WeaponPropertyRune.flaming.Name",
-                        "selector": "{item|_id}-damage"
+                        "definition": [
+                            "item:id:{item|id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
                     },
                     {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "target:trait:holy",
-                            "damage:type:spirit"
+                        "definition": [
+                            "item:id:{item|id}"
                         ],
-                        "property": "dice-number",
-                        "relabel": "vs. Unholy",
-                        "selectors": [
-                            "{item|_id}-damage"
-                        ],
-                        "value": 2
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "unholy"
                     }
                 ],
                 "slug": "spiked-chain",
@@ -2052,7 +2038,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> Gorthoklek critically succeeds at an attack roll against a holy creature with his Unholy Spiked Chain.</p><hr /><p><strong>Effect</strong> The target takes @Damage[3d8[bleed]].</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> Gorthoklek critically succeeds at an attack roll against a holy creature with his Unholy Spiked Chain</p><hr /><p><strong>Effect</strong> The target takes @Damage[3d8[bleed]].</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -2074,11 +2060,11 @@
                             "target:trait:holy"
                         ],
                         "selector": [
-                            "attack-roll"
+                            "strike-attack-roll"
                         ],
                         "text": "{item|description}",
                         "title": "{item|name} <span class=\"action-glyph\">R</span>",
-                        "visibility": "gm"
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,

@@ -1,5 +1,6 @@
 import { ActorProxyPF2e, type ActorPF2e } from "@actor";
 import type { Rolled } from "@client/dice/_module.d.mts";
+import type { DatabaseWriteOperation } from "@common/abstract/_module.mjs";
 import type { HexColorString } from "@common/constants.d.mts";
 import type { ItemPF2e, MeleePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import type { AbilityTrait } from "@item/ability/types.ts";
@@ -1030,18 +1031,46 @@ async function applyActorGroupUpdate(
               ? "create"
               : "actorUpdate";
 
+    const operations: DatabaseWriteOperation[] = [];
+
     if (actorUpdates) {
-        await actor.update(actorUpdates, { render: lastRender === "actorUpdate" });
+        operations.push({
+            action: "update",
+            documentName: "Actor",
+            updates: [{ ...actorUpdates, _id: actor.id }],
+            parent: actor.parent,
+            render: lastRender === "actorUpdate",
+        });
     }
     if (itemCreates.length > 0) {
-        await actor.createEmbeddedDocuments("Item", itemCreates, { render: lastRender === "create", keepId });
+        operations.push({
+            action: "create",
+            data: itemCreates,
+            documentName: "Item",
+            keepId,
+            parent: actor,
+            render: lastRender === "create",
+        });
     }
     if (itemUpdates.length > 0) {
-        await actor.updateEmbeddedDocuments("Item", itemUpdates, { render: lastRender === "update" });
+        operations.push({
+            action: "update",
+            documentName: "Item",
+            updates: itemUpdates,
+            parent: actor,
+            render: lastRender === "update",
+        });
     }
     if (itemDeletes.length > 0) {
-        await actor.deleteEmbeddedDocuments("Item", itemDeletes, { render: lastRender === "delete" });
+        operations.push({
+            action: "delete",
+            documentName: "Item",
+            ids: itemDeletes,
+            parent: actor,
+            render: lastRender === "delete",
+        });
     }
+    await foundry.documents.modifyBatch(operations);
 }
 
 export {
