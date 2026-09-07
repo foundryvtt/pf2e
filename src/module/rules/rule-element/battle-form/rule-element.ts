@@ -390,17 +390,31 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
         }
     }
 
-    /** Add, replace and/or adjust non-land speeds */
+    /** Add, remove, replace and/or adjust speeds. Unless no speeds are present, unmentioned movement types are removed. */
     #prepareSpeeds(): void {
         const actor = this.actor;
+        const speeds = this.overrides.speeds;
+        if (R.isEmpty(speeds)) return;
+
         for (const type of MOVEMENT_TYPES) {
-            const speedOverride = this.resolveValue(this.overrides.speeds[type], null);
-            if (typeof speedOverride !== "number") continue;
+            const speedOverride = this.resolveValue(speeds[type], null);
             actor.synthetics.movementTypes[type] = [];
+
+            if (typeof speedOverride !== "number") {
+                delete actor.rollOptions.all[`speed:${type}`];
+                if (type !== "land") {
+                    actor.system.movement.speeds[type] = null;
+                    continue;
+                }
+                // Land can't be null, so create it with no modifiers as a workaround
+                const statistic = new SpeedStatistic(actor, { type, base: 0, domains: [] });
+                actor.system.movement.speeds.land = statistic.getTraceData();
+                continue;
+            }
+
             const statistic = new SpeedStatistic(actor, { type, base: speedOverride });
             this.#suppressModifiers(statistic);
-            const traceData = statistic.getTraceData() as LandSpeedStatisticTraceData;
-            actor.system.movement.speeds[type] = traceData;
+            actor.system.movement.speeds[type] = statistic.getTraceData() as LandSpeedStatisticTraceData;
         }
     }
 
