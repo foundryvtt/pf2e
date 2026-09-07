@@ -1,0 +1,70 @@
+{
+    "_id": "crqZYSijrzjI0rm2",
+    "folder": "7JvVdcPLRxEK9sec",
+    "img": "systems/sf2e/icons/abilities/green-warning-sign-2.webp",
+    "name": "Radiation Module (Commercial)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>This radioactive core irradiates the weapon. The weapon deals an extra 1d6 poison damage. On a critical hit, the target must attempt a @Check[fortitude|dc:22] save against severe radiation sickness.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 7
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "sp": 4500
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "damageType": "poison",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|parentItem.id}-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": [
+                    "{item|parentItem.id}-damage"
+                ],
+                "text": "SF2E.SpecificRule.Equipment.Upgrades.Weapon.RadiationModule.CriticalNoteCommercial",
+                "title": "SF2E.SpecificRule.Equipment.Upgrades.Weapon.RadiationModule.LabelCommercial"
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "tech"
+            ]
+        },
+        "usage": {
+            "value": "installed-in-a-weapon"
+        }
+    },
+    "type": "equipment"
+}

@@ -1,0 +1,74 @@
+{
+    "_id": "joovle7gQuMEopjo",
+    "folder": "VGsfnIyGP1k7iP2r",
+    "img": "icons/commodities/biological/pustules-pink.webp",
+    "name": "Pheromone Gland (Commercial)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>Enhanced pheromone glands are implanted in your throat and wrists, constantly releasing faint but effective chemical hormones. These pheromones don't have a smell, and their effects are imperceptible unless you're communicating with a creature that normally communicates primarily through pheromones. You get a +1 item bonus to Nature checks to @UUID[Compendium.sf2e.actions.Item.Command an Animal]. If you have a wildwise graft or other way of communicating directly with animals, you also get a +1 item bonus to Diplomacy checks on animals.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 3
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "sp": 500
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:trait:animal"
+                ],
+                "selector": [
+                    "diplomacy"
+                ],
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:command-an-animal"
+                ],
+                "selector": [
+                    "nature"
+                ],
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "biotech"
+            ]
+        },
+        "usage": {
+            "value": "implanted"
+        }
+    },
+    "type": "equipment"
+}

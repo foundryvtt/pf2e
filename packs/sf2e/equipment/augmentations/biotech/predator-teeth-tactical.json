@@ -1,0 +1,77 @@
+{
+    "_id": "WFrm5Gz145fHVNLk",
+    "folder": "VGsfnIyGP1k7iP2r",
+    "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
+    "name": "Predator Teeth (Tactical)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>Your incisors are replaced with viciously pointed versions based on a predator of your choice. Models that instead replace all your teeth with fangs are also available. You gain a jaws unarmed attack that deals 1d6 piercing damage, is in the brawling group, and has the grapple and unarmed traits.</p>\n<p>Whenever you get a critical hit with your jaws unarmed attack, you get its critical specialization effect.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 5
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "sp": 1400
+            }
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/sf2e/icons/unarmed-attacks/jaws.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "slug": "jaws",
+                "traits": [
+                    "grapple",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:slug:jaws"
+                ]
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "biotech"
+            ]
+        },
+        "usage": {
+            "value": "implanted"
+        }
+    },
+    "type": "equipment"
+}
