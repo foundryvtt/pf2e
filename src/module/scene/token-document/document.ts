@@ -163,6 +163,11 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             : !!(Object.getOwnPropertyDescriptor(this, "delta")?.value && this.delta?.syntheticActor);
     }
 
+    /** A subject texture set by a rule element is distinct, though it never reaches source data. */
+    override get hasDistinctSubjectTexture(): boolean {
+        return !!this.actor?.synthetics.tokenOverrides.ring?.subject.texture || super.hasDistinctSubjectTexture;
+    }
+
     /** Check actor for effects found in `CONFIG.specialStatusEffects` */
     override hasStatusEffect(statusId: string): boolean {
         if (statusId === "dead") return !!this.actor?.statuses.has("dead");
@@ -366,9 +371,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             this.ring.subject = { ...tokenOverrides.ring.subject };
             this.ring.colors = { ...tokenOverrides.ring.colors };
             this.ring.effects = tokenOverrides.ring.effects;
-            // Upstream makes some decisions by inspecting the subject texture in the source source data:
-            // Fake it for now until this can be addressed upstairs
-            this._source.ring.subject.texture ??= this.ring.subject.texture;
         }
 
         if (tokenOverrides.light) {
