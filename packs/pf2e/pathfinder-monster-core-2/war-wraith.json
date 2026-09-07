@@ -43,10 +43,52 @@
             "type": "melee"
         },
         {
+            "_id": "wtz6HGSJqqSfH9Xo",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Vitality",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:vitality"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "CDrGJNZcn8d8maks",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Draining Presence",
-            "sort": 200000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -86,7 +128,7 @@
             "_id": "CqbSuuiuP30QY7Pi",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Sunlight Powerlessness",
-            "sort": 300000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -115,7 +157,7 @@
             "_id": "bx7HTKB2Cd5Db5Go",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Void Healing",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -151,7 +193,7 @@
             "_id": "ioAkNiCDsnaxL5mw",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Absorb Wraith",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -161,7 +203,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The war wraith extends their hand toward another wraith creature within 100 feet. The target wraith dissolves and streaks toward the war wraith in a straight line, dealing @Damage[3d10[void]] damage to each creature along the line with a @Check[fortitude|dc:28|basic] save. The war wraith absorbs the essence of the target wraith, becoming @UUID[Compendium.pf2e.conditionitems.Item.Quickened] for 1 minute. They can use their extra action only to Fly or Strike. An unwilling target can resist being absorbed if it succeeds at a @Check[will|dc:28] save.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The war wraith extends their hand toward another wraith creature within 100 feet. The target wraith dissolves and streaks toward the war wraith in a straight line, dealing @Damage[3d10[void]|options:area-damage] damage to each creature along the line with a @Check[fortitude|dc:28|basic|options:area-effect] save. The war wraith absorbs the essence of the target wraith, becoming @UUID[Compendium.pf2e.conditionitems.Item.Quickened] for 1 minute. They can use their extra action only to Fly or Strike. An unwilling target can resist being absorbed if it succeeds at a @Check[will|dc:28] save.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -184,7 +226,7 @@
             "_id": "GGdtrmGxML8I818d",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Grip of Fear",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -194,7 +236,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The wraith reaches into an adjacent creature's chest, gripping its heart. The target takes @Damage[9d6[mental]] damage with a @Check[will|dc:28|basic] save. On a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] until the start of the wraith's next turn.</p>"
+                    "value": "<p>The wraith reaches into an adjacent creature's chest, gripping its heart. The target takes @Damage[9d6[mental]] damage with a @Check[will|dc:28|basic|options:inflicts:paralyzed] save. On a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] until the start of the wraith's next turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -218,7 +260,7 @@
             "_id": "cBdweJUy2lUI4Xwx",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Robes of Welcome",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -254,7 +296,7 @@
             "_id": "BCrA1CC6jddgg3Js",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Void's Embrace",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -313,7 +355,7 @@
                 "value": 27
             },
             "allSaves": {
-                "value": ""
+                "value": "+1 status to all saves vs. vitality"
             },
             "hp": {
                 "details": "void healing",

@@ -92,7 +92,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>When the penanggalan takes slashing damage, their wound spews bile on adjacent creatures, dealing @Damage[2d10[poison]] damage (@Check[fortitude|dc:19|basic] save).</p>\n<p>The penanggalan loses their spewing bile and penanggalan bile abilities until the end of their next turn.</p>"
+                    "value": "<p>When the penanggalan takes slashing damage, the wound spews bile on adjacent creatures, dealing @Damage[2d10[poison]] damage (@Check[fortitude|dc:19|basic] save).</p>\n<p>The penanggalan loses their spewing bile and penanggalan bile abilities until the end of their next turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -161,14 +161,31 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The penanggalan's tongue extends, the membrane stretching and becoming translucent. Until the end of the turn, the penanggalan's proboscis tongue Strikes have a 10-foot reach, and any target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the Strike unless it has a Perception DC of 22 or higher or the ability to precisely sense @UUID[Compendium.pf2e.conditionitems.Item.Invisible] things.</p>"
+                    "value": "<p>The penanggalan's tongue extends, the membrane stretching and becoming translucent. Until the end of the turn, the penanggalan's proboscis tongue Strikes have a 10-foot reach, and any target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the Strike unless it has a Perception DC of 22 or higher or the ability to precisely sense invisible things.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "elongate-tongue",
+                        "toggleable": true
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "elongate-tongue",
+                            "item:slug:proboscis-tongue"
+                        ],
+                        "property": "traits",
+                        "value": "reach-10"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -190,7 +207,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Rest doesn't decrease the drained value from penanggalan bile</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:19]</p>\n<hr />\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 week)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 week)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} (1 week)</p>\n<p><strong>Stage 4</strong> dead</p>"
+                    "value": "<p>A victim's drained condition decreases by 1 per month</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:19]</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 week)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 week)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} (1 week)</p>\n<p><strong>Stage 4</strong> dead</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -221,7 +238,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The penanggalan inserts their entrails into their humanoid body, allowing them to appear as and move about like a normal human. The body has 10 Hit Points and the same defenses as the penanggalan.</p>\n<p>When the body is destroyed, the penanggalan is ejected unharmed. The body becomes a corpse, and if it is neither controlled by the penanggalan nor stored in an alchemical vat, it decays as normal.</p>"
+                    "value": "<p>The penanggalan inserts their entrails into their humanoid body, allowing them to appear as and move about like a normal human. The body has 10 Hit Points and the same defenses as the penanggalan.</p>\n<p>When the body is destroyed, the penanggalan is ejected unharmed. The body becomes a corpse, and if it's neither controlled by the penanggalan nor stored in an alchemical vat, it decays as normal.</p>"
                 },
                 "publication": {
                     "license": "OGL",
