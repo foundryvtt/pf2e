@@ -46,6 +46,7 @@ import {
     EnvironmentFeatureBehaviorType,
     RegionBehaviorPF2e,
     RegionDocumentPF2e,
+    WallDocumentPF2e,
     ScenePF2e,
     TokenDocumentPF2e,
 } from "@scene/index.ts";
@@ -92,6 +93,7 @@ export class Load {
         CONFIG.Token.objectClass = TokenPF2e;
         CONFIG.Token.prototypeSheetClass = PrototypeTokenConfigPF2e;
         CONFIG.Token.rulerClass = TokenRulerPF2e;
+        CONFIG.Wall.documentClass = WallDocumentPF2e;
         Load.#configureMovement();
 
         CONFIG.User.documentClass = UserPF2e;

@@ -22,6 +22,7 @@ import {
     ObjectFieldOptions,
     StringFieldInputConfig,
     StringFieldOptions,
+    TypedObjectFieldOptions,
 } from "./_types.mjs";
 import { BaseShapeData, TombstoneDataSchema } from "./data.mjs";
 import { DataModelValidationFailure } from "./validation-failure.mjs";
@@ -66,7 +67,7 @@ export abstract class DataField<
      * This is assigned by `SchemaField#initialize`.
      * @internal
      */
-    parent: abstract.DataSchema | undefined;
+    parent: DataField | undefined;
 
     /** The initially provided options which configure the data field */
     options: DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>;
@@ -125,7 +126,7 @@ export abstract class DataField<
      * @returns The results object
      */
     apply(
-        fn: string | ((field: this, value?: unknown, options?: Record<string, unknown>) => unknown),
+        fn: string | ((field: DataField, value?: unknown, options?: Record<string, unknown>) => unknown),
         value?: unknown,
         options?: Record<string, unknown>,
     ): unknown;
@@ -137,9 +138,8 @@ export abstract class DataField<
      * @param options.source The source data of the field
      * @param options.type The Document type of the parent field
      * @returns The corresponding DataField definition for that field, or undefined
-     * @protected
      */
-    protected _getField(parts: string[], options?: { source?: object; type?: object }): DataField | undefined;
+    _getField(parts: string[], options?: { source?: object | null; type?: object }): DataField | undefined;
 
     /* -------------------------------------------- */
     /*  Field Cleaning                              */
@@ -255,6 +255,10 @@ export abstract class DataField<
      *          dropping invalid elements.
      * @throws A failure error type including details of the failure if validation is performed strictly.
      */
+    validate(
+        value: unknown,
+        options: DataFieldValidationOptions & { strict: true; partial?: false },
+    ): asserts value is TSourceProp;
     validate(value: unknown, options?: DataFieldValidationOptions): DataModelValidationFailure | void;
 
     /**
@@ -619,7 +623,7 @@ export class SchemaField<
      */
     getField(pathOrKey: string[] | string, options?: { source?: object }): DataField | undefined;
 
-    protected override _getField(parts: string[], options?: { source?: object; type?: object }): DataField | undefined;
+    override _getField(parts: string[], options?: { source?: object; type?: object }): DataField | undefined;
 
     /* -------------------------------------------- */
     /*  Data Cleaning                               */
@@ -788,7 +792,7 @@ export class NumberField<
 /** A subclass of `DataField` which deals with string-typed data. */
 export class StringField<
     TSourceProp extends string = string,
-    TModelProp extends NonNullable<JSONValue> = TSourceProp,
+    TModelProp = TSourceProp,
     TRequired extends boolean = false,
     TNullable extends boolean = false,
     THasInitial extends boolean = TNullable extends true ? true : boolean,
@@ -887,7 +891,7 @@ export class TypedObjectField<
      */
     constructor(
         element: TField,
-        options?: ObjectFieldOptions<Record<string, SourceFromDataField<TField>>>,
+        options?: TypedObjectFieldOptions<Record<string, SourceFromDataField<TField>>>,
         context?: DataFieldContext,
     );
 
@@ -993,7 +997,7 @@ export class ArrayField<
         options: ArrayFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>,
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
-    protected override _getField(parts: string[], options?: { source?: object; type?: object }): DataField | undefined;
+    override _getField(parts: string[], options?: { source?: object; type?: object }): DataField | undefined;
 
     /* ---------------------------------------- */
     /*  Field Cleaning                          */
@@ -1144,7 +1148,7 @@ export class DataModelSchemaField<
         context?: DataFieldContext,
     );
 
-    protected override _getField(parts: string[], options?: { source?: object; type?: object }): DataField | undefined;
+    override _getField(parts: string[], options?: { source?: object; type?: object }): DataField | undefined;
 
     /* ---------------------------------------- */
     /*  Field Cleaning                          */
@@ -1634,7 +1638,7 @@ export class DocumentTypeField<
 /** A subclass of `ObjectField` which supports a system-level data object. */
 export class TypeDataField<
     TSourceProp extends object = object,
-    TModelProp extends object = TSourceProp,
+    TModelProp extends { schema?: DataModelSchemaField } = TSourceProp,
     TDocument extends abstract.Document = abstract.Document,
 > extends ObjectField<TSourceProp, TModelProp> {
     /**
@@ -1725,7 +1729,7 @@ export class TypedSchemaField<
     /** The types of this field. */
     types: TTypes;
 
-    protected override _getField(path: string[]): DataField | undefined;
+    override _getField(path: string[]): DataField | undefined;
 
     /* -------------------------------------------- */
     /*  Data Field Methods                          */
@@ -1936,13 +1940,13 @@ export class GridOffsetsField<
 // System utility types
 
 export type SourceFromDataField<T> =
-    T extends DataField<infer TSourceProp, unknown, infer TRequired, infer TNullable, infer THasInitial>
+    T extends DataField<infer TSourceProp, infer _TModelProp, infer TRequired, infer TNullable, infer THasInitial>
         ? MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>
         : never;
 
 export type SourceFromDocument<T extends abstract.Document> = SourceFromDataField<T["schema"]>;
 export type ModelPropFromDataField<T> =
-    T extends DataField<JSONValue, infer TModelProp, infer TRequired, infer TNullable, infer THasInitial>
+    T extends DataField<infer _TSourceProp, infer TModelProp, infer TRequired, infer TNullable, infer THasInitial>
         ? MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>
         : never;
 

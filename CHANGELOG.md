@@ -1,17 +1,114 @@
+## 8.5.0
+
+### Highlights
+
+- (Ambrose) Add The Dead God's Hand content
+
+### System Improvements
+
+- (Chromatic Penguin) Convert `CreatureConfig`, `IdentifyItemPopup`, and several inline confirmation dialogs to `ApplicationV2`
+- (Dantar) Add `force` option to the `BaseSpeed` rule element
+- (FolkvangrForgent) Fit emanations created from region tools to hovered tokens
+- (Idle) Add roll option to differentiate actual casting from send-to-chat
+- (Idle) Allow inline template distance to use `resolve`
+- (kromko) Remove empty filters and traits not associated with any items in compendium browser
+- (oWave) Make `_validateType` throw errors instead of returning them
+- (sgennaoui) Expire the Greater Cover effect from tower shields
+- (stwlam) Limit selection of "coin" category in treasure sheet to standard coin items
+- (stwlam) Pull recent core updates to token-appearance template to system copy
+- (stwlam) Refrain from showing default icons in item chat cards
+
+### Bugfixes
+
+- (Dantar) Keep selected key attribute when refreshing Class item
+- (Dantar) Prevent modifier duplication on derived speeds
+- (FolkvangrForgent) Add missing ellipse shape to footprint function
+- (Idle) Do not consume charges if a trick-magic-item check fails or is canceled
+- (Idle) Fix `TagSelectorBasic` not displaying current selections for `number` values
+- (kromko) Fix Compendium Browser sort by price
+- (kromko) Localize Compendium Browser option to sort by name
+- (Maksim) Fix Earn Income chat roll label localization
+- (neonyuzu) Cap character sheet HP input to max less unrecoverable
+- (stwlam) Revert "Always use action image for unusable actions in character sheet"
+
+### Data Updates
+
+- (Ambrose) Add effect to Hydrating Pinwheel's armor activation
+- (Ambrose) Add icons to select consumables
+- (Ambrose) Add inline checks to World Rouser archetype feats
+- (Ambrose) Add level 7 iconic pregens
+- (Ambrose) Correct Caligni Hunter's Encircling Command text
+- (Ambrose) Correct cost of Major Convincing Rune
+- (Ambrose) Correct errors with Demon Form spell effect
+- (Ambrose) Correct typos and remove damage inlines from Hydrating Pinwheel
+- (Ambrose) Remove Circlet of Allure and redirect to Remaster reprint
+- (Ambrose) Remove parenthetical from Refugee background
+- (Ambrose) Update Ash Form publication source and traits
+- (Dantar) Add duration to Ransack the Night
+- (Dantar) Add Heartless Debilitations to Double Debilitation
+- (Dantar) Add RE to Supramarine Chairs
+- (Dantar) Add REs for travel-speed bonuses
+- (Dantar) Automate Poison Drinker and Osteo Armaments
+- (Dantar) Automate Smithing Weapons, Seek the Hidden Glyphs, Rune Ward, and Fortifying Knock
+- (Dantar) Automate Tracing Trance, Song of Glorious Invocation, Rune Singer, and its follow-ups
+- (Dantar) Fix RE for Mask of Uncanny Breath
+- (Dantar) Force base speeds for Werecreature Dedication
+- (Dire Weasel) Add automation for Kappa's Head Bowl
+- (Dire Weasel) Add automation for Titan Centipede's Impaling Critical
+- (Dire Weasel) Add effects for several NPC abilities
+- (Dire Weasel) Add inline checks to Quandary
+- (Dire Weasel) Add inline roll options to Captivating Pollen and Incarnate Deific Herald
+- (Dire Weasel) Add spell effect for Consecrate Flesh and Know the Enemy
+- (Dire Weasel) Brush up Noppera-Bo and The Chewer
+- (Dire Weasel) Condense effects for Witchflame failure
+- (Dire Weasel) Fix damage for Living Thunderbolt
+- (Dire Weasel) Fix display of Sanctum Guardian's immunity to starvation and thirst
+- (Dire Weasel) Fix predicates for Overflowing Blade and several effects
+- (Dire Weasel) Fix some publication sources
+- (Dire Weasel) Fix traditions for Bone Spray
+- (Dire Weasel) Improve automation for Stick a Fork in It
+- (Dire Weasel) Unify damage for Irlgaunt's Regurgitate Gastrolith
+- (Dire Weasel) Update some NPCs to use `AdjustStrike` to add runes
+- (Dire Weasel) Update some vision to structured data
+- (kromko) Fix Aberrant Eidolon link in summoner's journal
+- (kromko) Fix formatting of spell slots table in Wizard class journal
+- (kromko) Fix inline template in Fungal Curtain
+- (kromko) Fix localization key for DoS upgrade against emotion effect
+- (kromko) Fix Medium Armor Expertise showing inventor text for every class
+- (kromko) Fix styling of some tables
+- (kromko) Remove empty prerequisites from dedications in archetype journal
+- (kromko) Remove pre-Impossible Magic summoner Ability Boosts class feature
+- (kromko) Update multiple class descriptions and journals
+- (Longstrider) Add Force Fling spell effect
+- (Longstrider) Add improvements to necromancer and runesmith archetypes
+- (Longstrider) Brush up runesmith feat descriptions
+- (Longstrider) Change Dwarf Battalion's Shields Up! from reaction to single action
+- (Longstrider) Fix minor typos in Necromancer and Runesmith class journals
+- (Rigo) Update several TokenLight rule elements to use Adaptive Attenuation
+- (SpartanCPA) Add proper shock and flaming runes to NPCs
+- (SpartanCPA) Localize increased degree of success for emotion effects
+- (Suldrun45) Fix Undead Familiar and Glyph Familiar number of abilities
+- (Tikael) Change icon for Bastion of Blasphemies background effect
+- (TroelsL) Fix Vorrea Talminari malformed JSON
+
+### Under the Hood
+
+- (Idle) Bundle all operations into a single server query in the `applyActorGroupUpdate` helper
+
 ## 8.4.1
 
 ### System Improvements
 
-- (ChromaticPenguin) Convert XP macro to `ApplicationV2`
+- (Chromatic Penguin) Convert XP macro to `ApplicationV2`
 - (Dantar) Allow item alteration RE to add thrown trait
 - (stwlam) Remove system intervention in creating chat bubbles following changes in FVTT 14.366
 
 ### Bugfixes
 
-- (ChromaticPenguin) Restore rules-accurate measured-template coverage
-- (ChromaticPenguin) Fix duplicate lore prevention in NPC skill editor
-- (ChromaticPenguin) Fix light mode parchment backgrounds
-- (ChromaticPenguin) Support choosing ancestry attribute boosts and flaws with multiple options
+- (Chromatic Penguin) Restore rules-accurate measured-template coverage
+- (Chromatic Penguin) Fix duplicate lore prevention in NPC skill editor
+- (Chromatic Penguin) Fix light mode parchment backgrounds
+- (Chromatic Penguin) Support choosing ancestry attribute boosts and flaws with multiple options
 - (Dantar) Apply materials from base damage to splash damage roll
 - (kromko) Localize takable-once option on feat details tab
 - (kromko) Prevent Actor sheet from erroring when IWR references a homebrew damage type that doesn't exist in the world

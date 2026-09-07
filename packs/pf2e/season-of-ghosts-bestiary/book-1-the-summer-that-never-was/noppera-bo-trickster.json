@@ -537,7 +537,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The noppera-bo changes into a version of a Small or Medium humanoid they've touched during the last 24 hours, and gains the target creature's face and voice. While transformed, the noppera-bo gains a +2 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate] that creature and loses its no face ability and listed immunities. The noppera-bo can change back by using this ability again.</p>"
+                    "value": "<p>The noppera-bo changes into a version of a Small or Medium humanoid they've touched during the last 24 hours, and gains the target creature's face and voice. While transformed, the noppera-bo gains a +2 circumstance bonus to [[/act impersonate]] that creature and loses its no face ability and listed immunities. The noppera-bo can change back by using this ability again.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -562,16 +562,24 @@
                     },
                     {
                         "key": "Immunity",
+                        "mode": "remove",
                         "predicate": [
-                            {
-                                "not": "impersonate-shape"
-                            }
+                            "impersonate-shape"
                         ],
                         "type": [
                             "inhaled",
                             "olfactory",
                             "visual"
                         ]
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.perception.vision",
+                        "predicate": [
+                            "impersonate-shape"
+                        ],
+                        "value": true
                     }
                 ],
                 "slug": null,
@@ -599,7 +607,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The noppera-bo trickster is Impersonating a creature with a face</p>\n<hr />\n<p><strong>Effect</strong> The noppera-bo trickster's facial features melt into nothingness, and they menace a creature within 30 feet. The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} on a failed @Check[will|dc:17] save (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure).</p>"
+                    "value": "<p><strong>Requirements</strong> The noppera-bo trickster is Impersonating a creature with a face</p>\n<hr />\n<p><strong>Effect</strong> The noppera-bo trickster's facial features melt into nothingness, and they menace a creature within 30 feet. The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} on a failed @Check[will|dc:17|options:inflicts:frightened] save (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -706,7 +714,20 @@
                 "temp": 0,
                 "value": 20
             },
-            "immunities": [],
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "inhaled"
+                },
+                {
+                    "exceptions": [],
+                    "type": "olfactory"
+                },
+                {
+                    "exceptions": [],
+                    "type": "visual"
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -737,7 +758,8 @@
         "perception": {
             "details": "no face",
             "mod": 5,
-            "senses": []
+            "senses": [],
+            "vision": false
         },
         "resources": {},
         "saves": {

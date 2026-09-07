@@ -41,7 +41,7 @@ const PRECIOUS_MATERIAL_TYPES = new Set([
 const PRECIOUS_MATERIAL_GRADES = new Set(["low", "standard", "high"] as const);
 
 const COIN_DENOMINATIONS = ["pp", "gp", "sp", "cp"] as const;
-const CURRENCY_TYPES = [...COIN_DENOMINATIONS, "credits", "upb"] as const;
+const CURRENCY_DENOMINATIONS = [...COIN_DENOMINATIONS, "credits", "upb"] as const;
 
 const DENOMINATION_RATES = {
     cp: 1,
@@ -57,7 +57,7 @@ const COIN_DENOMINATION_BY_VALUE = R.invert(R.pick(DENOMINATION_RATES, ["cp", "s
 export {
     COIN_DENOMINATION_BY_VALUE,
     COIN_DENOMINATIONS,
-    CURRENCY_TYPES,
+    CURRENCY_DENOMINATIONS,
     DENOMINATION_RATES,
     PHYSICAL_ITEM_TYPES,
     PRECIOUS_MATERIAL_GRADES,

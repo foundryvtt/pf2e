@@ -39,7 +39,8 @@
                 "traits": {
                     "value": [
                         "magical",
-                        "reach-20"
+                        "reach-20",
+                        "unarmed"
                     ]
                 }
             },
@@ -78,6 +79,7 @@
                 "slug": null,
                 "traits": {
                     "value": [
+                        "magical",
                         "unarmed"
                     ]
                 }
@@ -98,14 +100,33 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When Kugaptee's centipede scores a critical hit with his mandibles, the target is painfully pierced with barbed spines and bristles, taking @Damage[1d6[persistent,bleed]] damage and becoming @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for as long as the bleed damage continues.</p>"
+                    "value": "<p>When Kugaptee's centipede scores a critical hit with his mandibles, the target is painfully pierced with barbed spines and bristles, taking 1d6 persistent bleed damage and becoming @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for as long as the bleed damage continues.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "critical": true,
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "mandibles-damage"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "mandibles-damage",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -185,7 +206,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:28]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d6[void]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[2d8[void]] damage, stupefied 2, and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[2d10[void]] damage, stupefied 2, and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:28]</p><hr /><p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d6[void]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[2d8[void]] damage, stupefied 2, and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[2d10[void]] damage, stupefied 2, and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} (1 round)</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -276,7 +297,9 @@
             "blurb": "Variant titan centipede",
             "languages": {
                 "details": "",
-                "value": []
+                "value": [
+                    "common"
+                ]
             },
             "level": {
                 "value": 9
