@@ -117,3 +117,4 @@ export { Migration956DragonChoiceLocalizationKeys } from "./956-dragonchoice-loc
 export { Migration957SF2eAnachronismImages } from "./957-sf2e-anachronism-images.ts";
 export { Migration958GnollGrippliRemaster } from "./958-gnoll-grippli-remaster.ts";
 export { Migration959ChangeShapeLocalizationKeys } from "./959-changeshape-localization-keys.ts";
+export { Migration960ThaumaturgeWeaponCritSpec } from "./960-thaumaturge-weapon-crit-spec.ts";
