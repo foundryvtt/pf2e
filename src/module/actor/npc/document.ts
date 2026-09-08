@@ -10,9 +10,8 @@ import { ActorInitiative } from "@actor/initiative.ts";
 import { Modifier, StatisticModifier } from "@actor/modifiers.ts";
 import type { MovementType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
-import type { DatabaseUpdateOperation, Document } from "@common/abstract/_module.d.mts";
 import type { UserAction } from "@common/constants.d.mts";
-import { ItemPF2e } from "@item";
+import type { ItemPF2e } from "@item";
 import type { MeleePF2e } from "@item";
 import type { ItemType } from "@item/types.ts";
 import { calculateDC } from "@module/dc.ts";
@@ -581,48 +580,6 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         super._onUpdate(changed, options, userId);
         for (const troop of this.otherSegments ?? []) {
             NPCPF2e.#resetBatch.reset(troop);
-        }
-    }
-
-    protected override _onUpdateDescendantDocuments(
-        parent: Document,
-        collection: string,
-        documents: Document<Document>[],
-        changes: Record<string, unknown>[],
-        options: DatabaseUpdateOperation<Document> & { fromTroop?: boolean },
-        userId: string,
-    ): void {
-        super._onUpdateDescendantDocuments(parent, collection, documents, changes, options, userId);
-        if (
-            this !== parent ||
-            collection !== "items" ||
-            options.fromTroop ||
-            game.user.id !== userId ||
-            !this.otherSegments
-        ) {
-            return;
-        }
-
-        for (const [index, document] of documents.entries()) {
-            if (!(document instanceof ItemPF2e) || !document.isOfType("spellcastingEntry")) continue;
-            const change = changes[index];
-            const slots = fu.getProperty(change, "system.slots");
-            if (!slots) {
-                continue;
-            }
-
-            for (const actor of this.otherSegments) {
-                const siblingEntry = actor.items.get(document.id);
-                if (siblingEntry?.isOfType("spellcastingEntry")) {
-                    actor.updateEmbeddedDocuments(
-                        "Item",
-                        [{ _id: document.id, system: { slots: fu.deepClone(slots) } }],
-                        { fromTroop: true } as Partial<DatabaseUpdateOperation<NPCPF2e>> & {
-                            fromTroop?: boolean;
-                        },
-                    );
-                }
-            }
         }
     }
 
