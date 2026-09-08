@@ -4,6 +4,7 @@ import { ModularConfig } from "@item/base/data/system.ts";
 import { nextDamageDieSize } from "@system/damage/helpers.ts";
 import type { DamageType } from "@system/damage/types.ts";
 import { objectHasKey, tupleHasValue } from "@util";
+import type { CombinationWeaponMode } from "./data.ts";
 import { upgradeWeaponTrait } from "./helpers.ts";
 
 /** A helper class to handle toggleable weapon traits */
@@ -17,6 +18,17 @@ class WeaponTraitToggles {
 
     get actor(): ActorPF2e | null {
         return this.parent.actor;
+    }
+
+    get combination(): { options: CombinationWeaponMode[]; selected: CombinationWeaponMode } | null {
+        const weapon = this.parent;
+        const item = weapon.realItem?.isOfType("weapon") ? weapon.realItem : weapon;
+        if (!item.system.traits.value.includes("combination")) return null;
+
+        const options = ["melee", "ranged"] as const;
+        const sourceSelection = item._source.system.traits.toggles?.combination?.selected ?? "ranged";
+        const selected = tupleHasValue(options, sourceSelection) ? sourceSelection : "ranged";
+        return { options: [...options], selected };
     }
 
     get doubleBarrel(): { selected: boolean } {
@@ -92,7 +104,7 @@ class WeaponTraitToggles {
     }
 
     /**
-     * Update a modular or versatile weapon to change its damage type
+     * Update a toggleable weapon trait
      * @returns A promise indicating whether an update was made
      */
     async update(options: ToggleWeaponTraitParams): Promise<boolean> {
@@ -106,14 +118,14 @@ class WeaponTraitToggles {
         if (current === selected) return false;
 
         const item = weapon.realItem;
-        if (item?.isOfType("weapon") && item === weapon) {
+        if (item?.isOfType("weapon") && (item === weapon || trait === "combination")) {
             const value = property === "doubleBarrel" ? !!selected : selected;
             await item.update({ [`system.traits.toggles.${property}.selected`]: value });
         } else if (item?.isOfType("weapon") && weapon.altUsageType === "melee") {
             item.update({ [`system.meleeUsage.traitToggles.${trait}`]: selected });
         } else if (trait === "versatile" && item?.isOfType("shield")) {
             item.update({ "system.traits.integrated.versatile.selected": selected });
-        } else if (trait !== "double-barrel" && weapon.rule) {
+        } else if ((trait === "modular" || trait === "versatile") && weapon.rule) {
             await weapon.rule.toggleTrait(options);
         } else {
             console.warn(
@@ -131,9 +143,14 @@ interface ToggleDoubleBarrelParams {
     selected: boolean;
 }
 
+interface ToggleCombinationParams {
+    trait: "combination";
+    selected: CombinationWeaponMode;
+}
+
 type ToggleModularVersatileParams =
     { trait: "modular"; selected: number | null } | { trait: "versatile"; selected: DamageType | null };
 
-type ToggleWeaponTraitParams = ToggleDoubleBarrelParams | ToggleModularVersatileParams;
+type ToggleWeaponTraitParams = ToggleCombinationParams | ToggleDoubleBarrelParams | ToggleModularVersatileParams;
 
 export { WeaponTraitToggles };

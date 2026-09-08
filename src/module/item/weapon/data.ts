@@ -97,6 +97,7 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
 interface WeaponTraitsSource extends PhysicalItemTraits<WeaponTrait> {
     otherTags: OtherWeaponTag[];
     toggles?: {
+        combination?: { selected: CombinationWeaponMode } | null;
         doubleBarrel?: { selected: boolean };
         modular?: { selected: number | null } | null;
         versatile?: { selected: DamageType | null };
@@ -189,6 +190,8 @@ interface WeaponRuneData extends WeaponRuneSource {
     effects: WeaponPropertyRuneType[];
 }
 
+type CombinationWeaponMode = "melee" | "ranged";
+
 interface ComboWeaponMeleeUsage {
     damage: { type: DamageType; die: DamageDieSize };
     group: MeleeWeaponGroup;
@@ -197,6 +200,7 @@ interface ComboWeaponMeleeUsage {
 }
 
 export type {
+    CombinationWeaponMode,
     ComboWeaponMeleeUsage,
     SpecificWeaponData,
     WeaponDamage,
