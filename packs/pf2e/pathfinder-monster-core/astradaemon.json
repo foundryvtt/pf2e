@@ -924,7 +924,16 @@
                         "diceNumber": 2,
                         "dieSize": "d10",
                         "key": "DamageDice",
-                        "selector": "melee-damage"
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:slug:claw",
+                                    "item:slug:jaws",
+                                    "item:slug:tail"
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage"
                     }
                 ],
                 "slug": "essence-drain",
