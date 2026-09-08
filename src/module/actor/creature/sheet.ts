@@ -244,24 +244,27 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             const row = htmlClosest(event.target, "[data-item-id]");
             const itemId = row?.dataset.itemId;
             const actors = actor.isOfType("npc") ? [actor, ...(actor.otherSegments ?? [])] : [actor];
-            const items = actors.flatMap((actor) => actor.items.contents.filter((item) => item.id === itemId));
+            const items = actors.flatMap((actor) => {
+                const contents = actor.items.contents as unknown as ItemPF2e[];
+                return contents.filter((item) => item.id === itemId);
+            });
 
             if (items[0]?.isOfType("spellcastingEntry")) {
                 const groupNumber = spellSlotGroupIdToNumber(row?.dataset.groupId) || 0;
                 const propertyKey = goesToEleven(groupNumber) ? (`slot${groupNumber}` as const) : "slot0";
                 return Promise.all(
-                    items.map((item) => {
+                    items.map(async (item) => {
                         if (!item.isOfType("spellcastingEntry") || !item.system.slots) return;
                         const max = item.system.slots[propertyKey].max;
-                        return item.update({ [`system.slots.${propertyKey}.value`]: max });
+                        await item.update({ [`system.slots.${propertyKey}.value`]: max });
                     }),
                 );
             } else if (items[0]?.isOfType("spell")) {
                 return Promise.all(
-                    items.map((item) => {
+                    items.map(async (item) => {
                         if (!item.isOfType("spell")) return;
                         const max = item.system.location.uses?.max;
-                        return max ? item.update({ "system.location.uses.value": max }) : undefined;
+                        if (max) await item.update({ "system.location.uses.value": max });
                     }),
                 );
             }
