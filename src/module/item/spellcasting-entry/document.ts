@@ -334,11 +334,11 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             if (rank.between(1, 10)) {
                 const groupId = rank as SpellSlotGroupId;
                 await Promise.all(
-                    actors.map((actor) => {
+                    actors.map(async (actor) => {
                         const entry = getItem(actor, this.id);
-                        return entry?.isOfType("spellcastingEntry")
-                            ? entry.spells?.setSlotExpendedState(groupId, resolvedIndex, true)
-                            : undefined;
+                        if (entry?.isOfType("spellcastingEntry")) {
+                            await entry.spells?.setSlotExpendedState(groupId, resolvedIndex, true);
+                        }
                     }),
                 );
                 return true;
@@ -353,9 +353,11 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             }
             const uses = remainingUses - 1;
             await Promise.all(
-                actors.map((actor) => {
+                actors.map(async (actor) => {
                     const item = getItem(actor, spell.id);
-                    return item?.isOfType("spell") ? item.update({ "system.location.uses.value": uses }) : undefined;
+                    if (item?.isOfType("spell")) {
+                        await item.update({ "system.location.uses.value": uses });
+                    }
                 }),
             );
             return true;
@@ -367,11 +369,11 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         });
         if (slots.every((slot) => slot && slot.value > 0)) {
             await Promise.all(
-                actors.map((actor, index) => {
+                actors.map(async (actor, index) => {
                     const entry = getItem(actor, this.id);
-                    return entry?.isOfType("spellcastingEntry")
-                        ? entry.update({ [`system.slots.${slotKey}.value`]: slots[index]!.value - 1 })
-                        : undefined;
+                    if (entry?.isOfType("spellcastingEntry")) {
+                        await entry.update({ [`system.slots.${slotKey}.value`]: slots[index]!.value - 1 });
+                    }
                 }),
             );
             return true;
