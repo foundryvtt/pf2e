@@ -293,6 +293,8 @@ class CraftingAbility implements CraftingAbilityData {
         })();
         if (!item) return null;
 
+        const preparedFormula = index >= 0 ? preparedFormulas[index] : null;
+
         // Set the slot to expended if this is a prepared entry
         if (this.isPrepared && consume) {
             if (!this.preparedFormulaData[index] || this.preparedFormulaData[index].expended) {
@@ -305,16 +307,18 @@ class CraftingAbility implements CraftingAbilityData {
         const rollOptions = item.getRollOptions("item");
         const matching = this.craftableItems.find((c) => c.predicate.test(rollOptions));
         const batchSize = matching?.batchSize ?? this.batchSize;
+        const craftQuantity = preparedFormula?.quantity ?? batchSize;
 
         // Consume a special resource if we need to
         if (this.resource && consume) {
             const resource = this.actor.getResource(this.resource ?? "");
             const value = resource?.value ?? 0;
-            if (!value) {
+            const resourceCost = preparedFormula?.batches ?? 1;
+            if (value < resourceCost) {
                 ui.notifications.warn("PF2E.Actor.Character.Crafting.MissingResource", { localize: true });
                 return null;
             } else {
-                await this.actor.updateResource(this.resource, value - 1);
+                await this.actor.updateResource(this.resource, value - resourceCost);
             }
         }
 
@@ -325,7 +329,7 @@ class CraftingAbility implements CraftingAbilityData {
 
         // Create the item source, and apply necessary temporary item modifications
         const itemSource = item.toObject(true);
-        itemSource.system.quantity = batchSize;
+        itemSource.system.quantity = craftQuantity;
         itemSource.system.temporary = true;
         itemSource.system.size = this.actor.ancestry?.size === "tiny" ? "tiny" : "med";
         if (item.isAlchemical && itemIsOfType(itemSource, "consumable", "equipment", "weapon")) {
@@ -339,7 +343,7 @@ class CraftingAbility implements CraftingAbilityData {
         // Create the item or update an existing one, then return it
         const stackable = this.actor.inventory.findStackableItem(itemSource);
         if (stackable) {
-            stackable.update({ "system.quantity": stackable.quantity + batchSize });
+            stackable.update({ "system.quantity": stackable.quantity + craftQuantity });
             return stackable;
         } else {
             const created = await this.actor.createEmbeddedDocuments("Item", [itemSource]);

@@ -1038,6 +1038,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (ability) {
                 const craftParam = ability.isPrepared && row.dataset.itemIndex ? Number(row.dataset.itemIndex) : null;
                 const consume = !ability.resource || !!this.actor.getResource(ability.resource)?.value;
+                const preparedFormulas = await ability.getPreparedCraftingFormulas();
+                const craftQuantity = craftParam !== null ? (preparedFormulas[craftParam]?.quantity ?? 1) : 1;
                 const item = craftParam !== null ? await ability.craft(craftParam, { consume }) : null;
                 if (item) {
                     await ChatMessagePF2e.create({
@@ -1045,7 +1047,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                         content: _loc("PF2E.Actions.Craft.Information.ReceiveItem", {
                             actorName: this.actor.name,
                             itemName: item.name,
-                            quantity: 1,
+                            quantity: craftQuantity,
                         }),
                         speaker: { alias: this.actor.name },
                     });
