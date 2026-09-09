@@ -221,6 +221,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
         const heldShield = actor.heldShield;
         const actorShieldData = sheetData.data.attributes.shield;
         sheetData.hasShield = !!heldShield || actorShieldData.hp.max > 0;
+        sheetData.canRaiseShield = !!heldShield && !actorShieldData.destroyed;
 
         const { isElite, isWeak } = actor;
         sheetData.isElite = isElite;
@@ -399,6 +400,10 @@ class NPCSheetPF2e extends AbstractNPCSheet {
                 const alreadyHasAdjustment = adjustment === this.actor.system.attributes.adjustment;
                 return this.actor.applyAdjustment(alreadyHasAdjustment ? null : adjustment);
             }
+        };
+
+        handlers["raise-a-shield"] = () => {
+            return game.pf2e.actions.raiseAShield({ actors: [this.actor] });
         };
 
         handlers["open-recall-breakdown"] = () => {
