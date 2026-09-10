@@ -492,7 +492,20 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         const originActor = rollContext.origin?.actor ?? self;
         const targetActor = rollContext.target?.actor ?? null;
         const selfActor = (selfIsTarget ? targetActor : originActor) ?? self;
-        const dc = typeof args.dc?.value === "number" ? args.dc : (rollContext?.dc ?? null);
+        const dc = ((): CheckDC | null => {
+            if (typeof args.dc?.value === "number") return args.dc;
+            if (!args.dc?.slug) return rollContext?.dc ?? null;
+            // Resolve a reference from the opposing actor's contextual clone, falling back to the actor itself
+            const { slug, label, modifiers = [] } = args.dc;
+            const opposingActor = selfIsTarget ? args.origin : args.target;
+            const baseStatistic =
+                rollContext?.dc?.statistic?.parent ??
+                opposingActor?.getStatistic(slug.replace(/-dc$/, ""))?.clone({ rollOptions: args.extraRollOptions });
+            const statistic = modifiers.length > 0 ? baseStatistic?.clone({ modifiers }).dc : baseStatistic?.dc;
+            if (!statistic) return null;
+            const scope = rollContext?.dc?.scope ?? (domains.includes("attack") ? "attack" : "check");
+            return { slug, label, scope, statistic, value: statistic.value };
+        })();
 
         // Extract modifiers, unless this is a flat check
         const extraModifiers =
@@ -755,6 +768,10 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
 
 interface CheckDCReference {
     slug: string;
+    /** An optional label overriding the one derived from the slug */
+    label?: string;
+    /** Additional modifiers applied to the resolved DC statistic */
+    modifiers?: Modifier[];
     value?: never;
 }
 
