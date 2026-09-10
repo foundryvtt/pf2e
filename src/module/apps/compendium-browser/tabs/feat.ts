@@ -102,8 +102,8 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                 ];
 
                 // Tag ancestry items without an ancestry trait
-                if (category === "ancestry" && !traits.some((t) => t in this.#creatureTraits)) {
-                    options.push("trait:ancestry:universal");
+                if (category === "ancestry" && !traits.some((t) => t === "ancestry" || t in this.#creatureTraits)) {
+                    options.push("trait:ancestry");
                 }
 
                 feats.push({

@@ -1321,6 +1321,7 @@ const traitDescriptions = {
     amphibious: "PF2E.TraitDescriptionAmphibious",
     anadi: "PF2E.TraitDescriptionAnadi",
     analog: "PF2E.TraitDescriptionAnalog",
+    ancestry: "PF2E.TraitDescriptionAncestry",
     anchoring: "PF2E.TraitDescriptionAnchoring",
     android: "PF2E.TraitDescriptionAndroid",
     angel: "PF2E.TraitDescriptionAngel",
