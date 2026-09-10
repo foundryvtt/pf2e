@@ -127,6 +127,20 @@ class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TAct
         return this.check.mod;
     }
 
+    /**
+     * Whether a check/dc view's modifiers would equal this statistic's own: true when the view has no inline
+     * modifiers, no synthetics or adjustments target its view-only domains, and no modifier carries a predicate or
+     * attached adjustments (which the skipped view-level `StatisticModifier` run would retest and apply against the
+     * view's fuller roll-option set). When true the view can adopt clones of the already-resolved modifiers and skip
+     * the extract/stack work.
+     */
+    viewMatchesParent(viewDomains: readonly string[], inlineModifiers: readonly Modifier[] | undefined): boolean {
+        if ((inlineModifiers ?? []).length > 0) return false;
+        if (this.modifiers.some((m) => m.predicate.length > 0 || m.adjustments.length > 0)) return false;
+        const { modifiers, modifierAdjustments } = this.actor.synthetics;
+        return !viewDomains.some((d) => (modifiers[d]?.length ?? 0) > 0 || (modifierAdjustments[d]?.length ?? 0) > 0);
+    }
+
     override createRollOptions(domains = this.domains, args: RollOptionConfig = {}): Set<string> {
         const { item, extraRollOptions, target } = args;
         const origin = args.origin ?? (item?.actor && item.actor.uuid !== this.actor.uuid ? item.actor : null);
@@ -272,22 +286,30 @@ class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TAct
     ): StatisticTraceData<AttributeString>;
     getTraceData(options?: { value?: "dc" | "mod" }): StatisticTraceData;
     getTraceData(options: { value?: "dc" | "mod" } = {}): StatisticTraceData {
-        const { check, dc } = this;
-        const valueProp = options.value ?? "mod";
-        const [label, value, totalModifier, breakdown, modifiers] =
-            valueProp === "mod"
-                ? [this.label, check.mod, check.mod, check.breakdown, check.modifiers]
-                : [dc.label || this.label, dc.value, dc.value - 10, dc.breakdown, dc.modifiers];
-
+        // Only materialize the side actually used; mod mode still reads dc.value for the trace's `dc:` field.
+        if (options.value === "dc") {
+            const dc = this.dc;
+            return {
+                slug: this.slug,
+                label: dc.label || this.label,
+                value: dc.value,
+                totalModifier: dc.value - 10,
+                dc: dc.value,
+                attribute: this.attribute,
+                breakdown: dc.breakdown,
+                modifiers: dc.modifiers.map((m) => m.toObject()),
+            };
+        }
+        const check = this.check;
         return {
             slug: this.slug,
-            label,
-            value,
-            totalModifier,
-            dc: dc.value,
+            label: this.label,
+            value: check.mod,
+            totalModifier: check.mod,
+            dc: this.dc.value,
             attribute: this.attribute,
-            breakdown,
-            modifiers: modifiers.map((m) => m.toObject()),
+            breakdown: check.breakdown,
+            modifiers: check.modifiers.map((m) => m.toObject()),
         };
     }
 }
@@ -323,6 +345,14 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         this.domains = R.unique([data.domains, data.check.domains].flat()).filter(R.isTruthy);
 
         this.label = this.#determineLabel(data);
+
+        // Fast path: adopt the parent's resolved modifiers when nothing check-specific applies. Skipped for
+        // flat-check, whose original path zeroes out any modifiers.
+        if (this.type !== "flat-check" && parent.viewMatchesParent(data.check?.domains ?? [], data.check?.modifiers)) {
+            this.modifiers = parent.modifiers.map((m) => m.clone());
+            this.mod = parent.totalModifier;
+            return;
+        }
 
         // Acquire additional adjustments for cloned parent modifiers
         const modifierAdjustments = parent.actor.synthetics.modifierAdjustments;
@@ -696,6 +726,12 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
         this.label = data.dc?.label;
         this.options = parent.createRollOptions(this.domains, options);
 
+        // Fast path: adopt the parent's resolved modifiers when nothing dc-specific applies.
+        if (parent.viewMatchesParent(data.dc?.domains ?? [], data.dc?.modifiers)) {
+            this.modifiers = parent.modifiers.map((m) => m.clone());
+            return;
+        }
+
         // Acquire additional adjustments for cloned parent modifiers
         const { modifierAdjustments } = parent.actor.synthetics;
         const parentModifiers = parent.modifiers.map((modifier) => {
@@ -731,14 +767,9 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
     }
 
     get value(): number {
-        return (
-            10 +
-            new StatisticModifier(
-                "",
-                this.modifiers.map((m) => m.clone()),
-                this.options,
-            ).totalModifier
-        );
+        // Sum currently-enabled modifiers. Avoids re-cloning and re-stacking on every read while remaining correct
+        // if a caller mutates `this.modifiers` after construction (as ArmorStatistic does to add armor bonuses).
+        return 10 + R.sumBy(this.modifiers, (m) => (m.enabled ? m.modifier : 0));
     }
 
     get breakdown(): string {
