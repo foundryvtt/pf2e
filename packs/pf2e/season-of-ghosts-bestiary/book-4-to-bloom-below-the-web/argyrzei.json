@@ -358,7 +358,7 @@
             },
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
-            "name": "Illusory Disguise",
+            "name": "Illusory Disguise (At Will)",
             "sort": 600000,
             "system": {
                 "area": null,
@@ -706,9 +706,13 @@
                             "damage": {
                                 "0": {
                                     "category": null,
+                                    "kinds": [
+                                        "damage"
+                                    ],
                                     "type": "bludgeoning"
                                 }
-                            }
+                            },
+                            "defense": null
                         }
                     },
                     "cUFX7ExSLeoa3vIF": {
@@ -720,9 +724,13 @@
                             "damage": {
                                 "0": {
                                     "category": null,
+                                    "kinds": [
+                                        "damage"
+                                    ],
                                     "type": "piercing"
                                 }
-                            }
+                            },
+                            "defense": null
                         }
                     },
                     "zFWsMjoeCnLxqJaV": {
@@ -734,9 +742,13 @@
                             "damage": {
                                 "0": {
                                     "category": null,
+                                    "kinds": [
+                                        "damage"
+                                    ],
                                     "type": "slashing"
                                 }
-                            }
+                            },
+                            "defense": null
                         }
                     }
                 },
@@ -792,11 +804,6 @@
                         "damage": "2d8+11",
                         "damageType": "slashing"
                     },
-                    "1": {
-                        "category": "persistent",
-                        "damage": "1d6",
-                        "damageType": "bleed"
-                    },
                     "2": {
                         "damage": "1d6",
                         "damageType": "mental"
@@ -831,6 +838,15 @@
                         ],
                         "slug": "base",
                         "value": 12
+                    },
+                    {
+                        "definition": [
+                            "item:id:{item|id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "wounding"
                     }
                 ],
                 "slug": null,
@@ -858,7 +874,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>The argyrzei can see and hear through any silver object it cursed, as long as the object is within 1 mile.</p>"
+                    "value": "<p>The argyrzei can see and hear through any silver object they cursed, as long as the object is within 1 mile.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -887,7 +903,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>An argyrzei is headless but can still hear, speak, see, and smell as if it had a head. The argyrzei is immune to decapitation effects, such as those caused by vorpal weapons.</p>"
+                    "value": "<p>An argyrzei is headless but can still hear, speak, see, and smell as if they had a head. The argyrzei is immune to decapitation effects, such as those caused by <em>vorpal</em> weapons.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -916,7 +932,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Creatures killed by an argyrzei are difficult to bring back to life or to animate as undead. The argyrzei automatically attempts to counteract any attempt to resurrect or animate as undead any creature that it has killed (counteract modifier [[/r 1d20+23 #Counteract]]{+23}, counteract level 7th). If the argyrzei who slew the creature is itself slain, the creature can be brought back from death or become undead normally.</p>"
+                    "value": "<p>Creatures killed by an argyrzei are difficult to bring back to life or animate as undead. The argyrzei automatically attempts to counteract any attempt to resurrect or animate any creature that they've killed (counteract modifier [[/r 1d20+23 #Counteract]]{+23}, counteract rank 7). If the argyrzei who slew the creature is slain, the creature can be brought back from death or become undead normally.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -945,7 +961,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The argyrzei concentrates on an adjacent silver object that's no larger than 2 Bulk. That object becomes cursed; if the object is being carried, the object's carrier can resist the object becoming cursed with a @Check[will|dc:33] save. The argyrzei can maintain up to five curses simultaneously; if they infect a sixth silver item, the oldest cursed item becomes uncursed. See the sidebar on this page for details on cursed silver.</p><h2><strong>Infected Silver</strong></h2><section class=\"traits\"><p><strong>RARE</strong></p>\n<p><strong>CURSED</strong></p>\n<p><strong>MAGICAL</strong></p></section><p><strong>Usage</strong> curses silver item</p>\n<p>After 1 minute of carrying infected silver, it fuses to you. You become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and remain so as long as the curse persists. As long as you remain cursed, you take a –2 status penalties to all saving throws against mental effects created by nindorus.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The argyrzei concentrates on an adjacent silver object that's no larger than 2 Bulk. That object becomes cursed; if the object is being carried, the object's carrier can resist the object becoming cursed with a @Check[will|dc:33] save. The argyrzei can maintain up to five curses simultaneously; if they infect a sixth silver item, the oldest cursed item becomes uncursed. See the sidebar on this page for details on cursed silver.</p><h2><strong>Infected Silver</strong> <span style=\"float:right\">Curse 13</span></h2><section class=\"traits\"><p><strong>RARE</strong></p>\n<p><strong>CURSED</strong></p>\n<p><strong>MAGICAL</strong></p></section><p><strong>Usage</strong> curses silver item</p><hr /><p>After 1 minute of carrying infected silver, it fuses to you. You become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and remain so as long as the curse persists. As long as you remain cursed, you take a –2 status penalties to all saving throws against mental effects created by nindorus.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Infected Silver]</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -982,7 +998,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The argyrzei isn't carrying a silver blade</p><hr /><p><strong>Effect</strong> The argyrzei pulls one of the broken silver weapons from the stump of their neck, transforming it into a <em>+1 striking wounding silver bastard sword</em>. This weapon crumbles into sand if it leaves the argyrzei's possession.</p>\n<p>Sometimes, an argyrzei might manifest a different type of weapon than a blade—particularly if they're infiltrating or preying upon an organization that utilizes a signature weapon. In this case, the appearance of the silver blade can change and might inflict bludgeoning or piercing damage, but its other effects are unchanged.</p>"
+                    "value": "<p><strong>Requirements</strong> The argyrzei isn't carrying a silver blade</p><hr /><p><strong>Effect</strong> The argyrzei pulls one of the broken silver weapons from the stump of their neck, transforming it into a <em>+1 striking wounding silver bastard sword</em>. This weapon crumbles into sand if it leaves the argyrzei's possession. Sometimes, an argyrzei might manifest a different type of weapon than a blade—particularly if they're infiltrating or preying upon an organization that utilizes a signature weapon. In this case, the appearance of the silver blade can change and might inflict bludgeoning or piercing damage, but its other effects are unchanged.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1076,7 +1092,7 @@
                 "value": 13
             },
             "privateNotes": "",
-            "publicNotes": "<p>Most nindorus are harmed by silver, but not the argyrzei. Instead, argyrzeis use silver as a method of spreading sickness and pain, and to help them manipulate the minds of those who unwittingly fall under the curse of their infected gifts. They delight in disguising themselves and then selling or giving infected silver to victims. Other nindorus particularly fear argyrzeis for their mastery over silver, knowing that they're capable of causing painful wounds with their silver blades.</p>\n<p>Argyrzeis appear humanoid, but their feet point backwards and they have no heads. Their glowing red neck stumps are stuffed with a wide assortment of knives, blades, and shards of metal. These nindorus represent the cycle of art being created, destroyed, and recycled into new art.</p>",
+            "publicNotes": "<p>Most nindorus are harmed by silver, but not the argyrzei. Instead, argyrzeis use silver as a method of spreading sickness and pain, and to help them manipulate the minds of those who unwittingly fall under the curse of their infected gifts. They delight in disguising themselves and then selling or giving infected silver to victims. Other nindorus particularly fear argyrzeis for their mastery over silver, knowing that they're capable of causing painful wounds with their silver blades.</p>\n<p>Argyrzeis appear humanoid, but their feet point backward, and they have no heads. Their glowing red neck stumps are stuffed with a wide assortment of knives, blades, and shards of metal. These nindorus represent the cycle of art being created, destroyed, and recycled into new art.</p><hr /><p>When an evil mortal soul that has been reincarnated multiple times is wrenched from the cycle of souls and corrupted, it can undergo a horrific transformation into a fiend known as a nindoru. A force for entropy and the breaking of cycles, nindorus are hideous creatures whose bodies often appear distorted, who wield weapons that have been shattered yet still function, and whose true face is often hidden from view. They display traits one might expect to see in an undead creature, such as decaying flesh or broken bones, yet nindorus are very much still alive.</p>\n<p>Each nindoru epitomizes the fracture of a specific cycle, be it one from the natural world or from societal traditions. To nindorus, nothing is more delicious than the consumption of a creature who has reincarnated multiple times, with those who are theoretically about to ascend to true enlightenment presenting the tastiest meal. Those slain by a nindoru are themselves torn from the cycle—the lucky ones move on to the Boneyard for judgment, but many are instead corrupted to form more of these horrific fiends.</p>\n<p>Followers of Sangpotshi find nindorus to be particularly abhorrent and count them among the greatest threats imaginable. Most commonly found in regions of the world where the reincarnation cycle is strongest, nindorus are, like rakshasas, associated most strongly with the Universe and not one of the unholy planes of the Great Beyond.</p><h2>Reincarnated Souls</h2><p>In some cases, you'll know if a creature a nindoru attacks has a reincarnated soul. Ancestries like samsarans are always reincarnated souls, and a PC's backstory or even their background can often indicate the presence of a previous life. All of the PCs in the <em>Season of Ghosts Adventure Path</em> qualify as reincarnated souls, as they've relived their lives over and over for decades. If you ever need to determine if a creature's soul is reincarnated for the purpose of adjudicating a nindoru's ability, attempt a @Check[flat|dc:11]—on a success, it has a reincarnated soul.</p><h2>Nindoru Demigods</h2><p>The most powerful nindorus are demigods, although their cults are quite rare. Prone to reincarnation after death, nindoru demigods like Kugaptee are more properly known as \"nindoru ascetics.\"</p><h2>Nindoru Traitors</h2><p>While most nindorus are purely evil and unholy in nature, legends tell of exceptionally rare nindorus who manage to escape their own nature and ascend, reincarnating after death into kami or other more benevolent spirits and shedding the nindoru trait as they do so. Of course, these \"traitors\" are regarded as the most delicious meals imaginable by the nindorus left behind.</p><h2>Nindoru Butterflies</h2><p>One of the strangest shared traits of the various types of nindoru are the blood-red butterflies that seem to follow them around, nest on their bodies, or periodically emerge from their wounds. These unnerving insects are physical manifestations of the nindorus' thoughts and symbolize the countless past lives they once lived but turned their backs on. Nindoru butterflies never last long once they flutter more than a few feet from their source, fading away into smoke that quickly dissipates into the air.</p><h2>Weapons of Choice</h2><p>Several of the nindorus presented here have preferred types of weapons to wield and might even have special abilities associated with that type of weapon. A nindoru who wields a different weapon can still make use of those associated abilities, but the flavor of that ability should be adjusted as appropriate.</p>",
             "publication": {
                 "license": "ORC",
                 "remaster": true,
