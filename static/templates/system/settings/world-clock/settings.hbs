@@ -1,5 +1,24 @@
 {{formGroup fields.dateTheme value=settings.dateTheme choices=dateThemes rootId=rootId}}
 {{formGroup fields.timeConvention value=settings.timeConvention choices=timeConventions rootId=rootId}}
 {{formGroup fields.playersCanView value=settings.playersCanView rootId=rootId}}
-{{formGroup fields.syncDarkness value=settings.syncDarkness rootId=rootId}}
 {{formGroup fields.showClockButton value=settings.showClockButton rootId=rootId}}
+
+<fieldset>
+    <legend>{{localize "PF2E.SETTINGS.WorldClock.TheSun"}}</legend>
+    {{formGroup fields.syncDarkness value=settings.syncDarkness rootId=rootId}}
+
+    <div class="form-group">
+        <label for="{{rootId}}-dawnTime">{{localize "PF2E.SETTINGS.WorldClock.FIELDS.dawnTime.label"}}</label>
+        <div class="form-fields">
+            <input type="time" id="{{rootId}}-dawnTime" value="{{dawnTime}}" required>
+        </div>
+        <p class="hint">{{localize "PF2E.SETTINGS.WorldClock.FIELDS.dawnTime.hint"}}</p>
+    </div>
+    <div class="form-group">
+        <label for="{{rootId}}-duskTime">{{localize "PF2E.SETTINGS.WorldClock.FIELDS.duskTime.label"}}</label>
+        <div class="form-fields">
+            <input type="time" id="{{rootId}}-duskTime" value="{{duskTime}}" required>
+        </div>
+        <p class="hint">{{localize "PF2E.SETTINGS.WorldClock.FIELDS.duskTime.hint"}}</p>
+    </div>
+</fieldset>
