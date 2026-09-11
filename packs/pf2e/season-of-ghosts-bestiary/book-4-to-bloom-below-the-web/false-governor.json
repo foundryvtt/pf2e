@@ -793,56 +793,10 @@
             "type": "spell"
         },
         {
-            "_id": "zQOtjljMuSAn9ByR",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1200000,
-            "system": {
-                "action": "strike",
-                "area": null,
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "E2CQCLvJVa301NkZ": {
-                        "damage": "1d6",
-                        "damageType": "mental"
-                    },
-                    "r2APYyvKZaf8fYPN": {
-                        "damage": "3d4+14",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": null,
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "7S2GBUgoEKGBtlKf",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Soul Shred",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -852,7 +806,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Creatures killed by an false governor are difficult to bring back to life or animate as undead. The akashti automatically attempts to counteract any attempt to resurrect or animate as undead any creature that it has killed (counteract modifier [[/r 1d20+36 #Counteract]]{+36}, counteract rank 7). If the false governor who slew the creature is slain, the creature can be brought back from death or become undead normally.</p>"
+                    "value": "<p>Creatures killed by a false governor are difficult to bring back to life or animate as undead. The false governor automatically attempts to counteract any attempt to resurrect or animate any creature that they've killed (counteract modifier [[/r 1d20+36 #Counteract]]{+36}, counteract rank 7). If the false governor who slew the creature is slain, the creature can be brought back from death or become undead normally.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -871,7 +825,7 @@
             "_id": "CFECEd1jZx38sYKC",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Manifest Body",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -881,7 +835,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The false governor has manifested a hollow humanoid body around their slender skeletal frame that looks identical to that of Governor Heh Shan-Bao. While wearing this manifested body, the false governor loses their claw Strike, and their voice sounds like that of Heh Shan-Bao's. The false governor's manifested body decays swiftly if they don't take 10 minutes once per day to maintain the manifestation of the false flesh. The body has 10 Hit Points and the same defenses as the false governor. When the body is destroyed, the false governor emerges unharmed, and the fleshy shell left behind scatters into a cloud of red butterflies that swiftly fade into red mist. This emergence is so grisly and unsettling that all creatures within 30 feet who witness it must attempt a @Check[fortitude|dc:29] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3} on a critical failure); this has the mental and visual traits.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The false governor has manifested a hollow humanoid body around their slender skeletal frame that looks identical to that of Governor Heh Shan-Bao. While wearing this manifested body, the false governor loses their claw Strike, and their voice sounds like that of Heh Shan-Bao's. The false governor's manifested body decays swiftly if they don't take 10 minutes once per day to maintain the manifestation of the false flesh. The body has 10 Hit Points and the same defenses as the false governor. When the body is destroyed, the false governor emerges unharmed, and the fleshy shell left behind scatters into a cloud of red butterflies that swiftly fade into red mist. This emergence is so grisly and unsettling that all creatures within @Template[emanation|distance:30]{30 feet} who witness it must attempt a @Check[fortitude|dc:29|options:area-effect,inflicts:sickened|traits:mental,visual] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3} on a critical failure); this has the mental and visual traits.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -892,7 +846,48 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "manifest-body",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "attackModifier": 24,
+                        "baseType": "claw",
+                        "damage": {
+                            "base": {
+                                "damageType": "slashing",
+                                "dice": 3,
+                                "die": "d4",
+                                "modifier": 14
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "predicate": [
+                            {
+                                "not": "manifest-body"
+                            }
+                        ],
+                        "slug": "claw",
+                        "traits": [
+                            "agile",
+                            "finesse",
+                            "magical",
+                            "unarmed"
+                        ]
+                    },
+                    {
+                        "damageType": "mental",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "selector": "{item|id}-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -907,7 +902,7 @@
             "_id": "lptN7P182mD93D2O",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Stunning Despair",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -917,7 +912,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The false governor unleashes several overwhelming sobs of despair. Creatures within 30 feet must attempt a @Check[will|dc:29] save to avoid becoming @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure).</p>\n<p>The false governor can't use Stunning Despair again for [[/br 1d4 #Recharge Stunning Despair]]{1d4 rounds}.</p>"
+                    "value": "<p>The false governor unleashes several overwhelming sobs of despair. Creatures within @Template[emanation|distance:30]{30 feet} must attempt a @Check[will|dc:29|options:area-effect,inflicts:stunned] save to avoid becoming @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure).</p>\n<p>The false governor can't use Stunning Despair again for [[/gmr 1d4 #Recharge Stunning Despair]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -945,19 +940,19 @@
                 "mod": 7
             },
             "con": {
-                "mod": 3
+                "mod": 4
             },
             "dex": {
-                "mod": 5
+                "mod": 6
             },
             "int": {
-                "mod": 3
+                "mod": 4
             },
             "str": {
-                "mod": 5
+                "mod": 7
             },
             "wis": {
-                "mod": 3
+                "mod": 4
             }
         },
         "attributes": {
@@ -1014,7 +1009,7 @@
                 "value": 12
             },
             "privateNotes": "",
-            "publicNotes": "<p>Akashtis are manipulative fiends who prey on those in mourning; they assume the form of a recently deceased loved one so they can infiltrate homes, then murder and consume the souls of grieving families. Sometimes called a \"copycorpse,\" an akashti in its true form appears as a skin-covered skeleton with sharp talons on its fingers and tears of blood dripping from its lidless eyes. Its skull appears open like a bowl, and inside nest handfuls of crimson butterflies. When an akashti hides within its manifested body, close investigation can sometimes reveal the truth when the scalp of the supposed beloved one returned to life seems to subtly ripple and bulge as the butterflies within writhe. Akashtis embody the complex cycle of grief.</p>\n<h2>Deathly Invaders</h2>\n<p>Sometimes, akashtis ambush and murder targets not to bask in the grief of their loved ones, but instead to assume their form and infiltrate an organization from within to corrupt established bonds of camaraderie. Inevitably, though, these akashtis grow bored with deception and lead their new allies into a trap for slaughter.</p>",
+            "publicNotes": "<p>Akashtis are manipulative fiends who prey on those in mourning; they assume the form of a recently deceased loved one so they can infiltrate homes, then murder and consume the souls of grieving families. Sometimes called a \"copycorpse,\" an akashti in their true form appears as a skin-covered skeleton with sharp talons on their fingers and tears of blood dripping from their lidless eyes. Their skull appears open like a bowl, and inside nest handfuls of crimson butterflies. When an akashti hides within their manifested body, close investigation can sometimes reveal the truth when the scalp of the supposed beloved one returned to life seems to subtly ripple and bulge as the butterflies within writhe.</p>\n<p>Akashtis embody the complex cycle of grief. While they typically prefer to work on their own, it's not unheard of for a shisagishin to recruit the aid of a few akashtis when a region has suffered a great disaster, and there are a large number of bodies—and thus a large number of mourners—to take advantage of.</p><h2>Deathly Invaders</h2><p>Sometimes, akashtis ambush and murder targets not to bask in the grief of their loved ones, but instead to assume their form and infiltrate an organization from within to corrupt established bonds of camaraderie. Inevitably, though, these akashtis grow bored with deception and lead their new allies into a trap for slaughter.</p><hr /><p>When an evil mortal soul that has been reincarnated multiple times is wrenched from the cycle of souls and corrupted, it can undergo a horrific transformation into a fiend known as a nindoru. A force for entropy and the breaking of cycles, nindorus are hideous creatures whose bodies often appear distorted, who wield weapons that have been shattered yet still function, and whose true face is often hidden from view. They display traits one might expect to see in an undead creature, such as decaying flesh or broken bones, yet nindorus are very much still alive.</p>\n<p>Each nindoru epitomizes the fracture of a specific cycle, be it one from the natural world or from societal traditions. To nindorus, nothing is more delicious than the consumption of a creature who has reincarnated multiple times, with those who are theoretically about to ascend to true enlightenment presenting the tastiest meal. Those slain by a nindoru are themselves torn from the cycle—the lucky ones move on to the Boneyard for judgment, but many are instead corrupted to form more of these horrific fiends.</p>\n<p>Followers of Sangpotshi find nindorus to be particularly abhorrent and count them among the greatest threats imaginable. Most commonly found in regions of the world where the reincarnation cycle is strongest, nindorus are, like rakshasas, associated most strongly with the Universe and not one of the unholy planes of the Great Beyond.</p><h2>Reincarnated Souls</h2><p>In some cases, you'll know if a creature a nindoru attacks has a reincarnated soul. Ancestries like samsarans are always reincarnated souls, and a PC's backstory or even their background can often indicate the presence of a previous life. All of the PCs in the <em>Season of Ghosts Adventure Path</em> qualify as reincarnated souls, as they've relived their lives over and over for decades. If you ever need to determine if a creature's soul is reincarnated for the purpose of adjudicating a nindoru's ability, attempt a @Check[flat|dc:11]—on a success, it has a reincarnated soul.</p><h2>Nindoru Demigods</h2><p>The most powerful nindorus are demigods, although their cults are quite rare. Prone to reincarnation after death, nindoru demigods like Kugaptee are more properly known as \"nindoru ascetics.\"</p><h2>Nindoru Traitors</h2><p>While most nindorus are purely evil and unholy in nature, legends tell of exceptionally rare nindorus who manage to escape their own nature and ascend, reincarnating after death into kami or other more benevolent spirits and shedding the nindoru trait as they do so. Of course, these \"traitors\" are regarded as the most delicious meals imaginable by the nindorus left behind.</p><h2>Nindoru Butterflies</h2><p>One of the strangest shared traits of the various types of nindoru are the blood-red butterflies that seem to follow them around, nest on their bodies, or periodically emerge from their wounds. These unnerving insects are physical manifestations of the nindorus' thoughts and symbolize the countless past lives they once lived but turned their backs on. Nindoru butterflies never last long once they flutter more than a few feet from their source, fading away into smoke that quickly dissipates into the air.</p><h2>Weapons of Choice</h2><p>Several of the nindorus presented here have preferred types of weapons to wield and might even have special abilities associated with that type of weapon. A nindoru who wields a different weapon can still make use of those associated abilities, but the flavor of that ability should be adjusted as appropriate.</p>",
             "publication": {
                 "license": "ORC",
                 "remaster": true,
@@ -1026,7 +1021,7 @@
         },
         "perception": {
             "details": "",
-            "mod": 19,
+            "mod": 22,
             "senses": [
                 {
                     "type": "darkvision"
@@ -1050,19 +1045,29 @@
         },
         "skills": {
             "deception": {
-                "base": 23
+                "base": 25,
+                "special": [
+                    {
+                        "base": 29,
+                        "label": "Impersonating Governor Heh Shan-Bao",
+                        "predicate": [
+                            "manifest-body",
+                            "action:impersonate"
+                        ]
+                    }
+                ]
             },
             "diplomacy": {
-                "base": 21
+                "base": 23
             },
             "occultism": {
-                "base": 17
+                "base": 22
             },
             "society": {
-                "base": 19
+                "base": 22
             },
             "stealth": {
-                "base": 21
+                "base": 24
             }
         },
         "traits": {
