@@ -4,7 +4,7 @@
     "name": "Spell Effect: Warshard Shot",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Warshard Shot]</p>\n<p>As long as you are taking this persistent spirit damage, you take a –1 status penalty to your AC.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Warshard Shot]</p>\n<p>You take persistent spirit damage. As long as you are taking this persistent spirit damage, you take a –1 status penalty to your AC.</p>"
         },
         "duration": {
             "expiry": null,
@@ -22,6 +22,23 @@
             "title": "Pathfinder Impossible Magic"
         },
         "rules": [
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "persistent-damage",
+                        "value": {
+                            "damageType": "spirit",
+                            "formula": "max(5,@item.level)"
+                        }
+                    }
+                ],
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "cascade"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Persistent Damage"
+            },
             {
                 "key": "FlatModifier",
                 "predicate": [
