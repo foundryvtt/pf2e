@@ -74,6 +74,7 @@ interface AuraEffectData {
     removeOnExit: boolean;
     includesSelf: boolean;
     alterations: ItemAlteration[];
+    preselectChoices: Partial<Record<string, string | number>>;
 }
 
 interface AuraAppearanceData {

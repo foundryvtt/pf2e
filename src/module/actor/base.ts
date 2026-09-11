@@ -41,6 +41,7 @@ import {
 } from "@module/rules/helpers.ts";
 import type { RuleElementSynthetics } from "@module/rules/index.ts";
 import type { RuleElement } from "@module/rules/rule-element/base.ts";
+import type { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data.ts";
 import type { RollOptionRuleElement } from "@module/rules/rule-element/roll-option/rule-element.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { ScenePF2e } from "@scene/document.ts";
@@ -496,6 +497,17 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
                 for (const alteration of data.alterations) {
                     alteration.applyTo(source);
+                }
+
+                for (const [flag, selection] of Object.entries(data.preselectChoices)) {
+                    if (selection === undefined) continue;
+
+                    const rule = source.system.rules.find((rule): rule is ChoiceSetSource => {
+                        return rule.key === "ChoiceSet" && (rule as ChoiceSetSource).flag === flag;
+                    });
+                    if (rule) {
+                        rule.selection = selection;
+                    }
                 }
 
                 toCreate.push(source);
