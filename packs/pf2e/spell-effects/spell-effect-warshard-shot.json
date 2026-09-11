@@ -1,0 +1,47 @@
+{
+    "_id": "4MERhKWB4iDKNPhy",
+    "img": "icons/magic/holy/projectiles-blades-salvo-yellow.webp",
+    "name": "Spell Effect: Warshard Shot",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Warshard Shot]</p>\n<p>As long as you are taking this persistent spirit damage, you take a –1 status penalty to your AC.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:condition:persistent-damage:spirit"
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": -1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
