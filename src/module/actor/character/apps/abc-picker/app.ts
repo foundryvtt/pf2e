@@ -4,6 +4,7 @@ import type { CompendiumItemUUID, ItemUUID } from "@common/documents/_module.mts
 import { ABCItemPF2e, DeityPF2e, HeritagePF2e, ItemPF2e } from "@item";
 import type { ItemType } from "@item/types.ts";
 import { RARITIES, Rarity } from "@module/data.ts";
+import { TextSearch } from "@module/sheet/components/text-search.svelte.ts";
 import { SvelteApplicationMixin, type SvelteApplicationRenderContext } from "@module/sheet/mixin.svelte.ts";
 import { sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
@@ -40,7 +41,14 @@ interface ABCPickerState {
 interface ABCPickerContext extends SvelteApplicationRenderContext {
     actor: CharacterPF2e;
     foundryApp: ABCPicker;
+    search: TextSearch<ABCSearchDoc>;
     state: ABCPickerState;
+}
+
+interface ABCSearchDoc {
+    id: ItemUUID;
+    name: string;
+    originalName?: string;
 }
 
 /** A `Compendium`-like application for presenting A(H)BCD options for a character */
@@ -57,6 +65,12 @@ class ABCPicker extends SvelteApplicationMixin<
     declare options: ABCPickerConfiguration;
 
     protected root = Root;
+
+    #search = new TextSearch<ABCSearchDoc>({
+        fields: ["name", "originalName"],
+        matcher: "substring",
+        minLength: 1,
+    });
 
     override get title(): string {
         const type = _loc(`TYPES.Item.${this.options.itemType}`);
@@ -149,13 +163,16 @@ class ABCPicker extends SvelteApplicationMixin<
 
     protected override async _prepareContext(): Promise<ABCPickerContext> {
         const itemType = this.options.itemType;
+        const items = await this.#gatherItems();
+        this.#search.index(items.map((i) => ({ id: i.uuid, name: i.name, originalName: i.originalName })));
         return {
             actor: this.options.actor,
             foundryApp: this,
+            search: this.#search,
             state: {
                 prompt: _loc(`PF2E.Actor.Character.ABCPicker.Prompt.${itemType}`),
                 itemType,
-                items: await this.#gatherItems(),
+                items,
             },
         };
     }
