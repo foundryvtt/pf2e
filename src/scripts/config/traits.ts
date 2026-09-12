@@ -738,6 +738,7 @@ const npcAttackTraits = {
     illusion: "PF2E.TraitIllusion",
     impulse: "PF2E.TraitImpulse",
     linguistic: "PF2E.TraitLinguistic",
+    press: "PF2E.TraitPress",
     incorporeal: "PF2E.TraitIncorporeal",
     radiation: "PF2E.TraitRadiation",
     "reach-0": "PF2E.TraitReach0",
