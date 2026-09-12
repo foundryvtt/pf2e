@@ -1,51 +1,49 @@
 import { EquippedData } from "./data.ts";
 import type { OneToTwo } from "@module/data.ts";
 
-interface HeldUsage {
+interface BaseUsage<T extends UsageType> {
+    type: T;
+}
+
+interface HeldUsage extends BaseUsage<"held"> {
     value: string;
-    type: "held";
     where?: never;
     hands: OneToTwo;
 }
 
-interface WornUsage {
+interface WornUsage extends BaseUsage<"worn"> {
     value: string;
-    type: "worn";
     where?: string | null;
     hands?: 0;
 }
 
-interface AttachedUsage {
+interface AttachedUsage extends BaseUsage<"attached"> {
     value: string;
-    type: "attached";
     where: string;
     hands?: 0;
 }
 
-interface InstalledUsage {
+interface InstalledUsage extends BaseUsage<"installed"> {
     value: string;
-    type: "installed";
     where: string;
     hands?: 0;
 }
 
-interface CarriedUsage {
+interface CarriedUsage extends BaseUsage<"carried"> {
     value: "carried";
-    type: "carried";
     where?: never;
     hands?: 0;
 }
 
-interface ImplantedUsage {
+interface ImplantedUsage extends BaseUsage<"implanted"> {
     value: string;
-    type: "implanted";
     where?: never;
     hands?: 0;
 }
 
 type UsageDetails = HeldUsage | WornUsage | AttachedUsage | InstalledUsage | CarriedUsage | ImplantedUsage;
 
-type UsageType = UsageDetails["type"];
+type UsageType = keyof typeof CONFIG.PF2E.usageTypes;
 
 function isEquipped(usage: UsageDetails, equipped: EquippedData): boolean {
     if (equipped.carryType === "dropped") return false;
