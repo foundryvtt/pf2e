@@ -273,6 +273,17 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         if (!actor?.isOfType("character", "npc")) {
             throw ErrorPF2e("Spellcasting entries require an actor");
         }
+        type ResourceActor = {
+            system: { resources: { focus?: { value?: number | null } } };
+            items: { contents: ItemPF2e[] };
+            update: (changes: Record<string, unknown>) => Promise<unknown>;
+        };
+        const actors: ResourceActor[] = [actor as unknown as ResourceActor];
+        if (actor.isOfType("npc")) {
+            actors.push(...((actor.otherSegments ?? []) as unknown as ResourceActor[]));
+        }
+        const getItem = (actor: ResourceActor, id: string): ItemPF2e | undefined =>
+            actor.items.contents.find((item) => item.id === id);
         const fpCost = spell.system.cast.focusPoints;
         if (this.isRitual || ((spell.isFocusSpell || spell.isCantrip) && fpCost === 0)) {
             return true;
@@ -280,9 +291,13 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         spell = spell.original ? spell.original : spell;
 
         if (actor.isOfType("character", "npc") && fpCost > 0) {
-            const currentPoints = actor.system.resources.focus?.value ?? 0;
-            if (currentPoints >= fpCost) {
-                await actor.update({ "system.resources.focus.value": currentPoints - fpCost });
+            const currentPoints = actors.map((actor) => actor.system.resources.focus?.value ?? 0);
+            if (currentPoints.every((points) => points >= fpCost)) {
+                await Promise.all(
+                    actors.map((actor, index) =>
+                        actor.update({ "system.resources.focus.value": currentPoints[index] - fpCost }),
+                    ),
+                );
                 return true;
             } else {
                 ui.notifications.warn(_loc("PF2E.Focus.NotEnoughFocusPointsError"));
@@ -318,7 +333,15 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
 
             if (rank.between(1, 10)) {
                 const groupId = rank as SpellSlotGroupId;
-                return !!(await this.spells.setSlotExpendedState(groupId, resolvedIndex, true));
+                await Promise.all(
+                    actors.map(async (actor) => {
+                        const entry = getItem(actor, this.id);
+                        if (entry?.isOfType("spellcastingEntry")) {
+                            await entry.spells?.setSlotExpendedState(groupId, resolvedIndex, true);
+                        }
+                    }),
+                );
+                return true;
             }
         }
 
@@ -328,13 +351,31 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
                 ui.notifications.warn(_loc("PF2E.SpellSlotExpendedError", { spell: spell.name }));
                 return false;
             }
-            await spell.update({ "system.location.uses.value": remainingUses - 1 });
+            const uses = remainingUses - 1;
+            await Promise.all(
+                actors.map(async (actor) => {
+                    const item = getItem(actor, spell.id);
+                    if (item?.isOfType("spell")) {
+                        await item.update({ "system.location.uses.value": uses });
+                    }
+                }),
+            );
             return true;
         }
 
-        const slots = this.system.slots[slotKey];
-        if (slots.value > 0) {
-            await this.update({ [`system.slots.${slotKey}.value`]: slots.value - 1 });
+        const slots = actors.map((actor) => {
+            const entry = getItem(actor, this.id);
+            return entry?.isOfType("spellcastingEntry") ? entry.system.slots?.[slotKey] : null;
+        });
+        if (slots.every((slot) => slot && slot.value > 0)) {
+            await Promise.all(
+                actors.map(async (actor, index) => {
+                    const entry = getItem(actor, this.id);
+                    if (entry?.isOfType("spellcastingEntry")) {
+                        await entry.update({ [`system.slots.${slotKey}.value`]: slots[index]!.value - 1 });
+                    }
+                }),
+            );
             return true;
         } else {
             const rank = game.i18n.lang === "de" ? rankLabel : rankLabel.toLocaleLowerCase(game.i18n.lang);
