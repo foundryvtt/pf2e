@@ -14,7 +14,7 @@ import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
 import * as R from "remeda";
 import { FeatSource, FeatSystemData } from "./data.ts";
-import { featCanHaveKeyOptions, suppressFeats } from "./helpers.ts";
+import { adjustFeatTraitsAndCategory, featCanHaveKeyOptions, suppressFeats } from "./helpers.ts";
 import { FeatOrFeatureCategory, FeatTrait } from "./types.ts";
 import { FEATURE_CATEGORIES, FEAT_CATEGORIES } from "./values.ts";
 
@@ -96,28 +96,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         this.suppressed = false;
         this.crafting = null;
 
-        const traits = this.system.traits.value;
-
-        // Add the General trait if of the general feat type
-        if (this.category === "general" && !traits.includes("general")) {
-            traits.push("general");
-        }
-
-        if (this.category === "skill") {
-            // Add the Skill trait
-            if (!traits.includes("skill")) traits.push("skill");
-
-            // Add the General trait only if the feat is not an archetype skill feat
-            if (!traits.includes("general") && !traits.includes("archetype")) {
-                traits.push("general");
-            }
-        }
-
-        // Only archetype feats can have the dedication trait
-        if (traits.includes("dedication")) {
-            this.system.category = "class";
-            if (!traits.includes("archetype")) traits.push("archetype");
-        }
+        adjustFeatTraitsAndCategory(this.system);
 
         // Feats with the Lineage trait can only ever be taken at level 1
         if (this.system.traits.value.includes("lineage")) {
