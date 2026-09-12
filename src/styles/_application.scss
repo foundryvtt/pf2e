@@ -1,5 +1,10 @@
 // Application V2
 .application {
+    // Core sets `overflow-y: hidden` here, cutting off tall content in a zoomed or undersized window
+    &.scrollable-content .window-content {
+        overflow-y: auto;
+    }
+
     // Stack an application's buttons in full-width rows: for skill/option pickers and long button labels
     &.column-buttons .form-footer {
         align-items: stretch;
