@@ -1,6 +1,9 @@
 import type { ApplicationConfiguration, FormFooterButton } from "@client/applications/_module.d.mts";
 import type { FormDataExtended } from "@client/applications/ux/_module.d.mts";
+import { ErrorPF2e } from "@util";
+import type { HourNumbers, MinuteNumbers } from "luxon";
 import * as R from "remeda";
+
 import fields = foundry.data.fields;
 
 interface SettingsContext extends fa.ApplicationRenderContext {
@@ -9,6 +12,8 @@ interface SettingsContext extends fa.ApplicationRenderContext {
     settings: WorldClockSettingData;
     dateThemes: Record<string, string>;
     timeConventions: Record<12 | 24, string>;
+    dawnTime: string;
+    duskTime: string;
     buttons: FormFooterButton[];
 }
 
@@ -20,10 +25,18 @@ type WorldClockSettingSchema = {
         false,
         true
     >;
+    timeConvention: fields.NumberField<12 | 24, 12 | 24, true, false, true>;
+    dawnTime: fields.SchemaField<{
+        hour: fields.NumberField<HourNumbers, HourNumbers, true, false, true>;
+        minute: fields.NumberField<MinuteNumbers, MinuteNumbers, true, false, true>;
+    }>;
+    duskTime: fields.SchemaField<{
+        hour: fields.NumberField<HourNumbers, HourNumbers, true, false, true>;
+        minute: fields.NumberField<MinuteNumbers, MinuteNumbers, true, false, true>;
+    }>;
     playersCanView: fields.BooleanField;
     showClockButton: fields.BooleanField;
     syncDarkness: fields.BooleanField;
-    timeConvention: fields.NumberField<12 | 24, 12 | 24, true, false, true>;
     worldCreatedOn: fields.StringField<string, string, true, true, true>;
 };
 
@@ -63,10 +76,46 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
             choices: ["AR", "IC", "AG", "AD", "CE"],
             initial: SYSTEM_ID === "sf2e" ? "AG" : "AR",
         }),
+        timeConvention: new fields.NumberField({ required: true, nullable: false, choices: [12, 24], initial: 24 }),
         playersCanView: new fields.BooleanField(),
         showClockButton: new fields.BooleanField({ initial: true }),
         syncDarkness: new fields.BooleanField(),
-        timeConvention: new fields.NumberField({ required: true, nullable: false, choices: [12, 24], initial: 24 }),
+        dawnTime: new fields.SchemaField({
+            hour: new fields.NumberField({
+                required: true,
+                nullable: false,
+                integer: true,
+                min: 0,
+                max: 23,
+                initial: 4,
+            }),
+            minute: new fields.NumberField({
+                required: true,
+                nullable: false,
+                integer: true,
+                min: 0,
+                max: 59,
+                initial: 58,
+            }),
+        }),
+        duskTime: new fields.SchemaField({
+            hour: new fields.NumberField({
+                required: true,
+                nullable: false,
+                integer: true,
+                min: 0,
+                max: 23,
+                initial: 18,
+            }),
+            minute: new fields.NumberField({
+                required: true,
+                nullable: false,
+                integer: true,
+                min: 0,
+                max: 59,
+                initial: 34,
+            }),
+        }),
         worldCreatedOn: new fields.StringField({ required: true, nullable: true, blank: false, initial: null }),
     });
 
@@ -80,9 +129,13 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
             onChange: (data) => {
                 const cache = game.pf2e.settings;
                 const wasShowingButton = cache.worldClock.showClockButton;
+                const wasSyncingDarkness = cache.worldClock.syncDarkness;
                 cache.worldClock = { ...(data as WorldClockSettingData) };
                 const showButtonChanged = wasShowingButton !== cache.worldClock.showClockButton;
                 if (showButtonChanged && ui.controls.control?.name === "tokens") ui.controls.render({ reset: true });
+                if (!wasSyncingDarkness && game.user.isActiveGM) {
+                    game.pf2e.worldClock.syncDarkness(canvas.scene, { animate: false });
+                }
             },
         });
         game.settings.registerMenu(SYSTEM_ID, "worldClock", {
@@ -112,10 +165,19 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
                 action: "resetWorldTime",
             },
         ];
+        const settings = game.pf2e.settings.worldClock;
+        const dawnTime = [
+            String(settings.dawnTime.hour).padStart(2, "0"),
+            String(settings.dawnTime.minute).padStart(2, "0"),
+        ].join(":");
+        const duskTime = [
+            String(settings.duskTime.hour).padStart(2, "0"),
+            String(settings.duskTime.minute).padStart(2, "0"),
+        ].join(":");
         return {
             rootId: this.id,
             fields: WorldClockSettings.#SCHEMA.fields,
-            settings: game.pf2e.settings.worldClock,
+            settings,
             dateThemes: R.mapToObj(["AR", "IC", "AG", "AD", "CE"], (k) => [
                 k,
                 _loc(`PF2E.SETTINGS.WorldClock.DateThemes.${k}`),
@@ -124,6 +186,8 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
                 12: _loc("PF2E.SETTINGS.WorldClock.TimeConventions.12"),
                 24: _loc("PF2E.SETTINGS.WorldClock.TimeConventions.24"),
             },
+            dawnTime,
+            duskTime,
             buttons,
         };
     }
@@ -156,6 +220,23 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
             ...submitData.worldClock,
             worldCreatedOn: game.pf2e.settings.worldClock.worldCreatedOn,
         };
+
+        // Process dawn and dusk times
+        const isValidHour = (h: number): h is HourNumbers => h >= 0 && h < 24;
+        const isValidMinute = (m: number): m is MinuteNumbers => m >= 0 && m < 60;
+        for (const fieldName of ["dawnTime", "duskTime"] as const) {
+            const input = this.element.querySelector<HTMLInputElement>(`#${this.id}-${fieldName}`);
+            if (!input) throw new Error("Unexpected missing input elements");
+            const hour = Number(input.value.replace(/:.+/, ""));
+            const minute = Number(/^\d{2}:(\d{2})/.exec(input.value)?.[1]);
+            if (!isValidHour(hour) || !isValidMinute(minute)) throw ErrorPF2e(`Invalid ${fieldName} value`);
+            update[fieldName] = { hour, minute };
+        }
+        const { dawnTime: dawn, duskTime: dusk } = update;
+        if (dawn.hour > dusk.hour || (dawn.hour === dusk.hour && dawn.minute >= dusk.minute)) {
+            throw ErrorPF2e("Dawn must occur before dusk.");
+        }
+
         await game.settings.set(SYSTEM_ID, "worldClock", update);
         game.pf2e.worldClock.render();
     }
