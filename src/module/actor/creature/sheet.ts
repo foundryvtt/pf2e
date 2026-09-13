@@ -1,6 +1,6 @@
 import type { ActorPF2e, CreaturePF2e } from "@actor";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
-import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog.ts";
+import { openSpellcastingEntryDialog } from "@item/spellcasting-entry/apps/spellcasting-entry-dialog/app.ts";
 import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import type { ApplicationV1HeaderButton } from "@client/appv1/api/application-v1.d.mts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
@@ -263,13 +263,13 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
 
         // Add, edit, and remove spellcasting entries
         handlers["spellcasting-create"] = () => {
-            return createSpellcastingDialog(actor);
+            return openSpellcastingEntryDialog(actor);
         };
         handlers["spellcasting-edit"] = (event): Promise<unknown> | void => {
             const containerId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
             const entry = actor.items.get(containerId, { strict: true });
             if (entry.isOfType("spellcastingEntry")) {
-                return createSpellcastingDialog(entry);
+                return openSpellcastingEntryDialog(entry);
             }
         };
         handlers["spellcasting-remove"] = async (event): Promise<ItemPF2e<TActor> | void> => {
