@@ -1,0 +1,68 @@
+{
+    "_id": "kAAQrZVNYldEBlMZ",
+    "folder": "BzhyIRBW6UKtg6oG",
+    "img": "systems/sf2e/icons/default-icons/background.svg",
+    "name": "Simulation Programmer",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "dex",
+                    "int"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You're a computer programmer who works at the Lorespire Complex, creating holographic and virtual reality training simulations. Often, these training sims are general use, giving agents hands-on experience surveying unexplored planets, handling valuable relics, and engaging in combat without risk. Some are more specific and challenging to create, and are often requested by notable Starfinders, such as Celita, Fitch, Venture-Captain Arvin, Venture-Captain Naiaj, or even First Seeker Sarmak.</p>\n<p>Choose two attribute boosts. One must be to <strong>Dexterity</strong> or <strong>Intelligence</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Computers skill and the Vidgame Lore skill. You gain your choice of either the @UUID[Compendium.sf2e.feats.Item.Digital Diversion] or the @UUID[Compendium.sf2e.feats.Item.Hologram Skeptic] skill feats.</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Beyond the Blood Door Player's Guide"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "value": "Compendium.sf2e.feats.Item.Digital Diversion"
+                    },
+                    {
+                        "value": "Compendium.sf2e.feats.Item.Hologram Skeptic"
+                    }
+                ],
+                "flag": "simulationProgrammer",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Feat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.system.rulesSelections.simulationProgrammer}"
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Vidgame Lore"
+            ],
+            "value": [
+                "computers"
+            ]
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "background"
+}

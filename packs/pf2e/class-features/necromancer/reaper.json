@@ -1,0 +1,98 @@
+{
+    "_id": "u9U4ySRgjX77gwsq",
+    "folder": "K84PVzKJT1EfmN5P",
+    "img": "icons/weapons/sickles/scythe-bone-green-fire.webp",
+    "name": "Reaper",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You study flesh up close by clashing blade against bone. You gain the reaper's edge and thrall teamwork abilities.</p>\n<p><strong>Reaper's Edge</strong> You become trained in martial weapons and medium armor. At 11th level, you become an expert in martial weapons, and at 13th you become an expert in medium armor.</p>\n<p><strong>Thrall Teamwork</strong> Once per round after you cast Create Thrall, you can make a melee Strike as a free action against a creature within your melee reach that is adjacent to at least one of your thralls.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.attacks.martial.rank",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            11
+                        ]
+                    }
+                ],
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.medium.rank",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            13
+                        ]
+                    }
+                ],
+                "value": 2
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Necromancer.FatalMethod.Reaper.ThrallTeamwork.Label",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:create-thrall"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Necromancer.FatalMethod.Reaper.ThrallTeamwork.Addendum"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "martial": {
+                    "attribute": null,
+                    "rank": 1
+                },
+                "medium": {
+                    "attribute": null,
+                    "rank": 1
+                }
+            },
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "necromancer-fatal-method"
+            ],
+            "rarity": "common",
+            "value": [
+                "necromancer"
+            ]
+        }
+    },
+    "type": "feat"
+}

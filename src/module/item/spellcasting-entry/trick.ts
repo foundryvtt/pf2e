@@ -143,7 +143,7 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
         if (message === false) return;
 
         spell = spell.loadVariant({ entryId: this.id }) ?? spell;
-        await spell.toMessage(null, { mode: messageMode, data: { castRank } });
+        await spell.toMessage(null, { actualCast: true, mode: messageMode, data: { castRank } });
     }
 
     async getSheetData(): Promise<SpellcastingSheetData> {

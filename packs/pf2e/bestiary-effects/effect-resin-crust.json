@@ -1,0 +1,92 @@
+{
+    "_id": "CZVQ5dYjzR7b9Ygn",
+    "img": "icons/commodities/materials/slime-thick-orange.webp",
+    "name": "Effect: Resin Crust",
+    "system": {
+        "badge": {
+            "labels": [
+                "No Penalty",
+                "-5 ft.",
+                "-10 ft.",
+                "-15 ft."
+            ],
+            "loop": false,
+            "max": null,
+            "min": null,
+            "type": "counter",
+            "value": 4
+        },
+        "description": {
+            "value": "<p>You take a penalty to your Speeds (on a critical failure, you are also clumsy 1). You are sickened 1 for as long as you have a Speed penalty.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #153: Life's Long Shadows"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "resin-crust"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "value": "(@item.badge.value -1)*-5"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "resin-crust:critical-failure"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "gt": [
+                            "{item|badge.value}",
+                            1
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Sickened"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

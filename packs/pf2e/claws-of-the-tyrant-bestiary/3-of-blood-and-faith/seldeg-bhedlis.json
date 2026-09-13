@@ -4,14 +4,173 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "hhMXQXJnrfSqwvnB",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Champion Devotion Spells",
+            "sort": 100000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "validItems": "",
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 39,
+                    "value": 0
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "B2KZTIrE05N2pfrg",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.jFmWSIpJGGebim6y"
+            },
+            "folder": "wnvibtD90h7CStDC",
+            "img": "systems/pf2e/icons/spells/touch-of-corruption.webp",
+            "name": "Touch of the Void",
+            "sort": 200000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You infuse the target with void energy, healing undead or damaging a living creature.</p><ul><li><strong>Willing Undead Creature</strong> The target regains 6 Hit Points. If the target is yourself, you also gain a +2 status bonus to damage rolls for 1 round.</li><li><p><strong>Living Creature</strong> The target takes 1d6 void damage with a basic Fortitude save; on a failure, the target also takes a –2 status penalty to AC for 1 round.</p></li></ul><p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Touch of the Void]</p><hr /><p><strong>Heightened (+1)</strong> The amount of healing increases by 6, and the damage to a living target increases by 1d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "hhMXQXJnrfSqwvnB"
+                },
+                "overlays": {
+                    "2a6Vm4mIjBgrzlO2": {
+                        "name": "Touch of the Void (Vs. Living)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "Esn7klJ9WRsIFnrE": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "1d6",
+                                    "kinds": [
+                                        "damage"
+                                    ],
+                                    "materials": [],
+                                    "type": "void"
+                                }
+                            },
+                            "defense": {
+                                "save": {
+                                    "basic": true,
+                                    "statistic": "fortitude"
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "Esn7klJ9WRsIFnrE": "1d6"
+                                },
+                                "interval": 1,
+                                "type": "interval"
+                            }
+                        }
+                    },
+                    "gHIOzknAtexc6GUE": {
+                        "name": "Touch of the Void (Healing)",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "damage": {
+                                "cM137DAlBX1LcWAX": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "6",
+                                    "kinds": [
+                                        "healing"
+                                    ],
+                                    "materials": [],
+                                    "type": "untyped"
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "cM137DAlBX1LcWAX": "6"
+                                },
+                                "interval": 1,
+                                "type": "interval"
+                            }
+                        }
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "touch-of-the-void",
+                "target": {
+                    "value": "1 willing undead creature or 1 living creature"
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "champion",
+                        "focus",
+                        "manipulate",
+                        "void"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
             "_id": "gZE9xSUqEC6pRL0D",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.JNt7GmLCCVz5BiEI"
             },
             "img": "systems/pf2e/icons/equipment/weapons/javelin.webp",
             "name": "Javelin",
-            "sort": 100000,
+            "sort": 300000,
             "system": {
+                "ammo": null,
                 "baseItem": "javelin",
                 "bonus": {
                     "value": 0
@@ -38,6 +197,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "dart",
                 "hardness": 0,
                 "hp": {
@@ -97,8 +257,9 @@
             },
             "img": "icons/weapons/swords/sword-guard-blue.webp",
             "name": "Longsword",
-            "sort": 200000,
+            "sort": 400000,
             "system": {
+                "ammo": null,
                 "baseItem": "longsword",
                 "bonus": {
                     "value": 0
@@ -125,6 +286,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "sword",
                 "hardness": 0,
                 "hp": {
@@ -184,7 +346,7 @@
             },
             "img": "systems/pf2e/icons/equipment/shields/specific-shields/sturdy-shield.webp",
             "name": "Sturdy Shield (Supreme)",
-            "sort": 300000,
+            "sort": 500000,
             "system": {
                 "acBonus": 2,
                 "baseItem": "steel-shield",
@@ -199,6 +361,7 @@
                     "carryType": "held",
                     "handsHeld": 1
                 },
+                "grade": null,
                 "hardness": 20,
                 "hp": {
                     "max": 160,
@@ -256,7 +419,7 @@
             },
             "img": "icons/equipment/chest/breastplate-layered-steel-green.webp",
             "name": "Full Plate",
-            "sort": 400000,
+            "sort": 600000,
             "system": {
                 "acBonus": 6,
                 "baseItem": "full-plate",
@@ -276,6 +439,7 @@
                     "inSlot": true,
                     "invested": null
                 },
+                "grade": null,
                 "group": "plate",
                 "hardness": 0,
                 "hp": {
@@ -323,7 +487,7 @@
             "_id": "phUJJcGnH18Srtl8",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 500000,
+            "sort": 700000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -373,7 +537,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Flaming Javelin",
-            "sort": 600000,
+            "sort": 800000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -421,7 +585,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Flaming Longsword",
-            "sort": 700000,
+            "sort": 900000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -464,7 +628,7 @@
             "_id": "WkyZC6SurQD0fosO",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Iron Command",
-            "sort": 800000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -501,7 +665,7 @@
             "folder": "dfRpdU8Efsenms12",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Raise a Shield",
-            "sort": 900000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -537,7 +701,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Reactive Strike",
-            "sort": 1000000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -569,7 +733,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Rejuvenation",
-            "sort": 1100000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -604,7 +768,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sacrilegious Aura",
-            "sort": 1200000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -650,7 +814,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Shield Block",
-            "sort": 1300000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -682,7 +846,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Void Healing",
-            "sort": 1400000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -721,7 +885,7 @@
             },
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Devastating Blast",
-            "sort": 1500000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -756,7 +920,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Graveknight's Curse",
-            "sort": 1600000,
+            "sort": 1800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -791,7 +955,7 @@
             },
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Phantom Mount",
-            "sort": 1700000,
+            "sort": 1900000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -826,7 +990,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Ruinous Weapons",
-            "sort": 1800000,
+            "sort": 2000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -865,7 +1029,7 @@
             "_id": "3AtzTNZ9MEMZWSea",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swap Fates",
-            "sort": 1900000,
+            "sort": 2100000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -875,7 +1039,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> Seldeg switches the fates of two creatures within 500 feet. The two creatures teleport into each other's spaces. Each creature then attempts a @Check[will|dc:39] save.</p><hr /><p><strong>Critical Success</strong> The target becomes temporarily immune to Swap Fates for 24 hours.</p>\n<p><strong>Success</strong> The target takes @Damage[3d6[mental]] damage.</p>\n<p><strong>Failure</strong> The target takes @Damage[6d6[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Critical Failure</strong> The target takes @Damage[12d6[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 4}.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> Seldeg switches the fates of two creatures within 500 feet. The two creatures teleport into each other's spaces. Each creature then attempts a @Check[will|dc:39|options:inflicts:stunned] save.</p><hr /><p><strong>Critical Success</strong> The target becomes temporarily immune to Swap Fates for 24 hours.</p>\n<p><strong>Success</strong> The target takes @Damage[3d6[mental]] damage.</p>\n<p><strong>Failure</strong> The target takes @Damage[6d6[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Critical Failure</strong> The target takes @Damage[12d6[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 4}.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -901,7 +1065,7 @@
             "_id": "Jwl6lRLT31JFoHui",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Unyielding Block",
-            "sort": 2000000,
+            "sort": 2200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -933,7 +1097,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Weapon Master",
-            "sort": 2100000,
+            "sort": 2300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -966,7 +1130,7 @@
             "_id": "2SifYsTZFv3TZW6J",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arazni Lore",
-            "sort": 2200000,
+            "sort": 2400000,
             "system": {
                 "description": {
                     "value": ""
@@ -992,7 +1156,7 @@
             "_id": "FonimC2yp4Q317wa",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Warfare Lore",
-            "sort": 2300000,
+            "sort": 2500000,
             "system": {
                 "description": {
                     "value": ""
@@ -1122,7 +1286,12 @@
                 }
             ]
         },
-        "resources": {},
+        "resources": {
+            "focus": {
+                "max": 1,
+                "value": 1
+            }
+        },
         "saves": {
             "fortitude": {
                 "saveDetail": "",

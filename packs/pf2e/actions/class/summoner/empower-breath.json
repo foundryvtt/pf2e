@@ -1,0 +1,79 @@
+{
+    "_id": "OJ9cIvPukPT0rppR",
+    "folder": "LkjMKhSIthBOzEc0",
+    "img": "systems/pf2e/icons/actions/FreeAction.webp",
+    "name": "Empower Breath",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "interaction",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per minute</p><hr /><p><strong>Effect</strong> Your eidolon gathers the power of the mightiest archdragons to make their magical breath even more spectacular. If your eidolon's next action is to use @UUID[Compendium.pf2e.actionspf2e.Item.Dragon Breath (Eidolon)]{Dragon Breath}, both the number of damage dice and area of Dragon Breath are doubled.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "PT1M"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "empower-breath",
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "empower-breath",
+                    "item:slug:dragon-breath-eidolon"
+                ],
+                "priority": 160,
+                "property": "description",
+                "value": [
+                    {
+                        "predicate": [
+                            "dragon-breath-shape:cone"
+                        ],
+                        "text": "PF2E.SpecificRule.Summoner.Eidolon.Dragon.DragonBreath.Description.Cone.Double"
+                    },
+                    {
+                        "predicate": [
+                            "dragon-breath-shape:line"
+                        ],
+                        "text": "PF2E.SpecificRule.Summoner.Eidolon.Dragon.DragonBreath.Description.Line.Double"
+                    }
+                ]
+            },
+            {
+                "key": "DamageAlteration",
+                "predicate": [
+                    "empower-breath"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "dragon-breath-eidolon-inline-damage"
+                ],
+                "slug": "base",
+                "value": "ceil(@actor.level / 2)"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "concentrate",
+                "eidolon"
+            ]
+        }
+    },
+    "type": "action"
+}

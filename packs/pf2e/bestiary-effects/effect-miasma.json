@@ -1,0 +1,60 @@
+{
+    "_id": "sHAbHKFNIDSSQDCg",
+    "img": "icons/magic/air/fog-gas-smoke-green.webp",
+    "name": "Effect: Miasma",
+    "system": {
+        "description": {
+            "value": "<p>Any creature in the miasma is concealed and treats other creatures as concealed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core"
+        },
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "all",
+                        "includesSelf": false,
+                        "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Miasma"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
+                "radius": 20,
+                "traits": [
+                    "poison"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

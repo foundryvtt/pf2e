@@ -68,7 +68,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             hasSenses: Object.keys(subfeatures.senses).length > 0,
             mandatoryTakeOnce: hasLineageTrait || sheetData.data.onlyLevel1,
             maxTakableOptions: [
-                { value: "1", label: "No" },
+                { value: "1", label: "COMMON.No" },
                 { value: "2", label: "PF2E.Item.Feat.TakeMultiple.Two" },
                 { value: "3", label: "PF2E.Item.Feat.TakeMultiple.Three" },
                 { value: "4", label: "PF2E.Item.Feat.TakeMultiple.Four" },

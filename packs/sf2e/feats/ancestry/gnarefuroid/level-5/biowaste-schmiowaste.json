@@ -1,0 +1,58 @@
+{
+    "_id": "TJW32z0pYZjtAyul",
+    "folder": "YydVzMZPdinJqscx",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Biowaste Schmiowaste",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Where others see garbage and slime, you see bandages and disinfectants. Your become an expert in Medicine. If you were already an expert in Medicine or would automatically become expert from another source, you instead become trained in a skill of your choice. You gain the @UUID[Compendium.sf2e.feats.Item.Unusual Treatment] skill feat, and you can apply its benefit to [[/act treat-disease]] and [[/act treat-poison]] actions in addition to @UUID[Compendium.sf2e.actions.Item.Treat Wounds].</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Medicine"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.medicine.rank",
+                "value": 2
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Unusual Treatment"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gnarefuroid",
+                "healing"
+            ]
+        }
+    },
+    "type": "feat"
+}

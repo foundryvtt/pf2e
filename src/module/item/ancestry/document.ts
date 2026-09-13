@@ -39,7 +39,9 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
 
     /** Returns all flaws enforced by this ancestry normally */
     get lockedFlaws(): AttributeString[] {
-        return Object.values(this.system.flaws).flatMap((f) => f.selected ?? []);
+        return Object.values(this.system.flaws)
+            .filter((f) => f.value.length === 1)
+            .flatMap((f) => f.selected ?? []);
     }
 
     /** Include all ancestry features in addition to any with the expected location ID */
@@ -56,14 +58,15 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-        for (const boost of Object.values(this.system.boosts)) {
-            if (boost.value.length === 1) {
-                boost.selected = boost.value[0];
-            }
-        }
-        for (const flaw of Object.values(this.system.flaws)) {
-            if (flaw.value.length === 1) {
-                flaw.selected = flaw.value[0];
+        for (const slots of [this.system.boosts, this.system.flaws]) {
+            for (const slot of Object.values(slots)) {
+                // `prepareActorData` applies any selection, so clear ones the slot no longer offers
+                if (slot.selected && !slot.value.includes(slot.selected)) {
+                    slot.selected = null;
+                }
+                if (slot.value.length === 1) {
+                    slot.selected = slot.value[0];
+                }
             }
         }
     }
@@ -72,7 +75,7 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
     override prepareActorData(this: AncestryPF2e<CharacterPF2e>): void {
         const actor = this.actor;
         if (!actor.isOfType("character")) {
-            console.error("PF2e System | Only a character can have an ancestry");
+            console.error(`${SYSTEM_NAME} System | Only a character can have an ancestry`);
             return;
         }
 

@@ -12,6 +12,7 @@
             "name": "Soul Chain",
             "sort": 100000,
             "system": {
+                "ammo": null,
                 "baseItem": "spiked-chain",
                 "bonus": {
                     "value": 0
@@ -38,6 +39,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "flail",
                 "hardness": 0,
                 "hp": {
@@ -288,10 +290,6 @@
                     "9xydivj18ru2bulm1lfd": {
                         "damage": "3d8+14",
                         "damageType": "slashing"
-                    },
-                    "4b3pz4gu9mvmjdmr1zo4": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -303,7 +301,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

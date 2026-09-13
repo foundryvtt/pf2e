@@ -1,5 +1,6 @@
 <script lang="ts">
     import { DamageDicePF2e, Modifier } from "@actor/modifiers.ts";
+    import SearchInput from "@module/sheet/components/search-input.svelte";
     import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import type { RollInspectorContext } from "./app.ts";
     import * as R from "remeda";
@@ -7,23 +8,26 @@
     import { getDamageDiceOverrideLabel, getDamageDiceValueLabel } from "@system/damage/helpers.ts";
 
     const localize = game.i18n.localize.bind(game.i18n);
-    const { getState }: SvelteAppProps<RollInspectorContext> = $props();
+    const { search, getState }: RollInspectorContext & SvelteAppProps<RollInspectorContext> = $props();
     const data = $derived(getState());
-    let searchTerm = $state("");
 
     const context = $derived(data.context);
     const modifiers = $derived(data.modifiers);
     const dice = $derived(data.dice);
 
-    const results = $derived({
-        rollOptions: data.rollOptions.filter((r) => r.includes(searchTerm)),
-        contextualOptions: data.contextualOptions
-            .map((c) => ({
-                header: c.header,
-                options: c.options.filter((o) => o.includes(searchTerm)),
-            }))
-            .filter((c) => c.options.length > 0),
+    const results = $derived.by(() => {
+        const matches = search.matches;
+        if (!matches) return { rollOptions: data.rollOptions, contextualOptions: data.contextualOptions };
+        return {
+            rollOptions: data.rollOptions.filter((o) => matches.has(o)),
+            contextualOptions: data.contextualOptions
+                .map((c) => ({ header: c.header, options: c.options.filter((o) => matches.has(o)) }))
+                .filter((c) => c.options.length > 0),
+        };
     });
+    const resultCount = $derived(
+        results.rollOptions.length + results.contextualOptions.reduce((sum, c) => sum + c.options.length, 0),
+    );
 
     function getCriticalLabel(critical: boolean | null | undefined) {
         return typeof critical === "boolean" ? _loc(`PF2E.RuleEditor.General.CriticalBehavior.${critical}`) : null;
@@ -61,11 +65,10 @@
 
     <section class="roll-options">
         <header>{localize("PF2E.ChatRollDetails.RollOptions")}</header>
-        <input
-            type="search"
-            class="filter"
-            bind:value={searchTerm}
-            placeholder={localize("PF2E.CompendiumBrowser.Filter.SearchPlaceholder")}
+        <SearchInput
+            {search}
+            label={_loc("PF2E.ChatRollDetails.Search")}
+            resultsLabel={_loc("PF2E.ChatRollDetails.SearchResults", { count: resultCount })}
         />
         <ul class="scrollable">
             {#each results.rollOptions as option}
@@ -219,7 +222,7 @@
     }
 
     .roll-options {
-        .filter {
+        > :global(.search-results) {
             margin-bottom: var(--space-4);
         }
 

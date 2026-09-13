@@ -4,7 +4,7 @@
     "name": "Spell Effect: Agile Feet",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Agile Feet].</p>\n<p>You gain a +5-foot status bonus to your Speed.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Agile Feet]</p>\n<p>You gain a +5-foot status bonus to your Speed and ignore difficult terrain.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -26,6 +26,15 @@
                 "selector": "land-speed",
                 "type": "status",
                 "value": 5
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.movement.terrain.difficult.ignored",
+                "value": {
+                    "environment": "all",
+                    "feature": "all"
+                }
             }
         ],
         "start": {

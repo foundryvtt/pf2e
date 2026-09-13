@@ -1,0 +1,51 @@
+{
+    "_id": "fEhjpcmxclOQVRYv",
+    "folder": "s0jFHs2ZHTBq0v95",
+    "img": "icons/skills/melee/strike-sword-dagger-runes-gold.webp",
+    "name": "Runic Optimization",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You've learned to draw upon the magic of weapon runes to deal greater damage. You deal 2 additional damage with weapons bearing a <em>striking rune</em>. This damage increases to 3 if the weapon bears a <em>greater striking rune</em> and 4 if it bears a <em>major striking rune</em>.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "weapon-damage"
+                ],
+                "slug": "runic-optimization",
+                "value": "min(1+@weapon.system.runes.striking,4)"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "runesmith"
+            ]
+        }
+    },
+    "type": "feat"
+}

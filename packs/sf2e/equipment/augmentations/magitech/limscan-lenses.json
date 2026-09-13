@@ -1,0 +1,78 @@
+{
+    "_id": "yBL3bM1dTrD1a3eX",
+    "folder": "vOBArzKmsJvj7VLe",
+    "img": "systems/sf2e/icons/abilities/purple-eye.webp",
+    "name": "Limscan Lenses",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>Functioning as a built-in @UUID[Compendium.sf2e.equipment.Item.Limscanner], sensors in your eyes are calibrated to detect fluctuations in planar energies found inside the Ghost Levels, allowing you to scan for certain anomalies during a limdive or while investigating oddities across the galaxy. You gain a +1 item bonus to Perception checks to find magical traps, to AC against attacks made by magical traps, and to saves against magical traps. Even if you aren't @UUID[Compendium.sf2e.actions.Item.Search]{Searching}, you get a check to find magical traps that normally require you to be Searching. You cannot Disable traps without the otherwise required proficiency.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 12
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "sp": 18000
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:trait:magical",
+                    "origin:trait:trap"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:trait:trap",
+                    "target:trait:magical"
+                ],
+                "selector": [
+                    "perception"
+                ],
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "magical",
+                "magitech"
+            ]
+        },
+        "usage": {
+            "value": "implanted"
+        }
+    },
+    "type": "equipment"
+}

@@ -4230,22 +4230,9 @@
                     "value": 35
                 },
                 "damageRolls": {
-                    "bISjA5m6p5KGpemH": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    },
-                    "fwVIZFxSA663BguB": {
-                        "damage": "1d6",
-                        "damageType": "electricity"
-                    },
                     "i1Iz4DDCcdEyh4IJ": {
                         "damage": "4d6+12",
                         "damageType": "slashing"
-                    },
-                    "ieuHyTGuGgpockVA": {
-                        "category": "persistent",
-                        "damage": "1d6",
-                        "damageType": "bleed"
                     }
                 },
                 "description": {
@@ -4257,7 +4244,35 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greaterAstral"
+                    },
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greaterShock"
+                    },
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "wounding"
+                    }
+                ],
                 "slug": "sawtooth-saber",
                 "traits": {
                     "value": [

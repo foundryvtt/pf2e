@@ -1,0 +1,70 @@
+{
+    "_id": "hippAZGFRtFd26dd",
+    "folder": "lfC1sbtzTalNS6Tl",
+    "img": "icons/magic/holy/angel-winged-humanoid-blue.webp",
+    "name": "Angel Eidolon",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your eidolon is a celestial messenger, a member of the angelic host with a unique link to you, allowing them to carry a special message to the mortal world at your side. Most angel eidolons are roughly humanoid in form, with feathered wings, glowing eyes, halos, or similar angelic features. However, some take the form of smaller angelic servitors like the winged helmet cassisian angel instead. The two of you are destined for an important role in the plans of the celestial realms. Though a true angel, your angel eidolon's link to you as a mortal prevents them from casting the @UUID[Compendium.pf2e.spells-srd.Item.Angelic Messenger] ritual, even if they somehow learn it.</p>\n<p><strong>Tradition</strong> divine</p>\n<p><strong>Traits</strong> angel, celestial, eidolon, holy</p>\n<p><strong>Home Plane</strong> Elysium, Heaven, or Nirvana</p><hr /><p><strong>Size</strong> Medium or Small</p>\n<p><strong>Suggested Attacks</strong> fist (bludgeoning), wing (bludgeoning), unarmed attacks shaped like a weapon</p>\n<p><strong>Eidolon Attributes</strong> Con +1, Int –1, Wis +1, Cha +2</p>\n<p><strong>Skills</strong> Diplomacy, Religion</p>\n<p><strong>Senses</strong> darkvision</p>\n<p><strong>Language</strong> Empyrean</p>\n<p><strong>Speed</strong> 25 feet</p><hr /><p><strong>Initial (1st)—Hallowed Strikes</strong> Your eidolon's unarmed Strikes gain the holy trait and deal 1 extra spirit damage to unholy creatures and creatures with weakness to holy. Additionally, your eidolon can make nonlethal attacks with their unarmed attacks without taking the usual –2 circumstance penalty.</p>\n<p><strong>Symbiosis (7th)—Traveler's Aura</strong> Your eidolon emanates a powerful aura that protects creatures as they travel. The aura has the aura and divine traits. Your eidolon and their allies (including you) within a @Template[type:emanation|distance:20] are protected from severe heat and cold, and your eidolon is never @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to creatures inside the aura that are of a lower level than you. When you gain the transcendence class feature, your eidolon and allies in the aura are protected from environmental damage from any plane, including severe and extreme heat and cold as well as more unusual dangers.</p>\n<p><strong>Transcendence (17th)—Angelic Mercy</strong> Your eidolon can cast @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction], @UUID[Compendium.pf2e.spells-srd.Item.Clear Mind], and @UUID[Compendium.pf2e.spells-srd.Item.Heal] once per day each as 9th-rank divine innate spells.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.diplomacy.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.religion.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.eidolon.tradition",
+                "value": "divine"
+            }
+        ],
+        "subfeatures": {
+            "languages": {
+                "granted": [
+                    "empyrean"
+                ],
+                "slots": 0
+            },
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "summoner-eidolon"
+            ],
+            "rarity": "common",
+            "value": [
+                "summoner"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -12,6 +12,7 @@
             "name": "Dagger",
             "sort": 100000,
             "system": {
+                "ammo": null,
                 "baseItem": "dagger",
                 "bonus": {
                     "value": 0
@@ -38,6 +39,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "knife",
                 "hardness": 0,
                 "hp": {
@@ -132,6 +134,7 @@
                     "invested": null
                 },
                 "expend": 1,
+                "grade": null,
                 "group": "crossbow",
                 "hardness": 0,
                 "hp": {
@@ -462,8 +465,20 @@
                 "description": {
                     "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
                 },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
                 "level": {
                     "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -606,7 +621,7 @@
                 },
                 "damageRolls": {
                     "jJf5u6ixrm0ac636": {
-                        "damage": "1d4+2",
+                        "damage": "1d4",
                         "damageType": "piercing"
                     }
                 },
@@ -738,7 +753,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         }
@@ -782,7 +798,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": 25
+                "value": 30
             }
         },
         "details": {
@@ -790,7 +806,8 @@
             "languages": {
                 "details": "",
                 "value": [
-                    "common"
+                    "common",
+                    "elven"
                 ]
             },
             "level": {
@@ -810,7 +827,11 @@
         "perception": {
             "details": "",
             "mod": 5,
-            "senses": []
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -847,6 +868,7 @@
                 "value": "med"
             },
             "value": [
+                "elf",
                 "humanoid"
             ]
         }

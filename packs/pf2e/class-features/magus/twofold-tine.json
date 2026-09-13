@@ -1,0 +1,64 @@
+{
+    "_id": "h6WJ9Se8ahvOG3XB",
+    "folder": "DbtBUOmAB0EiLVfI",
+    "img": "icons/weapons/swords/sword-broad-crystal-paired.webp",
+    "name": "Twofold Tine",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Magic dances between the two weapons you wield. Fighting groups of enemies takes full advantage of your capabilities as you move from one foe to another.</p>\n<p>While in @UUID[Compendium.pf2e.actionspf2e.Item.Arcane Cascade] stance, if you make a Strike with a melee weapon you're holding, you can intensify the stance's power for another melee weapon of your choice you're holding in a different hand. Until the end of your turn, any extra damage the chosen weapon gains from Arcane Cascade is increased to 2. The extra damage increases to 4 if you have weapon specialization or 6 if you have greater weapon specialization.</p>\n<p><strong>Conflux Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Force Fling]</p>\n<p><strong>Studious Spells</strong> 7th: @UUID[Compendium.pf2e.spells-srd.Item.Blur]; 11th: @UUID[Compendium.pf2e.spells-srd.Item.Gravity Well]; 13th: @UUID[Compendium.pf2e.spells-srd.Item.Unfettered Movement]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellcasting:category:prepared",
+                    "spellcasting:tradition:arcane",
+                    {
+                        "or": [
+                            "item:slug:blur",
+                            "item:slug:gravity-well",
+                            "item:slug:unfettered-movement"
+                        ]
+                    }
+                ],
+                "property": "other-tags",
+                "value": "studious-spell"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "magus-hybrid-study"
+            ],
+            "rarity": "common",
+            "value": [
+                "magus"
+            ]
+        }
+    },
+    "type": "feat"
+}

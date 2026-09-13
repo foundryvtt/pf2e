@@ -25,7 +25,36 @@
             "remaster": true,
             "title": "Starfinder Galactic Ancestries"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "trifaction-negotiator",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusTwo",
+                        "value": "2"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.NegativeTwo",
+                        "value": "-2"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:make-an-impression",
+                    "trifaction-negotiator"
+                ],
+                "selector": [
+                    "skill-check"
+                ],
+                "type": "circumstance",
+                "value": "{item|flags.system.rulesSelections.trifactionNegotiator}"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

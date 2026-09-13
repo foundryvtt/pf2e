@@ -1,0 +1,481 @@
+{
+    "_id": "wziq0WDzyCW3WgNG",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "MbSwG2v7xmf8XrTf",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "PeNZ2CpGheALqrW8": {
+                        "damage": "3d8+6",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "hXnfkDQWBVAS9BEt",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Piercing Screech",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "vertigo"
+                    ]
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "KVQmiqgKkQsqmCVH": {
+                        "damage": "2d8+6",
+                        "damageType": "sonic"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": null,
+                    "max": 90
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "qyyCFIoi4u07FscH",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Deep Breath",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The crested darrok can hold its breath for 4 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "flags.system.remainingAir.rounds",
+                        "value": "2400"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "t4adG97icA642sLt",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Swamp Dweller",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The crested darrok gains a +2 circumstance bonus to Stealth checks to [[/act hide]] in a swamp environment or underwater.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:hide",
+                            {
+                                "or": [
+                                    "terrain:swamp",
+                                    "terrain:underwater"
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "stealth"
+                        ],
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VETc96mD7kmm9BkD",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Chorus",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Another crested darrok within 30 feet uses Pacifying Song</p><hr /><p><strong>Effect</strong> The crested darrok joins the song. Expand the emanation area of the triggering effect to include a @Template[type:emanation|distance:30] around each crested darrok that joins the song. Each additional crested darrok that joins the song increases the enfeebled value and Will save DC by 1 (to a maximum of @UUID[Compendium.sf2e.conditions.Item.Enfeebled]{Enfeebled 4} and DC 27). The darrok can't use auditory actions for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "concentrate",
+                        "emotion",
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5urkyZzvQe64cgT1",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Reverberating Snap",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 30 feet of the darrok uses a sonic attack, an auditory action or casts a spell without the subtle trait on the darrok</p><hr /><p><strong>Effect</strong> The darrok snaps its crest, eliminating all sound. It makes a counteract check against the effect (counteract modifier [[/r 1d20+17 #Counteract]]{+17}, counteract rank 2nd).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YsmUlckQDS43C7ZV",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Soundless Step",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>An infected crested darrok can Stride without making any sounds, preventing creatures from noticing them using hearing or a similar sense alone.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1qA7TJ66ox5d6qoE",
+            "img": "systems/sf2e/icons/actions/ThreeActions.webp",
+            "name": "Pacifying Song",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The darrok waves and snaps its sonic crest, creating a melody that dulls all desire to fight. Creatures in a @Template[type:emanation|distance:30] must succeed at a @Check[will|dc:24] save or become @UUID[Compendium.sf2e.conditions.Item.Enfeebled]{Enfeebled 1} for 1 minute (@UUID[Compendium.sf2e.conditions.Item.Enfeebled]{Enfeebled 2} on a critical failure). The darrok can't use auditory actions for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "concentrate",
+                        "emotion",
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GIdiNvLshO8c3ISF",
+            "img": "systems/sf2e/icons/actions/ThreeActions.webp",
+            "name": "Trample",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Large or smaller, claws, @Check[reflex|dc:24|basic]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Alien Core"
+                },
+                "rules": [],
+                "slug": "trample",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "66L7D0aFgWAGRpcw",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Vertigo",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>On a critical hit with piercing screech, the target must succeed at a @Check[will|dc:24] save or be overcome by vertigo, treating all squares as uneven ground for 1 round ([[/act balance dc=24]]).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Infected Crested Darrok",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -3
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 23
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 120,
+                "temp": 0,
+                "value": 120
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "sonic",
+                    "value": 8
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": 30
+                    }
+                ],
+                "value": 20
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 6
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Crested darroks are massive reptilian beasts native to the swampy wetlands of Rodnarth. Solitary and territorial, darroks spend most of the year swimming in murky swamps and basking in the sun, avoiding contact with other members of their species. Once a year, however, darroks leave their solitude behind, forming a huge herd that travels deep into the swamp to find sheltered waters for their spawning ponds.</p>\n<p>During migrations, darroks search for suitable partners through displays of agility and strength. These take the form of dances and races that members of both sexes use to show of their fitness, as well as elaborate vocal performances. True violence among darroks is incredibly rare, and most disputes are solved by the quick flashing of a sonic crest or a powerful screech. If rivalries escalate into physical aggression, matriarchs lead their herds in a hauntingly soft song to restore the peace.</p>\n<p>When a herd is threatened or loses its matriarch, darroks are capable of incredible destruction. Before the poaching of darrok matriarchs was banned planet-wide, every year, many settlements were regularly flattened by a darrok stampedes.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Secrets of the Swarm Adventure Path"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "tremorsense 40 feet",
+            "mod": 14,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 11
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 13
+            },
+            "athletics": {
+                "base": 15
+            },
+            "performance": {
+                "base": 17
+            },
+            "stealth": {
+                "base": 13
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "beast"
+            ]
+        }
+    },
+    "type": "npc"
+}

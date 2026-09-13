@@ -1,0 +1,130 @@
+{
+    "_id": "UPeHUz2pBR3cd980",
+    "img": "icons/consumables/potions/flask-corked-blue-glow.webp",
+    "name": "Effect: Energizing Vial - Weapon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Energizing Vial], @UUID[Compendium.pf2e.equipment-srd.Item.Energizing Vial (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Energizing Vial (Major)]</p>\n<p>Strikes with the weapon deal persistent electricity damage until the end of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:energizing-vial",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Energizing Vial"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:energizing-vial-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Energizing Vial (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:energizing-vial-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Energizing Vial (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "energizing-vial"
+            },
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectEnergizingVialWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "category": "persistent",
+                "damageType": "electricity",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "energizing-vial:energizing-vial"
+                ],
+                "selector": "{item|flags.system.rulesSelections.effectEnergizingVialWeapon}-damage"
+            },
+            {
+                "category": "persistent",
+                "damageType": "electricity",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "energizing-vial:energizing-vial-greater"
+                ],
+                "selector": "{item|flags.system.rulesSelections.effectEnergizingVialWeapon}-damage"
+            },
+            {
+                "category": "persistent",
+                "damageType": "electricity",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "energizing-vial:energizing-vial-major"
+                ],
+                "selector": "{item|flags.system.rulesSelections.effectEnergizingVialWeapon}-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

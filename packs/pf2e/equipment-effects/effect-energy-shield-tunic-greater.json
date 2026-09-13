@@ -1,0 +1,70 @@
+{
+    "_id": "QRezZjISFbIWF9Wp",
+    "img": "icons/equipment/chest/robe-collared-blue.webp",
+    "name": "Effect: Energy Shield Tunic (Greater)",
+    "system": {
+        "description": {
+            "value": "<p>During your daily preparations, you choose one of the following energy types: acid, cold, electricity, fire, or sonic. You gain resistance 15 to the chosen energy type until your next daily preparations. The tunic changes color and gains thematic embroidery to reflect the energy type you've chosen.</p><ul><li><p><strong>Acid</strong> The tunic turns brown and has acid splashes embroidered in bright green thread.</p></li><li><p><strong>Cold</strong> The tunic turns sky blue and has snowflakes embroidered in silver thread.</p></li><li><p><strong>Electricity</strong> The tunic turns dark gray and has lightning bolts embroidered in light blue thread.</p></li><li><p><strong>Fire</strong> The tunic turns orange and has balls of fire embroidered in red and yellow threads.</p></li><li><p><strong>Sonic</strong> The tunic turns white and has musical notes embroidered in golden thread.</p></li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 18
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "resistance",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Resistance"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.system.rulesSelections.resistance}",
+                "value": 15
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

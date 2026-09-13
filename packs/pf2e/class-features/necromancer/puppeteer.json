@@ -1,0 +1,65 @@
+{
+    "_id": "vt0idZAV9EDD1UN1",
+    "folder": "K84PVzKJT1EfmN5P",
+    "img": "icons/magic/control/control-influence-puppet.webp",
+    "name": "Puppeteer",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You prefer to study life and death from afar. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Consume Thrall] action and the thrall proliferation ability.</p>\n<p><strong>Thrall Proliferation</strong> Once per round when you cast Create Thrall, you can create one additional thrall in range.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Consume Thrall"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Necromancer.FatalMethod.Puppeteer.ThrallProliferation.Label",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:create-thrall"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Necromancer.FatalMethod.Puppeteer.ThrallProliferation.Addendum"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "necromancer-fatal-method"
+            ],
+            "rarity": "common",
+            "value": [
+                "necromancer"
+            ]
+        }
+    },
+    "type": "feat"
+}

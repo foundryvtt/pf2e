@@ -1,0 +1,130 @@
+{
+    "_id": "0KAuznEIg2shAfgE",
+    "img": "icons/commodities/treasure/brooch-spiral-blue.webp",
+    "name": "Effect: Hydrating Pinwheel - Weapon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Hydrating Pinwheel], @UUID[Compendium.pf2e.equipment-srd.Item.Hydrating Pinwheel (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Hydrating Pinwheel (Major)]</p>\n<p>Strikes with the weapon deal persistent cold damage until the end of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:hydrating-pinwheel",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Hydrating Pinwheel"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:hydrating-pinwheel-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Hydrating Pinwheel (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:hydrating-pinwheel-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Hydrating Pinwheel (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "hydrating-pinwheel"
+            },
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectHydratingPinwheelWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "category": "persistent",
+                "damageType": "cold",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "hydrating-pinwheel:hydrating-pinwheel"
+                ],
+                "selector": "{item|flags.system.rulesSelections.effectHydratingPinwheelWeapon}-damage"
+            },
+            {
+                "category": "persistent",
+                "damageType": "cold",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "hydrating-pinwheel:hydrating-pinwheel-greater"
+                ],
+                "selector": "{item|flags.system.rulesSelections.effectHydratingPinwheelWeapon}-damage"
+            },
+            {
+                "category": "persistent",
+                "damageType": "cold",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "hydrating-pinwheel:hydrating-pinwheel-major"
+                ],
+                "selector": "{item|flags.system.rulesSelections.effectHydratingPinwheelWeapon}-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,68 @@
+{
+    "_id": "wNZdy3qf9Cr2nNY0",
+    "folder": "CTq6jMA7ukzDHwjq",
+    "img": "systems/sf2e/icons/default-icons/background.svg",
+    "name": "Cult Escapee",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "dex"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>While you don't like to talk about it, you have a connection to one of the most dangerous cults in the Universe: the cult of the Devourer. Perhaps you used to be a member of this nihilistic religious cult, a close friend or family member joined their ranks, or you were once a victim of their predations. Whatever the connection, you slipped away and have been laying low ever since.</p>\n<p>Choose two attribute boosts. One must be to <strong>Dexterity</strong> or <strong>Charisma</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Deception skill and the Devourer Lore skill. You gain one of the following skill feats of your choice: @UUID[Compendium.sf2e.feats.Item.Face in the Crowd] or @UUID[Compendium.sf2e.feats.Item.Lengthy Diversion].</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Beyond the Blood Door Player's Guide"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "value": "Compendium.sf2e.feats.Item.Face in the Crowd"
+                    },
+                    {
+                        "value": "Compendium.sf2e.feats.Item.Lengthy Diversion"
+                    }
+                ],
+                "flag": "cultEscapee",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Feat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.system.rulesSelections.cultEscapee}"
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Devourer Lore"
+            ],
+            "value": [
+                "deception"
+            ]
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "background"
+}

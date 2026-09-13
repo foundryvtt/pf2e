@@ -1,16 +1,17 @@
-import { CreatureConfig, CreatureConfigData } from "@actor/creature/config.ts";
-import type { DocumentSheetV1Options } from "@client/appv1/api/document-sheet-v1.d.mts";
+import { CreatureConfig, CreatureConfigContext } from "@actor/creature/config.ts";
 import type { CharacterPF2e } from "./document.ts";
 
 export class CharacterConfig extends CreatureConfig<CharacterPF2e> {
-    override async getData(options: Partial<DocumentSheetV1Options> = {}): Promise<PCConfigData> {
+    static override PARTS = CharacterConfig.configParts(`systems/${SYSTEM_ID}/templates/actors/character/config.hbs`);
+
+    protected override async _prepareContext(options: fa.api.DocumentSheetRenderOptions): Promise<PCConfigContext> {
         return {
-            ...(await super.getData(options)),
+            ...(await super._prepareContext(options)),
             showBasicUnarmed: this.actor.flags[SYSTEM_ID].showBasicUnarmed,
         };
     }
 }
 
-interface PCConfigData extends CreatureConfigData<CharacterPF2e> {
+interface PCConfigContext extends CreatureConfigContext<CharacterPF2e> {
     showBasicUnarmed: boolean;
 }

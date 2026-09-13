@@ -32,7 +32,7 @@ interface JournalEntryPageMetadata extends DocumentMetadata {
 type JournalEntryPageSchema<
     TType extends string = string,
     TSystemSource extends object = object,
-    TSystemData extends object = TSystemSource,
+    TSystemData extends object = { schema?: fields.DataModelSchemaField },
 > = {
     _id: fields.DocumentIdField;
     /** The text name of this page. */

@@ -1,3 +1,130 @@
+## 1.5.0
+
+### Highlights
+
+- (SpartanCPA) Add Secrets of the Swarm content
+
+### System Improvements
+
+- (Chromatic Penguin) Convert `CreatureConfig`, `IdentifyItemPopup`, and several inline confirmation dialogs to `ApplicationV2`
+- (Dantar) Add `force` option to the `BaseSpeed` rule element
+- (FolkvangrForgent) Fit emanations created from region tools to hovered tokens
+- (Idle) Add roll option to differentiate actual casting from send-to-chat
+- (Idle) Allow inline template distance to use `resolve`
+- (kromko) Remove empty filters and traits not associated with any items in compendium browser
+- (oWave) Make `_validateType` throw errors instead of returning them
+- (sgennaoui) Expire the Greater Cover effect from tower shields
+- (steve148) Allow attaching upgrades with "installed-on" usage
+- (stwlam) Limit selection of "coin" category in treasure sheet to standard coin items
+- (stwlam) Pull recent core updates to token-appearance template to system copy
+- (stwlam) Refrain from showing default icons in item chat cards
+
+### Bugfixes
+
+- (Dantar) Keep selected key attribute when refreshing Class item
+- (Dantar) Prevent modifier duplication on derived speeds
+- (FolkvangrForgent) Add missing ellipse shape to footprint function
+- (Idle) Do not consume charges if a trick-magic-item check fails or is canceled
+- (Idle) Fix `TagSelectorBasic` not displaying current selections for `number` values
+- (kromko) Fix Compendium Browser sort by price
+- (kromko) Localize Compendium Browser option to sort by name
+- (Maksim) Fix Earn Income chat roll label localization
+- (neonyuzu) Cap character sheet HP input to max less unrecoverable
+- (stwlam) Revert "Always use action image for unusable actions in character sheet"
+
+### Data Updates
+
+- (Dantar) Add REs for feats deriving speeds not from land
+- (Dantar) Add REs for travel-speed bonuses
+- (Dire Weasel) Fix some terrain predicates
+- (kromko) Fix Light Armor Mastery embed in Envoy class journal
+- (kromko) Fix localization key for DoS upgrade against emotion effect
+- (kromko) Remove out of place controlled description from in front of Conditions page in SF GM Screen journal
+- (Longstrider) Brush up bantrid feat descriptions
+- (Longstrider) Make solarian potency crystal bonus apply to maneuvers
+- (Rigo) Update several TokenLight rule elements to use Adaptive Attenuation
+- (SpartanCPA) Correct typos in Starfinder Equipment compendia
+- (SpartanCPA) Localize increased degree of success for emotion effects
+- (SpartanCPA) Support flaming runes on NPC attacks
+- (theksi) Add SFS 2-01 actors
+- (Tikael) Add icons for Secrets of the Swarm ancestries
+
+### Under the Hood
+
+- (Idle) Bundle all operations into a single server query in the `applyActorGroupUpdate` helper
+
+## 1.4.1
+
+### System Improvements
+
+- (Chromatic Penguin) Convert XP macro to `ApplicationV2`
+- (Dantar) Allow item alteration RE to add thrown trait
+- (stwlam) Remove system intervention in creating chat bubbles following changes in FVTT 14.366
+- (stwlam) Automatically swap out standardized ancestry traits with parent actors' ancestry traits
+
+### Bugfixes
+
+- (Chromatic Penguin) Restore rules-accurate measured-template coverage
+- (Chromatic Penguin) Fix duplicate lore prevention in NPC skill editor
+- (Chromatic Penguin) Fix light mode parchment backgrounds
+- (Chromatic Penguin) Support choosing ancestry attribute boosts and flaws with multiple options
+- (Dantar) Apply materials from base damage to splash damage roll
+- (kromko) Localize takable-once option on feat details tab
+- (kromko) Prevent Actor sheet from erroring when IWR references a homebrew damage type that doesn't exist in the world
+- (stwlam) Keep finesse trait on ranged weapons generated from thrown usage variants
+
+### Data Updates
+
+- (Ambrose) Add missing languages for Gnarefuroid and Vulkarisu ancestries
+- (DocSchlock) Brush up Guilt of the Grave World
+- (kromko) Add predicate to Urog's Conglobation Immobilized RE
+- (Longstrider) Add skill feat link to Clinging Gnarefuroid heritage
+- (Longstrider) Add skill feat link to Vault Diviner background
+- (Longstrider) Brush up Absalom Station archetypes
+- (Longstrider) Brush up Absalom Station items
+- (Longstrider) Brush up gnarefuroid feats
+- (Longstrider) Brush up nuar feats
+- (Longstrider) Brush up vulkarisu feats
+- (Longstrider) Fix some SF weapon categories
+- (Tikael) Add icons for new Starfinder ancestries
+
+## 1.4.0
+
+# Highlights
+
+- (Ambrose) Add Beyond the Blood Door content
+- (Ambrose) Starfinder Adventure: Rescue on Raxil content
+- (Ambrose, Mecha Maya, Tikael) Add Absalom Station content
+
+### System Improvements
+
+- (Chromatic Penguin) Convert `AdjustmentDialog`, `CompendiumMigrationStatus`, `LootNPCsPopup`, `MigrationSummary`, `NPCSkillsEditor`, `SpellPreparationSheet`, and `TrickMagicItemPopup` to `ApplicationV2`
+- (Supe) Always use action image for unusable actions in character sheet
+
+### Bugfixes
+
+- (Chromatic Penguin) Fix opening settings menus and logging prefixes in SF2e
+- (Chromatic Penguin) Fix shield block button not untoggling after applying damage
+- (Chromatic Penguin) Fix double applied penalties when battle form statistics are compared with actor's own
+- (Chromatic Penguin) Fix PF2e style table borders in `ApplicationV2`
+- (Chromatic Penguin) Fix trait and grip toggles on battle form strikes
+- (Chromatic Penguin) Fix weapon trait toggles on attached weapons
+- (Dantar) Update weapon damage die calculation for errata
+- (stwlam) Prevent `onDeleteActions` being dropped from Choice Set rule elements
+- (Supe) Fix ammo quantity input when there is more than one type
+
+### Data Updates
+- (Ambrose) Add missing traditions from Sift the Sphere
+- (Ambrose) Add missing traits to Vulkarisu items and effect
+- (Ambrose) Fix image path for UBP item/currency
+- (Dantar) Add effects to multi-weapon aim
+- (Dantar) Fix Talphi size
+- (Dire Weasel) Fix automation for Irreproachable Contemplative
+- (Kromko) Fix Gooey Engulf inline escape action's DC
+- (Longstrider) Add witchwarper dedication errata
+- (Longstrider) Fix Despair Crystal formatting and Explorer Buggy publication
+- (Longstrider) Fix Quantum Reaver and Reaction Breacher stats
+
 ## 1.3.0
 
 ### Bugfixes
@@ -24,15 +151,15 @@
 - (Dantar) Apply each persistent damage from dragged formula
 - (Dantar) Make clown car respect elevation and levels
 - (Dantar) Prevent chat bubbles if message isn't in the in-character style
-- (kromko) Fix not being able to remove spells from deities
+- (Kromko) Fix not being able to remove spells from deities
 - (Noisyink) Use check icon for trade accept button in unaccepted state
 - (stwlam) Prevent some some fields in the Aura RE form from resetting their values
 - (Supe) Fix issues with transferring credits
 
 ### Data Updates
 
-- (kromko) Add prerequisite to Folded Paradoxes feat
-- (kromko) Change Stellar Rush to give bonus to all speeds
+- (Kromko) Add prerequisite to Folded Paradoxes feat
+- (Kromko) Change Stellar Rush to give bonus to all speeds
 - (Longstrider) Add SF2e ancestries and versatile heritages trait descriptions
 - (Longstrider) Add Sunburst Garland (SFS 1-10) and fix item effects levels
 
@@ -66,9 +193,9 @@
 - (Ambrose) Add localization to Coshyco's Adjust Shape ability
 - (Geliogabalus) Fix missing Tool Rat statistics
 - (iDantar) Make Izalguun Large
-- (kromko) Add missing SF physical item compendiumSources; remove non-compendium compendiumSources
-- (kromko) Clean up whitespace around inline buttons
-- (kromko) Fix invalid language keys
+- (Kromko) Add missing SF physical item compendiumSources; remove non-compendium compendiumSources
+- (Kromko) Clean up whitespace around inline buttons
+- (Kromko) Fix invalid language keys
 - (Longstrider) Set augmentations' Bulk to 0
 - (Noisyink) Add toggleable Glitching Failure roll option
 - (Rigo) Fix bad id on Burrowing Charge
@@ -88,7 +215,7 @@
 ### Bugfixes
 
 - (Chromatic Penguin) Refresh token bars on Temp HP updates.
-- (kromko) Fix item transfer message localization
+- (Kromko) Fix item transfer message localization
 - (steve148) Update changelog link in foundry to the new one
 - (stwlam) Fix aura rule forms not updating includeSelf
 - (stwlam) Fix tokens being visible when partially clipping through a wall
@@ -101,7 +228,7 @@
 - (Ambrose) Add missing ryphorian trait description
 - (Ambrose) Correct Flash Grenade item descriptions
 - (Ambrose) Add Tales from the Vast content
-- (kromko) Add missing localization strings
+- (Kromko) Add missing localization strings
 - (steve148) Add sniper weapon crit specialization
 
 ## 1.1.1
@@ -113,7 +240,7 @@
 
 ### Data Updates
 
-- (kromko) Fix reposition link in Magnetic Orb Bantrid's description
+- (Kromko) Fix reposition link in Magnetic Orb Bantrid's description
 
 ## 1.1.0
 
@@ -162,7 +289,7 @@
 - (Ambrose) Add an index to the Ancestry Journals and link to GM and Player screens
 - (Ambrose) Add Osharu language to the Osharu ancestry
 - (Ambrose) Correct weapon group for Orocoran's Projective Vomit Ancestral Unarmed Attack
-- (kromko) Fix spell link in Mutant Goblin's Mutant Magic
+- (Kromko) Fix spell link in Mutant Goblin's Mutant Magic
 - (Longstrider) Correct GA ancestries' descriptions
 
 ## 1.0.2
@@ -189,7 +316,7 @@
 - (Ambrose) Add description and spell effect to Monstrosity form
 - (Ambrose) Move Recharge Weapon to the Cantrips folder
 - (Ambrose) Remove Quick Coercion's self-grant RE
-- (kromko) Add missing Galactic Ancestries localization strings
+- (Kromko) Add missing Galactic Ancestries localization strings
 - (Longstrider) Fix Golarion ancestries' descriptions
 - (Longstrider) Brush up SF2e versatile heritages
 - (Longstrider) Correct Cryopike's weapon group
@@ -221,7 +348,7 @@
 ### Data Updates
 
 - (Ambrose) Add missing spellscasting entry and abilities to Hesper
-- (kromko) Fix Paragon Maratan Headache's level
+- (Kromko) Fix Paragon Maratan Headache's level
 
 ## 0.0.11
 
@@ -232,9 +359,9 @@
 ### Data Updates
 
 - (Ambrose) Correct Insect Form's Mantis damage type
-- (kromko) Fix Loosen Skin trigger
-- (kromko) Fix Rubberlimb Orocoran heritage name
-- (kromko) Fix Tactical Medkit Treat Wounds predicate
+- (Kromko) Fix Loosen Skin trigger
+- (Kromko) Fix Rubberlimb Orocoran heritage name
+- (Kromko) Fix Tactical Medkit Treat Wounds predicate
 
 ## 0.0.10
 
@@ -261,15 +388,15 @@
 - (Ambrose) Add Notes to Scare to Death
 - (Ambrose) Expand GM Screen Chase subsystem journal entry
 - (Ambrose) Update slug for Sharp-Toothed Vlaka's Jaw attack
-- (kromko) Add Armor base sf2e localization overrides
-- (kromko) Add description and built-in upgrades to Shobhad Longrifle
-- (kromko) Add journal links to ancestries, classes and dedications
-- (kromko) Add REs to Emotionless and Widen Spell to match PF2e, add missing terrain to Terrain Expertise
-- (kromko) Fix AbadarCorp Rep archetype capitalization
-- (kromko) Fix Cosmic Dragon Adult Spellcaster's Stellar Breath inline check
-- (kromko) Fix publication for Emissary, heightening for Summon Instrument, and minor typos
-- (kromko) Fix Space Pirate archetype journal entry intro
-- (kromko) Remove `strong` tags around trait lists in Heal/Harm and consumable activations
+- (Kromko) Add Armor base sf2e localization overrides
+- (Kromko) Add description and built-in upgrades to Shobhad Longrifle
+- (Kromko) Add journal links to ancestries, classes and dedications
+- (Kromko) Add REs to Emotionless and Widen Spell to match PF2e, add missing terrain to Terrain Expertise
+- (Kromko) Fix AbadarCorp Rep archetype capitalization
+- (Kromko) Fix Cosmic Dragon Adult Spellcaster's Stellar Breath inline check
+- (Kromko) Fix publication for Emissary, heightening for Summon Instrument, and minor typos
+- (Kromko) Fix Space Pirate archetype journal entry intro
+- (Kromko) Remove `strong` tags around trait lists in Heal/Harm and consumable activations
 - (Longstrider) Add spell effect for Eldritch Bond
 - (Longstrider) Fix Hefty 2 trait description
 - (Longstrider) Fix the Aeon Guard and Veskarium Paratrooper
@@ -296,12 +423,12 @@
 - (Ambrose) Add missing Animal Form spell and missing forms
 - (Ambrose) Add missing Emotionless Android level 1 ancestry feat
 - (Ambrose) Update Retractable trait description to match SF Player Core text
-- (kromko) Add missing Dispelling Globe, deduplicate Disappearance, restore `compendiumSource` to actor-embedded spells and refresh them from compendium
-- (kromko) Add missing localization strings to SF2e
-- (kromko) Add rituals from Alien Core
-- (kromko) Fix `@Check` typos for skills and lores
-- (kromko) Refresh Sihedron Guard Thunderstriker's spell gem
-- (kromko) Remove duplicate Gambler background
+- (Kromko) Add missing Dispelling Globe, deduplicate Disappearance, restore `compendiumSource` to actor-embedded spells and refresh them from compendium
+- (Kromko) Add missing localization strings to SF2e
+- (Kromko) Add rituals from Alien Core
+- (Kromko) Fix `@Check` typos for skills and lores
+- (Kromko) Refresh Sihedron Guard Thunderstriker's spell gem
+- (Kromko) Remove duplicate Gambler background
 - (Longstrider) Implement Alien Core creature improvements (A-E)
 - (Tikael) Brush up Guilt of the Grave World NPCs and backgrounds
 - (Tikael) Fix loading of Replica Zo Microphones
@@ -346,7 +473,7 @@
 
 - (In3luki) Fix missing DC value in some check context flags
 - (In3luki) Fix mutation from `system.time.value` reference in spell filter
-- (kromko) Fix aura-blind areas appearing when aura touches a wall
+- (Kromko) Fix aura-blind areas appearing when aura touches a wall
 - (Rigo) Fix Take Cover action in SF2e
 - (stwlam) Set condition pack ID according to system in `ConditionManager`
 - (Supe) Propagate magical trait for magical weapon upgrades
@@ -368,13 +495,13 @@
 - (CotillionTheRope) Add missing backgrounds of Gambler, Detective, Emissary, Prisoner, and Raised by Belief
 - (Dire Weasel) Add deadly d4 and d6 traits
 - (Dire Weasel) Update description of Shadow Blast and remove spell overlays
-- (kromko) Add Sense Direction SF2e localization override
-- (kromko) Fix Danger Awareness link in archetype journal
-- (kromko) Fix Recall Knowledge links
-- (kromko) Link Avert Gaze effect to its action
-- (kromko) Remove the mention of aiuvarin heritage in SF2e Multitalented feat
-- (kromko) Straighten single quotes and fix minor whitespace issues
-- (kromko) Update data of some actors from NPC Core
+- (Kromko) Add Sense Direction SF2e localization override
+- (Kromko) Fix Danger Awareness link in archetype journal
+- (Kromko) Fix Recall Knowledge links
+- (Kromko) Link Avert Gaze effect to its action
+- (Kromko) Remove the mention of aiuvarin heritage in SF2e Multitalented feat
+- (Kromko) Straighten single quotes and fix minor whitespace issues
+- (Kromko) Update data of some actors from NPC Core
 - (Longstrider) Add Analyze Environment exploration activity
 - (Longstrider) Add missing skill feats to SF2e
 - (Longstrider) Add Resilient trait description
@@ -419,8 +546,8 @@
 - (Ambrose) Add Android Level 5 feats and select duplicate backgrounds to duplicates list
 - (CotillionTheRope) Add missing Ysoki ancestry feats
 - (Longstrider) Add missing human feats
-- (kromko) Add tech trait to consumables and refresh physical items and spells for all SF2e actors
-- (kromko) Rename and merge Double Draw
+- (Kromko) Add tech trait to consumables and refresh physical items and spells for all SF2e actors
+- (Kromko) Rename and merge Double Draw
 - (Infamous Sky) Brush up MiMC actors
 - (Mecha Maya) Add missing monster strike traits from Alien Core
 - (Mecha Maya) Add effects for Enhance Weapon and Enhance Body

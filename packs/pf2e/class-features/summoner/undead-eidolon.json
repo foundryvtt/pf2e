@@ -1,0 +1,70 @@
+{
+    "_id": "wDSb9LGZhTa0FZB5",
+    "folder": "lfC1sbtzTalNS6Tl",
+    "img": "icons/magic/unholy/strike-body-explode-disintegrate.webp",
+    "name": "Undead Eidolon",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your eidolon is an undead spirit pulled from the Ethereal Plane or the Void, embodied, and bound to your life force in an unusual, potentially antithetical way that even other summoners can't quite understand. Undead eidolons take about every imaginable shape and form, as their bodies manifest from their connection to you. Their ultimate form can be influenced by an amalgamation of the echoes and memories of their old life before becoming undead, their cause of death, their encounters in the afterlife, and portions of your own essences. Together, you and your eidolon need to explore the mysteries of life, death, and undeath to understand what your bond means for both of your futures.</p>\n<p><strong>Tradition</strong> divine</p>\n<p><strong>Traits</strong> eidolon, undead</p>\n<p><strong>Home Plane</strong> Ethereal Plane or Void</p><hr /><p><strong>Size</strong> Medium or Small</p>\n<p><strong>Suggested Attacks</strong> claw (slashing), fist (bludgeoning), jaws (piercing)</p>\n<p><strong>Eidolon Attributes</strong> Con +3, Int –1, Wis +1, Cha +0</p>\n<p><strong>Skills</strong> Intimidation, Religion</p>\n<p><strong>Senses</strong> darkvision</p>\n<p><strong>Languages</strong> Necril</p>\n<p><strong>Speed</strong> 25 feet</p><hr /><p><strong>Initial (1st)—Void Essence</strong> Your undead eidolon has a link directly to your life force, which grants them a twilight state between living and undead. This renders them a living creature and therefore susceptible to many ailments that bother only the living, though they possess some resistances to these effects. The eidolon has void healing, meaning they heal from void effects that heal undead and are damaged by vitality effects that damage undead. They don't have an undead's normal immunities, but they do gain a +2 circumstance bonus to saving throws against death effects, disease, poison effects, and non-damaging effects that target only undead. Additionally, their necrotic essence stanches their wounds easily. The flat check to remove persistent bleed damage from the eidolon is DC 10 (or DC 5 after receiving particularly effective aid).</p>\n<p><strong>Symbiosis (7th)—@UUID[Compendium.pf2e.actionspf2e.Item.Drain Life]</strong> <span class=\"action-glyph\">2</span> (divine, eidolon, void) Your eidolon attacks a living creature and drains some of the creature's life force to feed your shared link. Your eidolon Strikes a living enemy. If the Strike hits and deals damage, the target must attempt a @Check[fortitude|against:spell|options:damaging-effect,inflicts:drained] save against your spell DC, with the following effects. On a critical hit, the enemy uses the result one degree worse than it rolled.</p><hr /><p><strong>Critical Success</strong> No effect.</p>\n<p><strong>Success</strong> Your eidolon drains a small amount of life force. The enemy takes additional void damage equal to half your level.</p>\n<p><strong>Failure</strong> Your eidolon drains enough life force to satisfy itself. The enemy takes additional void damage equal to half your level and is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. Your eidolon gains temporary Hit Points equal to the enemy's level, which last for 1 minute.</p>\n<p><strong>Critical Failure</strong> Your eidolon drains an incredible amount of life force and is thoroughly glutted with energy. As failure, but the enemy is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and the temporary Hit Points are equal to double the enemy's level.</p>\n<p><strong>Transcendence (17th)—Rejuvenation</strong> Your eidolon's unusual connection with you allows you both to rejuvenate when defeated. The first time each day your turn begins while you're dying, you instantly regain a number of Hit Points equal to three times your level (Ad)and wake up. (Increase your wounded condition as normal.) You can immediately Manifest your Eidolon as a free action. You can then take your turn as normal.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.intimidation.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.religion.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.eidolon.tradition",
+                "value": "divine"
+            }
+        ],
+        "subfeatures": {
+            "languages": {
+                "granted": [
+                    "necril"
+                ],
+                "slots": 0
+            },
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "summoner-eidolon"
+            ],
+            "rarity": "common",
+            "value": [
+                "summoner"
+            ]
+        }
+    },
+    "type": "feat"
+}

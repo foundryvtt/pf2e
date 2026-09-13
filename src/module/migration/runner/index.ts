@@ -2,6 +2,7 @@ import type { ActorPF2e } from "@actor";
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
 import type WorldCollection from "@client/documents/abstract/world-collection.d.mts";
 import type CompendiumCollection from "@client/documents/collections/compendium-collection.d.mts";
+import type { CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
 import type { ItemPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { MacroPF2e } from "@module/macro.ts";
@@ -13,8 +14,26 @@ import { Progress } from "@system/progress.ts";
 import * as R from "remeda";
 
 export class MigrationRunner extends MigrationRunnerBase {
+    /** Failure reasons from the most recent migration run, keyed by document UUID */
+    static lastRunFailures = new Map<string, string>();
+
     override needsMigration(): boolean {
         return super.needsMigration(game.settings.get(SYSTEM_ID, "worldSchemaVersion"));
+    }
+
+    /** Read the schema version from a compendium index entry */
+    static schemaVersionFromIndex(entry: CompendiumIndexData): number {
+        const system = entry.system ?? entry.data;
+        return Number(system?._migration?.version ?? system?.schema?.version);
+    }
+
+    /** Flatten an error and its cause into a single human-readable message */
+    static #flattenError(error: unknown): string {
+        const parts: string[] = [];
+        for (let current: unknown = error; current instanceof Error; current = current.cause) {
+            parts.push(current.message);
+        }
+        return parts.length > 0 ? parts.join(": ") : String(error);
     }
 
     /** Ensure that an actor or item reflects the current data schema before it is created */
@@ -65,26 +84,20 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    /** Migrate actor or item documents in batches of 50 */
+    /** Migrate actor or item documents in batches of 100 */
     async #migrateDocuments<TDocument extends ActorPF2e<null> | ItemPF2e<null>>(
         collection: WorldCollection<TDocument> | CompendiumCollection<TDocument>,
         migrations: MigrationBase[],
         progress?: Progress,
     ): Promise<void> {
-        const DocumentClass = collection.documentClass;
         const pack = "metadata" in collection ? collection.metadata.id : null;
         const updateGroup: TDocument["_source"][] = [];
         // Have familiars go last so that their data migration and re-preparation happen after their master's
-        for (const document of collection.contents.sort((a) => (a.type === "familiar" ? 1 : -1))) {
+        for (const [index, document] of collection.contents.sort((a) => (a.type === "familiar" ? 1 : -1)).entries()) {
+            // Yield periodically so the progress bar and busy indicators keep painting during a long run.
+            if (index % 25 === 24) await new Promise((resolve) => setTimeout(resolve, 0));
             if (updateGroup.length === 100) {
-                try {
-                    await DocumentClass.updateDocuments(updateGroup, { noHook: true, pack });
-                    progress?.advance({ by: updateGroup.length });
-                } catch (error) {
-                    console.warn(error);
-                } finally {
-                    updateGroup.length = 0;
-                }
+                await this.#saveUpdateGroup(collection, updateGroup, pack, progress);
             }
             const updated =
                 "prototypeToken" in document
@@ -93,12 +106,36 @@ export class MigrationRunner extends MigrationRunnerBase {
             if (updated) updateGroup.push(updated);
         }
         if (updateGroup.length > 0) {
-            try {
-                await DocumentClass.updateDocuments(updateGroup, { noHook: true, pack });
-                progress?.advance({ by: updateGroup.length });
-            } catch (error) {
-                console.warn(error);
+            await this.#saveUpdateGroup(collection, updateGroup, pack, progress);
+        }
+    }
+
+    /** Save a batch, retrying one-by-one on failure so a single rejected document doesn't sink the batch, and
+     *  recording each rejection reason. */
+    async #saveUpdateGroup<TDocument extends ActorPF2e<null> | ItemPF2e<null>>(
+        collection: WorldCollection<TDocument> | CompendiumCollection<TDocument>,
+        updateGroup: TDocument["_source"][],
+        pack: string | null,
+        progress?: Progress,
+        { diff = true }: { diff?: boolean } = {},
+    ): Promise<void> {
+        const DocumentClass = collection.documentClass;
+        try {
+            await DocumentClass.updateDocuments(updateGroup, { noHook: true, pack, diff });
+        } catch (batchError) {
+            console.warn(batchError);
+            for (const source of updateGroup) {
+                try {
+                    await DocumentClass.updateDocuments([source], { noHook: true, pack, diff });
+                } catch (error) {
+                    console.warn(error);
+                    const uuid = collection.get(source._id ?? "")?.uuid;
+                    if (uuid) MigrationRunner.lastRunFailures.set(uuid, MigrationRunner.#flattenError(error));
+                }
             }
+        } finally {
+            progress?.advance({ by: updateGroup.length });
+            updateGroup.length = 0;
         }
     }
 
@@ -134,6 +171,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             // Output the error, since this means a migration threw it
             ui.notifications.error(`Error thrown while migrating ${item.name} (${item.uuid})`);
             console.error(error);
+            MigrationRunner.lastRunFailures.set(item.uuid, MigrationRunner.#flattenError(error));
             return null;
         }
     }
@@ -154,6 +192,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                 if (error instanceof Error) {
                     console.error(`Error thrown while migrating ${actor.uuid}: `, error);
                 }
+                MigrationRunner.lastRunFailures.set(actor.uuid, MigrationRunner.#flattenError(error));
                 return null;
             }
         })();
@@ -274,11 +313,35 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         ui.notifications.info("PF2E.Migrations.Starting", { format: { version: game.system.version } });
         const documents = await compendium.getDocuments();
-        await compendium.documentClass.updateDocuments(
-            documents.map((d) => d.toObject()),
-            { diff: false, recursive: false, pack },
+
+        // Clear stale failures from a previous run over this pack
+        for (const uuid of MigrationRunner.lastRunFailures.keys()) {
+            if (uuid.startsWith(`Compendium.${pack}.`)) MigrationRunner.lastRunFailures.delete(uuid);
+        }
+
+        // These documents were already migrated in memory when loaded, so a normal update would see nothing to
+        // save. Force-replace every field and skip diffing so the changes actually reach the database.
+        const updates = documents.map(
+            (d) =>
+                R.mapValues(d.toObject() as Record<string, unknown>, (v, k) =>
+                    k === "_id" ? v : foundry.data.operators.ForcedReplacement.create(v),
+                ) as unknown as T["_source"],
         );
+        for (const batch of R.chunk(updates, 100)) {
+            await this.#saveUpdateGroup(compendium, [...batch], pack, undefined, { diff: false });
+        }
         ui.notifications.info("PF2E.Migrations.Finished", { format: { version: game.system.version } });
+
+        // Verify the results: a save can resolve without anything being persisted
+        const index = await compendium.getIndex({
+            fields: [fu.randomID(), "system._migration", "system.schema", "data.schema"],
+        });
+        const outdated = index.filter(
+            (e) => !(MigrationRunner.schemaVersionFromIndex(e) >= MigrationRunner.LATEST_SCHEMA_VERSION),
+        ).length;
+        if (outdated > 0) {
+            ui.notifications.warn("PF2E.Migrations.StillOutdated", { format: { count: String(outdated) } });
+        }
     }
 
     async runMigrations(migrations: MigrationBase[]): Promise<void> {
@@ -330,8 +393,12 @@ export class MigrationRunner extends MigrationRunnerBase {
         await Promise.allSettled(promises);
 
         // Migrate tokens and synthetic actors
+        let tokensProcessed = 0;
         for (const scene of game.scenes) {
             for (const token of scene.tokens) {
+                // Yield periodically, as in #migrateDocuments: this phase dominates on token-heavy worlds.
+                tokensProcessed += 1;
+                if (tokensProcessed % 25 === 0) await new Promise((resolve) => setTimeout(resolve, 0));
                 const { actor } = token;
                 if (!actor) continue;
 
@@ -366,6 +433,7 @@ export class MigrationRunner extends MigrationRunnerBase {
     }
 
     async runMigration(force = false): Promise<void> {
+        MigrationRunner.lastRunFailures.clear();
         const schemaVersion = {
             latest: MigrationRunner.LATEST_SCHEMA_VERSION,
             current: game.settings.get(SYSTEM_ID, "worldSchemaVersion"),

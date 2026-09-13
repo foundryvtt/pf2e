@@ -1,0 +1,173 @@
+{
+    "_id": "SvFm1jZNZQWwUL1T",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "t3UPM6hS11M0QkXp",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Nanite Release",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Two or more PCs enter the room or end their turn in the room</p><hr /><p><strong>Effect</strong> The trap makes an exhaust plume Strike against each triggering creature, then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "w9tiKvdZ5UNqsVZj",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Exhaust Plume",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "yyCyig6lTQECmXR6": {
+                        "damage": "1d10+5",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": false,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "dW1o2CZJgUjI7mJO",
+            "img": "systems/sf2e/icons/actions/FreeAction.webp",
+            "name": "Oppresive Exhaust",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within the room ends its turn</p><hr /><p><strong>Effect</strong> The trap makes an exhaust plume Strike against the triggering creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Toxic Exhaust Vents",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 27
+            },
+            "emitsSound": "encounter",
+            "hardness": 15,
+            "hp": {
+                "details": "",
+                "max": 60,
+                "temp": 0,
+                "value": 60
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert) or @Check[stealth|dc:31] (expert) to notice the vents</p>",
+                "value": 16
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>In an effort to dispose of the PCs, the szynegation hub reroutes its exhaust systems to pump toxic fumes into this room.</p>",
+            "disable": "<p>@Check[athletics|dc:24] to plug the vents with nearby debris, @Check[crafting|dc:22] (trained) or @Check[thievery|dc:22] (trained) on the vent to deactivate the trap, or @Check[computers|dc:24] (trained) to Hack and reverse the flow of exhaust. There are two vents in this room. Once both have been disabled, the toxic fumes clear after 3 rounds. While these fumes persist, PCs need to hold their breath or rely on environmental protections in their armor; otherwise, they risk suffocating on the toxic fumes.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 8
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Secrets of the Swarm Adventure Path"
+            },
+            "reset": "<p>The trap deactivates and resets after 1 minute.</p>",
+            "routine": "<p>(1 action) The trap launches exhaust plume strikes against every creature in the room as 1 action. Because it launches exhaust continuously, the trap can also use the Oppressive Exhaust free action (see below) against each creature during that creature's turn.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 19
+            },
+            "reflex": {
+                "value": 13
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "tech",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

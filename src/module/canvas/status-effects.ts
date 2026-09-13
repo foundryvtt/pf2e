@@ -61,7 +61,7 @@ export class StatusEffects {
      * And migrate all statusEffect URLs of all Tokens
      */
     static async migrateStatusEffectUrls(chosenSetting: StatusEffectIconTheme): Promise<void> {
-        console.debug("PF2e System | Changing status effect icon types");
+        console.debug(`${SYSTEM_NAME} System | Changing status effect icon types`);
         const iconDir = this.#ICON_THEME_DIRS[chosenSetting];
         CONFIG.PF2E.statusEffects.iconDir = iconDir;
         CONFIG.PF2E.statusEffects.lastIconTheme = chosenSetting;

@@ -59,7 +59,19 @@
                 "mode": "add",
                 "predicate": [
                     "target:mark:devise-a-stratagem",
-                    "devise-a-stratagem:attack"
+                    "devise-a-stratagem:attack",
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse",
+                            {
+                                "nor": [
+                                    "item:melee",
+                                    "item:thrown"
+                                ]
+                            }
+                        ]
+                    }
                 ],
                 "property": "traits",
                 "value": "fortune"
@@ -68,7 +80,19 @@
                 "key": "SubstituteRoll",
                 "predicate": [
                     "devise-a-stratagem:attack",
-                    "target:mark:devise-a-stratagem"
+                    "target:mark:devise-a-stratagem",
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse",
+                            {
+                                "nor": [
+                                    "item:melee",
+                                    "item:thrown"
+                                ]
+                            }
+                        ]
+                    }
                 ],
                 "removeAfterRoll": "if-enabled",
                 "required": true,

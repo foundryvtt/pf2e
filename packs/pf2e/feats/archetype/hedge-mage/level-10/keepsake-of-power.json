@@ -1,0 +1,70 @@
+{
+    "_id": "K55m23rd9QlKEQsK",
+    "folder": "qbZtQoT965Av4LvY",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Keepsake of Power",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your keepsake might be disdained by your more orthodox peers as a crutch to your studies, but you know it grants you an understated, yet undeniable, power. Increase your limit on invested items from 10 to 12. If you have @UUID[Compendium.pf2e.feats-srd.Item.Incredible Investiture], instead increase your limit to 14.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Hedge Mage Dedication"
+                },
+                {
+                    "value": "master in either Arcana,\nNature, Occultism, or Religion"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.resources.investiture.max",
+                "predicate": [
+                    {
+                        "not": "feat:incredible-investiture"
+                    }
+                ],
+                "value": 12
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.resources.investiture.max",
+                "predicate": [
+                    "feat:incredible-investiture"
+                ],
+                "value": 14
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

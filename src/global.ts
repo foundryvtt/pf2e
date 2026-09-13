@@ -10,7 +10,6 @@ import type { SettingConfig } from "@client/_types.d.mts";
 import type Hotbar from "@client/applications/ui/hotbar.d.mts";
 import type Config from "@client/config.d.mts";
 import type { ChatMessageMode } from "@client/config.d.mts";
-import type WallDocument from "@client/documents/wall.d.mts";
 import type { FoundryUI } from "@client/ui.d.mts";
 import type { CompendiumUUID } from "@client/utils/_module.d.mts";
 import type { ImageFilePath, UserRole } from "@common/constants.d.mts";
@@ -41,7 +40,7 @@ import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import type { MacroPF2e } from "@module/macro.ts";
 import type { RuleElement, RuleElements } from "@module/rules/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
-import type { RegionBehaviorPF2e, RegionDocumentPF2e, ScenePF2e, TokenDocumentPF2e } from "@scene";
+import type { RegionBehaviorPF2e, RegionDocumentPF2e, ScenePF2e, TokenDocumentPF2e, WallDocumentPF2e } from "@scene";
 import type { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config/index.ts";
 import type { DicePF2e } from "@scripts/dice.ts";
 import type {
@@ -289,7 +288,7 @@ type ConfiguredConfig = Config<
     RegionBehaviorPF2e,
     fd.TileDocument<ScenePF2e | null>,
     TokenDocumentPF2e,
-    WallDocument<ScenePF2e | null>,
+    WallDocumentPF2e,
     ScenePF2e,
     UserPF2e,
     EffectsCanvasGroupPF2e
@@ -297,6 +296,7 @@ type ConfiguredConfig = Config<
 
 declare global {
     type SystemId = "pf2e" | "sf2e";
+    type SystemName = "PF2e" | "SF2e";
     const BUILD_MODE: "development" | "production";
     const CONDITION_SOURCES: ConditionSource[];
     const EN_JSON: typeof EnJSON;
@@ -316,6 +316,7 @@ declare global {
     namespace globalThis {
         const game: GamePF2e;
         const SYSTEM_ID: SystemId;
+        const SYSTEM_NAME: SystemName;
         export import fa = foundry.applications;
         export import fav1 = foundry.appv1;
         export import fc = foundry.canvas;

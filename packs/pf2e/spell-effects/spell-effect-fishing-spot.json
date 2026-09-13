@@ -1,0 +1,171 @@
+{
+    "_id": "3G6hnH5hnOchH66Z",
+    "img": "icons/tools/fishing/rod-skull-brown.webp",
+    "name": "Spell Effect: Fishing Spot",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Fishing Spot]</p><ol><li><p><strong>Musical trout</strong> +2 status bonus to Performance checks</p></li><li><p><strong>Primordial bass</strong> +2 status bonus to Survival checks</p></li><li><p><strong>Ghoulfish</strong> +2 status bonus to Intimidation checks</p></li><li><p><strong>Burbling barbel</strong> +2 status bonus to Deception and Diplomacy checks</p></li><li><p><strong>Dashing dace</strong> +2 status bonus to Acrobatics checks</p></li><li><p><strong>Vigocarp</strong> +2 status bonus to Athletics checks to Climb and Swim</p></li><li><p><strong>Aggressive perch</strong> +2 status bonus to Athletics checks to Disarm, Grapple, Reposition, Shove, and Trip</p></li><li><p><strong>Scholar salmon</strong> +2 status bonus to checks to Recall Knowledge</p></li></ol>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectFishingSpot.MusicalTrout",
+                        "value": "musical-trout"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectFishingSpot.PrimordialBass",
+                        "value": "primordial-bass"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectFishingSpot.Ghoulfish",
+                        "value": "ghoulfish"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectFishingSpot.BurblingBarbel",
+                        "value": "burbling-barbel"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectFishingSpot.DashingDace",
+                        "value": "dashing-dace"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectFishingSpot.Vigocarp",
+                        "value": "vigocarp"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectFishingSpot.AggressivePerch",
+                        "value": "aggressive-perch"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectFishingSpot.ScholarSalmon",
+                        "value": "scholar-salmon"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.SpellEffectFishingSpot.Prompt",
+                "rollOption": "fishing-spot"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "fishing-spot:musical-trout"
+                ],
+                "selector": "performance",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "fishing-spot:primordial-bass"
+                ],
+                "selector": "survival",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "fishing-spot:ghoulfish"
+                ],
+                "selector": "intimidation",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "fishing-spot:burbling-barbel"
+                ],
+                "selector": [
+                    "deception",
+                    "diplomacy"
+                ],
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "fishing-spot:dashing-dace"
+                ],
+                "selector": "acrobatics",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "fishing-spot:vigocarp",
+                    {
+                        "or": [
+                            "action:climb",
+                            "action:swim"
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "slug": "vigocarp-athletics",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "fishing-spot:aggressive-perch",
+                    {
+                        "or": [
+                            "action:disarm",
+                            "action:grapple",
+                            "action:reposition",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "slug": "aggressive-perch-athletics",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "fishing-spot:scholar-salmon"
+                ],
+                "selector": "skill-check",
+                "slug": "scholar-salmon-skill-check",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

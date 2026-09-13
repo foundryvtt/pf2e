@@ -275,9 +275,7 @@ interface HazardSystemSource extends fields.SourceFromSchema<HazardSystemSchema>
 }
 
 interface HazardAttributes extends ActorAttributes, Omit<HazardAttributesSource, AttributesSourceOmission> {
-    ac: {
-        value: number;
-    };
+    ac: { value: number };
     hp: HazardHitPoints;
     hasHealth: boolean;
     stealth: HazardStealthTraceData;

@@ -3,11 +3,11 @@ import { ItemTransferDialog } from "@actor/sheet/popups/item-transfer-dialog.ts"
 import type { ActorUUID, UserUUID } from "@common/documents/_module.d.mts";
 import type { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
+import { TextSearch } from "@module/sheet/components/text-search.svelte.ts";
 import { SvelteApplicationMixin, SvelteApplicationRenderContext } from "@module/sheet/mixin.svelte.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { ErrorPF2e, localizer } from "@util";
 import { traitSlugToObject } from "@util/tags.ts";
-import MiniSearch from "minisearch";
 import * as R from "remeda";
 import Root from "./app.svelte";
 
@@ -51,6 +51,9 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     protected override set $state(value: TradeDialogState) {
         super.$state = value;
     }
+
+    /** Search over the user's own items */
+    #search = new TextSearch<TradeItemData>({ fields: ["name"] });
 
     /** Live trade state. Mutated by both the component and #onUpdate. */
     selfItems: TradeItemData[] = $state([]);
@@ -213,7 +216,6 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         return {
             ...R.pick(item, ["id", "name", "img", "quantity"]),
             marked: Math.clamp(marked, 0, item.quantity),
-            matchScore: 1,
             visible: item.actor === selfActor || game.user.isGM || (otherActor.isAllyOf(selfActor) && !item.isStowed),
         };
     }
@@ -223,32 +225,8 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         const self = this.#self;
         const trader = this.#trader;
         // Rebuild items, preserving previously-marked counts via the live arrays.
-        this.selfItems = this.#prepareItems(self, this.selfItems);
+        this.#setSelfItems(this.#prepareItems(self, this.selfItems));
         this.traderItems = this.#prepareItems(trader, this.traderItems);
-        const wordSegmenter =
-            "Segmenter" in Intl
-                ? new Intl.Segmenter(game.i18n.lang, { granularity: "word" })
-                : {
-                      // Firefox >:(
-                      segment(term: string): { segment: string }[] {
-                          return [{ segment: term }];
-                      },
-                  };
-        const searchEngine = new MiniSearch({
-            fields: ["name", "originalName"],
-            idField: "id",
-            processTerm: (term): string[] | null => {
-                if (term.length < 2 || CONFIG.i18n.searchStopWords.has(term)) return null;
-                return Array.from(wordSegmenter.segment(term))
-                    .map((t) =>
-                        fa.ux.SearchFilter.cleanQuery(t.segment.toLocaleLowerCase(game.i18n.lang)).replace(/['"]/g, ""),
-                    )
-                    .filter((t) => t.length >= 2);
-            },
-            searchOptions: { combineWith: "AND", prefix: true },
-            storeFields: ["id", "name"],
-        });
-        searchEngine.addAll([...this.selfItems]);
         return Object.assign(context, {
             state: {
                 selfActor: R.pick(self.actor, ["id", "img", "name"]),
@@ -260,7 +238,7 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             },
             foundryApp: this,
             traderUser: trader.user,
-            searchEngine,
+            search: this.#search,
             localize: TradeDialog.localize,
         });
     }
@@ -325,6 +303,11 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         selfActor.render();
     }
 
+    #setSelfItems(items: TradeItemData[]): void {
+        this.selfItems = items;
+        this.#search.index([...this.selfItems]);
+    }
+
     /** Replace live trade data with gift-only data, used in lieu of data created during dialog render. */
     #setGiftData(): void {
         if (!this.#self.gift && !this.#trader.gift) {
@@ -339,9 +322,11 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 name: TradeDialog.#getObfuscatedActorName(traderActor),
             },
         };
-        this.selfItems = [this.#self.actor.inventory.get(this.#self.initialMarked ?? "")]
-            .filter(R.isDefined)
-            .map((i) => this.#itemToData(i, this.#self.gift));
+        this.#setSelfItems(
+            [this.#self.actor.inventory.get(this.#self.initialMarked ?? "")]
+                .filter(R.isDefined)
+                .map((i) => this.#itemToData(i, this.#self.gift)),
+        );
         this.traderItems = [traderActor.inventory.get(this.#trader.initialMarked ?? "")]
             .filter(R.isDefined)
             .map((i) => this.#itemToData(i, this.#trader.gift));
@@ -566,7 +551,6 @@ interface ConstructorParams extends MaybeValidConstructorParams {
 interface TradeItemData extends Pick<PhysicalItemPF2e, "id" | "name" | "img" | "quantity"> {
     readonly visible: boolean;
     marked: number;
-    matchScore: number;
 }
 
 interface MaybeTradeInitiationData {
@@ -589,7 +573,7 @@ interface TradeDialogRenderContext extends SvelteApplicationRenderContext {
     foundryApp: TradeDialog;
     state: TradeDialogState;
     traderUser: UserPF2e;
-    searchEngine: MiniSearch;
+    search: TextSearch<TradeItemData>;
     localize: ReturnType<typeof localizer>;
 }
 

@@ -258,7 +258,7 @@ export interface EmanationShapeData
 
 type EmanationShapeDataSchema = BaseShapeDataSchema & {
     /** The base shape of the emanation */
-    base: fields.TypedSchemaField<Omit<typeof BaseShapeData.TYPES, "emanation">>;
+    base: fields.TypedSchemaField<Omit<typeof BaseShapeData.TYPES, "emanation" | "ring">>;
     /** The radius of the emanation in pixels */
     radius: fields.NumberField<number, number, true, false, false>;
     /**
@@ -419,7 +419,7 @@ type TokenShapeDataSchema = BaseShapeDataSchema & {
     /** The height in grid spaces (positive). */
     height: fields.NumberField<number, number, true, false, false>;
     /** The shape type (see {@link CONST.TOKEN_SHAPES}). */
-    shape: fields.NumberField<TokenShapeType | TokenShapeType, true, true, false>;
+    shape: fields.NumberField<TokenShapeType, TokenShapeType, true, true, false>;
 };
 
 /**
@@ -458,9 +458,8 @@ type GridShapeDataSchema = BaseShapeDataSchema & {
     >;
 };
 
-export type SpecificShapeSource = InstanceType<
-    (typeof BaseShapeData.TYPES)[keyof typeof BaseShapeData.TYPES]
->["_source"];
+export type SpecificShapeData = InstanceType<(typeof BaseShapeData.TYPES)[keyof typeof BaseShapeData.TYPES]>;
+export type SpecificShapeSource = SpecificShapeData["_source"];
 
 /** A {@link fields.SchemaField} subclass used to represent texture data. */
 export class TextureData extends fields.SchemaField<TextureDataSchema> {

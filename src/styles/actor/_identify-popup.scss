@@ -1,0 +1,61 @@
+.application.identify-popup {
+    // A little room to breathe, and a cap so longer translations wrap instead of stretching the window
+    min-width: 17rem;
+    max-width: 22rem;
+
+    // Allow a popped-out window to be scrolled if resized
+    .window-content {
+        overflow-y: auto;
+    }
+
+    .item-header {
+        align-items: center;
+        display: flex;
+        gap: var(--space-8);
+
+        img {
+            border: none;
+            flex: 0 0 auto;
+            height: 40px;
+            width: 40px;
+        }
+
+        .name {
+            font-weight: 500;
+        }
+    }
+
+    h2 {
+        background: var(--table-header-bg-color);
+        font-family: inherit;
+        font-size: var(--font-size-16);
+        font-variant: small-caps;
+        letter-spacing: 0.03em;
+        line-height: 1.2;
+        margin: 0;
+        padding: var(--space-2) var(--space-8);
+        text-align: center;
+    }
+
+    // Size the select to its widest option, so longer translations aren't clipped
+    .form-group {
+        label {
+            flex: 0 0 auto;
+        }
+
+        select {
+            max-width: 100%;
+            width: max-content;
+        }
+    }
+
+    // Meet the label and DC in the middle
+    dl.dcs {
+        column-gap: var(--space-16);
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+
+        dt {
+            text-align: end;
+        }
+    }
+}

@@ -503,7 +503,7 @@
                         "damageType": "slashing"
                     },
                     "sybp83yf88mujkx3m5ws": {
-                        "damage": "2d6",
+                        "damage": "1d6",
                         "damageType": "fire"
                     }
                 },
@@ -516,7 +516,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

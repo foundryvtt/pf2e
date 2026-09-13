@@ -1,0 +1,99 @@
+{
+    "_id": "GTTSLRFfLWBlCIS4",
+    "folder": "71wsEI6cVe0yqgAM",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Spellshifter Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can exert your will over magical spells cast in your vicinity, potentially altering or controlling their effects. You accomplish this through the use of a spellshifting conduit, a magical object of your choice that has light Bulk and can be held in one hand. If your conduit is lost or destroyed, you can train yourself to use a new one by spending 10 minutes attuning yourself to it. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Shift Spell] action and the Share the Burden spellshift.</p>\n<p><strong>Spellshift—Shift Burden</strong> You share the burden of a spell, allowing you to share control with the caster. If Sustaining a spell with this spellshift causes a creature to attempt a saving throw, it is attempted against the higher of your class DC or spell DC. If the spell requires a spell attack roll, make the attack using your Arcana modifier instead of the spell's normal spell attack modifier.</p>\n<p><strong>Critical Success</strong> If the spell is sustainable, you can Sustain the spell as a free action as though you had cast the spell. For the remainder of the spell's duration, you can Sustain the spell as though you were the caster.</p>\n<p><strong>Success</strong> If the spell is sustainable, you can Sustain the spell as a free action as though you had cast the spell.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.rRBbiM1tzKc0ge6x]{Spellshifter}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Arcana"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Shift Spell"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Spellshifter.RollOptionLabel",
+                "mergeable": true,
+                "option": "spell-shift",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Spellshifter.ShiftBurden.RollOptionLabel",
+                        "value": "shift-burden"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:shift-spell",
+                    "spell-shift:shift-burden"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshifter.ShiftBurden.Text"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.Spellshifter.ShiftBurden.CriticalSuccess",
+                        "title": "PF2E.Check.Result.Degree.Check.criticalSuccess"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.Spellshifter.ShiftBurden.Success",
+                        "title": "PF2E.Check.Result.Degree.Check.success"
+                    }
+                ]
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:shift-spell",
+                    "spell-shift:shift-burden"
+                ],
+                "property": "name",
+                "value": "PF2E.SpecificRule.Spellshifter.ShiftBurden.Title"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

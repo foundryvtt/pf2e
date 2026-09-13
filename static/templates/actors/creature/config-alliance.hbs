@@ -1,0 +1,9 @@
+<div class="form-group">
+    <label for="{{rootId}}-alliance">{{localize "PF2E.Actor.Creature.Configure.Alliance.Label"}}</label>
+    <select id="{{rootId}}-alliance" name="system.details.alliance" aria-describedby="{{rootId}}-alliance-hint">
+        {{#each alliances as |option|}}
+            <option value="{{option.value}}"{{#if option.selected}} selected="selected"{{/if}}>{{localize option.label}}</option>
+        {{/each}}
+    </select>
+    <p id="{{rootId}}-alliance-hint" class="hint">{{localize "PF2E.Actor.Creature.Configure.Alliance.Hint"}}</p>
+</div>

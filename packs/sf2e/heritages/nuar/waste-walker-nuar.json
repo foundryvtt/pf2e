@@ -1,0 +1,50 @@
+{
+    "_id": "qDPmVe08qZ3bEL4N",
+    "folder": "ZlL78mx3AGwZ0Swu",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Waste Walker Nuar",
+    "system": {
+        "ancestry": {
+            "name": "Nuar",
+            "slug": "nuar",
+            "uuid": "Compendium.sf2e.ancestries.Item.YCt1j4GcD3WsfEvQ"
+        },
+        "description": {
+            "value": "<p>Your fur grows in muted shades perfectly suited for blending in with the sands of desert planets. You gain fire resistance equal to half your level. You gain a +1 circumstance bonus to Stealth to [[/act hide]] or [[/act sneak]] in desert environments.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "fire",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:hide",
+                            "action:sneak"
+                        ]
+                    },
+                    "terrain:desert"
+                ],
+                "selector": [
+                    "stealth"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

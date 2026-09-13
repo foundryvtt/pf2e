@@ -191,7 +191,7 @@ function getActionGlyph(action: string | number | null | ActionCost): string {
 }
 
 function ErrorPF2e(message: string): Error {
-    return Error(`PF2e System | ${message}`);
+    return Error(`${SYSTEM_NAME} System | ${message}`);
 }
 
 let pluralRules: Intl.PluralRules;

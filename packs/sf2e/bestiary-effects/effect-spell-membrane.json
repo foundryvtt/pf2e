@@ -1,0 +1,52 @@
+{
+    "_id": "ycvnhhQUcxfnZNhg",
+    "img": "icons/magic/defensive/barrier-shield-dome-deflect-teal.webp",
+    "name": "Effect: Spell Membrane",
+    "system": {
+        "description": {
+            "value": "<p>You gain resistance 10 to one of the damage types from the triggering effect.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "damageTypes"
+                },
+                "flag": "damageType",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Trait"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.system.rulesSelections.damageType}",
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

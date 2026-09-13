@@ -1,0 +1,147 @@
+{
+    "_id": "SbqvPNxpaXYSOV7g",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "WCXIksOwvQH245AM",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Overload",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Creatures arrive in the room via the teleporter</p><hr /><p><strong>Effect</strong> Each creature that used the teleporter must attempt a @Check[will|dc:25] saving throw; on a failure, the target is teleported 10 feet in a random direction along the floor (but not through walls). The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qEocA8kAHIa7POdr",
+            "img": "systems/sf2e/icons/actions/FreeAction.webp",
+            "name": "Arcane Feedback",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature damages the unstable teleporter or fails an attempt to disable it</p><hr /><p><strong>Effect</strong> The triggering creature must succeed at a @Check[will|dc:27] saving throw or be teleported 20 feet away from the unstable teleporter in a random direction along the floor (but not through walls). There's a 50% chance they appear adjacent to the ceiling and begin falling.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Unstable Teleporter",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 25
+            },
+            "emitsSound": "encounter",
+            "hardness": 10,
+            "hp": {
+                "details": "",
+                "max": 96,
+                "temp": 0,
+                "value": 96
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 15
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "magical",
+                    "value": 10
+                },
+                {
+                    "exceptions": [],
+                    "type": "spells",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>The runes embossed on the magitech teleportation circle glow and spark with uncontrolled magical energy. Bits of rubble and other unattended objects teleport randomly around the room.</p>",
+            "disable": "<p>@Check[arcana|dc:25] to restabilize the teleportation pad, @Check[crafting|dc:25] or @Check[thievery|dc:25] to disable the hazard by hand, or @UUID[Compendium.sf2e.spells.Item.Dispel Magic] (4th rank; counteract DC 22) to counteract the effect; the ambient magic burns out and the hazard automatically disables after 1 minute</p>",
+            "isComplex": true,
+            "level": {
+                "value": 7
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Secrets of the Swarm Adventure Path"
+            },
+            "reset": "",
+            "routine": "<p>(1 action) Each creature within 50 feet of the teleporter must attempt a @Check[will|dc:25] save; on a failure, the target is teleported 10 feet in a random direction (but not through walls). This effect has the teleportation trait.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 15
+            },
+            "reflex": {
+                "value": 12
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

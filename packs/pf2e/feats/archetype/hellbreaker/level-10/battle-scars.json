@@ -1,0 +1,72 @@
+{
+    "_id": "97zURBF7RiVcbBsQ",
+    "folder": "O4bqRrJT3pLEFJmN",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Battle Scars",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've faced enough opponents that your experience is written across your skin, toughening you against your fiendish foes. You gain resistance to bludgeoning and slashing damage from devils and creatures allied with the Chelaxian government (as determined by the GM) equal to half your level.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Hellbreaker Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Hellbreakers"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "self:battle-scars",
+                "toggleable": true
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "self:battle-scars",
+                            "origin:trait:devil"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "damage:type:bludgeoning",
+                            "damage:type:slashing"
+                        ]
+                    }
+                ],
+                "key": "Resistance",
+                "label": "{item|name}",
+                "type": "custom",
+                "value": "floor(@actor.level/2)"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

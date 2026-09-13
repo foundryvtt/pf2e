@@ -11,6 +11,7 @@
             "name": "Maul",
             "sort": 100000,
             "system": {
+                "ammo": null,
                 "baseItem": "maul",
                 "bonus": {
                     "value": 0
@@ -37,6 +38,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "hammer",
                 "hardness": 0,
                 "hp": {
@@ -185,10 +187,6 @@
                     "Q0EwQApF3mmdm540": {
                         "damage": "3d12+17",
                         "damageType": "bludgeoning"
-                    },
-                    "QfI2wZhIm6C1RMZ2": {
-                        "damage": "1d6",
-                        "damageType": "electricity"
                     }
                 },
                 "description": {
@@ -200,7 +198,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greaterShock"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

@@ -31,7 +31,7 @@
                 "slug": null,
                 "spelldc": {
                     "dc": 29,
-                    "value": 21
+                    "value": 24
                 },
                 "tradition": {
                     "value": "divine"
@@ -992,7 +992,8 @@
                         "good",
                         "holy",
                         "magical",
-                        "reach-30"
+                        "reach-30",
+                        "unarmed"
                     ]
                 }
             },
@@ -1014,17 +1015,17 @@
                     "value": 26
                 },
                 "damageRolls": {
-                    "EVVvtxZnAnsh8wIW": {
-                        "damage": "1d6",
-                        "damageType": "fire"
-                    },
-                    "P1vAtwKWSVpwcrgE": {
+                    "0": {
                         "damage": "3d8+11",
                         "damageType": "slashing"
                     },
-                    "wPxtsODDfGQ8nSVw": {
+                    "1": {
                         "damage": "1d6",
                         "damageType": "spirit"
+                    },
+                    "2": {
+                        "damage": "1d6",
+                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -1066,17 +1067,17 @@
                     "value": 26
                 },
                 "damageRolls": {
-                    "hRa04V0ckmFHepWh": {
-                        "damage": "1d6",
-                        "damageType": "fire"
-                    },
-                    "jfSszuRo1174xwP6": {
+                    "0": {
                         "damage": "3d8+11",
                         "damageType": "slashing"
                     },
-                    "u6GKoqTL71ppuhVI": {
+                    "1": {
                         "damage": "1d6",
                         "damageType": "spirit"
+                    },
+                    "2": {
+                        "damage": "1d6",
+                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -1097,7 +1098,8 @@
                         "good",
                         "holy",
                         "magical",
-                        "reach-20"
+                        "reach-20",
+                        "unarmed"
                     ]
                 }
             },
@@ -1357,7 +1359,7 @@
         },
         {
             "_id": "ONrwFvyv9DsatjWc",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Measure Soul",
             "sort": 2100000,
             "system": {
@@ -1365,37 +1367,22 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": 2
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Stoneriver mentally pries through the mind of a creature within 60 feet, dealing @Damage[10d8[mental]] damage (@Check[will|dc:29|basic] save). Stoneriver can choose to make this damage nonlethal or choose not to damage the creature at all. For 1 minute, Stoneriver gains a +1 circumstance bonus to attack rolls, damage rolls, and Perception checks against that creature. If the creature is evil and it failed its save, the creature is additionally @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 4} on a critical failure). Stoneriver can't use Measure Soul again for 1d4 rounds.</p>"
+                    "value": "<p>Stoneriver mentally pries through the mind of a creature within 60 feet, dealing @Damage[10d8[mental]] damage (@Check[will|dc:29|basic] save). Stoneriver can choose to make this damage nonlethal or choose not to damage the creature at all. For 1 minute, Stoneriver gains a +1 circumstance bonus to attack rolls, damage rolls, and Perception checks against that creature. If the creature is evil and it failed its save, the creature is additionally @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 4} on a critical failure). Stoneriver can't use Measure Soul again for [[/gmr 1d4 #Recharge Measure Soul]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "measure-soul"
-                        ],
-                        "selector": [
-                            "attack-roll",
-                            "perception",
-                            "damage"
-                        ],
-                        "type": "circumstance",
-                        "value": 1
-                    },
-                    {
-                        "key": "RollOption",
-                        "option": "measure-soul",
-                        "toggleable": true
-                    }
-                ],
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Measure Soul",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Measure Soul"
+                },
                 "slug": null,
                 "traits": {
                     "value": [
@@ -1453,7 +1440,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Large, @Damage[6d6[bludgeoning],2d6[fire]]{6d6 bludgeoning plus 2d6 fire} and devour magic, Rupture 40</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Large, @Damage[6d6[bludgeoning],2d6[fire]] and devour magic, Rupture 40</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1600,8 +1587,11 @@
         "details": {
             "blurb": "",
             "languages": {
-                "details": "",
-                "value": []
+                "details": "tongues",
+                "value": [
+                    "dwarven",
+                    "empyrean"
+                ]
             },
             "level": {
                 "value": 12
@@ -1618,7 +1608,7 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "",
+            "details": "(+33 to detect lies and illusions)",
             "mod": 23,
             "senses": [
                 {

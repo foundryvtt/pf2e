@@ -12,6 +12,7 @@
             "name": "Dagger",
             "sort": 100000,
             "system": {
+                "ammo": null,
                 "baseItem": "dagger",
                 "bonus": {
                     "value": 0
@@ -38,6 +39,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "knife",
                 "hardness": 0,
                 "hp": {
@@ -101,6 +103,7 @@
             "name": "Shovel",
             "sort": 200000,
             "system": {
+                "ammo": null,
                 "baseItem": "light-hammer",
                 "bonus": {
                     "value": 0
@@ -127,6 +130,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "hammer",
                 "hardness": 0,
                 "hp": {
@@ -185,6 +189,7 @@
             "name": "Bottled Lightning (Lesser) (Infused)",
             "sort": 300000,
             "system": {
+                "ammo": null,
                 "baseItem": "alchemical-bomb",
                 "bonus": {
                     "value": 0
@@ -211,6 +216,7 @@
                     "invested": null
                 },
                 "expend": 1,
+                "grade": null,
                 "group": "bomb",
                 "hardness": 0,
                 "hp": {
@@ -283,6 +289,7 @@
             "name": "Frost Vial (Lesser) (Infused)",
             "sort": 400000,
             "system": {
+                "ammo": null,
                 "baseItem": "alchemical-bomb",
                 "bonus": {
                     "value": 0
@@ -309,6 +316,7 @@
                     "invested": null
                 },
                 "expend": 1,
+                "grade": null,
                 "group": "bomb",
                 "hardness": 0,
                 "hp": {
@@ -381,6 +389,7 @@
             "name": "Thunderstone (Lesser) (Infused)",
             "sort": 500000,
             "system": {
+                "ammo": null,
                 "baseItem": "alchemical-bomb",
                 "bonus": {
                     "value": 0
@@ -407,6 +416,7 @@
                     "invested": null
                 },
                 "expend": 1,
+                "grade": null,
                 "group": "bomb",
                 "hardness": 0,
                 "hp": {
@@ -479,6 +489,7 @@
             "name": "Holy Water",
             "sort": 600000,
             "system": {
+                "ammo": null,
                 "baseItem": null,
                 "bonus": {
                     "value": 0
@@ -505,6 +516,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": null,
                 "hardness": 0,
                 "hp": {
@@ -594,6 +606,7 @@
                     "inSlot": true,
                     "invested": null
                 },
+                "grade": null,
                 "group": "leather",
                 "hardness": 0,
                 "hp": {
@@ -864,7 +877,7 @@
                 },
                 "damageRolls": {
                     "dRKPbSC6MIEU7Uar": {
-                        "damage": "1d4+1",
+                        "damage": "1d4",
                         "damageType": "piercing"
                     }
                 },
@@ -926,7 +939,10 @@
                     "remaster": false,
                     "title": ""
                 },
-                "range": null,
+                "range": {
+                    "increment": 20,
+                    "max": null
+                },
                 "rules": [
                     {
                         "key": "Note",
@@ -985,7 +1001,10 @@
                     "remaster": false,
                     "title": ""
                 },
-                "range": null,
+                "range": {
+                    "increment": 20,
+                    "max": null
+                },
                 "rules": [
                     {
                         "key": "Note",
@@ -1044,7 +1063,10 @@
                     "remaster": false,
                     "title": ""
                 },
-                "range": null,
+                "range": {
+                    "increment": 20,
+                    "max": null
+                },
                 "rules": [
                     {
                         "key": "Note",
@@ -1103,7 +1125,10 @@
                     "remaster": false,
                     "title": ""
                 },
-                "range": null,
+                "range": {
+                    "increment": 20,
+                    "max": null
+                },
                 "rules": [
                     {
                         "key": "Note",
@@ -1117,8 +1142,7 @@
                     "value": [
                         "consumable",
                         "holy",
-                        "splash",
-                        "thrown-20"
+                        "splash"
                     ]
                 }
             },
@@ -1175,7 +1199,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         }
@@ -1218,7 +1243,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": 25
+                "value": 30
             }
         },
         "details": {
@@ -1247,7 +1272,11 @@
         "perception": {
             "details": "",
             "mod": 5,
-            "senses": []
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
         },
         "resources": {},
         "saves": {

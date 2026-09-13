@@ -3,16 +3,16 @@ import { Point } from "@common/_types.mjs";
 import Collection from "@common/utils/collection.mjs";
 import { SceneControl } from "../../applications/ui/scene-controls.mjs";
 import Drawing from "../placeables/drawing.mjs";
-import { PlaceablesLayerOptions } from "./_types.mjs";
-import PlaceablesLayer, { PlaceablesLayerPointerEvent } from "./base/placeables-layer.mjs";
+import { PlaceablesLayerPointerEvent } from "./base/placeables-layer.mjs";
+import { ShapeLayer, ShapeLayerOptions } from "./mixins/shapes.mjs";
 
 /**
  * The DrawingsLayer subclass of PlaceablesLayer.
  * This layer implements a container for drawings.
  * @category Canvas
  */
-export default class DrawingsLayer<TObject extends Drawing = Drawing> extends PlaceablesLayer<TObject> {
-    static get layerOptions(): PlaceablesLayerOptions;
+export default class DrawingsLayer<TObject extends Drawing = Drawing> extends ShapeLayer<TObject> {
+    static get layerOptions(): ShapeLayerOptions;
 
     static override documentName: "Drawing";
 

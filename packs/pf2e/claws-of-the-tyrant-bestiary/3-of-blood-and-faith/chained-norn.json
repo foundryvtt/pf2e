@@ -323,7 +323,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You transport the target into an extraplanar puzzle room of mysterious origin, locking them there. Once each turn as a single action, the target can attempt an Occultism check, Perception check, or Thievery check against your spell DC to solve the puzzle. Teleportation effects can't carry the target outside the puzzle room unless they can also traverse the planes, such as @UUID[Compendium.pf2e.spells-srd.Item.Interplanar Teleport]. When the spell ends, the target returns to the space it occupied when it was banished, or to the nearest space if the original is now filled.</p>\n<hr />\n<p><strong>Critical Success</strong> The target solves the puzzle and escapes.</p>\n<p><strong>Success</strong> The target is on the right path to the solution. If it was already on the right path, it solves the puzzle and escapes.</p>\n<p><strong>Failure</strong> The target makes no progress toward a solution.</p>\n<p><strong>Critical Failure</strong> The target makes no progress and, if it was on the right path, it no longer is.</p>"
+                    "value": "<p>You transport the target into an extraplanar puzzle room of mysterious origin, locking them there. Once each turn as a single action, the target can attempt an @Check[occultism] check, @Check[perception] check, or @Check[thievery] check against your spell DC to solve the puzzle. Teleportation effects can't carry the target outside the puzzle room unless they can also traverse the planes, such as @UUID[Compendium.pf2e.spells-srd.Item.Interplanar Teleport]. When the spell ends, the target returns to the space it occupied when it was banished, or to the nearest space if the original is now filled.</p><hr /><p><strong>Critical Success</strong> The target solves the puzzle and escapes.</p>\n<p><strong>Success</strong> The target is on the right path to the solution. If it was already on the right path, it solves the puzzle and escapes.</p>\n<p><strong>Failure</strong> The target makes no progress toward a solution.</p>\n<p><strong>Critical Failure</strong> The target makes no progress and, if it was on the right path, it no longer is.</p>"
                 },
                 "duration": {
                     "sustained": true,
@@ -1001,7 +1001,7 @@
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl"
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
-            "name": "Detect Magic",
+            "name": "Detect Magic (Constant)",
             "sort": 1600000,
             "system": {
                 "area": {
@@ -1331,10 +1331,49 @@
             "type": "action"
         },
         {
+            "_id": "QpUQEzlZfmf9XP7l",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "TXZZbrIQugmv5mtu",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Fated",
-            "sort": 2400000,
+            "sort": 2500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1363,7 +1402,7 @@
             "_id": "aW5Xf5RH0bL6fXwe",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sever Fate",
-            "sort": 2500000,
+            "sort": 2600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1373,7 +1412,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When a norn deals void damage with a Strike, she regains @Damage[10[healing]]{10 Hit Points}. The target must succeed at a @Check[fortitude|dc:39] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (@UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure).</p>\n<p>Further void damage dealt by the norn increases the drained condition value by 1 on a failed save (or by 2 on a critical failure), to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 4}.</p>"
+                    "value": "<p>When a norn deals void damage with a Strike, she regains @Damage[10[healing]] Hit Points. The target must succeed at a @Check[fortitude|dc:39|options:inflicts:drained] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (@UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure).</p>\n<p>Further void damage dealt by the norn increases the drained condition value by 1 on a failed save (or by 2 on a critical failure), to a maximum of drained 4.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1394,7 +1433,7 @@
             "_id": "h9865Q01Ijpo49cm",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Lore (all)",
-            "sort": 2600000,
+            "sort": 2700000,
             "system": {
                 "description": {
                     "value": ""
@@ -1448,13 +1487,14 @@
                 "value": "+1 status to all saves vs. magic"
             },
             "hp": {
-                "details": "",
+                "details": "void healing",
                 "max": 375,
                 "temp": 0,
                 "value": 375
             },
             "immunities": [
                 {
+                    "exceptions": [],
                     "type": "bleed"
                 },
                 {
@@ -1464,6 +1504,26 @@
                 {
                     "exceptions": [],
                     "type": "void"
+                },
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                },
+                {
+                    "exceptions": [],
+                    "type": "death-effects"
                 }
             ],
             "speed": {

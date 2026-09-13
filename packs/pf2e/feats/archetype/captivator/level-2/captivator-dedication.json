@@ -1,0 +1,143 @@
+{
+    "_id": "IrxtH1BFlUOS0DnQ",
+    "folder": "KM9oKSpLvvdslBco",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Captivator Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your ability to captivate others borders on the preternatural. You're seldom at a loss in social situations, and you can create minor charms or illusions. Choose Deception or Diplomacy. You become trained in that skill or become an expert if you were already trained.</p>\n<p>Choose two cantrips from the occult list. Each cantrip must have the illusion trait, mental trait, or both. You can cast these spells as innate occult spells.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.b7oePIMEMdFFS5TH]{Captivator}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Charisma +2"
+                },
+                {
+                    "value": "trained in Deception or Diplomacy"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Deception",
+                        "predicate": [
+                            "skill:deception:rank:0"
+                        ],
+                        "value": "deception-trained"
+                    },
+                    {
+                        "label": "PF2E.Skill.Deception",
+                        "predicate": [
+                            "skill:deception:rank:1"
+                        ],
+                        "value": "deception-expert"
+                    },
+                    {
+                        "label": "PF2E.Skill.Diplomacy",
+                        "predicate": [
+                            "skill:diplomacy:rank:0"
+                        ],
+                        "value": "diplomacy-trained"
+                    },
+                    {
+                        "label": "PF2E.Skill.Diplomacy",
+                        "predicate": [
+                            "skill:diplomacy:rank:1"
+                        ],
+                        "value": "diplomacy-expert"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "lte": [
+                                    "skill:deception:rank",
+                                    1
+                                ]
+                            },
+                            {
+                                "lte": [
+                                    "skill:diplomacy:rank",
+                                    1
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                "rollOption": "captivator-skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.deception.rank",
+                "predicate": [
+                    "captivator-skill:deception-trained"
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.deception.rank",
+                "predicate": [
+                    "captivator-skill:deception-expert"
+                ],
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.diplomacy.rank",
+                "predicate": [
+                    "captivator-skill:diplomacy-trained"
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.diplomacy.rank",
+                "predicate": [
+                    "captivator-skill:diplomacy-expert"
+                ],
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "spellcasting": {
+                    "rank": 1
+                }
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

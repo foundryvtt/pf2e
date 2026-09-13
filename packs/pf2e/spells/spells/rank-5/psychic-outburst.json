@@ -1,0 +1,122 @@
+{
+    "_id": "Y1glh4WNHAlpTwH3",
+    "folder": "iDjm2cXyRAe4VZ35",
+    "img": "icons/magic/perception/third-eye-blue-red.webp",
+    "name": "Psychic Outburst",
+    "system": {
+        "area": {
+            "type": "emanation",
+            "value": 20
+        },
+        "cost": {
+            "value": ""
+        },
+        "counteraction": false,
+        "damage": {},
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "will"
+            }
+        },
+        "description": {
+            "value": "<p>Psychic energy filters through your mind and explodes outward, dealing mental damage to creatures in the area with a basic Will save. The number of actions you spend when Casting this Spell determines the damage and other parameters.</p>\n<p><span class=\"action-glyph\">2</span> The spell deals @Damage[6d10[mental]] damage.</p>\n<p><span class=\"action-glyph\">3</span>The spell deals @Damage[6d10[mental]] damage. Creatures that fail their save are pushed 10 feet away from you (or 20 feet on a critical failure).</p>\n<p><strong>Two Rounds</strong> If you spend 3 actions Casting the Spell, you can avoid finishing the spell and spend another 2 actions on your next turn to empower the spell even further. You can take other actions before finishing this spell, but the spell is lost if you Cast another Spell in between. The area increases to a @Template[type:emanation|distance:40], deals @Damage[8d10[mental]|options:area-damage] damage, and targets only enemies. Creatures that fail their save are pushed 10 feet away from you (20 feet on a critical failure).</p><hr /><p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
+        },
+        "duration": {
+            "sustained": false,
+            "value": ""
+        },
+        "level": {
+            "value": 5
+        },
+        "overlays": {
+            "QSYOheFiUgEazxvr": {
+                "name": "Psychic Outburst (Two-Round)",
+                "overlayType": "override",
+                "sort": 2,
+                "system": {
+                    "area": {
+                        "value": 40
+                    },
+                    "damage": {
+                        "gVYv5CFxc6Wqw5mF": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "8d10",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "mental"
+                        }
+                    },
+                    "heightening": {
+                        "area": 0,
+                        "damage": {
+                            "gVYv5CFxc6Wqw5mF": "1d10"
+                        },
+                        "interval": 1,
+                        "type": "interval"
+                    }
+                }
+            },
+            "qqkQgujiPGGEtRgk": {
+                "overlayType": "override",
+                "sort": 1,
+                "system": {
+                    "damage": {
+                        "ri7Kl4ZmfyCGDyMg": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "6d10",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "mental"
+                        }
+                    },
+                    "heightening": {
+                        "area": 0,
+                        "damage": {
+                            "ri7Kl4ZmfyCGDyMg": "1d10"
+                        },
+                        "interval": 1,
+                        "type": "interval"
+                    },
+                    "time": {
+                        "value": "2 to 3"
+                    }
+                }
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "range": {
+            "value": ""
+        },
+        "requirements": "",
+        "rules": [],
+        "target": {
+            "value": ""
+        },
+        "time": {
+            "value": "2 to 2 rounds"
+        },
+        "traits": {
+            "rarity": "common",
+            "traditions": [
+                "occult"
+            ],
+            "value": [
+                "concentrate",
+                "manipulate",
+                "mental"
+            ]
+        }
+    },
+    "type": "spell"
+}

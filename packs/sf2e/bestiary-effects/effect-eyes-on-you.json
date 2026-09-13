@@ -1,0 +1,71 @@
+{
+    "_id": "i9yUijmTVWGddAN3",
+    "img": "icons/magic/perception/eye-ringed-glow-angry-large-red.webp",
+    "name": "Effect: Eyes on You",
+    "system": {
+        "description": {
+            "value": "<p>You deal an additional 4d6 precision damage to the designated target, and gain a +2 circumstance bonus to Perception checks to Seek or Sense Motive against the target.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "eyes-on-you",
+                "uuid": ""
+            },
+            {
+                "category": "precision",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "target:mark:eyes-on-you"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:eyes-on-you",
+                    {
+                        "or": [
+                            "action:seek",
+                            "action:sense-motive"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "perception"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -42,6 +42,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
                 shape.points = shape.points.map((c, i) => (i % 2 === 0 ? c + bounds.x : c + bounds.y));
                 return shape;
             }
+            case PIXI.SHAPES.ELIP:
             case PIXI.SHAPES.CIRC: {
                 const shape = this.shape.clone();
                 const center = this.center;
@@ -201,9 +202,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      */
     protected onOppositeSides(flankerA: TokenPF2e, flankerB: TokenPF2e, flankee: TokenPF2e): boolean {
         const boundsA = flankerA.mechanicalBounds;
-        const centerA = { x: flankerA.document.x + boundsA.width / 2, y: flankerA.document.y + boundsA.height / 2 };
+        const centerA = { x: boundsA.x + boundsA.width / 2, y: boundsA.y + boundsA.height / 2 };
         const boundsB = flankerB.mechanicalBounds;
-        const centerB = { x: flankerB.document.x + boundsB.width / 2, y: flankerB.document.y + boundsB.height / 2 };
+        const centerB = { x: boundsB.x + boundsB.width / 2, y: boundsB.y + boundsB.height / 2 };
         const bounds = flankee.mechanicalBounds;
         const left = new fc.geometry.Ray({ x: bounds.left, y: bounds.top }, { x: bounds.left, y: bounds.bottom });
         const right = new fc.geometry.Ray({ x: bounds.right, y: bounds.top }, { x: bounds.right, y: bounds.bottom });

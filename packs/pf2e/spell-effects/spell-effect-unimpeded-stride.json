@@ -1,0 +1,60 @@
+{
+    "_id": "RZVP5MYaWrANq0J8",
+    "img": "icons/skills/movement/figure-running-gray.webp",
+    "name": "Spell Effect: Unimpeded Stride",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Unimpeded Stride]</p>\n<p>You ignore difficult terrain and any circumstance or status penalties to your Speed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.movement.terrain.difficult.ignored",
+                "value": {
+                    "environment": "all",
+                    "feature": "all"
+                }
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "penalty:type:circumstance",
+                            "penalty:type:status"
+                        ]
+                    }
+                ],
+                "selector": "land-speed",
+                "suppress": true
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

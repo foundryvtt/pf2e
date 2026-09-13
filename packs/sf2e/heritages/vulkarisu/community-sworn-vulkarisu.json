@@ -1,0 +1,52 @@
+{
+    "_id": "Gm7FvaLl6U8BeDTy",
+    "folder": "9YZI8C1pHr616KFy",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Community-Sworn Vulkarisu",
+    "system": {
+        "ancestry": {
+            "name": "Vulkarisu",
+            "slug": "vulkarisu",
+            "uuid": "Compendium.sf2e.ancestries.Item.Bgn9LCnpSZNJdXht"
+        },
+        "description": {
+            "value": "<p>You're an enthusiastic traveler, adopting innovative ideas, traditions, and words from the cultures you've visited and integrating them into your life. You become trained in Society. If you would automatically become trained in Society (from your background or class, for example), you instead become trained in another skill of your choice. You gain your choice of either the @UUID[Compendium.sf2e.feats.Item.Adopted Ancestry] general feat or the @UUID[Compendium.sf2e.feats.Item.Multilingual] skill feat.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Beyond the Blood Door Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.society.rank",
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "value": "Compendium.sf2e.feats.Item.Adopted Ancestry"
+                    },
+                    {
+                        "value": "Compendium.sf2e.feats.Item.Multilingual"
+                    }
+                ],
+                "flag": "communitySworn",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Feat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.system.rulesSelections.communitySworn}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

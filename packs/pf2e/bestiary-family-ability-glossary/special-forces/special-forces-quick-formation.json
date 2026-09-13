@@ -12,14 +12,112 @@
         },
         "category": "offensive",
         "description": {
-            "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The special forces unit uses @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Change Formation]. Special forces units typically know the loose and wedge formations. If the troops are shielded, they instead know the turtle shell and wedge formations.</p>"
+            "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The special forces unit uses @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Change Formation]. Special forces units typically know the loose and wedge formations. If the troops are shielded, they instead know the turtle shell and wedge formations.</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeFormation]</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "round"
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
             "title": "Pathfinder Adventure Path: Hell's Destiny"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "change-formation",
+                "suboptions": [
+                    {
+                        "label": "PF2E.NPCAbility.ChangeFormation.Loose.Label",
+                        "predicate": [
+                            {
+                                "not": "special-forces-shielded"
+                            }
+                        ],
+                        "value": "loose"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.ChangeFormation.TurtleShell.Label",
+                        "predicate": [
+                            "special-forces-shielded"
+                        ],
+                        "value": "turtle-shell"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.ChangeFormation.Wedge.Label",
+                        "value": "wedge"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "change-formation:loose",
+                    {
+                        "not": "item:slug:change-formation"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.NPCAbility.ChangeFormation.Loose.Drawback"
+                    }
+                ]
+            },
+            {
+                "key": "Weakness",
+                "mode": "remove",
+                "predicate": [
+                    "change-formation:loose"
+                ],
+                "type": [
+                    "area-damage",
+                    "splash-damage"
+                ],
+                "value": 0
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:ranged",
+                    "change-formation:turtle-shell"
+                ],
+                "selector": "ac",
+                "slug": "turtle-shell-ac-bonus",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "change-formation:turtle-shell"
+                ],
+                "selector": "reflex",
+                "slug": "turtle-shell-reflex-bonus",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "change-formation:turtle-shell"
+                ],
+                "selector": "all-speeds",
+                "value": -10
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "change-formation:wedge"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+            }
+        ],
         "traits": {
             "value": []
         }

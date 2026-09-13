@@ -1,0 +1,59 @@
+{
+    "_id": "Immb99meWnNTJvfR",
+    "img": "icons/commodities/wood/kindling-sticks-brown.webp",
+    "name": "Effect: Thatchling's Curse (Critical Failure)",
+    "system": {
+        "description": {
+            "value": "<p>You take a –5-foot status penalty to your Speeds.</p>\n<p>In addition, when you attempt a Survival check to Sense Direction or Track, you use the outcome for one degree of success worse than the result of your roll.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Season of Ghosts Hardcover Compilation"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "type": "status",
+                "value": -5
+            },
+            {
+                "adjustment": {
+                    "all": "one-degree-worse"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:sense-direction",
+                            "action:track"
+                        ]
+                    }
+                ],
+                "selector": "survival"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

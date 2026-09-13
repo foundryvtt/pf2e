@@ -1,44 +1,40 @@
-<form autocomplete="off">
-    {{#if isMagic}}
-        <h1>{{localize "PF2E.identification.IdentifyMagicDCs"}}</h1>
-        <table>
-            <tbody>
-                <tr data-skill="arcana" data-dc="{{dcs.arcana}}">
-                    <th>{{localize "PF2E.Skill.Arcana"}}</th>
-                    <td>{{dcs.arcana}}</td>
-                </tr>
-                <tr data-skill="nature" data-dc="{{dcs.nature}}">
-                    <th>{{localize "PF2E.Skill.Nature"}}</th>
-                    <td>{{dcs.nature}}</td>
-                </tr>
-                <tr data-skill="occultism" data-dc="{{dcs.occultism}}">
-                    <th>{{localize "PF2E.Skill.Occultism"}}</th>
-                    <td>{{dcs.occultism}}</td>
-                </tr>
-                <tr data-skill="religion" data-dc="{{dcs.religion}}">
-                    <th>{{localize "PF2E.Skill.Religion"}}</th>
-                    <td>{{dcs.religion}}</td>
-                </tr>
-            </tbody>
-        </table>
-    {{else}}
-        <h1>
-            {{localize (ifThen isAlchemical "PF2E.identification.IdentifyAlchemyDCs" "PF2E.identification.IdentifyGenericDCs")}}
-        </h1>
-        <table>
-            <tbody>
-                <tr data-skill="crafting" data-dc="{{dcs.crafting}}">
-                    <th>{{localize "PF2E.Skill.Crafting"}}</th>
-                    <td>{{dcs.crafting}}</td>
-                </tr>
-            </tbody>
-        </table>
-    {{/if}}
-    <button type="button" class="post-skill-checks">
-        <i class="fa-solid fa-message fa-fw"></i>{{localize "PF2E.identification.PostSkillsToChat"}}
+<div class="item-header">
+    <img src="{{item.img}}" alt="" />
+    <span class="name">{{item.name}}</span>
+</div>
+<section class="identification-dcs" aria-labelledby="{{id}}-dcs">
+    <h2 id="{{id}}-dcs">
+        {{#if isMagic}}
+            {{localize "PF2E.identification.IdentifyMagicDCs"}}
+        {{else if isAlchemical}}
+            {{localize "PF2E.identification.IdentifyAlchemyDCs"}}
+        {{else}}
+            {{localize "PF2E.identification.IdentifyGenericDCs"}}
+        {{/if}}
+    </h2>
+    <dl class="dcs striped">
+        {{#each rows as |row|}}
+            <dt data-tooltip-text="{{row.breakdown}}">{{localize row.label}}</dt>
+            <dd data-tooltip-text="{{row.breakdown}}">
+                {{row.dc}}
+                <span class="sr-only">({{row.breakdown}})</span>
+            </dd>
+        {{/each}}
+    </dl>
+</section>
+<div class="form-group slim">
+    <label for="{{id}}-adjustment">{{localize "PF2E.identification.Difficulty"}}</label>
+    <div class="form-fields">
+        <select id="{{id}}-adjustment" data-adjustment>
+            {{selectOptions adjustments valueAttr="value" labelAttr="label" selected=adjustment}}
+        </select>
+    </div>
+</div>
+<div class="form-footer">
+    <button type="button" class="post-skill-checks" data-action="postSkillChecks">
+        <i class="fa-solid fa-message" aria-hidden="true"></i>{{localize "PF2E.identification.PostSkillsToChat"}}
     </button>
-    <button type="button" class="update-identification" value="identified">
-        <i class="fa-regular fa-circle-question"></i>{{localize "PF2E.identification.Identify"}}
+    <button type="button" class="update-identification" data-action="updateIdentification" value="identified">
+        <i class="fa-regular fa-circle-question" aria-hidden="true"></i>{{localize "PF2E.identification.Identify"}}
     </button>
-    <input type="hidden" name="status" />
-</form>
+</div>

@@ -456,10 +456,6 @@
                     "6cd3jeO7B7Tdl5UZ": {
                         "damage": "2d8+6",
                         "damageType": "piercing"
-                    },
-                    "nKPv91TVqd5lkb6Y": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -476,25 +472,13 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
+                        "definition": [
+                            "item:id:{item|_id}"
                         ],
-                        "selector": [
-                            "urumi-damage"
-                        ],
-                        "text": "PF2E.WeaponPropertyRune.flaming.Note.criticalSuccess",
-                        "title": "PF2E.WeaponPropertyRune.flaming.Name"
-                    },
-                    {
-                        "category": "persistent",
-                        "critical": true,
-                        "damageType": "fire",
-                        "diceNumber": 1,
-                        "dieSize": "d10",
-                        "key": "DamageDice",
-                        "label": "PF2E.WeaponPropertyRune.flaming.Name",
-                        "selector": "strike-damage"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
                     }
                 ],
                 "slug": "crossbow",

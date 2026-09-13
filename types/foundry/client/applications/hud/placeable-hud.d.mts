@@ -30,6 +30,11 @@ export default abstract class BasePlaceableHUD extends ApplicationV2<
     /** Convenience access for the canvas layer which this HUD modifies */
     get layer(): PlaceablesLayer;
 
+    /**
+     * The palette that is currently expanded, if any.
+     */
+    get activePalette(): string | null;
+
     /* -------------------------------------------- */
     /*  Rendering                                   */
     /* -------------------------------------------- */
@@ -38,16 +43,11 @@ export default abstract class BasePlaceableHUD extends ApplicationV2<
 
     protected override _updatePosition(position: ApplicationPosition): ApplicationPosition;
 
+    protected override _postRender(context: ApplicationRenderContext, options: ApplicationRenderOptions): Promise<void>;
+
     protected override _onRender(context: object, options: ApplicationRenderOptions): Promise<void>;
 
     protected override _preClose(options: ApplicationClosingOptions): Promise<void>;
-
-    /**
-     * Insert the application HTML element into the DOM.
-     * Subclasses may override this method to customize how the application is inserted.
-     * @param element The element to insert
-     */
-    protected _insertElement(element: HTMLElement): void;
 
     /* -------------------------------------------- */
     /*  Methods                                     */

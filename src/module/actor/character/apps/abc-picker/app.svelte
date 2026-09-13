@@ -1,27 +1,22 @@
 <script lang="ts">
     import { ErrorPF2e } from "@util";
     import type { MouseEventHandler } from "svelte/elements";
+    import SearchInput from "@module/sheet/components/search-input.svelte";
     import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import type { ABCPickerContext } from "./app.ts";
 
-    const { actor, foundryApp, getState }: ABCPickerContext & SvelteAppProps<ABCPickerContext> = $props();
+    const { actor, foundryApp, search, getState }: ABCPickerContext & SvelteAppProps<ABCPickerContext> = $props();
     const data = $derived(getState());
-    let searchQuery = $state("");
     const filteredItems = $derived.by(() => {
-        const query = searchQuery.trim();
-        if (!query.length) return data.items;
-
-        const regexp = new RegExp(RegExp.escape(query), "i");
-        return data.items.filter((item) => {
-            if (searchQuery.length === 0) return true;
-            const name = item.name;
-            const originalName = item.originalName;
-            return regexp.test(name) || (originalName && regexp.test(originalName));
-        });
+        const matches = search.matches;
+        return matches ? data.items.filter((item) => matches.has(item.uuid)) : data.items;
     });
 
     const typePlural = $derived(_loc(`PF2E.Item.${data.itemType.capitalize()}.Plural`));
     const searchPlaceholder = $derived(_loc("PF2E.Actor.Character.ABCPicker.SearchPlaceholder", { items: typePlural }));
+    const searchResults = $derived(
+        _loc("PF2E.Actor.Character.ABCPicker.SearchResults", { items: typePlural, count: filteredItems.length }),
+    );
 
     /** Open an item sheet to show additional details. */
     const viewItemSheet: MouseEventHandler<HTMLButtonElement> = async (event): Promise<void> => {
@@ -43,8 +38,7 @@
 </script>
 
 <search>
-    <i class="fa-solid fa-search"></i>
-    <input type="search" spellcheck="false" placeholder={searchPlaceholder} bind:value={searchQuery} />
+    <SearchInput {search} label={searchPlaceholder} resultsLabel={searchResults} />
 </search>
 
 <menu class="scrollable">
@@ -82,12 +76,12 @@
 
 <style>
     search {
-        align-items: center;
-        flex-flow: row nowrap;
-        gap: var(--space-8);
-        justify-content: start;
+        /* Column so the results line sits under the input */
+        display: flex;
+        flex-flow: column nowrap;
         padding: var(--space-8) var(--space-8) 0;
-        input::placeholder {
+
+        :global(input::placeholder) {
             color: var(--color-form-hint);
         }
     }

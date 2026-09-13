@@ -1,0 +1,127 @@
+{
+    "_id": "3iVkO29QoMz0pv4L",
+    "img": "icons/environment/cosmos/planet-moon-blue.webp",
+    "name": "Effect: Deathbane Crescent - Weapon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Deathbane Crescent], @UUID[Compendium.pf2e.equipment-srd.Item.Deathbane Crescent (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Deathbane Crescent (Major)]</p>\n<p>Strikes with the weapon deal additional vitality damage until the end of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:deathbane-crescent",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Deathbane Crescent"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:deathbane-crescent-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Deathbane Crescent (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:deathbane-crescent-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Deathbane Crescent (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "deathbane-crescent"
+            },
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectDeathbaneCrescentWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "damageType": "vitality",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "deathbane-crescent:deathbane-crescent"
+                ],
+                "selector": "{item|flags.system.rulesSelections.effectDeathbaneCrescentWeapon}-damage"
+            },
+            {
+                "damageType": "vitality",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "deathbane-crescent:deathbane-crescent-greater"
+                ],
+                "selector": "{item|flags.system.rulesSelections.effectDeathbaneCrescentWeapon}-damage"
+            },
+            {
+                "damageType": "vitality",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "deathbane-crescent:deathbane-crescent-major"
+                ],
+                "selector": "{item|flags.system.rulesSelections.effectDeathbaneCrescentWeapon}-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

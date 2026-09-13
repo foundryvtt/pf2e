@@ -1,0 +1,49 @@
+{
+    "_id": "GGnT5wNxNXf7zAMZ",
+    "img": "systems/pf2e/icons/spells/consecrate-flesh.webp",
+    "name": "Spell Effect: Consecrate Flesh",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Consecrate Flesh]</p>\n<p>You have weakness to unholy. Your unarmed attacks deal additional spirit damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Knights of Lastwall"
+        },
+        "rules": [
+            {
+                "key": "Weakness",
+                "type": "unholy",
+                "value": "max(5,floor(@item.level/3)*5)"
+            },
+            {
+                "damageType": "spirit",
+                "key": "FlatModifier",
+                "selector": "unarmed-damage",
+                "value": "max(1,floor(@item.level/3))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

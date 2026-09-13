@@ -1,0 +1,52 @@
+{
+    "_id": "F8kgMkcz23UXS7k7",
+    "img": "icons/magic/defensive/shield-barrier-deflect-gold.webp",
+    "name": "Effect: Something to Protect",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Something to Protect]</p>\n<p>You gain temporary Hit Points equal to your level and a +1 status bonus to Will saves, AC, and attacks</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@item.origin.level"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack",
+                    "will",
+                    "ac"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

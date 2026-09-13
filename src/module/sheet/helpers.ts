@@ -177,6 +177,7 @@ function getBasePhysicalItemViewData(item: PhysicalItemPF2e): BasePhysicalItemVi
         rarity: item.rarity,
         traits: item.traitChatData(),
         isTemporary: item.isTemporary,
+        updatedAt: item._stats.modifiedTime ?? undefined,
     };
 }
 
@@ -362,6 +363,8 @@ interface BasePhysicalItemViewData {
     level: number | null;
     rarity: Rarity | null;
     isTemporary: boolean;
+    /** When the item was last modified, keeping its expanded summary fresh */
+    updatedAt?: number;
 }
 
 export {

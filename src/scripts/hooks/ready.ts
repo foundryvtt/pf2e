@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { resetActors } from "@actor/helpers.ts";
 import { createFirstParty } from "@actor/party/helpers.ts";
-import { MigrationSummary } from "@module/apps/migration-summary.ts";
+import { MigrationSummary } from "@module/apps/migration-summary/app.ts";
 import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster.ts";
 import { MigrationList } from "@module/migration/index.ts";
 import { MigrationRunner } from "@module/migration/runner/index.ts";
@@ -29,8 +29,8 @@ export const Ready = {
             }
 
             // Once the entire VTT framework is initialized, check to see if we should perform a data migration
-            console.log("PF2e System | Starting Pathfinder 2nd Edition System");
-            console.debug(`PF2e System | Build mode: ${BUILD_MODE}`);
+            console.log(`${SYSTEM_NAME} System | Starting ${game.system.title}`);
+            console.debug(`${SYSTEM_NAME} System | Build mode: ${BUILD_MODE}`);
 
             // Some of game.pf2e must wait until the ready phase
             SetGamePF2e.onReady();
@@ -59,7 +59,7 @@ export const Ready = {
                         );
                     }
                     await migrationRunner.runMigration();
-                    new MigrationSummary().render(true);
+                    new MigrationSummary().render({ force: true });
                 }
 
                 // Update the world system version

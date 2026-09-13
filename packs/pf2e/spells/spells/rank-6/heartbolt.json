@@ -1,0 +1,82 @@
+{
+    "_id": "ugysbQQWGvVq7iu8",
+    "folder": "zDlxATrLAlbYA2Mv",
+    "img": "icons/magic/light/projectile-beam-yellow.webp",
+    "name": "Heartbolt",
+    "system": {
+        "area": {
+            "type": "emanation",
+            "value": 20
+        },
+        "cost": {
+            "value": ""
+        },
+        "counteraction": false,
+        "damage": {
+            "P0BIqpTBop1icohL": {
+                "applyMod": false,
+                "category": null,
+                "formula": "3d10+15",
+                "kinds": [
+                    "damage",
+                    "healing"
+                ],
+                "materials": [],
+                "type": "vitality"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "fortitude"
+            }
+        },
+        "description": {
+            "value": "<p>Your heart ejects a bolt of pure life energy, which plunges into the body of your target before it explodes into a plume of vital energy. If the target is a willing living creature, it regains 3d10+15 Hit Points. If the target is undead, the bolt deals that amount of vitality damage to it instead, with a basic Fortitude save.</p>\n<p>The energy then explodes outward, affecting all other creatures within a @Template[type:emanation|distance:20] from the original target, healing living creatures for @Damage[(floor(@item.rank / 2) * 5)[vitality,healing]|shortLabel] Hit Points and dealing @Damage[(floor(@item.rank / 2) * 5)[vitality]] damage to undead creatures with a basic Fortitude saving throw.</p><hr /><p><strong>Heightened (+2)</strong> The amount of healing or damage the original target receives increases by 1d10+5, and the healing or damage that all creatures receive from the emanation increases by 5.</p>"
+        },
+        "duration": {
+            "sustained": false,
+            "value": ""
+        },
+        "heightening": {
+            "area": 0,
+            "damage": {
+                "P0BIqpTBop1icohL": "1d10+5"
+            },
+            "interval": 2,
+            "type": "interval"
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "range": {
+            "value": "60 feet"
+        },
+        "requirements": "",
+        "rules": [],
+        "target": {
+            "value": "1 willing living creature or 1 undead creature"
+        },
+        "time": {
+            "value": "2"
+        },
+        "traits": {
+            "rarity": "common",
+            "traditions": [
+                "divine"
+            ],
+            "value": [
+                "concentrate",
+                "healing",
+                "manipulate",
+                "vitality"
+            ]
+        }
+    },
+    "type": "spell"
+}

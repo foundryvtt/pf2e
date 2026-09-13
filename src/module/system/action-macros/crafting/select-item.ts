@@ -62,6 +62,18 @@ class SelectItemDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     }
 
     static async getItem(action: ItemAction): Promise<PhysicalItemPF2e | null> {
+        // Reuse the open dialog instead of colliding on the shared id: cancel the prior request and re-target.
+        const existing = foundry.applications.instances.get("select-item-dialog");
+        if (existing instanceof SelectItemDialog) {
+            existing.#resolve?.(null);
+            existing.#action = action;
+            existing.selection = null;
+            await existing.render({ force: true });
+            return new Promise((resolve) => {
+                existing.#resolve = resolve;
+            });
+        }
+
         const dialog = new this({ action });
         return dialog.resolveSelection();
     }

@@ -1,0 +1,70 @@
+{
+    "_id": "lfwdsx5uJTNw6rF3",
+    "folder": "lfC1sbtzTalNS6Tl",
+    "img": "icons/magic/nature/plant-maneater-yellow.webp",
+    "name": "Plant Eidolon",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your eidolon is an intelligent plant, formed from the same disembodied fragments of nature's life energy that become leshies. Plant eidolons tend to be curious and adaptable, with temperaments based on the parts of mortal culture they feel affinity toward. Despite coming from the same source, plant eidolons don't always look like leshies. Plant eidolons have forms that vary greatly and can look like almost any kind of plant creature in existence. Some even resemble plant creatures so strange they are impossible to identify.</p>\n<p><strong>Tradition</strong> primal</p>\n<p><strong>Traits</strong> eidolon, plant</p>\n<p><strong>Home Plane</strong> the Universe</p><hr /><p><strong>Size</strong> Medium</p>\n<p><strong>Suggested Attacks</strong> branch (bludgeoning), root (bludgeoning), vine (bludgeoning)</p>\n<p><strong>Eidolon Attributes</strong> Con +3, Int –1, Wis +1, Cha +0</p>\n<p><strong>Skills</strong> Nature, Survival</p>\n<p><strong>Senses</strong> low-light vision</p>\n<p><strong>Language</strong> Muan</p>\n<p><strong>Speed</strong> 25 feet</p><hr /><p><strong>Initial (1st)—@UUID[Compendium.pf2e.actionspf2e.Item.Tendril Strike]</strong> <span class=\"action-glyph\">1</span> (eidolon) Stretching to extend their body to its limits, your eidolon attacks a foe that would normally be beyond their reach. Your eidolon makes a melee unarmed Strike, increasing their reach by 5 feet for that Strike. If the unarmed attack has the disarm, shove, or trip trait, the eidolon can use the corresponding action instead of a Strike.</p>\n<p><strong>Symbiosis (7th)—Growing Vines</strong> Your eidolon's vines and branches lengthen even more. All your eidolon's melee unarmed attacks gain the reach trait.</p>\n<p><strong>Transcendence (17th)—@UUID[Compendium.pf2e.actionspf2e.Item.Field of Roots]</strong> <span class=\"action-glyph\">2</span> (eidolon) Your eidolon extends their roots underground to entangle and possibly damage all foes nearby. All enemies within your eidolon's reach take damage of the same type and amount as your eidolon's most damaging Strike, depending on their @Check[reflex|against:spell|options:area-effect,damaging-effect] saves against your spell DC. Any ongoing effects of the save last until the enemy either Escapes or leaves your eidolon's reach. After using Field of Roots, your eidolon is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] until they take an Interact action to detach from the ground; this also ends any remaining effects on enemies from Field of Roots.</p><hr /><p><strong>Critical Success</strong> The enemy is unaffected.</p>\n<p><strong>Success</strong> The enemy takes no damage, but takes a –10 foot circumstance penalty to its Speeds.</p>\n<p><strong>Failure</strong> The enemy takes half damage, takes a –10-foot circumstance penalty to its Speeds, and at the end of each of its turns, takes half damage again.</p>\n<p><strong>Critical Failure</strong> The enemy is immobilized, takes full damage, and at the end of each of its turns, takes full damage again.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.nature.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.survival.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.eidolon.tradition",
+                "value": "primal"
+            }
+        ],
+        "subfeatures": {
+            "languages": {
+                "granted": [
+                    "muan"
+                ],
+                "slots": 0
+            },
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "summoner-eidolon"
+            ],
+            "rarity": "common",
+            "value": [
+                "summoner"
+            ]
+        }
+    },
+    "type": "feat"
+}

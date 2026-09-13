@@ -1,0 +1,68 @@
+{
+    "_id": "hoEXGjNRjfVLAnua",
+    "img": "systems/sf2e/icons/equipment/other/red-syringe.webp",
+    "name": "Effect: Turbo-Mode Injector",
+    "system": {
+        "description": {
+            "value": "<p>You are Quickened and can use this extra action only to Stride or Strike. The damage of their claw Strike increases to 2d10+9 slashing but can not wield weapons or use items.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Adventure: Rescue on Raxil"
+        },
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.conditions.Item.Quickened"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "property": "dice-faces",
+                "selectors": [
+                    "claw-damage"
+                ],
+                "value": 10
+            },
+            {
+                "key": "DamageAlteration",
+                "property": "dice-number",
+                "selectors": [
+                    "claw-damage"
+                ],
+                "value": 1
+            },
+            {
+                "damageType": "slashing",
+                "key": "FlatModifier",
+                "selector": [
+                    "claw-damage"
+                ],
+                "value": 6
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

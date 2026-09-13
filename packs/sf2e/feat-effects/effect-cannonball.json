@@ -1,0 +1,196 @@
+{
+    "_id": "hi8MzgUdx532I1Gt",
+    "img": "icons/weapons/ammunition/bullet-ice-blue.webp",
+    "name": "Effect: Cannonball",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Cannonball]</p>\n<p>You can use a reaction to attempt a ranged Strike with the origin's body as an unarmed attack that deals 1d10 bludgeoning damage. This unarmed attack is in the brawling weapon group and has the agile, analog, brutal, and thrown (20 feet) traits. This unarmed attack gains the benefits of the origin's worn <em>hardlight handwraps</em>.</p>"
+        },
+        "duration": {
+            "expiry": "round-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.NoneOption",
+                        "value": "none"
+                    },
+                    {
+                        "label": "PF2E.Item.Physical.Grade.commercial",
+                        "value": "commercial"
+                    },
+                    {
+                        "label": "PF2E.Item.Physical.Grade.tactical",
+                        "value": "tactical"
+                    },
+                    {
+                        "label": "PF2E.Item.Physical.Grade.advanced",
+                        "value": "advanced"
+                    },
+                    {
+                        "label": "PF2E.Item.Physical.Grade.superior",
+                        "value": "superior"
+                    },
+                    {
+                        "label": "PF2E.Item.Physical.Grade.elite",
+                        "value": "elite"
+                    },
+                    {
+                        "label": "PF2E.Item.Physical.Grade.ultimate",
+                        "value": "ultimate"
+                    },
+                    {
+                        "label": "PF2E.Item.Physical.Grade.paragon",
+                        "value": "paragon"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Skittermander.Cannonball.ChoiceLabel",
+                "rollOption": "cannonball"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d10"
+                    }
+                },
+                "group": "brawling",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.Skittermander.Cannonball.AttackLabel",
+                "range": {
+                    "increment": 20
+                },
+                "slug": "cannonball",
+                "traits": [
+                    "agile",
+                    "analog",
+                    "brutal",
+                    "thrown",
+                    "unarmed"
+                ]
+            },
+            {
+                "definition": [
+                    "item:id:{item|id}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "cannonball:tactical",
+                            "cannonball:advanced"
+                        ]
+                    }
+                ],
+                "property": "weapon-traits",
+                "value": "tracking-1"
+            },
+            {
+                "definition": [
+                    "item:id:{item|id}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "cannonball:superior",
+                            "cannonball:elite"
+                        ]
+                    }
+                ],
+                "property": "weapon-traits",
+                "value": "tracking-2"
+            },
+            {
+                "definition": [
+                    "item:id:{item|id}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "cannonball:ultimate",
+                            "cannonball:paragon"
+                        ]
+                    }
+                ],
+                "property": "weapon-traits",
+                "value": "tracking-3"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "cannonball:advanced",
+                            "cannonball:superior"
+                        ]
+                    }
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "{item|id}-damage"
+                ],
+                "value": 1
+            },
+            {
+                "key": "DamageAlteration",
+                "predicate": [
+                    {
+                        "or": [
+                            "cannonball:elite",
+                            "cannonball:ultimate"
+                        ]
+                    }
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "{item|id}-damage"
+                ],
+                "value": 2
+            },
+            {
+                "key": "DamageAlteration",
+                "predicate": [
+                    "cannonball:paragon"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "{item|id}-damage"
+                ],
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

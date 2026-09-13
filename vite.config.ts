@@ -1,6 +1,6 @@
 import type { CompendiumUUID } from "@client/utils/helpers.d.mts";
 import type { ConditionSource } from "@item/base/data/index.ts";
-import { svelte as sveltePlugin } from "@sveltejs/vite-plugin-svelte";
+import { svelte as sveltePlugin, vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { execSync } from "child_process";
 import fs from "fs-extra";
 import { globSync } from "glob";
@@ -79,7 +79,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     const plugins = [
         checker({ typescript: true }),
         sveltePlugin({
-            preprocess: command === "serve" ? hmrPreprocess : undefined,
+            preprocess: command === "serve" ? [vitePreprocess(), hmrPreprocess] : vitePreprocess(),
         }),
     ];
     const packUUIDPattern = /Compendium\.pf2e\.[^\]]+/g;
@@ -174,7 +174,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                 name: "hmr-handler",
                 apply: "serve",
                 handleHotUpdate(context) {
-                    if (context.file.startsWith(outDir)) return;
+                    if (context.file.startsWith(path.resolve(outDir))) return;
                     if (context.file.endsWith("en.json")) {
                         const basePath = context.file.slice(context.file.indexOf("lang/"));
                         console.debug(`Updating lang file at ${basePath}`);
@@ -244,6 +244,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         publicDir: "static",
         define: {
             SYSTEM_ID: JSON.stringify(SYSTEM_ID),
+            SYSTEM_NAME: JSON.stringify(SYSTEM_ID === "pf2e" ? "PF2e" : "SF2e"),
             BUILD_MODE: JSON.stringify(buildMode),
             CONDITION_SOURCES: JSON.stringify(CONDITION_SOURCES),
             EN_JSON: JSON.stringify(EN_JSON),
@@ -297,8 +298,13 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             devSourcemap: buildMode === "development",
             preprocessorOptions: {
                 scss: {
-                    additionalData: (existing: string) => {
-                        return SYSTEM_ID === "sf2e" ? `${existing}\n@import "sf2e/index";` : existing;
+                    additionalData: (source: string, filename: string) => {
+                        // `sf2e/index` is system-specific styling, layered into the main stylesheet
+                        // entry only. Svelte components are system-agnostic and theme themselves
+                        // through CSS custom properties, so they never need it (and their <style> is
+                        // scoped, which would rewrite its selectors anyway).
+                        if (SYSTEM_ID !== "sf2e" || filename?.includes(".svelte")) return source;
+                        return `${source}\n@import "sf2e/index";`;
                     },
                 },
             },

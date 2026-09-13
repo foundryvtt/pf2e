@@ -4,10 +4,15 @@ import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, OtherTagsOnly } f
 import { ZeroToFour } from "@module/data.ts";
 import { sluggify } from "@util";
 
+/** Sluggify a lore name or slug, appending `-lore` unless the word is already present */
+function sluggifyLoreName(nameOrSlug: string): string {
+    const rawLoreSlug = sluggify(nameOrSlug);
+    return /\blore\b/.test(rawLoreSlug) ? rawLoreSlug : `${rawLoreSlug}-lore`;
+}
+
 class LorePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     override get slug(): string {
-        const rawLoreSlug = super.slug ?? sluggify(this.name);
-        return /\blore\b/.test(rawLoreSlug) ? rawLoreSlug : `${rawLoreSlug}-lore`;
+        return sluggifyLoreName(super.slug ?? this.name);
     }
 }
 
@@ -33,5 +38,5 @@ interface LoreSystemData extends Omit<LoreSystemSource, "description">, ItemSyst
 
 class LoreSheetPF2e extends ItemSheetPF2e<LorePF2e> {}
 
-export { LorePF2e, LoreSheetPF2e };
+export { LorePF2e, LoreSheetPF2e, sluggifyLoreName };
 export type { LoreSource, LoreSystemData };

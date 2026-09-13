@@ -1,0 +1,52 @@
+{
+    "_id": "8wbfex9Hr9N1AGO5",
+    "img": "icons/commodities/materials/feather-red.webp",
+    "name": "Effect: Balisse Feather",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Balisse Feather], @UUID[Compendium.pf2e.equipment-srd.Item.Balisse Feather (Greater)]</p>\n<p>Unless you have the holy trait, you take a –2 status penalty to AC and saving throws.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 12
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:trait:holy"
+                    }
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

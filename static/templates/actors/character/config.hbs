@@ -1,19 +1,15 @@
-<form autocomplete="off">
-    <div class="form-group">
-        <label>{{localize "PF2E.Actor.Creature.Configure.Alliance.Label"}}</label>
-        <select name="system.details.alliance">
-            {{#each alliances as |option|}}
-                <option value="{{option.value}}"{{#if option.selected}} selected="selected"{{/if}}>{{localize option.label}}</option>
-            {{/each}}
-        </select>
-        <p class="hint">{{localize "PF2E.Actor.Creature.Configure.Alliance.Hint"}}</p>
-    </div>
-    <div class="form-group">
-        <label>{{localize "PF2E.Actor.Character.Configure.ShowBasicUnarmed.Label"}}</label>
-        <input type="checkbox" name="{{concat "flags." systemId ".showBasicUnarmed"}}" {{checked showBasicUnarmed}} />
-        <p class="hint">{{{localize "PF2E.Actor.Character.Configure.ShowBasicUnarmed.Hint"}}}</p>
-    </div>
-    <button type="submit">
-        <i class="fa-solid fa-floppy-disk"></i> {{localize "SETTINGS.Save"}}
-    </button>
-</form>
+<div class="form-group">
+    <label for="{{rootId}}-show-basic-unarmed">
+        {{localize "PF2E.Actor.Character.Configure.ShowBasicUnarmed.Label"}}
+    </label>
+    <input
+        id="{{rootId}}-show-basic-unarmed"
+        type="checkbox"
+        name="{{concat "flags." systemId ".showBasicUnarmed"}}"
+        aria-describedby="{{rootId}}-show-basic-unarmed-hint"
+        {{checked showBasicUnarmed}}
+    />
+    <p id="{{rootId}}-show-basic-unarmed-hint" class="hint">
+        {{localize "PF2E.Actor.Character.Configure.ShowBasicUnarmed.Hint"}}
+    </p>
+</div>

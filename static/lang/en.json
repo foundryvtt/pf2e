@@ -154,6 +154,7 @@
             "Character": {
                 "ABCPicker": {
                     "SearchPlaceholder": "Search {items}",
+                    "SearchResults": "Matching {items}: {count}",
                     "Title": "{type} Selection",
                     "Tooltip": {
                         "ConfirmSelection": "Confirm Selection",
@@ -249,7 +250,8 @@
                     "MissingResource": "You have insufficient resources to complete crafting.",
                     "PrepareHint": "Select the items that you want to prepare ({remaining} remaining)",
                     "RemainingSlots": "Empty Slot ({remaining} remaining)",
-                    "Search": "Search Formulas"
+                    "Search": "Search Formulas",
+                    "SearchResults": "Matching formulas: {count}"
                 },
                 "CreateFeat": "Create Feat",
                 "EmptyLabel": "Empty",
@@ -346,8 +348,10 @@
                     "anugobu": "Anugobu",
                     "arboreal": "Arboreal",
                     "arcadian": "Arcadian",
+                    "atraxid": "Atraxid",
                     "azlanti": "Azlanti",
                     "bantridi": "Bantridi",
+                    "binnaquid": "Binnaquid",
                     "boggard": "Boggard",
                     "brenneri": "Brenneri",
                     "brethedan": "Brethedan",
@@ -365,6 +369,7 @@
                     "DetailsPlaceholder": "Caveats, other unusual specifics",
                     "diabolic": "Diabolic",
                     "diasporan": "Diasporan",
+                    "dorjosh": "Dorjosh",
                     "draconic": "Draconic",
                     "drooni": "Drooni",
                     "dwarven": "Dwarven",
@@ -385,6 +390,7 @@
                     "garundi": "Garundi",
                     "gfolian": "G'folian",
                     "girtablilu": "Girtablilu",
+                    "gnarefuroid": "Gnarefuroid",
                     "gnomish": "Gnomish",
                     "goblin": "Goblin",
                     "goloma": "Goloma",
@@ -414,11 +420,15 @@
                     "kitsune": "Kitsune",
                     "kothama": "Kothama",
                     "kovintal": "Kovintal",
+                    "krethiskarian": "Krethiskarian",
                     "kucharn": "Kucharn",
+                    "kuxoran": "Kuxoran",
                     "lashunta": "Lashunta",
+                    "lazelan": "Lazelan",
                     "lirgeni": "Lirgeni",
                     "madrosarai": "Madrosarai",
                     "mahwek": "Mahwek",
+                    "maraquoi": "Maraquoi",
                     "maratan": "Maratan",
                     "migo": "Mi-Go",
                     "minaten": "Minatan",
@@ -500,11 +510,13 @@
                     "vishkanyan": "Vishkanya",
                     "vlaka": "Vlaka",
                     "vudrani": "Vudrani",
+                    "vulkari": "Vulkari",
                     "wayang": "Wayang",
                     "wildsong": "Wildsong",
                     "worlanisi": "Worlanisi",
                     "wyrwood": "Wyrwood",
                     "xanmba": "Xanmba",
+                    "xofirthian": "Xofirthian",
                     "yaksha": "Yaksha",
                     "yithian": "Yithian",
                     "ysoki": "Ysoki"
@@ -559,9 +571,14 @@
                     }
                 },
                 "SpellPreparation": {
-                    "Hint": "To prepare a spell, drag one from this list to a slot on the actor sheet.",
-                    "HintFlexible": "To prepare a spell, enable it here. To prepare a cantrip, drag one from this list to a slot on the actor sheet.",
-                    "Search": "Search Spells",
+                    "CantripPrepared": "Cantrips only need to be prepared once",
+                    "EmptyGroup": "No spells known",
+                    "Hint": "To prepare a spell, use its prepare button or drag it to a slot on the actor sheet.",
+                    "HintFlexible": "To prepare a spell, enable it here. To prepare a cantrip, use its prepare button or drag it to a slot on the actor sheet.",
+                    "NoFreeSlots": "No free slots of an eligible rank",
+                    "NotPrepared": "Not prepared",
+                    "Prepare": "Prepare Spell",
+                    "RemovePreparation": "Remove Preparation",
                     "Title": "{actor}: Spell Preparation"
                 },
                 "Spellcasting": {
@@ -654,7 +671,8 @@
                     "Fly": "Fly",
                     "Label": "{type} Speed",
                     "Land": "Land",
-                    "Swim": "Swim"
+                    "Swim": "Swim",
+                    "Travel": "Travel"
                 }
             },
             "NPC": {
@@ -664,9 +682,10 @@
                 },
                 "Configure": {
                     "Lootable": {
+                        "AutomationSettings": "Automation Settings",
                         "DefaultLootable": "Global Default (Lootable)",
                         "DefaultNotLootable": "Global Default (Not Lootable)",
-                        "Hint": "Set whether this NPC becomes lootable by players upon its demise. The global default can be configured in <a>Automation Settings</a>.",
+                        "Hint": "Set whether this NPC becomes lootable by players upon its demise. The global default can be configured in {settings}.",
                         "Label": "Lootable?",
                         "Lootable": "Lootable",
                         "NotLootable": "Not Lootable"
@@ -699,13 +718,16 @@
                 "SimpleSheet": "Simple NPC Sheet",
                 "SpecialSkill": "+{mod} {label}",
                 "SkillsEditor": {
+                    "AddLore": "Add Lore",
                     "AddSpecial": "Add Special",
                     "Error": {
                         "PredicateArray": "Predicate must be an array"
                     },
+                    "LoreAlreadyExists": "A lore with this name already exists",
                     "LorePlaceholder": "Carpentry Lore",
                     "Note": "Note",
                     "Predicate": "Predicate",
+                    "RemoveSpecial": "Remove Special",
                     "Special": "Special",
                     "Title": "Skills Editor ({actor})"
                 },
@@ -875,6 +897,7 @@
         "ArmorPropertyRuneAssisting": "Assisting",
         "ArmorPropertyRuneBitter": "Bitter",
         "ArmorPropertyRuneColdResistant": "Cold-Resistant",
+        "ArmorPropertyRuneConvincing": "Convincing",
         "ArmorPropertyRuneDeathless": "Deathless",
         "ArmorPropertyRuneElectricityResistant": "Electricity-Resistant",
         "ArmorPropertyRuneEnergyAdaptive": "Energy Adaptive",
@@ -886,16 +909,19 @@
         "ArmorPropertyRuneGreaterAcidResistant": "Greater Acid-Resistant",
         "ArmorPropertyRuneGreaterAdvancing": "Greater Advancing",
         "ArmorPropertyRuneGreaterColdResistant": "Greater Cold-Resistant",
+        "ArmorPropertyRuneGreaterConvincing": "Greater Convincing",
         "ArmorPropertyRuneGreaterDread": "Greater Dread",
         "ArmorPropertyRuneGreaterElectricityResistant": "Greater Electricity-Resistant",
         "ArmorPropertyRuneGreaterFireResistant": "Greater Fire-Resistant",
         "ArmorPropertyRuneGreaterFortification": "Greater Fortification",
         "ArmorPropertyRuneGreaterInvisibility": "Greater Invisibility",
+        "ArmorPropertyRuneGreaterMoonweave": "Greater Moonweave",
         "ArmorPropertyRuneGreaterQuenching": "Greater Quenching",
         "ArmorPropertyRuneGreaterReady": "Greater Ready",
         "ArmorPropertyRuneGreaterShadow": "Greater Shadow",
         "ArmorPropertyRuneGreaterSlick": "Greater Slick",
         "ArmorPropertyRuneGreaterStanching": "Greater Stanching",
+        "ArmorPropertyRuneGreaterSunweave": "Greater Sunweave",
         "ArmorPropertyRuneGreaterSwallowSpike": "Greater Swallow-Spike",
         "ArmorPropertyRuneGreaterWinged": "Greater Winged",
         "ArmorPropertyRuneImmovable": "Immovable",
@@ -903,29 +929,39 @@
         "ArmorPropertyRuneInvisibility": "Invisibility",
         "ArmorPropertyRuneLesserDread": "Lesser Dread",
         "ArmorPropertyRuneMagnetizing": "Magnetizing",
+        "ArmorPropertyRuneMajorConvincing": "Major Convincing",
+        "ArmorPropertyRuneMajorMoonweave": "Major Moonweave",
         "ArmorPropertyRuneMajorQuenching": "Major Quenching",
         "ArmorPropertyRuneMajorShadow": "Major Shadow",
         "ArmorPropertyRuneMajorSlick": "Major Slick",
         "ArmorPropertyRuneMajorStanching": "Major Stanching",
+        "ArmorPropertyRuneMajorSunweave": "Major Sunweave",
         "ArmorPropertyRuneMajorSwallowSpike": "Major Swallow-Spike",
         "ArmorPropertyRuneMalleable": "Malleable",
         "ArmorPropertyRuneMisleading": "Misleading",
+        "ArmorPropertyRuneMobile": "Mobile",
         "ArmorPropertyRuneModerateDread": "Moderate Dread",
+        "ArmorPropertyRuneMoonweave": "Moonweave",
         "ArmorPropertyRunePortable": "Portable",
         "ArmorPropertyRuneQuenching": "Quenching",
         "ArmorPropertyRuneRaiment": "Raiment",
         "ArmorPropertyRuneReady": "Ready",
         "ArmorPropertyRuneRockBraced": "Rock-Braced",
+        "ArmorPropertyRuneSafeguarding": "Safeguarding",
+        "ArmorPropertyRuneSelfSealing": "Self-Sealing",
         "ArmorPropertyRuneShadow": "Shadow",
+        "ArmorPropertyRuneSidestepping": "Sidestepping",
         "ArmorPropertyRuneSinisterKnight": "Sinister Knight",
         "ArmorPropertyRuneSizeChanging": "Size-Changing",
         "ArmorPropertyRuneSlick": "Slick",
         "ArmorPropertyRuneSoaring": "Soaring",
         "ArmorPropertyRuneSpellwatch": "Spellwatch",
         "ArmorPropertyRuneStanching": "Stanching",
+        "ArmorPropertyRuneSunweave": "Sunweave",
         "ArmorPropertyRuneSwallowSpike": "Swallow-Spike",
         "ArmorPropertyRuneTrueQuenching": "True Quenching",
         "ArmorPropertyRuneTrueStanching": "True Stanching",
+        "ArmorPropertyRuneUnnerving": "Unnerving",
         "ArmorPropertyRuneWinged": "Winged",
         "ArmorResilientRune": "Resilient",
         "ArmorSpeedLabel": "Speed Penalty",
@@ -1019,6 +1055,8 @@
             "DiceRollOptionsHint": "Dice and modifier roll options are used when predicating DamageAlteration rule elements.",
             "FlatCheckNoModifiers": "Flat checks never include any modifiers, bonuses, or penalties.",
             "RollOptions": "Roll Options",
+            "Search": "Search Roll Options",
+            "SearchResults": "Matching roll options: {count}",
             "Select": "Inspect Roll",
             "Title": "Roll Inspector"
         },
@@ -1147,11 +1185,13 @@
         },
         "CompendiumMigrationStatus": {
             "Document": "Document",
+            "FailedDocuments": "Failed Documents",
             "Foundry": "Foundry",
             "FoundryOld": "0.7 or older",
             "Invalid": "Invalid",
             "LockedTooltip": "Unable to migrate — compendium is locked",
             "MigrateCompendium": "Migrate Compendium",
+            "OutOfDate": "Out of Date",
             "Schema": "Schema",
             "Size": "Size",
             "Title": "Migration Status",
@@ -1606,6 +1646,7 @@
                 "XPBudget": "XP Budget",
                 "XPNeeded": "XP Needed"
             },
+            "CalculateXP": "Calculate XP",
             "CreatureXPAndRole": {
                 "CreatureLevel": "Creature Level",
                 "CreatureLevels": {
@@ -1636,10 +1677,12 @@
                     }
                 },
                 "Budget": "Budget: {spent}/{max} XP (Party Level {partyLevel})",
+                "PartySize": "Party Size: {size}",
                 "Threat": "Threat: <threat>{threat}</threat>"
             },
             "NoActiveEncounter": "There is no active encounter.",
             "NoTokenInScene": "{actor} has no token in the scene.",
+            "PartyInformation": "Party Information",
             "RevealName": "Reveal Name",
             "XP": "XP"
         },
@@ -1674,6 +1717,7 @@
             "ItemNotFoundByUUID": "Item with UUID of \"{uuid}\" not found.",
             "MinimumProfLevelSetByFeatures": "The selected proficiency is below proficiency set by features.",
             "NoCreatureTokenSelected": "Select at least one token associated with a creature.",
+            "NoOppositionTokenSelected": "Select at least one opposition and/or hazard token, and optionally all PC tokens.",
             "NoPCTokenSelected": "Select at least one token associated with a PC.",
             "NoTokenSelected": "Select at least one token.",
             "NoUpdatePermission": "You lack permission to update this actor.",
@@ -1802,8 +1846,8 @@
             "Base": "Base: {formula}"
         },
         "InlineTemplateErrors": {
+            "DistanceInvalid": "Error in @Template: distance {distance} is not valid",
             "DistanceMissing": "Error in @Template: distance parameter is mandatory",
-            "DistanceNoNumber": "Error in @Template: dimension {distance} is not a number",
             "TypeMissing": "Error in @Template: type parameter is mandatory",
             "TypeUnsupported": "Error in @Template: type {type} is not supported",
             "WidthNoNumber": "Error in @Template: width {width} is not a number",
@@ -2637,6 +2681,7 @@
                 "LevelN": "Feat {level}",
                 "OnlyLevel1": "Must be taken at level 1",
                 "Plural": "Feats",
+                "PublicationSource": "Source: {publication}",
                 "Subfeatures": {
                     "KeyAbilityOptions": {
                         "Label": "Key Attribute Options",
@@ -3282,17 +3327,27 @@
             "OutsideSchemaRange": "The specified range is outside the system's schema version range (between {minimum} and {maximum}).",
             "Running": "Running system migration ...",
             "Starting": "Applying PF2E System Migration to version {version}. Please be patient and do not close your game or shut down your server.",
+            "StillOutdated": "Migration finished, but {count} documents remain on an older schema",
             "Summary": {
+                "Complete": "Complete",
                 "Documents": "Documents",
-                "HelpResources": "An unexpected error was encountered while migrating some actors or items. If you would like further assistance, feel free to report an issue at the <a href=\"https://github.com/foundryvtt/pf2e/issues\">system repository</a> or visit us on <a href=\"https://discord.gg/SajryVzCyf\">Discord</a> for community support.",
+                "Download": "Download",
+                "HelpResources": "An unexpected error was encountered while migrating some actors or items. If you would like further assistance, feel free to report an issue at the <a href=\"https://github.com/foundryvtt/pf2e/issues\">system repository</a> or visit us on <a href=\"https://discord.gg/pf2e\">Discord</a> for community support. Use the Download button to save a report you can attach.",
+                "Incomplete": "Incomplete",
                 "Migrated": "Migrated",
                 "Remigrate": "Remigrate",
+                "RemigrateFailed": "An error interrupted the remigration: see the console (F12) for details.",
+                "ReportDownloaded": "Migration report downloaded.",
+                "Status": "Status",
                 "Title": "Migration Summary",
                 "Total": "Total",
                 "Troubleshoot": {
                     "Hint": "Here you can run a remigration, which will attempt to automatically fix issues with actors and items.",
                     "Title": "System Troubleshooting"
-                }
+                },
+                "UnmigratedDocuments": "Unmigrated Documents",
+                "UnmigratedDocumentsHint": "Click a document to open it. Hover over one marked with a warning icon to see why it failed to migrate.",
+                "UnmigratedDocumentsHintRemigrate": "Click a document to open it, or remigrate to gather details on why documents failed to migrate."
             },
             "Troubleshooting": "Troubleshooting",
             "WorldNotReady": "Game world not ready: try again in a few seconds."
@@ -3315,6 +3370,7 @@
         "ModifiersTitle": "Modifiers",
         "MultipleAttackPenalty": "Multiple Attack Penalty",
         "MysticStrikes": "Mystical Strikes",
+        "NameLabel": "Name",
         "NPC": {
             "Abilities": {
                 "Glossary": {
@@ -3570,6 +3626,8 @@
         "PreciousMaterialSovereignSteel": "Sovereign Steel",
         "PreciousMaterialSovereignSteelDescription": "Created by Black Sovereign Kevoth-Kul, this unique alloy of cold iron and the skymetal noqual can provide protection from magical assault. The process of cold-forging the two materials together is quite complicated and precise. Characters in search of sovereign steel weapons and armor will almost assuredly have to travel to Starfall to procure gear made from this rare alloy. While some believe it possible to craft shields of sovereign steel as well, in one of his fits, Kevoth-Kul yelled that he had no use for them and banned anyone from making such a thing. So far, his smiths have been too afraid to confirm whether or not it was a joke. All sovereign steel items (including weapon and armor below) have a +4 circumstance bonus on saves against magic that the item makes, and grant their bonus to saves the owner makes specifically to protect the item from magic (such as against the rusting grasp spell).",
         "PreciousMaterialStandardGrade": "Standard-Grade",
+        "PreciousMaterialThroneglass": "Throneglass",
+        "PreciousMaterialThroneglassDescription": "Throneglass is an incredibly rare resource created during the violence of Earthfall 10,000 years ago, when the impact of falling stars enhanced certain shattered panes of green glass built into the architecture of important buildings in Azlant—particularly the Imperial Palace. As a material, throneglass is as strong as steel, but the ancient methods of crafting it into weapons have long been lost. Low-grade throneglass offers no additional benefit to a weapon crafted from it other than the cosmetic and intrinsic value of the precious material, but standard-grade and high-grade throneglass can retain psychic power and then release it through a strike. When a creature wielding a standard-grade or high-grade throneglass weapon succeeds at a saving throw against a mental effect, the weapon stores some of that energy and holds it for a future attack. A standard-grade weapon can hold this energy for 1 round before it dissipates harmlessly, while a high-grade one can hold the energy for 1 minute. The next time you Strike a creature with a throneglass weapon with stored energy, the creature struck must attempt a Will save (DC 24 for standard-grade throneglass, or DC 35 for high-grade throneglass) to avoid becoming @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1} for 1 round (or @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 2} on a critical failure).",
         "PreciousMaterialWarpglass": "Warpglass",
         "PreciousMaterialWarpglassDescription": "This bizarre substance is fashioned from the raw, chaotic quintessence of the Maelstrom. It can be fashioned into weapons and items, but is too unstable to make into useful armor or shields. Raw warpglass is an opalescent glassy material with surprising strength. When worked, it changes its appearance-though not its properties-to appear as random striations of other metals and types of stone.",
         "PreparationTypeInnate": "Innate",
@@ -4118,6 +4176,7 @@
                     "Hint": "Reset this world's time elapsed time to zero.",
                     "Label": "Reset World Date/Time"
                 },
+                "TheSun": "The Sun",
                 "TimeConventions": {
                     "12": "12-Hour",
                     "24": "24-Hour"
@@ -4126,6 +4185,14 @@
                     "dateTheme": {
                         "hint": "Set the theme of the World Clock application.",
                         "label": "Date Theme"
+                    },
+                    "dawnTime": {
+                        "hint": "The start of the morning twilight",
+                        "label": "Time of Dawn"
+                    },
+                    "duskTime": {
+                        "hint": "The end of the evening twilight",
+                        "label": "Time of Dusk"
                     },
                     "playersCanView": {
                         "hint": "Set whether players can view the World Clock.",
@@ -4195,7 +4262,7 @@
         },
         "ScoreTitle": "Score",
         "SelectLabel": "Select",
-        "SellAllTreasureQuestion": "Convert all treasure items into coins",
+        "SellAllTreasureQuestion": "Convert all treasure items into coins?",
         "SellAllTreasureTitle": "Sell All Treasure",
         "SellItemConfirmHeader": "Sell Confirmation",
         "SellItemQuestion": "Are you sure you want to sell {item}?",
@@ -4250,6 +4317,12 @@
         "SpellLevelBase": "Base: {level}",
         "SpellLevelHeightened": "Heightened: +{heightened}",
         "SpellLevelLabel": "Spell Rank",
+        "SpellList": {
+            "Search": "Search Spells",
+            "SearchResults": "Matching spells: {count}",
+            "SortAscending": "sorted ascending",
+            "SortDescending": "sorted descending"
+        },
         "SpellPreparedLabel": "Prepared",
         "SpellRequirementsLabel": "Requirements",
         "SpellScalingInterval": {
@@ -4438,6 +4511,7 @@
                 },
                 "MenuLabel": "Request Trade"
             },
+            "SearchResults": "Matching items: {count}",
             "Sending": "Sending: {list}",
             "Success": {
                 "Finished": "{self} has finished trading with {trader}.",
@@ -4507,6 +4581,7 @@
         "TraitAmphibious": "Amphibious",
         "TraitAnadi": "Anadi",
         "TraitAnalog": "Analog",
+        "TraitAncestry": "Ancestry",
         "TraitAnchoring": "Anchoring",
         "TraitAndroid": "Android",
         "TraitAngel": "Angel",
@@ -4554,6 +4629,7 @@
         "TraitAstrazoan": "Astrazoan",
         "TraitAsura": "Asura",
         "TraitAthamaru": "Athamaru",
+        "TraitAtraxid": "Atraxid",
         "TraitAttached": "Attached",
         "TraitAttachedToAThrownWeapon": "Attached to a Thrown Weapon",
         "TraitAttachedToCrossbowOrFirearm": "Attached to Crossbow or Firearm",
@@ -4583,6 +4659,7 @@
         "TraitBarding": "Barding",
         "TraitBeast": "Beast",
         "TraitBeastkin": "Beastkin",
+        "TraitBinnaquid": "Binnaquid",
         "TraitBiotech": "Biotech",
         "TraitBleed": "Bleed",
         "TraitBlight": "Blight",
@@ -4922,6 +4999,7 @@
         "TraitDescriptionGhul": "Greedy and gluttonous undead originally formed from genie.",
         "TraitDescriptionGiant": "Giants are massive humanoid creatures.",
         "TraitDescriptionGirtablilu": "Girtablilus have humanoid upper bodies and the lower bodies of massive scorpions.",
+        "TraitDescriptionGnarefuroid": "A creature with this trait is a member of the gnarefuroid ancestry. Gnarefuroids are aberrant collectors of trash who thrive clinging to the station's exterior. An ability with this trait can be used or selected only by gnarefuroids.",
         "TraitDescriptionGnome": "A creature with this trait is a member of the gnome ancestry. Gnomes are small people skilled at magic who seek out new experiences and usually have low-light vision. An ability with this trait can be used or selected only by gnomes. A weapon with this trait is created and used by gnomes.",
         "TraitDescriptionGoblin": "A creature with this trait is a small, frantic goblinoid. Goblins tend to have darkvision. An ability with this trait can be used or chosen only by goblins. A weapon with this trait is created and used by goblins.",
         "TraitDescriptionGoloma": "Insular humanoids that bear countless eyes.",
@@ -4951,6 +5029,7 @@
         "TraitDescriptionIjtikri": "A creature with this trait is a member of the ijtikri ancestry. They are air-breathing squid-like aberrations with an oblong hardened head and numerous tentacular arms. An ability with this trait can be used or selected only by ijtikris.",
         "TraitDescriptionIkon": "An item with the ikon trait is a special item provided or created by an exemplar's divinity that is so tied to that exemplar that it can serve as a sacred vessel for their might. You gain three ikons at first level. Each ikon has a passive immanence ability and an activated transcendence ability. A feat with the ikon trait imbues one of your ikons with further capabilities. Whenever you gain a feat with the ikon trait, choose which of your ikons gains that ability; if you have multiple ikons that meet the feat's usage requirements, you can take the feat multiple times to apply its effects to another one of your ikons. These feats list what ikon they can be imbued into, and any number of them can be imbued into a single ikon.",
         "TraitDescriptionIllusion": "Effects and magic items with this trait involve false sensory stimuli.",
+        "TraitDescriptionImpossible": "All impossible spells have the impossible trait, which labels them as spells that can be cast only once in a creature's existence. After casting a spell with the impossible trait, the same creature can't cast any spell with the impossible trait ever again. An hour after casting the spell, the caster starts experiencing the consequences detailed under the spell's lethologic mark entry. The entry also includes how the effects of the mark can be healed. Spells with this trait are also more difficult to counteract. Any counteract check against the spell gets an outcome one degree of success worse than was rolled, and any effect that would automatically counteract the spell fails. Spellshape effects cannot be applied to impossible spells.",
         "TraitDescriptionImpulse": "The primary magical actions kineticists use are called impulses. You can use an impulse only if your kinetic aura is active and channeling that element, and only if you have a hand free to shape the elemental flow. The impulse trait means the action has the concentrate trait unless another ability changes this. If an impulse allows you to choose an element, you can choose any element you're channeling, and the impulse gains that element's trait.",
         "TraitDescriptionIncapacitation": "An ability with this trait can take a character completely out of the fight or even kill them, and it's harder to use on a more powerful character. If a spell has the incapacitation trait, any creature of more than twice the spell's rank treats the result of their check to prevent being incapacitated by the spell as one degree of success better, or the result of any check the spellcaster made to incapacitate them as one degree of success worse. If any other effect has the incapacitation trait, a creature of higher level than the item, creature, or hazard generating the effect gains the same benefits.",
         "TraitDescriptionIncarnate": "A spell with the incarnate trait is similar in theme to spells that summon creatures, but it doesn't conjure a minion with the summoned trait. Instead, when summoned, the incarnate creature takes its Arrive action when you finish Casting the Spell. At the end of your next turn, the incarnate creature can either Step, Stride, or take the action for another movement type it has (such as Climb or Burrow), and then takes its Depart action. The spell then ends. The names of specific Arrive and Depart actions are listed in italics after the word “Arrive” or “Depart” respectively, along with any traits. A creature summoned by an incarnate spell acts in your interests, directs its effects away from you and your allies as much as possible, and might listen to your requests, but ultimately makes its own decisions. If the spell indicates that the incarnate makes a decision, the GM determines what the incarnate would do. It might even become more inclined to do precisely as you wish over multiple summonings. The incarnate is not fully a creature. It can't take any other actions, nor can it be targeted or harmed by Strikes, spells, or other effects unless they would be able to target or end a spell effect (such as dispel magic). It has a size for the purposes of determining its placement for effects, but it doesn't block movement. If applicable, its effects use your spell DCs and spell attack roll modifier.",
@@ -4969,6 +5048,7 @@
         "TraitDescriptionInventor": "This indicates abilities from the inventor class.",
         "TraitDescriptionInvested": "A character can invest only 10 magical items that have the invested trait. None of the magical effects of the item apply if the character hasn't invested it, nor can it be activated, though the character still gains any normal benefits from wearing the physical item (like a hat keeping rain off their head).",
         "TraitDescriptionInvestigator": "This indicates abilities from the investigator class.",
+        "TraitDescriptionInvocation": "An invocation action allows a runesmith to surge power through their rune by uttering its true name. Invocation requires you to be able to speak clearly in a strong voice and requires that you be within 30 feet of the target rune or runes unless another ability changes this. These actions include the Invoke Rune action, which makes the rune's invocation take place, then causes the rune to fade away. Using Invoke Rune normally allows you to invoke two runes, but other abilities that include the Invoke Rune action often change that number or the specific runes you can invoke.",
         "TraitDescriptionIzalguun": "A creature with this trait is a member of the izalguun ancestry. They are large, six-limbed isolationist humanoids capable of adopting a bipedal or quadrupedal stance. An ability with this trait can be used or selected only by izalguuns.",
         "TraitDescriptionJousting": "The weapon is suited for mounted combat with a harness or similar means. When mounted, if you moved at least 10 feet on the action before your attack, add a circumstance bonus to damage for that attack equal to the number of damage dice for the weapon. In addition, while mounted, you can wield the weapon in one hand, changing the damage die to the listed value.",
         "TraitDescriptionKami": "Kami are spirits of the Material Plane that bond with a specific object or place.",
@@ -5025,13 +5105,15 @@
         "TraitDescriptionMutant": "The monster has mutated or evolved, granting it unusual benefits, drawbacks, or both.",
         "TraitDescriptionMythic": "Options with this trait grant or utilize mythic power. Feats with the mythic trait can only be taken by mythic characters, who are typically characters with a mythic Calling.</p><p>Monsters with the mythic trait have access to a pool of Mythic Points and are particularly strong for creatures of their level. Many mythic monsters are either resistant or entirely immune to attacks from non-mythic creatures and weapons.</p><p>Spells with the mythic trait require the expenditure of a Mythic Point in order to be cast, and items with the mythic trait require the expenditure of a Mythic Point in order to use their activated abilities.</p><p>Weapons with the mythic trait overcome the resistances and immunities of mythic monsters.",
         "TraitDescriptionNagaji": "A traditionalist ancestry with reptilian features and serpentine heads.",
+        "TraitDescriptionNecromancer": "This indicates abilities from the necromancer class.",
         "TraitDescriptionNephilim": "A creature with this trait has the nephilim versatile heritage. Nephilim are planar scions descended from immortal beings from other planes. An ability with this trait can be used or selected only by nephilim.",
         "TraitDescriptionNightmare": "Nightmare hazards are unique to Leng. In many ways, nightmare hazards resemble a haunt, and the dire truth might not reveal itself to potential victims until they discover that attempts to disable it through exorcism are ineffective.",
-        "TraitDescriptionNindoru": "Nindorus are chaotic evil fiends that rise from corruptions to the cycle of reincarnating souls and live on the Universe. Although they often have elements in their appearance that make them seem undead, they're actually living beings. Most nindorus have darkvision, are immune to death effects, have weakness to silver, and possess the power to manifest objects or creatures from their thoughts.",
+        "TraitDescriptionNindoru": "Nindorus are unholy fiends who rise from corruptions to the cycle of reincarnating souls and live within the Universe. Although they often have elements in their appearance that make them seem undead, they're actually living beings. Most nindorus have darkvision, are immune to death effects, have weakness to silver, and possess the power to manifest objects or creatures from their thoughts.",
         "TraitDescriptionNoisy": "This armor is loud and likely to alert others to your presence when you're using the Avoid Notice exploration activity. The armor's check penalty applies to Stealth checks even if you meet the required Strength score.",
         "TraitDescriptionNone": "This trait has no description.",
         "TraitDescriptionNonlethal": "Attacks with this weapon are nonlethal, and are used to knock creatures unconscious instead of kill them. You can use a nonlethal weapon to make a lethal attack with a -2 circumstance penalty.",
         "TraitDescriptionNovian": "A creature with this trait is a member of the novian ancestry. They are tiny floating suns born from the death of a star who emit powerful gravitational fields. An ability with this trait can be used or selected only by novians.",
+        "TraitDescriptionNuar": "A creature with this trait is a member of the nuar ancestry. Nuars are bovine humanoids with mysterious origins. An ability with this trait can be used or selected only by nuars.",
         "TraitDescriptionNymph": "This family of beautiful fey creatures has strong ties to natural locations.",
         "TraitDescriptionOath": "Oaths add an additional tenet to your code. You can usually have only one feat with this trait.",
         "TraitDescriptionOccult": "This magic comes from the occult tradition, calling upon bizarre and ephemeral mysteries. Anything with this trait is magical. A creature with this trait is primarily constituted of or has a strong connection to occult magic.",
@@ -5104,6 +5186,7 @@
         "TraitDescriptionRetractable": "This shield can collapse into a smaller form attached to an armguard, gauntlet, glove, or jewelry for ease of travel and to free up hands. You can use an Interact action to deploy or retract the shield. You can't Raise a Shield if the shield is retracted. While the shield is deployed, it has the compact trait.",
         "TraitDescriptionRevelation": "Effects with this trait see things as they truly are.",
         "TraitDescriptionRogue": "This indicates abilities from the rogue class.",
+        "TraitDescriptionRunesmith": "This indicates abilities from the runesmith class.",
         "TraitDescriptionRyphorian": "A creature with this trait is a member of the ryphorian ancestry. They are trimorphic elf-like humanoids with exceptional hearing whose appearance changes with the seasons. An ability with this trait can be used or selected only by ryphorians.",
         "TraitDescriptionSaggorak": "Ancient dwarven blacksmiths in Saggorak designed a series of spectacularly powerful runes. Only someone with legendary proficiency in Crafting, or a well-versed dwarven crafter from the city of Kovlar, can apply, transfer, or remove a rune with the Saggorak trait. Because of their considerable power, all Saggorak runes take up two property rune slots, and consequently they can be applied only to armor and weapons with at least a +2 potency rune.",
         "TraitDescriptionSahkil": "Sahkils are fiends that delight in spreading fear and unease among mortal creatures. They typically have darkvision, immunity to fear, and weakness to good.",
@@ -5178,6 +5261,7 @@
         "TraitDescriptionTethered": "This weapon is attached to a length of rope or chain that allows you to retrieve it after it has left your hand. If you have a free hand (including if you've just thrown a two-handed tethered weapon and have a hand holding nothing but the weapon's tether), you can use an Interact action to pull the weapon back into your grasp after you have thrown it as a ranged attack or after it has been disarmed (unless it's being held by another creature).",
         "TraitDescriptionThaumaturge": "This indicates abilities from the thaumaturge class.",
         "TraitDescriptionThought": "Weapons with this trait are living creatures that can be communicated with using telepathy. When you wield this weapon and are capable of communicating with it, you can ignore any of the other traits the weapon normally has; this only applies to the other traits listed in the weapon entry, not traits the weapon or actions receive from the use of other abilities or effects. If you can communicate with this weapon, your proficiency with this weapon is equal to your proficiency with simple weapons.",
+        "TraitDescriptionThrall": "The mindless undead you can create as a necromancer are called thralls. Spells or abilities that create thralls have the thrall trait.",
         "TraitDescriptionThrown": "You can throw this weapon as a ranged attack. A thrown weapon adds your Strength modifier to damage just like a melee weapon does. When this trait appears on a melee weapon, it also includes the range increment.",
         "TraitDescriptionTime": "Time creatures are natives of the Dimension of Time. They don't age, and while some might be driven by supernatural hungers, they don't need to eat or drink to survive. They can survive the basic environmental effects of the Dimension of Time.",
         "TraitDescriptionTitan": "Titans are enormous, primordial creatures of neargodlike power who predate the mortal races.",
@@ -5219,6 +5303,7 @@
         "TraitDescriptionVitality": "Effects with this trait heal living creatures with energy from the Forge of Creation, deal vitality energy damage to undead, or manipulate vitality energy.",
         "TraitDescriptionVoid": "Effects with this trait heal undead creatures with void energy, deal void damage to living creatures, or manipulate void energy.",
         "TraitDescriptionVolley": "This ranged weapon is less effective at close distances. Your attacks against targets that are at a distance within the range listed take a -2 penalty.",
+        "TraitDescriptionVulkarisu": "Vulkarisu are intelligent, bipedal humanoids that look like a mix between a fox and a squirrel.",
         "TraitDescriptionWand": "A wand contains a single spell which you can cast once per day.",
         "TraitDescriptionWandering": "Wandering identifies animist feats attuned to particular types of apparitions. These feats require you to have attuned to an apparition who matches their prerequisites when you select them, and represent knowledge and ability pulled from that specific bond. When you make your daily preparations, you can retrain any wandering feat you know for any other wandering feat available at the level you took the exchanged feat (including lower-level wandering feats, as usual). You must meet all the new feat's other prerequisites.",
         "TraitDescriptionWater": "Effects with the water trait either manipulate or conjure water. Those that manipulate water have no effect in an area without water. Creatures with this trait consist primarily of water or have a connection to magical water.",
@@ -5358,6 +5443,7 @@
         "TraitGiant": "Giant",
         "TraitGigas": "Gigas",
         "TraitGirtablilu": "Girtablilu",
+        "TraitGnarefuroid": "Gnarefuroid",
         "TraitGnome": "Gnome",
         "TraitGoblin": "Goblin",
         "TraitGolem": "Golem",
@@ -5377,6 +5463,7 @@
         "TraitHalfling": "Halfling",
         "TraitHampering": "Hampering",
         "TraitHantu": "Hantu",
+        "TraitHardor": "Hardor",
         "TraitHarnessed": "Harnessed",
         "TraitHarrowCourt": "Harrow Court",
         "TraitHaunt": "Haunt",
@@ -5402,6 +5489,7 @@
         "TraitIkeshti": "Ikeshti",
         "TraitIkon": "Ikon",
         "TraitIllusion": "Illusion",
+        "TraitImpossible": "Impossible",
         "TraitImplanted": "Implanted",
         "TraitImpulse": "Impulse",
         "TraitIncapacitation": "Incapacitation",
@@ -5437,6 +5525,7 @@
         "TraitInventor": "Inventor",
         "TraitInvested": "Invested",
         "TraitInvestigator": "Investigator",
+        "TraitInvocation": "Invocation",
         "TraitIzalguun": "Izalguun",
         "TraitJinsul": "Jinsul",
         "TraitJotunborn": "Jotunborn",
@@ -5482,6 +5571,7 @@
         "TraitManifestation": "Manifestation",
         "TraitManipulate": "Manipulate",
         "TraitMaraquoi": "Maraquoi",
+        "TraitMecenaic": "Mecenaic",
         "TraitMechanical": "Mechanical",
         "TraitMental": "Mental",
         "TraitMerfolk": "Merfolk",
@@ -5515,12 +5605,14 @@
         "TraitNagaji": "Nagaji",
         "TraitNanite": "Nanite",
         "TraitNecrograft": "Necrograft",
+        "TraitNecromancer": "Necromancer",
         "TraitNephilim": "Nephilim",
         "TraitNightmare": "Nightmare",
         "TraitNindoru": "Nindoru",
         "TraitNoisy": "Noisy",
         "TraitNonlethal": "Nonlethal",
         "TraitNovian": "Novian",
+        "TraitNuar": "Nuar",
         "TraitNymph": "Nymph",
         "TraitOath": "Oath",
         "TraitOccult": "Occult",
@@ -5531,6 +5623,7 @@
         "TraitOperative": "Operative",
         "TraitOracle": "Oracle",
         "TraitOrc": "Orc",
+        "TraitOrd": "Ord",
         "TraitOread": "Oread",
         "TraitOrocoran": "Orocoran",
         "TraitOsharu": "Osharu",
@@ -5551,6 +5644,7 @@
         "TraitPervasiveMagic": "Pervasive Magic",
         "TraitPetitioner": "Petitioner",
         "TraitPhantom": "Phantom",
+        "TraitPhasorq": "Phasorq",
         "TraitPhysical": "Physical",
         "TraitPiercing": "Piercing",
         "TraitPlant": "Plant",
@@ -5625,6 +5719,7 @@
         "TraitRevelation": "Revelation",
         "TraitRobot": "Robot",
         "TraitRogue": "Rogue",
+        "TraitRunesmith": "Runesmith",
         "TraitRyphorian": "Ryphorian",
         "TraitSaggorak": "Saggorak",
         "TraitSahkil": "Sahkil",
@@ -5724,6 +5819,7 @@
         "TraitTethered": "Tethered",
         "TraitThaumaturge": "Thaumaturge",
         "TraitThought": "Thought",
+        "TraitThrall": "Thrall",
         "TraitThrown": "Thrown",
         "TraitThrown10": "Thrown 10 ft.",
         "TraitThrown100": "Thrown 100 ft.",
@@ -5808,6 +5904,7 @@
         "TraitVolley50": "Volley 50 ft.",
         "TraitVolley60": "Volley 60 ft.",
         "TraitVorpalFear": "Vorpal Fear",
+        "TraitVulkarisu": "Vulkarisu",
         "TraitWand": "Wand",
         "TraitWandering": "Wandering",
         "TraitWater": "Water",
@@ -6457,6 +6554,9 @@
             "deathdrinking": {
                 "Name": "Deathdrinking"
             },
+            "deflecting": {
+                "Name": "Deflecting"
+            },
             "demolishing": {
                 "Name": "Demolishing"
             },
@@ -6465,6 +6565,9 @@
             },
             "energizing": {
                 "Name": "Energizing"
+            },
+            "energyVulnerability": {
+                "Name": "Energy Vulnerability"
             },
             "extending": {
                 "Name": "Extending"
@@ -6563,6 +6666,9 @@
                 "Note": {
                     "criticalSuccess": "On a critical hit, the undead creature is @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 1} and @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1} as long as it has the persistent damage from this rune."
                 }
+            },
+            "greaterEnergyVulnerability": {
+                "Name": "Greater Energy Vulnerability"
             },
             "greaterExtending": {
                 "Name": "Greater Extending"
@@ -7060,7 +7166,7 @@
             },
             "prone": {
                 "name": "Prone",
-                "rules": "<p>You're lying on the ground. You are off-guard and take a -2 circumstance penalty to attack rolls. The only move actions you can use while you're prone are Crawl and Stand. Standing up ends the prone condition. You can Take Cover while prone to hunker down and gain cover against ranged attacks, even if you don't have an object to get behind, gaining a +4 circumstance bonus to AC against ranged attacks (but you remain off-guard).</p>\n<p>If you would be knocked prone while you're Climbing or Flying, you fall. You can't be knocked prone when Swimming.</p>",
+                "rules": "<p>You're lying on the ground. You are off-guard and take a -2 circumstance penalty to attack rolls. The only move actions you can use while you're prone are Crawl and Stand. Standing up ends the prone condition. You can Take Cover while prone to hunker down and gain greater cover against ranged attacks, even if you don't have an object to get behind, which grants you a +4 circumstance bonus to AC against ranged attacks (but you remain off-guard).</p>\n<p>If you would be knocked prone while you're Climbing or Flying, you fall. You can't be knocked prone when Swimming.</p>",
                 "summary": "You're lying on the ground and are easier to attack."
             },
             "quickened": {
@@ -7123,6 +7229,12 @@
             }
         },
         "identification": {
+            "Breakdown": {
+                "Adjustment": "{adjustment} {value}",
+                "Base": "Level {level} DC {dc}",
+                "OffTradition": "Off-tradition {value}"
+            },
+            "Difficulty": "Difficulty",
             "DisplayDetails": "Display Details",
             "Identified": "Identified",
             "Identify": "Identify Item",
@@ -7189,6 +7301,7 @@
             "LootUnknownNPCMessage": "an unidentified creature",
             "LootNPCsLabel": "Loot Selected Tokens",
             "LootNPCsPopupHeader": "Choose tokens to loot from",
+            "LootNPCsTitle": "Loot NPCs",
             "LootNamePlaceholder": "Loot",
             "LootSubtitle": "Loot item",
             "MerchantDescription": "Allows players to purchase items directly from the sheet",

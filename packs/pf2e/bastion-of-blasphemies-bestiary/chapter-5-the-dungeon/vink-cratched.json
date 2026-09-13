@@ -694,7 +694,17 @@
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "check:statistic:deception"
+                        ],
+                        "selector": "perception-dc",
+                        "type": "circumstance",
+                        "value": -4
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -795,7 +805,25 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "aquatic-upsurge",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "aquatic-upsurge"
+                        ],
+                        "selector": [
+                            "sludge-cough-attack-roll"
+                        ],
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []

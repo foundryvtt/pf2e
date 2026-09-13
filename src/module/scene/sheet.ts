@@ -175,7 +175,7 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.Scen
 
     /** Open the Automation settings menu and highlight the rules-based vision field. */
     static async #onClickOpenAutomationSettings(this: SceneConfigPF2e<ScenePF2e>): Promise<void> {
-        const menu = game.settings.menus.get("pf2e.automation");
+        const menu = game.settings.menus.get(`${SYSTEM_ID}.automation`);
         if (menu) {
             const options: Partial<SettingsMenuOptions> = { highlightSetting: "rulesBasedVision" };
             const app = new menu.type(undefined, options);
@@ -184,7 +184,7 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.Scen
     }
 
     static async #onClickOpenWorldClockSettings(this: SceneConfigPF2e<ScenePF2e>): Promise<void> {
-        const menu = game.settings.menus.get("pf2e.worldClock");
+        const menu = game.settings.menus.get(`${SYSTEM_ID}.worldClock`);
         if (menu) new menu.type().render(true);
     }
 }

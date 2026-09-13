@@ -57,7 +57,12 @@
                     <ItemTraits traits={ammo.traits} rarity={ammo.rarity} />
                 {/if}
             </button>
-            <ItemSummary uuid={ammo.uuid} open={!!openStates[ammo.uuid]} exclude={["traits"]} />
+            <ItemSummary
+                uuid={ammo.uuid}
+                version={ammo.updatedAt}
+                open={!!openStates[ammo.uuid]}
+                exclude={["traits"]}
+            />
         </div>
     {/each}
 </div>

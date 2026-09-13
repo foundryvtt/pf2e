@@ -1,0 +1,65 @@
+{
+    "_id": "XJvrw38Vg5ARz9vC",
+    "folder": "P92zF88yOWXlZEmG",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Chemoreceptive Gnarefuroid",
+    "system": {
+        "ancestry": {
+            "name": "Gnarefuroid",
+            "slug": "gnarefuroid",
+            "uuid": "Compendium.sf2e.ancestries.Item.bXICmub6qvXdiveN"
+        },
+        "description": {
+            "value": "<p>Gnarefuroids from habitats tainted by dangerous chemical runoff develop highly sensitive taste cirrisensors. You gain imprecise scent with a range of 30 feet. You gain a +1 circumstance bonus to saves against effects with the ingested or olfactory trait; if you roll a success on a saving throw against such an effect, you critically succeed instead.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "rules": [
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "range": 30,
+                "selector": "scent"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:ingested",
+                            "item:trait:olfactory"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:ingested",
+                            "item:trait:olfactory"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

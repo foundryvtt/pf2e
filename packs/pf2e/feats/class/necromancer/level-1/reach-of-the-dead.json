@@ -1,0 +1,73 @@
+{
+    "_id": "Vc3TsH5y2vsCawLy",
+    "folder": "nviqEMM3DG4KIHj6",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Reach of the Dead",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You channel your necrotic magic through a thrall, expending it in the process. If the next action you use is to Cast a Spell that has range, you cast that spell from one of your thralls within 60 feet. That thrall becomes the point of origin for your spell; calculate range and cover from its space instead of yours. The thrall is then destroyed.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "reach-spell"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:reach-of-the-dead"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.ReachOfTheDead"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "concentrate",
+                "necromancer",
+                "spellshape"
+            ]
+        }
+    },
+    "type": "feat"
+}

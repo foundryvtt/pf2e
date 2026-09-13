@@ -26,10 +26,7 @@ import { DataModelValidationFailure } from "./validation-failure.mjs";
  *
  * An Error may be thrown which provides a custom error message explaining the reason the value is invalid.
  */
-type DataFieldValidator = (
-    value: unknown,
-    options: DataFieldValidationOptions,
-) => boolean | DataModelValidationFailure | void;
+type DataFieldValidator = (value: unknown, options: DataFieldValidationOptions) => boolean | void;
 
 export interface DataFieldOptions<
     TSourceProp,
@@ -47,16 +44,18 @@ export interface DataFieldOptions<
     gmOnly?: boolean;
 
     /** The initial value of a field, or a function which assigns that initial value. */
-    initial?: THasInitial extends true
-        ? | TSourceProp
-          | ((data: Record<string, unknown>) => MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>)
-          | null
-        : THasInitial extends false
-          ? undefined
-          : | TSourceProp
-            | ((data: Record<string, unknown>) => MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>)
-            | null
-            | undefined;
+    initial?: NoInfer<
+        THasInitial extends true
+            ? | TSourceProp
+              | ((data: Record<string, unknown>) => MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>)
+              | null
+            : THasInitial extends false
+              ? undefined
+              : | TSourceProp
+                | ((data: Record<string, unknown>) => MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>)
+                | null
+                | undefined
+    >;
 
     /** A localizable label displayed on forms which render this field. */
     label?: string;
@@ -363,8 +362,8 @@ interface StringFieldOptions<
      */
     choices?:
         | readonly TSourceProp[]
-        | Record<TSourceProp, string>
-        | (() => readonly TSourceProp[] | Record<TSourceProp, string>);
+        | { [K in TSourceProp]?: string }
+        | (() => readonly TSourceProp[] | { [K in TSourceProp]?: string });
 
     /** Is this string field a target for text search? */
     textSearch?: boolean;
@@ -385,6 +384,25 @@ export interface ArrayFieldOptions<
 > extends DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial> {
     min?: number;
     max?: number;
+}
+
+type TypedObjectKeyValidator = (key: string) => boolean;
+
+export interface TypedObjectFieldOptions<
+    TSourceProp extends Record<string, unknown> = Record<string, unknown>,
+    TRequired extends boolean = true,
+    TNullable extends boolean = false,
+    THasInitial extends boolean = true,
+> extends ObjectFieldOptions<TSourceProp, TRequired, TNullable, THasInitial> {
+    /**
+     * A predicate to filter out invalid keys.
+     */
+    validateKey?: TypedObjectKeyValidator;
+
+    /**
+     * Whether to expand dot-delimited keys.
+     */
+    expandKeys?: boolean;
 }
 
 export interface ObjectFieldOptions<

@@ -1,0 +1,107 @@
+{
+    "_id": "cIHNyUEYmUs9V7kV",
+    "folder": "ClIo7j9QKDPwEpSj",
+    "img": "icons/equipment/chest/robe-collared-blue.webp",
+    "name": "Energy Shield Tunic",
+    "system": {
+        "acBonus": 0,
+        "baseItem": "explorers-clothing",
+        "bulk": {
+            "value": 0.1
+        },
+        "category": "unarmored",
+        "checkPenalty": 0,
+        "containerId": null,
+        "description": {
+            "value": "<p>This sleek, color-changing tunic has a higher thread count than most garments. It's a <em>+2 greater resilient explorer's clothing</em> that helps the wearer survive powerful energy magic. During your daily preparations, you choose one of the following energy types: acid, cold, electricity, fire, or sonic. You gain resistance 10 to the chosen energy type until your next daily preparations. The tunic changes color and gains thematic embroidery to reflect the energy type you've chosen.</p><ul><li><p><strong>Acid</strong> The tunic turns brown and has acid splashes embroidered in bright green thread.</p></li><li><p><strong>Cold</strong> The tunic turns sky blue and has snowflakes embroidered in silver thread.</p></li><li><p><strong>Electricity</strong> The tunic turns dark gray and has lightning bolts embroidered in light blue thread.</p></li><li><p><strong>Fire</strong> The tunic turns orange and has balls of fire embroidered in red and yellow threads.</p></li><li><p><strong>Sonic</strong> The tunic turns white and has musical notes embroidered in golden thread.</p></li></ul><p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Energy Shield Tunic]</p>\n<p><strong>Activate—Shielding Command</strong> <span class=\"action-glyph\">r</span> (fortune, manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You attempt a saving throw against a spell that deals acid, cold, electricity, fire, or sonic damage, but you haven't rolled yet</p><hr /><p><strong>Effect</strong> Roll the triggering saving throw twice and take the better result.</p>"
+        },
+        "dexCap": 5,
+        "grade": null,
+        "group": "cloth",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 15
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 6500
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "resistance",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Resistance"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.system.rulesSelections.resistance}",
+                "value": 10
+            }
+        ],
+        "runes": {
+            "potency": 2,
+            "property": [],
+            "resilient": 2
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 2,
+                "property": [],
+                "resilient": 2
+            }
+        },
+        "speedPenalty": 0,
+        "strength": 0,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "comfort",
+                "invested",
+                "magical"
+            ]
+        }
+    },
+    "type": "armor"
+}

@@ -1,0 +1,2476 @@
+{
+    "_id": "dqqZ8yn8RfcPwYTU",
+    "folder": "4NVMBpVA6SErB7bJ",
+    "img": "systems/sf2e/icons/default-icons/character.svg",
+    "items": [
+        {
+            "_id": "7VL2Um4m1IvjKXJw",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.ancestries.Item.WfllaPpt1pxGVMAG"
+            },
+            "img": "systems/sf2e/icons/ancestries/ryphorian.webp",
+            "name": "Ryphorian",
+            "sort": 0,
+            "system": {
+                "additionalLanguages": {
+                    "count": 0,
+                    "custom": "",
+                    "value": []
+                },
+                "boosts": {
+                    "0": {
+                        "value": [
+                            "con"
+                        ]
+                    },
+                    "1": {
+                        "value": [
+                            "wis"
+                        ]
+                    },
+                    "2": {
+                        "selected": "dex",
+                        "value": [
+                            "str",
+                            "dex",
+                            "con",
+                            "int",
+                            "wis",
+                            "cha"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p><em>Ryphorians are the most widespread species of the planet Triaxus, tied to that world's eccentric orbit with a peculiar form of seasonal trimorphism that affects most of the population.</em></p>\n<p>@UUID[Compendium.sf2e.journals.JournalEntry.Cf6Ej0OgFpqg2VoF.JournalEntryPage.DW80wzTy6cnkVJ0l]{Ryphorian}</p>"
+                },
+                "flaws": {
+                    "0": {
+                        "value": [
+                            "str"
+                        ]
+                    }
+                },
+                "hands": 2,
+                "hp": 8,
+                "items": {
+                    "1n2cm": {
+                        "img": "icons/skills/targeting/target-strike-triple-blue.webp",
+                        "level": 1,
+                        "name": "Notched Ears",
+                        "uuid": "Compendium.sf2e.ancestry-features.Item.Notched Ears"
+                    }
+                },
+                "languages": {
+                    "custom": "",
+                    "value": [
+                        "common",
+                        "draconic",
+                        "triaxian"
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Galactic Ancestries"
+                },
+                "reach": 5,
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.system.standardizedAncestryFeats",
+                        "priority": 10,
+                        "value": {
+                            "ancestralResistance": {
+                                "choices": [
+                                    {
+                                        "label": "PF2E.TraitFire",
+                                        "predicate": [
+                                            {
+                                                "not": "ancestral-resistance:fire"
+                                            }
+                                        ],
+                                        "value": "fire"
+                                    },
+                                    {
+                                        "label": "PF2E.TraitCold",
+                                        "predicate": [
+                                            {
+                                                "not": "ancestral-resistance:cold"
+                                            }
+                                        ],
+                                        "value": "cold"
+                                    }
+                                ]
+                            },
+                            "ancestralSkills": {
+                                "skillOne": "nature",
+                                "skillTwo": "survival"
+                            }
+                        }
+                    },
+                    {
+                        "definition": [
+                            "item:category:martial",
+                            {
+                                "or": [
+                                    "item:trait:ryphorian",
+                                    "item:base:cryopike",
+                                    "item:base:skyfire-sword",
+                                    "item:base:zero-cannon"
+                                ]
+                            }
+                        ],
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRule.MartialProficiency.MartialRyphorianWeapons",
+                        "predicate": [
+                            "feat:ancestral-weapon-familiarity"
+                        ],
+                        "sameAs": "simple",
+                        "slug": "martial-ryphorian-weapons"
+                    },
+                    {
+                        "definition": [
+                            "item:trait:ryphorian",
+                            "item:category:advanced"
+                        ],
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRule.MartialProficiency.AdvancedRyphorianWeapons",
+                        "predicate": [
+                            "feat:ancestral-weapon-familiarity"
+                        ],
+                        "sameAs": "martial",
+                        "slug": "advanced-ryphorian-weapons"
+                    },
+                    {
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    5
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "item:trait:ryphorian",
+                                    "item:base:cryopike",
+                                    "item:base:skyfire-sword",
+                                    "item:base:zero-cannon"
+                                ]
+                            },
+                            "feat:ancestral-weapon-familiarity"
+                        ]
+                    }
+                ],
+                "size": "med",
+                "slug": "ryphorian",
+                "speed": 25,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "humanoid",
+                        "ryphorian"
+                    ]
+                },
+                "vision": "low-light-vision"
+            },
+            "type": "ancestry"
+        },
+        {
+            "_id": "v2FTSG3XNfQQW9W3",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.ancestry-features.Item.BLGfR2qmVYSy1NLt"
+            },
+            "folder": "QK4Sedhsygt5dHEa",
+            "img": "icons/skills/targeting/target-strike-triple-blue.webp",
+            "name": "Notched Ears",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestryfeature",
+                "description": {
+                    "value": "<p>Your ears are feathery and notched for finely tuned detection of sound and changes in pressure, often surprising those who thought they were hiding themselves or their machinations. You gain a +2 circumstance bonus to your Perception checks to [[/act seek]] or for initiative rolls when opposed by @UUID[Compendium.sf2e.conditions.Item.Hidden] or @UUID[Compendium.sf2e.conditions.Item.Undetected] creatures, or to [[/act sense-motive]] to determine if a creature is verbally Lying. This benefit doesn't apply if you can't hear, or if the other creatures involved are incapable of making sound (for example, if it's affected by a @UUID[Compendium.sf2e.spells.Item.Silence] spell).</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "7VL2Um4m1IvjKXJw",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Galactic Ancestries"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:seek",
+                            {
+                                "nor": [
+                                    "self:condition:deafened",
+                                    "target:effect:silence"
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "perception"
+                        ],
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "notched-ears",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "Ouf01NWxfyPchPQ7",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.heritages.Item.JHr8BIUd2QldzANI"
+            },
+            "folder": "5cGIpSGYRyZSXWB4",
+            "img": "systems/sf2e/icons/default-icons/heritage.svg",
+            "name": "Winterborn Ryphorian",
+            "sort": 0,
+            "system": {
+                "ancestry": {
+                    "name": "Ryphorian",
+                    "slug": "ryphorian",
+                    "uuid": "Compendium.sf2e.ancestries.Item.WfllaPpt1pxGVMAG"
+                },
+                "description": {
+                    "value": "<p>You have thicker skin than your summerborn cousins, topped with layers of white fur. In addition, your eyes are noticeably narrower so to avoid becoming snow-blind. Winterborn ryphorians are traditionally known to be gruff but loyal to a fault, especially when it comes to promises and oaths sworn to others. Some of these stereotypes are just that, and just as many winterborn progressives dye their fur out of artistic expression rather than to exist solely in a stodgy, stark-white state.</p>\n<p>You gain cold resistance equal to half your level (minimum 1). You treat environmental cold effects as if they were one step less extreme (incredible cold becomes extreme, extreme cold becomes severe, and so on).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Galactic Ancestries"
+                },
+                "rules": [
+                    {
+                        "key": "Resistance",
+                        "type": "cold",
+                        "value": "max(1,floor(@actor.level/2))"
+                    }
+                ],
+                "slug": "winterborn-ryphorian",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "heritage"
+        },
+        {
+            "_id": "BaQjuC5IAG95HQNd",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.backgrounds.Item.9s3c14nfvvkk8Jbe"
+            },
+            "folder": "9DzgrrI9HDXpQ0Ws",
+            "img": "systems/sf2e/icons/default-icons/background.svg",
+            "name": "Spacefarer",
+            "sort": 0,
+            "system": {
+                "boosts": {
+                    "0": {
+                        "selected": "dex",
+                        "value": [
+                            "con",
+                            "dex"
+                        ]
+                    },
+                    "1": {
+                        "selected": "wis",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>Some people might say you've been out in the Drift too long, but the truth is, you don't feel at home away from your post on a starship deck. You might crew a long-haul freighter, military gunship, or tourist shuttle. Truth is, you'd probably sign up for any job that took you off-world.</p>\n<p>Choose two attribute boosts. One must be to <strong>Dexterity</strong> or <strong>Constitution</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Piloting skill and the Drift Lore skill. You gain the @UUID[Compendium.sf2e.feats.Item.Express Driver] skill feat.</p>"
+                },
+                "items": {
+                    "IMF2d": {
+                        "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+                        "level": 2,
+                        "name": "Express Driver",
+                        "uuid": "Compendium.sf2e.feats.Item.Express Driver"
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "spacefarer",
+                "trainedSkills": {
+                    "lore": [
+                        "Drift Lore"
+                    ],
+                    "value": [
+                        "piloting"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "background"
+        },
+        {
+            "_id": "wzPgR912ABhVmTnW",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.X5jW9JALKAKV18xj"
+            },
+            "folder": "admZiPs6ML6NgwMt",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Express Driver",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>You know how to get there fast. When calculating your travel Speed for the day while piloting a vehicle, you can attempt a Piloting check to increase your vehicle's travel Speed for long-term overland or aerial travel. The DC is determined by the GM but is typically based on the vehicle's piloting DC or a difficulty based on the environment, whichever is harder. On a success, double your vehicle's travel Speed for the day. This has no effect on your vehicle's movement in encounters or on starships traveling through the Drift.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "BaQjuC5IAG95HQNd",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Piloting"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "express-driver",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "pgBFpcLDZLMQ1aIL",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.classes.Item.cUWBC21I0XbzP44A"
+            },
+            "img": "systems/sf2e/icons/class-icons/operative.webp",
+            "name": "Operative",
+            "sort": 0,
+            "system": {
+                "ancestryFeatLevels": {
+                    "value": [
+                        1,
+                        5,
+                        9,
+                        13,
+                        17
+                    ]
+                },
+                "attacks": {
+                    "advanced": 0,
+                    "martial": 1,
+                    "other": {
+                        "name": "Simple Guns, Martial Guns",
+                        "rank": 2
+                    },
+                    "simple": 1,
+                    "unarmed": 1
+                },
+                "classFeatLevels": {
+                    "value": [
+                        1,
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "defenses": {
+                    "heavy": 0,
+                    "light": 1,
+                    "medium": 0,
+                    "unarmored": 1
+                },
+                "description": {
+                    "value": "<p>You're a focused, quick-witted professional who thrives in high-stakes combat. Your deadly aim and tactical training give you an edge over the competition—for you, even the most powerful enemy is just another mark to take out. You have impressive prowess in your chosen field of specialization.</p>\n<p>@UUID[Compendium.sf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.e3x0k83hYe1awVvT]{Operative}</p>"
+                },
+                "generalFeatLevels": {
+                    "value": [
+                        3,
+                        7,
+                        11,
+                        15,
+                        19
+                    ]
+                },
+                "hp": 8,
+                "items": {
+                    "0RyGt": {
+                        "img": "systems/sf2e/icons/abilities/blue-heart-in-a-circle.webp",
+                        "level": 9,
+                        "name": "Operative Resilience",
+                        "uuid": "Compendium.sf2e.class-features.Item.Operative Resilience"
+                    },
+                    "1B3g4": {
+                        "img": "systems/sf2e/icons/abilities/blue-wing-insignia.webp",
+                        "level": 7,
+                        "name": "Reflex Mastery",
+                        "uuid": "Compendium.sf2e.class-features.Item.Reflex Mastery"
+                    },
+                    "4INri": {
+                        "img": "systems/sf2e/icons/abilities/orange-target-sign.webp",
+                        "level": 15,
+                        "name": "Critical Aim",
+                        "uuid": "Compendium.sf2e.class-features.Item.Critical Aim"
+                    },
+                    "67yF3": {
+                        "img": "systems/sf2e/icons/equipment/armor/armor-medium-brown.webp",
+                        "level": 13,
+                        "name": "Light Armor Expertise",
+                        "uuid": "Compendium.sf2e.class-features.Item.Light Armor Expertise"
+                    },
+                    "9lCqW": {
+                        "img": "systems/sf2e/icons/abilities/yellow-star-insignia.webp",
+                        "level": 11,
+                        "name": "Operative Expertise",
+                        "uuid": "Compendium.sf2e.class-features.Item.Operative Expertise"
+                    },
+                    "GO8vj": {
+                        "img": "systems/sf2e/icons/abilities/blue-alien-weapon.webp",
+                        "level": 15,
+                        "name": "Greater Weapon Specialization",
+                        "uuid": "Compendium.sf2e.class-features.Item.Greater Weapon Specialization"
+                    },
+                    "KNS9f": {
+                        "img": "systems/sf2e/icons/abilities/space-bullet.webp",
+                        "level": 13,
+                        "name": "Legendary Gunner",
+                        "uuid": "Compendium.sf2e.class-features.Item.Legendary Gunner"
+                    },
+                    "KOjuY": {
+                        "img": "systems/sf2e/icons/abilities/yellow-bullet-in-flight.webp",
+                        "level": 5,
+                        "name": "Master Gunner",
+                        "uuid": "Compendium.sf2e.class-features.Item.Master Gunner"
+                    },
+                    "LYrV2": {
+                        "img": "systems/sf2e/icons/abilities/alien-eye.webp",
+                        "level": 19,
+                        "name": "Incredible Senses",
+                        "uuid": "Compendium.sf2e.class-features.Item.Incredible Senses"
+                    },
+                    "Lme6d": {
+                        "img": "systems/sf2e/icons/abilities/alien-eye.webp",
+                        "level": 7,
+                        "name": "Operative's Edge",
+                        "uuid": "Compendium.sf2e.class-features.Item.Operative's Edge"
+                    },
+                    "TJizD": {
+                        "img": "systems/sf2e/icons/equipment/weapons/rifle-scoped.webp",
+                        "level": 1,
+                        "name": "Sharpshooter",
+                        "uuid": "Compendium.sf2e.class-features.Item.Sharpshooter"
+                    },
+                    "VsJOp": {
+                        "img": "icons/skills/movement/feet-winged-boots-glowing-yellow.webp",
+                        "level": 11,
+                        "name": "On the Move",
+                        "uuid": "Compendium.sf2e.class-features.Item.On the Move"
+                    },
+                    "Wleak": {
+                        "img": "systems/sf2e/icons/abilities/purple-energy-star.webp",
+                        "level": 17,
+                        "name": "Resolve",
+                        "uuid": "Compendium.sf2e.class-features.Item.Resolve"
+                    },
+                    "YF7GJ": {
+                        "img": "systems/sf2e/icons/abilities/green-timer.webp",
+                        "level": 5,
+                        "name": "Urban Operator",
+                        "uuid": "Compendium.sf2e.class-features.Item.Urban Operator"
+                    },
+                    "bKfV0": {
+                        "img": "systems/sf2e/icons/abilities/yellow-star-with-purple-aura.webp",
+                        "level": 19,
+                        "name": "Galaxy Renowned",
+                        "uuid": "Compendium.sf2e.class-features.Item.Galaxy Renowned"
+                    },
+                    "enUzu": {
+                        "img": "systems/sf2e/icons/abilities/blue-alien-energy-breath.webp",
+                        "level": 7,
+                        "name": "Weapon Specialization",
+                        "uuid": "Compendium.sf2e.class-features.Item.Weapon Specialization"
+                    },
+                    "gX0GY": {
+                        "img": "systems/sf2e/icons/abilities/blue-target.webp",
+                        "level": 3,
+                        "name": "Focused",
+                        "uuid": "Compendium.sf2e.class-features.Item.Focused"
+                    },
+                    "hRjvK": {
+                        "img": "systems/sf2e/icons/abilities/blue-laser-tool.webp",
+                        "level": 3,
+                        "name": "Specialized Skill Set",
+                        "uuid": "Compendium.sf2e.class-features.Item.Specialized Skill Set"
+                    },
+                    "i6d2a": {
+                        "img": "systems/sf2e/icons/equipment/armor/armor-light-metal.webp",
+                        "level": 19,
+                        "name": "Light Armor Mastery",
+                        "uuid": "Compendium.sf2e.class-features.Item.Light Armor Mastery"
+                    },
+                    "xRhQw": {
+                        "img": "systems/sf2e/icons/abilities/blue-future-circle-insignia.webp",
+                        "level": 1,
+                        "name": "Operative's Specialization",
+                        "uuid": "Compendium.sf2e.class-features.Item.Operative's Specialization"
+                    },
+                    "xreAj": {
+                        "img": "systems/sf2e/icons/abilities/red-bullets-in-flight.webp",
+                        "level": 17,
+                        "name": "Tactical Barrage",
+                        "uuid": "Compendium.sf2e.class-features.Item.Tactical Barrage"
+                    }
+                },
+                "keyAbility": {
+                    "selected": null,
+                    "value": [
+                        "dex"
+                    ]
+                },
+                "perception": 2,
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "definition": [
+                            "item:ranged",
+                            {
+                                "or": [
+                                    "item:category:martial",
+                                    "item:category:simple"
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "item:trait:analog",
+                                    "item:trait:tech"
+                                ]
+                            }
+                        ],
+                        "key": "MartialProficiency",
+                        "label": "SF2E.SpecificRule.MartialProficiency.MartialAndSimpleGuns",
+                        "slug": "martial-simple-guns",
+                        "value": 2
+                    },
+                    {
+                        "definition": [
+                            "item:ranged",
+                            "item:category:advanced",
+                            {
+                                "or": [
+                                    "item:trait:analog",
+                                    "item:trait:tech"
+                                ]
+                            }
+                        ],
+                        "key": "MartialProficiency",
+                        "label": "SF2E.SpecificRule.MartialProficiency.AdvancedGuns",
+                        "slug": "advanced-guns",
+                        "value": 1
+                    }
+                ],
+                "savingThrows": {
+                    "fortitude": 1,
+                    "reflex": 2,
+                    "will": 2
+                },
+                "skillFeatLevels": {
+                    "value": [
+                        2,
+                        3,
+                        4,
+                        6,
+                        7,
+                        8,
+                        10,
+                        12,
+                        14,
+                        15,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "skillIncreaseLevels": {
+                    "value": [
+                        3,
+                        5,
+                        7,
+                        9,
+                        11,
+                        13,
+                        15,
+                        17,
+                        19
+                    ]
+                },
+                "slug": "operative",
+                "spellcasting": 0,
+                "trainedSkills": {
+                    "additional": 3,
+                    "value": []
+                },
+                "traits": {
+                    "rarity": "common"
+                }
+            },
+            "type": "class"
+        },
+        {
+            "_id": "2dgFzdp7g4xkkPyc",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.class-features.Item.YWgkncF2cFzvqXKy"
+            },
+            "flags": {
+                "sf2e": {
+                    "itemGrants": {
+                        "aim": {
+                            "id": "mbMcHMxxKoqTHikz",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "WBjjjwVoDYQAYYe0",
+            "img": "systems/sf2e/icons/equipment/weapons/rifle-scoped.webp",
+            "name": "Sharpshooter",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You can spot a target's weak points, letting you deal additional precision damage with most types of ranged weapons. You gain the @UUID[Compendium.sf2e.actions.Item.Aim] action.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "pgBFpcLDZLMQ1aIL",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "flag": "aim",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.sf2e.actions.Item.Aim"
+                    }
+                ],
+                "slug": "sharpshooter",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "operative"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "25CsClOjag5DRRT0",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.class-features.Item.oUyCwa9Usbv0RXpA"
+            },
+            "flags": {
+                "sf2e": {
+                    "itemGrants": {
+                        "skirmisher": {
+                            "id": "2n9nabZTlhkYApDY",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "WBjjjwVoDYQAYYe0",
+            "img": "systems/sf2e/icons/abilities/blue-future-circle-insignia.webp",
+            "name": "Operative's Specialization",
+            "sort": 100,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>As an operative, you have a particular set of skills based on your tactical style. These different specializations help define your character and the approach you take to most situations. Choose an operative's specialization. This specialization grants you training in one skill, a skill feat for that skill, and an exploit. At 9th level, you gain the enhanced exploit granted by your specialization. The specializations presented in this book are as follows.</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Ghost]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Infiltrator]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Skirmisher]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Sniper]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Striker]</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "pgBFpcLDZLMQ1aIL",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:operative-specialization"
+                            ]
+                        },
+                        "flag": "specialization",
+                        "key": "ChoiceSet",
+                        "prompt": "SF2E.SpecificRule.Operative.Specialization.Prompt",
+                        "selection": "Compendium.sf2e.class-features.Item.Skirmisher"
+                    },
+                    {
+                        "flag": "skirmisher",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.system.rulesSelections.specialization}"
+                    }
+                ],
+                "slug": "operatives-specialization",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "operative"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "mbMcHMxxKoqTHikz",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.actions.Item.sLikawnrJJzHMYeC"
+            },
+            "flags": {
+                "sf2e": {
+                    "grantedBy": {
+                        "id": "2dgFzdp7g4xkkPyc",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "xyoakz4rPK2YBlZP",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Aim",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> You're wielding a ranged weapon that doesn't have the area trait.</p><hr /><p>You take careful aim at a single creature that you're aware of, designating it as your mark until your next turn. Your ranged Strikes against your mark using the required ranged weapon deal an additional 1d4 precision damage and reduce the circumstance bonus to AC your mark gains from cover by 1. These benefits only apply if your mark is within your weapon's first range increment. You can only have one mark at a time.</p>\n<p>As your operative level increases, so does your ability to Aim. Increase the number of dice for the precision damage by one at 5th, 11th, and 17th levels. At 11th level, you reduce the circumstance bonus to AC your mark gains from cover by 2 rather than 1. At 17th level, you reduce the circumstance bonus to AC your mark gains from cover by 4 rather than 2.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "itemType": "weapon",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:equipped",
+                            "item:ranged",
+                            {
+                                "not": "item:trait:area"
+                            }
+                        ],
+                        "property": "other-tags",
+                        "value": "aim"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.system.operative.aim.diceNumber",
+                        "value": "ternary(gte(@actor.level,17),4,ternary(gte(@actor.level,11),3,ternary(gte(@actor.level,5),2,1)))"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.system.operative.aim.dieSize",
+                        "value": 4
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.system.operative.aim.coverReduction",
+                        "value": "ternary(gte(@actor.level,17),4,ternary(gte(@actor.level,11),2,1))"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.system.operative.aim.rangeIncrement",
+                        "value": 1
+                    }
+                ],
+                "selfEffect": {
+                    "name": "Effect: Aim",
+                    "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Aim"
+                },
+                "slug": "aim",
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "operative"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2n9nabZTlhkYApDY",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.class-features.Item.HSKJ1VkPdlMkcqzc"
+            },
+            "flags": {
+                "sf2e": {
+                    "grantedBy": {
+                        "id": "25CsClOjag5DRRT0",
+                        "onDelete": "cascade"
+                    },
+                    "itemGrants": {
+                        "steadyBalance": {
+                            "id": "nIcu6XKG4Im5Nt5f",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "9feZwdAlvdlYJ3gO",
+            "img": "systems/sf2e/icons/abilities/green-mech-blade.webp",
+            "name": "Skirmisher",
+            "sort": 200,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You specialize in close-quarters missions that require you to operate in crowded or tight spaces, such as inside buildings or vehicles, down narrow alleys, or in busy downtown streets. Whether you're a mugger, bodyguard, assassin, or urban mercenary, you favor pistols and can use them efficiently in tight spaces. You're trained in Acrobatics. You gain a skill feat for Acrobatics.</p>\n<p><strong>Exploit:</strong> You're trained to fight in close combat using pistols. Your ranged Strikes with one-handed ranged weapons don't trigger reactions that are triggered by a ranged attack.</p>\n<p><strong>Enhanced Exploit:</strong> Your point-blank shots are particularly deadly. When you make a successful Strike against an adjacent enemy with a one-handed ranged weapon, you calculate the damage as if the lowest-rolled weapon damage die for the attack had the maximum result instead. At 17th level, the two lowest-rolled damage dice increase to the maximum result.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.skills.acrobatics.rank",
+                        "value": 1
+                    },
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:category:skill",
+                                "item:level:1"
+                            ],
+                            "itemType": "feat"
+                        },
+                        "flag": "feat",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.SkillFeat",
+                        "selection": "Compendium.sf2e.feats.Item.Steady Balance"
+                    },
+                    {
+                        "flag": "steadyBalance",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.system.rulesSelections.feat}"
+                    }
+                ],
+                "slug": "skirmisher",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "otherTags": [
+                        "operative-specialization"
+                    ],
+                    "rarity": "common",
+                    "value": [
+                        "operative"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "nIcu6XKG4Im5Nt5f",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.CnqMJR8e9jqJR7MM"
+            },
+            "flags": {
+                "sf2e": {
+                    "grantedBy": {
+                        "id": "2n9nabZTlhkYApDY",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "admZiPs6ML6NgwMt",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Steady Balance",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>You can keep your balance easily, even in adverse conditions. Whenever you roll a success using the @UUID[Compendium.sf2e.actions.Item.Balance] action, you get a critical success instead. You're not @UUID[Compendium.sf2e.conditions.Item.Off-Guard] while attempting to Balance on narrow surfaces and uneven ground.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Acrobatics"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "action:balance"
+                        ],
+                        "selector": "acrobatics",
+                        "text": "PF2E.SpecificRule.SteadyBalance.Note",
+                        "title": "{item|name}"
+                    },
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "action:balance"
+                        ],
+                        "selector": "acrobatics",
+                        "type": "skill"
+                    }
+                ],
+                "slug": "steady-balance",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "bLIb1pStZHVaNhYo",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.class-features.Item.fkRGEE9raPLD8NpN"
+            },
+            "folder": "WBjjjwVoDYQAYYe0",
+            "img": "systems/sf2e/icons/abilities/blue-target.webp",
+            "name": "Focused",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You're highly focused on your target and able to discern their moves. When you roll a success on a Reflex or Will save against your mark, you get a critical success instead.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "pgBFpcLDZLMQ1aIL",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustment": {
+                            "success": "to-critical-success"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "origin:mark:aim"
+                        ],
+                        "selector": [
+                            "reflex",
+                            "will"
+                        ]
+                    }
+                ],
+                "slug": "focused",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "operative"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "ZYq6dZZ9VGN8JhmX",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.class-features.Item.N6fZPvGFrS8LZgnE"
+            },
+            "folder": "WBjjjwVoDYQAYYe0",
+            "img": "systems/sf2e/icons/abilities/blue-laser-tool.webp",
+            "name": "Specialized Skill Set",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>At 3rd level, 7th level, and 15th level, you gain a skill feat. This feat must be for the trained skill from your operative's specialization.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "pgBFpcLDZLMQ1aIL",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "specialized-skill-set",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "operative"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "Cicdd1B6hs5i5rdX",
+            "img": "systems/sf2e/icons/default-icons/lore.svg",
+            "name": "Drift Lore",
+            "sort": 0,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 0
+                },
+                "proficient": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "sVEa3uZ6cuTaHvNX",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.aNoSZiPBfxVJYvap"
+            },
+            "folder": "jjcF0lfrc3ZIoKv1",
+            "img": "icons/equipment/back/mantle-collared-black.webp",
+            "name": "Carbon Skin",
+            "sort": 0,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "carbon-skin",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>This form-fitting suit of carbon fiber encases the body. Most are usually dull-gray, functional garments, while pricier, bespoke suits dazzle like diamonds.</p>"
+                },
+                "dexCap": 4,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "grade": "commercial",
+                "group": "polymer",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 30
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "carbon-skin",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "tech"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "VbUC3RMVcpm2wlXg",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.ao5MC3I1b4Gx9LNC"
+            },
+            "folder": "cJoNKs2FMCJkyEDK",
+            "img": "icons/tools/hand/lockpicks-steel-grey.webp",
+            "name": "Infiltrator's Toolkit (Tactical)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>You need an infiltrator's toolkit to @UUID[Compendium.sf2e.actions.Item.Pick a Lock]{Pick Locks} or @UUID[Compendium.sf2e.actions.Item.Disable a Device]{Disable Devices} (of some types) using the Thievery skill. A tactical infiltrator's toolkit adds a +1 item bonus to checks to Pick Locks or Disable Devices.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 500
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:disable-a-device",
+                                    "action:pick-a-lock"
+                                ]
+                            }
+                        ],
+                        "selector": "thievery",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
+                "size": "med",
+                "slug": "infiltrators-toolkit-tactical",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "1EZp7CQ1iMED8EAm",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.u82tssnDgj4f9UCS"
+            },
+            "folder": "aGUZspQIi3yNxIOu",
+            "img": "systems/sf2e/icons/equipment/other/syringe.webp",
+            "name": "Infiltrator Serum",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "other",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> (manipulate)</p><hr /><p>This oily serum grants a +1 item bonus to checks to @UUID[Compendium.sf2e.actions.Item.Sneak] and @UUID[Compendium.sf2e.actions.Item.Disable a Device] for 10 minutes.</p>\n<p>@UUID[Compendium.sf2e.equipment-effects.Item.Effect: Infiltrator Serum]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 2
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 0,
+                        "gp": 0,
+                        "pp": 0,
+                        "sp": 50
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "infiltrator-serum",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "serum"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "OEDW7PT5ReJ48d0L",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.s1vB3HdXjMigYAnY"
+            },
+            "folder": "cJoNKs2FMCJkyEDK",
+            "img": "systems/sf2e/icons/equipment/other/med-pack.webp",
+            "name": "Medkit (Commercial)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>These contain analgesics, bandages, sterile gauze, and suturing tools necessary for Medicine checks to @UUID[Compendium.sf2e.actions.Item.Administer First Aid], @UUID[Compendium.sf2e.actions.Item.Treat Disease], @UUID[Compendium.sf2e.actions.Item.Treat Poison], or @UUID[Compendium.sf2e.actions.Item.Treat Wounds].</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 50
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "medkit-commercial",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-or-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "SSKMPUrrRgiMTd0S",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.VkepQ6oX9SYeQrTt"
+            },
+            "folder": "V89RPpe7fyCFC6NS",
+            "img": "systems/sf2e/icons/equipment/weapons/rapier.webp",
+            "name": "Nano-edge Rapier",
+            "sort": 0,
+            "system": {
+                "ammo": null,
+                "baseItem": "nano-edge-rapier",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>The edge of this precision-crafted foil is sharpened to the thickness of a single atom, using regenerating nanites to maintain itself after countless strikes.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "expend": null,
+                "grade": "commercial",
+                "group": "sword",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 25
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": null
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "nano-edge-rapier",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "analog",
+                        "deadly-d8",
+                        "disarm",
+                        "finesse"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "uJXy9Ckx814pkfCm",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.vpjJYIgYZab0UZFa"
+            },
+            "folder": "V89RPpe7fyCFC6NS",
+            "img": "systems/sf2e/icons/equipment/weapons/metal-sci-fi-gun.webp",
+            "name": "Pulsecaster Pistol",
+            "sort": 0,
+            "system": {
+                "ammo": {
+                    "baseType": "battery",
+                    "builtIn": false,
+                    "capacity": 1
+                },
+                "baseItem": "pulsecaster-pistol",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "electricity",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>This imposing pistol fires a jolt of paralyzing electricity from its barrel. Its remaining charges are visible as glowing lines of energy radiating down its body. Pulsecaster pistols are often used by bounty hunters and law enforcement who need to keep their targets alive.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "expend": 2,
+                "grade": "commercial",
+                "group": "shock",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 30
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "range": 30,
+                "reload": {
+                    "value": "1"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "pulsecaster-pistol",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "nonlethal",
+                        "tech"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "KxhU0cL8XwU9s0wa",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.5IayDQk6oasOBPOM"
+            },
+            "folder": "aGUZspQIi3yNxIOu",
+            "img": "systems/sf2e/icons/equipment/other/syringe.webp",
+            "name": "Shimmerstone Serum",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "other",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> (manipulate)</p><hr /><p>A blue tincture distilled from shimmerstone. You gain a +1 item bonus to saving throws against mental effects and a +2 item bonus to checks to @UUID[Compendium.sf2e.actions.Item.Recall Knowledge] for 10 minutes.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 2
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 1,
+                    "value": {
+                        "cp": 0,
+                        "gp": 0,
+                        "pp": 0,
+                        "sp": 50
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "shimmerstone-serum",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "serum"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "YkIniikamZlQxty6",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.QdxskYrRPk92siaB"
+            },
+            "folder": "V89RPpe7fyCFC6NS",
+            "img": "icons/weapons/swords/sword-guard-red-jewel.webp",
+            "name": "Skyfire Sword",
+            "sort": 0,
+            "system": {
+                "ammo": null,
+                "baseItem": "skyfire-sword",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "advanced",
+                "containerId": null,
+                "damage": {
+                    "damageType": "fire",
+                    "dice": 1,
+                    "die": "d8"
+                },
+                "description": {
+                    "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>Famously wielded by warriors of the Skyfire Legion, this flaming blade is powered by burning gas held in place by magnetic fields.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "expend": null,
+                "grade": "commercial",
+                "group": "flame",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 30
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": null
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "skyfire-sword",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-d8",
+                        "powered",
+                        "tech",
+                        "two-hand-d10"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "jV1yN8VPWnZf84yt",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.O3QRrXVfhNpF0XyY"
+            },
+            "folder": "V89RPpe7fyCFC6NS",
+            "img": "systems/sf2e/icons/abilities/blue-aura-charged-gun.webp",
+            "name": "Zero Pistol",
+            "sort": 0,
+            "system": {
+                "ammo": {
+                    "baseType": "chem-tank",
+                    "builtIn": false,
+                    "capacity": 1
+                },
+                "baseItem": "zero-pistol",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "cold",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>Zero pistols use transparent canisters of supercooled liquid as ammunition.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "expend": 2,
+                "grade": "commercial",
+                "group": "cryo",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 30
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "range": 30,
+                "reload": {
+                    "value": "1"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "zero-pistol",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "tech"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "gnM5wPAk3THhsnwa",
+            "img": "icons/sundries/gaming/playing-cards-grey.webp",
+            "name": "Credstick",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "credstick",
+                "containerId": null,
+                "description": {
+                    "value": "<p>Most people in Starfinder keep their wealth on a protected item known as a credstick. These devices are often flat and roughly the size of a human finger. They range in dimensions and quality, but at the end of the day, they're just a means of conveniently carrying and spending money. Usage of these devices is determined by the owner, and a credstick can accept or spend funds with as simple an action as tapping it near a suitable banking device. When more rigorous security is necessary, they can require audio or biometric imprints in order to activate. Some advanced credsticks even have a magical component that might require a mental password or the recitation of a specific spell to access stored funds.</p>\n<p>Credsticks aren't gateways to the entirety of one's wealth, and larger stores of credits are often kept secured in banks, personal vaults, or secure databases. Instead, a credstick is a safe and anonymous means of moving credits around without being traced. Adventurers and common citizens alike often keep a credstick on their person to handle any purchases they might be called upon to make, while also only keeping just enough credits on them that losing the credstick wouldn't result in bankruptcy.</p>\n<p>Individuals in the Pact Worlds often carry credsticks, and other civilizations that interact with the Pact often turn local funds into credits and thus carry them to spend their converted currency. Sometimes a person might carry several credsticks, dedicating each one to a different use, or simply trading the stick away if they want to make a purchase of a predefined amount. If ever the number of credsticks on a person becomes too cumbersome, it's easy enough to move the funds between individual sticks and discard emptied sticks to save on space, however a credstick always has a negligible bulk.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 1,
+                    "value": {
+                        "sp": 22
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "credstick",
+                "temporary": false,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "YlMaPltyOO4TSXTm",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.IXl04yjeeqBiSZiy"
+            },
+            "folder": "eP85QuvSLZbnDCSE",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Sympathetic Bond",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>Dragonkin have the ability to form permanent bonds with a chosen partner. Some ryphorians, through countless years of close proximity to the draconic inhabitants of Triaxus, have learned to emulate this ability to a limited degree. You can form a temporary bond with one willing sapient creature as a 10-minute activity that can only be attempted if you and your partner share a deep bond. Once formed, this bond lasts for 1 day. When you're within 30 feet of this bonded creature, you both gain a +1 circumstance bonus to Will saves.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Galactic Ancestries"
+                },
+                "rules": [],
+                "slug": "sympathetic-bond",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "ryphorian"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "uRhrsplVVtdHqPge",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.3M56DryKBFBpODrX"
+            },
+            "folder": "MLFhgtsXv5ujEuy5",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Weakening Shot",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> You're wielding a gun.</p><hr /><p>You target a creature's limbs or load-bearing appendages to weaken them. You Aim and then make a ranged Strike against your mark. If the Strike hits, the creature becomes your choice of @UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 1} or @UUID[Compendium.sf2e.conditions.Item.Enfeebled]{Enfeebled 1} until the end of your next turn (@UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 2} or @UUID[Compendium.sf2e.conditions.Item.Enfeebled]{Enfeebled 2} on a critical hit).</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "class-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "weakening-shot",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "operative"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "89SfMBYOv17o9jum",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.99JrVhP4zKe3CAxZ"
+            },
+            "folder": "dUge9P1UVgqBOrXl",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Kill Steal",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An ally ends their turn after hitting a creature two or more times or critically hitting a creature.</p>\n<p><strong>Requirements</strong> You're wielding a gun.</p><hr /><p>You fire a quick shot at a foe your ally is focusing their attacks on. You @UUID[Compendium.sf2e.actions.Item.Aim] at the creature your triggering ally hit and then make a ranged Strike against that creature.</p>"
+                },
+                "level": {
+                    "taken": 2,
+                    "value": 2
+                },
+                "location": "class-2",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "kill-steal",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "operative"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "8TEpzFfhLLYicclT",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.i4yRvVwvXbGZDsD1"
+            },
+            "folder": "952e2Tn00KbJ2FY3",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Canny Acumen (Fortitude)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p>Your avoidance or observation is beyond the ken of most in your profession. Choose Fortitude saves, Reflex saves, Will saves, or Perception. You become an expert in your choice. At 17th level, you become a master in your choice.</p>"
+                },
+                "level": {
+                    "taken": 3,
+                    "value": 1
+                },
+                "location": "general-3",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "PF2E.SavesFortitude",
+                                "value": "system.saves.fortitude.rank"
+                            },
+                            {
+                                "label": "PF2E.SavesReflex",
+                                "value": "system.saves.reflex.rank"
+                            },
+                            {
+                                "label": "PF2E.SavesWill",
+                                "value": "system.saves.will.rank"
+                            },
+                            {
+                                "label": "PF2E.PerceptionLabel",
+                                "value": "system.perception.rank"
+                            }
+                        ],
+                        "flag": "cannyAcumen",
+                        "key": "ChoiceSet",
+                        "selection": "system.saves.fortitude.rank"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "{item|flags.system.rulesSelections.cannyAcumen}",
+                        "value": "ternary(gte(@actor.level,17),3,2)"
+                    }
+                ],
+                "slug": "canny-acumen",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "JeeB8rhkx01aUCEm",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.tNhDIAP90tt3XOPW"
+            },
+            "folder": "HGxuzcVt8hJHZRnX",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Dive for Cover",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>When threatened, you can quickly take a dive and find somewhere to hunker down. You @UUID[Compendium.sf2e.actions.Item.Leap], land @UUID[Compendium.sf2e.conditions.Item.Prone], and immediately @UUID[Compendium.sf2e.actions.Item.Take Cover], which allows you to hunker down and gain greater cover against ranged attacks.</p>"
+                },
+                "level": {
+                    "taken": 2,
+                    "value": 2
+                },
+                "location": "skill-2",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "expert in Acrobatics"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "dive-for-cover",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "JNnsRaeVkJxp9kVt",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.beyw5bdA5hkQbmaG"
+            },
+            "folder": "admZiPs6ML6NgwMt",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Terrain Stalker (Underbrush)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>Select one type of difficult terrain from the following list: rubble, snow, or underbrush. While @UUID[Compendium.sf2e.conditions.Item.Undetected] by all non-allies in that type of terrain, you can @UUID[Compendium.sf2e.actions.Item.Sneak] without attempting a Stealth check as long as you move no more than 5 feet and do not pass within 10 feet of an enemy during your movement.</p>\n<p>During exploration, this also allows you to automatically approach within 15 feet of other creatures while @UUID[Compendium.sf2e.actions.Item.Avoid Notice]{Avoiding their Notice}, as long as they aren't actively @UUID[Compendium.sf2e.actions.Item.Search]{Searching} or on guard.</p><hr /><p><strong>Special</strong> You can select this feat multiple times. Each time, choose a different type of terrain.</p>"
+                },
+                "level": {
+                    "taken": 3,
+                    "value": 1
+                },
+                "location": "skill-3",
+                "maxTakable": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Stealth"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "PF2E.SpecificRule.TerrainStalker.Rubble",
+                                "predicate": [
+                                    {
+                                        "not": "terrain-stalker:rubble"
+                                    }
+                                ],
+                                "value": "rubble"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.TerrainStalker.Snow",
+                                "predicate": [
+                                    {
+                                        "not": "terrain-stalker:snow"
+                                    }
+                                ],
+                                "value": "snow"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.TerrainStalker.Underbrush",
+                                "predicate": [
+                                    {
+                                        "not": "terrain-stalker:underbrush"
+                                    }
+                                ],
+                                "value": "underbrush"
+                            }
+                        ],
+                        "flag": "terrainStalker",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.TerrainExpertise.Prompt",
+                        "rollOption": "terrain-stalker",
+                        "selection": "underbrush"
+                    }
+                ],
+                "slug": "terrain-stalker",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        }
+    ],
+    "name": "Takkar",
+    "system": {
+        "abilities": null,
+        "attributes": {
+            "hp": {
+                "temp": 0,
+                "value": 38
+            }
+        },
+        "build": {
+            "attributes": {
+                "boosts": {
+                    "1": [
+                        "dex",
+                        "str",
+                        "wis",
+                        "con"
+                    ]
+                }
+            }
+        },
+        "details": {
+            "age": {
+                "value": ""
+            },
+            "biography": {
+                "allies": "",
+                "anathema": [],
+                "appearance": "",
+                "attitude": "",
+                "backstory": "",
+                "beliefs": "",
+                "birthPlace": "",
+                "campaignNotes": "",
+                "catchphrases": "",
+                "dislikes": "",
+                "edicts": [],
+                "enemies": "",
+                "likes": "",
+                "organizations": ""
+            },
+            "ethnicity": {
+                "value": ""
+            },
+            "gender": {
+                "value": "Male"
+            },
+            "height": {
+                "value": ""
+            },
+            "keyability": {
+                "value": "str"
+            },
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 3
+            },
+            "nationality": {
+                "value": ""
+            },
+            "weight": {
+                "value": ""
+            },
+            "xp": {
+                "max": 1000,
+                "min": 0,
+                "value": 0
+            }
+        },
+        "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
+        "pfs": {
+            "characterNumber": null,
+            "currentFaction": "EA",
+            "levelBump": false,
+            "playerNumber": null,
+            "reputation": {
+                "EA": null,
+                "GA": null,
+                "HH": null,
+                "RO": null,
+                "VS": null,
+                "VW": null
+            },
+            "school": null
+        },
+        "resources": {
+            "heroPoints": {
+                "max": 3,
+                "value": 1
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "rank": 2
+            },
+            "medicine": {
+                "rank": 1
+            },
+            "nature": {
+                "rank": 1
+            },
+            "stealth": {
+                "rank": 1
+            },
+            "thievery": {
+                "rank": 1
+            }
+        }
+    },
+    "type": "character"
+}

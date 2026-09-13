@@ -1,0 +1,56 @@
+<div class="metrics">
+    <div class="row">
+        <span class="threat">{{{metrics.threat}}}</span>
+        <span class="award">{{{metrics.award}}}</span>
+    </div>
+    <div class="row">
+        <span class="budget">{{metrics.budget}}</span>
+        <span class="party-size">{{metrics.partySize}}</span>
+    </div>
+</div>
+
+<hr />
+
+<h2>{{localize "PF2E.Encounter.Budget.EncounterBudget"}}</h2>
+<table class="pf2-table">
+    <thead>
+        <tr>
+            <th scope="col">{{localize "PF2E.Encounter.Budget.Threat"}}</th>
+            <th scope="col">{{localize "PF2E.Encounter.Budget.XPBudget"}}</th>
+            <th scope="col">{{localize "PF2E.Encounter.Budget.XPNeeded"}}</th>
+            <th scope="col">{{localize "PF2E.Encounter.Budget.Reward"}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each budgetRows as |row|}}
+            <tr>
+                <td>{{row.threat}}</td>
+                <td>{{row.budget}}</td>
+                <td>{{row.needed}}</td>
+                <td>{{row.reward}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<hr />
+
+<h2>{{localize "PF2E.Encounter.CreatureXPAndRole.CreatureXPAndRole"}}</h2>
+<table class="pf2-table">
+    <thead>
+        <tr>
+            <th scope="col">{{localize "PF2E.Encounter.CreatureXPAndRole.CreatureLevel"}}</th>
+            <th scope="col">{{localize "PF2E.Encounter.XP"}}</th>
+            <th scope="col">{{localize "PF2E.Encounter.CreatureXPAndRole.SuggestedRole"}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each creatureRows as |row|}}
+            <tr>
+                <td>{{row.level}}</td>
+                <td>{{row.xp}}</td>
+                <td>{{row.role}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

@@ -1,0 +1,69 @@
+{
+    "_id": "3lEayfk8eSNihPt7",
+    "folder": "K84PVzKJT1EfmN5P",
+    "img": "icons/magic/control/hypnosis-mesmerism-swirl.webp",
+    "name": "Mental Wards",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You have created wards to protect yourself against the mental effects caused by undead creatures and effects. Your proficiency rank for Will saves increases to expert. When you roll a success at a Will save against a mental or possession effect caused by an undead or haunt, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 3
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:mental",
+                            "item:trait:possession"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "origin:trait:haunt",
+                            "origin:trait:undead"
+                        ]
+                    }
+                ],
+                "selector": "will"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "will": {
+                    "attribute": null,
+                    "rank": 2
+                }
+            },
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "necromancer"
+            ]
+        }
+    },
+    "type": "feat"
+}

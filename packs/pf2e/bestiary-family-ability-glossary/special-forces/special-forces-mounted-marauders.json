@@ -12,14 +12,39 @@
         },
         "category": "offensive",
         "description": {
-            "value": "<p>These special forces soldiers are mounted. Increase their Speed to 40 feet. While moving on land, this troop ignores difficult terrain.</p><hr /><p><strong>Effect</strong> s that target only animals or humanoids might not work on this troop, subject to GM discretion. Mounted troops can't also have composite bows.</p>"
+            "value": "<p>These special forces soldiers are mounted. Increase their Speed to 40 feet. While moving on land, this troop ignores difficult terrain. Effects that target only animals or humanoids might not work on this troop, subject to GM discretion. Mounted troops can't also have composite bows.</p>"
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
             "title": "Pathfinder Adventure Path: Hell's Destiny"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "land",
+                "value": 40
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SkillVariant.Land",
+                "option": "terrain:land",
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.movement.terrain.difficult.ignored",
+                "phase": "afterDerived",
+                "predicate": [
+                    "terrain:land"
+                ],
+                "value": {
+                    "environment": "all",
+                    "feature": "all"
+                }
+            }
+        ],
         "traits": {
             "value": []
         }

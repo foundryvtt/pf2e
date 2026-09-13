@@ -1,0 +1,51 @@
+{
+    "_id": "daNNIj1yrIL3Q4ys",
+    "img": "icons/commodities/biological/organ-brain-pink-purple.webp",
+    "name": "Effect: Accelerating Inquest",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +2 circumstance bonus to AC against the target creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Book of the Dead"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "accelerating-inquest"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:mark:accelerating-inquest"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

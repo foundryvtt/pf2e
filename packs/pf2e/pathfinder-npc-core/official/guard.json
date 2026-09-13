@@ -575,7 +575,7 @@
         {
             "_id": "hHccWzh003xSa6dA",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Bonus on Perception to Find concealed objects",
+            "name": "+1 Bonus on Perception to Find Concealed Objects",
             "sort": 1000000,
             "system": {
                 "actionType": {
@@ -597,12 +597,8 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "target:condition:concealed",
-                                    "item:tag:object"
-                                ]
-                            }
+                            "target:condition:concealed",
+                            "item:tag:object"
                         ],
                         "selector": "perception",
                         "value": 1

@@ -1,0 +1,70 @@
+{
+    "_id": "Y50TjLhgQmfLBupj",
+    "folder": "lfC1sbtzTalNS6Tl",
+    "img": "icons/creatures/tentacles/tentacles-octopus-black-pink.webp",
+    "name": "Aberrant Eidolon",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your eidolon is a terrifying, incomprehensible nightmare patterned after the creatures who owe their existence to the Outer Gods and Great Old Ones. Aberrant eidolons come in a variety of forms, though their anatomies often appear twisted and impossible. Most people can't even look at any aberrant eidolon without developing a splitting headache or having a panic attack, but your studies of the occult have inured your mind to these dread terrors.</p>\n<p><strong>Tradition</strong> occult</p>\n<p><strong>Traits</strong> aberration, eidolon</p>\n<p><strong>Home Plane</strong> Dimension of Dreams or the Universe</p><hr /><p><strong>Size</strong> Medium or Small</p>\n<p><strong>Suggested Attacks</strong> claw (slashing), jaws (piercing), tentacle (bludgeoning)</p>\n<p><strong>Eidolon Attributes</strong> Con +2, Int +1, Wis +1, Cha –1</p>\n<p><strong>Skills</strong> Athletics, Occultism</p>\n<p><strong>Senses</strong> darkvision</p>\n<p><strong>Language</strong> Aklo</p>\n<p><strong>Speed</strong> 25 feet</p><hr /><p><strong>Initial (1st)—@UUID[Compendium.pf2e.actionspf2e.Item.Surprising Anatomy]</strong> <span class=\"action-glyph\">R</span> (eidolon)</p>\n<p><strong>Trigger</strong> An enemy adjacent to your eidolon deals damage to your eidolon</p><hr /><p><strong>Effect</strong> Your eidolon's form shifts horribly to retaliate against the attacker. Your eidolon makes a melee unarmed Strike against the triggering enemy.</p>\n<p><strong>Symbiosis (7th)—Unfathomable Mind</strong> (mental, nonlethal) Those who try to touch your eidolon's mind find their own minds shattered. When your eidolon succeeds at a saving throw against a mental effect from a creature, that creature takes @Damage[(4+max(0,(ceil((@actor.level -8)/2))))d6[mental]] mental damage with a basic @Check[will|basic|against:spell] save against your spell DC. A creature who fails this save is also @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure). At 9th level and every 2 levels thereafter, the damage increases by 1d6.</p>\n<p><strong>Transcendence (17th)—Maddening Whispers</strong> Your aberrant eidolon utters terrible secrets about the true nature of the universe. They can cast @UUID[Compendium.pf2e.spells-srd.Item.Unfathomable Song] once per day as an innate occult spell. Your eidolon can Sustain this spell as a free action if they spend at least one action Striding toward one of the targets.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.athletics.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.occultism.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.eidolon.tradition",
+                "value": "occult"
+            }
+        ],
+        "subfeatures": {
+            "languages": {
+                "granted": [
+                    "aklo"
+                ],
+                "slots": 0
+            },
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "summoner-eidolon"
+            ],
+            "rarity": "common",
+            "value": [
+                "summoner"
+            ]
+        }
+    },
+    "type": "feat"
+}

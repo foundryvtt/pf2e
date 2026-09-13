@@ -1,0 +1,56 @@
+{
+    "_id": "6HCI2iHyBZAr7a4P",
+    "folder": "DbtBUOmAB0EiLVfI",
+    "img": "icons/sundries/documents/document-torn-diagram-tan.webp",
+    "name": "Studious Spells",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You've deeply studied certain beneficial spells to speedily enter Arcane Cascade when you cast them. When you cast a studious spell, you can use @UUID[Compendium.pf2e.actionspf2e.Item.Arcane Cascade] as a free action as your next action this turn. Add any studious spell you gain to your spellbook if you don't know it already. Your studious spells are @UUID[Compendium.pf2e.spells-srd.Item.Gecko Grip] and an additional spell depending on your hybrid study, listed in the hybrid study's entry.</p>\n<p>At 11th level, add @UUID[Compendium.pf2e.spells-srd.Item.Haste] and an additional spell depending on your hybrid study to your studious spells. At 13th level, add @UUID[Compendium.pf2e.spells-srd.Item.Fly] and an additional spell depending on your hybrid study to your studious spells.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:studious-spell"
+                ],
+                "priority": 130,
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Magus.StudiousSpells.Addendum"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Stance: Arcane Cascade]"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "magus"
+            ]
+        }
+    },
+    "type": "feat"
+}

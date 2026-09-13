@@ -28,15 +28,12 @@
             {
                 "key": "AdjustModifier",
                 "predicate": [
-                    "bonus:type:circumstance"
-                ],
-                "selector": "all",
-                "suppress": true
-            },
-            {
-                "key": "AdjustModifier",
-                "predicate": [
-                    "bonus:type:status"
+                    {
+                        "or": [
+                            "bonus:type:circumstance",
+                            "bonus:type:status"
+                        ]
+                    }
                 ],
                 "selector": "all",
                 "suppress": true

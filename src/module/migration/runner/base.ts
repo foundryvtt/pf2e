@@ -20,16 +20,16 @@ export class MigrationRunnerBase {
 
     static RECOMMENDED_SAFE_VERSION = 0.841;
 
-    /** The starting schema version for the Foundry generation number */
-    static FOUNDRY_SCHEMA_VERSIONS = {
-        0.8: 0.634,
-        9: 0.7,
-        10: 0.781,
-        11: 0.841,
-        12: 0.927,
-        13: 0.936,
-        14: 0.955,
-    };
+    /** The starting schema version for each Foundry generation, in ascending order */
+    static FOUNDRY_SCHEMA_VERSIONS = new Map([
+        [0.8, 0.634],
+        [9, 0.7],
+        [10, 0.781],
+        [11, 0.841],
+        [12, 0.927],
+        [13, 0.936],
+        [14, 0.955],
+    ]);
 
     constructor(migrations: MigrationBase[] = []) {
         this.migrations = migrations.sort((a, b) => a.version - b.version);
@@ -91,18 +91,29 @@ export class MigrationRunnerBase {
         }
 
         for (const migration of migrations) {
-            await migration.updateActor?.(currentActor);
+            try {
+                await migration.updateActor?.(currentActor);
+            } catch (error) {
+                throw new Error(`migration ${migration.version} failed`, { cause: error });
+            }
 
             for (const currentItem of currentActor.items) {
-                await migration.updateItem?.(currentItem, currentActor);
-                // Handle embedded items
-                if (currentItem.type === "consumable" && currentItem.system.spell) {
-                    await migration.updateItem?.(currentItem.system.spell, currentActor);
-                }
-                if (itemIsOfType(currentItem, "armor", "equipment", "shield", "weapon")) {
-                    for (const subitem of currentItem.system.subitems) {
-                        migration.updateItem?.(subitem);
+                try {
+                    await migration.updateItem?.(currentItem, currentActor);
+                    // Handle embedded items
+                    if (currentItem.type === "consumable" && currentItem.system.spell) {
+                        await migration.updateItem?.(currentItem.system.spell, currentActor);
                     }
+                    if (itemIsOfType(currentItem, "armor", "equipment", "shield", "weapon")) {
+                        for (const subitem of currentItem.system.subitems) {
+                            migration.updateItem?.(subitem);
+                        }
+                    }
+                } catch (error) {
+                    throw new Error(
+                        `migration ${migration.version} failed on embedded item "${currentItem.name}" (${currentItem._id})`,
+                        { cause: error },
+                    );
                 }
             }
         }
@@ -137,15 +148,19 @@ export class MigrationRunnerBase {
         }
 
         for (const migration of migrations) {
-            await migration.updateItem?.(current);
-            // Handle embedded spells
-            if (current.type === "consumable" && current.system.spell) {
-                await migration.updateItem?.(current.system.spell);
-            }
-            if (itemIsOfType(current, "armor", "equipment", "shield", "weapon")) {
-                for (const subitem of current.system.subitems) {
-                    migration.updateItem?.(subitem);
+            try {
+                await migration.updateItem?.(current);
+                // Handle embedded spells
+                if (current.type === "consumable" && current.system.spell) {
+                    await migration.updateItem?.(current.system.spell);
                 }
+                if (itemIsOfType(current, "armor", "equipment", "shield", "weapon")) {
+                    for (const subitem of current.system.subitems) {
+                        migration.updateItem?.(subitem);
+                    }
+                }
+            } catch (error) {
+                throw new Error(`migration ${migration.version} failed`, { cause: error });
             }
         }
 

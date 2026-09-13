@@ -35,6 +35,7 @@ declare global {
         export import TileDocument = foundry.documents.TileDocument;
         export import TokenDocument = foundry.documents.TokenDocument;
         export import User = foundry.documents.User;
+        export import WallDocument = foundry.documents.WallDocument;
 
         export import Roll = foundry.dice.Roll;
 

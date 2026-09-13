@@ -4,7 +4,7 @@
     "name": "Effect: Capture Magic",
     "system": {
         "description": {
-            "value": "<p>The blade magus gains a +2 status bonus to damage from Arcane Cascade until the end of their next turn.</p>"
+            "value": "<p>The magus gains a +2 status bonus to the extra damage and reitance from Arcane Cascade until the end of their next turn.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -27,6 +27,12 @@
                 "selector": "strike-damage",
                 "slug": "arcane-cascade",
                 "value": 2
+            },
+            {
+                "key": "Resistance",
+                "label": "Capture Magic",
+                "type": "spells",
+                "value": "ternary(gte(@actor.level,15),5,ternary(gte(@actor.level,7),4,3))"
             }
         ],
         "start": {

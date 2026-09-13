@@ -41,12 +41,14 @@ class TokenLayerPF2e<TObject extends TokenPF2e> extends fc.layers.TokenLayer<TOb
         );
         if (inCombat) warnings.push("TOKEN.DeleteCombatantWarning");
         if (!warnings.length) return true;
-        return foundry.applications.api.DialogV2.confirm({
-            window: {
-                title: _loc("DOCUMENT.Delete", { type: _loc(TokenDocument.metadata.label) }),
-            },
-            content: `<p><strong>${_loc("COMMON.AreYouSure")}</strong></p>${warnings.map((w) => `<p>${_loc(w)}</p>`)}`,
-        });
+        return (
+            (await foundry.applications.api.DialogV2.confirm({
+                window: {
+                    title: _loc("DOCUMENT.Delete", { type: _loc(TokenDocument.metadata.label) }),
+                },
+                content: `<p><strong>${_loc("COMMON.AreYouSure")}</strong></p>${warnings.map((w) => `<p>${_loc(w)}</p>`)}`,
+            })) ?? false
+        );
     }
 
     /** Cycle Z indices of a hovered token stack. */

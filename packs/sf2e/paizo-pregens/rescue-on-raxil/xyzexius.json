@@ -1,0 +1,2405 @@
+{
+    "_id": "QcLTW72prcBrjXeu",
+    "folder": "4NVMBpVA6SErB7bJ",
+    "img": "systems/sf2e/icons/default-icons/character.svg",
+    "items": [
+        {
+            "_id": "U0j1FEzlJ4b0Mft4",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.ancestries.Item.jNE2Zq46a9kQj7bi"
+            },
+            "img": "systems/sf2e/icons/ancestries/dragonkin.webp",
+            "name": "Dragonkin",
+            "sort": 0,
+            "system": {
+                "additionalLanguages": {
+                    "count": 0,
+                    "custom": "",
+                    "value": []
+                },
+                "boosts": {
+                    "0": {
+                        "selected": "str",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    },
+                    "1": {
+                        "selected": "con",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    },
+                    "2": {
+                        "value": []
+                    }
+                },
+                "description": {
+                    "value": "<p><em>Draconic in appearance and fiercely loyal, dragonkin are deeply empathic beings capable of forming a nearly unbreakable spiritual bond with one other creature, which manifests in telepathic communication and tactical synergy.</em></p>\n<p>@UUID[Compendium.sf2e.journals.JournalEntry.Cf6Ej0OgFpqg2VoF.JournalEntryPage.EybiktinX2zD2k45]{Dragonkin}</p>"
+                },
+                "flaws": {
+                    "0": {
+                        "value": []
+                    }
+                },
+                "hands": 2,
+                "hp": 10,
+                "items": {
+                    "7VqRl": {
+                        "img": "icons/magic/control/energy-stream-link-large-blue.webp",
+                        "level": 1,
+                        "name": "Partner Bond",
+                        "uuid": "Compendium.sf2e.ancestry-features.Item.Partner Bond"
+                    }
+                },
+                "languages": {
+                    "custom": "",
+                    "value": [
+                        "common",
+                        "draconic",
+                        "triaxian"
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Galaxy Guide"
+                },
+                "reach": 5,
+                "rules": [
+                    {
+                        "key": "BaseSpeed",
+                        "selector": "fly",
+                        "value": 20
+                    }
+                ],
+                "size": "lg",
+                "slug": "dragonkin",
+                "speed": 20,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "dragon",
+                        "dragonkin",
+                        "humanoid"
+                    ]
+                },
+                "vision": "darkvision"
+            },
+            "type": "ancestry"
+        },
+        {
+            "_id": "jEYriwHZFbslvjcu",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.ancestry-features.Item.fD4YQ2Hq7929t8p2"
+            },
+            "folder": "23xpgDGd3Oq6Kqdv",
+            "img": "icons/magic/control/energy-stream-link-large-blue.webp",
+            "name": "Partner Bond",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestryfeature",
+                "description": {
+                    "value": "<p>You can form a permanent empathic bond with one willing sapient creature—usually a non-dragonkin. Forming this bond is a one-hour activity that can only be attempted if both you and your partner share a deep emotional bond. You and your partner must remain within reach of each other for the duration of this activity for it to succeed. Once this bond is formed, you can't form another partner bond unless your current partner dies. You and your partner can communicate with each other mentally, as if you had limited telepathy with a range of 60 feet.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "U0j1FEzlJ4b0Mft4",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Galaxy Guide"
+                },
+                "rules": [],
+                "slug": "partner-bond",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "dragonkin"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "QfQnuxwct3LSFdWV",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.heritages.Item.952YwmIOYQPJTLRB"
+            },
+            "folder": "ZmMDPMWSuUyFXx1e",
+            "img": "systems/sf2e/icons/default-icons/heritage.svg",
+            "name": "Flameheart Dragonkin",
+            "sort": 0,
+            "system": {
+                "ancestry": {
+                    "name": "Dragonkin",
+                    "slug": "dragonkin",
+                    "uuid": "Compendium.sf2e.ancestries.Item.jNE2Zq46a9kQj7bi"
+                },
+                "description": {
+                    "value": "<p>The embers burning in your blood keep you safe from the chill of high altitudes. You gain resistance to cold equal to half your level (minimum 1). You treat environmental cold effects as if they were one step less extreme (incredible cold becomes extreme, extreme cold becomes severe, and so on).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Galaxy Guide"
+                },
+                "rules": [
+                    {
+                        "key": "Resistance",
+                        "type": "cold",
+                        "value": "max(1,floor(@actor.level/2))"
+                    }
+                ],
+                "slug": "flameheart-dragonkin",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "heritage"
+        },
+        {
+            "_id": "my3VJ31nzZJ0JApB",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.backgrounds.Item.lHO7wont21ITsU0B"
+            },
+            "folder": "9DzgrrI9HDXpQ0Ws",
+            "img": "systems/sf2e/icons/default-icons/background.svg",
+            "name": "Athlete",
+            "sort": 0,
+            "system": {
+                "boosts": {
+                    "0": {
+                        "selected": "str",
+                        "value": [
+                            "dex",
+                            "str"
+                        ]
+                    },
+                    "1": {
+                        "selected": "cha",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>You've strengthened your body through practice drills and workouts, making sure not to waste a single drop of sweat in your quest for gains. You might be a champion fighting in arena matches, a hardcore gym rat, or a heavy hitter on a competitive sports team—what matters to you is the rush you get when you beat a personal record.</p>\n<p>Choose two attribute boosts. One must be to <strong>Strength</strong> or <strong>Dexterity</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Athletics skill and the Sports Lore skill. You gain the @UUID[Compendium.sf2e.feats.Item.Deadlift] skill feat.</p>"
+                },
+                "items": {
+                    "CqZM8": {
+                        "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+                        "level": 1,
+                        "name": "Deadlift",
+                        "uuid": "Compendium.sf2e.feats.Item.Deadlift"
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "athlete",
+                "trainedSkills": {
+                    "lore": [
+                        "Sports Lore"
+                    ],
+                    "value": [
+                        "athletics"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "background"
+        },
+        {
+            "_id": "dkMGkXyGbI1ojGmW",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.Wc26O3XFKxWfxY5N"
+            },
+            "folder": "admZiPs6ML6NgwMt",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Deadlift",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> You aren't @UUID[Compendium.sf2e.conditions.Item.Fatigued].</p><hr /><p>For 1 minute, you can carry 4 more Bulk than normal before becoming encumbered. The amount you can carry increases to 6 at expert, 8 at master, and 10 at legendary. When the benefits of this feat end, you become @UUID[Compendium.sf2e.conditions.Item.Fatigued] for 10 minutes.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "my3VJ31nzZJ0JApB",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Athletics"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Deadlift",
+                    "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Deadlift"
+                },
+                "slug": "deadlift",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "QHG70gcwM0lhZWrm",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.classes.Item.zAI2ugYWzbUnmaez"
+            },
+            "img": "systems/sf2e/icons/class-icons/solarian.webp",
+            "name": "Solarian",
+            "sort": 0,
+            "system": {
+                "ancestryFeatLevels": {
+                    "value": [
+                        1,
+                        5,
+                        9,
+                        13,
+                        17
+                    ]
+                },
+                "attacks": {
+                    "advanced": 0,
+                    "martial": 1,
+                    "other": {
+                        "name": "",
+                        "rank": 0
+                    },
+                    "simple": 1,
+                    "unarmed": 1
+                },
+                "classFeatLevels": {
+                    "value": [
+                        1,
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "defenses": {
+                    "heavy": 0,
+                    "light": 1,
+                    "medium": 1,
+                    "unarmored": 1
+                },
+                "description": {
+                    "value": "<p><em>You're a conduit for the stellar forces of the cosmos—a solar knight. The powers of gravity and light represent the extremes of these forces, and you can attune yourself between them. As an agent of this cycle, you manifest an array of solar equipment and use your own connection to stellar forces to empower them. Regardless of which extreme of the stellar spectrum you prefer, you can change your attunement between them to take advantage of solar powers earned through meditation and practice.</em></p>\n<p>@UUID[Compendium.sf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.Nb6sw1oNTFwVPlLu]{Solarian}</p>"
+                },
+                "generalFeatLevels": {
+                    "value": [
+                        3,
+                        7,
+                        11,
+                        15,
+                        19
+                    ]
+                },
+                "hp": 10,
+                "items": {
+                    "5eNSL": {
+                        "img": "icons/magic/light/beam-rays-red-large.webp",
+                        "level": 19,
+                        "name": "Stellar Paragon",
+                        "uuid": "Compendium.sf2e.class-features.Item.Stellar Paragon"
+                    },
+                    "BUp0T": {
+                        "img": "systems/sf2e/icons/equipment/armor/vest-blue-heavy.webp",
+                        "level": 11,
+                        "name": "Armor Expertise",
+                        "uuid": "Compendium.sf2e.class-features.Item.Armor Expertise"
+                    },
+                    "DCgXD": {
+                        "img": "icons/magic/light/orb-container-orange.webp",
+                        "level": 7,
+                        "name": "Stellar Senses",
+                        "uuid": "Compendium.sf2e.class-features.Item.Stellar Senses"
+                    },
+                    "EzZJ1": {
+                        "img": "icons/weapons/polearms/spear-flared-silver-pink.webp",
+                        "level": 13,
+                        "name": "Solarian Weapon Mastery",
+                        "uuid": "Compendium.sf2e.class-features.Item.Solarian Weapon Mastery"
+                    },
+                    "HwMFN": {
+                        "img": "systems/sf2e/icons/abilities/blue-alien-energy-breath.webp",
+                        "level": 7,
+                        "name": "Weapon Specialization",
+                        "uuid": "Compendium.sf2e.class-features.Item.Weapon Specialization"
+                    },
+                    "MvwUD": {
+                        "img": "icons/magic/light/hand-sparks-glow-yellow.webp",
+                        "level": 9,
+                        "name": "Solarian Expertise",
+                        "uuid": "Compendium.sf2e.class-features.Item.Solarian Expertise"
+                    },
+                    "igvEe": {
+                        "img": "systems/sf2e/icons/abilities/blue-alien-weapon.webp",
+                        "level": 15,
+                        "name": "Greater Weapon Specialization",
+                        "uuid": "Compendium.sf2e.class-features.Item.Greater Weapon Specialization"
+                    },
+                    "jFimE": {
+                        "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
+                        "level": 3,
+                        "name": "Stellar Resilience",
+                        "uuid": "Compendium.sf2e.class-features.Item.Stellar Resilience"
+                    },
+                    "l5IJE": {
+                        "img": "systems/sf2e/icons/equipment/armor/vest-green-medium.webp",
+                        "level": 17,
+                        "name": "Armor Mastery",
+                        "uuid": "Compendium.sf2e.class-features.Item.Armor Mastery"
+                    },
+                    "lAUKy": {
+                        "img": "icons/magic/light/explosion-glow-spiral-yellow.webp",
+                        "level": 17,
+                        "name": "Solarian Mastery",
+                        "uuid": "Compendium.sf2e.class-features.Item.Solarian Mastery"
+                    },
+                    "nKIeH": {
+                        "img": "icons/magic/light/beam-impact-deflect-teal.webp",
+                        "level": 15,
+                        "name": "Gravitas",
+                        "uuid": "Compendium.sf2e.class-features.Item.Gravitas"
+                    },
+                    "qITq8": {
+                        "img": "icons/magic/light/beam-rays-orange-small.webp",
+                        "level": 1,
+                        "name": "Solar Manifestations",
+                        "uuid": "Compendium.sf2e.class-features.Item.Solar Manifestations"
+                    },
+                    "tZiyS": {
+                        "img": "icons/magic/light/swords-light-glowing-white.webp",
+                        "level": 5,
+                        "name": "Solar Weapon Expertise",
+                        "uuid": "Compendium.sf2e.class-features.Item.Solar Weapon Expertise"
+                    },
+                    "uoGth": {
+                        "img": "icons/magic/light/orb-beams-green.webp",
+                        "level": 9,
+                        "name": "Stellar Partition",
+                        "uuid": "Compendium.sf2e.class-features.Item.Stellar Partition"
+                    },
+                    "upwAB": {
+                        "img": "icons/magic/light/explosion-star-large-orange-purple.webp",
+                        "level": 1,
+                        "name": "Stellar Attunement",
+                        "uuid": "Compendium.sf2e.class-features.Item.Stellar Attunement"
+                    }
+                },
+                "keyAbility": {
+                    "selected": null,
+                    "value": [
+                        "str"
+                    ]
+                },
+                "perception": 2,
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "savingThrows": {
+                    "fortitude": 1,
+                    "reflex": 2,
+                    "will": 2
+                },
+                "skillFeatLevels": {
+                    "value": [
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "skillIncreaseLevels": {
+                    "value": [
+                        3,
+                        5,
+                        7,
+                        9,
+                        11,
+                        13,
+                        15,
+                        17,
+                        19
+                    ]
+                },
+                "slug": "solarian",
+                "spellcasting": 0,
+                "trainedSkills": {
+                    "additional": 4,
+                    "value": [
+                        "athletics"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common"
+                }
+            },
+            "type": "class"
+        },
+        {
+            "_id": "m5ogzq3AtlAZbem9",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.class-features.Item.uUzVTZ7XohXlavB6"
+            },
+            "flags": {
+                "sf2e": {
+                    "itemGrants": {
+                        "nimbusSurge": {
+                            "id": "rLJMWHuBJcFSP9iw",
+                            "onDelete": "detach"
+                        },
+                        "reForgeSolarWeapon": {
+                            "id": "eOLNJ4GAmMi3skww",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "dZU6Qha5YEciS9PU",
+            "img": "icons/magic/light/explosion-star-glow-orange.webp",
+            "name": "Solar Manifestations",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Your deep understanding of the stellar forces of the universe manifests in a variety of tangible ways. You can create and maintain three different manifestations: a solar flare, solar nimbus, and solar weapon. Your manifestations temporarily vanish if you become unattuned.</p><h2>Solar Flare</h2><p>A small mote of solar power hovers nearby or appears embedded on some part of your body, such as the palm of your hand or on your face. This mote can unleash a directed blast of energy at short range. Your solar flare is a martial ranged weapon in the brawling weapon group with the attuned and solarian traits. It doesn't take up a hand and doesn't need to be held to be wielded. Your solar flare can't be targeted by other creatures or removed from your person, except for when you become unattuned. Your attunement determines the damage type and range increment of your solar flare. You add your Strength modifier to damage rolls with your solar flare. You can improve the damage of your solar flare with solarian crystals.</p>\n<p><strong>Graviton-Attuned</strong> 1d8 bludgeoning, range increment 15 feet. On a critical success, you can attempt to @UUID[Compendium.sf2e.actions.Item.Trip] the target as a free action, ignoring range and multiple attack penalty, even if you don't have a free hand.</p>\n<p><strong>Photon-Attuned</strong> 1d6 fire, range increment 30 feet. On a critical success, the target additionally takes 1d6 persistent fire damage.</p><h2>Solar Nimbus</h2><p>A layer of stellar energy surrounds you, overlaying your body or worn armor. It appears as a layer of glowing light or solid darkness, depending on your current state of attunement. The general appearance and shape of the nimbus is your choice and could appear as a lattice of energy surrounding you or imposing spiked energy armor layered atop your existing equipment. This design has no impact on its function and doesn't provide any additional bonuses.</p>\n<p>You gain the @UUID[Compendium.sf2e.actions.Item.Nimbus Surge] reaction.</p><h2>Solar Weapon</h2><p>Through sheer will, you call forth a tangible weapon forged from the essence of stars. This weapon is an extension of yourself, and you can change its form with meditation. When manifesting your weapon, it appears in a free hand of your choice. If it has the free-hand trait, it can manifest in any hand. Your solar weapon is a martial melee weapon. It deals 1d8 of your choice of bludgeoning, piercing, or slashing damage with the attuned and solarian traits.</p>\n<p>At first level, choose up to two of the following traits for your weapon. Alternatively, you can select the reach or two-hand 1d10 trait for your weapon instead of selecting two of the following traits.</p><ul><li>Disarm</li><li>Free-Hand</li><li>Grapple</li><li>Nonlethal</li><li>Parry</li><li>Shove</li><li>Sweep</li><li>Trip</li><li>Versatile (B/P/S only)</li><li>Reach (counts as two traits)</li><li>Two-Hand 1d10 (counts as two traits)</li></ul><p>You can select one of the following weapon groups for your weapon to be a part of.</p><ul><li>Axe</li><li>Brawling</li><li>Club</li><li>Flail</li><li>Hammer</li><li>Knife</li><li>Pick</li><li>Polearm</li><li>Spear</li><li>Sword</li></ul><p>Your solar weapon gains additional benefits based on your current attunement.</p>\n<p><strong>Graviton-Attuned</strong> When you successfully Strike a creature using your solar weapon, that creature's space and all squares adjacent to it are difficult terrain for that creature until the end of its next turn.</p>\n<p><strong>Photon-Attuned</strong> When you successfully Strike a creature with your solar weapon, you deal an additional amount of fire damage equal to half your level (rounded up). Your solar weapon casts bright light in a 5-foot radius (and dim light for the next 5 feet).</p>\n<p>@UUID[Compendium.sf2e.feat-effects.Item.Effect: Solar Weapon]</p>\n<p>@UUID[Compendium.sf2e.actions.Item.Re-Forge Solar Weapon]</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "QHG70gcwM0lhZWrm",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "flag": "nimbusSurge",
+                        "key": "GrantItem",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "class:solarian",
+                                    "feat:solar-nimbus"
+                                ]
+                            }
+                        ],
+                        "reevaluateOnUpdate": true,
+                        "uuid": "Compendium.sf2e.actions.Item.Nimbus Surge"
+                    },
+                    {
+                        "category": "martial",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d8"
+                            }
+                        },
+                        "group": "brawling",
+                        "img": "systems/sf2e/icons/abilities/blue-comet-swirling.webp",
+                        "key": "Strike",
+                        "label": "SF2E.SpecificRule.Solarian.SolarFlare.Label",
+                        "predicate": [
+                            "stellar-attunement:graviton",
+                            {
+                                "or": [
+                                    "class:solarian",
+                                    "feat:solar-flare"
+                                ]
+                            }
+                        ],
+                        "range": {
+                            "increment": "15"
+                        },
+                        "slug": "solar-flare",
+                        "traits": [
+                            "attuned",
+                            "solarian"
+                        ]
+                    },
+                    {
+                        "category": "martial",
+                        "damage": {
+                            "base": {
+                                "damageType": "fire",
+                                "dice": 1,
+                                "die": "d6"
+                            }
+                        },
+                        "group": "brawling",
+                        "img": "systems/sf2e/icons/abilities/red-comet.webp",
+                        "key": "Strike",
+                        "label": "SF2E.SpecificRule.Solarian.SolarFlare.Label",
+                        "predicate": [
+                            "stellar-attunement:photon",
+                            {
+                                "or": [
+                                    "class:solarian",
+                                    "feat:solar-flare"
+                                ]
+                            }
+                        ],
+                        "range": {
+                            "increment": "30"
+                        },
+                        "slug": "solar-flare",
+                        "traits": [
+                            "attuned",
+                            "solarian"
+                        ]
+                    },
+                    {
+                        "ability": "str",
+                        "force": true,
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "class:solarian"
+                        ],
+                        "selector": "{item|id}-damage",
+                        "type": "ability"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "stellar-attunement:graviton",
+                            "class:solarian"
+                        ],
+                        "selector": "{item|id}-attack",
+                        "text": "SF2E.SpecificRule.Solarian.SolarFlare.Graviton.Note",
+                        "title": "SF2E.SpecificRule.Solarian.SolarFlare.Label"
+                    },
+                    {
+                        "category": "persistent",
+                        "critical": true,
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "hideIfDisabled": true,
+                        "key": "DamageDice",
+                        "label": "SF2E.SpecificRule.Solarian.SolarFlare.Label",
+                        "predicate": [
+                            "stellar-attunement:photon",
+                            "class:solarian"
+                        ],
+                        "selector": "{item|id}-damage",
+                        "slug": "solar-flare-photon-persistent-damage",
+                        "tags": [
+                            "photon-attuned"
+                        ]
+                    },
+                    {
+                        "itemType": "weapon",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:id:{item|id}",
+                            "class:solarian"
+                        ],
+                        "priority": 110,
+                        "property": "other-tags",
+                        "value": "solar-flare"
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:tag:solar-flare",
+                            "class:solarian"
+                        ],
+                        "property": "tags",
+                        "selectors": [
+                            "strike-damage"
+                        ],
+                        "slug": "base",
+                        "value": "photon-attuned"
+                    },
+                    {
+                        "flag": "reForgeSolarWeapon",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.sf2e.actions.Item.Re-Forge Solar Weapon"
+                    }
+                ],
+                "slug": "solar-manifestations",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "solarian"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "Dz0B2xR0euVOsQf9",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.class-features.Item.kZ7qB7yZMRCdMad3"
+            },
+            "flags": {
+                "sf2e": {
+                    "itemGrants": {
+                        "attune": {
+                            "id": "6KQrSgLogbVWeL6Z",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "dZU6Qha5YEciS9PU",
+            "img": "icons/magic/light/explosion-star-large-orange-purple.webp",
+            "name": "Stellar Attunement",
+            "sort": 100,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>As a solarian, your existence cycles between the aspects of stars. You begin with two aspects: photon (the power of stars to emit heat, light, and plasma) and graviton (the power of stars to attract and imprison objects through gravity). At any time, you're considered graviton-attuned, photon-attuned, or unattuned. Many of your abilities have additional effects based on your current attunement, and some abilities swap your current state of attunement to another state.</p>\n<p>You gain the @UUID[Compendium.sf2e.actions.Item.Attune] action.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "QHG70gcwM0lhZWrm",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "stellar-attunement",
+                        "priority": 45,
+                        "suboptions": [
+                            {
+                                "label": "SF2E.SpecificRule.Solarian.StellarAttunement.Graviton",
+                                "value": "graviton"
+                            },
+                            {
+                                "label": "SF2E.SpecificRule.Solarian.StellarAttunement.Photon",
+                                "value": "photon"
+                            },
+                            {
+                                "label": "SF2E.SpecificRule.Solarian.StellarAttunement.Unattuned",
+                                "value": "unattuned"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "flag": "attune",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.sf2e.actions.Item.Attune"
+                    }
+                ],
+                "slug": "stellar-attunement",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "solarian"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "rLJMWHuBJcFSP9iw",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.actions.Item.q7UDeO9Ko1EbPRWm"
+            },
+            "flags": {
+                "sf2e": {
+                    "grantedBy": {
+                        "id": "m5ogzq3AtlAZbem9",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "UwZefzAbVs0v3hbJ",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Nimbus Surge",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within your reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p><hr /><p>Your nimbus surges with energy, forcing an opening in your foe's defenses. Make a melee Strike against the triggering creature. This Strike doesn't count toward your multiple attack penalty, and your multiple attack penalty doesn't apply to this Strike.</p>\n<p><strong>Graviton-Attuned</strong> If the Strike is a critical success, the target must succeed at a @Check[fortitude|against:solarian] save against your class DC or become @UUID[Compendium.sf2e.conditions.Item.Enfeebled]{Enfeebled 1} until the end of its turn.</p>\n<p><strong>Photon-Attuned</strong> If the Strike is a critical success, the target must succeed at a @Check[fortitude|against:solarian] save against your class DC or become @UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 1} until the start of its turn.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "disabledIf": [
+                            "stellar-attunement:unattuned"
+                        ],
+                        "disabledValue": false,
+                        "key": "RollOption",
+                        "option": "nimbus-surge",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "nimbus-surge",
+                            "stellar-attunement:graviton",
+                            {
+                                "or": [
+                                    "class:solarian",
+                                    "feat:solar-nimbus"
+                                ]
+                            }
+                        ],
+                        "selector": "melee-strike-attack-roll",
+                        "text": "SF2E.SpecificRule.Solarian.NimbusSurge.GravitonNote",
+                        "title": "{item|name}"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "nimbus-surge",
+                            "stellar-attunement:photon",
+                            {
+                                "or": [
+                                    "class:solarian",
+                                    "feat:solar-nimbus"
+                                ]
+                            }
+                        ],
+                        "selector": "melee-strike-attack-roll",
+                        "text": "SF2E.SpecificRule.Solarian.NimbusSurge.PhotonNote",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": "nimbus-surge",
+                "traits": {
+                    "value": [
+                        "attuned",
+                        "solarian"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eOLNJ4GAmMi3skww",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.actions.Item.uvtdqSfKD6oXNA29"
+            },
+            "flags": {
+                "sf2e": {
+                    "grantedBy": {
+                        "id": "m5ogzq3AtlAZbem9",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "UwZefzAbVs0v3hbJ",
+            "img": "systems/sf2e/icons/actions/LongerAction.webp",
+            "name": "Re-Forge Solar Weapon",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>You spend 10 minutes focusing on the composition of your solar weapon. You can change your solar weapon's damage type (typically choosing between bludgeoning, piercing, or slashing), selected traits, and weapon group. Your weapon maintains your selections until the next time you Re-Forge Solar Weapon.</p>\n<p>@UUID[Compendium.sf2e.feat-effects.Item.Effect: Solar Weapon]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "re-forge-solar-weapon",
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "exploration",
+                        "solarian"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6KQrSgLogbVWeL6Z",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.actions.Item.3xDhpvORBmK6AtcI"
+            },
+            "flags": {
+                "sf2e": {
+                    "grantedBy": {
+                        "id": "Dz0B2xR0euVOsQf9",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "UwZefzAbVs0v3hbJ",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Attune",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p>You steady your body and mind and attune yourself to the stellar aspect of your choice. You become attuned to photon or graviton. You can also manifest any of your solar manifestations if they're currently dormant and if you have the free hands to use them.</p><hr /><p><strong>Special</strong> In addition to the above usage, you can also Attune as a free action when you roll initiative.</p>\n<p>@UUID[Compendium.sf2e.feat-effects.Item.Effect: Solar Weapon]</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "attune",
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "solarian"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JO1RJHzB2jyt7uqK",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.class-features.Item.Cait1ugGIGFlZrPD"
+            },
+            "folder": "dZU6Qha5YEciS9PU",
+            "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
+            "name": "Stellar Resilience",
+            "sort": 600,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Stellar energy flows throughout your entire being like an unstoppable tidal wave, strengthening both body and mind. Your proficiency rank in Fortitude saves increases to expert. When you roll a success on a Fortitude or Will save against a mental or incapacitation effect, you can @UUID[Compendium.sf2e.actions.Item.Attune] as a free action.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "QHG70gcwM0lhZWrm",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success",
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "item:trait:incapacitation",
+                            "item:trait:mental"
+                        ],
+                        "selector": [
+                            "fortitude",
+                            "will"
+                        ],
+                        "text": "SF2E.SpecificRule.Solarian.StellarResilience.Note",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": "stellar-resilience",
+                "subfeatures": {
+                    "proficiencies": {
+                        "fortitude": {
+                            "attribute": null,
+                            "rank": 2
+                        }
+                    },
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "solarian"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "m3Y7nLHcL6ncsiRu",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.PIdM8V0m8nLEI73e"
+            },
+            "folder": "V89RPpe7fyCFC6NS",
+            "img": "icons/commodities/cloth/ribbon-green.webp",
+            "name": "Battle Ribbon",
+            "sort": 0,
+            "system": {
+                "ammo": null,
+                "baseItem": "battle-ribbon",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d4"
+                },
+                "description": {
+                    "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>This sheer nanocarbon ribbon is sharp enough to cut through flesh without interrupting the traditional battle dances that make the weapon famous.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "expend": null,
+                "grade": "commercial",
+                "group": "flail",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "sizeSensitive": false,
+                    "value": {
+                        "sp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": null
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "lg",
+                "slug": "battle-ribbon",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "analog",
+                        "disarm",
+                        "finesse",
+                        "reach",
+                        "trip"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "vatl3SpK4f2ZA2dp",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.Yuws1too4LhO7Cu9"
+            },
+            "folder": "aGUZspQIi3yNxIOu",
+            "img": "systems/sf2e/icons/equipment/other/syringe.webp",
+            "name": "Commando Serum",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "other",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> (manipulate)</p><hr /><p>This tangy crimson elixir grants you 1d10+5 temporary Hit Points, as well as a +5-foot item bonus to any Speed you have for 1 minute. When you drink this serum, your veins protrude, and your eyes take on a reddish tinge.</p>\n<p>@UUID[Compendium.sf2e.equipment-effects.Item.Effect: Commando Serum]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "sizeSensitive": false,
+                    "value": {
+                        "sp": 100
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "lg",
+                "slug": "commando-serum",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "serum"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "fsqCyBeu5C3fMVuM",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.cw9u2izfwLqWZYBb"
+            },
+            "folder": "JlUS4L43QWp3cPhu",
+            "img": "icons/equipment/wrist/bracer-studded-copper.webp",
+            "name": "Duo-Enhancers",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This magitech interface is a sophisticated pair of linked bracers, wristbands, gloves, or other garments suitable to the part of a creature's anatomy it uses to wield weapons. One of the paired enhancers includes a screen that displays data about the weapons the wearer is wielding, and the other enhancer contains magical crystals. When you wield a weapon in the hand wearing the display, the weapon's grade (such as tactical) is replicated onto the weapon you're wielding in the hand with the crystal enhancer, but only for purposes of determining the weapon's extra damage dice and tracking trait (which adds an item bonus to attack rolls). Any other properties of the weapon, such as its damage type, ammo, or upgrades, aren't replicated.</p>\n<p>The replication functions only if you wear both enhancers, and it ends as soon as you cease wielding a weapon in one of your hands. Consequently, the benefit doesn't apply to thrown attacks or if you're holding a weapon but not wielding it (such as holding in one hand a weapon that requires two hands to wield, or holding a weapon in non-active hands).</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": true
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 500
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "lg",
+                "slug": "duo-enhancers",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "wornarmbands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "JM5VtCW6bIzMSx9i",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.plBUD8dy3M3gGiHK"
+            },
+            "folder": "jjcF0lfrc3ZIoKv1",
+            "img": "systems/sf2e/icons/equipment/armor/armor-brown-medium-powered.webp",
+            "name": "Freebooter Armor",
+            "sort": 0,
+            "system": {
+                "acBonus": 4,
+                "baseItem": "freebooter-armor",
+                "bulk": {
+                    "value": 2
+                },
+                "category": "medium",
+                "checkPenalty": -2,
+                "containerId": null,
+                "description": {
+                    "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>Freebooter armor is named for the pirates and outlaws who often wear these outfits. Freebooter armor typically consists of a breastplate worn under a jacket or flight suit, heavy boots and gloves, a helmet, and hidden straps and holsters for concealing weapons.</p>"
+                },
+                "dexCap": 1,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "grade": "commercial",
+                "group": "plate",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "sizeSensitive": false,
+                    "value": {
+                        "sp": 65
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "lg",
+                "slug": "freebooter-armor",
+                "speedPenalty": -5,
+                "strength": 3,
+                "subitems": [
+                    {
+                        "_id": "2F4abWBQQedlFB33",
+                        "_stats": {
+                            "compendiumSource": "Compendium.sf2e.equipment.Item.5ar8OM7cYywnfTjD"
+                        },
+                        "folder": "cTmXSS0L1MClVGP3",
+                        "img": "systems/sf2e/icons/abilities/cerulean-circular-sign.webp",
+                        "name": "Glamer Projector",
+                        "sort": 0,
+                        "system": {
+                            "baseItem": null,
+                            "bulk": {
+                                "value": 0.1
+                            },
+                            "containerId": null,
+                            "description": {
+                                "value": "<p>Adjustable rings project magical holograms onto your armor, changing its appearance to match your personal style and suit any occasion. Glamer projectors come programmed with preset options, including casual, corporate, and fashion. You can customize your glamer projector using a computer, like the one in your comm unit.</p><hr /><p><strong>Activate—Glamerize!</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<p><strong>Effect</strong> You instantly change the appearance of your armor to any set of normal clothes or any other type of light or heavy armor. This upgrade is capable of changing only the appearance of your armor, not yourself or the rest of your equipment. You can copy the look of any type of clothing, but you don't gain any item bonuses provided by special types of clothing, such as luxury fashion attire. Only a creature that's benefiting from truesight or a similar effect can attempt to disbelieve this illusion, opposed by your class DC.</p>"
+                            },
+                            "equipped": {
+                                "carryType": "installed",
+                                "handsHeld": 0
+                            },
+                            "hardness": 0,
+                            "hp": {
+                                "max": 0,
+                                "value": 0
+                            },
+                            "level": {
+                                "value": 1
+                            },
+                            "material": {
+                                "grade": null,
+                                "type": null
+                            },
+                            "price": {
+                                "value": {
+                                    "sp": 100
+                                }
+                            },
+                            "publication": {
+                                "license": "ORC",
+                                "remaster": true,
+                                "title": "Starfinder Player Core"
+                            },
+                            "quantity": 1,
+                            "rules": [],
+                            "size": "lg",
+                            "slug": "glamer-projector",
+                            "traits": {
+                                "rarity": "common",
+                                "value": [
+                                    "magical",
+                                    "tech"
+                                ]
+                            },
+                            "usage": {
+                                "value": "installed-in-armor"
+                            }
+                        },
+                        "type": "equipment"
+                    }
+                ],
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "tech"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "FAjROdHEY2aWfRop",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.s1vB3HdXjMigYAnY"
+            },
+            "folder": "cJoNKs2FMCJkyEDK",
+            "img": "systems/sf2e/icons/equipment/other/med-pack.webp",
+            "name": "Medkit (Commercial)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>These contain analgesics, bandages, sterile gauze, and suturing tools necessary for Medicine checks to @UUID[Compendium.sf2e.actions.Item.Administer First Aid], @UUID[Compendium.sf2e.actions.Item.Treat Disease], @UUID[Compendium.sf2e.actions.Item.Treat Poison], or @UUID[Compendium.sf2e.actions.Item.Treat Wounds].</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "sizeSensitive": false,
+                    "value": {
+                        "sp": 50
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "lg",
+                "slug": "medkit-commercial",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-or-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "qcIhivNrHXoByuBN",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.B0FiYMxy7iDiHh48"
+            },
+            "folder": "aGUZspQIi3yNxIOu",
+            "img": "systems/sf2e/icons/equipment/other/med-kit.webp",
+            "name": "Medpatch (Commercial)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "other",
+                "containerId": null,
+                "damage": {
+                    "formula": "1d6",
+                    "kind": "healing",
+                    "type": "untyped"
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> (manipulate)</p><hr /><p>Medpatches accelerate the body's natural healing. You regain @Damage[(1d6)[healing]] Hit Points and gain a +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.sf2e.equipment-effects.Item.Effect: Medpatch]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "sizeSensitive": false,
+                    "value": {
+                        "cp": 0,
+                        "gp": 0,
+                        "pp": 0,
+                        "sp": 30
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "lg",
+                "slug": "medpatch-commercial",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "healing",
+                        "tech"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "mwDaZ3ggkhXNO2rY",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.QdxskYrRPk92siaB"
+            },
+            "folder": "V89RPpe7fyCFC6NS",
+            "img": "icons/weapons/swords/sword-guard-red-jewel.webp",
+            "name": "Skyfire Sword",
+            "sort": 0,
+            "system": {
+                "ammo": null,
+                "baseItem": "skyfire-sword",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "advanced",
+                "containerId": null,
+                "damage": {
+                    "damageType": "fire",
+                    "dice": 1,
+                    "die": "d8"
+                },
+                "description": {
+                    "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>Famously wielded by warriors of the Skyfire Legion, this flaming blade is powered by burning gas held in place by magnetic fields.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "expend": null,
+                "grade": "tactical",
+                "group": "flame",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "sizeSensitive": false,
+                    "value": {
+                        "sp": 30
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": null
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "lg",
+                "slug": "skyfire-sword",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-d8",
+                        "powered",
+                        "tech",
+                        "two-hand-d10"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "7clcsTLGUmfJB6EG",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.O3QRrXVfhNpF0XyY"
+            },
+            "folder": "V89RPpe7fyCFC6NS",
+            "img": "systems/sf2e/icons/abilities/blue-aura-charged-gun.webp",
+            "name": "Zero Pistol",
+            "sort": 0,
+            "system": {
+                "ammo": {
+                    "baseType": "chem-tank",
+                    "builtIn": false,
+                    "capacity": 1
+                },
+                "baseItem": "zero-pistol",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "cold",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>Zero pistols use transparent canisters of supercooled liquid as ammunition.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "expend": 2,
+                "grade": "commercial",
+                "group": "cryo",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "sizeSensitive": false,
+                    "value": {
+                        "sp": 30
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "range": 30,
+                "reload": {
+                    "value": "1"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "lg",
+                "slug": "zero-pistol",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "tech"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "ZV8rT5owBu60ZnTD",
+            "img": "icons/sundries/gaming/playing-cards-grey.webp",
+            "name": "Credstick",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "credstick",
+                "containerId": null,
+                "description": {
+                    "value": "<p>Most people in Starfinder keep their wealth on a protected item known as a credstick. These devices are often flat and roughly the size of a human finger. They range in dimensions and quality, but at the end of the day, they're just a means of conveniently carrying and spending money. Usage of these devices is determined by the owner, and a credstick can accept or spend funds with as simple an action as tapping it near a suitable banking device. When more rigorous security is necessary, they can require audio or biometric imprints in order to activate. Some advanced credsticks even have a magical component that might require a mental password or the recitation of a specific spell to access stored funds.</p>\n<p>Credsticks aren't gateways to the entirety of one's wealth, and larger stores of credits are often kept secured in banks, personal vaults, or secure databases. Instead, a credstick is a safe and anonymous means of moving credits around without being traced. Adventurers and common citizens alike often keep a credstick on their person to handle any purchases they might be called upon to make, while also only keeping just enough credits on them that losing the credstick wouldn't result in bankruptcy.</p>\n<p>Individuals in the Pact Worlds often carry credsticks, and other civilizations that interact with the Pact often turn local funds into credits and thus carry them to spend their converted currency. Sometimes a person might carry several credsticks, dedicating each one to a different use, or simply trading the stick away if they want to make a purchase of a predefined amount. If ever the number of credsticks on a person becomes too cumbersome, it's easy enough to move the funds between individual sticks and discard emptied sticks to save on space, however a credstick always has a negligible bulk.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 1,
+                    "value": {
+                        "sp": 19
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "credstick",
+                "temporary": false,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "iprzh26ocEuo6WdG",
+            "img": "systems/sf2e/icons/default-icons/lore.svg",
+            "name": "Sports Lore",
+            "sort": 0,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 0
+                },
+                "proficient": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "NWkgtZIH5OkDTnMc",
+            "img": "systems/sf2e/icons/default-icons/effect.svg",
+            "name": "Effect: Paizo Adjustment",
+            "sort": 0,
+            "system": {
+                "description": {
+                    "value": "<p>Add +1 to Sports Lore per published statblock</p>"
+                },
+                "duration": {
+                    "expiry": null,
+                    "sustained": false,
+                    "unit": "unlimited",
+                    "value": -1
+                },
+                "fromSpell": false,
+                "level": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": [
+                            "sports-lore"
+                        ],
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "start": {
+                    "initiative": null,
+                    "value": 0
+                },
+                "tokenIcon": {
+                    "show": true
+                },
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "effect"
+        },
+        {
+            "_id": "CXpg8nyDCVc0qlAo",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.SX1BCOMptzYyaHqQ"
+            },
+            "folder": "OQyZNx7C5LCx3ZQE",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Dragonkin Weapon Familiarity",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>You wield weapons favored by the Skyfire Legion. You are trained with the skyfire sword, flamethrower, and machine gun. In addition, you gain access to all uncommon weapons with the dragonkin trait. For the purposes of proficiency, you treat any of these that are martial weapons as simple weapons and any that are advanced weapons as martial weapons.</p>\n<p>At 5th level, whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Galaxy Guide"
+                },
+                "rules": [
+                    {
+                        "definition": [
+                            {
+                                "or": [
+                                    "item:trait:dragonkin",
+                                    "item:base:flamethrower",
+                                    "item:base:machine-gun"
+                                ]
+                            },
+                            "item:category:martial"
+                        ],
+                        "key": "MartialProficiency",
+                        "label": "SF2E.SpecificRule.Dragonkin.WeaponFamiliarity.MartialWeapons",
+                        "sameAs": "simple",
+                        "slug": "martial-dragonkin-weapons"
+                    },
+                    {
+                        "definition": [
+                            {
+                                "or": [
+                                    "item:trait:dragonkin",
+                                    "item:base:skyfire-sword"
+                                ]
+                            },
+                            "item:category:advanced"
+                        ],
+                        "key": "MartialProficiency",
+                        "label": "SF2E.SpecificRule.Dragonkin.WeaponFamiliarity.AdvancedWeapons",
+                        "sameAs": "simple",
+                        "slug": "advanced-dragonkin-weapons"
+                    },
+                    {
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    5
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "item:trait:dragonkin",
+                                    "item:base:skyfire-sword",
+                                    "item:base:flamethrower",
+                                    "item:base:machine-gun"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "slug": "dragonkin-weapon-familiarity",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "dragonkin"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "PHBgsY53aZLcqfB0",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.hKkUTNTjRztyRSJr"
+            },
+            "flags": {
+                "sf2e": {
+                    "itemGrants": {
+                        "shieldBlock": {
+                            "id": "NHwPSsUhI7iTHWGh",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "aTIFCeOaAtdBwJwj",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Solar Shield",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You've developed a new solar manifestation—a small shield of stellar energy that orbits you. This energy shield has the attuned and solarian traits and doesn't require a hand to use. You can Raise a Shield, giving you a +1 circumstance bonus to AC until the start of your next turn. You gain the Shield Block general feat.</p>\n<p>@UUID[Compendium.sf2e.feat-effects.Item.Effect: Solar Shield]</p>\n<p>While the shield is raised, you can use the Shield Block reaction with your shield. The shield has Hit Points equal to 5 plus twice your level and Hardness equal to half your level, rounded up. Your shield can't be broken, but if it's destroyed, you can't manifest a new shield for 10 minutes. If your shield vanishes due to you losing attunement, when you Attune to reform it, the shield returns with however many Hit Points it previously had. The shield regains all its lost Hit Points during your daily preparations and whenever you rest for at least 10 minutes, even if it's been destroyed.</p>\n<p><strong>Graviton-Attuned</strong> If your shield is destroyed, it releases a shock wave. Adjacent enemies must succeed at a @Check[fortitude|against:solarian] save against your class DC or be @UUID[Compendium.sf2e.conditions.Item.Suppressed] for 1 round (2 rounds on a critical failure).</p>\n<p><strong>Photon-Attuned</strong> If your shield is destroyed, it releases a flash of light. Adjacent enemies must succeed at a @Check[fortitude|against:solarian] save against your class DC or be @UUID[Compendium.sf2e.conditions.Item.Dazzled] for 1 round (@UUID[Compendium.sf2e.conditions.Item.Blinded] for 1 round on a critical failure).</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "class-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Treasure Vault (Remastered)"
+                },
+                "rules": [
+                    {
+                        "flag": "shieldBlock",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.sf2e.feats.Item.Shield Block"
+                    }
+                ],
+                "slug": "solar-shield",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "manifestation",
+                        "solarian"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "NHwPSsUhI7iTHWGh",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.jM72TjJ965jocBV8"
+            },
+            "flags": {
+                "sf2e": {
+                    "grantedBy": {
+                        "id": "PHBgsY53aZLcqfB0",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "952e2Tn00KbJ2FY3",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Shield Block",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> While you have your shield raised, you would take physical damage (bludgeoning, piercing, or slashing) from an attack.</p>\n<hr />\n<p>You snap your shield in place to ward off a blow. Your shield prevents you from taking an amount of damage up to the shield's Hardness. You and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "shield-block",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "3p1jkMx93NyUdDAE",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.AmP0qu7c5dlBSath"
+            },
+            "folder": "952e2Tn00KbJ2FY3",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Toughness",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p>Your body can withstand more punishment than most before succumbing. Increase your maximum Hit Points by your level. You reduce the DC of recovery checks by 1.</p>"
+                },
+                "level": {
+                    "taken": 3,
+                    "value": 1
+                },
+                "location": "general-3",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "hp",
+                        "value": "@actor.level"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "subtract",
+                        "path": "system.attributes.dying.recoveryDC",
+                        "value": 1
+                    }
+                ],
+                "slug": "toughness",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "ttMFw0vhPEQ7SPge",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.xqAdXRd2gSQcqp5E"
+            },
+            "folder": "admZiPs6ML6NgwMt",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Impressive Performance",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>Your performances inspire admiration and win you fans. You can [[/act make-an-impression skill=performance]] using Performance instead of Diplomacy. If you spend at least 10 minutes performing in front of an audience, you can Make an Impression targeting up to 10 members of the audience who were there for the whole performance, without taking the normal penalty. The number of targets increases to 20 for a 1-hour performance and 50 for a 2-hour performance.</p>"
+                },
+                "level": {
+                    "taken": 2,
+                    "value": 1
+                },
+                "location": "skill-2",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Performance"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "impressive-performance",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "nuIUVBH9lHk5ix4N",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.feats.Item.7nogykxuNzdaRfnf"
+            },
+            "folder": "aTIFCeOaAtdBwJwj",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Stellar Rush",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You rush forward with a blast of stellar energy, getting into the thick of combat with ease. Stride twice. You gain a +10-foot circumstance bonus to your Speed during these moves.</p>\n<p><strong>Graviton-Attuned</strong> When you finish your Strides, enemies within 15 feet of you must attempt a @Check[fortitude|against:solarian|options:area-effect,forced-movement] save against your class DC. On a failure, they're pulled directly toward you, ending in an adjacent square if possible. You select the order these enemies are moved.</p>\n<p><strong>Photon-Attuned</strong> When you finish your Strides, you create a photon field in a @Template[type:burst|distance:15] centered on you. Until the start of your next turn, creatures outside the photon field are @UUID[Compendium.sf2e.conditions.Item.Concealed] to creatures inside the field.</p>"
+                },
+                "level": {
+                    "taken": 2,
+                    "value": 1
+                },
+                "location": "class-2",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "disabledIf": [
+                            "stellar-attunement:unattuned"
+                        ],
+                        "disabledValue": false,
+                        "key": "RollOption",
+                        "option": "stellar-rush",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "stellar-rush"
+                        ],
+                        "selector": "all-speeds",
+                        "type": "circumstance",
+                        "value": 10
+                    }
+                ],
+                "slug": "stellar-rush",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attuned",
+                        "cycle",
+                        "move",
+                        "solarian",
+                        "traversal"
+                    ]
+                }
+            },
+            "type": "feat"
+        }
+    ],
+    "name": "Xyzexius",
+    "system": {
+        "abilities": null,
+        "attributes": {
+            "hp": {
+                "temp": 0,
+                "value": 49
+            }
+        },
+        "build": {
+            "attributes": {
+                "boosts": {
+                    "1": [
+                        "str",
+                        "dex",
+                        "con",
+                        "cha"
+                    ]
+                }
+            }
+        },
+        "details": {
+            "age": {
+                "value": ""
+            },
+            "biography": {
+                "allies": "",
+                "anathema": [],
+                "appearance": "",
+                "attitude": "",
+                "backstory": "",
+                "beliefs": "",
+                "birthPlace": "",
+                "campaignNotes": "",
+                "catchphrases": "",
+                "dislikes": "",
+                "edicts": [],
+                "enemies": "",
+                "likes": "",
+                "organizations": ""
+            },
+            "ethnicity": {
+                "value": ""
+            },
+            "gender": {
+                "value": "Nonbinary"
+            },
+            "height": {
+                "value": ""
+            },
+            "keyability": {
+                "value": "str"
+            },
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 3
+            },
+            "nationality": {
+                "value": ""
+            },
+            "weight": {
+                "value": ""
+            },
+            "xp": {
+                "max": 1000,
+                "min": 0,
+                "value": 0
+            }
+        },
+        "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
+        "pfs": {
+            "characterNumber": null,
+            "currentFaction": "EA",
+            "levelBump": false,
+            "playerNumber": null,
+            "reputation": {
+                "EA": null,
+                "GA": null,
+                "HH": null,
+                "RO": null,
+                "VS": null,
+                "VW": null
+            },
+            "school": null
+        },
+        "resources": {
+            "heroPoints": {
+                "max": 3,
+                "value": 1
+            }
+        },
+        "skills": {
+            "athletics": {
+                "rank": 2
+            },
+            "computers": {
+                "rank": 1
+            },
+            "intimidation": {
+                "rank": 1
+            },
+            "performance": {
+                "rank": 1
+            }
+        }
+    },
+    "type": "character"
+}

@@ -12,7 +12,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p><strong>Trigger</strong> An ally is about to use an action that requires a skill check or attack roll.</p><hr /><p>You're always willing to jump in and help, even if you don't know what you're doing. You Aid a willing ally, even if you didn't prepare to help them ahead of time. You gain a +4 circumstance bonus on your check to Aid, but after the triggering check, your ally becomes @UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 1} until the end of their current turn.</p>"
+            "value": "<p><strong>Trigger</strong> An ally is about to use an action that requires a skill check or attack roll.</p><hr /><p>You're always willing to jump in and help, even if you don't know what you're doing. You @UUID[Compendium.sf2e.actions.Item.Aid] a willing ally, even if you didn't prepare to help them ahead of time. You gain a +4 circumstance bonus on your check to Aid, but after the triggering check, your ally becomes @UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 1} until the end of their current turn.</p>"
         },
         "frequency": {
             "max": 1,
@@ -29,7 +29,27 @@
             "remaster": true,
             "title": "Starfinder Galactic Ancestries"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "overly-helpful",
+                "toggleable": true
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:aid",
+                    "overly-helpful"
+                ],
+                "selector": [
+                    "skill-check",
+                    "attack"
+                ],
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

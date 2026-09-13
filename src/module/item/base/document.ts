@@ -224,6 +224,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             actor: this.actor,
             tokenId: token ? `${token.parent?.id}.${token.id}` : null,
             item: this,
+            showIcon: this.img !== ItemPF2e.getDefaultArtwork(this._source).img,
             data: await this.getChatData(undefined, rollOptions),
         };
 
@@ -413,6 +414,13 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         if (currentSource.type === "feat" && currentSource.system.level.taken) {
             fu.mergeObject(updates, { "system.level.taken": currentSource.system.level.taken });
+        }
+
+        if (itemIsOfType(currentSource, "class") && itemIsOfType(latestSource, "class")) {
+            const selected = currentSource.system.keyAbility.selected;
+            if (selected && latestSource.system.keyAbility.value.includes(selected)) {
+                fu.mergeObject(updates, { "system.keyAbility.selected": selected });
+            }
         }
 
         if (options.update) {

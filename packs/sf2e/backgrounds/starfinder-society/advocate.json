@@ -1,0 +1,80 @@
+{
+    "_id": "YZNkCpn5DCzjTRJ0",
+    "folder": "BzhyIRBW6UKtg6oG",
+    "img": "systems/sf2e/icons/default-icons/background.svg",
+    "name": "Advocate",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You love being a member of the Starfinder Society, and deeply cherish the bonds you've formed with your fellow Starfinders. Inspired by these bonds, your moral compass, a sense of justice, or perhaps fellow Starfinder Zigvigix's public effort, you advocate for the betterment of all Starfinders. Sometimes this means lobbying to improve work conditions and support systems, sometimes this means volunteering your time to causes and services you believe make a positive impact, and sometimes this means healing wounds, assisting with recovery, or offering a compassionate shoulder to lean on to a Starfinder in need.</p>\n<p>Choose two attribute boosts. One must be to <strong>Wisdom</strong> or <strong>Charisma</strong>, and one is a free attribute boost.</p>\n<p>You're trained in your choice of either the Diplomacy or the Medicine skill, and the Legal Lore skill. If you choose Diplomacy, you gain the @UUID[Compendium.sf2e.feats.Item.No Cause for Alarm] skill feat. If you choose Medicine, you gain the @UUID[Compendium.sf2e.feats.Item.Battle Medicine] skill feat.</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Beyond the Blood Door Player's Guide"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Diplomacy",
+                        "value": {
+                            "feat": "Compendium.sf2e.feats.Item.No Cause for Alarm",
+                            "skill": "diplomacy"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Medicine",
+                        "value": {
+                            "feat": "Compendium.sf2e.feats.Item.Battle Medicine",
+                            "skill": "medicine"
+                        }
+                    }
+                ],
+                "flag": "advocate",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.system.rulesSelections.advocate.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.system.rulesSelections.advocate.feat}"
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Legal Lore"
+            ],
+            "value": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "background"
+}

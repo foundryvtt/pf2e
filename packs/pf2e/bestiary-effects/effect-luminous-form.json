@@ -1,0 +1,63 @@
+{
+    "_id": "woDkDd0Vrrut0wGf",
+    "img": "icons/magic/light/explosion-star-glow-yellow.webp",
+    "name": "Effect: Luminous Form",
+    "system": {
+        "description": {
+            "value": "<p>You shed bright light in a 30-foot emanation and your melee Strikes deal an additional 1d6 fire damage and 1d6 spirit damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 23
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "key": "TokenLight",
+                "value": {
+                    "alpha": 0.3,
+                    "animation": {
+                        "type": "starlight"
+                    },
+                    "bright": 30,
+                    "color": "#f7eebf"
+                }
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "melee-strike-damage"
+            },
+            {
+                "damageType": "spirit",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "melee-strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

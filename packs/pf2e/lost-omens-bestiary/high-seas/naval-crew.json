@@ -81,7 +81,11 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The naval crew attacks as a disciplined whole against each enemy in a @Template[type:emanation|distance:5], with a @Check[reflex|dc:23|basic] save. The damage depends on the number of actions. <span class=\"action-glyph\">1</span> @Damage[(1d6+2)[slashing]|options:area-damage] damage <span class=\"action-glyph\">2</span> @Damage[(3d6+6)[slashing]|options:area-damage] damage <span class=\"action-glyph\">3</span> @Damage[(4d6+8)[slashing]|options:area-damage] damage</p>"
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The naval crew attacks as a disciplined whole against each enemy in a @Template[type:emanation|distance:5], with a @Check[reflex|dc:23|basic|options:area-effect] save. The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[(1d6+2)[slashing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(3d6+6)[slashing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(4d6+8)[slashing]|options:area-damage] damage</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
                 },
                 "publication": {
                     "license": "OGL",
@@ -110,7 +114,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The naval crew draws, loads, and shoots its hand crossbows. The bolts hit in a @Template[type:burst|distance:10] within 60 feet that deals @Damage[5d6[piercing]|options:area-damage] damage with a @Check[reflex|dc:23|basic] save. When the naval crew is reduced to 2 or fewer segments, this area decreases to a @Template[type:burst|distance:5].</p>"
+                    "value": "<p>The naval crew draws, loads, and shoots its hand crossbows. The bolts hit in a @Template[type:burst|distance:10] within 60 feet that deals @Damage[5d6[piercing]|options:area-damage] damage with a @Check[reflex|dc:23|basic|options:area-effect] save. When the naval crew is reduced to 2 or fewer segments, this area decreases to a @Template[type:burst|distance:5].</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -168,7 +172,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The crew is on a ship on the water</p><hr /><p><strong>Effect</strong> The naval crew coordinates its movement to pitch the vessel to and fro. It Strides, and at the end of the movement, each other creature on the ship must succeed at a @Check[reflex|dc:26] save or fall @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                    "value": "<p><strong>Requirements</strong> The crew is on a ship on the water</p><hr /><p><strong>Effect</strong> The naval crew coordinates its movement to pitch the vessel to and fro. It Strides, and at the end of the movement, each other creature on the ship must succeed at a @Check[reflex|dc:26|options:area-effect,inflicts:prone] save or fall @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
                 },
                 "publication": {
                     "license": "OGL",

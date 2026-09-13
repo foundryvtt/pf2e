@@ -1,0 +1,71 @@
+{
+    "_id": "Pew7duAozEeAemif",
+    "folder": "DbtBUOmAB0EiLVfI",
+    "img": "icons/skills/ranged/arrows-flying-salvo-blue-light.webp",
+    "name": "Starlit Span",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>With magic, the sky's the limit, and you can't be bound by the confines of physical proximity. Your power reaches as far as your senses can perceive, transcending the space between you and your target even with spells that normally require direct physical contact.</p>\n<p>When you use Spellstrike, you can make a ranged weapon or ranged unarmed Strike, as long as the target is within the first range increment of your ranged weapon or ranged unarmed attack. This overrides the actual range of the spell.</p>\n<p>While you're in @UUID[Compendium.pf2e.actionspf2e.Item.Arcane Cascade] stance, your ranged attacks ignore any lesser cover your allies would grant to your target.</p>\n<p><strong>Conflux Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Shooting Star]</p>\n<p><strong>Studious Spells</strong> 7th: @UUID[Compendium.pf2e.spells-srd.Item.Telekinetic Maneuver]; 11th: @UUID[Compendium.pf2e.spells-srd.Item.Wall of Wind]; 13th: @UUID[Compendium.pf2e.spells-srd.Item.Unfettered Movement]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "self:effect:arcane-cascade",
+                    "target:cover-level:lesser"
+                ],
+                "selector": [
+                    "ranged-attack-roll"
+                ],
+                "text": "PF2E.SpecificRule.Magus.StarlitSpan.Note",
+                "title": "{item|name}"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellcasting:category:prepared",
+                    "spellcasting:tradition:arcane",
+                    {
+                        "or": [
+                            "item:slug:telekinetic-maneuver",
+                            "item:slug:wall-of-wind",
+                            "item:slug:unfettered-movement"
+                        ]
+                    }
+                ],
+                "property": "other-tags",
+                "value": "studious-spell"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "magus-hybrid-study"
+            ],
+            "rarity": "common",
+            "value": [
+                "magus"
+            ]
+        }
+    },
+    "type": "feat"
+}

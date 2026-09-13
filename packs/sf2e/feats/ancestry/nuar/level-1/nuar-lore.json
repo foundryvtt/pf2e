@@ -1,0 +1,59 @@
+{
+    "_id": "qnlnENql25wW5tRT",
+    "folder": "gbBZOXxa1TsYrogk",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Nuar Lore",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Nuars are no strangers to wandering the stars and exploring alien worlds, meeting other nuars along the way. You possess an innate sense of location that never leaves you truly lost. You become trained in Piloting and Survival. If you're already trained in one of those skills (from your background or class, for example), you instead become trained in a skill of your choice.</p>\n<p>You also gain the @UUID[Compendium.sf2e.feats.Item.Additional Lore] general feat for Nuar Lore.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Additional Lore"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.piloting.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.survival.rank",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "nuar"
+            ]
+        }
+    },
+    "type": "feat"
+}

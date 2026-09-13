@@ -4,8 +4,9 @@ import RegionDocument from "@client/documents/region.mjs";
 import Scene from "@client/documents/scene.mjs";
 import User from "@client/documents/user.mjs";
 import { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.mjs";
+import { GridOffset2D } from "@common/grid/_types.mjs";
+import { Point } from "@common/_types.mjs";
 import * as ClipperLib from "js-angusj-clipper";
-import { Point } from "../../../common/_types.mjs";
 import PlaceableObject from "./placeable-object.mjs";
 import RegionGeometry from "./regions/geometry.mjs";
 
@@ -76,6 +77,8 @@ export default class Region<
 
     override _draw(options?: object): Promise<void>;
 
+    protected _clear(): void;
+
     /* -------------------------------------------- */
     /*  Incremental Refresh                         */
     /* -------------------------------------------- */
@@ -85,8 +88,14 @@ export default class Region<
     /** Refresh the state of the Region. */
     protected _refreshState(): void;
 
+    /** Refresh the geometry of the Region. */
+    protected _refreshGeometry(): void;
+
     /** Refresh the border of the Region. */
     protected _refreshBorder(): void;
+
+    /** Get the grid space offsets that are covered by this Region. */
+    protected _getCoveredGridSpaceOffsets(): GridOffset2D[];
 
     /** @override */
     protected override _canDrag(user: User, event: PIXI.FederatedPointerEvent): boolean;

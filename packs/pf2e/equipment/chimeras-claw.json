@@ -1,0 +1,188 @@
+{
+    "_id": "uLPTj8MCrJNIC8IV",
+    "img": "icons/weapons/hammers/hammer-war-spiked.webp",
+    "name": "Chimera's Claw",
+    "system": {
+        "ammo": null,
+        "baseItem": "warhammer",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 1
+        },
+        "category": "martial",
+        "containerId": null,
+        "damage": {
+            "damageType": "bludgeoning",
+            "dice": 1,
+            "die": "d8"
+        },
+        "description": {
+            "value": "<p>This <em>+1 warhammer</em> has three stylized chimera carved into its gold-plated head: a scowling horned dragon, a snorting goat with mighty horns, and a fearsome great cat with its jaws open in a terrifying scream. By activating Chimera's Visage, you can select which of its three heads functions as its primary head, which in turn determines the weapon's capabilities.</p>\n<p><strong>Activate—Chimera's Visage</strong> <span class=\"action-glyph\">1</span> (manipulate) You shift Chimera's Claw to change its primary head, allowing access to that head's weapon traits and secondary effect.</p>\n<p><strong>Horned Dragon Head</strong> The dragon head's horn deals piercing damage. In this mode, the warhammer has the sweep and versatile S weapon traits. Each time you damage a creature with this weapon, the dragon's flaring nostrils snort out a small cloud of cloying, acrid gas that deals an additional 2 persistent poison damage in addition to the weapon's normal damage.</p>\n<p><strong>Screaming Cat Head</strong> The screaming cat's brutal teeth deal slashing damage. In this mode, the warhammer has the backstabber and versatile B weapon traits. Tiny rubies inset into the eyes of the weapon's screaming cat face ignite as bright-red pinpoints, distracting foes with traces of crimson light as the weapon shifts and moves in combat. This grants you a +2 item bonus to [[/act feint]] against a target you damaged with Chimera's Claw in the previous round.</p>\n<p><strong>Snorting Goat Head</strong> The snorting goat's curled horns and heavy brow deal bludgeoning damage. In this mode, the warhammer has the shove and versatile P weapon traits. The goat head's long horns function as a levered crowbar.</p>"
+        },
+        "expend": null,
+        "grade": null,
+        "group": "hammer",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 4
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 100
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "The Dead God's Hand"
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": null
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "chimeras-claw",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.ChimerasClaw.CatHead",
+                        "value": "cat-head"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.ChimerasClaw.DragonHead",
+                        "value": "dragon-head"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.ChimerasClaw.GoatHead",
+                        "value": "goat-head"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "chimeras-claw:dragon-head",
+                    "item:id:{item|id}"
+                ],
+                "property": "traits",
+                "value": "sweep"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "chimeras-claw:dragon-head",
+                    "item:id:{item|id}"
+                ],
+                "property": "traits",
+                "value": "versatile-s"
+            },
+            {
+                "critical": false,
+                "damageCategory": "persistent",
+                "damageType": "poison",
+                "key": "FlatModifier",
+                "predicate": [
+                    "chimeras-claw:dragon-head"
+                ],
+                "selector": [
+                    "{item|id}-damage"
+                ],
+                "value": 2
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "chimeras-claw:cat-head",
+                    "item:id:{item|id}"
+                ],
+                "property": "traits",
+                "value": "backstabber"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "chimeras-claw:cat-head",
+                    "item:id:{item|id}"
+                ],
+                "property": "traits",
+                "value": "versatile-b"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "chimeras-claw:goat-head",
+                    "item:id:{item|id}"
+                ],
+                "property": "traits",
+                "value": "shove"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "chimeras-claw:goat-head",
+                    "item:id:{item|id}"
+                ],
+                "property": "traits",
+                "value": "versatile-p"
+            }
+        ],
+        "runes": {
+            "potency": 1,
+            "property": [],
+            "striking": 0
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 1,
+                "property": [],
+                "striking": 0
+            }
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        }
+    },
+    "type": "weapon"
+}

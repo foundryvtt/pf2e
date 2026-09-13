@@ -295,7 +295,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The Xotanispawn sprays a @Template[cone|distance:60] of magma that deals @Damage[10d10[fire],2d6[persistent,fire]|options:area-damage]{10d10 fire damage and 2d6 persistent fire damage} to all creatures in the area (@Check[reflex|dc:39|basic|options:area-effect] save).</p>\n<p>The Xotanispawn can't use its Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>The Xotanispawn sprays a @Template[cone|distance:60] of magma that deals @Damage[10d10[fire],2d6[persistent,fire]|options:area-damage] damage to all creatures in the area (@Check[reflex|dc:39|basic|options:area-effect] save).</p>\n<p>The Xotanispawn can't use its Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -328,14 +328,25 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When the Xotanispawn critically hits, its body surges with heat, increasing the damage of its Internal Furnace to @Damage[10d8[persistent,fire]] damage until the start of its next turn.</p>"
+                    "value": "<p>When the Xotanispawn critically hits, its body surges with heat, increasing the damage of its Internal Furnace to 10d8 until the start of its next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Heat Surge]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "attack",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -450,7 +461,7 @@
                 "value": 17
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>Xotanispawn are monstrous versions of scavenging beetle larvae that have been corrupted and mutated by feeding on the remains of Xotani the Firebleeder, a slain Spawn of Rovagug buried beneath Pale Mountain in Katapesh. These creatures look vaguely like the minute insects they once were, with a sclerotized head and chitinous body plates, six legs, and numerous dorsal spines lining the joints and edges of each segment. However, by feeding on the unholy remains of Xotani, the spawn have manifested many of the traits of the infamous Firebleeder, most notably a blisteringly hot internal temperature and powerful fire attacks—to say nothing of their monstrous size.</p>\n<p>Internal heat radiates from every surface of a Xotanispawn, even from its mouth. Any contact with a Xotanispawn results in burns and the risk of catching on fire. Thankfully, Xotanispawn have also inherited Xotani's weaknesses to cold and sunlight. They are rarely encountered on the surface during the day, opting to emerge from their subterranean lairs only at night.</p>",
             "publication": {
                 "license": "OGL",
                 "remaster": false,

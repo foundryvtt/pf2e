@@ -66,7 +66,15 @@
                 "key": "AdjustStrike",
                 "mode": "add",
                 "predicate": [
-                    "feature:hunt-prey",
+                    {
+                        "or": [
+                            "feat:ranger-dedication",
+                            "feat:bounty-hunter-dedication",
+                            "feat:game-hunter-dedication",
+                            "feature:avenger",
+                            "feature:hunt-prey"
+                        ]
+                    },
                     "target:mark:hunted-prey"
                 ],
                 "property": "property-runes",

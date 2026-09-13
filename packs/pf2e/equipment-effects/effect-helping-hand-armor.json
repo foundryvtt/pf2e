@@ -1,0 +1,139 @@
+{
+    "_id": "mMjWrkt5usgrvik8",
+    "img": "icons/equipment/hand/glove-cuffed-leather-brown-gold.webp",
+    "name": "Effect: Helping Hand - Armor",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Helping Hand], @UUID[Compendium.pf2e.equipment-srd.Item.Helping Hand (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Helping Hand (Major)]</p>\n<p>You increase your maximum and encumbered Bulk limit.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:helping-hand",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Helping Hand"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:helping-hand-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Helping Hand (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:helping-hand-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Helping Hand (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "helping-hand"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "inventory.bulk.encumberedAfterAddend",
+                "predicate": [
+                    "helping-hand:helping-hand"
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "inventory.bulk.maxAddend",
+                "predicate": [
+                    "helping-hand:helping-hand"
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "inventory.bulk.encumberedAfterAddend",
+                "predicate": [
+                    "helping-hand:helping-hand-greater"
+                ],
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "inventory.bulk.maxAddend",
+                "predicate": [
+                    "helping-hand:helping-hand-greater"
+                ],
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "inventory.bulk.encumberedAfterAddend",
+                "predicate": [
+                    "helping-hand:helping-hand-major"
+                ],
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "inventory.bulk.maxAddend",
+                "predicate": [
+                    "helping-hand:helping-hand-major"
+                ],
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

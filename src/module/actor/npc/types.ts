@@ -91,6 +91,7 @@ interface NPCSheetData extends CreatureSheetData<NPCPF2e> {
     weakState: "active" | "inactive";
     notAdjusted: boolean;
     hasShield?: boolean;
+    canRaiseShield?: boolean;
     hasHardness?: boolean;
     configLootableNpc?: boolean;
     traitTagifyData: TagifyEntry[];

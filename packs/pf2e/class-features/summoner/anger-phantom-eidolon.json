@@ -1,0 +1,68 @@
+{
+    "_id": "IwkAP2FBiU63aUgb",
+    "folder": "lfC1sbtzTalNS6Tl",
+    "img": "icons/creatures/magical/spirit-undead-winged-ghost.webp",
+    "name": "Anger Phantom Eidolon",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your eidolon is a lost soul, bound to the mortal world by undying anger or a bitter grudge. Most phantom eidolons are humanoids with a spectral or ectoplasmic appearance, though some take far stranger forms. Your link with your eidolon prevents them from succumbing to corruption and undeath. Together, you will need to decide whether to work with your eidolon to control their anger or channel their wrath into power.</p>\n<p><strong>Tradition</strong> occult</p>\n<p><strong>Traits</strong> eidolon, ethereal, phantom</p>\n<p><strong>Home Plane</strong> Ethereal Plane</p><hr /><p><strong>Size</strong> Medium or Small</p>\n<p><strong>Suggested Attacks</strong> fist (bludgeoning), tendril (bludgeoning), unarmed attacks shaped like a weapon</p>\n<p><strong>Eidolon Attributes</strong> Con +3, Int +0, Wis –1, Cha +1</p>\n<p><strong>Skills</strong> Intimidation, Occultism</p>\n<p><strong>Senses</strong> darkvision</p>\n<p><strong>Language</strong> one common mortal language the eidolon spoke in life</p>\n<p><strong>Speed</strong> 25 feet</p><hr /><p><strong>Initial (1st)—@UUID[Compendium.pf2e.actionspf2e.Item.Furious Strike]</strong> <span class=\"action-glyph\">2</span> (eidolon) Your eidolon makes a melee Strike. This counts as two attacks when calculating your multiple attack penalty. If this Strike hits, your eidolon deals an extra die of weapon damage and gains a +1 circumstance bonus to the damage roll.</p>\n<p>If you're at least 10th level, increase this to two extra dice with a +2 circumstance bonus, and if you're at least 18th level, increase it to three extra dice with a +3 circumstance bonus.</p>\n<p><strong>Symbiosis (7th)—@UUID[Compendium.pf2e.actionspf2e.Item.Seething Frenzy]</strong> <span class=\"action-glyph\">1</span> (concentrate, eidolon, emotion, mental) Your eidolon's fury boils over into a reckless, out-of-control frenzy. While frenzied, your eidolon is affected by @UUID[Compendium.pf2e.spells-srd.Item.Boost Eidolon] and gains temporary Hit Points equal to your level, but takes a –1 penalty to AC. Your eidolon can't voluntarily end the frenzy or start another frenzy while in the frenzy. The frenzy and the accompanying temporary Hit Points last for 1 minute or until your eidolon is no longer manifested, whichever comes first, after which they can't start another frenzy for 1 minute.</p>\n<p>When your eidolon makes a Furious Strike while in a Seething Frenzy, the status bonus from boost eidolon is 3 per damage die. The extra damage die from Furious Strike still doesn't count toward <em>boost eidolon</em>'s bonus, as normal for weapon dice added by abilities.</p>\n<p><strong>Transcendence (17th)—Anger Aura</strong> (aura, emotion, mental, occult) Your eidolon exudes wrath in an aura, rousing the ire of nearby creatures and causing their defenses to crack as they seethe with rage. Your eidolon gains an anger aura in a @Template[type:emanation|distance:20]. The resistances of any creature in the aura, including you, your allies, your enemies, and your eidolon, are reduced by 10. Your eidolon can hold in their rage by spending a single action, which has the concentrate trait. This reduces the aura's effect to affect only your eidolon. They can take this action again to reinstate the full effect of their aura. Creatures in a barbarian Rage, Seething Frenzy, or similar ability that allows them to channel their anger (such as Blood Frenzy) aren't affected by the anger aura.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.intimidation.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.occultism.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.eidolon.tradition",
+                "value": "occult"
+            }
+        ],
+        "subfeatures": {
+            "languages": {
+                "granted": [],
+                "slots": 1
+            },
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "summoner-eidolon"
+            ],
+            "rarity": "common",
+            "value": [
+                "summoner"
+            ]
+        }
+    },
+    "type": "feat"
+}

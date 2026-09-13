@@ -1,0 +1,69 @@
+{
+    "_id": "4UOU2S5uUB7AlH0r",
+    "img": "icons/skills/movement/ball-spinning-blue.webp",
+    "name": "Effect: Adrenaline Rush",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Adrenaline Rush]</p>\n<p>You ignore the encumbered condition and gain a +2 circumstance bonus to your Athletics checks. While you are not encumbered, you gain a +5-foot circumstance bonus to your Speed for the duration.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "athletics"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "penalty:type:untyped"
+                ],
+                "selector": "all-speeds",
+                "slug": "encumbered",
+                "suppress": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:condition:encumbered"
+                    }
+                ],
+                "selector": [
+                    "all-speeds"
+                ],
+                "slug": "adrenaline-rush-bonus",
+                "type": "circumstance",
+                "value": 5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,89 @@
+{
+    "_id": "ZVyP843XwfqGOzka",
+    "folder": "ClIo7j9QKDPwEpSj",
+    "img": "icons/equipment/chest/robe-layered-teal.webp",
+    "name": "Robe of Beneficence",
+    "system": {
+        "acBonus": 0,
+        "baseItem": "explorers-clothing",
+        "bulk": {
+            "value": 0.1
+        },
+        "category": "unarmored",
+        "checkPenalty": 0,
+        "containerId": null,
+        "description": {
+            "value": "<p>This soft, buttery smooth robe is +2 greater resilient explorer's clothing made from silk and unicorn hair. The back and shoulders are appliquéd with clusters of angel feathers to form a motif of unfurled wings. On this robe are subtle arabesques, loops, and curlicues that are pleasing to the eye and evoke a sense of calm. When you wear this robe, you gain an invisible aura of purity and kindness that extends from you in a @Template[type:emanation|distance:30], granting you a +3 item bonus to Diplomacy checks to [[/act make-an-impression]] and to make Requests of creatures who are within your aura.</p>\n<p><strong>Activate—Compelled Nonviolence</strong> <span class=\"action-glyph\">2</span> (concentrate, incapacitation, manipulate)</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The wings of this robe extend, and your aura glows golden, briefly becoming visible as it does. Creatures within your aura who are hostile, indifferent, or unfriendly to you must attempt a @Check[will|dc:36] saving throw with the following effects.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2}.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature can't use any hostile action against you for 1 round.</p>"
+        },
+        "dexCap": 5,
+        "grade": null,
+        "group": "cloth",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 17
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 14000
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:make-an-impression",
+                            "action:request"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "diplomacy"
+                ],
+                "type": "item",
+                "value": 3
+            }
+        ],
+        "runes": {
+            "potency": 2,
+            "property": [],
+            "resilient": 1
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 2,
+                "property": [],
+                "resilient": 1
+            }
+        },
+        "speedPenalty": 0,
+        "strength": 0,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "comfort"
+            ]
+        }
+    },
+    "type": "armor"
+}

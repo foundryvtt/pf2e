@@ -1,0 +1,304 @@
+{
+    "_id": "kTC9PGsWpNZE6MwY",
+    "folder": "JRJm2AGJI3Vc5pj5",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "9xTQfBGEoDlcHS37",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "zKc73otJeSargruD": {
+                        "damage": "2d10+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "backswing"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "FDni15tHdI0uFiTy",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Void Bolt",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "wo00wvKqzJbqV9Bf": {
+                        "damage": "3d8",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 20,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "5Sro0DiHimuHiaBF",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Hear Heartbeat",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The Heart of Sarnax can hear a living creature's heartbeat as a precise sense in the listed range.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GbCblles7vNIYNIC",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Speak to Inner Evils",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The Heart of Sarnax speaks to a creature it can hear the heartbeat of within 60 feet, beckoning that creature to give in to their inner desires to commit evil acts. The Heart of Sarnax attempts an Intimidation check against the target's Will DC, with the following results.</p><hr /><p><strong>Critical Success</strong> The inner evils take over fully, and the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 minute. While confused, the creature will never attack the Heart of Sarnax, attacking themself instead if the Heart of Sarnax is the only viable target. The Heart of Sarnax becomes @UUID[Compendium.pf2e.conditionitems.Item.Quickened] for 1 round, and can use the extra action only to Speak to Inner Evils.</p>\n<p><strong>Success</strong> The inner evils take over only briefly. The creature becomes confused for 1 round.</p>\n<p><strong>Failure</strong> The inner evils fail to take over fully but are still distracting. The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of their next turn.</p>\n<p><strong>Critical Failure</strong> The creature resists their inner evils and is immune to Speak to Inner Evils from this point on. The Heart of Sarnax recoils in shock, taking @Damage[4d6[mental]] damage (@Check[will|dc:25|basic] save).</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "linguistic",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jNDREOI4Crh1ewqa",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Void Beam",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Heart of Sarnax fires a @Template[type:line|distance:60] of spiraling, shadowy void energy from the cavity in its chest. Creatures in the area take @Damage[7d6[void]|options:area-damage] damage (@Check[fortitude|dc:24|basic]). The Heart of Sarnax can't use Void Beam again for [[/gmr 1d4 #Recharge Void Beam]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Heart of Sarnax",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 4
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 24
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 90,
+                "temp": 0,
+                "value": 90
+            },
+            "resistances": [
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 6
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>When Sarnax sought to purge his soul of all evils, the result was a physical manifestation of crystal that approximated the size and shape of his heart. The evil contained within remained quiescent as long as Sarnax lived, but upon his death, the item gained power, no longer held in check by Sarnax's living soul. If returned to any version of the living Sarnax, this grown evil manifests into a creature made of solid ruby whose first and primary goal is the destruction of its source. Afterward, the Heart of Sarnax can turn its attention to the world, eager to visit upon reality all the evils, both petty and potent, that Sarnax might have pursued had he fallen from grace while alive.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "The Dead God's Hand"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": " hear heartbeat (precise) 60 feet",
+            "mod": 14,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 14
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 15
+            },
+            "intimidation": {
+                "base": 14
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "construct",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

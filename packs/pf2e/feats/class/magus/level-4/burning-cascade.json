@@ -1,0 +1,63 @@
+{
+    "_id": "WtZ5I3ZSERE3hiW0",
+    "folder": "jrz6uG0OCHxnCOPo",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Burning Cascade",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Energy flares out around you when you drop into your signature stance. When you use @UUID[Compendium.pf2e.actionspf2e.Item.Arcane Cascade], each enemy in a @Template[type:emanation|distance:5] takes damage equal to the extra damage from Arcane Cascade. This damage is the same type as that of Arcane Cascade. A creature that takes this damage is temporarily immune to further uses of Burning Cascade for 1 minute.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Arcane Cascade"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:arcane-cascade"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "Each enemy in a @Template[type:emanation|distance:5] takes @Damage[(ternary(gte(@actor.level,15),3,ternary(gte(@actor.level,7),2,1)))[@actor.flags.system.arcaneCascade.damageType]|options:area-damage]. A creature that takes this damage is temporarily immune to Burning Cascade for 1 minute.",
+                        "title": "{item|name}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "magus"
+            ]
+        }
+    },
+    "type": "feat"
+}

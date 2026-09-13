@@ -1,0 +1,67 @@
+{
+    "_id": "XnFSS0nBcEMPA8oZ",
+    "folder": "tDN0u55fADXBlYBh",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Body Shield",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> A creature targets you with an attack, and you can see the attacker.</p>\n<p><strong>Requirements</strong> You are adjacent to at least one of your thralls.</p><hr /><p>You throw an adjacent thrall in between you and the attacker. The thrall grants you a +2 circumstance bonus to AC against the triggering attack. If the attack still hits, you gain resistance to the triggering attack's damage equal to your level. Regardless of the result, the thrall is destroyed.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "body-shield",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "body-shield"
+                ],
+                "selector": [
+                    "ac"
+                ],
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "body-shield"
+                ],
+                "type": "all-damage",
+                "value": "@actor.level"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "necromancer",
+                "occult"
+            ]
+        }
+    },
+    "type": "feat"
+}

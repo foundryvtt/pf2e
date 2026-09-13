@@ -3136,22 +3136,23 @@
             "type": "armor"
         },
         {
-            "_id": "9HobsZ16blWrtX8k",
+            "_id": "kFN1YhMlJkInNimA",
             "img": "icons/sundries/misc/key-brass.webp",
-            "name": "Reliquary Key",
+            "name": "Key",
             "sort": 3800000,
             "system": {
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "category": null,
                 "containerId": null,
                 "description": {
+                    "gm": "<p>Aspexia's reliquary key.</p>",
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "invested": null
                 },
                 "hardness": 0,
                 "hp": {
@@ -3166,7 +3167,6 @@
                     "type": null
                 },
                 "price": {
-                    "per": 1,
                     "value": {}
                 },
                 "publication": {
@@ -3178,13 +3178,15 @@
                 "rules": [],
                 "size": "med",
                 "slug": null,
-                "temporary": false,
                 "traits": {
                     "rarity": "common",
                     "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
                 }
             },
-            "type": "treasure"
+            "type": "equipment"
         },
         {
             "_id": "gVhve9QAxh4SJjxl",
@@ -3209,14 +3211,6 @@
                     "DWXdGFGbpcTUNbLA": {
                         "damage": "3d8+13",
                         "damageType": "bludgeoning"
-                    },
-                    "VXPde4mQOPEF5WNW": {
-                        "damage": "1d6",
-                        "damageType": "fire"
-                    },
-                    "g3C8OX8zQQBNXjYT": {
-                        "damage": "1d4",
-                        "damageType": "spirit"
                     }
                 },
                 "description": {
@@ -3230,40 +3224,22 @@
                 "range": null,
                 "rules": [
                     {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "target:trait:holy",
-                            "damage:type:spirit"
+                        "definition": [
+                            "item:id:{item|id}"
                         ],
-                        "property": "dice-number",
-                        "relabel": "vs. Unholy",
-                        "selectors": [
-                            "{item|_id}-damage"
-                        ],
-                        "value": 2
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greater-flaming"
                     },
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "success",
-                            "criticalSuccess"
+                        "definition": [
+                            "item:id:{item|id}"
                         ],
-                        "selector": [
-                            "{item|_id}-damage"
-                        ],
-                        "text": "PF2E.WeaponPropertyRune.greaterFlaming.Note.success",
-                        "title": "PF2E.WeaponPropertyRune.greaterFlaming.Name"
-                    },
-                    {
-                        "category": "persistent",
-                        "critical": "true",
-                        "damageType": "fire",
-                        "diceNumber": 2,
-                        "dieSize": "d10",
-                        "key": "DamageDice",
-                        "label": "PF2E.WeaponPropertyRune.greaterFlaming.Name",
-                        "selector": "mace-damage"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "unholy"
                     }
                 ],
                 "slug": "mace",
@@ -3435,11 +3411,11 @@
                             "target:trait:holy"
                         ],
                         "selector": [
-                            "attack-roll"
+                            "strike-attack-roll"
                         ],
                         "text": "{item|description}",
                         "title": "{item|name} <span class=\"action-glyph\">R</span>",
-                        "visibility": "gm"
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,

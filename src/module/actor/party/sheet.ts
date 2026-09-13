@@ -284,7 +284,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
         // Show metagame option if clicked
         htmlQuery(html, "a[data-action=open-meta-setting]")?.addEventListener("click", () => {
-            const menu = game.settings.menus.get("pf2e.metagame");
+            const menu = game.settings.menus.get(`${SYSTEM_ID}.metagame`);
             if (menu) {
                 const options: Partial<SettingsMenuOptions> = { highlightSetting: "showPartyStats" };
                 const app = new menu.type(undefined, options);

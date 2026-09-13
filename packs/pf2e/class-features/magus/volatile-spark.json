@@ -1,0 +1,64 @@
+{
+    "_id": "aRDNtB0mh6MMRSKf",
+    "folder": "DbtBUOmAB0EiLVfI",
+    "img": "icons/skills/ranged/projectile-explosion-black-orange.webp",
+    "name": "Volatile Spark",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your crashing spells meet their match with booming gunshots in a magical fusillade. By modifying your shots with your magic, you create explosions and cut through defenses.</p>\n<p>When you use @UUID[Compendium.pf2e.actionspf2e.Item.Spellstrike], you can make a ranged firearm Strike, as long as the target is within the first range increment of your firearm. This overrides the actual range of the spell. If your firearm has the concussive trait, any damage from the spell you use in the Spellstrike uses the target's weakest resistance to any of the following: the spell's damage type, piercing, or bludgeoning. This benefit applies only to creatures you target with your firearm Strike during the Spellstrike, so it wouldn't apply to other creatures damaged with @UUID[Compendium.pf2e.feats-srd.Item.Expansive Spellstrike] or similar abilities.</p>\n<p>In addition, you gain the @UUID[Compendium.pf2e.actionspf2e.Item.Reloading Cascade] action.</p>\n<p><strong>Reloading Cascade</strong> <span class=\"action-glyph\">1</span></p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.tmbf6xouEnRXCnKR inline]</p>\n<p><strong>Conflux Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Booming Blast]</p>\n<p><strong>Studious Spells</strong> 7th: @UUID[Compendium.pf2e.spells-srd.Item.Entangling Flora]; 11th: @UUID[Compendium.pf2e.spells-srd.Item.Earthbind]; 13th: @UUID[Compendium.pf2e.spells-srd.Item.Seal Fate]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellcasting:category:prepared",
+                    "spellcasting:tradition:arcane",
+                    {
+                        "or": [
+                            "item:slug:entangling-flora",
+                            "item:slug:earthbind",
+                            "item:slug:seal-fate"
+                        ]
+                    }
+                ],
+                "property": "other-tags",
+                "value": "studious-spell"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "magus-hybrid-study"
+            ],
+            "rarity": "uncommon",
+            "value": [
+                "magus"
+            ]
+        }
+    },
+    "type": "feat"
+}

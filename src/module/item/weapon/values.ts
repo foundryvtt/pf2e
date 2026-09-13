@@ -70,11 +70,13 @@ const WEAPON_PROPERTY_RUNE_TYPES = new Set([
     "cunning",
     "dancing",
     "deathdrinking",
+    "deflecting",
     "decaying",
     "demolishing",
     "disrupting",
     "earthbinding",
     "energizing",
+    "energyVulnerability",
     "extending",
     "fanged",
     "fearsome",
@@ -95,6 +97,7 @@ const WEAPON_PROPERTY_RUNE_TYPES = new Set([
     "greaterCrushing",
     "greaterDecaying",
     "greaterDisrupting",
+    "greaterEnergyVulnerability",
     "greaterExtending",
     "greaterFanged",
     "greaterFearsome",
@@ -161,15 +164,7 @@ const RANGED_ONLY_TRAITS: Set<WeaponTrait> = new Set([
     "thrown",
 ]);
 
-const MELEE_ONLY_TRAITS: Set<WeaponTrait> = new Set([
-    "brace",
-    "disarm",
-    "finesse",
-    "grapple",
-    "reach",
-    "shove",
-    "trip",
-]);
+const MELEE_ONLY_TRAITS: Set<WeaponTrait> = new Set(["brace", "disarm", "grapple", "reach", "shove", "trip"]);
 
 export {
     MANDATORY_RANGED_GROUPS,

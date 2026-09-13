@@ -23,7 +23,7 @@ import * as R from "remeda";
 export const Init = {
     listen: (): void => {
         Hooks.once("init", () => {
-            console.log("PF2e System | Initializing Pathfinder 2nd Edition System");
+            console.log(`${SYSTEM_NAME} System | Initializing ${game.system.title}`);
 
             // Remove afflictions from the system document types if production
             if (BUILD_MODE === "production") {

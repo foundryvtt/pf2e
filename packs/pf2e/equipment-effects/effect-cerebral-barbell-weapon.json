@@ -1,0 +1,126 @@
+{
+    "_id": "zXoezc8AxZkh0aFB",
+    "img": "icons/tools/smithing/handle-brass.webp",
+    "name": "Effect: Cerebral Barbell - Weapon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Cerebral Barbell], @UUID[Compendium.pf2e.equipment-srd.Item.Cerebral Barbell (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Cerebral Barbell (Major)]</p>\n<p>Strikes with the weapon deal additional force damage until the end of your turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:cerebral-barbell",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Cerebral Barbell"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:cerebral-barbell-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Cerebral Barbell (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:cerebral-barbell-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Cerebral Barbell (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "cerebral-barbell"
+            },
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectCerebralBarbellWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "damageType": "force",
+                "key": "FlatModifier",
+                "selector": [
+                    "{item|flags.system.rulesSelections.effectCerebralBarbellWeapon}-damage"
+                ],
+                "slug": "cerebral-barbell-bonus",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "cerebral-barbell:cerebral-barbell-greater"
+                ],
+                "selector": "{item|flags.system.rulesSelections.effectCerebralBarbellWeapon}-damage",
+                "slug": "cerebral-barbell-bonus",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "cerebral-barbell:cerebral-barbell-major"
+                ],
+                "selector": "{item|flags.system.rulesSelections.effectCerebralBarbellWeapon}-damage",
+                "slug": "cerebral-barbell-bonus",
+                "value": 4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

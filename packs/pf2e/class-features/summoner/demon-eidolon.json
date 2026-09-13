@@ -1,0 +1,70 @@
+{
+    "_id": "f2JzGk76CPjA2mcV",
+    "folder": "lfC1sbtzTalNS6Tl",
+    "img": "icons/creatures/unholy/demon-horned-black-yellow.webp",
+    "name": "Demon Eidolon",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your eidolon is a demon, born of mortal sin congealed amid the chaos and evil of the Outer Rifts, using their link to you to spread chaos at your side. Choose an associated sin for your demon. Demon eidolons have appearances as varied as the infinite Outer Rifts. While demons are inherently untrustworthy, your demon eidolon has reached an accord with you and generally keeps it, though that doesn't mean your eidolon isn't actively working to bring your life deeper into their associated sin. Though a true demon, your demon eidolon's link to you as a mortal prevents them from casting the demonic pact ritual, even if they somehow learn it.</p><hr /><p><strong>Tradition</strong> divine</p>\n<p><strong>Traits</strong> demon, eidolon, fiend, unholy</p>\n<p><strong>Home Plane</strong> The Outer Rifts</p><hr /><p><strong>Size</strong> Medium or Small</p>\n<p><strong>Suggested Attacks</strong> claw (slashing), horn (piercing), jaws (piercing), tail (bludgeoning), tentacle (bludgeoning), wing (bludgeoning)</p>\n<p><strong>Eidolon Attributes</strong> Con +3, Int +0, Wis –1, Cha +1</p>\n<p><strong>Skills</strong> Intimidation, Religion</p>\n<p><strong>Senses</strong> darkvision</p>\n<p><strong>Language</strong> Chthonian</p>\n<p><strong>Speed</strong> 25 feet</p><hr /><p><strong>Initial (1st)—Demonic Strikes</strong> Your eidolon's attacks are corrupted by the Outer Rifts and imbued with pure malice and shifting chaos. Your eidolon's unarmed Strikes gain the unholy trait and deal an additional 1spirit damage to holy creatures and creatures with weakness to unholy. Additionally, choose one of your eidolon's unarmed attacks that deals physical damage; it gains your choice of versatile B, versatile P, or versatile S.</p>\n<p><strong>Symbiosis (7th)—@UUID[Compendium.pf2e.actionspf2e.Item.Visions of Sin]</strong> <span class=\"action-glyph\">2</span> (divine, eidolon, emotion, mental)</p>\n<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p><strong>Effect</strong> Your eidolon summons images of their sin into the mind of a target creature within 30 feet, tormenting and confusing the target. The target must attempt a Will save against your spell DC with the following effects. The effects last until the end of your next turn, but your eidolon can Sustain the effects to a maximum duration of 1 minute. If the target is unholy, it takes a –2 circumstance penalty to its save. Regardless of whether it succeeds, the target becomes temporarily immune for 1 day.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target can't use reactions.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} and can't use reactions.</p>\n<p><strong>Critical Failure</strong> As failure, and the target is also @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round. The confusion can't be extended, but the other effects can.</p>\n<p><strong>Transcendence (17th)—Blasphemous Decree</strong> Your demon utters indescribable words writhing with their associated sin. They can cast @UUID[Compendium.pf2e.spells-srd.Item.Divine Decree] once per day as a 9th-rank spell. You are unaffected by this decree. At 19th level, this becomes a 10th-rank <em>divine decree</em> instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.intimidation.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.religion.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.eidolon.tradition",
+                "value": "divine"
+            }
+        ],
+        "subfeatures": {
+            "languages": {
+                "granted": [
+                    "chthonian"
+                ],
+                "slots": 0
+            },
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "summoner-eidolon"
+            ],
+            "rarity": "common",
+            "value": [
+                "summoner"
+            ]
+        }
+    },
+    "type": "feat"
+}

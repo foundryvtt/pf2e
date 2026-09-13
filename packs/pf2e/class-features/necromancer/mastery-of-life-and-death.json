@@ -1,0 +1,93 @@
+{
+    "_id": "P6jOiGkQYSmalYNB",
+    "folder": "K84PVzKJT1EfmN5P",
+    "img": "icons/magic/life/heart-broken-red.webp",
+    "name": "Mastery of Life and Death",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You have studied the delicate balance of life and death to such a point that you can dance between them with ease. Whenever you Cast a Spell or use an ability that would deal void or vitality damage, you can choose for the spell to do either void or vitality damage to each target separately. When you Cast a Spell or use an ability that would affect or target only living creatures or only undead creatures, you can affect and target both. This does not apply to the healing effects of spells or abilities. For example, you could have the @UUID[Compendium.pf2e.spells-srd.Item.Harm] spell deal vitality damage to undead enemies, but it would not be able to heal living allies.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "mastery-of-life-and-death",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:damage:type:void",
+                    "mastery-of-life-and-death"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "spell-damage",
+                    "inline-damage"
+                ],
+                "slug": "base",
+                "value": "vitality"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:damage:type:vitality",
+                    "mastery-of-life-and-death"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "spell-damage",
+                    "inline-damage"
+                ],
+                "slug": "base",
+                "value": "void"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "mastery-of-life-and-death"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "necromancer"
+            ]
+        }
+    },
+    "type": "feat"
+}

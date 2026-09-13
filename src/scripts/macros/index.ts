@@ -9,4 +9,5 @@ export { steelYourResolve } from "./steel-your-resolve.ts";
 export { takeABreather } from "./take-a-breather.ts";
 export { launchTravelSheet } from "./travel/index.ts";
 export { treatWounds } from "./treat-wounds.ts";
-export { calculateXP, xpFromEncounter } from "./xp/index.ts";
+export { xpFromEncounter } from "./xp/dialog.ts";
+export { calculateXP } from "./xp/index.ts";

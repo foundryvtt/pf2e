@@ -1,0 +1,113 @@
+{
+    "_id": "ou5lyNx69hJrv81O",
+    "folder": "niuJT6upYgnojr67",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Flexible Nexus",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>In bending the basic essences of magic around yourself, you have seen the ways they connect and flow into each other, changing from one to the next. Each time you use an ability granted by the Living Nexus archetype that deals force damage, you may change the damage type from force to mental, spirit, vitality, or void. The altered ability loses the force trait and gains the trait of the new damage type.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Living Nexus Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "flexible-nexus",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitForce",
+                        "value": "force"
+                    },
+                    {
+                        "label": "PF2E.TraitMental",
+                        "value": "mental"
+                    },
+                    {
+                        "label": "PF2E.TraitSpirit",
+                        "value": "spirit"
+                    },
+                    {
+                        "label": "PF2E.TraitVitality",
+                        "value": "vitality"
+                    },
+                    {
+                        "label": "PF2E.TraitVoid",
+                        "value": "void"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    {
+                        "or": [
+                            "dice:slug:overflowing-blade",
+                            "item:tag:living-nexus"
+                        ]
+                    }
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "damage"
+                ],
+                "value": "{item|flags.system.rulesSelections.flexibleNexus}"
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "flexible-nexus",
+                    "item:tag:living-nexus"
+                ],
+                "property": "traits",
+                "value": "force"
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "flexible-nexus",
+                    "item:tag:living-nexus"
+                ],
+                "property": "traits",
+                "value": "{item|flags.system.rulesSelections.flexibleNexus}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

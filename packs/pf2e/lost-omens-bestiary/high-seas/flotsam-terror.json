@@ -91,7 +91,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The flotsam terror is discorporated</p><hr /><p><strong>Effect</strong> Each enemy in the flotsam terror's space takes @Damage[3d6[slashing]] damage (@Check[reflex|dc:21|basic] save).</p>"
+                    "value": "<p><strong>Requirements</strong> The flotsam terror is discorporated</p><hr /><p><strong>Effect</strong> Each enemy in the flotsam terror's space takes @Damage[3d6[slashing]|options:area-damage] damage (@Check[reflex|dc:21|basic|options:area-effect] save).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -192,6 +192,25 @@
                         "traits": [
                             "versatile-p"
                         ]
+                    },
+                    {
+                        "key": "Immunity",
+                        "predicate": [
+                            "discorporate"
+                        ],
+                        "type": [
+                            "grabbed",
+                            "prone",
+                            "restrained"
+                        ]
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "discorporate"
+                        ],
+                        "selector": "land-speed",
+                        "value": -15
                     }
                 ],
                 "slug": null,
@@ -357,7 +376,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "",
+                "details": "void healing",
                 "max": 54,
                 "temp": 0,
                 "value": 54
@@ -405,7 +424,7 @@
         "details": {
             "blurb": "",
             "languages": {
-                "details": "Plus any one language it knew while alive cant speak any language",
+                "details": "Plus any one language it knew while alive (can't speak any language)",
                 "value": [
                     "necril"
                 ]
@@ -458,7 +477,10 @@
                 "special": [
                     {
                         "base": 11,
-                        "label": "in water"
+                        "label": "in water",
+                        "predicate": [
+                            "terrain:water"
+                        ]
                     }
                 ]
             }

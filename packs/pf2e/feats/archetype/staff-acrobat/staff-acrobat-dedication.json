@@ -38,7 +38,42 @@
             "remaster": false,
             "title": "Pathfinder #151: The Show Must Go On"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "wielding-your-staff",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "wielding-your-staff",
+                    {
+                        "or": [
+                            "action:leap",
+                            "action:long-jump",
+                            "action:high-jump"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "athletics"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:balance",
+                    "wielding-your-staff"
+                ],
+                "selector": "skill-check"
+            }
+        ],
         "traits": {
             "rarity": "uncommon",
             "value": [

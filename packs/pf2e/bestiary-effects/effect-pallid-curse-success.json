@@ -1,0 +1,50 @@
+{
+    "_id": "mJCiOTLp9eLxxsjb",
+    "img": "icons/magic/death/undead-skeleton-tusk-purple.webp",
+    "name": "Effect: Pallid Curse (Success)",
+    "system": {
+        "description": {
+            "value": "<p>You become sickened 1 and gain weakness to void 5.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 12
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "granter": "detach"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Sickened"
+            },
+            {
+                "key": "Weakness",
+                "type": "void",
+                "value": 5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

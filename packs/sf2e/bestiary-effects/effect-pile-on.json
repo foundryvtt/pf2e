@@ -1,0 +1,55 @@
+{
+    "_id": "kxoPPo6Jl7c8ahpS",
+    "img": "icons/skills/melee/maneuver-greatsword-yellow.webp",
+    "name": "Effect: Pile On",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 status bonus to attack rolls and damage rolls against the target.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "pile-on",
+                "uuid": ""
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:pile-on"
+                ],
+                "selector": [
+                    "attack-roll",
+                    "damage"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

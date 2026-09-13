@@ -29,7 +29,26 @@
             "remaster": true,
             "title": "Starfinder Galactic Ancestries"
         },
-        "rules": [],
+        "rules": [
+            {
+                "disabledIf": [
+                    "stellar-attunement:unattuned"
+                ],
+                "disabledValue": false,
+                "key": "RollOption",
+                "option": "close-the-gap",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "close-the-gap"
+                ],
+                "selector": "speed",
+                "type": "status",
+                "value": 10
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

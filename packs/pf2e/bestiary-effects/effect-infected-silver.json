@@ -1,0 +1,55 @@
+{
+    "_id": "P3hC2u7VyAgWV6lE",
+    "img": "icons/commodities/metal/ingot-stamped-silver.webp",
+    "name": "Effect: Infected Silver",
+    "system": {
+        "description": {
+            "value": "<p>You become clumsy 1 and you take a –2 status penalty to all saving throws against mental effects created by nindorus.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 13
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Season of Ghosts Hardcover Compilation"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:mental",
+                    "origin:trait:nindoru"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

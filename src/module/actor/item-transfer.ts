@@ -58,7 +58,7 @@ export class ItemTransfer implements ItemTransferData {
             return;
         }
 
-        console.debug(`PF2e System | Requesting item transfer from GM ${gamemaster.name}`);
+        console.debug(`${SYSTEM_NAME} System | Requesting item transfer from GM ${gamemaster.name}`);
         game.socket.emit(`system.${SYSTEM_ID}`, { request: "itemTransfer", data: this } satisfies SocketMessage);
     }
 
@@ -68,7 +68,7 @@ export class ItemTransfer implements ItemTransferData {
             throw ErrorPF2e("Unauthorized item transfer");
         }
 
-        console.debug("PF2e System | Enacting item transfer");
+        console.debug(`${SYSTEM_NAME} System | Enacting item transfer`);
         const sourceActor = this.#getSource();
         const sourceItem = sourceActor?.inventory.find((i) => i.id === this.source.itemId);
         const targetActor = this.#getTarget();

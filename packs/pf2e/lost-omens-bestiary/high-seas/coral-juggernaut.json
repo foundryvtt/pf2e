@@ -17,7 +17,7 @@
                     ]
                 },
                 "bonus": {
-                    "value": 0
+                    "value": 21
                 },
                 "damageRolls": {
                     "0df1AdEjczpcAPPB": {
@@ -54,7 +54,7 @@
                 "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.fJSNOw4zHGbIm4bZ"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Fast Healing 5 (while underwater)",
+            "name": "Fast Healing 5 (While Underwater)",
             "sort": 200000,
             "system": {
                 "actionType": {
@@ -74,7 +74,17 @@
                 },
                 "rules": [
                     {
+                        "key": "RollOption",
+                        "label": "PF2E.SkillVariant.Underwater",
+                        "option": "terrain:underwater",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
                         "key": "FastHealing",
+                        "predicate": [
+                            "terrain:underwater"
+                        ],
                         "value": 5
                     }
                 ],
@@ -99,14 +109,25 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The coral juggernaut rolls initiative while in water</p><hr /><p><strong>Effect</strong> The vampire squids within the juggernaut's body are startled, causing them to exude a cloud of bioluminescent mucus in a @Template[type:emanation|distance:15] that lasts for 1 minute. Non-squid creatures (other than the coral juggernaut) who end their turn within the cloud must succeed at a @Check[fortitude|dc:23] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure). The creature is then temporarily immune for 24 hours.</p>"
+                    "value": "<p><strong>Trigger</strong> The coral juggernaut rolls initiative while in water</p><hr /><p><strong>Effect</strong> The vampire squids within the juggernaut's body are startled, causing them to exude a cloud of bioluminescent mucus in a @Template[type:emanation|distance:15] that lasts for 1 minute. Non-squid creatures (other than the coral juggernaut) who end their turn within the cloud must succeed at a @Check[fortitude|dc:23|options:area-effect,inflicts:sickened] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure). The creature is then temporarily immune for 24 hours.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "terrain:underwater"
+                        ],
+                        "selector": "initiative",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -139,7 +160,39 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "exceptions": [
+                            "adamantine",
+                            "bludgeoning"
+                        ],
+                        "key": "Resistance",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "hp-percent",
+                                    50
+                                ]
+                            }
+                        ],
+                        "type": "physical",
+                        "value": 10
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "lt": [
+                                    "hp-percent",
+                                    50
+                                ]
+                            }
+                        ],
+                        "selector": "all-speeds",
+                        "type": "circumstance",
+                        "value": 10
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -193,7 +246,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The coral juggernaut has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained]</p><hr /><p><strong>Effect</strong> The electric eels that live within the coral juggernaut unleash jolting waves of electricity. The required creature takes @Damage[4d8[electricity]] damage and must attempt a @Check[fortitude|dc:28|basic] save. On a failure the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} for 1 round (@UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2} for 1 round on a critical failure).</p>"
+                    "value": "<p><strong>Requirements</strong> The coral juggernaut has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained]</p><hr /><p><strong>Effect</strong> The electric eels that live within the coral juggernaut unleash jolting waves of electricity. The required creature takes @Damage[4d8[electricity]] damage and must attempt a @Check[fortitude|dc:28|basic|options:inflicts:stunned] save. On a failure the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} for 1 round (@UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2} for 1 round on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -225,7 +278,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The coral juggernaut unleashes a powerful wave of silt and water that rises from the ground 30 feet away and surges back toward the juggernaut in a straight line. Each creature in the wave's path must attempt a @Check[reflex|dc:25] save.</p><hr /><p><strong>Critical Success</strong> The creature avoids the wave and is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of its next turn due to the wave's force.</p>\n<p><strong>Failure</strong> The creature is swept into a square adjacent to the juggernaut and is off-guard until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is also slammed against the juggernaut, taking @Damage[2d6[bludgeoning]] damage, and falls @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                    "value": "<p>The coral juggernaut unleashes a powerful wave of silt and water that rises from the ground 30 feet away and surges back toward the juggernaut in a straight line. Each creature in the wave's path must attempt a @Check[reflex|dc:25|options:area-effect,damaging-effect,forced-movement,inflicts:off-guard,inflicts:prone] save.</p><hr /><p><strong>Critical Success</strong> The creature avoids the wave and is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of its next turn due to the wave's force.</p>\n<p><strong>Failure</strong> The creature is swept into a square adjacent to the juggernaut and is off-guard until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is also slammed against the juggernaut, taking @Damage[2d6[bludgeoning]] damage, and falls @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -254,7 +307,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The coral juggernaut has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained]</p><hr /><p><strong>Effect</strong> The staghorn corals growing on the outer edge of the coral juggernaut start walking from place to place, dragging their stony branches against the required creature. The creature takes @Damage[5d10[slashing],1d8[persistent,bleed]]{5d10 damage and 1d8 persistent bleed damage} (@Check[reflex|dc:25|basic] save).</p>"
+                    "value": "<p><strong>Requirements</strong> The coral juggernaut has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained]</p><hr /><p><strong>Effect</strong> The staghorn corals growing on the outer edge of the coral juggernaut start walking from place to place, dragging their stony branches against the required creature. The creature takes @Damage[5d10[slashing],1d8[bleed]] damage (@Check[reflex|dc:25|basic] save).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -346,7 +399,7 @@
                         "bludgeoning"
                     ],
                     "type": "physical",
-                    "value": 10
+                    "value": 5
                 },
                 {
                     "doubleVs": [],

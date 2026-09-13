@@ -103,9 +103,7 @@
                 "action": "strike",
                 "area": null,
                 "attackEffects": {
-                    "value": [
-                        "sagebane"
-                    ]
+                    "value": []
                 },
                 "bonus": {
                     "value": 17
@@ -175,7 +173,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "ghost-touch"
+                    }
+                ],
                 "slug": "temple-sword",
                 "traits": {
                     "value": [
@@ -240,7 +248,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When a monk of Kugaptee scores a critical hit with a fist Strike or a weapon with the monk trait, the target must succeed at a @Check[fortitude|dc:24] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the end of the monk's next turn.</p>"
+                    "value": "<p>When a monk of Kugaptee scores a critical hit with a fist Strike or a weapon with the monk trait, the target must succeed at a @Check[fortitude|dc:24|options:inflicts:slowed] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the end of the monk's next turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -253,7 +261,15 @@
                         "outcome": [
                             "criticalSuccess"
                         ],
-                        "selector": "fist-attack",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:slug:fist",
+                                    "item:trait:monk"
+                                ]
+                            }
+                        ],
+                        "selector": "strike-attack-roll",
                         "text": "{item|system.description.value}",
                         "title": "{item|name}",
                         "visibility": "owner"
@@ -280,14 +296,31 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When the monk of Kugaptee damages a living creature with a fist Strike or a weapon with the monk trait, the target must succeed at a @Check[fortitude|dc:24] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute.</p>\n<p>Further damage dealt by the monk of Kugaptee resets the duration to 1 minute and increases the stupefied value by 1 on a failed save, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4}.</p>"
+                    "value": "<p>When the monk of Kugaptee damages a living creature with a fist Strike or a weapon with the monk trait, the target must succeed at a @Check[fortitude|dc:24|options:inflicts:stupefied] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute.</p>\n<p>Further damage dealt by the monk of Kugaptee resets the duration to 1 minute and increases the stupefied value by 1 on a failed save, to a maximum of stupefied 4.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "target:mode:living",
+                            {
+                                "or": [
+                                    "item:slug:fist",
+                                    "item:trait:monk"
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": "sagebane",
                 "traits": {
                     "value": [
@@ -343,7 +376,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The monk of Kugaptee is adjacent to a living creature that's @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], slowed, stunned, or @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]</p><hr /><p><strong>Effect</strong> The monk of Kugaptee leans over and sucks the breath from the target, who must attempt a @Check[fortitude|dc:22] save. Regardless of the result, the creature is exposed to scarlet apoxia and its breath reeks of rotting wildflowers for 1 minute.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature can't speak for 1 minute.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and can't speak for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, plus the creature falls unconscious and begins suffocating.</p>"
+                    "value": "<p><strong>Requirements</strong> The monk of Kugaptee is adjacent to a living creature that's @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], @UUID[Compendium.pf2e.conditionitems.Item.Slowed], @UUID[Compendium.pf2e.conditionitems.Item.Stunned], or @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]</p><hr /><p><strong>Effect</strong> The monk of Kugaptee leans over and sucks the breath from the target, who must attempt a @Check[fortitude|dc:22] save. Regardless of the result, the creature is exposed to scarlet apoxia and its breath reeks of rotting wildflowers for 1 minute.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature can't speak for 1 minute.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and can't speak for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, plus the creature falls unconscious and begins suffocating.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -375,7 +408,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The monk of Kugaptee makes two fist Strikes. If both hit the same creature, combine their damage for the purposes of resistances and weaknesses, and the target must succeed at a @Check[fortitude|dc:22|traits:incapacitation] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure); this save has the incapacitation trait.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The monk of Kugaptee makes two fist Strikes. If both hit the same creature, combine their damage for the purposes of resistances and weaknesses, and the target must succeed at a @Check[fortitude|dc:22|options:inflicts:stunned|traits:incapacitation] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure); this save has the incapacitation trait.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -519,7 +552,7 @@
             }
         },
         "traits": {
-            "rarity": "uncommon",
+            "rarity": "rare",
             "size": {
                 "value": "med"
             },

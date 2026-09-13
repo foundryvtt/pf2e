@@ -22,7 +22,7 @@
         },
         "defense": null,
         "description": {
-            "value": "<p>You gather magical energy into your palm, forming a concentrated ball of electricity that crackles and rumbles like impossibly distant thunder. Make a ranged spell attack roll against your target's AC. On a success, you deal 3d6 electricity damage. On a critical success, the target takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round. The number of actions you spend when Casting this Spell determines the range and other parameters.</p>\n<p><span class=\"action-glyph\">2</span> This spell has a range of 30 feet.</p>\n<p><span class=\"action-glyph\">3</span> This spell has a range of 60 feet and deals half damage on a failure (but not a critical failure) as the electricity lashes out and jolts the target.</p>\n<p><strong>Two Rounds</strong> If you spend 3 actions Casting the Spell, you can avoid finishing the spell and spend another 3 actions on your next turn to empower the spell even further. If you do, after attacking the target, whether you hit or miss, the ball of lightning explodes, dealing @Damage[(@item.rank*2)d6[electricity]] damage to all other creatures in a @Template[emanation|distance:10] around the target (basic Reflex save). Additionally, you spark with electricity for 1 minute, dealing @Damage[(@item.rank)[electricity]] damage to creatures that Grab you or that hit you with an unarmed Strike or a non-reach melee weapon.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The initial damage on a hit, as well as the burst damage for two-round casting time, each increase by 2d6, and the damage creatures take if they Grapple or hit you while you're in your sparking state increases by 1.</p>"
+            "value": "<p>You gather magical energy into your palm, forming a concentrated ball of electricity that crackles and rumbles like impossibly distant thunder. Make a ranged spell attack roll against your target's AC. On a success, you deal 3d6 electricity damage. On a critical success, the target takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round. The number of actions you spend when Casting this Spell determines its range as well as other parameters.</p>\n<p><span class=\"action-glyph\">2</span> This spell has a range of 30 feet.</p>\n<p><span class=\"action-glyph\">3</span> This spell has a range of 60 feet and deals half damage on a failure (but not a critical failure) as the electricity lashes out and jolts the target.</p>\n<p><strong>Two Rounds</strong> If you spend 3 actions Casting the Spell, you can avoid finishing the spell and spend another 2 actions on your next turn to empower the spell even further. You can take other actions before finishing this spell, but the spell is lost if you Cast another Spell in between. After attacking the target, whether you hit or miss, the ball of lightning explodes, dealing @Damage[(@item.rank*2)d6[electricity]] damage to all other creatures in a @Template[type:emanation|distance:10] around the target (basic Reflex save). Additionally, you spark with electricity for 1 minute, dealing @Damage[(@item.rank)[electricity]] damage to creatures that [[/act grapple]] you or that hit you with an unarmed Strike or a non-reach melee weapon.</p><hr /><p><strong>Heightened (+1)</strong> The initial damage on a hit, as well as the burst damage for 2-round casting time, each increase by 2d6, and the damage creatures take if they Grapple or hit you while you're in your sparking state increases by 1.</p>"
         },
         "duration": {
             "sustained": false,
@@ -53,10 +53,15 @@
                 }
             },
             "ozuci5q5wwe0o0s8": {
-                "_id": "ozuci5q5wwe0o0s8",
                 "overlayType": "override",
                 "sort": 2,
                 "system": {
+                    "damage": {
+                        "0": {
+                            "category": null
+                        }
+                    },
+                    "defense": null,
                     "range": {
                         "value": "60 feet"
                     },
@@ -66,10 +71,14 @@
                 }
             },
             "px43dahs3eb2rukw": {
-                "_id": "px43dahs3eb2rukw",
                 "overlayType": "override",
                 "sort": 3,
                 "system": {
+                    "damage": {
+                        "0": {
+                            "category": null
+                        }
+                    },
                     "defense": {
                         "save": {
                             "basic": true,
@@ -86,9 +95,9 @@
             }
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Secrets of Magic"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
         },
         "range": {
             "value": "varies"

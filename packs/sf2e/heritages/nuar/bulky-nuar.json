@@ -1,0 +1,50 @@
+{
+    "_id": "NxKYY0P1BuL7tNpo",
+    "folder": "ZlL78mx3AGwZ0Swu",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Bulky Nuar",
+    "system": {
+        "ancestry": {
+            "name": "Nuar",
+            "slug": "nuar",
+            "uuid": "Compendium.sf2e.ancestries.Item.YCt1j4GcD3WsfEvQ"
+        },
+        "description": {
+            "value": "<p>Even among tall and heavy species, you're considered a giant bruiser. Your size is Large instead of Medium. You gain a +2 circumstance bonus to your Fortitude or Reflex DC against attempts to [[/act shove]] or [[/act trip]] you. This bonus also applies to saving throws against spells or effects that attempt to move you or knock you @UUID[Compendium.sf2e.conditions.Item.Prone].</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "rules": [
+            {
+                "key": "CreatureSize",
+                "resizeEquipment": true,
+                "value": "large"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude",
+                    "reflex"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

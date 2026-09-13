@@ -678,7 +678,40 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "conjure-weapon-material",
+                        "selection": "cold-iron",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.PreciousMaterialColdIron",
+                                "value": "cold-iron"
+                            },
+                            {
+                                "label": "PF2E.PreciousMaterialSilver",
+                                "value": "silver"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "conjure-weapon-material"
+                        ],
+                        "property": "materials",
+                        "value": "{item|flags.system.rulesSelections.conjureWeaponMaterial}"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [

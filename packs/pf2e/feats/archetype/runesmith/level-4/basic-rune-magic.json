@@ -1,0 +1,70 @@
+{
+    "_id": "jIDyfWxYArbqWH9O",
+    "folder": "BGK3zpwS4XasAg0P",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Basic Rune Magic",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain a 1st- or 2nd-level runesmith feat.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Runesmith Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:category:class",
+                        "item:trait:runesmith",
+                        {
+                            "lte": [
+                                "item:level",
+                                2
+                            ]
+                        }
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "basicRuneMagic",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.system.rulesSelections.basicRuneMagic}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

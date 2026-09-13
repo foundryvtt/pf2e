@@ -214,14 +214,14 @@ export default abstract class ApplicationV2<
      * When the Application is rendered, optionally update aspects of the window frame.
      * @param options               Options provided at render-time
      */
-    protected _updateFrame(options: TRenderOptions): void;
+    protected _updateFrame(options: DeepPartial<TRenderOptions>): void;
 
     /**
      * Insert the application HTML element into the DOM.
      * Subclasses may override this method to customize how the application is inserted.
      * @param element The element to insert
      */
-    protected _insertElement(element: HTMLElement): void;
+    protected _insertElement(element: HTMLElement): Promise<void>;
 
     /* -------------------------------------------- */
     /*  Closing                                     */
@@ -359,6 +359,13 @@ export default abstract class ApplicationV2<
      * @param options      Provided render options
      */
     protected _onRender(context: object, options: TRenderOptions): Promise<void>;
+
+    /**
+     * Perform post-render finalization actions.
+     * @param context Prepared context data.
+     * @param options Provided render options.
+     */
+    protected _postRender(context: ApplicationRenderContext, options: TRenderOptions): Promise<void>;
 
     /**
      * Actions performed before closing the Application.

@@ -4,17 +4,17 @@
     "name": "Effect: Hell's Bane",
     "system": {
         "description": {
-            "value": "<p>When you critically succeed at a skill check to Recall Knowledge about a devil or Hellknight, you gain a +4 status bonus to damage against that creature for 1 minute.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Hell's Bane]</p>\n<p>You gain a +4 status bonus to damage against the marked creature.</p>"
         },
         "duration": {
-            "expiry": null,
+            "expiry": "turn-start",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "minutes",
+            "value": 1
         },
         "fromSpell": false,
         "level": {
-            "value": 1
+            "value": 8
         },
         "publication": {
             "license": "ORC",
@@ -23,9 +23,13 @@
         },
         "rules": [
             {
+                "key": "TokenMark",
+                "slug": "hells-bane"
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
-                    "target:mark:devil-you-know"
+                    "target:mark:hells-bane"
                 ],
                 "selector": [
                     "damage"

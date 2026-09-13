@@ -153,7 +153,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 instance.damage = new Roll(instance.damage)._formula;
             } catch {
                 const message = `Unable to parse damage formula on NPC attack ${this.name}`;
-                console.warn(`PF2e System | ${message}`);
+                console.warn(`${SYSTEM_NAME} System | ${message}`);
                 instance.damage = "1d4";
             }
 
