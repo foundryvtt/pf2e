@@ -1,0 +1,131 @@
+.journal-entry-page.rune.view {
+    font-size: var(--font-size-16);
+    font-family: var(--sans-serif-condensed);
+
+    .edit-container {
+        top: 0;
+    }
+
+    header {
+        color: var(--color-text-emphatic);
+        cursor: var(--cursor-text);
+        border-bottom: 1px solid var(--color-text-secondary);
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        padding-top: calc(1.75rem);
+        text-transform: uppercase;
+        font-size: var(--font-size-24);
+        font-weight: 600;
+    }
+
+    ol.traits {
+        margin: var(--spacer-8) 0 var(--spacer-4);
+
+        li {
+            cursor: help;
+            padding: var(--space-3) var(--space-3) var(--space-1);
+        }
+    }
+
+    .stat-line {
+        cursor: var(--cursor-text);
+
+        > strong {
+            color: var(--color-text-emphatic);
+        }
+    }
+
+    .description {
+        margin-top: var(--spacer-8);
+        padding-top: var(--spacer-8);
+    }
+
+    .variants {
+        margin-top: var(--spacer-8);
+        .variant {
+            margin: var(--spacer-4) 0;
+            padding-top: var(--spacer-4);
+
+            .name em {
+                text-transform: lowercase;
+            }
+        }
+    }
+
+    .demarcated {
+        border-top: 1px solid var(--color-text-secondary);
+    }
+
+    .publication {
+        cursor: var(--cursor-text);
+        font-size: var(--font-size-14);
+        margin-top: 2rem;
+    }
+}
+
+.journal-entry-page.rune.edit {
+    nav.tabs {
+        --button-size: 2em;
+        position: relative;
+
+        .tab {
+            align-items: center;
+            display: flex;
+            flex-flow: row nowrap;
+            gap: var(--spacer-4);
+
+            button {
+                --button-size: 2em;
+                font-size: var(--font-size-8);
+            }
+        }
+
+        button.add-variant {
+            --button-size: 2em;
+            color: var(--color-text-primary);
+            font-size: var(--font-size-12);
+            position: absolute;
+            right: var(--spacer-8);
+        }
+    }
+
+    .variant {
+        padding: var(--spacer-4);
+
+        input[name]::placeholder {
+            text-transform: lowercase;
+        }
+    }
+
+    .publication .data {
+        display: grid;
+        gap: var(--spacer-8) var(--spacer-16);
+        grid-template:
+            "title title title" 2fr
+            "authors license remaster" 3fr / 4fr 1fr 1fr;
+
+        .title {
+            grid-area: title;
+        }
+
+        .form-group {
+            column-gap: var(--spacer-8);
+
+            label {
+                flex: 0 0 100%;
+            }
+        }
+
+        .license,
+        .remaster {
+            label {
+                text-align: center;
+            }
+
+            .form-fields {
+                justify-content: center;
+            }
+        }
+    }
+}

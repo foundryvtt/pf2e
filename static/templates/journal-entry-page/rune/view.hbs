@@ -1,0 +1,56 @@
+<header>
+    <div class="name">{{source.name}}</div>
+    <div class="level">{{localize "PF2E.JournalEntryPage.Rune.LevelHeader" level=levelHeader}}</div>
+</header>
+
+<ol class="traits tags paizo-style" data-tooltip-class="pf2e">
+    {{#if (ne rarity.name "common")}}
+        <li class="tag rarity {{rarity.name}}">{{rarity.label}}</li>
+    {{/if}}
+    {{#each traits as |trait|}}
+        <li {{#if trait.description}}data-tooltip aria-label="{{localize trait.description}}"{{/if}}>{{trait.label}}</li>
+    {{/each}}
+</ol>
+
+{{#if soleVariant ~}}
+<div class="stat-line"><strong>{{localize "PF2E.PriceLabel"}}</strong> {{soleVariant.price}}</div>
+{{~/if}}
+
+{{#if usageText~}}
+<div class="stat-line"><strong>{{localize "PF2E.Usage"}}</strong> {{usageText}}</div>
+{{~/if}}
+
+{{#if description}}
+<p class="description{{#if (or soleVariant usageText)}} demarcated{{/if}}">{{{description}}}</p>
+{{/if}}
+
+{{#unless soleVariant}}
+    <section class="variants">
+        {{#each variants as |variant|}}
+            <div class="variant stat demarcated">
+                <span class="stat-line name">
+                    <strong>{{localize "PF2E.JournalEntryPage.Rune.FIELDS.variants.element.name.label"}}</strong>
+                    <em>{{coalesce variant.name ../source.name}}</em>;
+                </span>
+                <span class="stat-line">
+                    <strong>{{localize "PF2E.LevelLabel"}}</strong> {{variant.level}};
+                </span>
+                <span class="stat-line">
+                    <strong>{{localize "PF2E.JournalEntryPage.Rune.FIELDS.variants.element.price.label"}}</strong>
+                    {{variant.price}}
+                </span>
+                {{{variant.addendum}}}
+            </div>
+        {{/each}}
+    </section>
+{{/unless}}
+
+{{#if source.system.publication.title~}}
+<div class="publication">
+    <hr />
+    <span>
+        {{~#if source.system.publication.authors}}{{source.system.publication.authors}}, {{/if~}}
+        <em>{{source.system.publication.title}}</em>
+    </span>
+</div>
+{{~/if}}
