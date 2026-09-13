@@ -368,9 +368,12 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const traits = config.traits
             ? [
                   rarity !== "common"
-                      ? `<li class="tag rarity ${rarity}">${_loc(CONFIG.PF2E.rarityTraits[rarity])}</li>`
+                      ? `<li class="tag rarity ${rarity}" data-tooltip="${CONFIG.PF2E.traitsDescriptions[rarity]}">${_loc(CONFIG.PF2E.rarityTraits[rarity])}</li>`
                       : "",
-                  ...this.traitChatData().map((t) => `<li class="tag traits">${t.label}</li>`),
+                  ...this.traitChatData().map((t) => {
+                      const tooltip = t.description ? ` data-tooltip="${t.description}"` : "";
+                      return `<li class="tag traits"${tooltip}>${t.label}</li>`;
+                  }),
               ].join("")
             : "";
 
