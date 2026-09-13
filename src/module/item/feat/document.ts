@@ -355,7 +355,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             traits?: boolean;
             publication?: boolean;
             header?: boolean;
-            trailingLink?: boolean;
+            journalLink?: boolean;
         },
     ): string {
         // Add header with Item link and feat level
@@ -364,29 +364,27 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             : "";
 
         // Non-common rarity followed by alphabetically ordered traits
+        const rarity = this.system.traits.rarity;
         const traits = config.traits
-            ? this.system.traits.value
-                  .map((t) => _loc(CONFIG.PF2E.featTraits[t]))
-                  .sort((a, b) => a.localeCompare(b))
-                  .reduce(
-                      (allTraits, t) => allTraits + `<li class="tag traits">${t}</li>`,
-                      this.system.traits.rarity !== "common"
-                          ? `<li class="tag rarity ${this.system.traits.rarity}">${_loc(CONFIG.PF2E.rarityTraits[this.system.traits.rarity])}</li>`
-                          : "",
-                  )
+            ? [
+                  rarity !== "common"
+                      ? `<li class="tag rarity ${rarity}">${_loc(CONFIG.PF2E.rarityTraits[rarity])}</li>`
+                      : "",
+                  ...this.traitChatData().map((t) => `<li class="tag traits">${t.label}</li>`),
+              ].join("")
             : "";
 
         const prerequisites = this.system.prerequisites?.value?.map((item) => item.value).join(", ") ?? "";
 
         // For dedication feats, remove the journal link at the end
         const description =
-            config.trailingLink === false
+            config.journalLink === false
                 ? this.description.replace(/<p>@UUID\[[^\]]+\](?:\{[^}]+\})?<\/p>$/, "")
                 : this.description;
 
         // Right-aligned publication label
         const publication = config.publication
-            ? `<p><span style="float:right"><em>${_loc("PF2E.Item.Feat.PublicationSource", { publication: this.system.publication.title })}</em></span></p>`
+            ? `<p style="text:align:right;"><em>${_loc("PF2E.Item.Feat.PublicationSource", { publication: this.system.publication.title })}</em></p>`
             : "";
 
         return (
