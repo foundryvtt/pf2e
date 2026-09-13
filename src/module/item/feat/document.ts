@@ -360,7 +360,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     ): string {
         // Add header with Item link and feat level
         const header = config.header
-            ? `<h2 class="embed heading"><div>@UUID[${this.uuid}]</div><div> </div><div>${_loc("PF2E.Item.Feat.LevelN", { level: this.level })}</div></h2>`
+            ? `<h2 class="embed heading"><span>@UUID[${this.uuid}]</span> <span>${_loc("PF2E.Item.Feat.LevelN", { level: this.level })}</span></h2>`
             : "";
 
         // Non-common rarity followed by alphabetically ordered traits
