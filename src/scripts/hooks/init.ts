@@ -64,6 +64,22 @@ export const Init = {
                 CONFIG.compendium.uuidRedirects[from] = to;
             }
 
+            // Register mirror packs redirects from active modules
+            const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
+            for (const [key, foundryModule] of activeModules) {
+                const flags = foundryModule.flags[key];
+                if (!R.isPlainObject(flags)) continue;
+                const mirrorPacks = flags["pf2e-sf2e-mirror-packs"];
+                if (!R.isArray(mirrorPacks)) continue;
+                for (const pair of mirrorPacks) {
+                    if (!R.isPlainObject(pair)) continue;
+                    if (R.isString(pair.pf2e) && R.isString(pair.sf2e)) {
+                        const [from, to] = game.system.id === "pf2e" ? [pair.sf2e, pair.pf2e] : [pair.pf2e, pair.sf2e];
+                        CONFIG.compendium.uuidRedirects[`Compendium.${key}.${from}`] = `Compendium.${key}.${to}`;
+                    }
+                }
+            }
+
             // Register custom enricher
             CONFIG.ux.TextEditor = TextEditorPF2e;
             CONFIG.TextEditor.enrichers.push({
