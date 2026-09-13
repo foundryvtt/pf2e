@@ -14,6 +14,7 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { BaseDamageData } from "@system/damage/index.ts";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import { RollTwiceOption } from "@system/rolls.ts";
+import { DataUnionField, RecordField, StrictNumberField, StrictStringField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
 import { DamageAlteration } from "./rule-element/damage-alteration/alteration.ts";
 import { RuleElement, RuleElementSource } from "./rule-element/index.ts";
@@ -309,8 +310,36 @@ function processChoicesFromData(data: unknown): PickableThing<string>[] {
     return [];
 }
 
+function createPreselectChoicesField(): PreselectChoicesField {
+    return new RecordField(
+        new foundry.data.fields.StringField({ required: true, blank: false }),
+        new DataUnionField(
+            [
+                new StrictStringField<string, string, true, false, false>({ required: true, blank: false }),
+                new StrictNumberField<number, number, true, false, false>({ required: true, nullable: false }),
+            ],
+            { required: true, nullable: false, initial: undefined },
+        ),
+        { required: true, nullable: true, initial: null },
+    );
+}
+
+type PreselectChoicesField = RecordField<
+    foundry.data.fields.StringField<string, string, true, false, false>,
+    DataUnionField<
+        StrictStringField<string, string, true, false, false> | StrictNumberField<number, number, true, false, false>,
+        true,
+        false,
+        false
+    >,
+    true,
+    true,
+    true
+>;
+
 export {
     createBatchRuleElementUpdate,
+    createPreselectChoicesField,
     extractDamageAlterations,
     extractDamageDice,
     extractDegreeOfSuccessAdjustments,
@@ -324,3 +353,5 @@ export {
     processDamageCategoryStacking,
     processPreUpdateActorHooks,
 };
+
+export type { PreselectChoicesField };

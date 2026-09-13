@@ -5,14 +5,8 @@ import { ConditionPF2e, ItemPF2e, ItemProxyPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { ItemGranterSource, ItemSourceFlagsPF2e } from "@item/base/data/system.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
-import {
-    DataUnionField,
-    RecordField,
-    SlugField,
-    StrictArrayField,
-    StrictNumberField,
-    StrictStringField,
-} from "@system/schema-data-fields.ts";
+import { createPreselectChoicesField } from "@module/rules/helpers.ts";
+import { SlugField, StrictArrayField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, setHasElement, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import { RuleElement, RuleElementOptions } from "../base.ts";
@@ -91,17 +85,7 @@ class GrantItemRuleElement extends RuleElement<GrantItemSchema> {
                     initial: null,
                 }),
             }),
-            preselectChoices: new RecordField(
-                new fields.StringField({ required: true, blank: false }),
-                new DataUnionField(
-                    [
-                        new StrictStringField<string, string, true, false, false>({ required: true, blank: false }),
-                        new StrictNumberField<number, number, true, false, false>({ required: true, nullable: false }),
-                    ],
-                    { required: true, nullable: false, initial: undefined },
-                ),
-                { required: true, nullable: true, initial: null },
-            ),
+            preselectChoices: createPreselectChoicesField(),
             nestUnderGranter: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             alterations: new StrictArrayField(new fields.EmbeddedDataField(ItemAlteration)),
             track: new fields.BooleanField(),
