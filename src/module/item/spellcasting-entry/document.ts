@@ -142,10 +142,32 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         }
     }
 
-    /** Prepares the statistic for this spellcasting entry */
+    /** Prepares this entry's statistic and promotes the actor's best spell DC if it's higher */
     prepareStatistic(): void {
         const actor = this.actor;
-        if (!actor) return;
+        const statistic = this.buildStatistic();
+        if (!actor?.isOfType("character", "npc") || !statistic) return;
+        this.statistic = statistic;
+
+        // Check if the new statistic exceeds the current actor best spell dc
+        const stat = actor.isOfType("npc")
+            ? { value: this.statistic.dc.value }
+            : { value: this.statistic.dc.value, rank: this.statistic.rank ?? 0 };
+        const attributes = actor.system.attributes;
+        if (stat.value > attributes.classOrSpellDC.value) {
+            attributes.classOrSpellDC = stat;
+        }
+        if (!attributes.spellDC || stat.value > attributes.spellDC.value) {
+            attributes.spellDC = stat;
+        }
+    }
+
+    /** Builds the statistic without writing to the actor, so an unsaved entry can preview its values.
+     * Null if the actor is missing or the base statistic cannot be resolved
+     */
+    buildStatistic(): Statistic | null {
+        const actor = this.actor;
+        if (!actor) return null;
         const { attribute, tradition } = this;
 
         const slug = this.slug ?? sluggify(`${this.name}-spellcasting`);
@@ -165,11 +187,11 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         if (actor.isOfType("character")) {
             // Spellcasting entries extend other statistics, usually base spellcasting, but sometimes class dc
             const baseStat = actor.getStatistic(this.system.proficiency.slug || "base-spellcasting");
-            if (!baseStat) return;
+            if (!baseStat) return null;
 
             this.system.ability.value = baseStat.attribute ?? this.system.ability.value;
             this.system.proficiency.value = Math.max(this.rank, baseStat.rank ?? 0) as ZeroToFour;
-            this.statistic = baseStat.extend({
+            return baseStat.extend({
                 slug,
                 label:
                     baseStat.slug === "base-spellcasting" && tradition
@@ -191,8 +213,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             const baseMod = Number(this.system?.spelldc?.value ?? 0) + adjustment;
             const baseDC = Number(this.system?.spelldc?.dc ?? 0) + adjustment;
 
-            // Assign statistic data to the spellcasting entry
-            this.statistic = new Statistic(actor as ActorPF2e, {
+            return new Statistic(actor as ActorPF2e, {
                 slug,
                 attribute: this.attribute,
                 label: CONFIG.PF2E.magicTraditions[tradition ?? "arcane"],
@@ -210,18 +231,6 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             });
         } else {
             throw ErrorPF2e(`Actor type ${actor.type} does not support spellcasting entries`);
-        }
-
-        // Check if the new statistic exceeds the current actor best spell dc
-        const stat = actor.isOfType("npc")
-            ? { value: this.statistic.dc.value }
-            : { value: this.statistic.dc.value, rank: this.statistic.rank ?? 0 };
-        const attributes = actor.system.attributes;
-        if (stat.value > attributes.classOrSpellDC.value) {
-            attributes.classOrSpellDC = stat;
-        }
-        if (!attributes.spellDC || stat.value > attributes.spellDC.value) {
-            attributes.spellDC = stat;
         }
     }
 
