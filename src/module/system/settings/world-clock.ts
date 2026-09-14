@@ -42,6 +42,14 @@ type WorldClockSettingSchema = {
 
 export interface WorldClockSettingData extends fields.SourceFromSchema<WorldClockSettingSchema> {}
 
+/** If the 13th hour of the day is a single digit, the locale uses a 12-hour clock. */
+const TIME_CONVENTION_DEFAULT =
+    new Intl.DateTimeFormat(undefined, { hour: "numeric" })
+        .formatToParts(new Date(2020, 0, 1, 13))
+        .find((p) => p.type === "hour")?.value.length === 1
+        ? 12
+        : 24;
+
 export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV2) {
     constructor(options?: DeepPartial<ApplicationConfiguration>) {
         super(options);
@@ -76,7 +84,12 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
             choices: ["AR", "IC", "AG", "AD", "CE"],
             initial: SYSTEM_ID === "sf2e" ? "AG" : "AR",
         }),
-        timeConvention: new fields.NumberField({ required: true, nullable: false, choices: [12, 24], initial: 24 }),
+        timeConvention: new fields.NumberField({
+            required: true,
+            nullable: false,
+            choices: [12, 24],
+            initial: TIME_CONVENTION_DEFAULT,
+        }),
         playersCanView: new fields.BooleanField(),
         showClockButton: new fields.BooleanField({ initial: true }),
         syncDarkness: new fields.BooleanField(),
