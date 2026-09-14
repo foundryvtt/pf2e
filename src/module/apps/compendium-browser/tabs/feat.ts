@@ -1,4 +1,4 @@
-import { Predicate } from "@system/predication.ts";
+import type { Predicate } from "@system/predication.ts";
 import * as R from "remeda";
 import { CompendiumBrowser } from "../browser.svelte.ts";
 import { ContentTabName } from "../data.ts";
@@ -14,7 +14,6 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
     override searchFields = ["name", "originalName"];
     override storeFields = ["name", "originalName", "img", "uuid", "level", "rarity", "options"];
 
-    #ancestryTraits = CONFIG.PF2E.ancestryTraits;
     #creatureTraits = CONFIG.PF2E.creatureTraits;
 
     constructor(browser: CompendiumBrowser) {
@@ -143,20 +142,17 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
     protected override buildPredicate(): Predicate {
         const predicate = super.buildPredicate();
         const root = predicate[0];
-        if (!R.isPlainObject(root) || !("and" in root) || !Array.isArray(root.and)) return predicate;
-
+        if (typeof root === "string" || !("and" in root)) return predicate;
         for (const statement of root.and) {
-            if (!R.isPlainObject(statement) || !("or" in statement) || !Array.isArray(statement.or)) continue;
+            if (typeof statement === "string" || !("or" in statement)) continue;
             const or = statement.or;
             if (!or.every((s): s is string => typeof s === "string" && s.startsWith("trait:"))) continue;
-
             const filteringAncestryTraits = or.some((s) => {
                 const trait = s.slice("trait:".length);
-                return trait === "ancestry" || trait in this.#ancestryTraits;
+                return trait === "ancestry" || trait in CONFIG.PF2E.ancestryTraits;
             });
             if (filteringAncestryTraits && !or.includes("tag:universal")) or.push("tag:universal");
         }
-
         return predicate;
     }
 
