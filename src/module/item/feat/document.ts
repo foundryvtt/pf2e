@@ -346,6 +346,15 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         if (this.frequency) rollOptions.findSplice((o) => o === `${prefix}:frequency:limited`);
         rollOptions.push(...getActionCostRollOptions(prefix, this));
 
+        // Match compendium browser: traitless ancestry feats (e.g. reincarnation) still filter as ancestry
+        if (
+            this.isFeat &&
+            this.category === "ancestry" &&
+            !this.system.traits.value.some((t) => t === "ancestry" || t in CONFIG.PF2E.creatureTraits)
+        ) {
+            rollOptions.push(`${prefix}:trait:ancestry`);
+        }
+
         return rollOptions;
     }
 
