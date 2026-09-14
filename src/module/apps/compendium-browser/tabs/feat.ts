@@ -142,8 +142,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
     /** When filtering by ancestry traits, also include feats tagged universal */
     protected override buildPredicate(): Predicate {
         const predicate = super.buildPredicate();
-        const raw = predicate.toObject();
-        const root = raw[0];
+        const root = predicate[0];
         if (!R.isPlainObject(root) || !("and" in root) || !Array.isArray(root.and)) return predicate;
 
         for (const statement of root.and) {
@@ -158,7 +157,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
             if (filteringAncestryTraits && !or.includes("tag:universal")) or.push("tag:universal");
         }
 
-        return new Predicate(raw);
+        return predicate;
     }
 
     protected override prepareFilterData(): FeatFilters {
