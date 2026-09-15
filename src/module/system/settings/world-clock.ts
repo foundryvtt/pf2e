@@ -146,8 +146,11 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
                 cache.worldClock = { ...(data as WorldClockSettingData) };
                 const showButtonChanged = wasShowingButton !== cache.worldClock.showClockButton;
                 if (showButtonChanged && ui.controls.control?.name === "tokens") ui.controls.render({ reset: true });
-                if (!wasSyncingDarkness && game.user.isActiveGM) {
-                    game.pf2e.worldClock.syncDarkness(canvas.scene, { animate: false });
+                game.pf2e.worldClock.render();
+                if (!wasSyncingDarkness && cache.worldClock.syncDarkness && game.user.isActiveGM) {
+                    for (const scene of game.scenes) {
+                        game.pf2e.worldClock.syncDarkness(scene, { animate: false });
+                    }
                 }
             },
         });
