@@ -178,20 +178,32 @@ function squareAtPoint(point: Point): PIXI.Rectangle {
 }
 
 function shapeDataFromEffectArea(
-    area: { type: EffectAreaShape; value: number },
+    area: {
+        type: EffectAreaShape;
+        value: number;
+        width?: number;
+        angle?: number;
+        innerWidth?: number;
+        outerWidth?: number;
+    },
     actor: Maybe<ActorPF2e>,
 ): DeepPartial<SpecificShapeSource> | null {
     const distance = (area.value / 5) * canvas.grid.size;
+
     const { x, y } = canvas.mousePosition;
     switch (area.type) {
         case "burst":
         case "cylinder":
             return { type: "circle", radius: distance, x, y };
-        case "cone":
-            return { type: "cone", angle: 90, radius: distance, x, y };
+        case "cone": {
+            const angle = area.angle || 90;
+            return { type: "cone", angle, radius: distance, x, y };
+        }
         case "cube":
-        case "square":
-            return { type: "rectangle", width: distance, height: distance, x, y };
+        case "square": {
+            const width = ((area.width || area.value) / 5) * canvas.grid.size;
+            return { type: "rectangle", width, height: distance, x, y };
+        }
         case "emanation": {
             const tokenSource = actor?.getActiveTokens(true, true).at(0)?._source;
             if (!tokenSource) return null;
@@ -200,11 +212,14 @@ function shapeDataFromEffectArea(
             } as const);
             return { type: "emanation", radius: distance, base, x, y };
         }
-        case "line":
-            return { type: "line", length: distance, width: canvas.dimensions.size, x, y };
+        case "line": {
+            const width = ((area.width || 5) / 5) * canvas.grid.size;
+            return { type: "line", length: distance, width, x, y };
+        }
         case "ring": {
-            const width = Math.floor(canvas.dimensions.size * 0.5);
-            return { type: "ring", radius: distance, innerWidth: width, outerWidth: width, x, y };
+            const innerWidth = ((area.innerWidth || 2.5) / 5) * canvas.grid.size;
+            const outerWidth = ((area.outerWidth || 2.5) / 5) * canvas.grid.size;
+            return { type: "ring", radius: distance, innerWidth, outerWidth, x, y };
         }
     }
 }
