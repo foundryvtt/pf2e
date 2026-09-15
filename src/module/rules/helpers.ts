@@ -309,6 +309,44 @@ function processChoicesFromData(data: unknown): PickableThing<string>[] {
     return [];
 }
 
+/** Status/circumstance bonuses, non-ability penalties, and battle-form slugs apply on both sides of a fixed-vs-own comparison. */
+function isSharedStatisticModifier(modifier: Modifier): boolean {
+    if (modifier.slug === "battle-form") return true;
+    if (modifier.type === "ability") return false;
+    return ["status", "circumstance"].includes(modifier.type) || modifier.modifier < 0;
+}
+
+/** Whether a listed/fixed modifier should replace the actor's own statistic. */
+function useFixedStatisticModifier({
+    fixed,
+    own,
+    modifiers,
+    ownIfHigher,
+}: {
+    fixed: number;
+    own: number;
+    modifiers: readonly Modifier[];
+    ownIfHigher: boolean;
+}): boolean {
+    const shared = modifiers
+        .filter((m) => m.enabled && isSharedStatisticModifier(m))
+        .reduce((sum, m) => sum + m.modifier, 0);
+    return !ownIfHigher || fixed + shared >= own;
+}
+
+/** Disable ineligible statistic modifiers that do not apply on top of a fixed value. */
+function suppressUnsharedModifiers(statistic: { modifiers: readonly Modifier[] }): void {
+    for (const modifier of statistic.modifiers) {
+        if (isSharedStatisticModifier(modifier)) continue;
+        modifier.adjustments.push({ slug: null, test: () => true, suppress: true });
+        modifier.ignored = true;
+        modifier.enabled = false;
+    }
+    if (statistic instanceof StatisticModifier) {
+        statistic.calculateTotal();
+    }
+}
+
 export {
     createBatchRuleElementUpdate,
     extractDamageAlterations,
@@ -320,7 +358,10 @@ export {
     extractNotes,
     extractRollSubstitutions,
     extractRollTwice,
+    isSharedStatisticModifier,
     processChoicesFromData,
     processDamageCategoryStacking,
     processPreUpdateActorHooks,
+    suppressUnsharedModifiers,
+    useFixedStatisticModifier,
 };
