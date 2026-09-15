@@ -1,3 +1,4 @@
+import type { Predicate } from "@system/predication.ts";
 import * as R from "remeda";
 import { CompendiumBrowser } from "../browser.svelte.ts";
 import { ContentTabName } from "../data.ts";
@@ -90,9 +91,11 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                 const category = system.category;
                 const type = featData.type;
                 const traits: string[] = system.traits.value;
+                const otherTags: string[] = system.traits.otherTags ?? [];
                 const pubSource = system.publication?.title ?? system.source?.value ?? "";
                 const options: string[] = [
                     ...traits.map((t: string) => `trait:${t.replace(/^hb_/, "")}`),
+                    ...otherTags.map((t: string) => `tag:${t}`),
                     ...skills.map((s) => `skill:${s}`),
                     `category:${category}`,
                     `type:${type}`,
@@ -102,8 +105,12 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                 ];
 
                 // Tag ancestry items without an ancestry trait
-                if (category === "ancestry" && !traits.some((t) => t in this.#creatureTraits)) {
-                    options.push("trait:ancestry:universal");
+                if (
+                    category === "ancestry" &&
+                    !otherTags.includes("universal") &&
+                    !traits.some((t) => t === "ancestry" || t in this.#creatureTraits)
+                ) {
+                    options.push("tag:universal");
                 }
 
                 feats.push({
@@ -129,6 +136,24 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         this.filterData.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.featTraits);
 
         console.debug(`${SYSTEM_NAME} System | Compendium Browser | Finished loading feats`);
+    }
+
+    /** When filtering by ancestry traits, also include feats tagged universal */
+    protected override buildPredicate(): Predicate {
+        const predicate = super.buildPredicate();
+        const root = predicate[0];
+        if (typeof root === "string" || !("and" in root)) return predicate;
+        for (const statement of root.and) {
+            if (typeof statement === "string" || !("or" in statement)) continue;
+            const or = statement.or;
+            if (!or.every((s): s is string => typeof s === "string" && s.startsWith("trait:"))) continue;
+            const filteringAncestryTraits = or.some((s) => {
+                const trait = s.slice("trait:".length);
+                return trait === "ancestry" || trait in CONFIG.PF2E.ancestryTraits;
+            });
+            if (filteringAncestryTraits && !or.includes("tag:universal")) or.push("tag:universal");
+        }
+        return predicate;
     }
 
     protected override prepareFilterData(): FeatFilters {

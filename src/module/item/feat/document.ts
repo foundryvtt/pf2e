@@ -346,6 +346,15 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         if (this.frequency) rollOptions.findSplice((o) => o === `${prefix}:frequency:limited`);
         rollOptions.push(...getActionCostRollOptions(prefix, this));
 
+        // Ancestry feats without an ancestry trait filter as universal
+        if (
+            this.isFeat &&
+            this.category === "ancestry" &&
+            !this.system.traits.value.some((t) => t === "ancestry" || t in CONFIG.PF2E.creatureTraits)
+        ) {
+            rollOptions.push(`${prefix}:tag:universal`);
+        }
+
         return rollOptions;
     }
 
