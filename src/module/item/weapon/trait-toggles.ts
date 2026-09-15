@@ -1,6 +1,7 @@
 import type { ActorPF2e } from "@actor";
-import type { WeaponPF2e } from "@item";
+import type { ItemPF2e, WeaponPF2e } from "@item";
 import { ModularConfig } from "@item/base/data/system.ts";
+import type { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
 import { nextDamageDieSize } from "@system/damage/helpers.ts";
 import type { DamageType } from "@system/damage/types.ts";
 import { objectHasKey, tupleHasValue } from "@util";
@@ -97,34 +98,57 @@ class WeaponTraitToggles {
      */
     async update(options: ToggleWeaponTraitParams): Promise<boolean> {
         const weapon = this.parent;
-        const actor = weapon.actor;
-        if (!actor?.isOfType("character")) return false;
+        if (!weapon.actor?.isOfType("character")) return false;
 
         const { trait, selected } = options;
         const property = trait === "double-barrel" ? "doubleBarrel" : trait;
-        const current = this[property]?.selected;
-        if (current === selected) return false;
+        if (this[property]?.selected === selected) return false;
 
-        const item = weapon.realItem;
-        if (item?.isOfType("weapon") && item === weapon) {
-            const value = property === "doubleBarrel" ? !!selected : selected;
-            await item.update({ [`system.traits.toggles.${property}.selected`]: value });
-        } else if (item?.isOfType("weapon") && weapon.altUsageType === "melee") {
-            item.update({ [`system.meleeUsage.traitToggles.${trait}`]: selected });
-        } else if (trait === "versatile" && item?.isOfType("shield")) {
-            item.update({ "system.traits.integrated.versatile.selected": selected });
-        } else if (trait !== "double-barrel" && weapon.rule) {
-            await weapon.rule.toggleTrait(options);
-        } else {
+        const target = this.#resolveTarget(options);
+        if (!target) {
             console.warn(
                 `${SYSTEM_NAME} System | Unable to resolve an update target for ${weapon.name}'s ${trait} toggle`,
             );
             return false;
         }
 
+        if ("rule" in target) {
+            await target.rule.toggleTrait(target.options);
+        } else {
+            const value = property === "doubleBarrel" ? !!selected : selected;
+            await target.document.update({ [target.path]: value });
+        }
+
         return true;
     }
+
+    /** Find the document and key path that persist a toggle, or the Strike rule element that owns it */
+    #resolveTarget(options: ToggleWeaponTraitParams): ToggleUpdateTarget | null {
+        const weapon = this.parent;
+        const item = weapon.realItem;
+        const trait = options.trait;
+        if (item?.isOfType("weapon") && item === weapon) {
+            const property = trait === "double-barrel" ? "doubleBarrel" : trait;
+            return { document: item, path: `system.traits.toggles.${property}.selected` };
+        }
+        if (item?.isOfType("weapon") && weapon.altUsageType === "melee") {
+            return { document: item, path: `system.meleeUsage.traitToggles.${trait}` };
+        }
+        if (trait === "versatile" && item?.isOfType("shield")) {
+            return { document: item, path: "system.traits.integrated.versatile.selected" };
+        }
+        if (options.trait === "double-barrel") return null;
+        if (weapon.rule) return { rule: weapon.rule, options };
+        if (weapon.slug === "basic-unarmed" && weapon.actor) {
+            return { document: weapon.actor, path: `flags.${SYSTEM_ID}.basicUnarmedToggles.${trait}` };
+        }
+        return null;
+    }
 }
+
+type ToggleUpdateTarget =
+    | { document: ActorPF2e | ItemPF2e; path: string }
+    | { rule: StrikeRuleElement; options: ToggleModularVersatileParams };
 
 interface ToggleDoubleBarrelParams {
     trait: "double-barrel";
