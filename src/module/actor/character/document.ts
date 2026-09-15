@@ -1048,7 +1048,15 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                               handsHeld: 0,
                           },
                           group: "brawling",
-                          traits: { value: ["agile", "finesse", "nonlethal", "unarmed"] },
+                          traits: {
+                              value: ["agile", "finesse", "nonlethal", "unarmed"],
+                              toggles: {
+                                  modular: { selected: this.flags[SYSTEM_ID].basicUnarmedToggles?.modular ?? null },
+                                  versatile: {
+                                      selected: this.flags[SYSTEM_ID].basicUnarmedToggles?.versatile ?? null,
+                                  },
+                              },
+                          },
                           usage: { value: "worngloves" },
                           runes: unarmedRunes,
                       },
