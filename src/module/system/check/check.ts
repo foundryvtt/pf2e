@@ -13,7 +13,7 @@ import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { TokenDocumentPF2e, type ScenePF2e } from "@scene";
-import { treatWoundsMacroCallback } from "@scripts/macros/treat-wounds.ts";
+import { treatWoundsMacroCallback } from "@system/action-macros/medicine/treat-wounds-callback.ts";
 import { StatisticDifficultyClass } from "@system/statistic/index.ts";
 import {
     ErrorPF2e,
