@@ -35,9 +35,39 @@
                     "spellcasting:tradition:arcane",
                     {
                         "or": [
-                            "item:slug:enlarge",
-                            "item:slug:earthbind",
-                            "item:slug:planar-tether"
+                            {
+                                "and": [
+                                    "item:slug:enlarge",
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            7
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:earthbind",
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            11
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:planar-tether",
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            13
+                                        ]
+                                    }
+                                ]
+                            }
                         ]
                     }
                 ],
