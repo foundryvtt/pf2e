@@ -1,3 +1,71 @@
+## 8.5.1
+
+### System Improvements
+
+- (Chromatic Penguin) Add Raise a Shield button to NPC sheet when shield is held
+- (Chromatic Penguin) Convert `SpellcastingCreateAndEditDialog` to `ApplicationV2` and Svelte
+- (Chromatic Penguin) Convert Treat Wounds and Encouraging Words to `DialogV2` and action macros
+- (Dantar) Include Ancestry trait in feat filters
+- (kromko) Add header, traits, and publication options to feat embeds
+- (stwlam) Allow `RuleElement#resolveValue` to return `null` from string inputs
+- (stwlam) Make world clock's dawn and dusk times configurable
+- (stwlam) Re-render world clock and sync darkness on all scenes upon setting change
+- (stwlam) Set initial value of world clock's time convention according to locale
+
+### Bugfixes
+
+- (Chromatic Penguin) Apply inline check roll options to defense DCs
+- (Chromatic Penguin) Fix apply-once weaknesses triggering when persistent damage is first applied
+- (Chromatic Penguin) Fix TokenImage rule overrides on world load
+- (Chromatic Penguin) Fix versatile and modular toggles on basic unarmed strike
+- (Chromatic Penguin) Fix versatile toggle on combination weapons' melee usage
+- (Chromatic Penguin) Only count tokens inside an effect area's highlighted squares
+- (Dantar) Acquire modifier adjustments for Sweep and Backswing
+- (Dantar) Add label for `force` field of BaseSpeed rule element
+- (sgennaoui) Fix flanking for tiny creatures
+
+### Data Updates
+
+- (Ambrose) Add area-damage option to Aeon Stone (Crescent)'s Moonbeam
+- (Ambrose) Add Dragonhide material to shields
+- (Ambrose) Add Rituals entry to GM screen
+- (Ambrose) Add secret text segments to Midnight Milk
+- (Ambrose) Add Standard DCs and Creature Cost tables to Rituals journal page
+- (Ambrose) Change recharge roll syntax for Eternal Eruption items to not be blind rolls
+- (Ambrose) Correct action cost of Thwart Evil and Sorshen's Devotion
+- (Ambrose) Correct miscellaneous data issues with select pregens
+- (Ambrose) Correct predicate for Five-Feather Wreath's Major Armor fall damage
+- (Ambrose) Correct select Apex items to use Remaster attribute boost in descriptions
+- (Ambrose) Correct slug of Astradaemon's Essence Drain ability
+- (Ambrose) Remove premaster traits from Shades of Blood Strigoi actors
+- (Ambrose) Update Hunter's Anthem to account for dedications
+- (Ambrose) Update inline roll for Goblin Song
+- (august-k) Fix missing action variant inlines in Distracting Performance
+- (Dantar) Add universal Ancestry trait to feats
+- (Dantar) Fix Conjurer's Countermeasure resistance
+- (Dantar) Fix Overflowing's bonus type
+- (Dantar) Make BattleForm remove unmentioned speeds (Errata)
+- (Dire Weasel) Add automation for Starshot Arrow and Carver-cutter
+- (Dire Weasel) Add damage resistance automation to Villamor Koth
+- (Dire Weasel) Add effects for several NPC abilities
+- (Dire Weasel) Add missing bleed immunity to Monster Core 2 oozes
+- (Dire Weasel) Add spell effect for Warshard Shot
+- (Dire Weasel) Brush up various NPCs
+- (Dire Weasel) Fix action icon for Grab an Edge in GM Screen
+- (Dire Weasel) Fix some inline precision damage links
+- (Dire Weasel) Remove some unneeded inline damage links from spells
+- (Dire Weasel) Unify damage for Drakauthix's Spore Tendrils
+- (Dire Weasel) Update Nindoru to remaster
+- (Dire Weasel) Use unique icon for Numbing Tonic
+- (kromko) Fix publication sources of The Dead God's Hand physical items
+- (kromko) Remove traditions for spellcasting proficiency in remastered class feature descriptions
+- (Longstrider) Add Dwarven Reinforcement effect
+- (Longstrider) Fix War Saddle item level
+
+### Under the Hood
+
+- (Chromatic Penguin) Adopt shared `TextSearch`/`SearchInput` in ABC picker, formula picker, roll inspector, and trade dialog
+
 ## 8.5.0
 
 ### Highlights
