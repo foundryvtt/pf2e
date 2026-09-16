@@ -11,6 +11,7 @@ import { BattleFormRuleElement } from "./rule-element/battle-form/rule-element.t
 import { ChoiceSetRuleElement } from "./rule-element/choice-set/rule-element.ts";
 import { CraftingAbilityRuleElement } from "./rule-element/crafting-ability.ts";
 import { CreatureSizeRuleElement } from "./rule-element/creature-size.ts";
+import { ArmorSpecializationRuleElement } from "./rule-element/armor-specialization.ts";
 import { CritSpecRuleElement } from "./rule-element/crit-spec.ts";
 import { DamageAlterationRuleElement } from "./rule-element/damage-alteration/rule-element.ts";
 import { DamageDiceRuleElement } from "./rule-element/damage-dice.ts";
@@ -59,6 +60,7 @@ class RuleElements {
         ChoiceSet: ChoiceSetRuleElement,
         CraftingAbility: CraftingAbilityRuleElement,
         CreatureSize: CreatureSizeRuleElement,
+        ArmorSpecialization: ArmorSpecializationRuleElement,
         CriticalSpecialization: CritSpecRuleElement,
         DamageAlteration: DamageAlterationRuleElement,
         DamageDice: DamageDiceRuleElement,
