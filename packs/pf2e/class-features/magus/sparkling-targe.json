@@ -130,9 +130,39 @@
                     "spellcasting:tradition:arcane",
                     {
                         "or": [
-                            "item:slug:resist-energy",
-                            "item:slug:warding-aggression",
-                            "item:slug:mountain-resilience"
+                            {
+                                "and": [
+                                    "item:slug:resist-energy",
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            7
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:warding-aggression",
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            11
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:mountain-resilience",
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            13
+                                        ]
+                                    }
+                                ]
+                            }
                         ]
                     }
                 ],

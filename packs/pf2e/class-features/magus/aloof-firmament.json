@@ -98,9 +98,39 @@
                     "spellcasting:tradition:arcane",
                     {
                         "or": [
-                            "item:slug:water-walk",
-                            "item:slug:wall-of-wind",
-                            "item:slug:variable-wind"
+                            {
+                                "and": [
+                                    "item:slug:water-walk",
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            7
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:wall-of-wind",
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            11
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:variable-gravity",
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            13
+                                        ]
+                                    }
+                                ]
+                            }
                         ]
                     }
                 ],
