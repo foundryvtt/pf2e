@@ -5,6 +5,7 @@ import type { InitiativeRollResult } from "@actor/initiative.ts";
 import type Tabs from "@client/applications/ux/tabs.d.mts";
 import type { AppV1RenderOptions } from "@client/appv1/api/application-v1.d.mts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
+import type { ItemUUID } from "@client/documents/_module.d.mts";
 import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
 import type { PhysicalItemPF2e } from "@item";
 import { AbstractEffectPF2e, ItemPF2e, SpellPF2e } from "@item";
@@ -52,6 +53,7 @@ import {
     objectHasKey,
     setHasElement,
     signedInteger,
+    sluggify,
     tupleHasValue,
 } from "@util";
 import { createSortable } from "@util/destroyables.ts";
@@ -67,6 +69,7 @@ import type {
     InventoryItem,
     SheetInventory,
 } from "./data-types.ts";
+import { getVersionUUIDs, getVersionUUIDsUpToLevel } from "@actor/character/crafting/formula-variants.ts";
 import { createBulkPerLabel, onClickCreateSpell } from "./helpers.ts";
 import { ItemSummaryRenderer } from "./item-summary-renderer.ts";
 import { IdentifyItemPopup } from "./popups/identify-popup.ts";
@@ -1249,8 +1252,23 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             }
         } else if (item.isOfType("physical") && actor.isOfType("character") && craftingTab) {
             const actorFormulas = fu.deepClone(actor.system.crafting.formulas);
-            if (!actorFormulas.some((f) => f.uuid === item.uuid)) {
-                actorFormulas.push({ uuid: item.uuid });
+            const existingUuids = new Set(actorFormulas.map((f) => f.uuid));
+            const slug = item.system.slug ?? item.slug ?? sluggify(item.name);
+            const expansionSetting =
+                (game.settings.get(SYSTEM_ID, "craftingFormulaVariantExpansion") as string) ?? "ask";
+            const addMode = expansionSetting === "ask" ? await this.#confirmAddFormulaVersions() : expansionSetting;
+            const versionUuids =
+                addMode === "yes"
+                    ? await getVersionUUIDs(slug)
+                    : addMode === "level"
+                      ? await getVersionUUIDsUpToLevel(slug, actor.level)
+                      : [];
+            const uuidsToAdd: ItemUUID[] = versionUuids.length > 0 ? versionUuids : [item.uuid];
+            const newUuids = uuidsToAdd.filter((uuid) => !existingUuids.has(uuid));
+            if (newUuids.length > 0) {
+                for (const uuid of newUuids) {
+                    actorFormulas.push({ uuid });
+                }
                 await actor.update({ "system.crafting.formulas": actorFormulas });
             }
             return [item];
@@ -1431,6 +1449,65 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
 
             this.actor.createEmbeddedDocuments("Item", [itemSource]);
         }
+    }
+
+    /**
+     * Render a dialog to decide how to add formula versions.
+     * Defaults to adding only the dropped item if dismissed.
+     */
+    async #confirmAddFormulaVersions(): Promise<"yes" | "level" | "no"> {
+        const checkboxChecked = (dialog: { element: HTMLElement }) =>
+            htmlQuery<HTMLInputElement>(dialog.element, "input[name=saveFormulaVersionDecision]")?.checked ?? false;
+        const saveDecision = (dialog: { element: HTMLElement }, value: "yes" | "level" | "no") => {
+            if (checkboxChecked(dialog)) {
+                game.settings.set(SYSTEM_ID, "craftingFormulaVariantExpansion", value);
+            }
+        };
+        const onChoose =
+            (value: "yes" | "level" | "no") =>
+            (
+                _event: PointerEvent | SubmitEvent,
+                _button: HTMLButtonElement,
+                dialog: foundry.applications.api.DialogV2,
+            ) => {
+                saveDecision(dialog, value);
+                return value;
+            };
+        const dialogContent =
+            `<p>${game.i18n.localize("PF2E.CraftingTab.AddFormulaVersionDialogContent")}</p>` +
+            `<p><label><input type="checkbox" name="saveFormulaVersionDecision" checked> ${game.i18n.localize(
+                "PF2E.CraftingTab.AddFormulaVersionDialogSaveDecision",
+            )}</label></p>`;
+        const result = await foundry.applications.api.DialogV2.wait({
+            window: {
+                title: game.i18n.localize("PF2E.CraftingTab.AddFormulaVersionDialogTitle"),
+                icon: "fa-solid fa-flask",
+            },
+            content: dialogContent,
+            rejectClose: false,
+            buttons: [
+                {
+                    action: "yes",
+                    label: game.i18n.localize("PF2E.CraftingTab.AddFormulaVersionDialogButtonAll"),
+                    icon: "fa-solid fa-layer-group",
+                    callback: onChoose("yes"),
+                },
+                {
+                    action: "level",
+                    label: game.i18n.localize("PF2E.CraftingTab.AddFormulaVersionDialogButtonUpToLevel"),
+                    icon: "fa-solid fa-arrow-up-1-9",
+                    default: true,
+                    callback: onChoose("level"),
+                },
+                {
+                    action: "no",
+                    label: game.i18n.localize("PF2E.CraftingTab.AddFormulaVersionDialogButtonOnlyThis"),
+                    icon: "fa-solid fa-vial",
+                    callback: onChoose("no"),
+                },
+            ],
+        });
+        return result === "yes" || result === "level" || result === "no" ? result : "no";
     }
 
     /** Render confirmation dialog to sell all treasure */

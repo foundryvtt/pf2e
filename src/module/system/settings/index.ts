@@ -101,6 +101,23 @@ export function registerSettings(): void {
         },
     });
 
+    const formulaVersionExpansionChoices = ["ask", "yes", "level", "no"] as const;
+    game.settings.register(SYSTEM_ID, "craftingFormulaVariantExpansion", {
+        name: "PF2E.SETTINGS.CraftingFormulaVersionExpansion.Name",
+        hint: "PF2E.SETTINGS.CraftingFormulaVersionExpansion.Hint",
+        scope: "client",
+        config: true,
+        type: new fields.StringField({
+            required: true,
+            nullable: false,
+            choices: R.mapToObj(formulaVersionExpansionChoices, (v) => [
+                v,
+                `PF2E.SETTINGS.CraftingFormulaVersionExpansion.${v}`,
+            ]),
+            initial: "ask",
+        }),
+    });
+
     game.settings.register(SYSTEM_ID, "compendiumBrowserPacks", {
         name: "PF2E.SETTINGS.CompendiumBrowserPacks.Name",
         hint: "PF2E.SETTINGS.CompendiumBrowserPacks.Hint",
