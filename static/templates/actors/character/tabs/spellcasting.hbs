@@ -1,9 +1,18 @@
-<div class="tab spellcasting spellbook-pane" data-group="primary" data-tab="spellcasting">
+<div class="tab spellcasting spellbook-pane{{#if hideSpellSlotHeaders}} hide-slot-headers{{/if}}" data-group="primary" data-tab="spellcasting">
     <nav class="sub-nav" data-group="spell-collections">
         <a data-tab="known-spells" data-group="spell-collections">{{localize "PF2E.Actor.Character.Spellcasting.Tab.KnownSpells"}}</a>
         <a class="rituals" data-tab="rituals" data-group="spell-collections">{{localize "PF2E.Actor.Character.Spellcasting.Tab.Rituals"}}</a>
         <a data-tab="activations" data-group="spell-collections">{{localize "PF2E.Actor.Character.Spellcasting.Tab.Activations"}}</a>
     </nav>
+
+    <div class="search">
+        <input type="search" spellcheck="false" placeholder="{{localize "PF2E.Actor.Character.Spellcasting.Search"}}" />
+        <a
+            class="toggle-slot-headers{{#if hideSpellSlotHeaders}} active{{/if}}"
+            data-action="toggle-slot-headers"
+            data-tooltip="PF2E.Actor.Character.Spellcasting.ToggleSlotHeaders"
+        ><i class="fa-solid fa-fw fa-list-ul"></i></a>
+    </div>
 
     <div class="spell-collections" data-panels>
         {{#if toggles.spellcasting}}{{> (resolvePath "templates/actors/partials/toggles.hbs") toggles=toggles.spellcasting}}{{/if}}
