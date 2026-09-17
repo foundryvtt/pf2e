@@ -1,4 +1,6 @@
 import type { ActorPF2e, ActorType, CharacterPF2e, NPCPF2e } from "@actor";
+import type { CharacterStrike } from "@actor/character/data.ts";
+import { Modifier } from "@actor/modifiers.ts";
 import type { ImageFilePath } from "@common/constants.d.mts";
 import { WeaponPF2e } from "@item";
 import { performLatePreparation } from "@item/helpers.ts";
@@ -15,6 +17,7 @@ import type {
 import type { OneToTwo } from "@module/data.ts";
 import type { DamageDieSize, DamageType } from "@system/damage/index.ts";
 import { objectHasKey, sluggify } from "@util";
+import { suppressUnsharedModifiers, useFixedStatisticModifier } from "../helpers.ts";
 import { RuleElement, RuleElementOptions } from "./base.ts";
 import type { BattleFormSource } from "./battle-form/types.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
@@ -136,6 +139,7 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
                         : `systems/${SYSTEM_ID}/icons/default-icons/melee.svg`,
             }),
             attackModifier: new fields.NumberField({ integer: true, positive: true, nullable: true, initial: null }),
+            ownIfHigher: new fields.BooleanField({ required: false, nullable: false, initial: true }),
             replaceAll: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             replaceBasicUnarmed: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             battleForm: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
@@ -190,7 +194,7 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
         this.actor.synthetics.strikes[slug] = (unarmedRunes) => this.#constructWeapon({ slug, unarmedRunes });
     }
 
-    /** Exclude other strikes if this rule element specifies that its strike replaces all others */
+    /** Exclude other strikes if specified, then apply a PC fixed attack modifier if present */
     override afterPrepareData(): void {
         if (this.ignored || !this.actor.isOfType("character")) return;
 
@@ -210,6 +214,31 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
         } else if (this.replaceBasicUnarmed) {
             const systemData = this.actor.system;
             systemData.actions.findSplice((a) => a.item?.slug === "basic-unarmed");
+        }
+
+        const attackModifier = this.attackModifier;
+        if (!attackModifier) return;
+
+        const actions = this.actor.system.actions.flatMap((action) =>
+            [action, ...(action.altUsages ?? [])].filter(
+                (a): a is CharacterStrike => a.type === "strike" && a.item.rule === this,
+            ),
+        );
+        for (const action of actions) {
+            const useFixed = useFixedStatisticModifier({
+                fixed: attackModifier,
+                own: action.totalModifier,
+                modifiers: action.modifiers,
+                ownIfHigher: this.ownIfHigher,
+            });
+            if (!useFixed) continue;
+
+            suppressUnsharedModifiers(action);
+            action.unshift(new Modifier(this.getReducedLabel(this.item.name), attackModifier, "untyped"));
+            action.breakdown = action.modifiers
+                .filter((m) => m.enabled)
+                .map((m) => `${m.label} ${m.signedValue}`)
+                .join(", ");
         }
     }
 
@@ -366,10 +395,12 @@ type StrikeSchema = RuleElementSchema & {
         true
     >;
     /**
-     * A fixed attack modifier: usable only if the strike is generated for an NPC
+     * A fixed attack modifier: for NPCs this becomes the strike's attack bonus; for PCs it replaces base
+     * attack-roll modifiers unless the character's own modifier is greater (`ownIfHigher`, default true)
      * Also causes the damage to not be recalculated when converting the resulting weapon to an NPC attack
      */
     attackModifier: fields.NumberField<number, number, false, true, true>;
+    ownIfHigher: fields.BooleanField<boolean, boolean, false, false, true>;
     range: fields.SchemaField<
         {
             increment: fields.NumberField<number, number, false, true, true>;
