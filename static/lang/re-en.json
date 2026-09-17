@@ -945,6 +945,7 @@
                 "ElementalInstinct": "damage dealt by instinct element creatures",
                 "EnemyStrikes": "enemy Strikes",
                 "FallDamage": "fall damage",
+                "FatiguedFromStarvationOrThirst": "fatigued (from the effects of starvation or thirst)",
                 "GasInhaled": "gases and other inhaled effects",
                 "HarvestBlood": "damage dealt by last Harvest Blood target",
                 "HolyBludgeoningPiercingSlashing": "holy bludgeoning, piercing and slashing damage",
@@ -980,6 +981,7 @@
                 "Thirst": "thirst",
                 "Treerazer": "Treerazer",
                 "UnholyBludgeoningPiercingSlashing": "unholy bludgeoning, piercing and slashing damage",
+                "UnholyCreaturesEffects": "damage from unholy creatures and effects",
                 "VoidZonKuthonFollowers": "void from followers of Zon-Kuthon",
                 "WispVulnerabilities": "wisp vulnerabilities"
             }
@@ -2421,6 +2423,13 @@
                 }
             },
             "Nindoru": {
+                "Kagekuma": {
+                    "Bundle": {
+                        "Label": "Bundle",
+                        "ManifestLabel": "Manifest",
+                        "ShedLabel": "Shed"
+                    }
+                },
                 "Meokdan": {
                     "BoneClub": {
                         "Label": "Manifest Bone Club",
@@ -3751,6 +3760,14 @@
             }
         },
         "RULES": {
+            "BaseSpeed": {
+                "FIELDS": {
+                    "force": {
+                        "hint": "Whether this speed overrides others instead of only applying if higher: allows lower values, including 0.",
+                        "label": "Force"
+                    }
+                }
+            },
             "Common": {
                 "FIELDS": {
                     "key": {
@@ -4891,6 +4908,9 @@
             "Centaur": {
                 "MentorOfLegends": {
                     "Description": "In addition to its normal effects, the spell also grants temporary Hit Points equal to half your level. You can't cast this spell on yourself."
+                },
+                "StarshotArrow": {
+                    "Note": "On a hit, the target takes a –10-foot circumstance penalty to its Speeds for [[/r 2d4 #Starshot Arrow Duration]]{2d4 rounds} or is immobilized if the Strike was a critical hit. The target can untangle itself by spending an Interact action to break free. @UUID[Compendium.pf2e.feat-effects.Item.DlCxZAOFmppft3Lh]{Effect: Starshot Arrow}"
                 }
             },
             "Champion": {
@@ -5169,14 +5189,14 @@
                         "Master": "You fortify your spells with masterful prowess. Your proficiency ranks for your spell attack modifier and spell DC increase to master."
                     },
                     "oracle": {
-                        "Expert": "The intricacy of your divine power has grown clearer over time. Your proficiency ranks for divine spell attack rolls and spell DCs increase to expert.",
-                        "Legendary": "You can harness divine power at a level few others can match. Your proficiency ranks for divine spell attack rolls and spell DCs increase to legendary.",
-                        "Master": "You truly understand the deep and complex divine power within your mystery. Your proficiency ranks for divine spell attack rolls and spell DCs increase to master."
+                        "Expert": "The intricacy of your divine power has grown clearer over time. Your proficiency ranks for spell attack modifiers and spell DCs increase to expert.",
+                        "Legendary": "You can harness divine power at a level few others can match. Your proficiency ranks for spell attack modifiers and spell DCs increase to legendary.",
+                        "Master": "You truly understand the deep and complex divine power within your mystery. Your proficiency ranks for spell attack modifiers and spell DCs increase to master."
                     },
                     "psychic": {
-                        "Expert": "Self-reflection has brought you greater knowledge of yourself and, with it, psychic power. Your proficiency ranks for occult spell attack rolls and spell DCs increase to expert.",
-                        "Legendary": "As your training reaches its peak, you understand not just your own mind, but the collective unconscious from which all psychic power stems. Your proficiency ranks for occult spell attack rolls and spell DCs increase to legendary.",
-                        "Master": "You've gained access to the deepest corners of your own mind. Your proficiency ranks for occult spell attack rolls and spell DCs increase to master."
+                        "Expert": "Self-reflection has brought you greater knowledge of yourself and, with it, psychic power. Your proficiency ranks for spell attack modifier and spell DC increase to expert.",
+                        "Legendary": "As your training reaches its peak, you understand not just your own mind, but the collective unconscious from which all psychic power stems. Your proficiency ranks for spell attack modifier and spell DC increase to legendary.",
+                        "Master": "You've gained access to the deepest corners of your own mind. Your proficiency ranks for spell attack modifier and spell DC increase to master."
                     },
                     "sorcerer": {
                         "Expert": "Your inherent magic responds easily and powerfully to your command. Your proficiency ranks for spell attack modifier and spell DC for spells of your bloodline's tradition increase to expert.",

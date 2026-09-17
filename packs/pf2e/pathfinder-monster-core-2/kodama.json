@@ -341,18 +341,27 @@
                         "predicate": [
                             "origin:trait:unholy"
                         ],
-                        "selector": "ac",
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
                         "type": "status",
                         "value": 1
                     },
                     {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "origin:trait:unholy"
+                        "definition": [
+                            {
+                                "or": [
+                                    "item:trait:unholy",
+                                    "origin:action:trait:unholy",
+                                    "origin:trait:unholy"
+                                ]
+                            }
                         ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
+                        "key": "Resistance",
+                        "label": "PF2E.IWR.Custom.UnholyCreaturesEffects",
+                        "type": "custom",
+                        "value": 5
                     }
                 ],
                 "size": "med",
@@ -399,7 +408,8 @@
                 "traits": {
                     "value": [
                         "agile",
-                        "finesse"
+                        "finesse",
+                        "unarmed"
                     ]
                 }
             },
@@ -567,7 +577,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The kodama spends 1 minute to fashion an enchanted straw rope out of nearby materials. The rope can be wrapped around other kami creatures to protect them from fell forces. A kami who wears a spiritual rope gains resistance 5 to damage from unholy creatures and effects and a +1 status bonus to AC and saving throws against unholy effects and attacks and effects from unholy creatures.</p>\n<p>A kodama always wears a spiritual rope, and they can have one other spiritual rope in existence at a time. Creating a new rope beyond these two releases the magic of one of the other two ropes of the kodama's choosing. A spiritual rope around a creature other than a kodama loses its magic after 24 hours or if it's taken outside the kodama's forest.</p>"
+                    "value": "<p>The kodama spends 1 minute to fashion an enchanted straw rope out of nearby materials. The rope can be wrapped around other kami creatures to protect them from fell forces. A kami who wears a <em>spiritual rope</em> gains resistance 5 to damage from unholy creatures and effects and a +1 status bonus to AC and saving throws against unholy effects and attacks and effects from unholy creatures.</p>\n<p>A kodama always wears a <em>spiritual rope</em>, and they can have one other <em>spiritual rope</em> in existence at a time. Creating a new rope beyond these two releases the magic of one of the other two ropes of the kodama's choosing. A <em>spiritual rope</em> around a creature other than a kodama loses its magic after 24 hours or if it's taken outside the kodama's forest.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -613,7 +623,7 @@
                 "value": 21
             },
             "allSaves": {
-                "value": "+1 status to all saves vs. evil creatures"
+                "value": "+1 status to AC and all saves vs. unholy effects and attacks and effects from unholy creatures"
             },
             "hp": {
                 "details": "",
@@ -621,14 +631,7 @@
                 "temp": 0,
                 "value": 95
             },
-            "resistances": [
-                {
-                    "doubleVs": [],
-                    "exceptions": [],
-                    "type": "unholy",
-                    "value": 5
-                }
-            ],
+            "resistances": [],
             "speed": {
                 "otherSpeeds": [],
                 "value": 20

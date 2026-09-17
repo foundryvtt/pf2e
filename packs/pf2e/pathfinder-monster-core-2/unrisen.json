@@ -36,7 +36,8 @@
                 "traits": {
                     "value": [
                         "deadly-d10",
-                        "magical"
+                        "magical",
+                        "unarmed"
                     ]
                 }
             },
@@ -76,7 +77,8 @@
                 "traits": {
                     "value": [
                         "agile",
-                        "magical"
+                        "magical",
+                        "unarmed"
                     ]
                 }
             },
@@ -132,7 +134,18 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "item:damage:type:vitality"
+                        ],
+                        "selector": "damage-received",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -156,14 +169,24 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A creature with a prepared or spontaneous spell that can restore the dead to life (such as @UUID[Compendium.pf2e.spells-srd.Item.Breath of Life] or @UUID[Compendium.pf2e.spells-srd.Item.Raise Dead]) can expend an appropriate spell slot as a 2-action activity to destroy an unrisen within 30 feet. The attempt fails if the unrisen succeeds at a Will save against the creature's spell DC.</p>"
+                    "value": "<p>A creature with a prepared or spontaneous spell that can restore the dead to life (such as @UUID[Compendium.pf2e.spells-srd.Item.Breath of Life] or @UUID[Compendium.pf2e.spells-srd.Item.Raise Dead]) can expend an appropriate spell slot as a 2-action activity to destroy an unrisen within 30 feet. The attempt fails if the unrisen succeeds at a @Check[will] save against the creature's spell DC.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "resurrection-vulnerability"
+                        ],
+                        "key": "Weakness",
+                        "label": "{item|name}",
+                        "type": "custom",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -253,7 +276,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The unrisen howls in pain at its cursed existence. Creatures within a @Template[type:emanation|distance:30] take @Damage[9d8[mental]|options:area-damage] damage with a @Check[will|dc:30|basic] save. The unrisen can't use Agonized Howl again for [[/gmr 1d4 #Recharge Agonized Howl]]{1d4 rounds}.</p>"
+                    "value": "<p>The unrisen howls in pain at its cursed existence. Creatures within a @Template[type:emanation|distance:30] take @Damage[9d8[mental]|options:area-damage] damage with a @Check[will|dc:30|basic|options:area-effect] save. The unrisen can't use Agonized Howl again for [[/gmr 1d4 #Recharge Agonized Howl]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -286,7 +309,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p><strong>Effect</strong> The unrisen reshapes its grotesque form to move swiftly. It Strides twice. Any living creature that can see the unrisen during this movement must succeed at a @Check[fortitude|dc:28] save or be @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure); this is a mental and visual effect.</p>"
+                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p><strong>Effect</strong> The unrisen reshapes its grotesque form to move swiftly. It Strides twice. Any living creature that can see the unrisen during this movement must succeed at a @Check[fortitude|dc:28|options:area-effect,inflicts:sickened|traits:mental,visual] save or be @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure); this is a mental and visual effect.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -319,7 +342,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The unrisen has a living creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained]</p><hr /><p><strong>Effect</strong> The unrisen attempts to destroy its victim's life force so it shares in the unrisen's fate. The creature must succeed at a @Check[fortitude|dc:30] save or become @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}. While the curse lasts, the creature regains only half as many HP from effects with both the healing and vitality traits; if it dies, any attempt to raise it from the dead causes it to return as an unrisen. The curse ends automatically if the creature's doomed value is reduced to 0.</p>"
+                    "value": "<p><strong>Requirements</strong> The unrisen has a living creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained]</p><hr /><p><strong>Effect</strong> The unrisen attempts to destroy its victim's life force so it shares in the unrisen's fate. The creature must succeed at a @Check[fortitude|dc:30|options:inflicts:doomed] save or become @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}. While the curse lasts, the creature regains only half as many HP from effects with both the healing and vitality traits; if it dies, any attempt to raise it from the dead causes it to return as an unrisen. The curse ends automatically if the creature's doomed value is reduced to 0.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -404,9 +427,6 @@
                 "value": 220
             },
             "immunities": [
-                {
-                    "type": "bleed"
-                },
                 {
                     "exceptions": [],
                     "type": "death-effects"

@@ -865,9 +865,13 @@ function getCheckDC({
     // We assume that we can actually display the dc if against is provided.
     // This function shouldn't be called otherwise.
     if (!params.dc && params.against && actor) {
-        const rollOptions = item?.isOfType("action", "feat")
-            ? [`origin:action:slug:${item.slug}`, ...item.getRollOptions("item")]
-            : [];
+        const rollOptions = R.unique([
+            ...(item?.isOfType("action", "feat")
+                ? [`origin:action:slug:${item.slug}`, ...item.getRollOptions("item")]
+                : []),
+            ...params.traits.map((t) => `item:trait:${t}`),
+            ...params.extraRollOptions,
+        ]);
         const statistic = actor.getStatistic(params.against)?.clone({ rollOptions });
         return String(statistic?.dc.value ?? 0);
     }

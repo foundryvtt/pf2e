@@ -867,13 +867,13 @@
                     "value": 19
                 },
                 "damageRolls": {
-                    "2sKdrVlOBJJekqwN": {
-                        "damage": "1d6",
-                        "damageType": "mental"
-                    },
-                    "AyqaJc7rt1f2unrS": {
+                    "0": {
                         "damage": "2d8+7",
                         "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "mental"
                     }
                 },
                 "description": {
@@ -890,8 +890,9 @@
                 "traits": {
                     "value": [
                         "disarm",
+                        "magical",
                         "monk",
-                        "reach-10",
+                        "reach",
                         "trip",
                         "versatile-b"
                     ]
@@ -914,11 +915,11 @@
                     "value": 18
                 },
                 "damageRolls": {
-                    "eIad9QBvOyoiO9d6": {
+                    "0": {
                         "damage": "2d6+7",
                         "damageType": "piercing"
                     },
-                    "ox36EiMcL0Z3FU9v": {
+                    "1": {
                         "damage": "1d6",
                         "damageType": "mental"
                     }
@@ -937,7 +938,8 @@
                 "traits": {
                     "value": [
                         "agile",
-                        "reach-10"
+                        "reach-10",
+                        "unarmed"
                     ]
                 }
             },
@@ -957,7 +959,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Creatures killed by a kagekuma are difficult to bring back to life or animate as undead. The kagekuma automatically attempts to counteract any attempt to resurrect or animate as undead any creature that it has killed (counteract modifier [[/r 1d20+16 #Counteract]]{+16}, counteract rank 4). If the kagekuma who slew the creature is slain, the creature can be brought back from death or become undead normally.</p>"
+                    "value": "<p>Creatures killed by a kagekuma are difficult to bring back to life or animate as undead. The kagekuma automatically attempts to counteract any attempt to resurrect or animate any creature that they've killed (counteract modifier [[/r 1d20+16 #Counteract]]{+16}, counteract rank 4). If the kagekuma who slew the creature is slain, the creature can be brought back from death or become undead normally.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1000,24 +1002,36 @@
                 "rules": [
                     {
                         "key": "RollOption",
-                        "option": "manifest-bundle",
+                        "label": "PF2E.NPCAbility.Nindoru.Kagekuma.Bundle.Label",
+                        "option": "bundle",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.Nindoru.Kagekuma.Bundle.ManifestLabel",
+                                "value": "manifest"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Nindoru.Kagekuma.Bundle.ShedLabel",
+                                "value": "shed"
+                            }
+                        ],
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "manifest-bundle"
+                            "bundle:manifest"
                         ],
                         "selector": "ac",
                         "value": 2
                     },
                     {
-                        "key": "FlatModifier",
+                        "force": true,
+                        "key": "BaseSpeed",
                         "predicate": [
-                            "manifest-bundle"
+                            "bundle:manifest"
                         ],
-                        "selector": "land-speed",
-                        "value": -10
+                        "selector": "land",
+                        "value": 15
                     }
                 ],
                 "slug": null,
@@ -1044,7 +1058,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When a kagekuma wields a broken, non-magical weapon, they don't take any of the disadvantages of the weapon being broken. While the kagekuma wields it, the weapon becomes a <em>+1 striking weapon</em>, and it deals an additional 1d6 mental damage on a successful hit.</p>"
+                    "value": "<p>When a kagekuma wields a broken non-magical weapon (typically a kusarigama), they don't take any of the disadvantages of the weapon being broken. While the kagekuma wields it, the weapon becomes a <em>+1 striking weapon</em> that deals an additional 1d6 mental damage on a successful hit.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1073,7 +1087,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The kagekuma is casting a shadow</p><hr /><p><strong>Effect</strong> The kagekuma targets an adjacent creature that's casting a shadow, then their shadow feeds on that creature's shadow. If the kagekuma has a manifested bundle, observers (including the creature whose shadow is being bitten) can notice the kagekuma's Shadow Bite only if they succeed at a @Check[perception|dc:38] check. The target must succeed at a @Check[fortitude|dc:26] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (@UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure).</p>"
+                    "value": "<p><strong>Requirements</strong> The kagekuma is casting a shadow</p><hr /><p><strong>Effect</strong> The kagekuma targets an adjacent creature that's casting a shadow, then their shadow feeds on that creature's shadow. If the kagekuma has a manifested bundle, observers (including the creature whose shadow is being bitten) can notice the kagekuma's Shadow Bite only if they succeed at a @Check[perception|dc:38] check. The target must succeed at a @Check[fortitude|dc:26|options:inflicts:drained] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (@UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1100,7 +1114,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": 2
                 },
                 "category": "offensive",
                 "description": {
@@ -1115,7 +1129,21 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "bundle:shed"
+                        ],
+                        "selectors": [
+                            "bite-attack-roll",
+                            "bite-damage",
+                            "kusarigama-attack-roll",
+                            "kusarigama-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -1201,7 +1229,7 @@
                 "value": 8
             },
             "privateNotes": "",
-            "publicNotes": "<p>Kagekumas exist in the periphery, lurking in the very shadows of their prey. Known in some regions as \"shadefiends,\" this nindoru's ability to appear as uninteresting figures in the crowd allows them to feed even in populated areas. A kagekuma appears as a hunched over humanoid with a long neck and a fanged mouth, but when wearing a bundle, the creature's head and neck tuck in tight between its shoulders to become entirely obscured. The kagekuma personifies the cycle of trust being built and broken over and over again through the course of a complex relationship.</p>\n<h2>Kagekuma Bundles</h2>\n<p>A kagekuma's bundle is more than just a disguise and armor—it's a physical indication of how many lives they've cut short and how many souls they've supped upon. Whether the bundle is composed of straw, ropes, hair, or other materials, the individual lengths symbolize a sort of \"reaper's harvest,\" with each strand in the bundle representing a metaphorical lifeline that the nindoru has severed and collected—to an extent that the multitude of lives taken overwhelms the nindoru's own presence in the world.</p>",
+            "publicNotes": "<p>A kagekuma exists in the periphery of society, lurking in the very shadows of their favored prey—the working class and downtrodden. Known in some regions as \"shadefiends,\" this nindoru's ability to appear as uninteresting figures in the crowd allows them to feed even in populated areas. A kagekuma appears as a hunched over humanoid with a long neck and a fanged mouth, but when wearing a bundle, the creature's head and neck tuck in tight between their shoulders to become entirely obscured. The kagekuma personifies the cycle of trust being built and broken over and over again through the course of a complex relationship.</p><h2>Kagekuma Bundles</h2><p>A kagekuma's bundle is more than just a disguise and armor—it's a physical indication of how many lives they've cut short and how many souls they've supped upon. Whether the bundle is composed of straw, ropes, hair, or other materials, the individual lengths symbolize a sort of \"reaper's harvest,\" with each strand in the bundle representing a metaphorical lifeline that the nindoru has severed and collected—to an extent that the multitude of lives taken overwhelms the nindoru's own presence in the world.</p><hr /><p>When an evil mortal soul that has been reincarnated multiple times is wrenched from the cycle of souls and corrupted, it can undergo a horrific transformation into a fiend known as a nindoru. A force for entropy and the breaking of cycles, nindorus are hideous creatures whose bodies often appear distorted, who wield weapons that have been shattered yet still function, and whose true face is often hidden from view. They display traits one might expect to see in an undead creature, such as decaying flesh or broken bones, yet nindorus are very much still alive.</p>\n<p>Each nindoru epitomizes the fracture of a specific cycle, be it one from the natural world or from societal traditions. To nindorus, nothing is more delicious than the consumption of a creature who has reincarnated multiple times, with those who are theoretically about to ascend to true enlightenment presenting the tastiest meal. Those slain by a nindoru are themselves torn from the cycle—the lucky ones move on to the Boneyard for judgment, but many are instead corrupted to form more of these horrific fiends.</p>\n<p>Followers of Sangpotshi find nindorus to be particularly abhorrent and count them among the greatest threats imaginable. Most commonly found in regions of the world where the reincarnation cycle is strongest, nindorus are, like rakshasas, associated most strongly with the Universe and not one of the unholy planes of the Great Beyond.</p><h2>Reincarnated Souls</h2><p>In some cases, you'll know if a creature a nindoru attacks has a reincarnated soul. Ancestries like samsarans are always reincarnated souls, and a PC's backstory or even their background can often indicate the presence of a previous life. All of the PCs in the <em>Season of Ghosts Adventure Path</em> qualify as reincarnated souls, as they've relived their lives over and over for decades. If you ever need to determine if a creature's soul is reincarnated for the purpose of adjudicating a nindoru's ability, attempt a @Check[flat|dc:11]—on a success, it has a reincarnated soul.</p><h2>Nindoru Demigods</h2><p>The most powerful nindorus are demigods, although their cults are quite rare. Prone to reincarnation after death, nindoru demigods like Kugaptee are more properly known as \"nindoru ascetics.\"</p><h2>Nindoru Traitors</h2><p>While most nindorus are purely evil and unholy in nature, legends tell of exceptionally rare nindorus who manage to escape their own nature and ascend, reincarnating after death into kami or other more benevolent spirits and shedding the nindoru trait as they do so. Of course, these \"traitors\" are regarded as the most delicious meals imaginable by the nindorus left behind.</p><h2>Nindoru Butterflies</h2><p>One of the strangest shared traits of the various types of nindoru are the blood-red butterflies that seem to follow them around, nest on their bodies, or periodically emerge from their wounds. These unnerving insects are physical manifestations of the nindorus' thoughts and symbolize the countless past lives they once lived but turned their backs on. Nindoru butterflies never last long once they flutter more than a few feet from their source, fading away into smoke that quickly dissipates into the air.</p><h2>Weapons of Choice</h2><p>Several of the nindorus presented here have preferred types of weapons to wield and might even have special abilities associated with that type of weapon. A nindoru who wields a different weapon can still make use of those associated abilities, but the flavor of that ability should be adjusted as appropriate.</p>",
             "publication": {
                 "license": "ORC",
                 "remaster": true,
@@ -1278,7 +1306,8 @@
                 "chaotic",
                 "evil",
                 "fiend",
-                "nindoru"
+                "nindoru",
+                "unholy"
             ]
         }
     },

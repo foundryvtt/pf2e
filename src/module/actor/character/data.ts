@@ -61,6 +61,8 @@ type CharacterFlags = ActorFlagsPF2e & {
         sheetTabs: CharacterSheetTabVisibility;
         /** Whether the basic unarmed attack is shown on the Actions tab */
         showBasicUnarmed: boolean;
+        /** Trait toggle selections for the basic unarmed attack, which has no backing item */
+        basicUnarmedToggles?: { modular?: number | null; versatile?: DamageType | null };
         /** The limit for each feat group that supports a custom limit. */
         featLimits: Record<string, number>;
         /** Whether this actor is under a polymorph effect */

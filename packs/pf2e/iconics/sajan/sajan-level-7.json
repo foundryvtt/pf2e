@@ -4,58 +4,6 @@
     "img": "systems/pf2e/icons/iconics/portraits/sajan.webp",
     "items": [
         {
-            "_id": "v6gdqk1v1h99mmac",
-            "flags": {
-                "pf2e": {
-                    "itemGrants": {}
-                }
-            },
-            "img": "icons/environment/people/group.webp",
-            "name": "Versatile Heritage",
-            "sort": 0,
-            "system": {
-                "ancestry": {
-                    "name": "Human",
-                    "slug": "human",
-                    "uuid": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
-                },
-                "description": {
-                    "value": "<p>Humanity's versatility and ambition have fueled its ascendance to be the most common ancestry in most nations throughout the world. Select a general feat of your choice for which you meet the prerequisites (as with your ancestry feat, you can select this general feat at any point during character creation).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "choices": {
-                            "filter": [
-                                "item:level:1",
-                                "item:trait:general"
-                            ],
-                            "itemType": "feat"
-                        },
-                        "flag": "versatileHeritage",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.GeneralTraining.Prompt",
-                        "selection": "Compendium.pf2e.feats-srd.Item.Weapon Proficiency"
-                    },
-                    {
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.system.rulesSelections.versatileHeritage}"
-                    }
-                ],
-                "slug": "versatile-heritage",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "heritage"
-        },
-        {
             "_id": "IHw632mCpANMn6es",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Warfare Lore",
@@ -3645,6 +3593,167 @@
                     "rarity": "common",
                     "value": [
                         "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "10SQVjia4LdZIeAc",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.heritages.Item.hFBwsVcSnNCJoimo"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "assurance": {
+                            "id": "JAuFNLzc10J2gcrm",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "O7DVLyyF05fGfpdo",
+            "img": "icons/environment/people/group.webp",
+            "name": "Versatile Human",
+            "sort": 0,
+            "system": {
+                "ancestry": {
+                    "name": "Human",
+                    "slug": "human",
+                    "uuid": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+                },
+                "description": {
+                    "value": "<p>Humanity's versatility and ambition have fueled its ascendance to be the most common ancestry in most nations throughout the world. Select a general feat of your choice for which you meet the prerequisites (as with your ancestry feat, you can select this general feat at any point during character creation).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:level:1",
+                                "item:trait:general"
+                            ],
+                            "itemType": "feat"
+                        },
+                        "flag": "versatileHeritage",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.GeneralTraining.Prompt",
+                        "selection": "Compendium.pf2e.feats-srd.Item.Assurance"
+                    },
+                    {
+                        "flag": "assurance",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.system.rulesSelections.versatileHeritage}"
+                    }
+                ],
+                "slug": "versatile-human",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "heritage"
+        },
+        {
+            "_id": "JAuFNLzc10J2gcrm",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.W6Gl9ePmItfDHji0"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "10SQVjia4LdZIeAc",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "QhHpEbq98ZJAyDiH",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Assurance (Acrobatics)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>Even in the worst circumstances, you can perform basic tasks. Choose a skill you're trained in. You can forgo rolling a skill check for that skill to instead receive a result of 10 + your proficiency bonus (do not apply any other bonuses, penalties, or modifiers).</p>\n<hr />\n<p><strong>Special</strong> You can select this feat multiple times. Each time, choose a different skill and gain the benefits for that skill.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "maxTakable": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in at least one skill"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "choices": {
+                            "config": "skills",
+                            "predicate": [
+                                {
+                                    "gte": [
+                                        "skill:{choice|value}:rank",
+                                        1
+                                    ]
+                                }
+                            ]
+                        },
+                        "flag": "assurance",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                        "selection": "acrobatics"
+                    },
+                    {
+                        "key": "SubstituteRoll",
+                        "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
+                        "selector": "{item|flags.system.rulesSelections.assurance}",
+                        "slug": "assurance",
+                        "value": 10
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": [
+                            "substitute:assurance",
+                            {
+                                "not": "bonus:type:proficiency"
+                            }
+                        ],
+                        "selector": "{item|flags.system.rulesSelections.assurance}",
+                        "suppress": true
+                    }
+                ],
+                "slug": "assurance",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fortune",
+                        "general",
+                        "skill"
                     ]
                 }
             },

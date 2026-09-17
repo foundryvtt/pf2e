@@ -37,8 +37,10 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
         resistances: roll.options.bypass?.resistance.redirect ?? [],
     };
 
+    // Don't include persistent damage on initial application
+    const immediateInstances = instances.filter((i) => !i.persistent || i.options.evaluatePersistent);
     const applyOnceWeaknesses = weaknesses.filter(
-        (w) => w.applyOnce && instances.some((i) => w.test([...i.formalDescription, ...rollOptions])),
+        (w) => w.applyOnce && immediateInstances.some((i) => w.test([...i.formalDescription, ...rollOptions])),
     );
     const damageWeaknesses = weaknesses.filter((w) => !applyOnceWeaknesses.includes(w));
 

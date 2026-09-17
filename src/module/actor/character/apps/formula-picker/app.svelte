@@ -4,46 +4,42 @@
     import ItemSummary from "@module/sheet/components/item-summary.svelte";
     import ItemTraits from "@module/sheet/components/item-traits.svelte";
     import HoverIconButton from "@module/sheet/components/hover-icon-button.svelte";
+    import SearchInput from "@module/sheet/components/search-input.svelte";
     import { sendItemToChat } from "@module/sheet/helpers.ts";
 
     const {
         actor,
         ability,
         mode,
-        searchEngine,
+        search,
         onSelect,
         onDeselect,
         getState,
     }: FormulaPickerContext & SvelteAppProps<FormulaPickerContext> = $props();
     const data = $derived(getState());
     const openStates: Record<string, boolean> = $state({});
-    let queryText = $state("");
 
-    // A filtered view of the formula sections based on the search query
     const filteredSections = $derived.by(() => {
-        // Search only starts once at least two characters are inserted
-        if (queryText.trim().length <= 1) return data.sections;
+        const matches = search.matches;
+        if (!matches) return data.sections;
 
-        const results = new Set(searchEngine.search(queryText).map((r) => r.id));
         return data.sections
             .map((s) => ({
                 ...s,
-                formulas: s.formulas.filter((f) => results.has(f.item.id)),
+                formulas: s.formulas.filter((f) => matches.has(f.item.id)),
             }))
             .filter((s) => s.formulas.length);
     });
+    const resultCount = $derived(filteredSections.reduce((sum, s) => sum + s.formulas.length, 0));
 </script>
 
 <header class="sheet-header">
     <p class="hint">{data.prompt}</p>
-    <div class="search">
-        <input
-            type="search"
-            spellcheck="false"
-            bind:value={queryText}
-            placeholder={_loc("PF2E.Actor.Character.Crafting.Search")}
-        />
-    </div>
+    <SearchInput
+        {search}
+        label={_loc("PF2E.Actor.Character.Crafting.Search")}
+        resultsLabel={_loc("PF2E.Actor.Character.Crafting.SearchResults", { count: resultCount })}
+    />
     {#if !ability.isPrepared && !data.resource?.value}
         <p class="notification warning">{_loc("PF2E.Actor.Character.Crafting.MissingResource")}</p>
     {/if}
@@ -138,7 +134,7 @@
         flex-direction: column;
         margin: var(--space-8);
         margin-bottom: 0;
-        .search {
+        :global(.search) {
             margin-top: var(--space-2);
         }
     }

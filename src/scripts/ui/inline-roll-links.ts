@@ -11,7 +11,7 @@ import { calculateDC } from "@module/dc.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { resolveActorAndItemFromHTML, resolveSheetDocument } from "@scripts/helpers.ts";
 import type { CheckDC } from "@system/degree-of-success.ts";
-import { Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
+import { CheckDCReference, Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, getActionGlyph, htmlClosest, htmlQueryAll, sluggify, splitListString, tupleHasValue } from "@util";
 import { getSelectedActors } from "@util/token-actor-utils.ts";
@@ -246,42 +246,44 @@ export class InlineRollLinks {
                     ? (itemFromDoc as ItemPF2e<ActorPF2e>)
                     : null;
 
-            const dc = ((): CheckDC | null => {
+            // Defense DCs are passed by reference so the roll resolves them from the opposing actor's contextual clone
+            const dc = ((): CheckDC | CheckDCReference | null => {
                 const dcValue = pf2Dc === "@self.level" ? calculateDC(rollingActor.level) : Number(pf2Dc ?? "NaN");
                 const adjustment = Number(pf2Adjustment) || 0;
 
                 if (Number.isInteger(dcValue)) {
                     return { label: pf2Label, value: dcValue + adjustment };
                 } else if (against) {
-                    const defenseStat = opposingActor?.getStatistic(against)?.clone({
+                    const defenseStat = opposingActor?.getStatistic(against);
+                    if (!defenseStat) return null;
+                    return {
+                        slug: against,
+                        label: defenseStat.dc.label ?? _loc("PF2E.InlineCheck.DCWithName", { name: defenseStat.label }),
                         modifiers: adjustment
                             ? [new Modifier({ label: "PF2E.InlineCheck.DCAdjustment", modifier: adjustment })]
                             : [],
-                        rollOptions: [
-                            item?.isOfType("action", "feat") ? `${opposingRole}:action:slug:${item.slug}` : null,
-                        ].filter(R.isTruthy),
-                    });
-                    if (defenseStat) {
-                        return {
-                            label:
-                                defenseStat.dc.label ??
-                                _loc("PF2E.InlineCheck.DCWithName", { name: defenseStat.label }),
-                            statistic: defenseStat.dc,
-                            scope: "check",
-                            value: defenseStat.dc.value,
-                        };
-                    }
+                    };
                 }
 
                 return null;
             })();
 
+            const rollOptions = R.unique(
+                [
+                    extraRollOptions,
+                    item?.isOfType("action", "feat")
+                        ? `${opposingRole}:action:slug:${item.slug ?? sluggify(item.name)}`
+                        : null,
+                ]
+                    .flat()
+                    .filter(R.isTruthy),
+            );
             const args: StatisticRollParameters = {
                 ...eventRollParams,
-                extraRollOptions,
+                extraRollOptions: rollOptions,
                 origin: originActor,
                 dc,
-                target: dc?.statistic ? targetActor : null,
+                target: dc && "slug" in dc ? targetActor : null,
                 item,
                 traits: abilityTraits,
             };
@@ -304,7 +306,7 @@ export class InlineRollLinks {
                         title: item.name,
                     },
                 );
-                extraRollOptions.push(...TextEditorPF2e.createActionOptions(item));
+                rollOptions.push(...TextEditorPF2e.createActionOptions(item));
             }
 
             statistic.roll(args);

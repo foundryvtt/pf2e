@@ -1,0 +1,44 @@
+<p class="hint">{{intro}}</p>
+
+{{#if skills}}
+    <div class="form-group">
+        <label for="{{uid}}-skill">{{skills.label}}</label>
+        <div class="form-fields">
+            <select id="{{uid}}-skill" name="skill" autofocus>
+                {{#each skills.options as |option|}}
+                    <option value="{{option.value}}">{{option.label}}</option>
+                {{/each}}
+            </select>
+        </div>
+    </div>
+{{/if}}
+
+<div class="form-group">
+    <label for="{{uid}}-rank">{{dcLabel}}</label>
+    <div class="form-fields">
+        <select id="{{uid}}-rank" name="rank" {{#unless autofocusSkill}}autofocus{{/unless}}>
+            {{#each dcOptions as |option|}}
+                <option value="{{option.value}}">{{option.label}}</option>
+            {{/each}}
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="{{uid}}-modifier">{{modifierLabel}}</label>
+    <div class="form-fields">
+        <input id="{{uid}}-modifier" type="number" name="modifier" step="1" placeholder="0" />
+    </div>
+</div>
+
+{{#if feats.length}}
+    <fieldset>
+        <legend>{{featsLegend}}</legend>
+        {{#each feats as |feat|}}
+            <label for="{{feat.id}}">
+                <input id="{{feat.id}}" type="checkbox" name="{{feat.slug}}" {{checked feat.checked}} />
+                <span>{{feat.label}}</span>
+            </label>
+        {{/each}}
+    </fieldset>
+{{/if}}

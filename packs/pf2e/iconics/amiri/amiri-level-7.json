@@ -30,123 +30,6 @@
             "type": "lore"
         },
         {
-            "_id": "prZ0atZHzl0OINKH",
-            "flags": {
-                "pf2e": {
-                    "itemGrants": {
-                        "diehard": {
-                            "id": "kLVi8LDpSQOefA69",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/environment/people/group.webp",
-            "name": "Versatile Heritage",
-            "sort": 0,
-            "system": {
-                "ancestry": {
-                    "name": "Human",
-                    "slug": "human",
-                    "uuid": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
-                },
-                "description": {
-                    "value": "<p>Humanity's versatility and ambition have fueled its ascendance to be the most common ancestry in most nations throughout the world. Select a general feat of your choice for which you meet the prerequisites (as with your ancestry feat, you can select this general feat at any point during character creation).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "choices": {
-                            "filter": [
-                                "item:level:1",
-                                "item:trait:general"
-                            ],
-                            "itemType": "feat"
-                        },
-                        "flag": "versatileHeritage",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.GeneralTraining.Prompt",
-                        "selection": "Compendium.pf2e.feats-srd.Item.Diehard"
-                    },
-                    {
-                        "flag": "diehard",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.system.rulesSelections.versatileHeritage}"
-                    }
-                ],
-                "slug": "versatile-heritage",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "heritage"
-        },
-        {
-            "_id": "kLVi8LDpSQOefA69",
-            "flags": {
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "prZ0atZHzl0OINKH",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Diehard",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "general",
-                "description": {
-                    "value": "<p>It takes more to kill you than most. You die from the dying condition at dying 5, rather than dying 4.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.attributes.dying.max",
-                        "value": 5
-                    }
-                ],
-                "slug": "diehard",
-                "subfeatures": {
-                    "proficiencies": {},
-                    "senses": {},
-                    "suppressedFeatures": []
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "X2ftKLPHbEYmYskz",
             "img": "systems/pf2e/icons/default-icons/background.svg",
             "name": "Hunter",
@@ -3760,6 +3643,131 @@
                     "value": [
                         "general",
                         "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "PSd92nyWb0FSsOfc",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.heritages.Item.hFBwsVcSnNCJoimo"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "diehard": {
+                            "id": "v3Eswlor7JPaDyIh",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "O7DVLyyF05fGfpdo",
+            "img": "icons/environment/people/group.webp",
+            "name": "Versatile Human",
+            "sort": 0,
+            "system": {
+                "ancestry": {
+                    "name": "Human",
+                    "slug": "human",
+                    "uuid": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+                },
+                "description": {
+                    "value": "<p>Humanity's versatility and ambition have fueled its ascendance to be the most common ancestry in most nations throughout the world. Select a general feat of your choice for which you meet the prerequisites (as with your ancestry feat, you can select this general feat at any point during character creation).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:level:1",
+                                "item:trait:general"
+                            ],
+                            "itemType": "feat"
+                        },
+                        "flag": "versatileHeritage",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.GeneralTraining.Prompt",
+                        "selection": "Compendium.pf2e.feats-srd.Item.Diehard"
+                    },
+                    {
+                        "flag": "diehard",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.system.rulesSelections.versatileHeritage}"
+                    }
+                ],
+                "slug": "versatile-human",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "heritage"
+        },
+        {
+            "_id": "v3Eswlor7JPaDyIh",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.I0BhPWqYf1bbzEYg"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "PSd92nyWb0FSsOfc",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "68m1OED3fDU3fIfR",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Diehard",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p>It takes more to kill you than most. You die from the @UUID[Compendium.pf2e.conditionitems.Item.Dying] condition at dying 5, rather than dying 4.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.attributes.dying.max",
+                        "value": 5
+                    }
+                ],
+                "slug": "diehard",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
                     ]
                 }
             },
