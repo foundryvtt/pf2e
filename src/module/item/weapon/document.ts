@@ -660,7 +660,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         if (!meleeUsage || this.flags[SYSTEM_ID].comboMeleeUsage) return null;
 
         const traitToggles = {
-            module: { selected: meleeUsage.traitToggles.modular },
+            modular: { selected: meleeUsage.traitToggles.modular },
             versatile: { selected: meleeUsage.traitToggles.versatile },
         };
 

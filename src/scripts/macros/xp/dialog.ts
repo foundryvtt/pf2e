@@ -78,6 +78,7 @@ class XPFromEncounterResults extends fa.api.HandlebarsApplicationMixin(fa.api.Ap
 
     static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
         id: "xp-from-encounter",
+        classes: ["scrollable-content"],
         window: { title: "PF2E.Encounter.XP" },
         position: { width: 480 },
     };

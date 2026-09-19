@@ -380,10 +380,6 @@
                     "NDsYJcZgvyCnREkD": {
                         "damage": "2d4+11",
                         "damageType": "bludgeoning"
-                    },
-                    "Of3wYpjscpLwL5tE": {
-                        "damage": "2d6",
-                        "damageType": "mental"
                     }
                 },
                 "description": {
@@ -400,7 +396,8 @@
                 "traits": {
                     "value": [
                         "agile",
-                        "nonlethal"
+                        "nonlethal",
+                        "press"
                     ]
                 }
             },
@@ -426,15 +423,6 @@
                     "value": 24
                 },
                 "damageRolls": {
-                    "9glmZyMY2Gv62bbZ": {
-                        "damage": "2d6",
-                        "damageType": "spirit"
-                    },
-                    "tp08OcjMF8NlwfRg": {
-                        "category": "persistent",
-                        "damage": "1d6",
-                        "damageType": "bleed"
-                    },
                     "wfyuKVtMUYvTqBtc": {
                         "damage": "2d8+11",
                         "damageType": "slashing"
@@ -451,15 +439,22 @@
                 "range": null,
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
+                        "definition": [
+                            "item:id:{item|_id}"
                         ],
-                        "selector": [
-                            "battle-axe-attack"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "fearsome"
+                    },
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
                         ],
-                        "text": "PF2E.WeaponPropertyRune.fearsome.Note.criticalSuccess",
-                        "title": "PF2E.WeaponPropertyRune.fearsome.Name"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "wounding"
                     }
                 ],
                 "slug": "battle-axe",
@@ -561,7 +556,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Mago Kai had intricate magical tattoos inscribed on his back and chest to interact more easily with his ghostly masters. Weapons and unarmed attacks wielded by Mago Kai function as ghost touch weapons, and he inflicts an additional 2d6 mental damage with melee Strikes against incorporeal creatures or transmigrated PCs.</p>"
+                    "value": "<p>Mago Kai had intricate magical tattoos inscribed on his back and chest to interact more easily with his ghostly masters. Weapons and unarmed attacks wielded by Mago Kai function as @UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch] weapons, and he inflicts an additional 2d6 spirit damage with melee Strikes against incorporeal creatures or transmigrated PCs.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -572,7 +567,8 @@
                     {
                         "key": "RollOption",
                         "option": "ghost-killer",
-                        "toggleable": true
+                        "toggleable": true,
+                        "value": true
                     },
                     {
                         "damageType": "spirit",
@@ -587,7 +583,13 @@
                                 ]
                             }
                         ],
-                        "selector": "strike-damage"
+                        "selector": "melee-strike-damage"
+                    },
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "ghost-touch"
                     }
                 ],
                 "slug": null,

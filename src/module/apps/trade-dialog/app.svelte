@@ -1,11 +1,12 @@
 <script lang="ts">
+    import SearchInput from "@module/sheet/components/search-input.svelte";
     import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import type { TradeDialogRenderContext, TradeQueryData, TradeItemData } from "./app.svelte.ts";
 
     const {
         foundryApp: dialog,
         traderUser,
-        searchEngine,
+        search,
         localize,
         getState,
     }: TradeDialogRenderContext & SvelteAppProps<TradeDialogRenderContext> = $props();
@@ -19,11 +20,17 @@
 
     // Item lists and summaries
     const listFormatter = game.i18n.getListFormatter({ style: "narrow" });
-    const selfItemsVisible = $derived(
-        dialog.selfItems
-            .filter((i) => i.matchScore > 0)
-            .sort((a, b) => b.matchScore - a.matchScore || a.name.localeCompare(b.name, game.i18n.lang)),
-    );
+    // Sort by relevance while searching, otherwise by name
+    const selfItemsVisible = $derived.by(() => {
+        const scores = search.scores;
+        return dialog.selfItems
+            .filter((i) => !scores || scores.has(i.id))
+            .sort(
+                (a, b) =>
+                    (scores ? (scores.get(b.id) ?? 0) - (scores.get(a.id) ?? 0) : 0) ||
+                    a.name.localeCompare(b.name, game.i18n.lang),
+            );
+    });
     const withQuantity = (i: { quantity: number; marked: number; name: string }) =>
         i.quantity > 1 ? `${i.marked}x ${i.name}` : i.name;
     const itemsToSend = $derived.by(() => {
@@ -64,16 +71,6 @@
         );
         if (dialog.selfAccepted && dialog.traderAccepted) dialog.close({ success: true });
         sendQuery({ action: "update", marked, accepted: dialog.selfAccepted });
-    }
-
-    function search(event: Event): void {
-        if (!(event.target instanceof HTMLInputElement)) throw Error("Unexpected event received during search");
-        const searchText = event.target.value.trim();
-        const results = new Map(searchEngine.search(searchText).map((r) => [r.id, r.score]));
-        const fallbackScore = results.size > 0 ? 0 : 1;
-        for (const item of dialog.selfItems) {
-            item.matchScore = results.get(item.id) ?? fallbackScore;
-        }
     }
 
     function showQuantityInput(event: Event & { currentTarget: HTMLButtonElement }): void {
@@ -155,9 +152,11 @@
                 <i class="fa-solid fa-{dialog.selfAccepted ? 'check' : 'xmark'}"></i>
             </button>
         </header>
-        <div class="flexrow search">
-            <input type="search" id="{dialog.id}-search" placeholder="&#xf002;" aria-label="Search" oninput={search} />
-        </div>
+        <SearchInput
+            {search}
+            label={_loc("PF2E.Actor.Inventory.Search")}
+            resultsLabel={localize("SearchResults", { count: selfItemsVisible.length })}
+        />
         <ul class="flexcol scrollable">
             {#each selfItemsVisible as item (item.id)}
                 <li class="flexrow" class:marked={item.marked}>
@@ -348,14 +347,9 @@
             }
         }
 
-        input[type="search"] {
-            padding-right: 0;
+        > :global(.search),
+        > :global(.search-results) {
             margin-right: var(--scroll-margin);
-            &::placeholder {
-                font-family: var(--font-awesome);
-                font-weight: 900;
-                padding-left: 0.25em;
-            }
         }
 
         ul {

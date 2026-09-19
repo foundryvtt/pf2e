@@ -945,6 +945,7 @@
                 "ElementalInstinct": "damage dealt by instinct element creatures",
                 "EnemyStrikes": "enemy Strikes",
                 "FallDamage": "fall damage",
+                "FatiguedFromStarvationOrThirst": "fatigued (from the effects of starvation or thirst)",
                 "GasInhaled": "gases and other inhaled effects",
                 "HarvestBlood": "damage dealt by last Harvest Blood target",
                 "HolyBludgeoningPiercingSlashing": "holy bludgeoning, piercing and slashing damage",
@@ -2422,6 +2423,13 @@
                 }
             },
             "Nindoru": {
+                "Kagekuma": {
+                    "Bundle": {
+                        "Label": "Bundle",
+                        "ManifestLabel": "Manifest",
+                        "ShedLabel": "Shed"
+                    }
+                },
                 "Meokdan": {
                     "BoneClub": {
                         "Label": "Manifest Bone Club",
@@ -3752,6 +3760,14 @@
             }
         },
         "RULES": {
+            "BaseSpeed": {
+                "FIELDS": {
+                    "force": {
+                        "hint": "Whether this speed overrides others instead of only applying if higher: allows lower values, including 0.",
+                        "label": "Force"
+                    }
+                }
+            },
             "Common": {
                 "FIELDS": {
                     "key": {
@@ -4428,6 +4444,9 @@
                     "DamageReceivedNote": "Any creature that damages you with an unarmed melee attack or a non-reach melee weapon takes @Damage[3d6[fire]] damage.",
                     "DoubleDamageNote": "The damage from this feat is doubled against creatures with the aberration, fiend, or undead trait."
                 }
+            },
+            "Asleep": {
+                "Label": "Asleep"
             },
             "Assassin": {
                 "Assassinate": {
@@ -5173,14 +5192,14 @@
                         "Master": "You fortify your spells with masterful prowess. Your proficiency ranks for your spell attack modifier and spell DC increase to master."
                     },
                     "oracle": {
-                        "Expert": "The intricacy of your divine power has grown clearer over time. Your proficiency ranks for divine spell attack rolls and spell DCs increase to expert.",
-                        "Legendary": "You can harness divine power at a level few others can match. Your proficiency ranks for divine spell attack rolls and spell DCs increase to legendary.",
-                        "Master": "You truly understand the deep and complex divine power within your mystery. Your proficiency ranks for divine spell attack rolls and spell DCs increase to master."
+                        "Expert": "The intricacy of your divine power has grown clearer over time. Your proficiency ranks for spell attack modifiers and spell DCs increase to expert.",
+                        "Legendary": "You can harness divine power at a level few others can match. Your proficiency ranks for spell attack modifiers and spell DCs increase to legendary.",
+                        "Master": "You truly understand the deep and complex divine power within your mystery. Your proficiency ranks for spell attack modifiers and spell DCs increase to master."
                     },
                     "psychic": {
-                        "Expert": "Self-reflection has brought you greater knowledge of yourself and, with it, psychic power. Your proficiency ranks for occult spell attack rolls and spell DCs increase to expert.",
-                        "Legendary": "As your training reaches its peak, you understand not just your own mind, but the collective unconscious from which all psychic power stems. Your proficiency ranks for occult spell attack rolls and spell DCs increase to legendary.",
-                        "Master": "You've gained access to the deepest corners of your own mind. Your proficiency ranks for occult spell attack rolls and spell DCs increase to master."
+                        "Expert": "Self-reflection has brought you greater knowledge of yourself and, with it, psychic power. Your proficiency ranks for spell attack modifier and spell DC increase to expert.",
+                        "Legendary": "As your training reaches its peak, you understand not just your own mind, but the collective unconscious from which all psychic power stems. Your proficiency ranks for spell attack modifier and spell DC increase to legendary.",
+                        "Master": "You've gained access to the deepest corners of your own mind. Your proficiency ranks for spell attack modifier and spell DC increase to master."
                     },
                     "sorcerer": {
                         "Expert": "Your inherent magic responds easily and powerfully to your command. Your proficiency ranks for spell attack modifier and spell DC for spells of your bloodline's tradition increase to expert.",
@@ -6022,6 +6041,9 @@
                 "IrisOfTheSky": {
                     "RollOptionLabel": "Iris of the Sky - Sear the Sky"
                 },
+                "KinburisSandalsOfBounding": {
+                    "LightFootedBoundLabel": "Kinburi's Sandals of Bounding — Light-Footed Bound"
+                },
                 "LieutenantsSash": {
                     "ToggleLabel": "Lieutenant's Sash — Bonus to AC and saves against reactions"
                 },
@@ -6063,6 +6085,12 @@
                         "ModerateDescription": "You dart aside, gaining a +2 circumstance bonus to AC, then Step after the Strike resolves."
                     }
                 },
+                "ResoluteMindWrap": {
+                    "ShieldThoughts": {
+                        "Label": "Resolute Mind Wrap — Shield Thoughts",
+                        "Text": "If you succeed at this saving throw, the resistance to mental damage granted by the <em>resolute mind wrap</em> increases to 10 for 1 minute. @UUID[Compendium.pf2e.equipment-effects.Item.sbxGrVdEsYZ5KiCj]{Effect: Shield Thoughts}"
+                    }
+                },
                 "RhinoShot": {
                     "CriticalSuccess": "The target must critically succeed at a @Check[fortitude|dc:19|name:Rhino Shot|traits:conjuration,consumable,magical|showDC:all] save or be knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}.",
                     "Label": "Rhino Shot",
@@ -6072,7 +6100,7 @@
                     "VsArcaneSpells": "{item} (vs. Arcane Spells)"
                 },
                 "RootBoots": {
-                    "GripGround": "Root Boots — Grip the Ground",
+                    "GripGround": "Root Boots — Take Root",
                     "WoodenSurfaceLabel": "Root Boots — Wooden Surface"
                 },
                 "SashOfBooks": {
@@ -8678,6 +8706,7 @@
                 "Copper": "Copper",
                 "Gold": "Gold",
                 "Iron": "Iron",
+                "Platinum": "Platinum",
                 "Steel": "Steel"
             },
             "SpellEffectPrismaticShield": {
@@ -9257,6 +9286,9 @@
                         "InForestLabel": "Wildwood Ink (In Forest)"
                     }
                 }
+            },
+            "TeaCeremony": {
+                "Label": "Tea Ceremony"
             },
             "TempestForm": {
                 "Air": "Air",
