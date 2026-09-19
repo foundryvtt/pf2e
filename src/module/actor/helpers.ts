@@ -158,13 +158,19 @@ function auraAffectsActor(data: AuraEffectData, origin: ActorPF2e, actor: ActorP
     );
 }
 
-/**  Set a roll option for HP remaining and percentage remaining */
+/**  Set roll options for HP remaining, percentage remaining, and temporary HP */
 function setHitPointsRollOptions(actor: ActorPF2e): void {
     const hp = actor.hitPoints;
     if (!hp) return;
-    actor.flags[SYSTEM_ID].rollOptions.all[`hp-remaining:${hp.value}`] = true;
+    const rollOptions = actor.flags[SYSTEM_ID].rollOptions.all;
+    rollOptions[`hp-remaining:${hp.value}`] = true;
     const percentRemaining = Math.floor((hp.value / hp.max) * 100);
-    actor.flags[SYSTEM_ID].rollOptions.all[`hp-percent:${percentRemaining}`] = true;
+    rollOptions[`hp-percent:${percentRemaining}`] = true;
+    rollOptions[`hp-temp:${hp.temp}`] = true;
+    // Only trust a recorded source while temp HP remain and the granting item is still present
+    const sourceId = actor.isOfType("creature") ? actor._source.system.attributes.hp.tempsource : null;
+    const source = hp.temp > 0 && sourceId ? actor.items.get(sourceId) : null;
+    if (source) rollOptions[`hp-temp:source:${source.slug ?? sluggify(source.name)}`] = true;
 }
 
 /** Find the lowest multiple attack penalty for an attack with a given item */
