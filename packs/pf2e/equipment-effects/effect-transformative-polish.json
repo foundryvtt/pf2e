@@ -1,10 +1,10 @@
 {
     "_id": "8WnFg5HMKX8JEDLl",
     "img": "icons/weapons/axes/axe-battle-black.webp",
-    "name": "Effect: Lumber Lord's Axe",
+    "name": "Effect: Transformative Polish",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Lumber Lord's Axe]</p>\n<p>The <em>lumber lord's axe's</em> blade transforms into your choice of standard-grade adamantine or standard-grade dawnsilver.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Lumber Lord's Axe]</p>\n<p>The <em>lumber lord's axe</em>'s blade transforms into your choice of standard-grade adamantine or standard-grade dawnsilver.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -36,6 +36,15 @@
                 "flag": "material",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Material"
+            },
+            {
+                "definition": [
+                    "item:slug:lumber-lords-axe"
+                ],
+                "key": "AdjustStrike",
+                "mode": "remove",
+                "property": "materials",
+                "value": "cold-iron"
             },
             {
                 "definition": [
