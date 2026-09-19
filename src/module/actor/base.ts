@@ -501,12 +501,13 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 }
 
                 const tempEffect = new ItemProxyPF2e(source, { parent: this });
+                const rules = tempEffect.prepareRuleElements({ suppressWarnings: true });
                 for (const [flag, selection] of Object.entries(data.preselectChoices)) {
-                    const rule = tempEffect.rules.find(
+                    const rule = rules.find(
                         (r): r is ChoiceSetRuleElement => r instanceof ChoiceSetRuleElement && r.flag === flag,
                     );
                     if (!rule) continue;
-                    const ruleSource = source.system.rules[tempEffect.rules.indexOf(rule)] as ChoiceSetSource;
+                    const ruleSource = source.system.rules[rules.indexOf(rule)] as ChoiceSetSource;
                     ruleSource.selection = selection;
                 }
 
