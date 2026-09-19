@@ -11,7 +11,8 @@ import { Modifier, StatisticModifier } from "@actor/modifiers.ts";
 import type { MovementType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { UserAction } from "@common/constants.d.mts";
-import type { ItemPF2e, MeleePF2e } from "@item";
+import type { ItemPF2e } from "@item";
+import type { MeleePF2e } from "@item";
 import type { ItemType } from "@item/types.ts";
 import { calculateDC } from "@module/dc.ts";
 import { RollNotePF2e } from "@module/notes.ts";
@@ -548,6 +549,9 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 const attributes = changed.system.attributes;
                 if (attributes.hp) update["system.attributes.hp"] = attributes.hp;
                 if ("adjustment" in attributes) update["system.attributes.adjustment"] = attributes.adjustment;
+            }
+            if (changed.system.resources?.focus) {
+                update["system.resources.focus"] = changed.system.resources.focus;
             }
             if (!R.isEmpty(update)) {
                 const damageTaken = options.damageTaken;
