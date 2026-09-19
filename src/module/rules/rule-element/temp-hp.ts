@@ -85,6 +85,7 @@ class TempHPRuleElement extends RuleElement<TempHPRuleSchema> {
         const currentTempHP = Number(fu.getProperty(updatedActorData, "system.attributes.hp.temp")) || 0;
         if (value > currentTempHP) {
             actorUpdates["system.attributes.hp.temp"] = value;
+            actorUpdates["system.attributes.hp.tempsource"] = this.item.id;
             this.broadcast(value, currentTempHP);
         }
     }

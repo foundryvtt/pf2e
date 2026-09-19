@@ -934,9 +934,15 @@ abstract class CreaturePF2e<
                 ? Math.max(0, changedHP.value)
                 : Math.clamp(changedHP.value, 0, Math.max(maxHP - currentHP.unrecoverable, 0));
         }
-        if (changed.system.attributes?.hp?.temp !== undefined) {
-            const inputValue = changed.system.attributes.hp.temp;
-            changed.system.attributes.hp.temp = Math.floor(Math.clamp(Number(inputValue) || 0, 0, 999));
+        const changedTempHP = changed.system.attributes?.hp;
+        if (changedTempHP?.temp !== undefined) {
+            changedTempHP.temp = Math.floor(Math.clamp(Number(changedTempHP.temp) || 0, 0, 999));
+            // A change not made by a TempHP rule element that zeroes or raises temp HP orphans the recorded source
+            const current = this._source.system.attributes.hp;
+            const setsSource = "tempsource" in changedTempHP;
+            if (current.tempsource && !setsSource && (changedTempHP.temp === 0 || changedTempHP.temp > current.temp)) {
+                (changedTempHP as { tempsource?: string | foundry.data.operators.ForcedDeletion }).tempsource = _del;
+            }
         }
 
         // Clamp focus points

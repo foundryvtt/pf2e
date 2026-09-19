@@ -108,8 +108,9 @@ interface NPCAttributesSource extends Required<ActorAttributesSource> {
     };
 }
 
-interface NPCHitPointsSource extends Required<CreatureHitPointsSource> {
+interface NPCHitPointsSource extends Required<Omit<CreatureHitPointsSource, "tempsource">> {
     details: string;
+    tempsource?: string;
 }
 
 interface NPCPerceptionSource {

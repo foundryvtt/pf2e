@@ -11,6 +11,7 @@ import type {
     CreatureTraitsData,
     SkillData,
 } from "@actor/creature/data.ts";
+import type { ActorHitPoints } from "@actor/data/base.ts";
 import { ActorSystemModel, ActorSystemSchema } from "@actor/data/model.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import type { Modifier } from "@actor/modifiers.ts";
@@ -77,6 +78,7 @@ class FamiliarSystemData extends ActorSystemModel<FamiliarPF2e, FamiliarSystemSc
                         min: 0,
                         initial: 0,
                     }),
+                    tempsource: new fields.StringField({ required: false, blank: false, initial: undefined }),
                 }),
             }),
             details: new fields.SchemaField({
@@ -133,16 +135,19 @@ interface FamiliarSystemData
     customModifiers: Record<string, Modifier[]>;
 }
 
+type FamiliarHitPointsSchema = {
+    value: fields.NumberField<number, number, true, false, true>;
+    temp: fields.NumberField<number, number, true, false, true>;
+    tempsource: fields.StringField<string, string, false, false, false>;
+};
+
 type FamiliarSystemSchema = ActorSystemSchema & {
     master: fields.SchemaField<{
         id: fields.ForeignDocumentField<string, true, true, true>;
         ability: fields.StringField<AttributeString, AttributeString, true, true, true>;
     }>;
     attributes: fields.SchemaField<{
-        hp: fields.SchemaField<{
-            value: fields.NumberField<number, number, true, false, true>;
-            temp: fields.NumberField<number, number, true, false, true>;
-        }>;
+        hp: fields.SchemaField<FamiliarHitPointsSchema, SourceFromSchema<FamiliarHitPointsSchema>, ActorHitPoints>;
     }>;
     details: fields.SchemaField<{
         creature: fields.SchemaField<{

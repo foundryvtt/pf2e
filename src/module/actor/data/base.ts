@@ -59,6 +59,8 @@ interface ActorAttributesSource {
 
 interface ActorHitPointsSource extends ValueAndMaybeMax {
     temp?: number;
+    /** The id of the item whose TempHP rule element granted the current temporary hit points */
+    tempsource?: string;
 }
 
 interface ActorDetailsSource {
@@ -108,6 +110,7 @@ interface FlankingData {
 }
 
 interface ActorHitPoints extends Required<BaseHitPointsSource> {
+    tempsource?: string;
     unrecoverable: number;
     negativeHealing: boolean;
 }

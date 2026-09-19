@@ -102,6 +102,7 @@ interface CharacterAttributesSource extends ActorAttributesSource {
     hp: {
         value: number;
         temp: number;
+        tempsource?: string;
         /** Stamina points: present if Stamina variant is enabled  */
         sp?: { value: number };
     };
