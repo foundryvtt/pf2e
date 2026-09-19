@@ -1,19 +1,19 @@
 {
-    "_id": "YsgABP1Ya0QJoiKt",
-    "img": "icons/consumables/nuts/walnut-shell-orange.webp",
-    "name": "Effect: Energizing Pill",
+    "_id": "sbxGrVdEsYZ5KiCj",
+    "img": "icons/equipment/waist/sash-cloth-gold-purple.webp",
+    "name": "Effect: Shield Thoughts",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Energizing Pill]</p>\n<p>You gain a +2 item bonus to initiative rolls with Perception.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Resolute Mind Wrap]</p>\n<p>You gain mental resistance 10.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "hours",
+            "unit": "minutes",
             "value": 1
         },
         "level": {
-            "value": 10
+            "value": 7
         },
         "publication": {
             "license": "ORC",
@@ -22,13 +22,9 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "predicate": [
-                    "check:type:initiative"
-                ],
-                "selector": "perception",
-                "type": "item",
-                "value": 2
+                "key": "Resistance",
+                "type": "mental",
+                "value": 10
             }
         ],
         "start": {

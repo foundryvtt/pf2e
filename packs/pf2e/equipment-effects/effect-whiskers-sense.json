@@ -1,10 +1,10 @@
 {
     "_id": "05mIW5FMX2socBY9",
     "img": "icons/weapons/swords/sword-katana.webp",
-    "name": "Effect: Vashu's Ninth Life",
+    "name": "Effect: Whisker's Sense",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Vashu's Ninth Life]</p>\n<p>Vashu's Ninth Life gains the parry trait and raises itself into parrying position, granting you a +1 circumstance bonus to AC.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Vashu's Ninth Life]</p>\n<p><em>Vashu's Ninth Life</em> gains the parry trait and raises itself into parrying position, granting you a +1 circumstance bonus to AC.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -23,6 +23,9 @@
         "rules": [
             {
                 "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "cascade"
+                },
                 "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Parry"
             },
             {

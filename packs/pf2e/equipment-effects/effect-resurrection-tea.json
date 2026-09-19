@@ -4,7 +4,7 @@
     "name": "Effect: Resurrection Tea",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Resurrection Tea]</p>\n<p>Reduce the DC of recovery checks by 1.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Resurrection Tea]</p>\n<p>You reduce the DC of recovery checks by 1 (by 3 if consumed during a tea ceremony).</p>\n<p><em>Note: Adjust duration if consumed during a tea ceremony.</em></p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,10 +22,25 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Actions.OneAction",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.TeaCeremony.Label",
+                        "value": 3
+                    }
+                ],
+                "flag": "tea",
+                "key": "ChoiceSet"
+            },
+            {
                 "key": "ActiveEffectLike",
                 "mode": "subtract",
                 "path": "system.attributes.dying.recoveryDC",
-                "value": 1
+                "value": "@item.flags.system.rulesSelections.tea"
             }
         ],
         "start": {
