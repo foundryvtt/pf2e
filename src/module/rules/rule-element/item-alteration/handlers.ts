@@ -1,6 +1,6 @@
 import type { DataFieldOptions } from "@common/data/_types.d.mts";
 import { ItemPF2e, WeaponPF2e } from "@item";
-import { ArmorPropertyRuneType } from "@item/armor/types.ts";
+import type { ArmorPropertyRuneType } from "@item/armor/types.ts";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ModularConfig } from "@item/base/data/system.ts";
 import { PersistentDamageValueSchema } from "@item/condition/data.ts";
@@ -11,7 +11,7 @@ import { Grade } from "@item/physical/types.ts";
 import { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values.ts";
 import type { ItemType } from "@item/types.ts";
 import { upgradeWeaponTrait } from "@item/weapon/helpers.ts";
-import { WeaponPropertyRuneType, WeaponRangeIncrement } from "@item/weapon/types.ts";
+import type { WeaponPropertyRuneType, WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { MANDATORY_RANGED_GROUPS } from "@item/weapon/values.ts";
 import { RARITIES, ZeroToFour, ZeroToThree } from "@module/data.ts";
 import { nextDamageDieSize } from "@system/damage/helpers.ts";
