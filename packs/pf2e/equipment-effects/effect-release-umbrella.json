@@ -1,19 +1,19 @@
 {
-    "_id": "V7cIpoJL9Zm4TiUT",
-    "img": "icons/weapons/swords/scimitar-blue.webp",
-    "name": "Effect: Four-Tiger Blade",
+    "_id": "g1EdALRxZmmEkSd7",
+    "img": "icons/sundries/flags/banner-worn-red.webp",
+    "name": "Effect: Release Umbrella",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Four-Tiger Blade]</p>\n<p>You gain resistance 10 to void damage.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Hongrui's Gratitude]</p>\n<p>You gain a +1 item bonus to Survival checks.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "rounds",
+            "unit": "hours",
             "value": 1
         },
         "level": {
-            "value": 12
+            "value": 3
         },
         "publication": {
             "license": "ORC",
@@ -22,9 +22,10 @@
         },
         "rules": [
             {
-                "key": "Resistance",
-                "type": "void",
-                "value": 10
+                "key": "FlatModifier",
+                "selector": "survival",
+                "type": "item",
+                "value": 1
             }
         ],
         "start": {

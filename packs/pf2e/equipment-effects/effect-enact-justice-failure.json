@@ -1,19 +1,20 @@
 {
-    "_id": "Rn2Nl2iXlRMijTNb",
-    "img": "icons/sundries/books/book-open-brown.webp",
-    "name": "Effect: Juubun's One Thousand Poems",
+    "_id": "a2WD2oYTbu0XXtck",
+    "img": "icons/equipment/back/cloak-collared-red.webp",
+    "name": "Effect: Enact Justice (Failure)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Juubun's One Thousand Poems]</p>\n<p>You gain 10 temporary hit points.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Cape of Justice]</p>\n<p>You take a –15-foot circumstance penalty to your Speeds.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
-            "unit": "minutes",
-            "value": 1
+            "unit": "unlimited",
+            "value": -1
         },
+        "fromSpell": false,
         "level": {
-            "value": 9
+            "value": 4
         },
         "publication": {
             "license": "ORC",
@@ -22,8 +23,10 @@
         },
         "rules": [
             {
-                "key": "TempHP",
-                "value": 10
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "type": "circumstance",
+                "value": -15
             }
         ],
         "start": {
