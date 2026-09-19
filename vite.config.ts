@@ -65,7 +65,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                       : null;
                   const foundryPort = Number(FOUNDRY_CONFIG?.foundryPort) || 30000;
                   const serverPort = Number(FOUNDRY_CONFIG?.port) || 30001;
-                  console.log(`Connecting to foundry hosted at http://localhost:${foundryPort}/`);
+                  console.debug(`Connecting to foundry hosted at http://localhost:${foundryPort}/`);
                   return { foundryPort, serverPort };
               })()
             : { foundryPort: 30000, serverPort: 30001 };
@@ -103,7 +103,6 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                 renderChunk: {
                     order: "post",
                     handler: async (code, chunk) => {
-                        console.log(chunk.fileName);
                         return chunk.fileName.endsWith(".mjs")
                             ? minify(chunk.fileName, code, {
                                   module: true,
@@ -165,7 +164,22 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                 apply: "build",
                 writeBundle: {
                     async handler() {
-                        fs.closeSync(fs.openSync(path.resolve(outDir, "vendor.mjs"), "w"));
+                        await fs.promises.writeFile(path.resolve(outDir, "vendor.mjs"), "", { encoding: "utf-8" });
+                    },
+                },
+            },
+            // Limited to dev builds for now
+            {
+                name: "add-rune-page",
+                apply: "build",
+                writeBundle: {
+                    async handler() {
+                        const systemJSONPath = path.resolve(outDir, "system.json");
+                        const { readFile, writeFile } = fs.promises;
+                        const outSystemJSON = await readFile(systemJSONPath, { encoding: "utf-8" });
+                        const data = JSON.parse(outSystemJSON);
+                        data.documentTypes.JournalEntryPage = { rune: { htmlFields: ["description"] } };
+                        await writeFile(systemJSONPath, JSON.stringify(data, null, 2), { encoding: "utf-8" });
                     },
                 },
             },

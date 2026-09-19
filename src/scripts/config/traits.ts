@@ -474,6 +474,8 @@ const spellTraits = {
     witchwarper: "PF2E.TraitWitchwarper",
 };
 
+const runeTraits = { ...creatureTraits, ...spellTraits, saggorak: "PF2E.TraitSaggorak" };
+
 const weaponTraits = {
     ...ancestryTraits,
     ...elementTraits,
@@ -1962,10 +1964,12 @@ export {
     otherConsumableTags,
     otherWeaponTags,
     preciousMaterials,
+    runeTraits,
     shieldTraits,
     spellTraits,
     traitDescriptions,
     vehicleTraits,
     weaponTraits,
-    type ElementTrait,
 };
+
+export type { ElementTrait };
