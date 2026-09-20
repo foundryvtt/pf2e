@@ -4,6 +4,7 @@ import { CompendiumBrowser } from "../browser.svelte.ts";
 import { ContentTabName } from "../data.ts";
 import { CompendiumBrowserTab } from "./base.svelte.ts";
 import { CompendiumBrowserIndexData, FeatFilters } from "./data.ts";
+import { adjustFeatTraitsAndCategory } from "@item/feat/helpers.ts";
 
 export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "feat";
@@ -88,6 +89,8 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                         }
                     }
                 }
+
+                adjustFeatTraitsAndCategory(system);
                 const category = system.category;
                 const type = featData.type;
                 const traits: string[] = system.traits.value;
