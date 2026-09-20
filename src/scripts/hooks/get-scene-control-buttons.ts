@@ -49,8 +49,12 @@ export const GetSceneControlButtons = {
                 active: false,
                 onChange: (): void => {
                     const adjuster = SceneDarknessAdjuster.instance;
-                    if (adjuster.rendered) adjuster.close();
-                    else adjuster.render({ force: true });
+                    if (adjuster.rendered) {
+                        adjuster.close();
+                    } else {
+                        adjuster.render({ force: true });
+                        game.tooltip.deactivate();
+                    }
                 },
             };
 
