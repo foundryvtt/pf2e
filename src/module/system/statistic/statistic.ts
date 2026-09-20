@@ -54,7 +54,7 @@ class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TAct
     base: Statistic | null = null;
 
     /** If this is a skill, returns whether it is a lore skill or not */
-    lore?: boolean;
+    declare lore?: boolean;
 
     config: RollOptionConfig;
 

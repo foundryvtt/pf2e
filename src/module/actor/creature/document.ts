@@ -5,7 +5,7 @@ import type { CreatureSource } from "@actor/data/index.ts";
 import { Modifier, MODIFIER_TYPES, RawModifier } from "@actor/modifiers.ts";
 import { ActorSpellcasting } from "@actor/spellcasting.ts";
 import type { MovementType, SaveType, SkillSlug } from "@actor/types.ts";
-import { MOVEMENT_TYPES } from "@actor/values.ts";
+import { ATTRIBUTE_ABBREVIATIONS, MOVEMENT_TYPES } from "@actor/values.ts";
 import type { Rolled } from "@client/dice/_module.d.mts";
 import type {
     DatabaseDeleteCallbackOptions,
@@ -430,6 +430,18 @@ abstract class CreaturePF2e<
             domains: ["all", "spell-attack-dc"],
             check: { type: "attack-roll" },
         });
+
+        // Fill or prune incomplete base skill data
+        for (const [slug, skill] of fu.iterateEntries(this.system.skills)) {
+            if (!slug || slug !== sluggify(slug) || !(slug in CONFIG.PF2E.skills || skill.label)) {
+                delete this.system.skills[slug];
+                continue;
+            }
+            skill.attribute ??= "int";
+            if (!ATTRIBUTE_ABBREVIATIONS.has(skill.attribute)) delete this.system.skills[slug];
+            skill.lore = !(slug in CONFIG.PF2E.skills);
+            if (!skill.itemId || !this.items.get(skill.itemId)?.isOfType("lore")) skill.itemId = null;
+        }
     }
 
     protected override prepareDataFromItems(): void {

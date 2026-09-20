@@ -28,7 +28,7 @@ import {
 } from "@actor/modifiers.ts";
 import { CheckContext } from "@actor/roll-context/check.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
-import type { AttributeString, SkillSlug } from "@actor/types.ts";
+import type { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES } from "@actor/values.ts";
 import type { Rolled } from "@client/dice/_module.d.mts";
 import type {
@@ -344,10 +344,15 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         attributes.classhp = 0;
 
         // Skills
-        system.skills = R.mapToObj(R.entries(CONFIG.PF2E.skills), ([key, { attribute }]) => {
-            const rank = Math.clamp(this._source.system.skills[key]?.rank || 0, 0, 4) as ZeroToFour;
-            return [key, { rank, attribute, armor: ["dex", "str"].includes(attribute) }];
-        });
+        system.skills = fu
+            .iterateEntries(CONFIG.PF2E.skills)
+            .reduce((skills: Record<string, Partial<CharacterSkillData>>, [slug, data]) => {
+                if (!data) return skills;
+                const rank = Math.clamp(this._source.system.skills[slug]?.rank || 0, 0, 4) as ZeroToFour;
+                const { label, attribute } = data;
+                skills[slug] = { label, rank, attribute, lore: false, itemId: null };
+                return skills;
+            }, {});
 
         // Familiar abilities
         attributes.familiarAbilities = { value: 0 };
@@ -837,31 +842,32 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     }
 
     private prepareSkills() {
-        const { synthetics, system, wornArmor } = this;
-
-        this.skills = R.mapToObj(R.entries(CONFIG.PF2E.skills), ([skillSlug, { label, attribute }]) => {
-            const skill = system.skills[skillSlug];
-
-            const domains = [skillSlug, `${attribute}-based`, "skill-check", `${attribute}-skill-check`, "all"];
+        const { synthetics, wornArmor } = this;
+        this.skills = fu.iterateEntries(this.system.skills).reduce((skills: CharacterSkills<this>, [slug, skill]) => {
+            const { attribute, lore } = skill;
+            const domains = [slug, `${attribute}-based`, "skill-check", `${attribute}-skill-check`, "all"];
+            if (lore) domains.push("lore-skill-check");
             const modifiers: Modifier[] = [];
+            skill.rank = Math.clamp(Number(skill.rank) || 0, 0, 4) as ZeroToFour;
+            skill.armor = attribute === "dex" || attribute === "str";
 
             if (skill.armor && typeof wornArmor?.strength === "number" && wornArmor.checkPenalty < 0) {
-                const slug = "armor-check-penalty";
+                const armorPenaltySlug = "armor-check-penalty";
                 const armorCheckPenalty = new Modifier({
-                    slug,
+                    slug: armorPenaltySlug,
                     label: "PF2E.ArmorCheckPenalty",
                     modifier: wornArmor.checkPenalty,
                     type: "untyped",
-                    adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, domains, slug),
+                    adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, domains, armorPenaltySlug),
                 });
 
                 // Set requirements for ignoring the check penalty according to skill
                 armorCheckPenalty.predicate.push({ nor: ["attack", "armor:ignore-check-penalty"] });
-                if (["acrobatics", "athletics"].includes(skillSlug)) {
+                if (["acrobatics", "athletics"].includes(slug)) {
                     armorCheckPenalty.predicate.push({
                         nor: ["armor:strength-requirement-met", "armor:trait:flexible"],
                     });
-                } else if (skillSlug === "stealth" && wornArmor.traits.has("noisy")) {
+                } else if (slug === "stealth" && wornArmor.traits.has("noisy")) {
                     armorCheckPenalty.predicate.push({
                         nand: ["armor:strength-requirement-met", "armor:ignore-noisy-penalty"],
                     });
@@ -873,52 +879,20 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             }
 
             // Add a penalty for attempting to Force Open without a crowbar or similar tool
-            if (skillSlug === "athletics") modifiers.push(createForceOpenPenalty(this, domains));
+            if (slug === "athletics") modifiers.push(createForceOpenPenalty(this, domains));
 
-            const statistic = new Statistic(this, {
-                slug: skillSlug,
-                label,
-                rank: skill.rank,
-                attribute,
-                domains,
-                modifiers,
-                lore: false,
-                check: { type: "skill-check" },
-            }) as CharacterSkill<this>;
+            const check = { type: "skill-check" as const };
+            skills[slug] = new Statistic(
+                this,
+                Object.assign({ slug, domains, modifiers, check, lore }, R.omit(skill, ["dc"])),
+            ) as CharacterSkill<this>;
+            return skills;
+        }, {});
 
-            return [skillSlug, statistic];
-        });
-
-        // Assemble lore items, key'd by a normalized slug
-        const loreItems = R.mapToObj(this.itemTypes.lore, (loreItem) => [loreItem.slug, loreItem]);
-
-        // Add Lore skills to skill statistics
-        for (const [slug, loreItem] of Object.entries(loreItems)) {
-            const rank = loreItem.system.proficient.value;
-            this.skills[slug as SkillSlug] = new Statistic(this, {
-                slug,
-                label: loreItem.name,
-                rank,
-                attribute: "int",
-                domains: [slug, "skill-check", "lore-skill-check", "int-skill-check", "all"],
-                lore: true,
-                check: { type: "skill-check" },
-            }) as CharacterSkill<this>;
+        // Create trace skill data in system data
+        for (const [slug, statistic] of fu.iterateEntries(this.skills)) {
+            Object.assign(this.system.skills[slug], statistic.getTraceData());
         }
-
-        // Create trace skill data in system data and omit unprepared skills
-        this.system.skills = R.mapToObj(Object.entries(this.skills), ([key, statistic]) => {
-            const loreItem = statistic.lore ? loreItems[statistic.slug] : null;
-            const baseData = this.system.skills[key] ?? {};
-            const data: CharacterSkillData = fu.mergeObject(baseData, {
-                ...statistic.getTraceData(),
-                rank: statistic.rank,
-                armor: baseData.armor ?? false,
-                itemId: loreItem?.id ?? null,
-                lore: !!statistic.lore,
-            });
-            return [key, data];
-        });
     }
 
     override prepareMovementData(): void {

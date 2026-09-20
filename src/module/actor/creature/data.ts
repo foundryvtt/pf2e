@@ -148,7 +148,12 @@ interface CreatureTraitsData extends Required<CreatureTraitsSource> {
 }
 interface CreatureDetails extends Required<CreatureDetailsSource> {}
 
-type SkillData = AttributeBasedTraceData;
+interface SkillData extends AttributeBasedTraceData {
+    /** Is this skill a Lore skill? */
+    lore?: boolean;
+    /** If this is a lore skill, what item it came from */
+    itemId?: string | null;
+}
 
 /** The full save data for a character; including its modifiers and other details */
 interface SaveData extends AttributeBasedTraceData {
