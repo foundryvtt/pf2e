@@ -1,0 +1,177 @@
+{
+    "_id": "kV87sJS7XoOXi2cw",
+    "img": "icons/weapons/daggers/dagger-straight-blue.webp",
+    "name": "Effect: Blade Byrnie",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Blade Byrnie], @UUID[Compendium.pf2e.equipment-srd.Item.Blade Byrnie (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Blade Byrnie (Major)]</p>\n<p>You pull a link from the armor, which transforms into a <em>+1 striking dagger</em> (<em>+2 greater striking dagger</em> for <em>greater blade byrnie</em> and <em>+3 greater striking dagger</em> for <em>major blade byrnie</em>). Upgrading the runes on the <em>blade byrnie</em> makes the daggers pulled from it more powerful. The daggers have a <em>+2 weapon potency</em> rune if the armor has a <em>+2 armor potency</em> rune, or a <em>+3 weapon potency</em> rune if the armor has a <em>+3 armor potency</em> rune.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:blade-byrnie",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Blade Byrnie"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:blade-byrnie-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Blade Byrnie (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:blade-byrnie-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Blade Byrnie (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "blade-byrnie"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusOne",
+                        "predicate": [
+                            "blade-byrnie:blade-byrnie"
+                        ],
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusTwo",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "blade-byrnie:blade-byrnie",
+                                    "blade-byrnie:blade-byrnie-greater"
+                                ]
+                            }
+                        ],
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusThree",
+                        "value": 3
+                    }
+                ],
+                "flag": "bonus",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "not": "parent:origin:item"
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Bonus"
+            },
+            {
+                "flag": "bladeByrnieDagger",
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "granter": "cascade"
+                },
+                "track": true,
+                "uuid": "Compendium.pf2e.equipment-srd.Item.Dagger"
+            },
+            {
+                "itemId": "{actor|flags.system.trackedItems.bladeByrnieDagger}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "parent:origin:item"
+                ],
+                "property": "runes-potency",
+                "value": "min(3,@armor.system.runes.potency)"
+            },
+            {
+                "itemId": "{actor|flags.system.trackedItems.bladeByrnieDagger}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "not": "parent:origin:item"
+                    }
+                ],
+                "property": "runes-potency",
+                "value": "@item.flags.system.rulesSelections.bonus"
+            },
+            {
+                "itemId": "{actor|flags.system.trackedItems.bladeByrnieDagger}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "blade-byrnie:blade-byrnie"
+                ],
+                "property": "runes-striking",
+                "value": 1
+            },
+            {
+                "itemId": "{actor|flags.system.trackedItems.bladeByrnieDagger}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "blade-byrnie:blade-byrnie-greater",
+                            "blade-byrnie:blade-byrnie-major"
+                        ]
+                    }
+                ],
+                "property": "runes-striking",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
