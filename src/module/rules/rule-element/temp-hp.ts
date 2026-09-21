@@ -1,3 +1,4 @@
+import { getTempHPSourceId } from "@actor/helpers.ts";
 import type { ActorType } from "@actor/types.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import * as R from "remeda";
@@ -50,7 +51,7 @@ class TempHPRuleElement extends RuleElement<TempHPRuleSchema> {
         if (value > currentTempHP) {
             fu.mergeObject(actorUpdates, {
                 "system.attributes.hp.temp": value,
-                "system.attributes.hp.tempsource": this.item.id,
+                "system.attributes.hp.tempSource": this.item.id,
             });
             this.broadcast(value, currentTempHP);
         }
@@ -85,16 +86,21 @@ class TempHPRuleElement extends RuleElement<TempHPRuleSchema> {
         const currentTempHP = Number(fu.getProperty(updatedActorData, "system.attributes.hp.temp")) || 0;
         if (value > currentTempHP) {
             actorUpdates["system.attributes.hp.temp"] = value;
+            actorUpdates["system.attributes.hp.tempSource"] = this.item.id;
             this.broadcast(value, currentTempHP);
         }
     }
 
     override onDelete(actorUpdates: Record<string, unknown>): void {
         const updatedActorData = fu.mergeObject(this.actor._source, actorUpdates, { inplace: false });
-        if (fu.getProperty(updatedActorData, "system.attributes.hp.tempsource") === this.item.id) {
+        const hpSource = fu.getProperty(updatedActorData, "system.attributes.hp");
+        if (R.isPlainObject(hpSource) && getTempHPSourceId(hpSource) === this.item.id) {
             fu.mergeObject(actorUpdates, { "system.attributes.hp.temp": 0 });
             const hpData = fu.getProperty(actorUpdates, "system.attributes.hp");
-            if (R.isPlainObject(hpData)) hpData["tempsource"] = _del;
+            if (R.isPlainObject(hpData)) {
+                hpData["tempSource"] = _del;
+                if ("tempsource" in hpSource) hpData["tempsource"] = _del;
+            }
         }
     }
 
