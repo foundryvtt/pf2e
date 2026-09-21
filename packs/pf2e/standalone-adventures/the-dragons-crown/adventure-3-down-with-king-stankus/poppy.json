@@ -1,0 +1,315 @@
+{
+    "_id": "l3MYhdQfA9yvfQw4",
+    "folder": "OyzBIYBw7kU9tFXh",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "MZ1dQUXkgoqaip6b",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "Kl9nIItPv9GSNFja": {
+                        "damage": "1d10+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "d4X0ulAK7W8GMnAM",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "New Attack",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "xml1eISmPrvau3p5": {
+                        "damage": "1d6+4",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "agile"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "MHugqfazMMYcRHt5",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Deep Breath",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Poppy can hold her breath for about 2 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZjdvKd95B10scSVO",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Death Roll",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Poppy has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained]</p><hr /><p><strong>Effect</strong> Poppy tucks her legs and rolls rapidly, twisting her victim. She makes a jaws Strike with a +2 circumstance bonus to the attack roll against the grabbed or restrained creature. If it hits, she also knocks the creature @UUID[Compendium.pf2e.conditionitems.Item.Prone]. If it fails, she releases the creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "death-roll",
+                        "toggleable": true
+                    },
+                    {
+                        "hideIfDisabled": true,
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "death-roll"
+                        ],
+                        "selector": [
+                            "attack-roll"
+                        ],
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mOEAd3yFZUZwHAVn",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Poppy",
+    "prototypeToken": {
+        "name": "NPC"
+    },
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -4
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 1
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 17
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 30,
+                "temp": 0,
+                "value": 30
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "“Pet” blackboil alligator",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 2
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Game Night: The Dragon's Crown"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 7,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 7
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 5
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 8
+            },
+            "stealth": {
+                "base": 7,
+                "special": [
+                    {
+                        "base": 11,
+                        "label": "in water",
+                        "predicate": [
+                            "terrain:water"
+                        ]
+                    }
+                ]
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "animal"
+            ]
+        }
+    },
+    "type": "npc"
+}
