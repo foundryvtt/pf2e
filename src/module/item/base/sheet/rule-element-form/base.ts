@@ -187,7 +187,7 @@ class RuleElementForm<
     async updateItem(updates: Partial<TSource> | Record<string, JSONValue>): Promise<void> {
         const rules: Record<string, JSONValue>[] = this.item.toObject().system.rules;
         const result = fu.mergeObject(this.rule, updates, { applyOperators: true });
-        if (this.schema) cleanDataUsingSchema(this.schema.fields, result);
+        if (this.schema) this.#cleanDataUsingSchema(this.schema.fields, result);
         rules[this.index] = result;
         await this.item.update({ [`system.rules`]: rules });
     }
@@ -274,88 +274,93 @@ class RuleElementForm<
         }
 
         // Predicate is special cased as always json. Later on extend such parsing to more things
-        cleanPredicate(source);
+        this.#cleanPredicate(source);
 
-        if (this.schema) cleanDataUsingSchema(this.schema.fields, source);
+        if (this.schema) this.#cleanDataUsingSchema(this.schema.fields, source);
 
         // Update our reference so that equality matching works on the next data prep cycle
         // This allows form reuse to occur
         this.rule = source;
     }
-}
 
-/** Recursively clean and remove all fields that have a default value */
-function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<string, unknown>): void {
-    // Removes the field if it is the initial value.
-    // It may merge with the initial value to handle cases where the values where cleaned recursively
-    const deleteIfInitial = (key: string, field: DataField): boolean => {
-        if (data[key] === undefined) return true;
-        if (typeof field.initial === "function") return false;
-        const initialValue = field.getInitialValue(data);
-        const valueRaw = data[key];
-        const value =
-            R.isPlainObject(valueRaw) && R.isPlainObject(initialValue) ? { ...initialValue, ...valueRaw } : valueRaw;
-        const isInitial = R.isDeepEqual(initialValue, value);
-        if (isInitial) delete data[key];
-        return !(key in data);
-    };
+    /** Recursively clean and remove all fields that have a default value. */
+    #cleanDataUsingSchema(schema: Record<string, fields.DataField>, data: Record<string, unknown>): void {
+        // Removes the field if it is the initial value.
+        // It may merge with the initial value to handle cases where the values where cleaned recursively
+        const deleteIfInitial = (key: string, field: DataField): boolean => {
+            if (data[key] === undefined) return true;
+            if (typeof field.initial === "function") return false;
+            const initialValue = field.getInitialValue(data);
+            const valueRaw = data[key];
+            const value =
+                R.isPlainObject(valueRaw) && R.isPlainObject(initialValue)
+                    ? { ...initialValue, ...valueRaw }
+                    : valueRaw;
+            const isInitial = R.isDeepEqual(initialValue, value);
+            if (isInitial) delete data[key];
+            return !(key in data);
+        };
 
-    for (const [key, field] of Object.entries(schema)) {
-        if (typeof data[key] === "string" && !(field instanceof fields.StringField)) {
-            data[key] = field.clean(data[key]);
-            if (Array.isArray(data[key])) data[key] = data[key].filter((e) => e !== undefined);
-        }
-        if (deleteIfInitial(key, field)) continue;
-
-        if ("fields" in field) {
-            const value = data[key];
-            if (R.isPlainObject(value)) {
-                cleanDataUsingSchema(field.fields as Record<string, DataField>, value as Record<string, JSONValue>);
-                deleteIfInitial(key, field);
-                continue;
+        for (const [key, field] of fu.iterateEntries(schema)) {
+            if (typeof data[key] === "string" && !(field instanceof fields.StringField)) {
+                data[key] = field.clean(data[key]);
+                if (Array.isArray(data[key])) data[key] = data[key].filter((e) => e !== undefined);
             }
-        }
+            if (deleteIfInitial(key, field)) continue;
 
-        if (field instanceof fields.ArrayField && field.element instanceof fields.SchemaField) {
-            const value = data[key];
-            if (Array.isArray(value)) {
-                // Recursively clean schema fields inside an array
-                for (const data of value) {
-                    if (R.isPlainObject(data)) {
-                        if (data.predicate) cleanPredicate(data);
-                        cleanDataUsingSchema(field.element.fields, data);
-                    }
+            if ("fields" in field) {
+                const value = data[key];
+                if (R.isPlainObject(value)) {
+                    this.#cleanDataUsingSchema(
+                        field.fields as Record<string, DataField>,
+                        value as Record<string, JSONValue>,
+                    );
+                    deleteIfInitial(key, field);
+                    continue;
                 }
-                continue;
             }
-        }
 
-        // Allow certain field types to clean the data. Unfortunately we cannot do it to all.
-        // Arrays need to allow string inputs (some selectors) and StrictArrays are explodey
-        // The most common benefit from clean() is handling things like the "blank" property
-        if (field instanceof fields.StringField) {
-            data[key] = field.clean(data[key], {});
-            deleteIfInitial(key, field);
+            if (field instanceof fields.ArrayField && field.element instanceof fields.SchemaField) {
+                const value = data[key];
+                if (Array.isArray(value)) {
+                    // Recursively clean schema fields inside an array
+                    for (const data of value) {
+                        if (R.isPlainObject(data)) {
+                            if (data.predicate) this.#cleanPredicate(data);
+                            this.#cleanDataUsingSchema(field.element.fields, data);
+                        }
+                    }
+                    continue;
+                }
+            }
+
+            // Allow certain field types to clean the data. Unfortunately we cannot do it to all.
+            // Arrays need to allow string inputs (some selectors) and StrictArrays are explodey
+            // The most common benefit from clean() is handling things like the "blank" property
+            if (field instanceof fields.StringField) {
+                data[key] = field.clean(data[key], {});
+                deleteIfInitial(key, field);
+            }
         }
     }
-}
 
-function cleanPredicate(source: { predicate?: unknown }) {
-    const predicateValue = source.predicate;
-    if (typeof predicateValue === "string") {
-        if (predicateValue.trim() === "") {
-            delete source.predicate;
-        } else {
-            try {
-                source.predicate = JSON.parse(predicateValue);
-            } catch (error) {
-                if (error instanceof Error) {
-                    ui.notifications.error("PF2E.ErrorMessage.RuleElementSyntax", {
-                        console: false,
-                        format: { message: error.message },
-                    });
+    #cleanPredicate(source: { predicate?: unknown }): void {
+        const predicateValue = source.predicate;
+        if (typeof predicateValue === "string") {
+            if (predicateValue.trim() === "") {
+                delete source.predicate;
+            } else {
+                try {
+                    source.predicate = JSON.parse(predicateValue);
+                } catch (error) {
+                    if (error instanceof Error) {
+                        ui.notifications.error("PF2E.ErrorMessage.RuleElementSyntax", {
+                            console: false,
+                            format: { message: error.message },
+                        });
+                    }
+                    throw error; // prevent update, to give the user a chance to correct, and prevent bad data
                 }
-                throw error; // prevent update, to give the user a chance to correct, and prevent bad data
             }
         }
     }
