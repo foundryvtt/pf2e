@@ -268,18 +268,20 @@
                         onfocus={(e) => e.currentTarget.select()}
                     />
                     <div class="item-controls">
-                        <InlineIconButton
-                            icon="fa-solid fa-pen-to-square"
-                            aria-label="{_loc('PF2E.Edit')}: {skill.label}"
-                            data-tooltip="PF2E.Edit"
-                            onclick={() => foundryApp.editLore(skill.itemId)}
-                        />
-                        <InlineIconButton
-                            icon="fa-solid fa-trash"
-                            aria-label="{_loc('PF2E.DeleteShortLabel')}: {skill.label}"
-                            data-tooltip="PF2E.DeleteShortLabel"
-                            onclick={() => handleRemoveLore(skill.itemId)}
-                        />
+                        {#if skill.itemId}
+                            <InlineIconButton
+                                icon="fa-solid fa-pen-to-square"
+                                aria-label="{_loc('PF2E.Edit')}: {skill.label}"
+                                data-tooltip="PF2E.Edit"
+                                onclick={() => foundryApp.editLore(skill.itemId)}
+                            />
+                            <InlineIconButton
+                                icon="fa-solid fa-trash"
+                                aria-label="{_loc('PF2E.DeleteShortLabel')}: {skill.label}"
+                                data-tooltip="PF2E.DeleteShortLabel"
+                                onclick={() => handleRemoveLore(skill.itemId)}
+                            />
+                        {/if}
                     </div>
                 </div>
                 <hr />
