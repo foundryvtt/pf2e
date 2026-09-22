@@ -76,7 +76,8 @@ interface NPCSystemSource extends CreatureSystemSource {
 }
 
 interface NPCSkillSource {
-    base: number;
+    /** Null defers to the skill's attribute modifier */
+    base: number | null;
     /** Any special restriction or clarification */
     note?: string;
     /** All saved special skill modifiers */
@@ -254,6 +255,8 @@ interface NPCSpecialSkill extends NPCSpecialSkillSource {
 
 /** Skill data with a "base" value and whether the skill should be rendered (visible) */
 interface NPCSkillData extends NPCSkillSource, AttributeBasedTraceData {
+    /** Resolved during data preparation */
+    base: number;
     mod: number;
     visible: boolean;
     /** Is this skill a Lore skill? */

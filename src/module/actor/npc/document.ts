@@ -345,6 +345,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             .iterateEntries(this.system.skills)
             .reduce((statistics: Record<string, Statistic<this>>, [slug, skill]) => {
                 const attribute = skill.attribute;
+                const base = skill.base ?? this.system.abilities[attribute].mod;
                 const domains = [slug, `${attribute}-based`, "skill-check", `${attribute}-skill-check`, "all"];
                 if (skill.lore) domains.push("lore-skill-check");
 
@@ -358,7 +359,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                                 new Modifier({
                                     slug: "variant",
                                     label: special.label,
-                                    modifier: special.base - skill.base,
+                                    modifier: special.base - base,
                                     predicate: special.predicate,
                                     hideIfDisabled: true,
                                     domains,
@@ -374,7 +375,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                         new Modifier({
                             slug: "base",
                             label: "PF2E.ModifierTitle",
-                            modifier: skill.base ?? this.system.abilities[attribute].mod,
+                            modifier: base,
                             adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
                         }),
                         ...specialModifiers,
