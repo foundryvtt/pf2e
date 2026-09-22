@@ -143,7 +143,7 @@
                         type="number"
                         id="{uid}-skill-{skill.slug}-modifier"
                         value={skill.base}
-                        placeholder="0"
+                        placeholder={String(skill.resolvedBase)}
                         onchange={(e) => handleBaseChange(skill.slug, e.currentTarget.value)}
                         onfocus={(e) => e.currentTarget.select()}
                     />
@@ -266,6 +266,7 @@
                         {@attach focusOnDemand}
                         onchange={(e) => foundryApp.updateLoreMod(skill.itemId, Number(e.currentTarget.value))}
                         onfocus={(e) => e.currentTarget.select()}
+                        disabled={!skill.itemId}
                     />
                     <div class="item-controls">
                         {#if skill.itemId}
