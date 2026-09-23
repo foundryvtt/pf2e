@@ -9,7 +9,7 @@ import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { extractEphemeralEffects } from "@module/rules/helpers.ts";
 import type { Statistic } from "@system/statistic/statistic.ts";
 import * as R from "remeda";
-import type { RollContextConstructorParams, UnresolvedOpposingActors } from "./types.ts";
+import type { RollContextConstructorParams, RollRole, UnresolvedOpposingActors } from "./types.ts";
 import { RollContextData, RollOrigin, RollTarget } from "./types.ts";
 
 /** Resolve a roll context by cloning a pair of actors and feeding them with mutual roll options. */
@@ -79,7 +79,7 @@ abstract class RollContext<
         return this.unresolved.origin?.item ?? this.unresolved.target?.item ?? null;
     }
 
-    get rollerRole(): "origin" | "target" {
+    get rollerRole(): RollRole {
         return this.unresolved.origin?.statistic ? "origin" : "target";
     }
 
@@ -205,7 +205,7 @@ abstract class RollContext<
     }
 
     async #cloneActor(
-        which: "origin" | "target",
+        which: RollRole,
         { other = null, distance = null }: { other?: ActorPF2e | null; distance?: number | null } = {},
     ): Promise<ActorPF2e | null> {
         const unresolved = this.unresolved;

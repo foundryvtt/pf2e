@@ -1,7 +1,11 @@
+import type { ActorPF2e } from "@actor";
+import type { RollRole } from "@actor/roll-context/types.ts";
 import type { Rolled } from "@client/dice/_module.d.mts";
 import type { Die, NumericTerm } from "@client/dice/terms/_module.d.mts";
 import type { ZeroToThree } from "@module/data.ts";
+import type { RuleElementSynthetics } from "@module/rules/synthetics.ts";
 import { sluggify } from "@util";
+import * as R from "remeda";
 import type { CheckRoll } from "./check/roll.ts";
 import type { Predicate } from "./predication.ts";
 import type { StatisticDifficultyClass } from "./statistic/index.ts";
@@ -160,7 +164,75 @@ type DegreeAdjustmentsRecord = {
 interface DegreeOfSuccessAdjustment {
     slug?: string;
     predicate?: Predicate;
+    /** Replaces the roller's options when testing the predicate */
+    options?: Set<string>;
     adjustments: DegreeAdjustmentsRecord;
+}
+
+/** Opposer adjustments come last: `CheckPF2e.roll` merges last-wins per outcome key */
+function extractDegreeOfSuccessAdjustments({
+    self,
+    selfRole,
+    opposer = null,
+    domains,
+    options = [],
+}: ExtractDegreeOfSuccessAdjustmentsParams): DegreeOfSuccessAdjustment[] {
+    domains = R.unique(domains);
+    const selfAdjustments = domains.flatMap((d) => self.synthetics.degreeOfSuccessAdjustments[d] ?? []);
+    const opposing = opposer?.synthetics.opposingDegreeOfSuccessAdjustments[selfRole] ?? {};
+    const opposerAdjustments = domains.flatMap((d) => opposing[d] ?? []);
+    if (!opposer || opposerAdjustments.length === 0) return selfAdjustments;
+
+    // The roll context copies the roller's options into the opposer clone's source flags, so prefixed ones are
+    // from the wrong perspective. Item and check options are perspective-neutral.
+    const rollerOptions = new Set(options);
+    const copied = opposer._source.flags[SYSTEM_ID]?.rollOptions?.all ?? {};
+    const isCopiedPerspective = (o: string) =>
+        /^(?:self|target|origin):/.test(o) && o in copied && rollerOptions.has(o);
+    const sharedOptions = Array.from(rollerOptions).filter((o) => o.startsWith("item:") || o.startsWith("check:"));
+    const opposerOptions = new Set([
+        ...opposer.getRollOptions(domains).filter((o) => !isCopiedPerspective(o)),
+        ...sharedOptions,
+    ]);
+
+    return [...selfAdjustments, ...opposerAdjustments.map((a) => ({ ...a, options: opposerOptions }))];
+}
+
+interface ExtractDegreeOfSuccessAdjustmentsParams {
+    self: AdjustmentSource;
+    selfRole: RollRole;
+    opposer?: AdjustmentSource | null;
+    domains: string[];
+    options?: Iterable<string>;
+}
+
+type AdjustmentSource = Pick<ActorPF2e, "getRollOptions" | "_source"> & {
+    synthetics: Pick<RuleElementSynthetics, "degreeOfSuccessAdjustments" | "opposingDegreeOfSuccessAdjustments">;
+};
+
+function getIncapacitationAdjustment({
+    checkType,
+    effectLevel,
+    selfLevel,
+    targetLevel,
+}: IncapacitationParams): DegreeOfSuccessAdjustment | null {
+    const amount =
+        checkType === "saving-throw" && selfLevel > effectLevel
+            ? DEGREE_ADJUSTMENT_AMOUNTS.INCREASE
+            : targetLevel !== null &&
+                targetLevel > effectLevel &&
+                ["attack-roll", "spell-attack-roll", "skill-check"].includes(checkType)
+              ? DEGREE_ADJUSTMENT_AMOUNTS.LOWER
+              : null;
+
+    return amount ? { adjustments: { all: { label: "PF2E.TraitIncapacitation", amount } } } : null;
+}
+
+interface IncapacitationParams {
+    checkType: string;
+    effectLevel: number;
+    selfLevel: number;
+    targetLevel: number | null;
 }
 
 interface CheckDC {
@@ -184,7 +256,14 @@ type DegreeOfSuccessIndex = ZeroToThree;
 const DEGREE_OF_SUCCESS_STRINGS = ["criticalFailure", "failure", "success", "criticalSuccess"] as const;
 type DegreeOfSuccessString = (typeof DEGREE_OF_SUCCESS_STRINGS)[number];
 
-export { DEGREE_ADJUSTMENT_AMOUNTS, DEGREE_OF_SUCCESS, DEGREE_OF_SUCCESS_STRINGS, DegreeOfSuccess };
+export {
+    DEGREE_ADJUSTMENT_AMOUNTS,
+    DEGREE_OF_SUCCESS,
+    DEGREE_OF_SUCCESS_STRINGS,
+    DegreeOfSuccess,
+    extractDegreeOfSuccessAdjustments,
+    getIncapacitationAdjustment,
+};
 export type {
     CheckDC,
     DegreeAdjustmentAmount,

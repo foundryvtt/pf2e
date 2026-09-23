@@ -1,4 +1,5 @@
 import type { ActorType, CharacterPF2e, NPCPF2e } from "@actor";
+import type { RollRole } from "@actor/roll-context/types.ts";
 import {
     DEGREE_ADJUSTMENT_AMOUNTS,
     DEGREE_OF_SUCCESS_STRINGS,
@@ -20,6 +21,12 @@ class AdjustDegreeOfSuccessRuleElement extends RuleElement<AdjustDegreeRuleSchem
         return {
             ...super.defineSchema(),
             selector: new fields.StringField({ required: true, nullable: false, blank: false }),
+            affects: new fields.StringField({
+                required: true,
+                nullable: false,
+                choices: ["self", "origin", "target"],
+                initial: "self",
+            }),
             adjustment: new RecordField(
                 new fields.StringField({
                     required: true,
@@ -60,7 +67,12 @@ class AdjustDegreeOfSuccessRuleElement extends RuleElement<AdjustDegreeRuleSchem
             {} as { [key in "all" | DegreeOfSuccessString]?: { label: string; amount: DegreeAdjustmentAmount } },
         );
 
-        const synthetics = (this.actor.synthetics.degreeOfSuccessAdjustments[selector] ??= []);
+        const { synthetics: allSynthetics } = this.actor;
+        const bucket =
+            this.affects === "self"
+                ? allSynthetics.degreeOfSuccessAdjustments
+                : allSynthetics.opposingDegreeOfSuccessAdjustments[this.affects];
+        const synthetics = (bucket[selector] ??= []);
         synthetics.push({
             adjustments: record,
             predicate: this.resolveInjectedProperties(this.predicate),
@@ -87,6 +99,7 @@ type DegreeAdjustmentAmountString = (typeof degreeAdjustmentAmountString)[number
 
 type AdjustDegreeRuleSchema = RuleElementSchema & {
     selector: fields.StringField<string, string, true, false, false>;
+    affects: fields.StringField<"self" | RollRole, "self" | RollRole, true, false, true>;
     adjustment: RecordField<
         fields.StringField<"all" | DegreeOfSuccessString, "all" | DegreeOfSuccessString, true, false, false>,
         fields.StringField<DegreeAdjustmentAmountString, DegreeAdjustmentAmountString, true, false, false>

@@ -18,7 +18,6 @@ import { AbilityTrait } from "@item/ability/types.ts";
 import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 import {
-    extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
@@ -30,7 +29,7 @@ import type { TokenDocumentPF2e } from "@scene";
 import { Check, CheckRollCallback } from "@system/check/check.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import { CheckCheckContext, CheckType, RollTwiceOption } from "@system/check/types.ts";
-import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success.ts";
+import { CheckDC, extractDegreeOfSuccessAdjustments, getIncapacitationAdjustment } from "@system/degree-of-success.ts";
 import { ErrorPF2e, objectHasKey, signedInteger, sluggify } from "@util";
 import * as R from "remeda";
 import { BaseStatistic } from "./base.ts";
@@ -533,7 +532,16 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         }
 
         // Add any degree of success adjustments if rolling against a DC
-        const dosAdjustments = dc ? extractDegreeOfSuccessAdjustments(selfActor.synthetics, domains) : [];
+        const opposingActor = selfIsTarget ? (rollContext.origin?.actor ?? null) : targetActor;
+        const dosAdjustments = dc
+            ? extractDegreeOfSuccessAdjustments({
+                  self: selfActor,
+                  selfRole: selfIsTarget ? "target" : "origin",
+                  opposer: opposingActor,
+                  domains,
+                  options,
+              })
+            : [];
 
         // Handle special case of incapacitation trait
         if ((options.has("incapacitation") || options.has("item:trait:incapacitation")) && dc) {
@@ -542,26 +550,13 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                 : item?.isOfType("physical")
                   ? item.level
                   : (originActor?.level ?? selfActor.level);
-
-            const amount =
-                this.type === "saving-throw" && selfActor.level > effectLevel
-                    ? DEGREE_ADJUSTMENT_AMOUNTS.INCREASE
-                    : !!targetActor &&
-                        targetActor.level > effectLevel &&
-                        ["attack-roll", "spell-attack-roll", "skill-check"].includes(this.type)
-                      ? DEGREE_ADJUSTMENT_AMOUNTS.LOWER
-                      : null;
-
-            if (amount) {
-                dosAdjustments.push({
-                    adjustments: {
-                        all: {
-                            label: "PF2E.TraitIncapacitation",
-                            amount,
-                        },
-                    },
-                });
-            }
+            const incapacitation = getIncapacitationAdjustment({
+                checkType: this.type,
+                effectLevel,
+                selfLevel: selfActor.level,
+                targetLevel: targetActor?.level ?? null,
+            });
+            if (incapacitation) dosAdjustments.push(incapacitation);
         }
         const mapIncreases = Math.clamp((args.attackNumber ?? 1) - 1, 0, 2) as ZeroToTwo;
 

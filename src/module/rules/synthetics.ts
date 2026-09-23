@@ -9,6 +9,7 @@ import type {
     Modifier,
     ModifierAdjustment,
 } from "@actor/modifiers.ts";
+import type { RollRole } from "@actor/roll-context/types.ts";
 import type { MovementType } from "@actor/types.ts";
 import type { TokenAnimationOptions } from "@client/_module.d.mts";
 import type { TokenDocumentUUID } from "@client/documents/_module.d.mts";
@@ -39,6 +40,7 @@ interface RuleElementSynthetics {
     damageAlterations: Record<string, DamageAlteration[]>;
     damageDice: DamageDiceSynthetics;
     degreeOfSuccessAdjustments: Record<string, DegreeOfSuccessAdjustment[]>;
+    opposingDegreeOfSuccessAdjustments: Record<RollRole, Record<string, DegreeOfSuccessAdjustment[]>>;
     dexterityModifierCaps: DexterityModifierCapData[];
     itemAlterations: ItemAlterationRuleElement[];
     ephemeralEffects: Record<
