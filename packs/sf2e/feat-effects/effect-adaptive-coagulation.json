@@ -4,7 +4,7 @@
     "name": "Effect: Adaptive Coagulation",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Adaptive Coagulation]</p>\n<p>You gain resistance to a chosen type of persistent damage.</p>"
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Adaptive Coagulation]</p>\n<p>You gain resistance to a chosen type of persistent damage equal to half your level.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -37,7 +37,7 @@
                 ],
                 "key": "Resistance",
                 "type": "custom",
-                "value": "(@actor.level/2)"
+                "value": "floor(@actor.level/2)"
             }
         ],
         "start": {
