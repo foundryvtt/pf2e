@@ -1,38 +1,35 @@
 {
-    "_id": "Fast9FOOLm7DB9KO",
-    "folder": "Kr8jv3smQk84ZUuR",
+    "_id": "1DYsBxM5Z5Mm5Aaq",
+    "folder": "H6kP7IJrL18jLIo6",
     "img": "systems/sf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ODpL2eCQ2qseaerw",
+            "_id": "MEKJajyIjjA9R1O8",
             "img": "systems/sf2e/icons/default-icons/melee.svg",
-            "name": "Beak",
+            "name": "pseudopod",
             "sort": 100000,
             "system": {
                 "action": "strike",
                 "area": null,
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "grab"
+                    ]
                 },
                 "bonus": {
-                    "value": 6
+                    "value": 11
                 },
                 "damageRolls": {
-                    "CcqfZCeMB0AjjbAy": {
-                        "damage": "1d4",
-                        "damageType": "piercing"
-                    },
-                    "NpIe0UgegeWgV1NF": {
-                        "category": "persistent",
-                        "damage": "1",
-                        "damageType": "bleed"
+                    "PDZgxlZlKzW2lvR0": {
+                        "damage": "1d8+4",
+                        "damageType": "bludgeoning"
                     }
                 },
                 "description": {
                     "value": ""
                 },
                 "publication": {
-                    "license": "ORC",
+                    "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
@@ -42,17 +39,15 @@
                 "subjectToMAP": true,
                 "traits": {
                     "config": {},
-                    "value": [
-                        "finesse"
-                    ]
+                    "value": []
                 }
             },
             "type": "melee"
         },
         {
-            "_id": "OSdoAIG8NnhtYD48",
+            "_id": "h9aVtohG3Kq28yNt",
             "img": "systems/sf2e/icons/default-icons/action.svg",
-            "name": "Bloodsense",
+            "name": "Motion Sense",
             "sort": 200000,
             "system": {
                 "actionType": {
@@ -63,7 +58,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>A bloodspawned screecher can detect blood inside creatures' bodies as an imprecise sense at the listed range. This is a precise sense against creatures actively bleeding.</p>"
+                    "value": "<p>A chocolate ooze can feel nearby motion through vibration and air movement.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -79,115 +74,135 @@
             "type": "action"
         },
         {
-            "_id": "4FCrFJym0I3cUuts",
+            "_id": "q7UENPqqcV2FqvRQ",
             "img": "systems/sf2e/icons/default-icons/action.svg",
-            "name": "Shriek",
+            "name": "Melts in Your Mouth",
             "sort": 300000,
             "system": {
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 2
+                    "value": null
                 },
-                "category": "offensive",
+                "category": "defensive",
                 "description": {
-                    "value": "<p>The bloodspawned screecher releases a disorienting shriek in a @Template[type:cone|distance:15] that deals @Damage[1d6[sonic]|options:area-damage] damage to each creature within the area (@Check[fortitude|dc:14|basic] save). If the bloodspawned screecher deals damage to a creature taking persistent bleed damage with Shriek, this use of Shriek doesn't count toward its frequency.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT1M"
+                    "value": "<p>Chocolate oozes are magically delicious. A chocolate ooze takes 5 additional damage from Strikes that come from jaws, fangs, or similar Strike's from a creature's mouth.</p>"
                 },
                 "publication": {
-                    "license": "ORC",
+                    "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "value": [
-                        "mental",
-                        "sonic"
-                    ]
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lVVS57CJm6jy3tdv",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Not In Your Hand",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The chocolate ooze is covered in a sticky, sugary coating. Any creature that hits the chocolate ooze, is hit by the chocolate ooze, or otherwise touches the chocolate ooze must succeed at a @Check[reflex|dc:15] save or become @UUID[Compendium.sf2e.conditions.Item.Grabbed] ([[/act escape dc=15]]).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
                 }
             },
             "type": "action"
         }
     ],
-    "name": "Bloodspawned Screechers",
+    "name": "Chocolate Ooze",
     "system": {
         "abilities": {
             "cha": {
-                "mod": -2
-            },
-            "con": {
-                "mod": 1
-            },
-            "dex": {
-                "mod": 3
-            },
-            "int": {
-                "mod": -4
-            },
-            "str": {
                 "mod": 0
             },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": -2
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 4
+            },
             "wis": {
-                "mod": 2
+                "mod": 0
             }
         },
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 14
+                "value": 10
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 6,
+                "max": 65,
                 "temp": 0,
-                "value": 6
+                "value": 65
             },
-            "resistances": [
+            "immunities": [
                 {
-                    "doubleVs": [],
                     "exceptions": [],
-                    "type": "fire",
-                    "value": 2
+                    "type": "bleed"
                 },
                 {
-                    "doubleVs": [],
                     "exceptions": [],
-                    "type": "mental",
-                    "value": 2
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                },
+                {
+                    "exceptions": [],
+                    "type": "visual"
                 }
             ],
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "fly",
-                        "value": 60
+                        "type": "climb",
+                        "value": 10
                     }
                 ],
-                "value": 10
+                "value": 20
             },
             "weaknesses": [
                 {
                     "exceptions": [],
-                    "type": "bleed",
-                    "value": 2
-                },
-                {
-                    "exceptions": [],
-                    "type": "cold",
-                    "value": 2
-                },
-                {
-                    "exceptions": [],
-                    "type": "holy",
+                    "type": "fire",
                     "value": 2
                 }
             ]
@@ -199,33 +214,33 @@
                 "value": []
             },
             "level": {
-                "value": -1
+                "value": 1
             },
             "privateNotes": "",
             "publicNotes": "",
             "publication": {
-                "license": "OGL",
+                "license": "ORC",
                 "remaster": false,
-                "title": ""
+                "title": "Starfinder Society Adventures : 2-03 Bittersweet"
             }
         },
         "initiative": {
             "statistic": "perception"
         },
         "perception": {
-            "details": "Bloodsense (imprecise) 60 feet",
-            "mod": 6,
+            "details": "motion sense (precise) 60 feet, no vision",
+            "mod": 8,
             "senses": []
         },
         "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 3
+                "value": 12
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 7
+                "value": 2
             },
             "will": {
                 "saveDetail": "",
@@ -233,21 +248,18 @@
             }
         },
         "skills": {
-            "acrobatics": {
-                "base": 5
-            },
-            "survival": {
-                "base": 4
+            "athletics": {
+                "base": 10
             }
         },
         "traits": {
             "rarity": "uncommon",
             "size": {
-                "value": "sm"
+                "value": "lg"
             },
             "value": [
-                "fiend",
-                "unholy"
+                "mindless",
+                "ooze"
             ]
         }
     },

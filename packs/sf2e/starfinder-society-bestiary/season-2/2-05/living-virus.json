@@ -1,12 +1,12 @@
 {
-    "_id": "Fast9FOOLm7DB9KO",
-    "folder": "Kr8jv3smQk84ZUuR",
+    "_id": "pgfrHXRaghYDoONC",
+    "folder": "KytdJDZhYCuKOXf3",
     "img": "systems/sf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ODpL2eCQ2qseaerw",
+            "_id": "hH2btjEsD41FHod8",
             "img": "systems/sf2e/icons/default-icons/melee.svg",
-            "name": "Beak",
+            "name": "injector",
             "sort": 100000,
             "system": {
                 "action": "strike",
@@ -18,21 +18,16 @@
                     "value": 6
                 },
                 "damageRolls": {
-                    "CcqfZCeMB0AjjbAy": {
-                        "damage": "1d4",
+                    "N0LbysCfwyrBq4VP": {
+                        "damage": "1d4+1",
                         "damageType": "piercing"
-                    },
-                    "NpIe0UgegeWgV1NF": {
-                        "category": "persistent",
-                        "damage": "1",
-                        "damageType": "bleed"
                     }
                 },
                 "description": {
                     "value": ""
                 },
                 "publication": {
-                    "license": "ORC",
+                    "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
@@ -43,6 +38,7 @@
                 "traits": {
                     "config": {},
                     "value": [
+                        "agile",
                         "finesse"
                     ]
                 }
@@ -50,20 +46,64 @@
             "type": "melee"
         },
         {
-            "_id": "OSdoAIG8NnhtYD48",
-            "img": "systems/sf2e/icons/default-icons/action.svg",
-            "name": "Bloodsense",
+            "_id": "ZrARME0RQbl1yYSz",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "remote glitch",
             "sort": 200000,
             "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 6
+                },
+                "damageRolls": {
+                    "Q3bpYmhQoUIqFoCt": {
+                        "damage": "1d4",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "tech"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "xS3FkrZeXpBZBifw",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Deliver Payload",
+            "sort": 400000,
+            "system": {
                 "actionType": {
-                    "value": "passive"
+                    "value": "action"
                 },
                 "actions": {
-                    "value": null
+                    "value": 1
                 },
-                "category": "interaction",
+                "category": "offensive",
                 "description": {
-                    "value": "<p>A bloodspawned screecher can detect blood inside creatures' bodies as an imprecise sense at the listed range. This is a precise sense against creatures actively bleeding.</p>"
+                    "value": "<p><strong>Requirements</strong> The living virus' last action was a successful injector Strike</p><hr /><p><strong>Effect</strong> The living virus injects the target with a degrading corruption, dealing @Damage[1d4[poison]] damage. The target must attempt a @Check[fortitude|dc:13] save.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage and becomes @UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target takes double damage and becomes clumsy 1 for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -73,65 +113,31 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4FCrFJym0I3cUuts",
-            "img": "systems/sf2e/icons/default-icons/action.svg",
-            "name": "Shriek",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The bloodspawned screecher releases a disorienting shriek in a @Template[type:cone|distance:15] that deals @Damage[1d6[sonic]|options:area-damage] damage to each creature within the area (@Check[fortitude|dc:14|basic] save). If the bloodspawned screecher deals damage to a creature taking persistent bleed damage with Shriek, this use of Shriek doesn't count toward its frequency.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT1M"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
                     "value": [
-                        "mental",
-                        "sonic"
+                        "tech"
                     ]
                 }
             },
             "type": "action"
         }
     ],
-    "name": "Bloodspawned Screechers",
+    "name": "Living Virus",
     "system": {
         "abilities": {
             "cha": {
-                "mod": -2
+                "mod": 0
             },
             "con": {
                 "mod": 1
             },
             "dex": {
-                "mod": 3
+                "mod": 2
             },
             "int": {
-                "mod": -4
+                "mod": 1
             },
             "str": {
-                "mod": 0
+                "mod": 1
             },
             "wis": {
                 "mod": 2
@@ -140,54 +146,30 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 14
+                "value": 13
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 6,
+                "max": 18,
                 "temp": 0,
-                "value": 6
+                "value": 18
             },
-            "resistances": [
-                {
-                    "doubleVs": [],
-                    "exceptions": [],
-                    "type": "fire",
-                    "value": 2
-                },
-                {
-                    "doubleVs": [],
-                    "exceptions": [],
-                    "type": "mental",
-                    "value": 2
-                }
-            ],
             "speed": {
                 "otherSpeeds": [
                     {
                         "type": "fly",
-                        "value": 60
+                        "value": 30
                     }
                 ],
-                "value": 10
+                "value": 20
             },
             "weaknesses": [
                 {
                     "exceptions": [],
-                    "type": "bleed",
-                    "value": 2
-                },
-                {
-                    "exceptions": [],
-                    "type": "cold",
-                    "value": 2
-                },
-                {
-                    "exceptions": [],
-                    "type": "holy",
+                    "type": "electricity",
                     "value": 2
                 }
             ]
@@ -199,21 +181,21 @@
                 "value": []
             },
             "level": {
-                "value": -1
+                "value": 0
             },
             "privateNotes": "",
             "publicNotes": "",
             "publication": {
-                "license": "OGL",
+                "license": "ORC",
                 "remaster": false,
-                "title": ""
+                "title": "Starfinder Society Adventures : 2-05 File Corrupted"
             }
         },
         "initiative": {
             "statistic": "perception"
         },
         "perception": {
-            "details": "Bloodsense (imprecise) 60 feet",
+            "details": "",
             "mod": 6,
             "senses": []
         },
@@ -225,29 +207,32 @@
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 7
+                "value": 8
             },
             "will": {
                 "saveDetail": "",
-                "value": 4
+                "value": 6
             }
         },
         "skills": {
             "acrobatics": {
+                "base": 6
+            },
+            "computers": {
                 "base": 5
             },
-            "survival": {
-                "base": 4
+            "stealth": {
+                "base": 6
             }
         },
         "traits": {
             "rarity": "uncommon",
             "size": {
-                "value": "sm"
+                "value": "tiny"
             },
             "value": [
-                "fiend",
-                "unholy"
+                "construct",
+                "tech"
             ]
         }
     },
