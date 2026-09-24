@@ -1,0 +1,55 @@
+{
+    "_id": "lw7i49nuCMYeppDC",
+    "img": "icons/equipment/back/cloak-layered-white.webp",
+    "name": "Effect: On Angel's Wings",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Angelic Opera Cloak]</p>\n<p>You gain a fly Speed of 40 feet, and you gain immunity to paralysis effects and ignore effects that would give you a circumstance penalty to speed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 19
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #206: Bring the House Down"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": 40
+            },
+            {
+                "key": "Immunity",
+                "type": "paralyzed"
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "penalty:type:circumstance"
+                ],
+                "selector": "all-speeds",
+                "suppress": true
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

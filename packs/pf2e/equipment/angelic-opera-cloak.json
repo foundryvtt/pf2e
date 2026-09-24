@@ -12,7 +12,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>This luxurious cloak embodies an angel's swiftness. You gain a +3 item bonus to Acrobatics checks and never take falling damage, as your cloak billows like a pair of wings to soften any fall you take. When you invest in the cloak, you either increase your Dexterity modifier by 1 or increase it to +4, whichever would give you a higher value. If you are unholy, you are @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} while wearing this cloak.</p>\n<p><strong>Activate—On Angel's Wings</strong> <span class=\"action-glyph\">2</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The opera cloak transforms into two pairs of brilliant, feathered wings that grant you a fly Speed of 40 feet for 10 minutes. During this time, you gain immunity to paralysis effects and ignore effects that would give you a circumstance penalty to speed.</p>"
+            "value": "<p>This luxurious cloak embodies an angel's swiftness. You gain a +3 item bonus to Acrobatics checks and never take falling damage, as your cloak billows like a pair of wings to soften any fall you take. When you invest in the cloak, you either increase your Dexterity modifier by 1 or increase it to +4, whichever would give you a higher value. If you are unholy, you are @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} while wearing this cloak.</p><hr /><p><strong>Activate—On Angel's Wings</strong> <span class=\"action-glyph\">2</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Effect</strong> The opera cloak transforms into two pairs of brilliant, feathered wings that grant you a fly Speed of 40 feet for 10 minutes. During this time, you gain immunity to paralysis effects and ignore effects that would give you a circumstance penalty to speed.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: On Angel's Wings]</p>"
         },
         "hardness": 0,
         "hp": {
@@ -43,6 +43,22 @@
                 "selector": "acrobatics",
                 "type": "item",
                 "value": 3
+            },
+            {
+                "definition": [
+                    "fall-damage"
+                ],
+                "key": "Immunity",
+                "label": "PF2E.IWR.Custom.FallDamage",
+                "type": "custom"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "self:trait:unholy"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
             }
         ],
         "size": "med",
