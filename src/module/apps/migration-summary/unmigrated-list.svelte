@@ -113,6 +113,7 @@
 
             &:hover {
                 box-shadow: none;
+                color: inherit;
                 text-shadow: none;
             }
 

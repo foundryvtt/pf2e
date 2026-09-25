@@ -5,13 +5,14 @@
     import Level from "./filters/level.svelte";
     import Ranges from "./filters/ranges.svelte";
     import Checkboxes from "./filters/checkboxes.svelte";
-    import type { BrowserFilter, CheckboxData, LevelData, RangesInputData } from "../tabs/data.ts";
+    import type { BrowserFilter, CheckboxData, LevelData, RangeInputParser, RangesInputData } from "../tabs/data.ts";
 
     interface FilterProps {
         filter: BrowserFilter;
         resetFilters: () => void;
+        parseRangeInput: RangeInputParser;
     }
-    const { filter = $bindable(), resetFilters }: FilterProps = $props();
+    const { filter = $bindable(), resetFilters, parseRangeInput }: FilterProps = $props();
 
     function onChangeSortOrder(): void {
         filter.order.direction = filter.order.direction === "asc" ? "desc" : "asc";
@@ -41,9 +42,7 @@
                 data.to = data.max;
                 data.changed = false;
             } else if ("values" in data && options?.name) {
-                const activeTab = game.pf2e.compendiumBrowser.activeTab;
-                if (!activeTab) return;
-                data.values = activeTab.parseRangeFilterInput(options.name, data.defaultMin, data.defaultMax);
+                data.values = parseRangeInput(options.name, data.defaultMin, data.defaultMax);
                 data.changed = false;
             }
         };
@@ -72,7 +71,7 @@
                 {_loc("PF2E.CompendiumBrowser.Filter.OrderByLabel")}:
                 <div class="select-container">
                     <select bind:value={filter.order.by} onchange={onChangeSortValue}>
-                        {#each R.entries(filter.order.options) as [key, data]}
+                        {#each R.entries(filter.order.options) as [key, data] (key)}
                             <option value={key}>{_loc(data.label)}</option>
                         {/each}
                     </select>
@@ -86,13 +85,13 @@
                 </div>
             </label>
             {#if "selects" in filter}
-                {#each R.entries(filter.selects) as [key, data]}
+                {#each R.entries(filter.selects) as [key, data] (key)}
                     <label>
                         {_loc(data.label)}:
                         <div class="select-container">
                             <select bind:value={filter.selects[key].selected} data-key={key}>
                                 <option value="">-</option>
-                                {#each R.entries(data.options) as [key, label]}
+                                {#each R.entries(data.options) as [key, label] (key)}
                                     <option value={key}>{_loc(label)}</option>
                                 {/each}
                             </select>
@@ -108,7 +107,7 @@
     <FilterContainer label="PF2E.Traits">
         <Traits bind:traits={filter.traits} />
     </FilterContainer>
-    {#each Object.entries(filter.checkboxes) as [key, checkbox]}
+    {#each Object.entries(filter.checkboxes) as [key, checkbox] (key)}
         {#if !R.isEmpty(checkbox.options)}
             <FilterContainer
                 isExpanded={checkbox.isExpanded}
@@ -135,13 +134,13 @@
         </FilterContainer>
     {/if}
     {#if "ranges" in filter}
-        {#each R.entries(filter.ranges) as [name, range]}
+        {#each R.entries(filter.ranges) as [name, range] (name)}
             <FilterContainer
                 isExpanded={range.isExpanded}
                 clearButton={{ options: { visible: range.changed }, clear: getClearFunction(range, { name }) }}
                 label={range.label}
             >
-                <Ranges bind:range={filter.ranges[name]} {name} />
+                <Ranges bind:range={filter.ranges[name]} {name} {parseRangeInput} />
             </FilterContainer>
         {/each}
     {/if}
@@ -167,7 +166,7 @@
     }
 
     .headercontainer {
-        border: 1px solid #bbb;
+        border: 2px groove var(--color-fieldset-border);
         border-radius: 5px;
         margin-top: 5px;
         padding: var(--space-6);
