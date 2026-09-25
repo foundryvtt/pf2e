@@ -1,0 +1,68 @@
+{
+    "_id": "oarBuzYXLl10pcO9",
+    "img": "systems/pf2e/icons/spells/summon-instrument.webp",
+    "name": "Spell Effect: Summon Instrument",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Summon Instrument]</p>\n<p>You materialize a handheld musical instrument in your grasp.</p><hr /><p><strong>Heightened (5th)</strong> The instrument is instead a virtuoso handheld instrument.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "granter": "cascade"
+                },
+                "predicate": [
+                    {
+                        "lt": [
+                            "{item|level}",
+                            5
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.equipment-srd.Item.Musical Instrument (Handheld)"
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "granter": "cascade"
+                },
+                "predicate": [
+                    {
+                        "gte": [
+                            "{item|level}",
+                            5
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.equipment-srd.Item.Musical Instrument (Virtuoso handheld)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
