@@ -7,12 +7,12 @@ import {
     ModifierAdjustment,
     StatisticModifier,
 } from "@actor/modifiers.ts";
+import type { RollRole } from "@actor/roll-context/types.ts";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { ConditionSource, EffectSource, ItemSourcePF2e, PhysicalItemSource } from "@item/base/data/index.ts";
 import type { PickableThing } from "@module/apps/pick-a-thing-prompt/app.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { BaseDamageData } from "@system/damage/index.ts";
-import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import { RollTwiceOption } from "@system/rolls.ts";
 import { DataUnionField, RecordField, StrictNumberField, StrictStringField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
@@ -124,7 +124,7 @@ async function extractEphemeralEffects({
 }
 
 interface ExtractEphemeralEffectsParams {
-    affects: "target" | "origin";
+    affects: RollRole;
     origin: ActorPF2e | null;
     target: ActorPF2e | null;
     item: ItemPF2e | null;
@@ -154,17 +154,6 @@ function extractRollSubstitutions(
     return domains
         .flatMap((d) => fu.deepClone(substitutions[d] ?? []))
         .filter((s) => s.predicate?.test(rollOptions) ?? true);
-}
-
-function extractDegreeOfSuccessAdjustments(
-    synthetics: Pick<RuleElementSynthetics, "degreeOfSuccessAdjustments">,
-    selectors: string[],
-): DegreeOfSuccessAdjustment[] {
-    return selectors.reduce((adjustments: DegreeOfSuccessAdjustment[], selector) => {
-        const forSelector = synthetics.degreeOfSuccessAdjustments[selector] ?? [];
-        adjustments.push(...forSelector);
-        return adjustments;
-    }, []);
 }
 
 async function processPreUpdateActorHooks(
@@ -342,7 +331,6 @@ export {
     createPreselectChoicesField,
     extractDamageAlterations,
     extractDamageDice,
-    extractDegreeOfSuccessAdjustments,
     extractEphemeralEffects,
     extractModifierAdjustments,
     extractModifiers,

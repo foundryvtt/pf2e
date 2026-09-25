@@ -3,20 +3,17 @@ import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-prog
 import type { StrikeData } from "@actor/data/base.ts";
 import { getRangeIncrement } from "@actor/helpers.ts";
 import { CheckModifier, Modifier, ensureProficiencyOption } from "@actor/modifiers.ts";
+import { CheckContext } from "@actor/roll-context/check.ts";
 import type { RollOrigin, RollTarget } from "@actor/roll-context/types.ts";
 import type { ItemPF2e, WeaponPF2e } from "@item";
 import type { AbilityTrait } from "@item/ability/types.ts";
 import type { WeaponTrait } from "@item/weapon/types.ts";
 import { RollNotePF2e } from "@module/notes.ts";
-import {
-    extractDegreeOfSuccessAdjustments,
-    extractModifierAdjustments,
-    extractRollSubstitutions,
-} from "@module/rules/helpers.ts";
+import { extractModifierAdjustments, extractRollSubstitutions } from "@module/rules/helpers.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { Check, CheckType } from "@system/check/index.ts";
-import type { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
+import { CheckDC, DegreeOfSuccessString, extractDegreeOfSuccessAdjustments } from "@system/degree-of-success.ts";
 import { CheckDCReference, Statistic } from "@system/statistic/index.ts";
 import { sluggify } from "@util";
 import { getSelectedActors } from "@util/token-actor-utils.ts";
@@ -239,7 +236,24 @@ class ActionMacroHelpers {
                         domains,
                         finalOptions,
                     );
-                    const dosAdjustments = extractDegreeOfSuccessAdjustments(actor.synthetics, domains);
+                    const opposer = targetData.actor
+                        ? ((
+                              await new CheckContext({
+                                  origin: { actor, token: selfToken, statistic, item: weapon ?? null },
+                                  target: { actor: targetData.actor, token: targetData.token ?? null },
+                                  domains,
+                                  options: finalOptions,
+                                  traits: actionTraits,
+                              }).resolve()
+                          ).target?.actor ?? null)
+                        : null;
+                    const dosAdjustments = extractDegreeOfSuccessAdjustments({
+                        self: selfActor,
+                        selfRole: "origin",
+                        opposer,
+                        domains,
+                        options: finalOptions,
+                    });
 
                     await Check.roll(
                         check,

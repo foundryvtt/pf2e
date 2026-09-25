@@ -1,4 +1,5 @@
 import type { RawDamageDice, RawModifier } from "@actor/modifiers.ts";
+import type { RollRole } from "@actor/roll-context/types.ts";
 import type { ChatMessageMode } from "@client/config.d.mts";
 import type { ActorUUID, TokenDocumentUUID } from "@client/documents/_module.d.mts";
 import type { DocumentUUID } from "@client/utils/_module.d.mts";
@@ -94,7 +95,7 @@ interface CheckContextChatFlag extends Required<Omit<CheckCheckContext, ContextF
     item?: string;
     dc?: Omit<CheckDC, "statistic"> | null;
     dosAdjustments?: DegreeAdjustmentsRecord;
-    roller?: "origin" | "target";
+    roller?: RollRole;
     origin: ActorTokenFlag | null;
     target: ActorTokenFlag | null;
     altUsage?: "thrown" | "melee" | null;

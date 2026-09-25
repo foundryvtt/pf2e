@@ -1,5 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import { Modifier } from "@actor/modifiers.ts";
+import type { RollRole } from "@actor/roll-context/types.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { EnrichmentOptions } from "@client/applications/ux/text-editor.d.mts";
@@ -1071,7 +1072,7 @@ interface CheckLinkParams {
     type: string;
     dc?: Maybe<string>;
     against: string | null;
-    rollerRole: "origin" | "target";
+    rollerRole: RollRole;
     basic: boolean;
     adjustment?: string;
     traits: string[];
