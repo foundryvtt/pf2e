@@ -25,7 +25,54 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:mythic-casting"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.MythicCasting"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "mythic-casting"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "spellshape:mythic-casting"
+                ],
+                "relabel": "PF2E.TraitMythic",
+                "selectors": [
+                    "impulse-attack-roll",
+                    "impulse-dc",
+                    "kineticist-dc",
+                    "spell-attack",
+                    "spell-attack-roll",
+                    "spell-dc"
+                ],
+                "slug": "proficiency",
+                "value": "10 + @actor.level"
+            }
+        ],
         "traits": {
             "rarity": "uncommon",
             "value": [
