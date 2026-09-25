@@ -29,7 +29,18 @@
             "remaster": true,
             "title": "Pathfinder Howl of the Wild"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.wild-mimic-lore",
+                "value": {
+                    "attribute": "int",
+                    "label": "PF2E.SpecificLore.WildMimic",
+                    "rank": "match(when(gte(@actor.system.skills.nature.rank, 4), 2),1)"
+                }
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

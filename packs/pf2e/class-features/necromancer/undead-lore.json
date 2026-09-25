@@ -25,7 +25,18 @@
             "remaster": true,
             "title": "Pathfinder Impossible Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.undead-lore",
+                "value": {
+                    "attribute": "int",
+                    "label": "{item|name}",
+                    "rank": "match(when(gte(@actor.level, 15), 4), when(gte(@actor.level, 7), 3),when(gte(@actor.level, 3), 2),1)"
+                }
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

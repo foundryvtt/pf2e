@@ -26,19 +26,18 @@
         },
         "rules": [
             {
-                "ability": "cha",
-                "force": true,
-                "key": "FlatModifier",
-                "selector": [
-                    "esoteric",
-                    "esoteric-lore",
-                    "lore-esoteric"
-                ],
-                "type": "ability"
-            },
-            {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.feats-srd.Item.Dubious Knowledge"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.esoteric-lore",
+                "value": {
+                    "attribute": "cha",
+                    "label": "{item|name}",
+                    "rank": "match(when(gte(@actor.level, 15), 4), when(gte(@actor.level, 7), 3),when(gte(@actor.level, 3), 2),1)"
+                }
             }
         ],
         "traits": {

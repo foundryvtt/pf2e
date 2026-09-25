@@ -42,6 +42,16 @@
                 ],
                 "type": "circumstance",
                 "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.loremaster-lore",
+                "value": {
+                    "attribute": "int",
+                    "label": "PF2E.SpecificLore.Loremaster",
+                    "rank": "match(when(gte(@actor.system.skills.arcana.rank, 4), 2),when(gte(@actor.system.skills.occultism.rank, 4), 2),when(gte(@actor.system.skills.nature.rank, 4), 2),when(gte(@actor.system.skills.religion.rank, 4), 2),1)"
+                }
             }
         ],
         "traits": {
