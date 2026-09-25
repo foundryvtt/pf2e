@@ -150,9 +150,6 @@
 
 <style>
     li.spell-row {
-        /* Core's light-theme highlight is near-black, so substitute a subtle tint (dark keeps core's color) */
-        --table-row-color-highlight: light-dark(rgba(0, 0, 0, 0.1), var(--color-cool-3));
-
         align-items: center;
         display: grid;
         gap: var(--space-4);
@@ -259,7 +256,7 @@
 
             :global(input[type="checkbox"]) {
                 /* Core's checkbox background is nearly the same color as table rows in dark theme */
-                --checkbox-background-color: var(--table-row-color-highlight);
+                --checkbox-background-color: light-dark(var(--color-dark-6), var(--table-row-color-highlight));
 
                 /* Core draws the box as a ::before glyph on an unstyled input, leaving the visible
                    box off-center: size the input to the glyph and center it. */

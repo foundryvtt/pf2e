@@ -62,6 +62,8 @@ interface RangesInputData {
     optionPrefix?: string;
 }
 
+type RangeInputParser = (name: string, lower: string, upper: string) => RangesInputData["values"];
+
 interface LevelData {
     changed: boolean;
     isExpanded: boolean;
@@ -184,6 +186,7 @@ export type {
     FeatFilters,
     HazardFilters,
     LevelData,
+    RangeInputParser,
     RangesInputData,
     RenderResultListOptions,
     SelectData,
