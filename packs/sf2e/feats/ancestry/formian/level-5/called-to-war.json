@@ -25,7 +25,42 @@
             "remaster": true,
             "title": "Starfinder Galactic Ancestries"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "strike-attack",
+                "type": "proficiency",
+                "value": "match()"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.attacks.martial",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            11
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.attacks.advanced",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            11
+                        ]
+                    }
+                ],
+                "value": 1
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
