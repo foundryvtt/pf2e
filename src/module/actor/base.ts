@@ -1,5 +1,6 @@
 import { ActorAlliance, ActorDimensions, ActorInstances, ApplyDamageParams, AuraData, SaveType } from "@actor/types.ts";
 import type { ToCompendiumOptions } from "@client/_types.d.mts";
+import type { Rolled } from "@client/dice/_module.d.mts";
 import type { DialogV2Configuration } from "@client/applications/api/dialog.d.mts";
 import type { ActorUUID } from "@client/documents/_module.d.mts";
 import type { DocumentConstructionContext } from "@common/_types.d.mts";
@@ -47,7 +48,8 @@ import type { RollOptionRuleElement } from "@module/rules/rule-element/roll-opti
 import type { UserPF2e } from "@module/user/document.ts";
 import type { ScenePF2e } from "@scene/document.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
-import { IWRApplicationData, applyIWR } from "@system/damage/iwr.ts";
+import { calculateAppliedDamage, type IWRApplicationData, type IWRInput } from "@system/damage/iwr.ts";
+import type { DamageInstance } from "@system/damage/roll.ts";
 import type { DamageType } from "@system/damage/types.ts";
 import type {
     ArmorStatistic,
@@ -1068,17 +1070,65 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             skipIWR = true;
         }
 
+        const isDead = this.isDead;
+        const iwrEnabled = game.pf2e.settings.iwr;
         // Round damage and healing (negative values) toward zero
-        const result: IWRApplicationData =
+        const result: IWRApplicationData | IWRInput =
             typeof damage === "number"
                 ? { finalDamage: Math.trunc(damage), applications: [], persistent: [] }
                 : skipIWR
                   ? { finalDamage: damage.total, applications: [], persistent: [] }
-                  : applyIWR(this, damage, rollOptions);
+                  : isDead
+                    ? { finalDamage: 0, applications: [], persistent: [] }
+                    : !iwrEnabled
+                      ? {
+                            finalDamage: damage.total,
+                            applications: [],
+                            persistent: damage.instances.flatMap((instance) =>
+                                instance.persistent && !instance.options.evaluatePersistent
+                                    ? [{ type: instance.type, expression: instance.head.expression }]
+                                    : [],
+                            ),
+                        }
+                      : {
+                            roll: {
+                                total: damage.total,
+                                instances: (damage.instances as Rolled<DamageInstance>[]).map((instance) => ({
+                                    type: instance.type,
+                                    total: instance.total,
+                                    persistent: instance.persistent,
+                                    evaluatePersistent: !!instance.options.evaluatePersistent,
+                                    formalDescription: instance.formalDescription,
+                                    critImmuneTotal: instance.critImmuneTotal,
+                                    precision: instance.componentTotal("precision"),
+                                    splash: instance.componentTotal("splash"),
+                                    expression:
+                                        instance.persistent && !instance.options.evaluatePersistent
+                                            ? instance.head.expression
+                                            : null,
+                                })),
+                                increasedFrom: damage.options.increasedFrom,
+                                degreeOfSuccess: damage.options.degreeOfSuccess,
+                                ignoredResistances:
+                                    damage.options.bypass?.resistance.ignore.map(
+                                        (ir) => new Resistance({ type: ir.type, value: ir.max }),
+                                    ) ?? [],
+                                irRedirects: {
+                                    immunities: damage.options.bypass?.immunity.redirect ?? [],
+                                    resistances: damage.options.bypass?.resistance.redirect ?? [],
+                                },
+                            },
+                            immunities: this.attributes.immunities,
+                            weaknesses: this.attributes.weaknesses,
+                            resistances: this.attributes.resistances,
+                            isAffectedBy: (type) => this.isAffectedBy(type),
+                            immunityTypeLabel: (type) => new Immunity({ type }).typeLabel,
+                            resistanceTypeLabel: (type) => new Resistance({ type, value: 0 }).typeLabel,
+                        };
 
         // Extract Target-specific healing adjustments (unless final)
         // Currently only healing modifiers are implemented
-        const domain = result.finalDamage < 0 ? "healing-received" : "damage-received";
+        const domain = "finalDamage" in result && result.finalDamage < 0 ? "healing-received" : "damage-received";
         const isDamage = domain === "damage-received";
         const isHealing = !isDamage;
         const { modifiers, damageDice } = (() => {
@@ -1123,26 +1173,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         // Apply stacking rules just in case even though the context of previously applied modifiers has been lost
         const modifierAdjustment = applyStackingRules(modifiers ?? []);
-        // Damage should never go negative, nor healing positive
-        const clamp = isDamage ? Math.max : Math.min;
-        // Compute result after adjustments (but before hardness) and add to breakdown
-        const finalDamage = clamp(0, result.finalDamage - (diceAdjustment + modifierAdjustment));
 
+        // Add adjustments to breakdown
         breakdown.push(
             ...damageDice.map((dice) => `${dice.label} ${dice.diceNumber}${dice.dieSize}`),
             ...modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${signedInteger(m.modifier)}`),
         );
-
-        // Extract notes based on whether it is healing or damage
-        const hasDamageOrHealing = finalDamage !== 0;
-        const extractedNotes = hasDamageOrHealing
-            ? extractNotes(this.synthetics.rollNotes, [domain]).filter(
-                  (n) =>
-                      (!outcome || n.outcome.length === 0 || n.outcome.includes(outcome)) &&
-                      n.predicate.test(rollOptions),
-              )
-            : [];
-        notes.push(...extractedNotes);
 
         // Calculate damage to hit points and shield
         const locPrefix = "PF2E.Actor.ApplyDamage";
@@ -1170,65 +1206,54 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                   })()
                 : false;
 
-        const shieldHardness = shieldBlock ? (actorShield?.hardness ?? 0) : 0;
-        const damageAbsorbedByShield = finalDamage > 0 ? Math.min(shieldHardness, finalDamage) : 0;
         // The blocking shield may not be the held shield, such as in when the Shield spell is in play
         const blockingShield = heldShield?.id === actorShield?.itemId ? heldShield : null;
         const currentShieldHP = blockingShield ? blockingShield._source.system.hp.value : (actorShield?.hp.value ?? 0);
-        const shieldDamage = shieldBlock
-            ? Math.min(currentShieldHP, Math.abs(finalDamage) - damageAbsorbedByShield)
-            : 0;
 
-        // Reduce damage by actor hardness
-        const baseActorHardness = this.hardness;
-        const effectiveActorHardness = ((): number => {
-            if (final) return 0;
+        const damageHasAdamantine = typeof damage === "number" ? false : damage.materials.has("adamantine");
+        const materialGrade =
+            item?.isOfType("weapon") && item.system.material.type === "adamantine"
+                ? (item.system.material.grade ?? "standard")
+                : "standard";
 
-            // "[Adamantine weapons] treat any object they hit as if it had half as much Hardness as usual, unless the
-            // object's Hardness is greater than that of the adamantine weapon."
-            const damageHasAdamantine = typeof damage === "number" ? false : damage.materials.has("adamantine");
-            const materialGrade =
-                item?.isOfType("weapon") && item.system.material.type === "adamantine"
-                    ? (item.system.material.grade ?? "standard")
-                    : "standard";
-            // Hardness values for thin adamantine items (inclusive of weapons):
-            const itemHardness = {
-                low: 0, // low-grade adamantine doesn't exist
-                standard: 10,
-                high: 13,
-            }[materialGrade];
-            return damageHasAdamantine && itemHardness >= baseActorHardness
-                ? Math.floor(baseActorHardness / 2)
-                : baseActorHardness;
-        })();
-
-        // Include actor-hardness absorption in list of damage modifications
-        const damageAbsorbedByActor =
-            finalDamage > 0 ? Math.min(finalDamage - damageAbsorbedByShield, effectiveActorHardness) : 0;
-        if (damageAbsorbedByActor > 0) {
-            const typeLabel =
-                effectiveActorHardness === baseActorHardness
-                    ? "PF2E.Damage.Hardness.Full"
-                    : "PF2E.Damage.Hardness.Half";
-            result.applications.push({
-                category: "reduction",
-                type: _loc(typeLabel),
-                adjustment: -1 * damageAbsorbedByActor,
-            });
-        }
-
-        const damageResult = this.calculateHealthDelta({
-            hp: hitPoints,
+        const damageResult = calculateAppliedDamage({
+            result,
+            rollOptions,
+            isDamage,
+            final,
+            diceAdjustment,
+            modifierAdjustment,
+            shield: shieldBlock ? { hardness: actorShield?.hardness ?? 0, hp: currentShieldHP } : null,
+            baseActorHardness: this.hardness,
+            damageHasAdamantine,
+            materialGrade,
+            hitPoints,
             sp: this.isOfType("character") ? this.attributes.hp.sp : null,
-            delta: finalDamage - damageAbsorbedByShield - damageAbsorbedByActor,
+            staminaVariant: game.pf2e.settings.variants.stamina,
+            thresholds: this.isOfType("npc") ? this.system.attributes.hp.thresholds : null,
+            immuneToDeathEffects: this.attributes.immunities.some((i) => i.type === "death-effects"),
+            isUndeadNPC: this.isOfType("npc") && this.modeOfBeing === "undead",
         });
+        const {
+            finalDamage,
+            damageAbsorbedByShield,
+            shieldDamage,
+            damageAbsorbedByActor,
+            reachedThreshold,
+            newThreshold,
+            instantDeath,
+        } = damageResult;
 
-        // Test troop thresholds. If reached, print a message with remaining thresholds later
-        const thresholds = this.isOfType("npc") ? this.system.attributes.hp.thresholds : null;
-        const currentThreshold = thresholds?.findLast((t) => t.hp >= hitPoints.value);
-        const newThreshold = thresholds?.findLast((t) => t.hp >= damageResult.updates["system.attributes.hp.value"]);
-        const reachedThreshold =
-            newThreshold && currentThreshold && currentThreshold.segments !== newThreshold.segments;
+        // Extract notes based on whether it is healing or damage
+        const hasDamageOrHealing = finalDamage !== 0;
+        const extractedNotes = hasDamageOrHealing
+            ? extractNotes(this.synthetics.rollNotes, [domain]).filter(
+                  (n) =>
+                      (!outcome || n.outcome.length === 0 || n.outcome.includes(outcome)) &&
+                      n.predicate.test(rollOptions),
+              )
+            : [];
+        notes.push(...extractedNotes);
 
         // Save the pre-update state to calculate undo values
         const preUpdateSource = this.toObject();
@@ -1240,23 +1265,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 { render: damageResult.totalApplied === 0 },
             );
         }
-
-        const staminaMax = this.isOfType("character") ? (this.attributes.hp.sp?.max ?? 0) : 0;
-        const instantDeath = ((): string | null => {
-            if (damageResult.totalApplied <= 0 || damageResult.updates["system.attributes.hp.value"] !== 0) {
-                return null;
-            }
-            return rollOptions.has("item:trait:death") &&
-                !this.attributes.immunities.some((i) => i.type === "death-effects")
-                ? "death-effect"
-                : rollOptions.has("item:type:spell") && rollOptions.has("item:slug:disintegrate")
-                  ? "fine-powder"
-                  : this.isOfType("npc") && this.modeOfBeing === "undead"
-                    ? "destroyed"
-                    : damageResult.totalApplied >= (hitPoints.max + staminaMax) * 2
-                      ? "massive-damage"
-                      : null;
-        })();
 
         // This gets a special visual effect
         const finePowder = instantDeath === "fine-powder";
@@ -1283,10 +1291,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         // Apply persistent damage as conditions
         const persistentDamage = hitPoints.max
-            ? result.persistent.map((instance) => {
+            ? damageResult.persistent.map((instance) => {
                   const condition = game.pf2e.ConditionManager.getCondition("persistent-damage").toObject();
                   condition.system.persistent = {
-                      formula: instance.head.expression,
+                      formula: instance.expression,
                       damageType: instance.type,
                       dc: 15,
                       criticalHit: damage instanceof Roll ? damage.options.degreeOfSuccess === 3 : false,
@@ -1305,8 +1313,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         ) as ConditionPF2e<this>[];
 
         const persistentDamages = game.i18n.getListFormatter({ style: "long", type: "conjunction" }).format(
-            result.persistent.map((instance) => {
-                const formula = instance.head.expression;
+            damageResult.persistent.map((instance) => {
+                const formula = instance.expression;
                 const damageType = _loc(CONFIG.PF2E.damageRollFlavors[instance.type]);
                 return instance.type === "bleed"
                     ? _loc(`${locPrefix}.PersistentEntry.bleed`, { formula, damageType })
@@ -1377,7 +1385,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     ? []
                     : persistentCreated.map((p) => p.system.persistent?.damage.formula).filter(R.isDefined),
                 iwr: {
-                    applications: result.applications,
+                    applications: damageResult.applications.map((a) =>
+                        a.category === "reduction" ? { ...a, type: _loc(a.type) } : a,
+                    ),
                     visibility: this.hasPlayerOwner ? "all" : "gm",
                 },
                 canUndoDamage,
@@ -1647,43 +1657,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 "system.equipped.inSlot": false,
             });
         }
-    }
-
-    /** Determine actor updates for applying damage/healing across temporary hit points, stamina, and then hit points */
-    private calculateHealthDelta(args: {
-        hp: { max: number; value: number; temp: number };
-        sp?: Maybe<{ max: number; value: number }>;
-        delta: number;
-    }) {
-        const updates: Record<string, number> = {};
-        const { hp, sp, delta } = args;
-        if (hp.max === 0) return { updates, totalApplied: 0 };
-
-        const appliedToTemp = ((): number => {
-            if (!hp.temp || delta <= 0) return 0;
-            const applied = Math.min(hp.temp, delta);
-            updates["system.attributes.hp.temp"] = Math.max(hp.temp - applied, 0);
-
-            return applied;
-        })();
-
-        const appliedToSP = ((): number => {
-            const staminaEnabled = !!sp && game.pf2e.settings.variants.stamina;
-            if (!staminaEnabled || delta <= 0) return 0;
-            const remaining = delta - appliedToTemp;
-            const applied = Math.min(sp.value, remaining);
-            updates["system.attributes.hp.sp.value"] = Math.max(sp.value - applied, 0);
-            return applied;
-        })();
-
-        const appliedToHP = ((): number => {
-            const remaining = delta - appliedToTemp - appliedToSP;
-            updates["system.attributes.hp.value"] = Math.clamp(hp.value - remaining, 0, hp.max);
-            return remaining;
-        })();
-        const totalApplied = appliedToTemp + appliedToSP + appliedToHP;
-
-        return { updates, totalApplied };
     }
 
     /**

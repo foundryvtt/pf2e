@@ -1,44 +1,162 @@
-import type { ActorPF2e } from "@actor";
-import { Immunity, Resistance, Weakness } from "@actor/data/iwr.ts";
-import { ResistanceType } from "@actor/types.ts";
-import type { Rolled } from "@client/dice/_module.d.mts";
+import type { Immunity, Resistance, Weakness } from "@actor/data/iwr.ts";
+import type { ResistanceType } from "@actor/types.ts";
+import type { PreciousMaterialGrade } from "@item/physical/types.ts";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
-import { tupleHasValue } from "@util";
+import { tupleHasValue } from "@util/misc.ts";
 import * as R from "remeda";
-import { DamageCategorization } from "./helpers.ts";
-import { DamageInstance, DamageRoll } from "./roll.ts";
 import type { DamageType, ImmunityRedirect, ResistanceRedirect } from "./types.ts";
+import { BASE_DAMAGE_TYPES_TO_CATEGORIES } from "./values.ts";
+
+/** Resolve IWR (unless already resolved), then post-IWR adjustments, shield, hardness, and hit points */
+function calculateAppliedDamage(params: CalculateAppliedDamageParams): AppliedDamage {
+    const {
+        rollOptions,
+        isDamage,
+        final,
+        diceAdjustment,
+        modifierAdjustment,
+        shield,
+        baseActorHardness,
+        damageHasAdamantine,
+        materialGrade,
+        hitPoints,
+        sp,
+        staminaVariant,
+        thresholds,
+        immuneToDeathEffects,
+        isUndeadNPC,
+    } = params;
+    const result = "finalDamage" in params.result ? params.result : applyIWR(params.result, rollOptions);
+
+    // Damage should never go negative, nor healing positive
+    const clamp = isDamage ? Math.max : Math.min;
+    // Compute result after adjustments (but before hardness)
+    const finalDamage = clamp(0, result.finalDamage - (diceAdjustment + modifierAdjustment));
+
+    const shieldHardness = shield?.hardness ?? 0;
+    const damageAbsorbedByShield = finalDamage > 0 ? Math.min(shieldHardness, finalDamage) : 0;
+    const shieldDamage = shield ? Math.min(shield.hp, Math.abs(finalDamage) - damageAbsorbedByShield) : 0;
+
+    // Reduce damage by actor hardness
+    const effectiveActorHardness = ((): number => {
+        if (final) return 0;
+
+        // "[Adamantine weapons] treat any object they hit as if it had half as much Hardness as usual, unless the
+        // object's Hardness is greater than that of the adamantine weapon."
+        // Hardness values for thin adamantine items (inclusive of weapons):
+        const itemHardness = {
+            low: 0, // low-grade adamantine doesn't exist
+            standard: 10,
+            high: 13,
+        }[materialGrade];
+        return damageHasAdamantine && itemHardness >= baseActorHardness
+            ? Math.floor(baseActorHardness / 2)
+            : baseActorHardness;
+    })();
+
+    // Include actor-hardness absorption in list of damage modifications
+    const damageAbsorbedByActor =
+        finalDamage > 0 ? Math.min(finalDamage - damageAbsorbedByShield, effectiveActorHardness) : 0;
+    if (damageAbsorbedByActor > 0) {
+        const typeLabel =
+            effectiveActorHardness === baseActorHardness ? "PF2E.Damage.Hardness.Full" : "PF2E.Damage.Hardness.Half";
+        result.applications.push({
+            category: "reduction",
+            type: typeLabel,
+            adjustment: -1 * damageAbsorbedByActor,
+        });
+    }
+
+    const damageResult = calculateHealthDelta({
+        hp: hitPoints,
+        sp,
+        staminaVariant,
+        delta: finalDamage - damageAbsorbedByShield - damageAbsorbedByActor,
+    });
+
+    // Test troop thresholds. If reached, print a message with remaining thresholds later
+    const currentThreshold = thresholds?.findLast((t) => t.hp >= hitPoints.value);
+    const newThreshold = thresholds?.findLast((t) => t.hp >= damageResult.updates["system.attributes.hp.value"]);
+    const reachedThreshold = newThreshold && currentThreshold && currentThreshold.segments !== newThreshold.segments;
+
+    const staminaMax = sp?.max ?? 0;
+    const instantDeath = ((): string | null => {
+        if (damageResult.totalApplied <= 0 || damageResult.updates["system.attributes.hp.value"] !== 0) {
+            return null;
+        }
+        return rollOptions.has("item:trait:death") && !immuneToDeathEffects
+            ? "death-effect"
+            : rollOptions.has("item:type:spell") && rollOptions.has("item:slug:disintegrate")
+              ? "fine-powder"
+              : isUndeadNPC
+                ? "destroyed"
+                : damageResult.totalApplied >= (hitPoints.max + staminaMax) * 2
+                  ? "massive-damage"
+                  : null;
+    })();
+
+    return {
+        ...damageResult,
+        applications: result.applications,
+        persistent: result.persistent,
+        finalDamage,
+        damageAbsorbedByShield,
+        shieldDamage,
+        damageAbsorbedByActor,
+        reachedThreshold,
+        newThreshold,
+        instantDeath,
+    };
+}
+
+/** Determine actor updates for applying damage/healing across temporary hit points, stamina, and then hit points */
+function calculateHealthDelta(args: {
+    hp: { max: number; value: number; temp: number };
+    sp?: Maybe<{ max: number; value: number }>;
+    staminaVariant: boolean;
+    delta: number;
+}) {
+    const updates: Record<string, number> = {};
+    const { hp, sp, staminaVariant, delta } = args;
+    if (hp.max === 0) return { updates, totalApplied: 0 };
+
+    const appliedToTemp = ((): number => {
+        if (!hp.temp || delta <= 0) return 0;
+        const applied = Math.min(hp.temp, delta);
+        updates["system.attributes.hp.temp"] = Math.max(hp.temp - applied, 0);
+
+        return applied;
+    })();
+
+    const appliedToSP = ((): number => {
+        const staminaEnabled = !!sp && staminaVariant;
+        if (!staminaEnabled || delta <= 0) return 0;
+        const remaining = delta - appliedToTemp;
+        const applied = Math.min(sp.value, remaining);
+        updates["system.attributes.hp.sp.value"] = Math.max(sp.value - applied, 0);
+        return applied;
+    })();
+
+    const appliedToHP = ((): number => {
+        const remaining = delta - appliedToTemp - appliedToSP;
+        updates["system.attributes.hp.value"] = Math.min(Math.max(hp.value - remaining, 0), hp.max);
+        return remaining;
+    })();
+    const totalApplied = appliedToTemp + appliedToSP + appliedToHP;
+
+    return { updates, totalApplied };
+}
 
 /** Apply an actor's IWR applications to an evaluated damage roll's instances */
-function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<string>): IWRApplicationData {
-    // Skip the whole exercise if the actor is dead
-    if (actor.isDead) {
-        return { finalDamage: 0, applications: [], persistent: [] };
-    }
+function applyIWR(input: IWRInput, rollOptions: Set<string>): IWRApplicationData {
+    const { roll, immunities, weaknesses, resistances } = input;
 
-    if (!game.pf2e.settings.iwr) {
-        return {
-            finalDamage: roll.total,
-            applications: [],
-            persistent: roll.instances.filter(
-                (i): i is Rolled<DamageInstance> => i.persistent && !i.options.evaluatePersistent,
-            ),
-        };
-    }
-
-    const { immunities, weaknesses, resistances } = actor.attributes;
-
-    const instances = roll.instances as Rolled<DamageInstance>[];
-    const persistent: Rolled<DamageInstance>[] = []; // Persistent damage instances filtered for immunities
-    const ignoredResistances =
-        roll.options.bypass?.resistance.ignore.map((ir) => new Resistance({ type: ir.type, value: ir.max })) ?? [];
-    const irRedirects = {
-        immunities: roll.options.bypass?.immunity.redirect ?? [],
-        resistances: roll.options.bypass?.resistance.redirect ?? [],
-    };
+    const instances = roll.instances;
+    const persistent: PersistentDamage[] = []; // Persistent damage instances filtered for immunities
+    const { ignoredResistances, irRedirects } = roll;
 
     // Don't include persistent damage on initial application
-    const immediateInstances = instances.filter((i) => !i.persistent || i.options.evaluatePersistent);
+    const immediateInstances = instances.filter((i) => !i.persistent || i.evaluatePersistent);
     const applyOnceWeaknesses = weaknesses.filter(
         (w) => w.applyOnce && immediateInstances.some((i) => w.test([...i.formalDescription, ...rollOptions])),
     );
@@ -49,12 +167,12 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             const formalDescription = new Set([...instance.formalDescription, ...rollOptions]);
 
             // If the roll's total was increased to a minimum of 1, treat the first instance as having a total of 1
-            const wasIncreased = instance.total <= 0 && typeof roll.options.increasedFrom === "number";
+            const wasIncreased = instance.total <= 0 && typeof roll.increasedFrom === "number";
             const isFirst = instances.indexOf(instance) === 0;
             const instanceTotal = wasIncreased && isFirst ? 1 : Math.max(instance.total, 0);
 
             // Step 0: Inapplicable damage outside the IWR framework
-            if (!actor.isAffectedBy(instance.type)) {
+            if (!input.isAffectedBy(instance.type)) {
                 return [{ category: "unaffected", type: instance.type, adjustment: -1 * instanceTotal }];
             }
 
@@ -74,13 +192,12 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
 
             const instanceApplications: IWRApplication[] = [];
 
-            let redirectedFromImmunity: DamageType | null = null;
-            for (const immunity of applicableImmunities) {
-                const redirect = irRedirects.immunities.find((ir) =>
-                    hasImmunityRedirection(immunity, immunities, [ir]),
-                );
-                const redirectLabel = redirect ? new Immunity({ type: redirect.to }).typeLabel : "???";
-                if (redirect) redirectedFromImmunity = redirect.to;
+            const immunityRedirects = applicableImmunities.map((immunity) => ({
+                immunity,
+                redirect: irRedirects.immunities.find((ir) => hasImmunityRedirection(immunity, immunities, [ir])),
+            }));
+            for (const { immunity, redirect } of immunityRedirects) {
+                const redirectLabel = redirect ? input.immunityTypeLabel(redirect.to) : "???";
                 instanceApplications.push({
                     category: "immunity",
                     type: immunity.typeLabel,
@@ -88,11 +205,12 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
                     redirect: redirectLabel,
                 });
             }
+            const redirectedFromImmunity = immunityRedirects.findLast((r) => r.redirect)?.redirect?.to ?? null;
 
             // Before getting a manually-adjusted total, check for immunity to critical hits and "undouble"
             // (or untriple) the total.
             const critImmunity = immunities.find((i) => i.type === "critical-hits" && i.test(formalDescription));
-            const isCriticalSuccess = roll.options.degreeOfSuccess === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
+            const isCriticalSuccess = roll.degreeOfSuccess === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
             const critImmuneTotal = instance.critImmuneTotal;
             const critImmunityApplies = isCriticalSuccess && !!critImmunity && critImmuneTotal < instanceTotal;
 
@@ -106,9 +224,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             }
 
             const precisionImmunity = immunities.find((i) => i.type === "precision");
-            const precisionDamage = critImmunityApplies
-                ? Math.floor(instance.componentTotal("precision") / 2)
-                : instance.componentTotal("precision");
+            const precisionDamage = critImmunityApplies ? Math.floor(instance.precision / 2) : instance.precision;
             if (precisionDamage > 0 && precisionImmunity?.test([...formalDescription, "damage:component:precision"])) {
                 // If the creature is immune to both critical hits and precision damage, precision immunity will only
                 // reduce damage by half the precision damage dealt (with critical-hit immunity effectively reducing
@@ -129,8 +245,8 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             );
 
             // Push applicable persistent damage to a separate list
-            if (instance.persistent && !instance.options.evaluatePersistent) {
-                persistent.push(instance);
+            if (instance.persistent && !instance.evaluatePersistent && instance.expression !== null) {
+                persistent.push({ type: instance.type, expression: instance.expression });
             }
 
             if (afterImmunities === 0) {
@@ -139,7 +255,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
 
             // Step 3: Weaknesses
             const mainWeaknesses = damageWeaknesses.filter((w) => w.test(formalDescription));
-            const splashDamage = instance.componentTotal("splash");
+            const splashDamage = instance.splash;
             const splashWeakness = splashDamage ? (weaknesses.find((w) => w.type === "splash-damage") ?? null) : null;
             const precisionWeakness =
                 precisionDamage > 0
@@ -150,7 +266,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             const highestWeakness = [...mainWeaknesses, precisionWeakness, splashWeakness]
                 .filter(R.isTruthy)
                 .reduce(
-                    (highest: Weakness | null, w) =>
+                    (highest: WeaknessRecord | null, w) =>
                         w && !highest ? w : w && highest && w.value > highest.value ? w : highest,
                     null,
                 );
@@ -243,10 +359,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
                 if (resistanceRedirect) {
                     application.adjustment = -1 * Math.min(afterWeaknesses, resistanceRedirect.resistance?.value ?? 0);
                     if (resistanceRedirect.redirect.to !== redirectedFromImmunity) {
-                        application.redirect = new Resistance({
-                            type: resistanceRedirect.redirect.to,
-                            value: 0,
-                        }).typeLabel;
+                        application.redirect = input.resistanceTypeLabel(resistanceRedirect.redirect.to);
                     }
                 }
                 instanceApplications.push(application);
@@ -293,7 +406,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
 /** A helper class for keeping track of working data alongside a resistance */
 class WorkingResistanceData {
     /** The source resistance */
-    resistance: Resistance;
+    resistance: ResistanceRecord;
 
     /** Whether the resistance is applicable to the damage being dealt */
     applicable: boolean;
@@ -304,7 +417,7 @@ class WorkingResistanceData {
     /** Whether the resistance has been ignored */
     ignored: boolean;
 
-    constructor(resistance: Resistance, options: { applicable?: boolean; value: number; ignored?: boolean }) {
+    constructor(resistance: ResistanceRecord, options: { applicable?: boolean; value: number; ignored?: boolean }) {
         this.resistance = resistance;
         this.applicable = options.applicable ?? true;
         this.value = options.value;
@@ -321,13 +434,13 @@ class WorkingResistanceData {
 }
 
 function hasImmunityRedirection(
-    testImmunity: Immunity,
-    immunities: Immunity[],
+    testImmunity: ImmunityRecord,
+    immunities: ImmunityRecord[],
     redirections: ImmunityRedirect[],
 ): boolean {
     return redirections.some((redirect) => {
-        const categoryFrom = DamageCategorization.fromDamageType(redirect.from);
-        const categoryTo = DamageCategorization.fromDamageType(redirect.to);
+        const categoryFrom = BASE_DAMAGE_TYPES_TO_CATEGORIES[redirect.from];
+        const categoryTo = BASE_DAMAGE_TYPES_TO_CATEGORIES[redirect.to];
         return (
             testImmunity.test([`damage:type:${redirect.from}`, `damage:category:${categoryFrom}`]) &&
             !immunities.some((i) => i.test([`damage:type:${redirect.to}`, `damage:category:${categoryTo}`]))
@@ -344,7 +457,7 @@ function getResistanceRedirection(params: GetResistanceRedirectionParams): Resis
     if (!highest) return null;
     const createDefinition = (type: DamageType) => [
         `damage:type:${type}`,
-        `damage:category:${DamageCategorization.fromDamageType(type)}`,
+        `damage:category:${BASE_DAMAGE_TYPES_TO_CATEGORIES[type]}`,
     ];
     const applicableRedirects = redirects.filter((redirect) => {
         const toDefinition = createDefinition(redirect.to);
@@ -357,7 +470,7 @@ function getResistanceRedirection(params: GetResistanceRedirectionParams): Resis
             !immunities.some((i) => i.test(toDefinition))
         );
     });
-    const highestValue = highest instanceof Immunity ? Infinity : highest.value;
+    const highestValue = highest instanceof WorkingResistanceData ? highest.value : Infinity;
     return applicableRedirects.reduce(
         (bestMatch: { redirect: ResistanceRedirect; resistance: WorkingResistanceData | null } | null, redirect) => {
             if (bestMatch && !bestMatch.resistance) return bestMatch;
@@ -372,10 +485,10 @@ function getResistanceRedirection(params: GetResistanceRedirectionParams): Resis
 }
 
 interface GetResistanceRedirectionParams {
-    immunities: Immunity[];
+    immunities: ImmunityRecord[];
     resistances: WorkingResistanceData[];
     /** The immunity or highest resistance to be applied: a redirect must improve the result to be selected. */
-    highest: Immunity | WorkingResistanceData | null;
+    highest: ImmunityRecord | WorkingResistanceData | null;
     redirects: ResistanceRedirect[];
 }
 
@@ -384,10 +497,94 @@ interface ResistanceRedirection {
     redirect: ResistanceRedirect;
 }
 
+type ImmunityRecord = Pick<Immunity, "type" | "exceptions" | "label" | "typeLabel" | "applicationLabel" | "test">;
+
+type WeaknessRecord = Pick<
+    Weakness,
+    "type" | "value" | "applyOnce" | "label" | "typeLabel" | "applicationLabel" | "test"
+>;
+
+type ResistanceRecord = Pick<
+    Resistance,
+    "type" | "value" | "exceptions" | "label" | "typeLabel" | "applicationLabel" | "test" | "getDoubledValue"
+>;
+
+interface DamageInstanceSnapshot {
+    type: DamageType;
+    total: number;
+    persistent: boolean;
+    evaluatePersistent: boolean;
+    formalDescription: Set<string>;
+    critImmuneTotal: number;
+    precision: number;
+    splash: number;
+    /** The formula of unevaluated persistent damage */
+    expression: string | null;
+}
+
+interface DamageRollSnapshot {
+    total: number;
+    instances: DamageInstanceSnapshot[];
+    increasedFrom?: number;
+    degreeOfSuccess?: number | null;
+    ignoredResistances: ResistanceRecord[];
+    irRedirects: { immunities: ImmunityRedirect[]; resistances: ResistanceRedirect[] };
+}
+
+/** An evaluated damage roll and the target's IWR, with Foundry lookups passed in as callbacks */
+interface IWRInput {
+    roll: DamageRollSnapshot;
+    immunities: ImmunityRecord[];
+    weaknesses: WeaknessRecord[];
+    resistances: ResistanceRecord[];
+    isAffectedBy: (type: DamageType) => boolean;
+    immunityTypeLabel: (type: Exclude<DamageType, "untyped">) => string;
+    resistanceTypeLabel: (type: Exclude<DamageType, "untyped">) => string;
+}
+
+interface CalculateAppliedDamageParams {
+    result: IWRApplicationData | IWRInput;
+    rollOptions: Set<string>;
+    isDamage: boolean;
+    final: boolean;
+    diceAdjustment: number;
+    modifierAdjustment: number;
+    /** The shield blocking this damage, if Shield Block is in effect */
+    shield: { hardness: number; hp: number } | null;
+    baseActorHardness: number;
+    damageHasAdamantine: boolean;
+    materialGrade: PreciousMaterialGrade;
+    hitPoints: { max: number; value: number; temp: number };
+    sp?: Maybe<{ max: number; value: number }>;
+    staminaVariant: boolean;
+    thresholds: { hp: number; segments: number }[] | null;
+    immuneToDeathEffects: boolean;
+    isUndeadNPC: boolean;
+}
+
+interface AppliedDamage {
+    applications: IWRApplication[];
+    persistent: PersistentDamage[];
+    finalDamage: number;
+    damageAbsorbedByShield: number;
+    shieldDamage: number;
+    damageAbsorbedByActor: number;
+    updates: Record<string, number>;
+    totalApplied: number;
+    reachedThreshold: boolean | undefined;
+    newThreshold: { hp: number; segments: number } | undefined;
+    instantDeath: string | null;
+}
+
+interface PersistentDamage {
+    type: DamageType;
+    expression: string;
+}
+
 interface IWRApplicationData {
     finalDamage: number;
     applications: IWRApplication[];
-    persistent: Rolled<DamageInstance>[];
+    persistent: PersistentDamage[];
 }
 
 interface UnaffectedApplication {
@@ -431,5 +628,5 @@ type IWRApplication =
     | ResistanceApplication
     | DamageReductionApplication;
 
-export { applyIWR };
-export type { IWRApplication, IWRApplicationData };
+export { calculateAppliedDamage };
+export type { IWRApplication, IWRApplicationData, IWRInput };
