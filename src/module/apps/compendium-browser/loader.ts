@@ -45,7 +45,9 @@ class PackLoader {
                     this.#setModuleArt(packId, filteredIndex);
                     yield { pack, index: filteredIndex };
                 } else {
-                    ui.notifications.warn(_loc("PF2E.BrowserWarnPackNotLoaded", { pack: pack.collection }));
+                    ui.notifications.warn(
+                        _loc("PF2E.CompendiumBrowser.Filter.WarnPackNotLoaded", { pack: pack.collection }),
+                    );
                 }
             }
         }

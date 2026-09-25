@@ -1,29 +1,16 @@
 import { htmlQuery, htmlQueryAll, localizer, objectHasKey } from "@util";
+import * as R from "remeda";
 import type { PackInfo, TabName } from "./data.ts";
 
 class CompendiumBrowserSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV2) {
-    #tabSettings: Record<TabName, CompendiumBrowserSettingsData> = {
-        action: {
-            label: "PF2E.CompendiumBrowser.TabAbilities",
-        },
-        bestiary: {
-            label: "PF2E.CompendiumBrowser.TabBestiary",
-        },
-        campaignFeature: {
-            label: "PF2E.CompendiumBrowser.TabCampaign",
-        },
-        equipment: {
-            label: "PF2E.CompendiumBrowser.TabEquipment",
-        },
-        feat: {
-            label: "PF2E.CompendiumBrowser.TabFeat",
-        },
-        hazard: {
-            label: "PF2E.CompendiumBrowser.TabHazard",
-        },
-        spell: {
-            label: "PF2E.CompendiumBrowser.TabSpell",
-        },
+    static TAB_LABELS: Record<TabName, string> = {
+        action: "PF2E.CompendiumBrowser.TabAbilities",
+        bestiary: "PF2E.CompendiumBrowser.TabBestiary",
+        campaignFeature: "PF2E.CompendiumBrowser.TabCampaign",
+        equipment: "PF2E.CompendiumBrowser.TabEquipment",
+        feat: "PF2E.CompendiumBrowser.TabFeat",
+        hazard: "PF2E.CompendiumBrowser.TabHazard",
+        spell: "PF2E.CompendiumBrowser.TabSpell",
     };
 
     static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
@@ -127,12 +114,15 @@ class CompendiumBrowserSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.
     }
 
     protected override async _prepareContext(_options: fa.api.HandlebarsRenderOptions): Promise<object> {
-        if (game.settings.get(SYSTEM_ID, "campaignType") === "none") {
-            this.#tabSettings.campaignFeature.hidden = true;
-        }
+        // Rebuilt per render so a campaign type change can unhide the campaign tab
+        const tabSettings = R.mapValues(
+            CompendiumBrowserSettingsApp.TAB_LABELS,
+            (label): CompendiumBrowserSettingsData => ({ label }),
+        );
+        tabSettings.campaignFeature.hidden = game.settings.get(SYSTEM_ID, "campaignType") === "none";
         const browser = game.pf2e.compendiumBrowser;
         for (const [name, settings] of Object.entries(browser.settings)) {
-            if (objectHasKey(this.#tabSettings, name)) {
+            if (objectHasKey(tabSettings, name)) {
                 const duplicates = new Set<string>();
                 const seen = new Set<string>();
                 // Find multiple entries for the same module
@@ -151,7 +141,7 @@ class CompendiumBrowserSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.
                         setting.showFullId = true;
                     }
                 }
-                this.#tabSettings[name].settings = settings;
+                tabSettings[name].settings = settings;
             } else {
                 console.warn(`Unknown Compendium Browser setting "${name}"!`);
             }
@@ -159,7 +149,7 @@ class CompendiumBrowserSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.
 
         return {
             user: game.user,
-            tabSettings: this.#tabSettings,
+            tabSettings,
             sources: browser.packLoader.sourcesSettings,
         };
     }
@@ -173,7 +163,9 @@ class CompendiumBrowserSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.
 
         for (const [t, packs] of Object.entries(settings) as [string, { [key: string]: PackInfo }][]) {
             for (const [key, pack] of Object.entries(packs) as [string, PackInfo][]) {
-                pack.load = getCheckboxValue(`${t}-${key}`);
+                // Packs of a hidden tab aren't in the form
+                const field = `${t}-${key}`;
+                if (formData.has(field)) pack.load = getCheckboxValue(field);
             }
         }
         await game.settings.set(SYSTEM_ID, "compendiumBrowserPacks", settings);

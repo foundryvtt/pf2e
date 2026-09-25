@@ -60,7 +60,7 @@
     <label class="checkbox">
         <input
             type="radio"
-            name="filter-conjunction-and"
+            name="filter-conjunction"
             value="and"
             checked={traits.conjunction === "and"}
             onchange={onChangeConjunction}
@@ -70,7 +70,7 @@
     <label class="checkbox">
         <input
             type="radio"
-            name="filter-conjunction-or"
+            name="filter-conjunction"
             value="or"
             checked={traits.conjunction === "or"}
             onchange={onChangeConjunction}
@@ -89,7 +89,7 @@
                 class="sv-item--btn"
                 tabindex="-1"
                 type="button"
-                aria-label="not option"
+                aria-label={_loc("PF2E.CompendiumBrowser.Filter.Aria.ExcludeTrait", { trait: opt.label })}
                 data-action="not"
                 onclick={() => onClickNot(index)}
             >
@@ -99,7 +99,7 @@
                 class="sv-item--btn"
                 tabindex="-1"
                 type="button"
-                aria-label="deslect"
+                aria-label={_loc("PF2E.CompendiumBrowser.Filter.Aria.RemoveTrait", { trait: opt.label })}
                 data-action="deselect"
                 use:itemAction={opt}
                 onclick={() => exclude.delete(opt.value)}

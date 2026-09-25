@@ -2,9 +2,12 @@
     import { tupleHasValue } from "@util";
     import BrowserTab from "./browser-tab.svelte";
     import type { MouseEventHandler } from "svelte/elements";
+    import type { CompendiumBrowserContext } from "../browser.svelte.ts";
 
-    const browser = game.pf2e.compendiumBrowser;
+    const { foundryApp: browser }: CompendiumBrowserContext = $props();
     const tabs = $derived(browser.tabsArray.filter((t) => t.visible));
+    const panelId = $derived(`${browser.id}-panel`);
+    const tabId = (tabName: string): string => `${browser.id}-tab-${tabName}`;
 
     async function onClickNav(event: PointerEvent & { currentTarget: EventTarget }): Promise<void> {
         if (!(event.target instanceof HTMLElement)) return;
@@ -18,10 +21,16 @@
 </script>
 
 {#if tabs.length > 1}
-    <nav class="tabs">
-        {#each tabs as tab}
+    <!-- ARIA in HTML allows tablist on nav, as core's sidebar does -->
+    <!-- svelte-ignore a11y_no_noninteractive_element_to_interactive_role -->
+    <nav class="tabs" role="tablist">
+        {#each tabs as tab (tab.tabName)}
             <button
                 type="button"
+                role="tab"
+                id={tabId(tab.tabName)}
+                aria-selected={browser.activeTabName === tab.tabName}
+                aria-controls={panelId}
                 onclick={onClickNav as MouseEventHandler<EventTarget>}
                 class:active={browser.activeTabName === tab.tabName}
                 data-tab-name={tab.tabName}
@@ -32,17 +41,16 @@
     </nav>
 {/if}
 {#if !browser.activeTabName}
-    <div class="browser-tab" data-tooltip-class="pf2e">
+    <div class="browser-tab" id={panelId} data-tooltip-class="pf2e">
         <div class="landing-page">{_loc("PF2E.CompendiumBrowser.Hint")}</div>
     </div>
 {:else}
-    <BrowserTab />
+    <BrowserTab foundryApp={browser} {panelId} labelledBy={tabs.length > 1 ? tabId(browser.activeTabName) : null} />
 {/if}
 
 <style lang="scss">
     :global {
         .compendium-browser {
-            --color-result-list-odd: rgba(0, 0, 0, 0.12);
             --input-text-color: var(--color-dark-2);
 
             .window-content {
@@ -52,7 +60,6 @@
 
         .theme-dark .compendium-browser {
             --secondary: var(--color-cool-5);
-            --color-result-list-odd: var(--color-dark-2);
             --color-select-option-bg: var(--color-cool-5);
             --input-text-color: var(--color-light-3);
         }
@@ -100,6 +107,11 @@
             &:focus {
                 outline: unset;
                 box-shadow: unset;
+            }
+
+            &:focus-visible {
+                outline: 2px solid var(--button-focus-outline-color);
+                outline-offset: -2px;
             }
 
             &:hover {
