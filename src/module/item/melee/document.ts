@@ -1,7 +1,6 @@
 import type { ActorPF2e } from "@actor";
-import { SIZE_TO_REACH } from "@actor/creature/values.ts";
-import { processSanctification } from "@item/ability/helpers.ts";
 import { ItemPF2e, type WeaponPF2e } from "@item";
+import { processSanctification } from "@item/ability/helpers.ts";
 import type { RangeData } from "@item/types.ts";
 import type { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
@@ -51,8 +50,8 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     get reach(): number | null {
         if (this.isRanged) return null;
-        const reachTrait = this.system.traits.value.find((t) => /^reach-\d+$/.test(t));
-        return reachTrait ? Number(reachTrait.replace("reach-", "")) : SIZE_TO_REACH[this.actor?.size ?? "med"];
+        const reachTrait = this.system.traits.value.find((t) => /^reach(?:-\d+)?$/.test(t));
+        return reachTrait === "reach" ? 10 : Number(reachTrait?.replace("reach-", "") ?? 5);
     }
 
     /** The range maximum and possibly also increment if a ranged attack; otherwise null */
