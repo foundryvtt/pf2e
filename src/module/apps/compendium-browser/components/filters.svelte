@@ -65,6 +65,7 @@
             autocomplete="off"
             spellcheck="false"
             placeholder={_loc("PF2E.CompendiumBrowser.Filter.SearchPlaceholder")}
+            aria-label={_loc("PF2E.CompendiumBrowser.Filter.SearchPlaceholder")}
         />
         <div class="order-by-select">
             <label id="sort-order">

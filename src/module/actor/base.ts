@@ -41,6 +41,8 @@ import {
 } from "@module/rules/helpers.ts";
 import type { RuleElementSynthetics } from "@module/rules/index.ts";
 import type { RuleElement } from "@module/rules/rule-element/base.ts";
+import type { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data.ts";
+import { ChoiceSetRuleElement } from "@module/rules/rule-element/choice-set/rule-element.ts";
 import type { RollOptionRuleElement } from "@module/rules/rule-element/roll-option/rule-element.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { ScenePF2e } from "@scene/document.ts";
@@ -496,6 +498,17 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
                 for (const alteration of data.alterations) {
                     alteration.applyTo(source);
+                }
+
+                const tempEffect = new ItemProxyPF2e(source, { parent: this });
+                const rules = tempEffect.prepareRuleElements({ suppressWarnings: true });
+                for (const [flag, selection] of Object.entries(data.preselectChoices)) {
+                    const rule = rules.find(
+                        (r): r is ChoiceSetRuleElement => r instanceof ChoiceSetRuleElement && r.flag === flag,
+                    );
+                    if (!rule) continue;
+                    const ruleSource = source.system.rules[rules.indexOf(rule)] as ChoiceSetSource;
+                    ruleSource.selection = selection;
                 }
 
                 toCreate.push(source);

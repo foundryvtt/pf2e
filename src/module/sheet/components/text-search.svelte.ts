@@ -4,67 +4,116 @@ interface SearchableDoc {
     id: string;
 }
 
-/**
- * The surface a search UI needs: `search-input.svelte` binds against this rather than `TextSearch`
- * itself so it stays independent of the document type parameter.
- */
+/** What `search-input.svelte` binds to, so it doesn't care about the document type */
 interface SearchState {
     query: string;
     readonly active: boolean;
 }
 
 /**
- * Reactive text-search state over a set of documents: owns the query and the index, and exposes the
- * matching ids. Pair with `search-input.svelte` for the UI. Domain layers (e.g. the spell list's
- * `SpellListSearch`) extend this with their document fields and result filtering.
+ * `terms`: word-prefix matching ranked by relevance, stop words dropped.
+ * `substring`: one case-folded fragment anywhere in a field, document order, no stop words.
+ */
+type TextSearchMatcher = "terms" | "substring";
+
+interface TextSearchOptions<TDoc extends SearchableDoc> {
+    /** Document fields to match against */
+    fields: (keyof TDoc & string)[];
+    /** Matching strategy (default `terms`) */
+    matcher?: TextSearchMatcher;
+    /** Characters required before searching starts (default 2) */
+    minLength?: number;
+}
+
+/**
+ * Reactive search state over a set of documents. Pair with `search-input.svelte` for the UI and extend for
+ * domain-specific filtering (see `SpellListSearch`).
  */
 class TextSearch<TDoc extends SearchableDoc> implements SearchState {
     query = $state("");
 
-    /** Bumped on reindex so match sets recompute against the new documents */
+    /** Bumped on reindex so the deriveds recompute */
     #version = $state(0);
 
-    #engine: MiniSearch<TDoc>;
+    #fields: (keyof TDoc & string)[];
 
-    /** Ids matching the current query, or null when the query is too short to search on */
-    #matches: Set<string> | null = $derived.by(() => {
+    #minLength: number;
+
+    /** Null in substring mode, which needs no index */
+    #engine: MiniSearch<TDoc> | null = null;
+
+    /** Substring mode only */
+    #docs: TDoc[] = [];
+
+    /** Score by matching id, or null while the query is too short */
+    #scores: Map<string, number> | null = $derived.by(() => {
         void this.#version;
-        return this.active ? new Set(this.#engine.search(this.query).map((r) => String(r.id))) : null;
+        if (!this.active) return null;
+        const engine = this.#engine;
+        return engine
+            ? new Map(engine.search(this.query).map((r) => [String(r.id), r.score]))
+            : this.#substringScores();
     });
 
-    constructor({ fields }: { fields: (keyof TDoc & string)[] }) {
+    #matches: Set<string> | null = $derived.by(() => (this.#scores ? new Set(this.#scores.keys()) : null));
+
+    constructor({ fields, matcher = "terms", minLength = 2 }: TextSearchOptions<TDoc>) {
+        this.#fields = fields;
+        this.#minLength = minLength;
+        if (matcher === "substring") return;
+
         const segmenter = new Intl.Segmenter(game.i18n.lang, { granularity: "word" });
         this.#engine = new MiniSearch({
             fields,
             idField: "id",
             processTerm: (term): string[] | null => {
-                if (term.length < 2 || CONFIG.i18n.searchStopWords.has(term)) return null;
-                return Array.from(segmenter.segment(term))
-                    .map((t) =>
-                        fa.ux.SearchFilter.cleanQuery(t.segment.toLocaleLowerCase(game.i18n.lang)).replace(/['"]/g, ""),
-                    )
+                // Fold case first so "An" is dropped like "an"
+                const folded = term.toLocaleLowerCase(game.i18n.lang);
+                if (folded.length < 2 || CONFIG.i18n.searchStopWords.has(folded)) return null;
+                return Array.from(segmenter.segment(folded))
+                    .map((t) => fa.ux.SearchFilter.cleanQuery(t.segment).replace(/['"]/g, ""))
                     .filter((t) => t.length >= 2);
             },
             searchOptions: { combineWith: "AND", prefix: true },
         });
     }
 
-    /** Search only starts once at least two characters are entered */
     get active(): boolean {
-        return this.query.trim().length > 1;
+        return this.query.trim().length >= this.#minLength;
     }
 
     get matches(): Set<string> | null {
         return this.#matches;
     }
 
-    /** Replace the indexed documents (call whenever the searchable set changes) */
+    /** For sorting by relevance */
+    get scores(): Map<string, number> | null {
+        return this.#scores;
+    }
+
+    /** Substring mode keeps `docs` by reference and only recomputes here: pass a fresh array */
     index(docs: TDoc[]): void {
-        this.#engine.removeAll();
-        this.#engine.addAll(docs);
+        if (this.#engine) {
+            this.#engine.removeAll();
+            this.#engine.addAll(docs);
+        } else {
+            this.#docs = docs;
+        }
         this.#version += 1;
+    }
+
+    /** Every match scores 1, so relevance sorts fall back to document order */
+    #substringScores(): Map<string, number> {
+        const fragment = this.query.trim().toLocaleLowerCase(game.i18n.lang);
+        const matches = this.#docs.filter((doc) =>
+            this.#fields.some((field) => {
+                const value = doc[field];
+                return typeof value === "string" && value.toLocaleLowerCase(game.i18n.lang).includes(fragment);
+            }),
+        );
+        return new Map(matches.map((doc) => [doc.id, 1]));
     }
 }
 
 export { TextSearch };
-export type { SearchableDoc, SearchState };
+export type { SearchableDoc, SearchState, TextSearchMatcher, TextSearchOptions };

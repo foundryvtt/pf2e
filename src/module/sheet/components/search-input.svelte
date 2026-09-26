@@ -13,6 +13,7 @@
 </script>
 
 <div class="search">
+    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
     <input type="search" spellcheck="false" bind:value={search.query} placeholder={label} aria-label={label} />
 </div>
 <p class="search-results" role="status">
@@ -22,6 +23,21 @@
 </p>
 
 <style>
+    .search {
+        align-items: center;
+        display: flex;
+        gap: var(--space-8);
+
+        > i {
+            color: var(--color-text-secondary, inherit);
+        }
+
+        > input {
+            flex: 1;
+            min-width: 0;
+        }
+    }
+
     .search-results {
         color: var(--color-text-secondary, inherit);
         font-size: var(--font-size-12);

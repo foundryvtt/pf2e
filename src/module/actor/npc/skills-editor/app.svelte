@@ -143,7 +143,7 @@
                         type="number"
                         id="{uid}-skill-{skill.slug}-modifier"
                         value={skill.base}
-                        placeholder="0"
+                        placeholder={String(skill.resolvedBase)}
                         onchange={(e) => handleBaseChange(skill.slug, e.currentTarget.value)}
                         onfocus={(e) => e.currentTarget.select()}
                     />
@@ -266,20 +266,23 @@
                         {@attach focusOnDemand}
                         onchange={(e) => foundryApp.updateLoreMod(skill.itemId, Number(e.currentTarget.value))}
                         onfocus={(e) => e.currentTarget.select()}
+                        disabled={!skill.itemId}
                     />
                     <div class="item-controls">
-                        <InlineIconButton
-                            icon="fa-solid fa-pen-to-square"
-                            aria-label="{_loc('PF2E.Edit')}: {skill.label}"
-                            data-tooltip="PF2E.Edit"
-                            onclick={() => foundryApp.editLore(skill.itemId)}
-                        />
-                        <InlineIconButton
-                            icon="fa-solid fa-trash"
-                            aria-label="{_loc('PF2E.DeleteShortLabel')}: {skill.label}"
-                            data-tooltip="PF2E.DeleteShortLabel"
-                            onclick={() => handleRemoveLore(skill.itemId)}
-                        />
+                        {#if skill.itemId}
+                            <InlineIconButton
+                                icon="fa-solid fa-pen-to-square"
+                                aria-label="{_loc('PF2E.Edit')}: {skill.label}"
+                                data-tooltip="PF2E.Edit"
+                                onclick={() => foundryApp.editLore(skill.itemId)}
+                            />
+                            <InlineIconButton
+                                icon="fa-solid fa-trash"
+                                aria-label="{_loc('PF2E.DeleteShortLabel')}: {skill.label}"
+                                data-tooltip="PF2E.DeleteShortLabel"
+                                onclick={() => handleRemoveLore(skill.itemId)}
+                            />
+                        {/if}
                     </div>
                 </div>
                 <hr />

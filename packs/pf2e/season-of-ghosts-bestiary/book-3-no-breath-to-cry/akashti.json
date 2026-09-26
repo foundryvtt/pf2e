@@ -694,56 +694,10 @@
             "type": "spell"
         },
         {
-            "_id": "zQOtjljMuSAn9ByR",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1100000,
-            "system": {
-                "action": "strike",
-                "area": null,
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "E2CQCLvJVa301NkZ": {
-                        "damage": "1d6",
-                        "damageType": "mental"
-                    },
-                    "r2APYyvKZaf8fYPN": {
-                        "damage": "2d6+11",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": null,
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "7S2GBUgoEKGBtlKf",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Soul Shred",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -753,7 +707,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Creatures killed by an akashti are difficult to bring back to life or animate as undead. The akashti automatically attempts to counteract any attempt to resurrect or animate as undead any creature that it has killed (counteract modifier [[/r 1d20+19 #Counteract]]{+19}, counteract rank 5). If the akashti who slew the creature is slain, the creature can be brought back from death or become undead normally.</p>"
+                    "value": "<p>Creatures killed by an akashti are difficult to bring back to life or animate as undead. The akashti automatically attempts to counteract any attempt to resurrect or animate any creature that they've killed (counteract modifier [[/r 1d20+19 #Counteract]]{+19}, counteract rank 5). If the akashti who slew the creature is slain, the creature can be brought back from death or become undead normally.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -772,7 +726,7 @@
             "_id": "CFECEd1jZx38sYKC",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Manifest Body",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -782,7 +736,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The akashti manifests a hollow humanoid body around their slender skeletal frame over the course of 10 minutes of concentration. If this time is spent within 10 feet of a humanoid body that has been dead for less than a week, the akashti's manifested body looks almost identical to that of the dead humanoid when they lived and functions as a disguise of that creature. If the akashti can consume a portion of the body they're duplicating, they gain a +4 circumstance bonus to Deception checks to Impersonate the creature. While wearing a manifested body, the akashti loses their claw Strike, and their voice sounds like that of the dead creature; they don't possess any of the dead creature's memories or skills and must rely on deception to continue the charade in the face of scrutiny. An akashti's manifested body decays swiftly if they don't take 10 minutes once per day to maintain the manifestation of the false flesh. The body has 10 Hit Points and the same defenses as the akashti. When the body is destroyed, the akashti emerges unharmed, and the fleshy shell left behind scatters into a cloud of red butterflies that swiftly fade into red mist.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The akashti manifests a hollow humanoid body around their slender skeletal frame over the course of 10 minutes of concentration. If this time is spent within 10 feet of a humanoid body that has been dead for less than a week, the akashti's manifested body looks almost identical to that of the dead humanoid when they lived and functions as a disguise of that creature. If the akashti can consume a portion of the body they're duplicating, they gain a +4 circumstance bonus to Deception checks to [[/act impersonate options=consumed-body]] the creature. While wearing a manifested body, the akashti loses their claw Strike, and their voice sounds like that of the dead creature; they don't possess any of the dead creature's memories or skills and must rely on deception to continue the charade in the face of scrutiny. An akashti's manifested body decays swiftly if they don't take 10 minutes once per day to maintain the manifestation of the false flesh. The body has 10 Hit Points and the same defenses as the akashti. When the body is destroyed, the akashti emerges unharmed, and the fleshy shell left behind scatters into a cloud of red butterflies that swiftly fade into red mist.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -793,7 +747,58 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "manifest-body",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "consumed-body",
+                            "manifest-body",
+                            "action:impersonate"
+                        ],
+                        "selector": "deception",
+                        "type": "circumstance",
+                        "value": 4
+                    },
+                    {
+                        "attackModifier": 21,
+                        "baseType": "claw",
+                        "damage": {
+                            "base": {
+                                "damageType": "slashing",
+                                "dice": 2,
+                                "die": "d6",
+                                "modifier": 11
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "predicate": [
+                            {
+                                "not": "manifest-body"
+                            }
+                        ],
+                        "slug": "claw",
+                        "traits": [
+                            "agile",
+                            "finesse",
+                            "magical",
+                            "unarmed"
+                        ]
+                    },
+                    {
+                        "damageType": "mental",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "selector": "{item|id}-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -808,7 +813,7 @@
             "_id": "lptN7P182mD93D2O",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Stunning Despair",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -818,7 +823,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The akashti unleashes overwhelming sobs of despair. Creatures within 30 feet must attempt a @Check[will|dc:29] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure).</p>\n<p>The akashti can't use Stunning Despair again for [[/br 1d4 #Recharge Stunning Despair]]{1d4 rounds}.</p>"
+                    "value": "<p>The akashti unleashes overwhelming sobs of despair. Creatures within @Template[emanation|distance:30]{30 feet} must attempt a @Check[will|dc:29|options:area-effect,inflicts:stunned] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure).</p>\n<p>The akashti can't use Stunning Despair again for [[/gmr 1d4 #Recharge Stunning Despair]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -915,7 +920,7 @@
                 "value": 10
             },
             "privateNotes": "",
-            "publicNotes": "<p>Akashtis are manipulative fiends who prey on those in mourning; they assume the form of a recently deceased loved one so they can infiltrate homes, then murder and consume the souls of grieving families. Sometimes called a \"copycorpse,\" an akashti in its true form appears as a skin-covered skeleton with sharp talons on its fingers and tears of blood dripping from its lidless eyes. Its skull appears open like a bowl, and inside nest handfuls of crimson butterflies. When an akashti hides within its manifested body, close investigation can sometimes reveal the truth when the scalp of the supposed beloved one returned to life seems to subtly ripple and bulge as the butterflies within writhe. Akashtis embody the complex cycle of grief.</p>\n<h2>Deathly Invaders</h2>\n<p>Sometimes, akashtis ambush and murder targets not to bask in the grief of their loved ones, but instead to assume their form and infiltrate an organization from within to corrupt established bonds of camaraderie. Inevitably, though, these akashtis grow bored with deception and lead their new allies into a trap for slaughter.</p>",
+            "publicNotes": "<p>Akashtis are manipulative fiends who prey on those in mourning; they assume the form of a recently deceased loved one so they can infiltrate homes, then murder and consume the souls of grieving families. Sometimes called a \"copycorpse,\" an akashti in their true form appears as a skin-covered skeleton with sharp talons on their fingers and tears of blood dripping from their lidless eyes. Their skull appears open like a bowl, and inside nest handfuls of crimson butterflies. When an akashti hides within their manifested body, close investigation can sometimes reveal the truth when the scalp of the supposed beloved one returned to life seems to subtly ripple and bulge as the butterflies within writhe.</p>\n<p>Akashtis embody the complex cycle of grief. While they typically prefer to work on their own, it's not unheard of for a shisagishin to recruit the aid of a few akashtis when a region has suffered a great disaster, and there are a large number of bodies—and thus a large number of mourners—to take advantage of.</p><h2>Deathly Invaders</h2><p>Sometimes, akashtis ambush and murder targets not to bask in the grief of their loved ones, but instead to assume their form and infiltrate an organization from within to corrupt established bonds of camaraderie. Inevitably, though, these akashtis grow bored with deception and lead their new allies into a trap for slaughter.</p><hr /><p>When an evil mortal soul that has been reincarnated multiple times is wrenched from the cycle of souls and corrupted, it can undergo a horrific transformation into a fiend known as a nindoru. A force for entropy and the breaking of cycles, nindorus are hideous creatures whose bodies often appear distorted, who wield weapons that have been shattered yet still function, and whose true face is often hidden from view. They display traits one might expect to see in an undead creature, such as decaying flesh or broken bones, yet nindorus are very much still alive.</p>\n<p>Each nindoru epitomizes the fracture of a specific cycle, be it one from the natural world or from societal traditions. To nindorus, nothing is more delicious than the consumption of a creature who has reincarnated multiple times, with those who are theoretically about to ascend to true enlightenment presenting the tastiest meal. Those slain by a nindoru are themselves torn from the cycle—the lucky ones move on to the Boneyard for judgment, but many are instead corrupted to form more of these horrific fiends.</p>\n<p>Followers of Sangpotshi find nindorus to be particularly abhorrent and count them among the greatest threats imaginable. Most commonly found in regions of the world where the reincarnation cycle is strongest, nindorus are, like rakshasas, associated most strongly with the Universe and not one of the unholy planes of the Great Beyond.</p><h2>Reincarnated Souls</h2><p>In some cases, you'll know if a creature a nindoru attacks has a reincarnated soul. Ancestries like samsarans are always reincarnated souls, and a PC's backstory or even their background can often indicate the presence of a previous life. All of the PCs in the <em>Season of Ghosts Adventure Path</em> qualify as reincarnated souls, as they've relived their lives over and over for decades. If you ever need to determine if a creature's soul is reincarnated for the purpose of adjudicating a nindoru's ability, attempt a @Check[flat|dc:11]—on a success, it has a reincarnated soul.</p><h2>Nindoru Demigods</h2><p>The most powerful nindorus are demigods, although their cults are quite rare. Prone to reincarnation after death, nindoru demigods like Kugaptee are more properly known as \"nindoru ascetics.\"</p><h2>Nindoru Traitors</h2><p>While most nindorus are purely evil and unholy in nature, legends tell of exceptionally rare nindorus who manage to escape their own nature and ascend, reincarnating after death into kami or other more benevolent spirits and shedding the nindoru trait as they do so. Of course, these \"traitors\" are regarded as the most delicious meals imaginable by the nindorus left behind.</p><h2>Nindoru Butterflies</h2><p>One of the strangest shared traits of the various types of nindoru are the blood-red butterflies that seem to follow them around, nest on their bodies, or periodically emerge from their wounds. These unnerving insects are physical manifestations of the nindorus' thoughts and symbolize the countless past lives they once lived but turned their backs on. Nindoru butterflies never last long once they flutter more than a few feet from their source, fading away into smoke that quickly dissipates into the air.</p><h2>Weapons of Choice</h2><p>Several of the nindorus presented here have preferred types of weapons to wield and might even have special abilities associated with that type of weapon. A nindoru who wields a different weapon can still make use of those associated abilities, but the flavor of that ability should be adjusted as appropriate.</p>",
             "publication": {
                 "license": "ORC",
                 "remaster": true,

@@ -76,7 +76,8 @@ interface NPCSystemSource extends CreatureSystemSource {
 }
 
 interface NPCSkillSource {
-    base: number;
+    /** Null defers to the skill's attribute modifier */
+    base: number | null;
     /** Any special restriction or clarification */
     note?: string;
     /** All saved special skill modifiers */
@@ -108,8 +109,9 @@ interface NPCAttributesSource extends Required<ActorAttributesSource> {
     };
 }
 
-interface NPCHitPointsSource extends Required<CreatureHitPointsSource> {
+interface NPCHitPointsSource extends Required<Omit<CreatureHitPointsSource, "tempSource">> {
     details: string;
+    tempSource?: string;
 }
 
 interface NPCPerceptionSource {
@@ -253,12 +255,14 @@ interface NPCSpecialSkill extends NPCSpecialSkillSource {
 
 /** Skill data with a "base" value and whether the skill should be rendered (visible) */
 interface NPCSkillData extends NPCSkillSource, AttributeBasedTraceData {
+    /** Resolved during data preparation */
+    base: number;
     mod: number;
     visible: boolean;
     /** Is this skill a Lore skill? */
-    lore?: boolean;
+    lore: boolean;
     /** If this is a lore skill, what item it came from */
-    itemId?: string;
+    itemId: string | null;
     special: NPCSpecialSkill[];
 }
 

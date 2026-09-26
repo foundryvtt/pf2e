@@ -12,7 +12,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>The greatest centaurs need not wait until their stories are over to touch the stars in the sky. You draw an arrow (or other ammunition), whisper a short invocation over it, and then Strike with a ranged weapon. The arrow becomes a bolt of starlight, changing its damage to your choice of force or spirit and granting it the effects of the <em>@UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch]</em> rune. When the arrow Strikes its target, it unravels into a constellation of starlight that wraps around the target's limbs, imposing a –10-foot circumstance penalty to its Speeds for [[/r 2d4 #rounds]]{2d4 rounds} or @UUID[Compendium.pf2e.conditionitems.Item.Immobilized]{Immobilizing} it if the Strike was critical hit. The target can untangle itself by spending an Interact action to break free.</p>"
+            "value": "<p>The greatest centaurs need not wait until their stories are over to touch the stars in the sky. You draw an arrow (or other ammunition), whisper a short invocation over it, and then Strike with a ranged weapon. The arrow becomes a bolt of starlight, changing its damage to your choice of force or spirit and granting it the effects of the <em>@UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch]</em> rune. When the arrow Strikes its target, it unravels into a constellation of starlight that wraps around the target's limbs, imposing a –10-foot circumstance penalty to its Speeds for [[/r 2d4 #Starshot Arrow Duration]]{2d4 rounds} or @UUID[Compendium.pf2e.conditionitems.Item.Immobilized]{Immobilizing} it if the Strike was a critical hit. The target can untangle itself by spending an Interact action to break free.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Starshot Arrow]</p>"
         },
         "level": {
             "value": 17
@@ -25,7 +25,61 @@
             "remaster": true,
             "title": "Pathfinder Howl of the Wild"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "starshot-arrow",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitForce",
+                        "value": "force"
+                    },
+                    {
+                        "label": "PF2E.TraitSpirit",
+                        "value": "spirit"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "definition": [
+                    "item:ranged"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "starshot-arrow"
+                ],
+                "property": "property-runes",
+                "value": "ghost-touch"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "starshot-arrow"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "ranged-strike-damage"
+                ],
+                "slug": "base",
+                "value": "{item|flags.system.rulesSelections.starshotArrow}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    "starshot-arrow"
+                ],
+                "selector": "ranged-strike-attack-roll",
+                "text": "PF2E.SpecificRule.Centaur.StarshotArrow.Note",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

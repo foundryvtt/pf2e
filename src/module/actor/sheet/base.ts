@@ -383,8 +383,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         if (!this.isEditable) return;
 
         // Handlers for number inputs of properties subject to modification by AE-like rules elements
-        const manualPropertyInputs = htmlQueryAll<HTMLInputElement | HTMLSelectElement>(
-            html,
+        const manualPropertyInputs = html.querySelectorAll<HTMLInputElement | HTMLSelectElement>(
             "select[data-property],input[data-property]",
         );
         for (const input of manualPropertyInputs) {
@@ -431,8 +430,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         }
 
         // General handler for embedded item updates
-        const itemPropertyInputs = htmlQueryAll<HTMLInputElement | HTMLSelectElement>(
-            html,
+        const itemPropertyInputs = html.querySelectorAll<HTMLInputElement | HTMLSelectElement>(
             "input[data-item-id][data-item-property], select[data-item-id][data-item-property]",
         );
         for (const element of itemPropertyInputs) {
@@ -462,7 +460,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         }
 
         // Set listener toggles and their suboptions
-        for (const togglesSection of htmlQueryAll(html, "ul[data-option-toggles]")) {
+        for (const togglesSection of html.querySelectorAll("ul[data-option-toggles]")) {
             togglesSection.addEventListener("change", (event) => {
                 const toggleRow = htmlClosest(event.target, "[data-item-id][data-domain][data-option]");
                 const checkbox = htmlQuery<HTMLInputElement>(toggleRow, "input[data-action=toggle-roll-option]");
@@ -544,16 +542,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         }
 
         // Select all text in an input field on focus
-        for (const inputElem of htmlQueryAll<HTMLInputElement>(html, "input[type=text], input[type=number]")) {
-            inputElem.addEventListener("focus", () => {
-                inputElem.select();
-            });
+        for (const input of html.querySelectorAll<HTMLInputElement>("input[type=text], input[type=number]")) {
+            input.addEventListener("focus", () => input.select());
         }
 
         // Inputs with the data-allow-delta attribute mostly emulate number type inputs, but allow +X and -X delta values
-        for (const deltaInput of htmlQueryAll<HTMLInputElement>(html, "input[data-allow-delta]")) {
+        for (const deltaInput of html.querySelectorAll<HTMLInputElement>("input[data-allow-delta]")) {
             deltaInput.dataset.numValue = deltaInput.value;
-
             const sendChangeEvent = fu.debounce((value: string) => {
                 deltaInput.value = value;
                 deltaInput.dispatchEvent(new Event("change", { bubbles: true }));

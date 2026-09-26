@@ -32,6 +32,7 @@
             class="filter-sources"
             spellcheck="false"
             placeholder={_loc("PF2E.CompendiumBrowser.Filter.FilterSources")}
+            aria-label={_loc("PF2E.CompendiumBrowser.Filter.FilterSources")}
             oninput={onSearchSource}
         />
     {/if}

@@ -1,3 +1,45 @@
+## 1.5.1
+
+### System Improvements
+
+- (Chromatic Penguin) Add Raise a Shield button to NPC sheet when shield is held
+- (Chromatic Penguin) Convert `SpellcastingCreateAndEditDialog` to `ApplicationV2` and Svelte
+- (Chromatic Penguin) Convert Treat Wounds and Encouraging Words to `DialogV2` and action macros
+- (Dantar) Include Ancestry trait in feat filters
+- (kromko) Add header, traits, and publication options to feat embeds
+- (stwlam) Allow `RuleElement#resolveValue` to return `null` from string inputs
+- (stwlam) Make world clock's dawn and dusk times configurable
+- (stwlam) Re-render world clock and sync darkness on all scenes upon setting change
+- (stwlam) Set initial value of world clock's time convention according to locale
+
+### Bugfixes
+
+- (Chromatic Penguin) Apply inline check roll options to defense DCs
+- (Chromatic Penguin) Fix apply-once weaknesses triggering when persistent damage is first applied
+- (Chromatic Penguin) Fix TokenImage rule overrides on world load
+- (Chromatic Penguin) Fix versatile and modular toggles on basic unarmed strike
+- (Chromatic Penguin) Fix versatile toggle on combination weapons' melee usage
+- (Chromatic Penguin) Only count tokens inside an effect area's highlighted squares
+- (Dantar) Acquire modifier adjustments for Sweep and Backswing
+- (Dantar) Add label for `force` field of BaseSpeed rule element
+- (sgennaoui) Fix flanking for tiny creatures
+
+### Data Updates
+
+- (Ambrose) Add missing resistances and weaknesses to the Hardlight Scamp
+- (Dantar) Add speed bonus to Speed of Thought
+- (Dantar) Add universal Ancestry trait to feats
+- (Dantar) Make BattleForm remove unmentioned speeds (Errata)
+- (Longstrider) Add Starfinder Society notes to Galactic Adventures, Player Core, and Tales from the Vast items
+- (Longstrider) Fix +3 Weapon Potency Crystal item level
+- (Tikael) Fix action cost of Elemental Weapon
+- (Tikael) Fix damage of Wight Scientist's Needler Pistol
+- (Tikael) Fix errors in Close Quarters feature and Talphi ancestry
+
+### Under the Hood
+
+- (Chromatic Penguin) Adopt shared `TextSearch`/`SearchInput` in ABC picker, formula picker, roll inspector, and trade dialog
+
 ## 1.5.0
 
 ### Highlights

@@ -66,6 +66,12 @@ abstract class RuleElement<TSchema extends RuleElementSchema = RuleElementSchema
     static override LOCALIZATION_PREFIXES = ["PF2E.RULES.Common"];
 
     /**
+     * Regular expression patterns used to match \@attr expressions and isolate terms in Roll.replaceFormulaData
+     * @type {{expression: RegExp; term: RegExp}}
+     */
+    static readonly #replaceFormulaPatterns = { expression: /@{[-.\w]+}|@[-.\w]+/g, term: /^@{?|}?$/g };
+
+    /**
      * @param source unserialized JSON data from the actual rule input
      * @param item where the rule is persisted on
      */
@@ -301,7 +307,7 @@ abstract class RuleElement<TSchema extends RuleElementSchema = RuleElementSchema
             });
         }
         if (typeof value === "string") {
-            const saferEval = (formula: string): number => {
+            const saferEval = (formula: string): RuleValue => {
                 try {
                     // If any resolvables were not provided for this formula, return the default value
                     const unresolveds = formula.match(/@[a-z0-9.]+/gi) ?? [];
@@ -311,35 +317,65 @@ abstract class RuleElement<TSchema extends RuleElementSchema = RuleElementSchema
                             warn &&
                             !unresolveds.every((u) => u.startsWith("@target.") || u.startsWith("@actor.conditions."));
                         this.ignored = true;
-                        if (shouldWarn) {
-                            this.failValidation(`unable to resolve formula, "${formula}"`);
-                        }
-                        return Number(defaultValue);
+                        if (shouldWarn) this.failValidation(`unable to resolve formula, "${formula}"`);
+                        return defaultValue;
                     }
                     return Roll.safeEval(formula);
                 } catch {
                     this.failValidation(`unable to evaluate formula, "${formula}"`);
-                    return 0;
+                    return defaultValue;
                 }
             };
 
             // Include worn armor as resolvable for PCs since there is guaranteed to be no more than one
-            if (this.actor.isOfType("character")) {
-                resolvables.armor = this.actor.wornArmor;
-            }
+            if (this.actor.isOfType("character")) resolvables.armor = this.actor.wornArmor;
 
             const trimmed = value.trim();
-            return (trimmed.includes("@") || /^-?\d+$/.test(trimmed)) && evaluate
-                ? saferEval(
-                      Roll.replaceFormulaData(trimmed, {
-                          ...this.actor.getRollData(),
-                          item: this.item,
-                          ...resolvables,
-                      }),
-                  )
-                : trimmed;
+            if (/^(?:-?\d+|null)$/.test(trimmed)) return JSON.parse(trimmed);
+            if (!evaluate || !trimmed.includes("@")) return trimmed;
+            const replacementData = {
+                ...this.actor.getRollData(),
+                item: this.item,
+                ...resolvables,
+            };
+            const withDataReplaced = this.#replaceFormulaData(trimmed, replacementData);
+            return withDataReplaced === "null" ? null : saferEval(withDataReplaced);
         }
         return defaultValue;
+    }
+
+    /**
+     * Similar to `Roll.replaceFormulaData` but without support for recursion and without the expectation it will be
+     * used in a roll
+     */
+    #replaceFormulaData(text: string, data: object): string {
+        return text.replace(RuleElement.#replaceFormulaPatterns.expression, (match): string => {
+            const term = match.replace(RuleElement.#replaceFormulaPatterns.term, "");
+            const value = fu.getProperty(data, term);
+            switch (typeof value) {
+                case "string":
+                    return value.trim();
+                case "boolean":
+                case "number":
+                    return String(value);
+                case "undefined":
+                    return match;
+                default:
+                    if (value === null) return "null";
+                    if (Array.isArray(value)) return `ᚖ${JSON.stringify(value)}ᚖ`;
+                    if (value instanceof Map) return `ᚖ${JSON.stringify(Object.fromEntries(value))}ᚖ`;
+                    if (value instanceof Set) return `ᚖ${JSON.stringify(Array.from(value))}ᚖ`;
+                    if (
+                        typeof value === "object" &&
+                        "toString" in value &&
+                        typeof value.toString === "function" &&
+                        value.toString !== Object.prototype.toString
+                    ) {
+                        return value.toString();
+                    }
+                    return `ᚖ${JSON.stringify(value)}ᚖ`;
+            }
+        });
     }
 }
 

@@ -4,7 +4,7 @@
     "name": "Effect: Shrine Inarizushi",
     "system": {
         "description": {
-            "value": "<p>Whenever you are in exploration mode, roll a separate Search activity check with a +1 status bonus; this does not affect your Speed. If the check succeeds, a fox appears to inform you of this discovery as best as it can, although it cannot speak.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Shrine Inarizushi]</p>\n<p>You gain a +1 status bonus to Perception check to Search.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,18 +22,13 @@
         },
         "rules": [
             {
-                "domain": "perception-check",
-                "key": "RollOption",
-                "label": "Separate Search check during exploration",
-                "option": "separate-check",
-                "toggleable": true
-            },
-            {
                 "key": "FlatModifier",
                 "predicate": [
-                    "separate-check"
+                    "action:seek"
                 ],
-                "selector": "perception",
+                "selector": [
+                    "perception"
+                ],
                 "type": "status",
                 "value": 1
             }

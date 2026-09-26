@@ -25,7 +25,7 @@
             "die": "d4"
         },
         "description": {
-            "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Strike</p><hr /><p>This rare alchemical bomb gathers and concentrates the emotions that linger in a burial ground where generations of beloved ancestors have been interred, infusing that powerful emotional energy into the alchemically prepared powdered silver stored within the bomb. This energy glows with a soft, silver radiance and, if stored in a clear container, allows a silversoul bomb to be used as a torch to illuminate an area.</p>\n<p>You gain a +3 item bonus to attack rolls, and the bomb deals 4d4 mental damage, 3d6 persistent mental damage to nindorus, and 4 mental splash damage. A creature that takes splash damage from the bomb is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round unless it fails a @Check[fortitude|dc:37] save, in which case it's permanently @UUID[Compendium.pf2e.conditionitems.Item.Blinded].</p>\n<p>Nindorus are particularly harmed by silversoul bombs and take 3d6 persistent mental damage. Against nindorus, the bomb's item bonus also applies to its save DC to resist being dazzled or blinded. Creatures that have weakness to silver (including most nindorus) have an equal amount of weakness to the mental damage caused by a silversoul bomb, due to the silver infused into the energy within.</p>"
+            "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Strike</p><hr /><p>This rare alchemical bomb gathers and concentrates the emotions that linger in a burial ground where generations of beloved ancestors have been interred, infusing that powerful emotional energy into the alchemically prepared powdered silver stored within the bomb. This energy glows with a soft, silver radiance and, if stored in a clear container, allows a silversoul bomb to be used as a torch to illuminate an area.</p>\n<p>A silversoul bomb grants +3 item bonus to attack rolls, and the bomb deals 4d4 mental damage and 4 mental splash damage. A creature that takes splash damage from the bomb is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round unless it fails a @Check[fortitude|dc:37|showDC:all|options:area-effect,inflicts:blinded] save, in which case it's permanently @UUID[Compendium.pf2e.conditionitems.Item.Blinded] as glowing silver particles cling to its face.</p>\n<p>Nindorus are particularly harmed by silversoul bombs and take 3d6 persistent mental damage. Against nindorus, the bomb's item bonus also applies to its save DC to resist being dazzled or blinded. Creatures that have weakness to silver (including most nindorus) have an equal amount of weakness to the mental damage caused by a silversoul bomb, due to the silver infused into the energy within.</p>"
         },
         "expend": 1,
         "grade": null,
@@ -95,6 +95,10 @@
                     "luminosity": 0.25,
                     "shadows": 0.2
                 }
+            },
+            {
+                "key": "TokenEffectIcon",
+                "value": "icons/consumables/potions/potion-bottle-corked-white.webp"
             }
         ],
         "runes": {

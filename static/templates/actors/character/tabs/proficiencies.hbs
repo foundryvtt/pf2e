@@ -40,18 +40,27 @@
 
     <ul class="proficiencies-list lores-list">
         {{!-- Lore Skills --}}
-        {{#each data.skills as |skill idx|}}
+        {{#each data.skills as |skill|}}
             {{#if skill.lore}}
-                <li class="item" data-item-id="{{skill.itemId}}" data-item-type="lore" data-statistic="{{skill.slug}}">
+                <li class="item"{{#if skill.itemId}} data-item-id="{{skill.itemId}}"{{/if}} data-item-type="lore"
+                    data-statistic="{{skill.slug}}">
                     <a class="d20" data-action="roll-check" data-tooltip="{{skill.breakdown}}">
                         {{> (resolvePath "templates/actors/character/icons/d20.hbs")}}
                     </a>
                     <a class="modifier" data-action="roll-check">{{numberFormat skill.value decimals=0 sign=true}}</a>
-                    <input class="name" data-item-id="{{skill.itemId}}" data-item-property="name" type="text" value="{{skill.label}}" />
-                    <select class="skill-proficiency pf-rank adjust-item-stat-select" data-item-property="system.proficient.value" data-tooltip="{{skill.breakdown}}" data-rank="{{skill.rank}}">
+                    {{#if skill.itemId}}
+                        <input class="name" type="text" value="{{skill.label}}"
+                               data-item-id="{{skill.itemId}}" data-item-property="name" />
+                    {{else}}
+                        <div class="name">{{skill.label}}</div>
+                    {{/if}}
+                    <select class="skill-proficiency pf-rank adjust-item-stat-select"
+                            data-item-property="system.proficient.value" data-rank="{{skill.rank}}"
+                            data-tooltip="" aria-label="{{skill.breakdown}}"
+                            {{#unless skill.itemId}}disabled{{/unless}}>
                         {{> (resolvePath "templates/actors/character/partials/proficiencylevels-dropdown.hbs") proflevel=skill.rank}}
                     </select>
-                    {{#if ../editable}}
+                    {{#if (and skill.itemId ../editable)}}
                         <div class="item-controls">
                             <a data-action="delete-item" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
                         </div>

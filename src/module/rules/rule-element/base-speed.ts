@@ -27,6 +27,8 @@ class BaseSpeedRuleElement extends RuleElement<BaseSpeedRuleSchema> {
 
     static override autogenForms = true;
 
+    static override LOCALIZATION_PREFIXES = super.LOCALIZATION_PREFIXES.concat("PF2E.RULES.BaseSpeed");
+
     constructor(data: RuleElementSource, options: RuleElementOptions) {
         super(data, options);
         if (this.invalid) return;

@@ -2,10 +2,11 @@ import { ActorPF2e, type PartyPF2e } from "@actor";
 import type { HitPointsSummary } from "@actor/base.ts";
 import { CORE_RESOURCES } from "@actor/character/values.ts";
 import type { CreatureSource } from "@actor/data/index.ts";
+import { getTempHPSourceId } from "@actor/helpers.ts";
 import { Modifier, MODIFIER_TYPES, RawModifier } from "@actor/modifiers.ts";
 import { ActorSpellcasting } from "@actor/spellcasting.ts";
 import type { MovementType, SaveType, SkillSlug } from "@actor/types.ts";
-import { MOVEMENT_TYPES } from "@actor/values.ts";
+import { ATTRIBUTE_ABBREVIATIONS, MOVEMENT_TYPES } from "@actor/values.ts";
 import type { Rolled } from "@client/dice/_module.d.mts";
 import type {
     DatabaseDeleteCallbackOptions,
@@ -430,6 +431,18 @@ abstract class CreaturePF2e<
             domains: ["all", "spell-attack-dc"],
             check: { type: "attack-roll" },
         });
+
+        // Fill or prune incomplete base skill data
+        for (const [slug, skill] of fu.iterateEntries(this.system.skills)) {
+            if (!slug || slug !== sluggify(slug) || !(slug in CONFIG.PF2E.skills || skill.label)) {
+                delete this.system.skills[slug];
+                continue;
+            }
+            skill.attribute ??= "int";
+            if (!ATTRIBUTE_ABBREVIATIONS.has(skill.attribute)) delete this.system.skills[slug];
+            skill.lore = !(slug in CONFIG.PF2E.skills);
+            if (!skill.itemId || !this.items.get(skill.itemId)?.isOfType("lore")) skill.itemId = null;
+        }
     }
 
     protected override prepareDataFromItems(): void {
@@ -934,9 +947,21 @@ abstract class CreaturePF2e<
                 ? Math.max(0, changedHP.value)
                 : Math.clamp(changedHP.value, 0, Math.max(maxHP - currentHP.unrecoverable, 0));
         }
-        if (changed.system.attributes?.hp?.temp !== undefined) {
-            const inputValue = changed.system.attributes.hp.temp;
-            changed.system.attributes.hp.temp = Math.floor(Math.clamp(Number(inputValue) || 0, 0, 999));
+        const changedTempHP = changed.system.attributes?.hp;
+        if (changedTempHP?.temp !== undefined) {
+            changedTempHP.temp = Math.floor(Math.clamp(Number(changedTempHP.temp) || 0, 0, 999));
+            // A change not made by a TempHP rule element that zeroes or raises temp HP orphans the recorded source
+            const current = this._source.system.attributes.hp;
+            const setsSource = "tempSource" in changedTempHP;
+            if (
+                getTempHPSourceId(current) &&
+                !setsSource &&
+                (changedTempHP.temp === 0 || changedTempHP.temp > current.temp)
+            ) {
+                const changes: Record<string, unknown> = changedTempHP;
+                changes.tempSource = _del;
+                if ("tempsource" in current) changes.tempsource = _del;
+            }
         }
 
         // Clamp focus points

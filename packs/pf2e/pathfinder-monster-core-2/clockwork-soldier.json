@@ -58,9 +58,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": null,
@@ -215,6 +215,9 @@
         },
         {
             "_id": "BaTacjtQvnaLoVc5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.xS8ybzuqPSi3Jb8k"
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Wind-Up",
             "sort": 500000,
@@ -227,12 +230,12 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>24 hours, [[/act disable-device dc=22]]{DC 22 Thievery}, standby</p>\n<hr />\n<p>For a clockwork to act, it must be wound with a unique key by another creature. This takes 1 minute. Once wound, it remains operational for the listed amount of time, usually 24 hours, after which time it becomes unaware of its surroundings and can't act until it's wound again. Some clockworks' abilities require them to spend some of their remaining operational time. They can't spend more than they have and shut down immediately once they have 0 time remaining. If it's unclear when a clockwork was last wound, most clockwork keepers wind all their clockworks at a set time, typically 8 a.m.</p>\n<p>A clockwork that lists standby in its wind-up entry can enter standby mode as a 3-action activity. Its operational time doesn't decrease in standby, but it can sense its surroundings (with a -2 penalty to Perception). It can't act, with one exception: when it perceives a creature, it can exit standby as a reaction (rolling initiative if appropriate).</p>\n<p>A creature can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Disable a Device] to wind a clockwork down (with a DC listed in the wind-up entry). For each success, the clockwork loses 1 hour of operational time. This can be done even if the clockwork is in standby mode.</p>"
+                    "value": "<p>24 hours, [[/act disable-device dc=22]], standby</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.WindUp]</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core 2"
                 },
                 "rules": [
                     {
@@ -240,7 +243,6 @@
                         "key": "RollOption",
                         "label": "PF2E.NPCAbility.ClockworkWindUp",
                         "option": "wind-up",
-                        "priority": 50,
                         "toggleable": true
                     },
                     {
@@ -249,10 +251,11 @@
                             "wind-up"
                         ],
                         "selector": "perception",
+                        "type": "circumstance",
                         "value": -2
                     }
                 ],
-                "slug": null,
+                "slug": "clockwork-creature-wind-up",
                 "traits": {
                     "value": []
                 }
@@ -302,7 +305,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>One of the soldier's external plates extends on a mechanical actuator to defend the soldier or an adjacent creature of the soldier's choice.</p>\n<p>The creature gains a +2 circumstance bonus to AC until the start of the soldier's next turn, or until it is no longer adjacent to the soldier, whichever comes first. The soldier can have no more than one plate extended at a time.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Activate Defenses]</p>"
+                    "value": "<p>One of the soldier's external plates extends on a mechanical actuator to defend the soldier or an adjacent creature of the soldier's choice. The creature gains a +2 circumstance bonus to AC until the start of the soldier's next turn or until it is no longer adjacent to the soldier, whichever comes first. The soldier can have no more than one plate extended at a time.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Activate Defenses]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -378,7 +381,7 @@
                 "value": 24
             },
             "allSaves": {
-                "value": ""
+                "value": "+2 vs. Disarm"
             },
             "hp": {
                 "details": "",
@@ -423,7 +426,7 @@
                 "value": 6
             },
             "privateNotes": "",
-            "publicNotes": "<p>These diligent machines guard their assigned posts tirelessly. A typical clockwork soldier stands 6 feet tall and consists of 500 pounds of metal and magic.</p>\n<hr />\n<p>Intricate, complex machines, clockworks are built with care by highly skilled engineers. Though their creation involves some amount of magic, they're primarily mechanical, packed with precision-tuned gears and springs working in concert.</p>\n<p>The sturdy mainspring within a clockwork must be wound to provide the energy needed to power the device. Some larger clockworks contain a series of springs for different limbs that each need to be wound. A clockwork's crafter creates a unique metal key while building the clockwork; winding the clockwork usually involves inserting the key into the machine's back and turning clockwise. Larger clockworks require greater strength to turn the key, and typically have larger keys to allow for more torque-some even accommodating a team of winders rather than an individual. Programming a clockwork requires both the key and the knowledge to set the program correctly, information usually reserved for the clockwork's creator or owner.</p>",
+            "publicNotes": "<p>These diligent machines guard their assigned posts tirelessly. A typical clockwork soldier stands 6 feet tall and consists of 500 pounds of metal and magic.</p><hr /><p>Intricate, complex machines, clockworks are built with care by highly skilled engineers. Though their creation involves some amount of magic, they're primarily mechanical, packed with precision-tuned gears and springs working in concert.</p>\n<p>The sturdy mainspring within a clockwork must be wound to provide the energy needed to power the device. Some larger clockworks contain a series of springs for different limbs that each need to be wound. A clockwork's crafter creates a unique metal key while building the clockwork; winding the clockwork usually involves inserting the key into the machine's back and turning clockwise. Larger clockworks require greater strength to turn the key and typically have larger keys to allow for more torque—some even accommodate a team of winders rather than an individual. Programming a clockwork requires both the key and the knowledge to set the program correctly, information usually reserved for the clockwork's creator or owner.</p>",
             "publication": {
                 "license": "ORC",
                 "remaster": true,
@@ -468,8 +471,7 @@
                             {
                                 "or": [
                                     "action:disarm",
-                                    "action:grapple",
-                                    "avoid-disarm"
+                                    "action:grapple"
                                 ]
                             }
                         ]

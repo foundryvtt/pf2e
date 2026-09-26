@@ -14,7 +14,7 @@ import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
 import * as R from "remeda";
 import { FeatSource, FeatSystemData } from "./data.ts";
-import { featCanHaveKeyOptions, suppressFeats } from "./helpers.ts";
+import { adjustFeatTraitsAndCategory, featCanHaveKeyOptions, suppressFeats } from "./helpers.ts";
 import { FeatOrFeatureCategory, FeatTrait } from "./types.ts";
 import { FEATURE_CATEGORIES, FEAT_CATEGORIES } from "./values.ts";
 
@@ -96,28 +96,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         this.suppressed = false;
         this.crafting = null;
 
-        const traits = this.system.traits.value;
-
-        // Add the General trait if of the general feat type
-        if (this.category === "general" && !traits.includes("general")) {
-            traits.push("general");
-        }
-
-        if (this.category === "skill") {
-            // Add the Skill trait
-            if (!traits.includes("skill")) traits.push("skill");
-
-            // Add the General trait only if the feat is not an archetype skill feat
-            if (!traits.includes("general") && !traits.includes("archetype")) {
-                traits.push("general");
-            }
-        }
-
-        // Only archetype feats can have the dedication trait
-        if (traits.includes("dedication")) {
-            this.system.category = "class";
-            if (!traits.includes("archetype")) traits.push("archetype");
-        }
+        adjustFeatTraitsAndCategory(this.system);
 
         // Feats with the Lineage trait can only ever be taken at level 1
         if (this.system.traits.value.includes("lineage")) {
@@ -346,16 +325,68 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         if (this.frequency) rollOptions.findSplice((o) => o === `${prefix}:frequency:limited`);
         rollOptions.push(...getActionCostRollOptions(prefix, this));
 
+        // Ancestry feats without an ancestry trait filter as universal
+        if (
+            this.isFeat &&
+            this.category === "ancestry" &&
+            !this.system.traits.value.some((t) => t === "ancestry" || t in CONFIG.PF2E.creatureTraits)
+        ) {
+            rollOptions.push(`${prefix}:tag:universal`);
+        }
+
         return rollOptions;
     }
 
-    protected override embedHTMLString(config: DocumentHTMLEmbedConfig & { hr?: boolean }): string {
-        const list = this.system.prerequisites?.value?.map((item) => item.value).join(", ") ?? "";
+    protected override embedHTMLString(
+        config: DocumentHTMLEmbedConfig & {
+            hr?: boolean;
+            traits?: boolean;
+            publication?: boolean;
+            header?: boolean;
+            journalLink?: boolean;
+        },
+    ): string {
+        // Add header with Item link and feat level
+        const header = config.header
+            ? `<h2 class="embed heading"><span>@UUID[${this.uuid}]</span> <span>${_loc("PF2E.Item.Feat.LevelN", { level: this.level })}</span></h2>`
+            : "";
+
+        // Non-common rarity followed by alphabetically ordered traits
+        const rarity = this.system.traits.rarity;
+        const traits = config.traits
+            ? [
+                  rarity !== "common"
+                      ? `<li class="tag rarity ${rarity}" data-tooltip="${CONFIG.PF2E.traitsDescriptions[rarity]}">${_loc(CONFIG.PF2E.rarityTraits[rarity])}</li>`
+                      : "",
+                  ...this.traitChatData().map((t) => {
+                      const tooltip = t.description ? ` data-tooltip="${t.description}"` : "";
+                      return `<li class="tag traits"${tooltip}>${t.label}</li>`;
+                  }),
+              ].join("")
+            : "";
+
+        const prerequisites = this.system.prerequisites?.value?.map((item) => item.value).join(", ") ?? "";
+
+        // For dedication feats, remove the journal link at the end
+        const description =
+            config.journalLink === false
+                ? this.description.replace(/<p>@UUID\[[^\]]+\](?:\{[^}]+\})?<\/p>$/, "")
+                : this.description;
+
+        // Right-aligned publication label
+        const publication = config.publication
+            ? `<p class="embed publication">${_loc("PF2E.Item.Feat.PublicationSource", { publication: this.system.publication.title })}</p>`
+            : "";
+
         return (
-            (list
-                ? `<p><strong>${_loc("PF2E.FeatPrereqLabel")}</strong> ${list}</p>` +
+            header +
+            (traits ? `<ul class="tags paizo-style">${traits}</ul>` : "") +
+            (prerequisites
+                ? `<p><strong>${_loc("PF2E.FeatPrereqLabel")}</strong> ${prerequisites}</p>` +
                   (config.hr === false ? "" : "<hr>")
-                : "") + this.description
+                : "") +
+            description +
+            publication
         );
     }
 
