@@ -1,0 +1,42 @@
+{
+    "_id": "h8x25hF4dlibDIef",
+    "img": "icons/magic/sonic/explosion-impact-shock-wave.webp",
+    "name": "Spell Effect: Roar of Freedom",
+    "system": {
+        "description": {
+            "value": "<p>Allied creatures within the emanation gain temporary Hit Points that last for 1 minute.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "(max(((@item.level - 5) * 5),15))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

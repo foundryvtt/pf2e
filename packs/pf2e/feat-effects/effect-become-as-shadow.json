@@ -1,0 +1,92 @@
+{
+    "_id": "PU94onON94Vt59fX",
+    "img": "icons/magic/unholy/silhouette-robe-evil-glow.webp",
+    "name": "Effect: Become as Shadow",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Become as Shadow]</p>\n<p>You gain the incorporeal trait and resistance 10 to all damage except force, spirit, and damage from Strikes with weapons with the ghost touch property; double this resistance against non-magical damage. However, whenever you are in an area of bright light, you are Enfeebled 3 and Off-Guard</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.WeaverOfWebs.InBrightLight",
+                "option": "lighting:bright",
+                "toggleable": true
+            },
+            {
+                "add": [
+                    "incorporeal"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "doubleVs": [
+                    {
+                        "not": "item:magical"
+                    }
+                ],
+                "exceptions": [
+                    {
+                        "or": [
+                            "force",
+                            "spirit",
+                            "ghost-touch"
+                        ]
+                    }
+                ],
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": 10
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 3
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "lighting:bright-light"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "lighting:bright-light"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
