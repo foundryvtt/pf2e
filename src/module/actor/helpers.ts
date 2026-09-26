@@ -15,13 +15,13 @@ import type { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import {
-    extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
+import { extractDegreeOfSuccessAdjustments } from "@system/degree-of-success.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { RegionDocumentPF2e, ScenePF2e } from "@scene";
 import type { EnvironmentRegionBehavior } from "@scene/region-behavior/types.ts";
@@ -608,7 +608,13 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 domains,
                 context.options,
             );
-            const dosAdjustments = extractDegreeOfSuccessAdjustments(context.origin.actor.synthetics, domains);
+            const dosAdjustments = extractDegreeOfSuccessAdjustments({
+                self: context.origin.actor,
+                selfRole: "origin",
+                opposer: context.target?.actor,
+                domains,
+                options: context.options,
+            });
 
             const allModifiers = [map, params.modifiers, context.origin.modifiers].flat().filter(R.isTruthy);
             const check = new CheckModifier("strike", context.origin.statistic ?? strike, allModifiers);

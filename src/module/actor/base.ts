@@ -1,3 +1,4 @@
+import type { RollRole } from "@actor/roll-context/types.ts";
 import { ActorAlliance, ActorDimensions, ActorInstances, ApplyDamageParams, AuraData, SaveType } from "@actor/types.ts";
 import type { ToCompendiumOptions } from "@client/_types.d.mts";
 import type { DialogV2Configuration } from "@client/applications/api/dialog.d.mts";
@@ -389,7 +390,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Get roll options from this actor's effects, traits, and other properties */
-    getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): string[] {
+    getSelfRollOptions(prefix: "self" | RollRole = "self"): string[] {
         const { rollOptions } = this;
         return Object.keys(rollOptions.all).flatMap((o) =>
             o.startsWith("self:") && rollOptions.all[o] ? o.replace(/^self/, prefix) : [],
@@ -749,6 +750,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             damageAlterations: {},
             damageDice: { damage: [] },
             degreeOfSuccessAdjustments: {},
+            opposingDegreeOfSuccessAdjustments: { origin: {}, target: {} },
             dexterityModifierCaps: [],
             itemAlterations: [],
             modifierAdjustments: { all: [], damage: [] },

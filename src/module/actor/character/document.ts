@@ -51,13 +51,13 @@ import type { WeaponRuneSource, WeaponSource } from "@item/weapon/data.ts";
 import { processTwoHandTrait } from "@item/weapon/helpers.ts";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import {
-    extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
+import { extractDegreeOfSuccessAdjustments } from "@system/degree-of-success.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { Check, CheckCheckContext, CheckRoll } from "@system/check/index.ts";
@@ -1564,7 +1564,13 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 );
                 const dosAdjustments = [
                     getPropertyRuneDegreeAdjustments(context.origin.item),
-                    extractDegreeOfSuccessAdjustments(context.origin.actor.synthetics, context.domains),
+                    extractDegreeOfSuccessAdjustments({
+                        self: context.origin.actor,
+                        selfRole: "origin",
+                        opposer: context.target?.actor,
+                        domains: context.domains,
+                        options: context.options,
+                    }),
                 ].flat();
 
                 const title = _loc(
