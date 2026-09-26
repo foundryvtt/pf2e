@@ -42,6 +42,19 @@
             </div>
         {{/each}}
     </div>
+    {{#if coverLevel}}
+    <hr />
+    <div class="roll-mode-panel flexcol">
+        <div class="form-group roll-mode">
+            <label for="{{appId}}-overrideCover">{{localize "PF2E.Roll.Dialog.Check.Cover.Label"}}</label>
+            <div class="form-fields">
+                <select name="overrideCover" id="{{appId}}-overrideCover">
+                    {{selectOptions coverOptions selected=coverLevel localize=true}}
+                </select>
+            </div>
+        </div>
+    </div>
+    {{/if}}
     <hr />
     <section class="add-entry-row add-modifier-panel">
         <input type="text" class="add-modifier-name" placeholder={{localize "PF2E.ModifierTitle"}} aria-label="{{localize "PF2E.Roll.Dialog.ModifierName"}}">
