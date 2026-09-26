@@ -12,7 +12,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>Your body generates a special biotoxin that you can deliver with your jaws. Your jaws unarmed attack deals an additional @Damage[1d4[persistent,poison]] damage. Additionally, on a critical hit with your jaws Strike, the target must succeed at a Fortitude save against the higher of your class DC or spell DC or be @UUID[Compendium.sf2e.conditions.Item.Enfeebled]{Enfeebled 1} for 1 round (or 1 minute on a critical failure).</p>"
+            "value": "<p>Your body generates a special biotoxin that you can deliver with your jaws. Your jaws unarmed attack deals an additional 1d4 persistent poison damage. Additionally, on a critical hit with your jaws Strike, the target must succeed at a @Check[fortitude|against:class-spell|options:inflicts:enfeebled] save against the higher of your class DC or spell DC or be @UUID[Compendium.sf2e.conditions.Item.Enfeebled]{Enfeebled 1} for 1 round (or 1 minute on a critical failure).</p>"
         },
         "level": {
             "value": 5
@@ -29,7 +29,27 @@
             "remaster": true,
             "title": "Starfinder Galactic Ancestries"
         },
-        "rules": [],
+        "rules": [
+            {
+                "category": "persistent",
+                "damageType": "poison",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "selector": "jaws-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": [
+                    "jaws-attack"
+                ],
+                "text": "PF2E.SpecificRule.Formian.FormianBiotoxin.Text",
+                "title": "{item|name}"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

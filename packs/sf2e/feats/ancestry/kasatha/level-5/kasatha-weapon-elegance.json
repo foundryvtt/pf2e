@@ -27,15 +27,27 @@
         },
         "rules": [
             {
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
-                "selector": "strike-attack",
+                "predicate": [
+                    {
+                        "lte": [
+                            "self:level",
+                            10
+                        ]
+                    }
+                ],
+                "selector": [
+                    "strike-attack-roll"
+                ],
                 "type": "proficiency",
-                "value": "match()"
+                "value": "@actor.level"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "system.proficiencies.attacks.martial",
+                "path": "system.proficiencies.attacks.simple.rank",
+                "phase": "beforeDerived",
                 "predicate": [
                     {
                         "gte": [
@@ -49,7 +61,23 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "system.proficiencies.attacks.advanced",
+                "path": "system.proficiencies.attacks.martial.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            11
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.attacks.advanced.rank",
+                "phase": "beforeDerived",
                 "predicate": [
                     {
                         "gte": [
