@@ -68,10 +68,10 @@ class TextSearch<TDoc extends SearchableDoc> implements SearchState {
             idField: "id",
             processTerm: (term): string[] | null => {
                 // Fold case first so "An" is dropped like "an"
-                const folded = term.toLocaleLowerCase(game.i18n.lang);
+                const folded = TextSearch.#normalizeText(term);
                 if (folded.length < 2 || CONFIG.i18n.searchStopWords.has(folded)) return null;
                 return Array.from(segmenter.segment(folded))
-                    .map((t) => fa.ux.SearchFilter.cleanQuery(t.segment).replace(/['"]/g, ""))
+                    .map((t) => t.segment)
                     .filter((t) => t.length >= 2);
             },
             searchOptions: { combineWith: "AND", prefix: true },
@@ -104,14 +104,19 @@ class TextSearch<TDoc extends SearchableDoc> implements SearchState {
 
     /** Every match scores 1, so relevance sorts fall back to document order */
     #substringScores(): Map<string, number> {
-        const fragment = this.query.trim().toLocaleLowerCase(game.i18n.lang);
+        const fragment = TextSearch.#normalizeText(this.query);
         const matches = this.#docs.filter((doc) =>
             this.#fields.some((field) => {
                 const value = doc[field];
-                return typeof value === "string" && value.toLocaleLowerCase(game.i18n.lang).includes(fragment);
+                return typeof value === "string" && TextSearch.#normalizeText(value).includes(fragment);
             }),
         );
         return new Map(matches.map((doc) => [doc.id, 1]));
+    }
+
+    static #normalizeText(text: string) {
+        // SearchFilter.cleanQuery trims text and strip diacritics
+        return fa.ux.SearchFilter.cleanQuery(text).toLocaleLowerCase(game.i18n.lang).replace(/['"]/g, "");
     }
 }
 
