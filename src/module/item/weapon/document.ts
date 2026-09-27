@@ -626,6 +626,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     override clone(data?: Record<string, unknown>, context?: WeaponCloneContext): this {
         const clone = super.clone(data, context);
+        if (this.rule) clone.rule = this.rule;
         if (context?.altUsage && clone instanceof WeaponPF2e) {
             clone.altUsageType = context.altUsage;
             const comboSibling = this.system.traits.value.includes("combination") ? this : this.comboSibling;

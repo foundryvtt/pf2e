@@ -234,7 +234,14 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
             if (!useFixed) continue;
 
             suppressUnsharedModifiers(action);
-            action.unshift(new Modifier(this.getReducedLabel(this.item.name), attackModifier, "untyped"));
+            action.unshift(
+                new Modifier({
+                    label: this.getReducedLabel(this.item.name),
+                    slug: "attack-modifier",
+                    modifier: attackModifier,
+                    type: "untyped",
+                }),
+            );
             action.breakdown = action.modifiers
                 .filter((m) => m.enabled)
                 .map((m) => `${m.label} ${m.signedValue}`)
