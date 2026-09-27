@@ -5,10 +5,9 @@
             <fieldset>
                 <legend>{{localize setting.label}}</legend>
                 {{#each setting.settings as |conf pack|}}
-                    <label for="{{key}}-{{pack}}">
+                    <label>
                         <input
                             type="checkbox"
-                            id="{{key}}-{{pack}}"
                             name="{{key}}-{{pack}}"
                             {{checked conf.load}}
                         >

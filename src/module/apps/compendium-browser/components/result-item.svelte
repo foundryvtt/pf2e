@@ -7,12 +7,15 @@
     import type { ItemPF2e, KitPF2e, PhysicalItemPF2e } from "@item";
     import type { ContentTabName } from "../data.ts";
     import type { ActorPF2e } from "@actor";
+    import InlineIconButton from "@module/sheet/components/inline-icon-button.svelte";
 
     interface ResultItemProps {
         activeTabName: ContentTabName | "";
         entry: CompendiumBrowserIndexData;
+        /** Fade the browser window while a result is dragged. */
+        onDragFade: (faded: boolean) => void;
     }
-    const { entry, activeTabName }: ResultItemProps = $props();
+    const { entry, activeTabName, onDragFade }: ResultItemProps = $props();
 
     async function onClickButton(uuid: string, action: "buy-item" | "open-sheet" | "take-item"): Promise<void> {
         switch (action) {
@@ -28,19 +31,14 @@
         }
     }
 
-    /** Set drag data and lower opacity of the application window to reveal any tokens */
+    /** Set drag data and fade the application window. */
     function onDragStart(event: DragEvent, uuid: string): void {
         event.stopPropagation();
         const item = htmlClosest(event.target, "li");
-        const browser = game.pf2e.compendiumBrowser;
         if (!item || !event.dataTransfer) return;
 
         event.dataTransfer?.setDragImage(item, 0, 0);
-        gsap.to(browser.element, {
-            duration: 0.25,
-            opacity: 0.125,
-            pointerEvents: "none",
-        });
+        onDragFade(true);
 
         event.dataTransfer.setData(
             "text/plain",
@@ -50,19 +48,7 @@
             }),
         );
 
-        item.addEventListener(
-            "dragend",
-            () => {
-                window.setTimeout(() => {
-                    gsap.to(browser.element, {
-                        duration: 0.25,
-                        opacity: 1,
-                        pointerEvents: "",
-                    });
-                }, 500);
-            },
-            { once: true },
-        );
+        item.addEventListener("dragend", () => onDragFade(false), { once: true });
     }
 
     async function takePhysicalItem(uuid: string): Promise<void> {
@@ -146,10 +132,12 @@
 
 <li draggable="true" ondragstart={(event) => onDragStart(event, entry.uuid)}>
     <div class="image">
-        <img src={entry.img} alt={entry.name} loading="lazy" />
+        <img src={entry.img} alt="" loading="lazy" />
     </div>
     <div class="name">
-        <button class="flat result-link" onclick={() => onClickButton(entry.uuid, "open-sheet")}>{entry.name}</button>
+        <button type="button" class="flat result-link" onclick={() => onClickButton(entry.uuid, "open-sheet")}>
+            {entry.name}
+        </button>
         {#if entry.actionGlyph}<span class="action-glyph">{entry.actionGlyph}</span>{/if}
     </div>
     {#if entry.rarity}
@@ -175,22 +163,18 @@
         </div>
     {/if}
     {#if activeTabName === "equipment"}
-        <button
-            class="equipment-action flat"
-            aria-label="take item"
+        <InlineIconButton
+            icon="fa-regular fa-hand-rock"
+            aria-label={_loc("PF2E.CompendiumBrowser.TakeLabel")}
             data-tooltip="PF2E.CompendiumBrowser.TakeLabel"
             onclick={() => onClickButton(entry.uuid, "take-item")}
-        >
-            <i class="fa-regular fa-hand-rock"></i>
-        </button>
-        <button
-            class="equipment-action flat"
-            aria-label="buy item"
+        />
+        <InlineIconButton
+            icon="fa-solid fa-coins"
+            aria-label={_loc("PF2E.CompendiumBrowser.BuyLabel")}
             data-tooltip="PF2E.CompendiumBrowser.BuyLabel"
             onclick={() => onClickButton(entry.uuid, "buy-item")}
-        >
-            <i class="fa-solid fa-coins"></i>
-        </button>
+        />
     {/if}
 </li>
 
@@ -204,7 +188,7 @@
         font-size: var(--font-size-14);
 
         &:nth-child(odd) {
-            background-color: var(--color-result-list-odd);
+            background-color: var(--table-row-color-even);
         }
 
         align-items: center;
@@ -247,6 +231,11 @@
                     outline: unset;
                     box-shadow: unset;
                 }
+
+                &:focus-visible {
+                    outline: 2px solid var(--button-focus-outline-color);
+                    outline-offset: -2px;
+                }
             }
         }
 
@@ -272,31 +261,13 @@
             margin-right: 0.5em;
         }
 
-        button.equipment-action {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex: unset;
-            width: 1.5em;
-
-            i {
-                margin-right: unset;
-            }
-
-            &:hover {
-                color: var(--button-text-color);
-                box-shadow: unset;
-            }
-
-            &:focus {
-                outline: unset;
-                box-shadow: unset;
-            }
+        &:hover {
+            cursor: grab;
         }
 
-        &:hover {
-            background-color: rgba(255, 255, 255, 0.25);
-            cursor: grab;
+        &:hover,
+        &:has(:global(:focus-visible)) {
+            background-color: var(--table-row-color-highlight);
         }
     }
 </style>

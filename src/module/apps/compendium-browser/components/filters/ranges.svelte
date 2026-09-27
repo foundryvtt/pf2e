@@ -1,18 +1,21 @@
 <script lang="ts">
     import { slide } from "svelte/transition";
-    import type { RangesInputData } from "../../tabs/data.ts";
+    import type { RangeInputParser, RangesInputData } from "../../tabs/data.ts";
 
-    const { name, range = $bindable() }: { name: string; range: RangesInputData } = $props();
+    interface Props {
+        name: string;
+        parseRangeInput: RangeInputParser;
+        range: RangesInputData;
+    }
+    const { name, parseRangeInput, range = $bindable() }: Props = $props();
 
     function onChangeRange(event: Event & { currentTarget: HTMLInputElement }): void {
-        const activeTab = game.pf2e.compendiumBrowser.activeTab;
-        if (!activeTab) return;
         const elName = event.currentTarget.name;
         const elValue = event.currentTarget.value;
         if (elName === "lowerBound") {
-            range.values = activeTab.parseRangeFilterInput(name, elValue, range.values.inputMax);
+            range.values = parseRangeInput(name, elValue, range.values.inputMax);
         } else if (elName === "upperBound") {
-            range.values = activeTab.parseRangeFilterInput(name, range.values.inputMin, elValue);
+            range.values = parseRangeInput(name, range.values.inputMin, elValue);
         }
         range.changed = true;
     }
@@ -24,6 +27,7 @@
             type="text"
             autocomplete="off"
             name="lowerBound"
+            aria-label={_loc("PF2E.CompendiumBrowser.Filter.Aria.RangeMin", { label: _loc(range.label) })}
             placeholder={range.defaultMin}
             bind:value={range.values.inputMin}
             onchange={onChangeRange}
@@ -33,6 +37,7 @@
             type="text"
             autocomplete="off"
             name="upperBound"
+            aria-label={_loc("PF2E.CompendiumBrowser.Filter.Aria.RangeMax", { label: _loc(range.label) })}
             placeholder={range.defaultMax}
             bind:value={range.values.inputMax}
             onchange={onChangeRange}
