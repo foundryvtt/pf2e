@@ -41,6 +41,16 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.feats-srd.Item.Additional Lore"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.elf-lore",
+                "value": {
+                    "attribute": "int",
+                    "label": "{item|name}",
+                    "rank": "match(when(gte(@actor.level, 15), 4), when(gte(@actor.level, 7), 3),when(gte(@actor.level, 3), 2),1)"
+                }
             }
         ],
         "traits": {

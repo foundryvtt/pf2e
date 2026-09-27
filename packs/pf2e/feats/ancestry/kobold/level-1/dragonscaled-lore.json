@@ -12,7 +12,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>The study of dragons is not merely academic to you but part of your family tree. Tracking lineages, benefactors, and communities has become second nature. You become trained in Intimidation and your choice of Arcana, Nature, Occultism, or Religion. For each of these skills in which you were already trained, you become trained in a skill of your choice. You also gain the Additional Lore general feat for Dragon Lore.</p>"
+            "value": "<p>The study of dragons is not merely academic to you but part of your family tree. Tracking lineages, benefactors, and communities has become second nature. You become trained in Intimidation and your choice of Arcana, Nature, Occultism, or Religion. For each of these skills in which you were already trained, you become trained in a skill of your choice. You also gain the @UUID[Compendium.pf2e.feats-srd.Item.Additional Lore] general feat for Dragon Lore.</p>"
         },
         "level": {
             "value": 1
@@ -33,6 +33,51 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.feats-srd.Item.Additional Lore"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.dragon-lore",
+                "value": {
+                    "attribute": "int",
+                    "label": "PF2E.SpecificLore.Dragon",
+                    "rank": "match(when(gte(@actor.level, 15), 4), when(gte(@actor.level, 7), 3),when(gte(@actor.level, 3), 2),1)"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.intimidation.rank",
+                "value": 1
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitArcane",
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "PF2E.TraitDivine",
+                        "value": "religion"
+                    },
+                    {
+                        "label": "PF2E.TraitOccult",
+                        "value": "occultism"
+                    },
+                    {
+                        "label": "PF2E.TraitPrimal",
+                        "value": "nature"
+                    }
+                ],
+                "flag": "dragonscaledSkill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Tradition"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.system.rulesSelections.dragonscaledSkill}.rank",
+                "value": 1
             }
         ],
         "subfeatures": {
