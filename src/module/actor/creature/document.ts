@@ -847,6 +847,23 @@ abstract class CreaturePF2e<
                 dependsOn: [],
             };
             const chosen = selected ?? landFallback;
+            // Forced BaseSpeed 0 removes the speed. Land cannot be null; empty domains keep bonuses from restoring it.
+            if (chosen.force && chosen.value === 0) {
+                if (type === "land") {
+                    const statistic = new SpeedStatistic(this, {
+                        type: "land",
+                        base: 0,
+                        domains: [],
+                        source: chosen.source,
+                    });
+                    speedStats.land = statistic;
+                    this.system.movement.speeds.land = statistic.getTraceData();
+                } else {
+                    setSpeedStat(type, null);
+                    this.system.movement.speeds[type as Exclude<MovementType, "land">] = null;
+                }
+                return;
+            }
             if (chosen.value > 0) this.flags[SYSTEM_ID].rollOptions.all[`speed:${type}`] = true;
             const statistic = buildSpeedStatistic(type, chosen);
             setSpeedStat(type, statistic);
