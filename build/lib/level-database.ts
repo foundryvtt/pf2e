@@ -158,10 +158,7 @@ type EmbeddedKey = "items" | "pages" | "results" | "categories";
 type Sublevel<T> = AbstractSublevel<ClassicLevel<string, T>, string | Buffer | Uint8Array, string, T>;
 
 type EmbeddedEntry =
-    | ItemSourcePF2e
-    | SourceFromSchema<JournalEntryPageSchema>
-    | JournalEntryCategorySource
-    | TableResultSource;
+    ItemSourcePF2e | SourceFromSchema<JournalEntryPageSchema> | JournalEntryCategorySource | TableResultSource;
 
 type DBEntry = Omit<PackEntry, "pages" | "items" | "results" | "categories"> & {
     folder?: string | null;
