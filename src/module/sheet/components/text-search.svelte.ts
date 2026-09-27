@@ -115,7 +115,7 @@ class TextSearch<TDoc extends SearchableDoc> implements SearchState {
     }
 
     static #normalizeText(text: string) {
-        // SearchFilter.cleanQuery trims text and strip diacritics
+        // SearchFilter.cleanQuery trims text and strips diacritics
         return fa.ux.SearchFilter.cleanQuery(text).toLocaleLowerCase(game.i18n.lang).replace(/['"]/g, "");
     }
 }
