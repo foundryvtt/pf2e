@@ -239,10 +239,6 @@
                     "q7xfp6sknezpz54xz0vj": {
                         "damage": "3d12+13",
                         "damageType": "slashing"
-                    },
-                    "28t35kmxgvy6t4tm4vwn": {
-                        "damage": "1d6",
-                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -254,7 +250,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "frost"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
