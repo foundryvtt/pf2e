@@ -347,9 +347,9 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         },
     ): string {
         // Add header with Item link and feat/feature level
-        const headerLevel = !setHasElement(FEAT_CATEGORIES, this.system.category)
-            ? ordinalString(this.level)
-            : _loc("PF2E.Item.Feat.LevelN", { level: this.level });
+        const headerLevel = this.isFeat
+            ? _loc("PF2E.Item.Feat.LevelN", { level: this.level })
+            : ordinalString(this.level);
         const header = config.header
             ? `<h2 class="embed heading"><span>@UUID[${this.uuid}]</span> <span>${headerLevel}</span></h2>`
             : "";
