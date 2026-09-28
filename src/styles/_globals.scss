@@ -3,6 +3,13 @@
 /* (margin, padding, gap, etc.)              */
 /* ----------------------------------------- */
 
+// Registered so the url resolves against this stylesheet rather than wherever the var is used
+@property --parchment-texture {
+    syntax: "<url>";
+    inherits: true;
+    initial-value: url("");
+}
+
 :root {
     --space-1: 0.0625rem;
     --space-neg-1: -0.0625rem;
@@ -28,11 +35,6 @@
     --parchment-texture: url("../../../ui/parchment.jpg");
 }
 
-@property --parchment-texture {
-    syntax: "<url>";
-    inherits: true;
-    initial-value: url("");
-}
 /* ----------------------------------------- */
 /* Layout                                    */
 /* ----------------------------------------- */
