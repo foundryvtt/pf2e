@@ -37,4 +37,4 @@ type JournalEntryCategorySchema = {
     _stats: fields.DocumentStatsField;
 };
 
-export {};
+export type JournalEntryCategorySource = fields.SourceFromSchema<JournalEntryCategorySchema>;
