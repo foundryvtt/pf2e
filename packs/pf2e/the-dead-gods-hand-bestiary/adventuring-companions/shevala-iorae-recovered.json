@@ -2861,10 +2861,6 @@
                     "8PFiLUIQtYCDp1qR": {
                         "damage": "2d6+1",
                         "damageType": "slashing"
-                    },
-                    "E0gBzB70nLEfw61W": {
-                        "damage": "1d6",
-                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -2876,7 +2872,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "frost"
+                    }
+                ],
                 "slug": "sickle",
                 "subjectToMAP": true,
                 "traits": {

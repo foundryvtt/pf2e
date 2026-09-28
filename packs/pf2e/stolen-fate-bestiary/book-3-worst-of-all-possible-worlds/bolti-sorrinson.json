@@ -186,10 +186,6 @@
                     "0": {
                         "damage": "4d12+16",
                         "damageType": "slashing"
-                    },
-                    "YhySq9OEvGxrdvVj": {
-                        "damage": "1d6",
-                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -201,7 +197,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greaterFrost"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

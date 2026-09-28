@@ -2186,14 +2186,6 @@
                     "1p3uWAYyYdVkSosC": {
                         "damage": "2d4+11",
                         "damageType": "piercing"
-                    },
-                    "NnlBshDSaUDmlJZt": {
-                        "damage": "1d6",
-                        "damageType": "cold"
-                    },
-                    "jaibYSfVgZchUCdP": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
                     }
                 },
                 "description": {
@@ -2205,7 +2197,26 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "astral"
+                    },
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "frost"
+                    }
+                ],
                 "slug": "dagger",
                 "traits": {
                     "value": [

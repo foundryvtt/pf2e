@@ -2606,10 +2606,6 @@
                     "kPFP8QepUVqvxPtI": {
                         "damage": "3d6+10",
                         "damageType": "bludgeoning"
-                    },
-                    "ullevrzyrD77gS86": {
-                        "damage": "1d6",
-                        "damageType": "acid"
                     }
                 },
                 "description": {
@@ -2621,7 +2617,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "corrosive"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
