@@ -600,7 +600,9 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
         const preUpdate = this.toObject(false);
         const preUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["appearance", "token"]));
+        const hearingBefore = this.detectionModes.hearing?.enabled === true;
         this.reset();
+        const hearingChanged = hearingBefore !== (this.detectionModes.hearing?.enabled === true);
         const postUpdate = this.toObject(false);
         const postUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["appearance", "token"]));
         const tokenChanges = fu.diffObject(preUpdate, postUpdate);
@@ -622,6 +624,11 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
         if ("disposition" in tokenChanges || aurasChanged()) {
             this.scene?.checkAuras?.();
+        }
+
+        // Hearing outlines only show while sight is gone. A sighted creature stays fully visible either way.
+        if (this.scene?.isView && hearingChanged && this.actor?.hasCondition("blinded")) {
+            canvas.perception.update({ refreshVision: true });
         }
     }
 
