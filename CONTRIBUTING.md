@@ -12,19 +12,28 @@ If you would like to contribute to the project then I welcome all support. If yo
 
 ### Building
 
-The project uses vite to bundle the ES module and compile the SASS files needed for a build and can create a local distribution for your own Foundry server. If you want to give it a go yourself follow these steps:
+This project uses vite to bundle the ES module and compile the SASS files needed for a build and can create a local distribution for your own Foundry server. If you want to give it a go yourself follow these steps:
 
-- Clone the repo into a local folder in your dev environment `git clone https://github.com/foundryvtt/pf2e.git`
+- Clone the repository into a local folder (e.g. `git clone https://github.com/foundryvtt/pf2e.git`) and navigate to the created folder.
 
-- From within the clone's folder, install dependencies with `pnpm install`. After that, pnpm installs dependency changes automatically whenever you run one of the scripts below, so you only need to do this once.
+- From within the clone's folder, install dependencies with `pnpm install`. This only need to be done one as pnpm installs dependency changes automatically whenever one of the scripts is run.
 
-- You'll now need to create a symbolic link between the build folder ("dist") and your Foundry data folder. This can be done manually or by running `pnpm run link` and following the instructions (`pnpm link` without `run` is a built-in pnpm command).
+- Link builds to your local FoundryVTT data folder. This can be done manually or by running `pnpm run link` and following the instructions (`pnpm link` without `run` is a built-in pnpm command).
 
-- Run `pnpm build --system=pf2e` to perform a one-off build.
 
-- Run `pnpm hot` while Foundry is running to start a development server, then open http://localhost:30001 instead of Foundry's usual address.
+#### Systems
 
-- To update compendium datafiles, run `pnpm extractPacks ${compendium db filename} --system=pf2e` after editing the item directly in the built world's compendium, rather than editing the json files directly.
+- Run `pnpm run build --system=pf2e` or `pnpm run build --system=sf2e` to perform a one-off build.
+
+- Run `pnpm run hot --system=pf2e` or `pnpm run hot --system=sf2e` to have any coding changes you make trigger an automatic rebuild. while Foundry is running to start a development server, then open http://localhost:30001 instead of Foundry's usual address.
+
+#### Anachronism Modules
+
+- Run `pnpm run build:anachronism` to perform a one-off build.
+
+### Updating Compendia
+
+- To update compendium datafiles, run `pnpm run extractPacks ${compendium db filename} --system=pf2e` or `pnpm run extractPacks ${compendium db filename} --system=sf2e` after editing the item directly in the built world's compendium, rather than editing the json files directly.
 
 ## How to Help
 
@@ -48,4 +57,4 @@ A pull request may not contain any AI-written changes. PRs noticed as having any
 
 #### Style
 
-We have integrated [Prettier](https://prettier.io/) into this project to enforce a consistent coding—even if it's not one everybody likes. Github CI will block merges of any PR that fails the test suite, which includes style linting, or the type check. To check locally, run `pnpm lint` and `pnpm check`. To manually fix style issues, you can call `pnpm lint:fix` from the project environment.
+We have integrated [Prettier](https://prettier.io/) into this project to enforce a consistent coding—even if it's not one everybody likes. CI will block merges of any PR that fails the test suite, which includes style linting, or the type check. To check locally, run `pnpm lint` and `pnpm check`. To manually fix style issues, you can call `pnpm lint:fix` from the project environment.
