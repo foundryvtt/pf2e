@@ -48,11 +48,16 @@ class TokenLightRuleElement extends RuleElement<TokenLightRuleSchema> {
 
     override afterPrepareData(): void {
         if (!this.test()) return;
-
-        const data = this.getLightData();
-        if (data) {
-            this.actor.synthetics.tokenOverrides.light = data;
-        }
+        const value = this.getLightData();
+        if (!value) return;
+        const changes = (this.actor.tokenActiveEffectChanges.final ??= []);
+        changes.push({
+            type: "override",
+            key: "light",
+            value,
+            priority: this.priority,
+            phase: "final",
+        });
     }
 }
 
