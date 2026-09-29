@@ -29,7 +29,7 @@ The project uses vite to bundle the ES module and compile the SASS files needed 
 
 ## How to Help
 
-As a project, we are using a modified gitlab flow, with a development branch (`master`) for development and a release branch (`release`) that mirrors the development branch at a certain point in its revision history. If you want to make improvements to the project, you can ask to be added to the project or make a fork of the project in GitHub. Then push your branch to GitHub and open a pull request for your branch to our development branch. After being reviewed it can be pulled into the project by one of the project maintainers.
+As a project, we are currently using the `v14-dev` branch for development and release. If you want to contribute code and/or content changes you can start by making making your own fork of this project. You can then push changes to a branch on your fork and open a pull request for your branch to our development branch. After being reviewed it may be pulled into our development branch by one of this project's maintainers.
 
 ### Compendium Content
 
