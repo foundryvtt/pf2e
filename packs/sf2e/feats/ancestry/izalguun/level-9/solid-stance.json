@@ -35,7 +35,9 @@
                             "action:shove",
                             "action:trip"
                         ]
-                    }
+                    },
+                    "posture:quadrupedal",
+                    "solid-stance"
                 ],
                 "selector": [
                     "fortitude-dc",
@@ -47,13 +49,26 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "inflicts:forced-movement"
+                    {
+                        "or": [
+                            "inflicts:forced-movement",
+                            "inflicts:prone"
+                        ]
+                    },
+                    "posture:quadrupedal",
+                    "solid-stance"
                 ],
                 "selector": [
                     "saving-throw"
                 ],
                 "type": "circumstance",
                 "value": 4
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Izalguun.SolidStance.ToggleLabel",
+                "option": "solid-stance",
+                "toggleable": true
             }
         ],
         "subfeatures": {
