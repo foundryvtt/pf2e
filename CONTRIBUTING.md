@@ -29,7 +29,7 @@ This project uses vite to bundle the ES module and compile the SASS files needed
 
 #### Anachronism Modules
 
-- Run `pnpm run build:anachronism` to perform a one-off build.
+- Run `pnpm run build:anachronism` to perform a one-off build of both anachronism modules. Adding `--module=pf2e-anachronism` or `--module=sf2e-anachronism` will perform a one-off build of only the first specific anachronism module.
 
 ### Updating Compendia
 
