@@ -57,3 +57,9 @@ A pull request may not contain any AI-written changes. PRs noticed as having any
 #### Style
 
 We have integrated [Prettier](https://prettier.io/) into this project to enforce a consistent coding—even if it's not one everybody likes. CI will block merges of any PR that fails the test suite, which includes style linting, or the type check. To check locally, run `pnpm lint` and `pnpm check`. To manually fix style issues, you can call `pnpm lint:fix` from the project environment.
+
+### Issues
+
+Before opening a new issue, it helps to search existing ones, including closed issues. A fix may already be on its way in the next release, and older issues can have useful context. If you find a related one, feel free to link it in your new issue.
+
+When reporting a bug, please make sure it can be reproduced with all modules disabled. If it only happens with a certain module active, report it to that module's author first. Please also include clear steps to reproduce the bug, along with what you expected to happen and what actually happened.
