@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import type { PrototypeTokenPF2e } from "@actor/data/base.ts";
 import { ResetBatch } from "@actor/npc/reset-batch.ts";
 import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
-import type { TokenAnimationOptions, TrackedAttributesDescription } from "@client/_types.d.mts";
+import type { TrackedAttributesDescription } from "@client/_types.d.mts";
 import type { TokenResourceData } from "@client/canvas/placeables/token.d.mts";
 import type { TokenUpdateCallbackOptions } from "@client/documents/token.d.mts";
 import type { Point } from "@common/_types.d.mts";
@@ -13,7 +13,7 @@ import type {
 } from "@common/abstract/_types.d.mts";
 import type Document from "@common/abstract/document.d.mts";
 import type { ImageFilePath, TokenDisplayMode, VideoFilePath } from "@common/constants.d.mts";
-import type { TokenPosition } from "@common/documents/_types.d.mts";
+import type { TokenDimensions, TokenPosition } from "@common/documents/_types.d.mts";
 import type { GridMeasurePathResult, GridOffset2D } from "@common/grid/_types.d.mts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
@@ -32,9 +32,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     static #resetBatch = new ResetBatch();
 
     declare auras: Map<string, TokenAura>;
-
-    /** The most recently used animation for later use when a token override is reverted. */
-    #lastAnimation: TokenAnimationOptions | null = null;
 
     /** Returns the combatant representing this token or this token's troop */
     override get combatant(): CombatantPF2e<EncounterPF2e, this> | null {
@@ -161,11 +158,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return this.actorLink
             ? !!this.baseActor
             : !!(Object.getOwnPropertyDescriptor(this, "delta")?.value && this.delta?.syntheticActor);
-    }
-
-    /** A subject texture set by a rule element is distinct, though it never reaches source data. */
-    override get hasDistinctSubjectTexture(): boolean {
-        return !!this.actor?.synthetics.tokenOverrides.ring?.subject.texture || super.hasDistinctSubjectTexture;
     }
 
     /** Check actor for effects found in `CONFIG.specialStatusEffects` */
@@ -347,98 +339,24 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         const settingEnabled = game.pf2e.settings.tokens.autoscale;
         flags[SYSTEM_ID].autoscale =
             settingEnabled && flags[SYSTEM_ID].linkToActorSize ? (flags[SYSTEM_ID].autoscale ?? true) : false;
-        TokenDocumentPF2e.prepareScale(this);
-
-        // Merge token overrides from REs into this document
-        const tokenOverrides = actor.synthetics.tokenOverrides;
-        this.name = tokenOverrides.name ?? this.name;
-        this.alpha = tokenOverrides.alpha ?? this.alpha;
-
-        if (tokenOverrides.texture) {
-            this.texture.src = tokenOverrides.texture.src;
-            if ("scaleX" in tokenOverrides.texture) {
-                const mirrorX = Math.sign(this.texture.scaleX);
-                const mirrorY = Math.sign(this.texture.scaleY);
-                this.texture.scaleX = mirrorX * Math.abs(tokenOverrides.texture.scaleX);
-                this.texture.scaleY = mirrorY * Math.abs(tokenOverrides.texture.scaleY);
-                this.flags[SYSTEM_ID].autoscale = false;
-            }
-            this.texture.tint = tokenOverrides.texture.tint ?? this.texture.tint;
-        }
-
-        if (tokenOverrides.ring) {
-            this.ring.enabled = true;
-            this.ring.subject = { ...tokenOverrides.ring.subject };
-            this.ring.colors = { ...tokenOverrides.ring.colors };
-            this.ring.effects = tokenOverrides.ring.effects;
-        }
-
-        if (tokenOverrides.light) {
-            this.light = new foundry.data.LightData(tokenOverrides.light, { parent: this });
-        }
-
-        // Alliance coloration, appropriating core token dispositions
-        const alliance = actor.system.details.alliance;
-        this.disposition =
-            this.disposition === CONST.TOKEN_DISPOSITIONS.SECRET
-                ? CONST.TOKEN_DISPOSITIONS.SECRET
-                : alliance
-                  ? {
-                        party: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
-                        opposition: CONST.TOKEN_DISPOSITIONS.HOSTILE,
-                    }[alliance]
-                  : CONST.TOKEN_DISPOSITIONS.NEUTRAL;
 
         for (const [key, data] of actor.auras.entries()) {
             this.auras.set(key, new TokenAura({ token: this, ...fu.deepClone(data) }));
         }
+
+        // Reset sight defaults
+        if (this.scene?.rulesBasedVision && this.actor?.isOfType("creature")) {
+            this.sight.attenuation = 0.1;
+            this.sight.brightness = 0;
+            this.sight.contrast = 0;
+            this.sight.range = 0;
+            this.sight.saturation = 0;
+        }
     }
 
-    /** Set vision and detection modes based on actor data */
-    protected override _prepareDetectionModes(): void {
-        const { actor, scene } = this;
-        if (!scene?.rulesBasedVision || !actor?.isOfType("creature")) return super._prepareDetectionModes();
-
-        // Reset detection modes if using rules-based vision
-        const hasVision = actor.perception.hasVision;
-        const lightPerception = { enabled: hasVision, range: Infinity };
-        const basicSight = { enabled: hasVision, range: 0 };
-        this.detectionModes = { lightPerception, basicSight };
-
-        // Reset sight defaults and set vision mode.
-        // Unlike detection modes, there can only be one, and it decides how the player is currently seeing.
-        const visionMode = actor.hasDarkvision ? "darkvision" : "basic";
-        this.sight.attenuation = 0.1;
-        this.sight.brightness = 0;
-        this.sight.contrast = 0;
-        this.sight.range = 0;
-        this.sight.saturation = 0;
-        this.sight.visionMode = visionMode;
-
-        const visionModeDefaults = CONFIG.Canvas.visionModes[visionMode].vision.defaults;
-        this.sight.brightness = visionModeDefaults.brightness ?? 0;
-        this.sight.saturation = visionModeDefaults.saturation ?? 0;
-
-        // Update basic sight and adjust saturation based on darkvision or light levels
-        if (visionMode === "darkvision") {
-            this.sight.range = basicSight.range = Infinity;
-            if (actor.isOfType("character") && actor.flags[SYSTEM_ID].colorDarkvision) {
-                this.sight.saturation = 1;
-            } else if (!game.user.settings.monochromeDarkvision) {
-                this.sight.saturation = 0;
-            }
-        }
-        if (actor.perception.senses.has("see-invisibility")) {
-            this.detectionModes.seeInvisibility = { enabled: true, range: Infinity };
-        }
-        const tremorsense = actor.perception.senses.get("tremorsense");
-        if (tremorsense) {
-            this.detectionModes.feelTremor = { enabled: true, range: tremorsense.range };
-        }
-        if (!actor.hasCondition("deafened")) {
-            const range = scene?.flags[SYSTEM_ID].hearingRange ?? Infinity;
-            this.detectionModes.hearing = { enabled: true, range };
-        }
+    protected override async _onOverrideSize(changes: Partial<TokenDimensions>): Promise<void> {
+        if (!this.persisted || this.object?.isPreview) this.updateSource(changes);
+        else if (game.user === this.actor?.primaryUpdater) this.update(changes);
     }
 
     protected override _inferMovementAction(): string {
@@ -555,6 +473,35 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return combat.deleteEmbeddedDocuments("Combatant", combatantIds);
     }
 
+    protected override _getReplacementData(): object {
+        return Object.assign(super._getReplacementData(), { scene: this.scene });
+    }
+
+    /** Check whether actor updates (real or ephemeral) require aura refreshes. */
+    checkAuras(): void {
+        // If this scene isn't in view nor in focus, skip all later checks
+        // This method is called for every scene a linked actor's token is present in
+        if (!this.scene?.isInFocus && !this.scene?.isView) return;
+
+        const preUpdate = this.toObject(false);
+        const preUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["appearance", "token"]));
+        this.reset();
+        const postUpdate = this.toObject(false);
+        const postUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["appearance", "token"]));
+        const tokenChanges = fu.diffObject(preUpdate, postUpdate);
+
+        // Assess the full diff using `diffObject`: additions, removals, and changes
+        const aurasChanged = () => !!this.scene?.isInFocus && !R.isDeepEqual(preUpdateAuras, postUpdateAuras);
+
+        if ("disposition" in tokenChanges || aurasChanged()) {
+            this.scene?.checkAuras?.();
+        }
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Handlers                              */
+    /* -------------------------------------------- */
+
     static override async _onDeleteOperation(
         documents: TokenDocumentPF2e[],
         operation: foundry.abstract.DatabaseDeleteOperation<Document | null>,
@@ -579,49 +526,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                 const deleteIds = combat.combatants.filter((c) => combatantsToDelete.includes(c.id)).map((c) => c.id);
                 combat.deleteEmbeddedDocuments("Combatant", deleteIds);
             }
-        }
-    }
-
-    /**
-     * Use actor updates (real or otherwise) that propagate down to ephemeral token changes  to provoke canvas object
-     * re-rendering.
-     */
-    simulateUpdate(updates: Record<string, unknown> = {}): void {
-        // If this scene isn't in view nor in focus, skip all later checks
-        // This method is called for every scene a linked actor's token is present in
-        if (!this.scene?.isInFocus && !this.scene?.isView) return;
-
-        // Reinitialize vision if the actor's senses were updated directly
-        const initializeVision =
-            !!this.scene?.isView &&
-            this.sight.enabled &&
-            Object.keys(fu.flattenObject(updates)).some((k) => k.startsWith("system.perception.senses"));
-        if (initializeVision) canvas.perception.update({ initializeVision });
-
-        const preUpdate = this.toObject(false);
-        const preUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["appearance", "token"]));
-        this.reset();
-        const postUpdate = this.toObject(false);
-        const postUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["appearance", "token"]));
-        const tokenChanges = fu.diffObject(preUpdate, postUpdate);
-        if (!this.actorLink && this.autoscale && fu.hasProperty(updates, "system.traits.size")) {
-            tokenChanges.texture = fu.mergeObject(tokenChanges, R.pick(this.texture, ["scaleX", "scaleY"]));
-        }
-
-        if (this.scene?.isView && Object.keys(tokenChanges).length > 0) {
-            const tokenOverrides = this.actor?.synthetics.tokenOverrides ?? {};
-            const animation = tokenChanges.texture?.src ? (tokenOverrides.animation ?? this.#lastAnimation ?? {}) : {};
-            this.#lastAnimation = R.isDeepEqual(animation, this.#lastAnimation ?? {})
-                ? null
-                : (tokenOverrides.animation ?? null);
-            this.object?._onUpdate(tokenChanges, { broadcast: false, animation }, game.user.id);
-        }
-
-        // Assess the full diff using `diffObject`: additions, removals, and changes
-        const aurasChanged = () => !!this.scene?.isInFocus && !R.isDeepEqual(preUpdateAuras, postUpdateAuras);
-
-        if ("disposition" in tokenChanges || aurasChanged()) {
-            this.scene?.checkAuras?.();
         }
     }
 
@@ -740,24 +644,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         super._onRelatedUpdate(update, operation);
         if (!(this.scene instanceof ScenePF2e)) return;
 
-        // Simulate update to detect and fulfill canvas-affecting actor changes
-        const updates = Array.isArray(update) ? update : [update];
-        this.simulateUpdate(updates[0]);
-
         // Core's bar refresh only diffs {value, max}, so a temp-HP-only change won't trigger a redraw on its own.
+        const updates = Array.isArray(update) ? update : [update];
         if (this.scene.isView && updates.some((u) => u && fu.hasProperty(u, "system.attributes.hp.temp"))) {
             this.object?.renderFlags.set({ refreshBars: true });
-        }
-
-        // Follow up any actor (or descendant document thereof) modification with a size synchronization
-        const actor = this.actor;
-        if (!actor?.isOwner) return;
-        const activeGM = game.users.activeGM; // Let the active GM take care of updates if available
-        if ((!activeGM || game.user === activeGM) && this.linkToActorSize && actor.system.traits?.size) {
-            const dimensions = actor.system.traits.size.tokenDimensions;
-            if (dimensions.width !== this.width || dimensions.height !== this.height) {
-                this.scene.syncTokenDimensions(this, dimensions);
-            }
         }
     }
 

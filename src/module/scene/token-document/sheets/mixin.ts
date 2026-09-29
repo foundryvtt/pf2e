@@ -214,14 +214,8 @@ function TokenConfigMixinPF2e<TBase extends ReturnType<typeof TokenApplicationMi
 
         protected async processSubmitData(submitData: Record<string, unknown>): Promise<void> {
             if (this.linkToActorSize) {
-                if (this.actor?.isOfType("vehicle")) {
-                    const dimensions = this.actor.dimensions;
-                    const width = Math.max(Math.round(dimensions.width / 5), 1);
-                    const length = Math.max(Math.round(dimensions.length / 5), 1);
-                    const height = Math.max(Math.round(dimensions.height / 5), 1);
-                    submitData["width"] = width;
-                    submitData["height"] = length;
-                    submitData["depth"] = height;
+                if (this.actor?.system.traits?.size) {
+                    Object.assign(submitData, this.actor.system.traits.size.tokenDimensions);
                 } else {
                     submitData["width"] = submitData["height"] = submitData["depth"] = this.dimensionsFromActorSize;
                 }

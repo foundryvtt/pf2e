@@ -15,9 +15,12 @@ export class ActorSizePF2e {
     /** The width dimension of this actor's space in feet */
     wide: number;
 
+    /** The "tall" (3D height) dimension of this actor's space in feet */
+    tall: number;
+
     /** The actor dimensions as canvas square-grid values */
-    get tokenDimensions(): { width: number; height: number } {
-        return { width: this.wide / 5, height: this.long / 5 };
+    get tokenDimensions(): { width: number; height: number; depth: number } {
+        return { width: this.wide / 5, height: this.long / 5, depth: this.tall / 5 };
     }
 
     /** The default space (in a Pathfinder 2e rules context) of each size */
@@ -47,7 +50,7 @@ export class ActorSizePF2e {
      * @param params.wide A width of a Pathfinder "space"
      * @param params.smallIsMedium Treat small as medium
      */
-    constructor(params: { value?: Size; long?: number; wide?: number; smallIsMedium?: boolean }) {
+    constructor(params: { value?: Size; long?: number; wide?: number; tall?: number; smallIsMedium?: boolean }) {
         if (typeof params.value !== "string" || (params.smallIsMedium && params.value === "sm")) {
             params.value = "med";
         }
@@ -55,6 +58,7 @@ export class ActorSizePF2e {
         const spaces = ActorSizePF2e.#defaultSpaces[params.value] ?? ActorSizePF2e.#defaultSpaces.med;
         this.long = params.long ?? spaces.long;
         this.wide = params.wide ?? spaces.wide;
+        this.tall = params.tall ?? this.wide;
     }
 
     /**
