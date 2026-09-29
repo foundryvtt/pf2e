@@ -57,7 +57,6 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
-import { extractDegreeOfSuccessAdjustments } from "@system/degree-of-success.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { Check, CheckCheckContext, CheckRoll } from "@system/check/index.ts";
@@ -65,9 +64,10 @@ import { DamageDamageContext, DamagePF2e, DamageType } from "@system/damage/inde
 import { DamageRoll } from "@system/damage/roll.ts";
 import { DAMAGE_TYPE_ICONS } from "@system/damage/values.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
+import { extractDegreeOfSuccessAdjustments } from "@system/degree-of-success.ts";
 import { Predicate } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
-import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
+import { ArmorStatistic, Statistic } from "@system/statistic/index.ts";
 import { createHTMLElement } from "@util";
 import { ErrorPF2e, getActionGlyph, setHasElement, signedInteger, sluggify } from "@util/misc.ts";
 import { traitSlugToObject } from "@util/tags.ts";
@@ -578,26 +578,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         this.prepareFeats();
+        this.preparePerception();
         this.prepareSaves();
-        this.prepareMartialProficiencies();
-
-        // Perception
-        this.perception = new PerceptionStatistic(this, {
-            slug: "perception",
-            label: "PF2E.PerceptionLabel",
-            attribute: "wis",
-            rank: system.perception.rank,
-            domains: ["perception", "all"],
-            check: { type: "perception-check" },
-            senses: system.perception.senses,
-        });
-        system.perception = fu.mergeObject(this.perception.getTraceData(), {
-            attribute: this.perception.attribute ?? "wis",
-            rank: system.perception.rank,
-        });
-
-        // Skills
         this.prepareSkills();
+        this.prepareMartialProficiencies();
 
         // Class DC
         this.classDC = null;
@@ -644,6 +628,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (system.attributes.familiarAbilities.value > 0) {
             this.rollOptions.all["self:has-familiar"] = true;
         }
+    }
+
+    protected override preparePerception(): void {
+        super.preparePerception();
+        const rank = this.system.perception.rank;
+        this.system.perception = Object.assign(this.perception.getTraceData(), { rank });
     }
 
     private prepareBuildData(): void {

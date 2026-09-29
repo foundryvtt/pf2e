@@ -1,28 +1,35 @@
-import type { ActorPF2e, CreaturePF2e } from "@actor";
+import type { CreaturePF2e } from "@actor";
 import { SenseData } from "@actor/creature/data.ts";
 import { Sense } from "@actor/creature/sense.ts";
 import { AttributeString } from "@actor/types.ts";
 import * as R from "remeda";
 import type { StatisticData, StatisticTraceData } from "./data.ts";
-import { Statistic, type RollOptionConfig } from "./statistic.ts";
+import { RollOptionConfig, Statistic } from "./statistic.ts";
 
-class PerceptionStatistic<TActor extends ActorPF2e = ActorPF2e> extends Statistic<TActor> {
+class PerceptionStatistic<TActor extends CreaturePF2e = CreaturePF2e> extends Statistic<TActor> {
     /** Special senses possessed by the actor */
     senses: Collection<string, Sense>;
 
     /** Whether the actor has standard vision */
     hasVision: boolean;
 
-    /** Special senses or other perception-related details without formalization in the system: used for NPCs */
-    declare details?: string;
-
-    constructor(actor: TActor, data: PerceptionStatisticData, config: RollOptionConfig = {}) {
+    constructor(actor: TActor, partialData: Partial<StatisticData>, config: RollOptionConfig = {}) {
+        const data: PerceptionStatisticData = Object.assign(
+            {
+                slug: "perception",
+                label: "PF2E.PerceptionLabel",
+                attribute: "wis",
+                rank: actor.system.perception.rank ?? null,
+                domains: ["perception", "all"],
+                check: { type: "perception-check" },
+                senses: actor.system.perception.senses,
+                vision: actor.system.perception.vision,
+            },
+            partialData,
+        );
         super(actor, data, config);
         this.senses = new Collection(this.#prepareSenses(data.senses).map((s) => [s.type, s]));
         this.hasVision = data.vision ?? true;
-        if (typeof data.details === "string") {
-            this.details = data.details;
-        }
     }
 
     #prepareSenses(data: SenseData[]): Sense[] {
@@ -50,13 +57,13 @@ class PerceptionStatistic<TActor extends ActorPF2e = ActorPF2e> extends Statisti
     override getTraceData(this: Statistic<CreaturePF2e>): PerceptionTraceData<AttributeString>;
     override getTraceData(): PerceptionTraceData;
     override getTraceData(): PerceptionTraceData {
-        return {
-            ...super.getTraceData({ value: "mod" }),
-            senses: this.senses.map((s) => s.toObject(false)),
-            vision: this.hasVision,
-            details: this.details ?? "",
-        };
+        const senses = this.senses.map((s) => s.toObject(false));
+        return Object.assign(super.getTraceData({ value: "mod" }), { senses, vision: this.hasVision });
     }
+}
+
+interface PerceptionStatistic<TActor extends CreaturePF2e = CreaturePF2e> extends Statistic<TActor> {
+    attribute: AttributeString;
 }
 
 interface PerceptionStatisticData extends StatisticData {
@@ -70,10 +77,8 @@ type LabeledSenseData = Required<SenseData> & {
 };
 
 interface PerceptionTraceData<
-    TAttribute extends AttributeString | null = AttributeString | null,
+    TAttribute extends AttributeString = AttributeString,
 > extends StatisticTraceData<TAttribute> {
-    /** Unusual senses or other perception-related notes */
-    details: string;
     senses: LabeledSenseData[];
     /** Whether the creature has standard vision */
     vision: boolean;
