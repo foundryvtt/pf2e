@@ -454,9 +454,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                 const prone = actor.hasCondition("prone");
                 if (prone && speeds.land?.crawl) return "crawl";
                 if (!prone && speeds.land) return "walk";
-                return (
-                    (["fly", "burrow", "climb", "swim"] as const).find((type) => speeds[type]) ?? "displace"
-                );
+                return (["fly", "burrow", "climb", "swim"] as const).find((type) => speeds[type]) ?? "displace";
             }
             case "army":
                 return "deploy";
