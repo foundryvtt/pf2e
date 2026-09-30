@@ -116,17 +116,6 @@ class WeaponTraitToggles {
         const property = trait === "double-barrel" ? "doubleBarrel" : trait;
         if (this[property]?.selected === selected) return false;
 
-        const item = weapon.realItem;
-        if (item?.isOfType("weapon") && (item === weapon || trait === "combination")) {
-            const value = property === "doubleBarrel" ? !!selected : selected;
-            await item.update({ [`system.traits.toggles.${property}.selected`]: value });
-        } else if (item?.isOfType("weapon") && weapon.altUsageType === "melee") {
-            item.update({ [`system.meleeUsage.traitToggles.${trait}`]: selected });
-        } else if (trait === "versatile" && item?.isOfType("shield")) {
-            item.update({ "system.traits.integrated.versatile.selected": selected });
-        } else if ((trait === "modular" || trait === "versatile") && weapon.rule) {
-            await weapon.rule.toggleTrait(options);
-        } else {
         const target = this.#resolveTarget(options);
         if (!target) {
             console.warn(
@@ -150,7 +139,7 @@ class WeaponTraitToggles {
         const weapon = this.parent;
         const item = weapon.realItem;
         const trait = options.trait;
-        if (item?.isOfType("weapon") && item === weapon) {
+        if (item?.isOfType("weapon") && (item === weapon || trait === "combination")) {
             const property = trait === "double-barrel" ? "doubleBarrel" : trait;
             return { document: item, path: `system.traits.toggles.${property}.selected` };
         }
@@ -160,7 +149,7 @@ class WeaponTraitToggles {
         if (trait === "versatile" && item?.isOfType("shield")) {
             return { document: item, path: "system.traits.integrated.versatile.selected" };
         }
-        if (options.trait === "double-barrel") return null;
+        if (trait === "double-barrel" || trait === "combination") return null;
         if (weapon.rule) return { rule: weapon.rule, options };
         if (weapon.slug === "basic-unarmed" && weapon.actor) {
             return { document: weapon.actor, path: `flags.${SYSTEM_ID}.basicUnarmedToggles.${trait}` };
