@@ -90,14 +90,16 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         const reach = this.system.reach;
         actor.system.attributes.reach = { base: reach, manipulate: reach };
 
-        // Set base land speed
+        // Set base land speed. prepareBaseData seeds this object before ancestry prep.
         const speed = actor.system.movement.speeds.land;
-        speed.base = speed.value = this.system.speed;
-        speed.source = this.name;
+        if (speed) {
+            speed.base = speed.value = this.system.speed;
+            speed.source = this.name;
 
-        // Set at actor level for use by early-running REs
-        const actorLevelSpeeds: Record<"land", { value: number; base: number }> = actor.movement.speeds;
-        actorLevelSpeeds.land = { value: speed.base, base: speed.base };
+            // Set at actor level for use by early-running REs
+            const actorLevelSpeeds: { land: { value: number; base: number } | null } = actor.movement.speeds;
+            actorLevelSpeeds.land = { value: speed.base, base: speed.base };
+        }
 
         const build = actor.system.build;
         if (this.system.alternateAncestryBoosts) {
