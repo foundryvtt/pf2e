@@ -23,17 +23,23 @@ This project uses vite to bundle the ES module and compile the SASS files needed
 
 #### Systems
 
-- Run `pnpm run build --system=pf2e` or `pnpm run build --system=sf2e` to perform a one-off build.
+> pnpm needs to be used to use any options
 
-- Run `pnpm run hot --system=pf2e` or `pnpm run hot --system=sf2e` to have any coding changes you make trigger an automatic rebuild.
+- Run `npm run build` for pf2e or `pnpm run build --system=sf2e` for sf2e to perform a one-off build.
+
+- Run `npm run hot` for pf2e or `pnpm run hot --system=sf2e` for sf2e to have any coding changes be reflected automatically (Vite Hot Module Replacement). This requires that you build the system first, since `hot` doesn't build packs or copy static files.
 
 #### Anachronism Modules
 
-- Run `pnpm run build:anachronism` to perform a one-off build of both anachronism modules. Adding `--module=pf2e-anachronism` or `--module=sf2e-anachronism` will perform a one-off build of only the first specific anachronism module.
+> pnpm needs to be used to use any options
+
+- Run `npm run build:anachronism` to perform a one-off build of both anachronism modules. Adding `--module=pf2e-anachronism` or `--module=sf2e-anachronism` will perform a one-off build of only the first specific anachronism module.
 
 ### Updating Compendia
 
-- To update compendium datafiles, run `pnpm run extractPacks ${compendium db filename} --system=pf2e` or `pnpm run extractPacks ${compendium db filename} --system=sf2e` after editing the item directly in the built world's compendium, rather than editing the json files directly.
+> pnpm needs to be used to use any options
+
+- To update compendium datafiles, run `npm run extractPacks all` for pf2e or `pnpm run extractPacks all --system=sf2e` for sf2e after editing the item directly in the built world's compendium, rather than editing the json files directly. You can also specift the pack folder name instead of `all`.
 
 ## How to Help
 
@@ -57,4 +63,4 @@ A pull request may not contain any AI-written changes. PRs noticed as having any
 
 #### Style
 
-We have integrated [Prettier](https://prettier.io/) into this project to enforce a consistent coding—even if it's not one everybody likes. CI will block merges of any PR that fails the test suite, which includes style linting. To manually fix style issues, you can call `pnpm run lint:fix`.
+We have integrated [Prettier](https://prettier.io/) into this project to enforce a consistent coding—even if it's not one everybody likes. CI will block merges of any PR that fails the test suite, which includes style linting. To manually fix style issues, you can call `npm run lint:fix`.
