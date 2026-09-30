@@ -347,6 +347,7 @@ function suppressUnsharedModifiers(statistic: { modifiers: readonly Modifier[] }
         statistic.calculateTotal();
     }
 }
+
 function createPreselectChoicesField(): PreselectChoicesField {
     return new RecordField(
         new foundry.data.fields.StringField({ required: true, blank: false }),

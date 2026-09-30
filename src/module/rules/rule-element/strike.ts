@@ -139,7 +139,7 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
                         : `systems/${SYSTEM_ID}/icons/default-icons/melee.svg`,
             }),
             attackModifier: new fields.NumberField({ integer: true, positive: true, nullable: true, initial: null }),
-            ownIfHigher: new fields.BooleanField({ required: false, nullable: false, initial: true }),
+            ownIfHigher: new fields.BooleanField({ initial: true }),
             replaceAll: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             replaceBasicUnarmed: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             battleForm: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
@@ -220,7 +220,7 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
         if (!attackModifier) return;
 
         const actions = this.actor.system.actions.flatMap((action) =>
-            [action, ...(action.altUsages ?? [])].filter(
+            [action, ...action.altUsages].filter(
                 (a): a is CharacterStrike => a.type === "strike" && a.item.rule === this,
             ),
         );
@@ -239,7 +239,6 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
                     label: this.getReducedLabel(this.item.name),
                     slug: "attack-modifier",
                     modifier: attackModifier,
-                    type: "untyped",
                 }),
             );
             action.breakdown = action.modifiers
@@ -402,12 +401,12 @@ type StrikeSchema = RuleElementSchema & {
         true
     >;
     /**
-     * A fixed attack modifier: for NPCs this becomes the strike's attack bonus; for PCs it replaces base
-     * attack-roll modifiers unless the character's own modifier is greater (`ownIfHigher`, default true)
-     * Also causes the damage to not be recalculated when converting the resulting weapon to an NPC attack
+     * A fixed attack modifier. For NPCs it becomes the attack bonus, and damage isn't recalculated when converting
+     * the weapon to an NPC attack. For PCs it replaces the base attack-roll modifiers.
      */
     attackModifier: fields.NumberField<number, number, false, true, true>;
-    ownIfHigher: fields.BooleanField<boolean, boolean, false, false, true>;
+    /** Whether a PC keeps their own attack modifier when it's higher than `attackModifier` */
+    ownIfHigher: fields.BooleanField<boolean, boolean, true, false, true>;
     range: fields.SchemaField<
         {
             increment: fields.NumberField<number, number, false, true, true>;
