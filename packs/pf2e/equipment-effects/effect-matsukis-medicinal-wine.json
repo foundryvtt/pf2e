@@ -4,13 +4,13 @@
     "name": "Effect: Matsuki's Medicinal Wine",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Matsuki's Medicinal Wine]</p>\n<p>You gain a +2 item bonus to Fortitude saving throws against diseases and poison.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Matsuki's Medicinal Wine]</p>\n<p>You gain a +2 item bonus to Fortitude saving throws against diseases and poisons.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "days",
-            "value": 1
+            "unit": "hours",
+            "value": 24
         },
         "level": {
             "value": 3
@@ -26,8 +26,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "poison",
-                            "disease"
+                            "item:trait:disease",
+                            "item:trait:poison"
                         ]
                     }
                 ],

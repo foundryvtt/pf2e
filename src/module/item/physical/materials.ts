@@ -271,6 +271,23 @@ const WEAPON_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "rare",
         },
     },
+    throneglass: {
+        low: {
+            level: 2,
+            price: 20,
+            rarity: "rare",
+        },
+        standard: {
+            level: 8,
+            price: 350,
+            rarity: "rare",
+        },
+        high: {
+            level: 16,
+            price: 6000,
+            rarity: "rare",
+        },
+    },
     warpglass: {
         low: null,
         standard: null,
@@ -747,6 +764,23 @@ const OBJECT_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "rare",
         },
     },
+    throneglass: {
+        low: {
+            level: 2,
+            price: 20,
+            rarity: "rare",
+        },
+        standard: {
+            level: 8,
+            price: 350,
+            rarity: "rare",
+        },
+        high: {
+            level: 16,
+            price: 6000,
+            rarity: "rare",
+        },
+    },
     warpglass: {
         low: null,
         standard: null,
@@ -853,6 +887,23 @@ const BUCKLER_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             hardness: 6,
             maxHP: 24,
             rarity: "rare",
+        },
+    },
+    dragonhide: {
+        low: null,
+        standard: {
+            level: 8,
+            price: 400,
+            hardness: 2,
+            maxHP: 8,
+            rarity: "uncommon",
+        },
+        high: {
+            level: 16,
+            price: 8000,
+            hardness: 5,
+            maxHP: 20,
+            rarity: "uncommon",
         },
     },
     duskwood: {
@@ -1048,6 +1099,23 @@ const SHIELD_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             hardness: 8,
             maxHP: 32,
             rarity: "rare",
+        },
+    },
+    dragonhide: {
+        low: null,
+        standard: {
+            level: 8,
+            price: 440,
+            hardness: 4,
+            maxHP: 16,
+            rarity: "uncommon",
+        },
+        high: {
+            level: 16,
+            price: 8800,
+            hardness: 7,
+            maxHP: 28,
+            rarity: "uncommon",
         },
     },
     duskwood: {

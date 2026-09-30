@@ -14,7 +14,7 @@ import type { ActorSizePF2e } from "@actor/data/size.ts";
 import type { Modifier, RawModifier } from "@actor/modifiers.ts";
 import type { AttributeString, MovementType, SaveType, SkillSlug } from "@actor/types.ts";
 import type { ImageFilePath } from "@common/constants.d.mts";
-import type { LabeledNumber, Size, ValueAndMax, ValueAndMaybeMax, ZeroToThree } from "@module/data.ts";
+import type { LabeledNumber, Size, ValueAndMax, ValueAndMaybeMax, ZeroToFour, ZeroToThree } from "@module/data.ts";
 import type { ArmorClassTraceData } from "@system/statistic/index.ts";
 import type { PerceptionTraceData } from "@system/statistic/perception.ts";
 import { LandSpeedStatisticTraceData, SpeedStatisticTraceData } from "@system/statistic/speed.ts";
@@ -127,6 +127,8 @@ type SenseData =
 
 interface CreaturePerceptionData extends PerceptionTraceData {
     attribute: AttributeString;
+    mod?: number;
+    rank?: ZeroToFour;
 }
 
 /** Data describing the value & modifier for a base ability score. */
@@ -148,7 +150,12 @@ interface CreatureTraitsData extends Required<CreatureTraitsSource> {
 }
 interface CreatureDetails extends Required<CreatureDetailsSource> {}
 
-type SkillData = AttributeBasedTraceData;
+interface SkillData extends AttributeBasedTraceData {
+    /** Is this skill a Lore skill? */
+    lore?: boolean;
+    /** If this is a lore skill, what item it came from */
+    itemId?: string | null;
+}
 
 /** The full save data for a character; including its modifiers and other details */
 interface SaveData extends AttributeBasedTraceData {
@@ -194,7 +201,6 @@ interface LabeledSpeed extends Omit<LabeledNumber, "exceptions"> {
     type: Exclude<MovementType, "land">;
     source?: string;
     total?: number;
-    derivedFromLand?: boolean;
 }
 
 /** Creature initiative statistic */

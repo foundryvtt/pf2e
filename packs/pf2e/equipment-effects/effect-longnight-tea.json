@@ -4,7 +4,7 @@
     "name": "Effect: Longnight Tea",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Longnight Tea]</p>\n<p>You gain a +1 item bonus to saving throws against sleep effects.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Longnight Tea]</p>\n<p>You gain a +1 item bonus to saving throws against sleep effects.</p>\n<p><em>Note: Adjust duration if consumed during a tea ceremony.</em></p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -24,10 +24,9 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "sleep"
+                    "item:trait:sleep"
                 ],
                 "selector": "saving-throw",
-                "slug": "sweetest-solstace-fear",
                 "type": "item",
                 "value": 1
             }

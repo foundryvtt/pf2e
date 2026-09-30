@@ -37,7 +37,10 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<string, Fe
             label: "PF2E.Actor.Character.FeatSlot.AncestryHeader",
             supported: ["ancestry"],
             filter: {
-                traits: ancestry?.countsAs.flatMap((t) => (t in CONFIG.PF2E.featTraits ? t : [])) ?? [],
+                traits: [
+                    ...(ancestry?.countsAs.flatMap((t) => (t in CONFIG.PF2E.featTraits ? t : [])) ?? []),
+                    "ancestry",
+                ],
             },
             slots: classFeatSlots?.ancestry ?? [],
         });

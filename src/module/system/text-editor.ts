@@ -1,5 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import { Modifier } from "@actor/modifiers.ts";
+import type { RollRole } from "@actor/roll-context/types.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { EnrichmentOptions } from "@client/applications/ux/text-editor.d.mts";
@@ -865,9 +866,13 @@ function getCheckDC({
     // We assume that we can actually display the dc if against is provided.
     // This function shouldn't be called otherwise.
     if (!params.dc && params.against && actor) {
-        const rollOptions = item?.isOfType("action", "feat")
-            ? [`origin:action:slug:${item.slug}`, ...item.getRollOptions("item")]
-            : [];
+        const rollOptions = R.unique([
+            ...(item?.isOfType("action", "feat")
+                ? [`origin:action:slug:${item.slug}`, ...item.getRollOptions("item")]
+                : []),
+            ...params.traits.map((t) => `item:trait:${t}`),
+            ...params.extraRollOptions,
+        ]);
         const statistic = actor.getStatistic(params.against)?.clone({ rollOptions });
         return String(statistic?.dc.value ?? 0);
     }
@@ -1067,7 +1072,7 @@ interface CheckLinkParams {
     type: string;
     dc?: Maybe<string>;
     against: string | null;
-    rollerRole: "origin" | "target";
+    rollerRole: RollRole;
     basic: boolean;
     adjustment?: string;
     traits: string[];

@@ -15,13 +15,13 @@ import type { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import {
-    extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
+import { extractDegreeOfSuccessAdjustments } from "@system/degree-of-success.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { RegionDocumentPF2e, ScenePF2e } from "@scene";
 import type { EnvironmentRegionBehavior } from "@scene/region-behavior/types.ts";
@@ -158,13 +158,28 @@ function auraAffectsActor(data: AuraEffectData, origin: ActorPF2e, actor: ActorP
     );
 }
 
-/**  Set a roll option for HP remaining and percentage remaining */
+/**  Set roll options for HP remaining, percentage remaining, and temporary HP */
 function setHitPointsRollOptions(actor: ActorPF2e): void {
     const hp = actor.hitPoints;
     if (!hp) return;
-    actor.flags[SYSTEM_ID].rollOptions.all[`hp-remaining:${hp.value}`] = true;
+    const rollOptions = actor.flags[SYSTEM_ID].rollOptions.all;
+    rollOptions[`hp-remaining:${hp.value}`] = true;
     const percentRemaining = Math.floor((hp.value / hp.max) * 100);
-    actor.flags[SYSTEM_ID].rollOptions.all[`hp-percent:${percentRemaining}`] = true;
+    rollOptions[`hp-percent:${percentRemaining}`] = true;
+    rollOptions[`hp-temp:${hp.temp}`] = true;
+    // Only trust a recorded source while temp HP remain and the granting item is still present
+    const sourceId = actor.isOfType("creature") ? getTempHPSourceId(actor._source.system.attributes.hp) : null;
+    const source = hp.temp > 0 && sourceId ? actor.items.get(sourceId) : null;
+    if (source) rollOptions[`hp-temp:source:${source.slug ?? sluggify(source.name)}`] = true;
+}
+
+/**
+ * Get the id of the item that granted the current temporary HP
+ * @todo remove the lowercase fallback in v15
+ */
+function getTempHPSourceId(hp: { tempSource?: string }): string | null {
+    const id = hp.tempSource ?? (hp as { tempsource?: unknown }).tempsource;
+    return typeof id === "string" ? id : null;
 }
 
 /** Find the lowest multiple attack penalty for an attack with a given item */
@@ -593,7 +608,13 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 domains,
                 context.options,
             );
-            const dosAdjustments = extractDegreeOfSuccessAdjustments(context.origin.actor.synthetics, domains);
+            const dosAdjustments = extractDegreeOfSuccessAdjustments({
+                self: context.origin.actor,
+                selfRole: "origin",
+                opposer: context.target?.actor,
+                domains,
+                options: context.options,
+            });
 
             const allModifiers = [map, params.modifiers, context.origin.modifiers].flat().filter(R.isTruthy);
             const check = new CheckModifier("strike", context.origin.statistic ?? strike, allModifiers);
@@ -1093,6 +1114,7 @@ export {
     iterateAllItems,
     migrateActorSource,
     resetActors,
+    getTempHPSourceId,
     setHitPointsRollOptions,
     transferItemsBetweenActors,
     userColorForActor,

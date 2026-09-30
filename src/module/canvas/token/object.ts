@@ -202,9 +202,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      */
     protected onOppositeSides(flankerA: TokenPF2e, flankerB: TokenPF2e, flankee: TokenPF2e): boolean {
         const boundsA = flankerA.mechanicalBounds;
-        const centerA = { x: flankerA.document.x + boundsA.width / 2, y: flankerA.document.y + boundsA.height / 2 };
+        const centerA = { x: boundsA.x + boundsA.width / 2, y: boundsA.y + boundsA.height / 2 };
         const boundsB = flankerB.mechanicalBounds;
-        const centerB = { x: flankerB.document.x + boundsB.width / 2, y: flankerB.document.y + boundsB.height / 2 };
+        const centerB = { x: boundsB.x + boundsB.width / 2, y: boundsB.y + boundsB.height / 2 };
         const bounds = flankee.mechanicalBounds;
         const left = new fc.geometry.Ray({ x: bounds.left, y: bounds.top }, { x: bounds.left, y: bounds.bottom });
         const right = new fc.geometry.Ray({ x: bounds.right, y: bounds.top }, { x: bounds.right, y: bounds.bottom });
@@ -431,17 +431,20 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this._onHoverOut(event);
     }
 
-    /** If Party Vision is enabled, make all player-owned actors count as vision sources for non-GM users */
     protected override _isVisionSource(): boolean {
         if (!this.hasSight || !this.document.parent?.tokenVision) return false;
+
+        // Only tokens in the viewed level can see
+        if (this.document.level !== canvas.level?.id) return false;
 
         // If GM vision is enabled, making nothing a vision source will allow the user to see everything
         if (game.pf2e.settings.gmVision && game.user.isGM) return false;
 
+        // If Party Vision is enabled, make all player-owned actors count as vision sources for non-GM users
         const partyVisionEnabled =
             game.pf2e.settings.metagame.partyVision && !!this.actor?.hasPlayerOwner && !game.user.isGM;
-        const controllingAsObserver = this.controlled && this.observer;
 
+        const controllingAsObserver = this.controlled && this.observer;
         return partyVisionEnabled || controllingAsObserver || (!this.controlled && super._isVisionSource());
     }
 

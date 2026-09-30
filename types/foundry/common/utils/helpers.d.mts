@@ -299,7 +299,9 @@ export function objectEntries<K extends string, V>(obj: Record<K, V>): Generator
 /**
  * Stream object entries.
  */
-export function iterateEntries<T extends object>(obj: T): IteratorObject<[keyof T, T[keyof T]], void, unknown>;
+export function iterateEntries<T extends object>(
+    obj: T,
+): IteratorObject<[keyof T extends string ? keyof T : string, T[keyof T]], void, unknown>;
 
 /**
  * Object keys generator.

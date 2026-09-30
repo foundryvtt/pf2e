@@ -13,7 +13,8 @@ import type {
 } from "@common/abstract/_types.d.mts";
 import type Document from "@common/abstract/document.d.mts";
 import type { ImageFilePath, TokenDisplayMode, VideoFilePath } from "@common/constants.d.mts";
-import type { GridMeasurePathResult } from "@common/grid/_types.d.mts";
+import type { TokenPosition } from "@common/documents/_types.d.mts";
+import type { GridMeasurePathResult, GridOffset2D } from "@common/grid/_types.d.mts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
@@ -162,6 +163,11 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             : !!(Object.getOwnPropertyDescriptor(this, "delta")?.value && this.delta?.syntheticActor);
     }
 
+    /** A subject texture set by a rule element is distinct, though it never reaches source data. */
+    override get hasDistinctSubjectTexture(): boolean {
+        return !!this.actor?.synthetics.tokenOverrides.ring?.subject.texture || super.hasDistinctSubjectTexture;
+    }
+
     /** Check actor for effects found in `CONFIG.specialStatusEffects` */
     override hasStatusEffect(statusId: string): boolean {
         if (statusId === "dead") return !!this.actor?.statuses.has("dead");
@@ -291,6 +297,38 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return super.measureMovementPath(normalized, options);
     }
 
+    /**
+     * Test containment against an effect area's covered squares rather than its polygon, so that region membership
+     * matches the highlighted squares. Elevation and level gating mirrors core's.
+     */
+    override testInsideRegion(region: RegionDocumentPF2e, data: Partial<TokenPosition> = {}): boolean {
+        const level = data.level ?? this._source.level;
+        const coverage = region.getCoverage(this.parent?.levels.get(level) ?? null);
+        if (!coverage) return super.testInsideRegion(region, data);
+        if (!region.includedInLevel(level)) return false;
+
+        const { bottom, top, topInclusive } = region.elevation;
+        const elevation = data.elevation ?? this._source.elevation;
+        const depth = data.depth ?? this._source.depth;
+        if (topInclusive ? elevation > top : elevation !== bottom && elevation >= top) return false;
+        const head = elevation + depth * (this.parent?.grid.distance ?? 0);
+        if (depth === 0 ? head < bottom : head <= bottom) return false;
+
+        return this.#occupiedOffsets(data).some((o) => coverage.covers(o));
+    }
+
+    /** The grid spaces this token sits on, taken from square centers so unsnapped tokens count the right ones */
+    #occupiedOffsets(data: Partial<TokenPosition>): GridOffset2D[] {
+        const { sizeX, sizeY } = canvas.grid;
+        const size = this.getSize(data);
+        const x = (data.x ?? this._source.x) + Math.min(size.width, sizeX) / 2;
+        const y = (data.y ?? this._source.y) + Math.min(size.height, sizeY) / 2;
+        const { i: i0, j: j0 } = canvas.grid.getOffset({ x, y });
+        const rows = Math.max(1, Math.round(size.height / sizeY));
+        const columns = Math.max(1, Math.round(size.width / sizeX));
+        return Array.fromRange(rows).flatMap((i) => Array.fromRange(columns).map((j) => ({ i: i0 + i, j: j0 + j })));
+    }
+
     protected override _initialize(options?: Record<string, unknown>): void {
         this.auras = new Map();
         super._initialize(options);
@@ -333,9 +371,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             this.ring.subject = { ...tokenOverrides.ring.subject };
             this.ring.colors = { ...tokenOverrides.ring.colors };
             this.ring.effects = tokenOverrides.ring.effects;
-            // Upstream makes some decisions by inspecting the subject texture in the source source data:
-            // Fake it for now until this can be addressed upstairs
-            this._source.ring.subject.texture ??= this.ring.subject.texture;
         }
 
         if (tokenOverrides.light) {

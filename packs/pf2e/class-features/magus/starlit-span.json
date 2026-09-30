@@ -47,9 +47,39 @@
                     "spellcasting:tradition:arcane",
                     {
                         "or": [
-                            "item:slug:telekinetic-maneuver",
-                            "item:slug:wall-of-wind",
-                            "item:slug:unfettered-movement"
+                            {
+                                "and": [
+                                    "item:slug:telekinetic-maneuver",
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            7
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:wall-of-wind",
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            11
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:unfettered-movement",
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            13
+                                        ]
+                                    }
+                                ]
+                            }
                         ]
                     }
                 ],

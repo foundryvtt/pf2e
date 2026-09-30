@@ -1167,10 +1167,6 @@
                     "value": 23
                 },
                 "damageRolls": {
-                    "Aol8kM23jqnGQx45": {
-                        "damage": "1d6",
-                        "damageType": "electricity"
-                    },
                     "x6F9Sc17L5ujTfhb": {
                         "damage": "2d6+11",
                         "damageType": "slashing"
@@ -1187,15 +1183,13 @@
                 "range": null,
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
+                        "definition": [
+                            "item:id:{item|_id}"
                         ],
-                        "selector": [
-                            "urumi-damage"
-                        ],
-                        "text": "PF2E.WeaponPropertyRune.shock.Note.criticalSuccess",
-                        "title": "PF2E.WeaponPropertyRune.shock.Name"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "shock"
                     },
                     {
                         "definition": [

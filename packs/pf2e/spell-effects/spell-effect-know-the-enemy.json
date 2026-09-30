@@ -1,0 +1,46 @@
+{
+    "_id": "ZmoLNdkOWwZgSrti",
+    "img": "icons/creatures/unholy/demon-hairy-winged-pink.webp",
+    "name": "Spell Effect: Know the Enemy",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Know the Enemy]</p>\n<p>You roll your Recall Knowledge check twice and use the better result.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
+                "selector": "skill-check"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

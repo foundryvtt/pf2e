@@ -27,4 +27,30 @@ function suppressFeats(feats: (FeatPF2e | AbilityItemPF2e)[]): void {
     }
 }
 
-export { featCanHaveKeyOptions, suppressFeats };
+/** Mutates the data to prevent certain combinations of traits and categories. */
+function adjustFeatTraitsAndCategory(featSystemData: FeatPF2e["system"] | FeatPF2e["_source"]["system"]): void {
+    const traits = featSystemData.traits.value;
+
+    // Add the General trait if of the general feat type
+    if (featSystemData.category === "general" && !traits.includes("general")) {
+        traits.push("general");
+    }
+
+    if (featSystemData.category === "skill") {
+        // Add the Skill trait
+        if (!traits.includes("skill")) traits.push("skill");
+
+        // Add the General trait only if the feat is not an archetype skill feat
+        if (!traits.includes("general") && !traits.includes("archetype")) {
+            traits.push("general");
+        }
+    }
+
+    // Only archetype feats can have the dedication trait
+    if (traits.includes("dedication")) {
+        featSystemData.category = "class";
+        if (!traits.includes("archetype")) traits.push("archetype");
+    }
+}
+
+export { adjustFeatTraitsAndCategory, featCanHaveKeyOptions, suppressFeats };

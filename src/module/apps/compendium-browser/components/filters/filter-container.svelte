@@ -25,10 +25,9 @@
                 type="button"
                 class="flat expand-section"
                 onclick={() => (isExpanded = !isExpanded)}
-                aria-label="expand"
                 aria-expanded={isExpanded}
             >
-                <i class="fa-solid fa-fw {isExpanded ? 'fa-chevron-down' : 'fa-chevron-up'}"></i>
+                <i class="fa-solid fa-fw {isExpanded ? 'fa-chevron-down' : 'fa-chevron-up'}" aria-hidden="true"></i>
                 <span>{_loc(props.label)}</span>
             </button>
         {:else}
@@ -47,7 +46,7 @@
 
 <style lang="scss">
     fieldset {
-        border: 1px solid #bbb;
+        border: 2px groove var(--color-fieldset-border);
         margin: var(--space-8) var(--space-2);
         border-radius: var(--space-5);
         padding: var(--space-6);

@@ -17,12 +17,17 @@ import * as browserTabs from "./tabs/index.ts";
 class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     /** The amount of rendered result items for initial loading and per load operation */
     static RESULT_LIMIT = 100;
+    /** Distance in px from the result list's bottom at which the next batch loads */
+    static SCROLL_LOAD_THRESHOLD = 5;
+    /** Delay in ms after a result drag ends before the window is restored */
+    static DRAG_END_RESTORE_DELAY = 500;
 
     protected root = App;
 
     /** Live UI state. openTab and other external callers mutate it. */
     activeTabName: ContentTabName | "" = $state("");
-    resultList: HTMLUListElement = $state(document.createElement("ul"));
+    /** Null while no tab is shown */
+    resultList: HTMLUListElement | null = $state(null);
 
     activeTab: BrowserTab;
     dataTabsList = ["action", "bestiary", "campaignFeature", "equipment", "feat", "hazard", "spell"] as const;

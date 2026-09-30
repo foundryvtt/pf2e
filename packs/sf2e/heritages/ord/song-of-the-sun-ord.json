@@ -1,0 +1,50 @@
+{
+    "_id": "ichUsxfksru3APma",
+    "folder": "pwecKjBEMLUFCFX1",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Song of the Sun Ord",
+    "system": {
+        "ancestry": {
+            "name": "Ord",
+            "slug": "ord",
+            "uuid": "Compendium.sf2e.ancestries.Item.RKv77bXjesIUAPxG"
+        },
+        "description": {
+            "value": "<p>Unlike most of your kin, you've spent extensive time out in the sun, on the surface of Lazel or another world. Your scaly skin has taken on brighter hues, and the variegated patterns that cover your body stand out in bold contrast. Even though you can't see it, the light of the stars floods your senses and invigorates you. You become trained in Acrobatics. If you would automatically become trained in Acrobatics (from your background or class, for example), you instead become trained in a skill of your choice. When in an area of bright light, you gain a +2 circumstance bonus to Acrobatic checks to [[/act balance]], [[/act tumble-through]], and Squeeze.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Secrets of the Swarm Adventure Path"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.acrobatics.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:balance",
+                            "action:tumble-through",
+                            "action:squeeze"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "acrobatics"
+                ],
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

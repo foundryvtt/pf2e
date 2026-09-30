@@ -151,6 +151,8 @@ type DamageContextConstructorParams<
     outcome: Maybe<DegreeOfSuccessString>;
 };
 
+type RollRole = "origin" | "target";
+
 export type {
     CheckContextConstructorParams,
     CheckContextData,
@@ -158,6 +160,7 @@ export type {
     RollContextConstructorParams,
     RollContextData,
     RollOrigin,
+    RollRole,
     RollTarget,
     UnresolvedOpposingActors,
 };

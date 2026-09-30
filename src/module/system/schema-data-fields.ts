@@ -588,9 +588,12 @@ class RecordField<
         options?: DataFieldValidationOptions,
     ): validation.DataModelValidationFailure | void {
         const failures = new validation.DataModelValidationFailure();
-        for (const [key, value] of fu.iterateEntries(values)) {
+        for (const [key, rawValue] of fu.iterateEntries(values)) {
             const keyFailure = this.keyField.validate(key, options);
             if (keyFailure) failures.elements.push({ id: key, failure: keyFailure });
+            // A deletion has no value to validate, and a replacement is validated by its inner value
+            if (rawValue instanceof foundry.data.operators.ForcedDeletion) continue;
+            const value = foundry.data.operators.ForcedReplacement.get(rawValue);
             const valueFailure = this.valueField.validate(value, options);
             if (valueFailure) failures.elements.push({ id: `${key}-value`, failure: valueFailure });
         }
@@ -609,9 +612,21 @@ class RecordField<
     ): Record<string, unknown> {
         const upstreamCleaned = super._cleanType(values, options, _state);
         if (!R.isPlainObject(upstreamCleaned)) return values;
-        for (const [key, value] of fu.iterateEntries(upstreamCleaned)) {
-            if (value instanceof foundry.data.operators.DataFieldOperator) continue;
-            upstreamCleaned[key] = this.valueField.clean(value, options, _state);
+        const operators = foundry.data.operators;
+        for (const key of fu.iterateKeys(upstreamCleaned)) {
+            // Narrow the source to this key, otherwise new entries are treated as partial updates
+            const innerState = { ..._state, source: R.isPlainObject(_state.source) ? _state.source[key] : undefined };
+            fields.SchemaField.reconstructOperator(upstreamCleaned, key, upstreamCleaned[key]);
+            const value = upstreamCleaned[key];
+            if (value instanceof operators.DataFieldOperator) {
+                if (value instanceof operators.ForcedReplacement) {
+                    const resolved = operators.DataFieldOperator.get(value);
+                    const cleaned = this.valueField.clean(resolved, { ...options, partial: false }, innerState);
+                    operators.DataFieldOperator.set(value, cleaned);
+                }
+            } else {
+                upstreamCleaned[key] = this.valueField.clean(value, options, innerState);
+            }
         }
         return upstreamCleaned;
     }

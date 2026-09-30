@@ -2194,10 +2194,6 @@
                     "C3lY66jqVAukfjHW": {
                         "damage": "3d8+14",
                         "damageType": "piercing"
-                    },
-                    "GjfKFaWXOeBonWFq": {
-                        "damage": "1d6",
-                        "damageType": "electricity"
                     }
                 },
                 "description": {
@@ -2210,6 +2206,15 @@
                 },
                 "range": null,
                 "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "shock"
+                    },
                     {
                         "definition": [
                             "item:id:{item|_id}"

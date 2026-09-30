@@ -59,7 +59,7 @@ const ancestryTraits = {
     goblin: "PF2E.TraitGoblin",
     goloma: "PF2E.TraitGoloma",
     halfling: "PF2E.TraitHalfling",
-    hardor: "PF2E.Hardor",
+    hardor: "PF2E.TraitHardor",
     hobgoblin: "PF2E.TraitHobgoblin",
     human: "PF2E.TraitHuman",
     hungerseed: "PF2E.TraitHungerseed",
@@ -693,6 +693,7 @@ const preciousMaterials: Record<PreciousMaterialType, string> = {
     "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneScarlet",
     sloughstone: "PF2E.PreciousMaterialSloughstone",
     "sovereign-steel": "PF2E.PreciousMaterialSovereignSteel",
+    throneglass: "PF2E.PreciousMaterialThroneglass",
     warpglass: "PF2E.PreciousMaterialWarpglass",
 };
 
@@ -737,6 +738,7 @@ const npcAttackTraits = {
     illusion: "PF2E.TraitIllusion",
     impulse: "PF2E.TraitImpulse",
     linguistic: "PF2E.TraitLinguistic",
+    press: "PF2E.TraitPress",
     incorporeal: "PF2E.TraitIncorporeal",
     radiation: "PF2E.TraitRadiation",
     "reach-0": "PF2E.TraitReach0",
@@ -861,6 +863,7 @@ const consumableTraits = {
     additive2: "PF2E.TraitAdditive2",
     additive3: "PF2E.TraitAdditive3",
     alchemical: "PF2E.TraitAlchemical",
+    artifact: "PF2E.TraitArtifact",
     attack: "PF2E.TraitAttack",
     auditory: "PF2E.TraitAuditory",
     aura: "PF2E.TraitAura",
@@ -1058,6 +1061,7 @@ const hazardTraits = {
 const vehicleTraits = {
     artifact: "PF2E.TraitArtifact",
     clockwork: "PF2E.TraitClockwork",
+    divine: "PF2E.TraitDivine",
     magical: "PF2E.TraitMagical",
     tech: "PF2E.TraitTech",
     teleportation: "PF2E.TraitTeleportation",
@@ -1287,6 +1291,7 @@ const preciousMaterialDescriptions = {
     "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneDescription",
     sloughstone: "PF2E.PreciousMaterialSloughstoneDescription",
     "sovereign-steel": "PF2E.PreciousMaterialSovereignSteelDescription",
+    throneglass: "PF2E.PreciousMaterialThroneglassDescription",
     warpglass: "PF2E.PreciousMaterialWarpglassDescription",
 };
 
@@ -1317,6 +1322,7 @@ const traitDescriptions = {
     amphibious: "PF2E.TraitDescriptionAmphibious",
     anadi: "PF2E.TraitDescriptionAnadi",
     analog: "PF2E.TraitDescriptionAnalog",
+    ancestry: "PF2E.TraitDescriptionAncestry",
     anchoring: "PF2E.TraitDescriptionAnchoring",
     android: "PF2E.TraitDescriptionAndroid",
     angel: "PF2E.TraitDescriptionAngel",

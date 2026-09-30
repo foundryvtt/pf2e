@@ -32,10 +32,11 @@
             class="filter-sources"
             spellcheck="false"
             placeholder={_loc("PF2E.CompendiumBrowser.Filter.FilterSources")}
+            aria-label={_loc("PF2E.CompendiumBrowser.Filter.FilterSources")}
             oninput={onSearchSource}
         />
     {/if}
-    {#each R.entries(checkbox.options) as [name, option]}
+    {#each R.entries(checkbox.options) as [name, option] (name)}
         {#if !searchable || !searchTerm || option.selected || option.label
                 .toLocaleLowerCase(game.i18n.lang)
                 .includes(searchTerm)}
@@ -60,6 +61,7 @@
         label {
             display: flex;
             align-items: center;
+            gap: var(--space-4);
         }
 
         .filter-sources {

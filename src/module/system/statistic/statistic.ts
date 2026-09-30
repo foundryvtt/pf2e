@@ -18,7 +18,6 @@ import { AbilityTrait } from "@item/ability/types.ts";
 import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 import {
-    extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
@@ -30,7 +29,7 @@ import type { TokenDocumentPF2e } from "@scene";
 import { Check, CheckRollCallback } from "@system/check/check.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import { CheckCheckContext, CheckType, RollTwiceOption } from "@system/check/types.ts";
-import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success.ts";
+import { CheckDC, extractDegreeOfSuccessAdjustments, getIncapacitationAdjustment } from "@system/degree-of-success.ts";
 import { ErrorPF2e, objectHasKey, signedInteger, sluggify } from "@util";
 import * as R from "remeda";
 import { BaseStatistic } from "./base.ts";
@@ -54,7 +53,7 @@ class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TAct
     base: Statistic | null = null;
 
     /** If this is a skill, returns whether it is a lore skill or not */
-    lore?: boolean;
+    declare lore?: boolean;
 
     config: RollOptionConfig;
 
@@ -492,7 +491,20 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         const originActor = rollContext.origin?.actor ?? self;
         const targetActor = rollContext.target?.actor ?? null;
         const selfActor = (selfIsTarget ? targetActor : originActor) ?? self;
-        const dc = typeof args.dc?.value === "number" ? args.dc : (rollContext?.dc ?? null);
+        const dc = ((): CheckDC | null => {
+            if (typeof args.dc?.value === "number") return args.dc;
+            if (!args.dc?.slug) return rollContext?.dc ?? null;
+            // Resolve a reference from the opposing actor's contextual clone, falling back to the actor itself
+            const { slug, label, modifiers = [] } = args.dc;
+            const opposingActor = selfIsTarget ? args.origin : args.target;
+            const baseStatistic =
+                rollContext?.dc?.statistic?.parent ??
+                opposingActor?.getStatistic(slug.replace(/-dc$/, ""))?.clone({ rollOptions: args.extraRollOptions });
+            const statistic = modifiers.length > 0 ? baseStatistic?.clone({ modifiers }).dc : baseStatistic?.dc;
+            if (!statistic) return null;
+            const scope = rollContext?.dc?.scope ?? (domains.includes("attack") ? "attack" : "check");
+            return { slug, label, scope, statistic, value: statistic.value };
+        })();
 
         // Extract modifiers, unless this is a flat check
         const extraModifiers =
@@ -520,7 +532,16 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         }
 
         // Add any degree of success adjustments if rolling against a DC
-        const dosAdjustments = dc ? extractDegreeOfSuccessAdjustments(selfActor.synthetics, domains) : [];
+        const opposingActor = selfIsTarget ? (rollContext.origin?.actor ?? null) : targetActor;
+        const dosAdjustments = dc
+            ? extractDegreeOfSuccessAdjustments({
+                  self: selfActor,
+                  selfRole: selfIsTarget ? "target" : "origin",
+                  opposer: opposingActor,
+                  domains,
+                  options,
+              })
+            : [];
 
         // Handle special case of incapacitation trait
         if ((options.has("incapacitation") || options.has("item:trait:incapacitation")) && dc) {
@@ -529,26 +550,13 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                 : item?.isOfType("physical")
                   ? item.level
                   : (originActor?.level ?? selfActor.level);
-
-            const amount =
-                this.type === "saving-throw" && selfActor.level > effectLevel
-                    ? DEGREE_ADJUSTMENT_AMOUNTS.INCREASE
-                    : !!targetActor &&
-                        targetActor.level > effectLevel &&
-                        ["attack-roll", "spell-attack-roll", "skill-check"].includes(this.type)
-                      ? DEGREE_ADJUSTMENT_AMOUNTS.LOWER
-                      : null;
-
-            if (amount) {
-                dosAdjustments.push({
-                    adjustments: {
-                        all: {
-                            label: "PF2E.TraitIncapacitation",
-                            amount,
-                        },
-                    },
-                });
-            }
+            const incapacitation = getIncapacitationAdjustment({
+                checkType: this.type,
+                effectLevel,
+                selfLevel: selfActor.level,
+                targetLevel: targetActor?.level ?? null,
+            });
+            if (incapacitation) dosAdjustments.push(incapacitation);
         }
         const mapIncreases = Math.clamp((args.attackNumber ?? 1) - 1, 0, 2) as ZeroToTwo;
 
@@ -755,6 +763,10 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
 
 interface CheckDCReference {
     slug: string;
+    /** An optional label overriding the one derived from the slug */
+    label?: string;
+    /** Additional modifiers applied to the resolved DC statistic */
+    modifiers?: Modifier[];
     value?: never;
 }
 
