@@ -23,9 +23,9 @@ This project uses vite to bundle the ES module and compile the SASS files needed
 
 #### Systems
 
-- Run `pnpm run build --system=pf2e` or `pnpm run build --system=sf2e` to perform a one-off build.
+- Run `pnpm run build` for pf2e or `pnpm run build --system=sf2e` for sf2e to perform a one-off build.
 
-- Run `pnpm run hot --system=pf2e` or `pnpm run hot --system=sf2e` to have any coding changes you make trigger an automatic rebuild. while Foundry is running to start a development server, then open http://localhost:30001 instead of Foundry's usual address.
+- Run `pnpm run hot` for pf2e or `pnpm run hot --system=sf2e` for sf2e while Foundry is running to start a development server to have any coding changes be reflected automatically (Vite Hot Module Replacement). Open http://localhost:30001 instead of Foundry's usual address. This requires that you build the system first, since `hot` doesn't build packs or copy static files.
 
 #### Anachronism Modules
 
@@ -33,7 +33,7 @@ This project uses vite to bundle the ES module and compile the SASS files needed
 
 ### Updating Compendia
 
-- To update compendium datafiles, run `pnpm run extractPacks ${compendium db filename} --system=pf2e` or `pnpm run extractPacks ${compendium db filename} --system=sf2e` after editing the item directly in the built world's compendium, rather than editing the json files directly.
+- To update compendium datafiles, run `pnpm run extractPacks all` for pf2e or `pnpm run extractPacks all --system=sf2e` for sf2e after editing the item directly in the built world's compendium, rather than editing the json files directly. You can also specift the pack folder name instead of `all`.
 
 ## How to Help
 
