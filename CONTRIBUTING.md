@@ -39,7 +39,7 @@ This project uses vite to bundle the ES module and compile the SASS files needed
 
 > pnpm needs to be used to use any options
 
-- To update compendium datafiles, run `npm run extractPacks all` for pf2e or `pnpm run extractPacks all --system=sf2e` for sf2e after editing the item directly in the built world's compendium, rather than editing the json files directly. You can also specift the pack folder name instead of `all`.
+- To update a compedium first edit the item directly in the built world's compendium (rather than editing the json files directly). Then run `npm run extractPacks all` for pf2e or `pnpm run extractPacks all --system=sf2e` for sf2e. You can also specift the pack folder name instead of `all`.
 
 ## How to Help
 
