@@ -29,7 +29,18 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.bardic-lore",
+                "value": {
+                    "attribute": "int",
+                    "label": "{item|name}",
+                    "rank": "match(when(gte(@actor.system.skills.occultism.rank, 4), 2),1)"
+                }
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
