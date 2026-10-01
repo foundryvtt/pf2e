@@ -50,3 +50,11 @@ A pull request may not contain any AI-written changes. PRs noticed as having any
 #### Style
 
 We have integrated [Prettier](https://prettier.io/) into this project to enforce a consistent coding—even if it's not one everybody likes. Github CI will block merges of any PR that fails the test suite, which includes style linting. To manually fix style issues, you can call `npm run lint:fix` from the project environment.
+
+### Issues
+
+Before opening a new issue ensure there isn't a duplicate issue, making sure to check closed issues as well.
+
+#### Bugs
+
+When opening a issue for a bug ensure it can be reproduced with no modules active. If the bug only happens when a module is active, report it to the module's author instead. Additionally provide clear instructions on how the bug can be reproduced if relevant as well as what you expected to happen during those steps verses what actually happened.
