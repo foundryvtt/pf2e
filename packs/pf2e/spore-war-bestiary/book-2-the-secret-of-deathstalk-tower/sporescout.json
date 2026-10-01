@@ -555,10 +555,6 @@
                     "value": 28
                 },
                 "damageRolls": {
-                    "GLwC8PtOx2grRp4p": {
-                        "damage": "1d6",
-                        "damageType": "acid"
-                    },
                     "zMs9DOQtwhXKyEkV": {
                         "damage": "3d4+12",
                         "damageType": "slashing"
@@ -573,7 +569,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "corrosive"
+                    }
+                ],
                 "slug": "sickle",
                 "traits": {
                     "value": [

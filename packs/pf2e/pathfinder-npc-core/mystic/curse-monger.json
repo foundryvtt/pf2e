@@ -2298,11 +2298,6 @@
                     "value": 25
                 },
                 "damageRolls": {
-                    "fUMzxbaeusjEBqtm": {
-                        "category": "persistent",
-                        "damage": "1d6",
-                        "damageType": "bleed"
-                    },
                     "iTm2UK4LMg97e4hG": {
                         "damage": "2d4+13",
                         "damageType": "slashing"
@@ -2317,7 +2312,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "wounding"
+                    }
+                ],
                 "slug": "sickle",
                 "traits": {
                     "value": [

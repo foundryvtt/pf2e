@@ -239,7 +239,7 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FNDq4NFSN0g2HKWO"
             },
             "img": "icons/equipment/hand/gauntlet-simple-leather-brown-gold.webp",
-            "name": "+2 Gerater Striking Greater Corrosive Handwraps of Mighty Blows",
+            "name": "+2 Greater Striking Greater Corrosive Handwraps of Mighty Blows",
             "sort": 500000,
             "system": {
                 "baseItem": null,
@@ -493,10 +493,6 @@
                     "7mldt3ixf6is2zg5odjo": {
                         "damage": "3d6+12",
                         "damageType": "bludgeoning"
-                    },
-                    "ui7l494axb95d4wyrvjv": {
-                        "damage": "1d6",
-                        "damageType": "acid"
                     }
                 },
                 "description": {
@@ -542,10 +538,6 @@
                     "5xm3saw9bgqazveoqa1v": {
                         "damage": "3d8+12",
                         "damageType": "slashing"
-                    },
-                    "jkxs0jq0hsu09c9bcxqz": {
-                        "damage": "1d6",
-                        "damageType": "acid"
                     }
                 },
                 "description": {
@@ -698,7 +690,17 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:trait:unarmed"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greaterCorrosive"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

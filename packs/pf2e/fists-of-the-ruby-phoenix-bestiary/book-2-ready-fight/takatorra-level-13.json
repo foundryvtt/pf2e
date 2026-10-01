@@ -421,10 +421,6 @@
                     "74d379017ltdb60dlooe": {
                         "damage": "2d8+8",
                         "damageType": "piercing"
-                    },
-                    "awpsgydt2qvt4onv4mw5": {
-                        "damage": "1d6",
-                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -439,13 +435,24 @@
                     "increment": 100,
                     "max": null
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "frost"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": [
                         "cold",
                         "deadly-d10",
+                        "magical",
                         "propulsive",
                         "volley-30"
                     ]
