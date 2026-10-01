@@ -22,38 +22,38 @@
             "title": "Pathfinder Impossible Magic"
         },
         "rules": [
-        {
-            "diceNumber": "ternary(gte(@item.level, 10), 4,ternary(gte(@item.level, 6), 3, ternary(gte(@item.level, 2), 2, 1)))",
-            "dieSize": "d6",
-            "key": "DamageDice",
-            "selector": "strike-damage"
-        },
-        {
-            "adjustName": false,
-            "choices": [
-                {
-                    "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
-                    "value": "yes"
-                },
-                {
-                    "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
-                    "value": "no"
-                }
-            ],
-            "key": "ChoiceSet",
-            "prompt": "PF2E.SpecificRule.SpellEffectThrallCharge.Prompt.DestroyThrall",
-		    "rollOption": "thrall-charge:destroy-thrall"
-        },
-        {
-            "key": "FlatModifier",
-            "predicate": [
-                "thrall-charge:destroy-thrall:yes"
-            ],
-            "selector": "strike-damage",
-            "type": "status",
-            "value": "@item.level"
-        }
-    ],
+            {
+                "diceNumber": "ternary(gte(@item.level, 10), 4,ternary(gte(@item.level, 6), 3, ternary(gte(@item.level, 2), 2, 1)))",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "strike-damage"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": "yes"
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": "no"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.SpellEffectThrallCharge.Prompt.DestroyThrall",
+                "rollOption": "thrall-charge:destroy-thrall"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "thrall-charge:destroy-thrall:yes"
+                ],
+                "selector": "strike-damage",
+                "type": "status",
+                "value": "@item.level"
+            }
+        ],
         "start": {
             "initiative": null,
             "value": 0
