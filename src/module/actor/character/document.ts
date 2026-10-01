@@ -1096,10 +1096,16 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             }
 
             // Combination weapons only present the selected usage. Thrown attacks of the melee usage remain available
-            // while in melee mode.
+            // while in melee mode. Ranged usage is only shown if weapon is ready to shoot.
             const comboMode = weapon.system.traits.toggles.combination?.selected;
             if (comboMode === "melee") {
-                attack.canAttack = false;
+                const ammo = attack.ammunition;
+                const loaded =
+                    !!ammo &&
+                    (ammo.requiresReload
+                        ? ammo.loaded.some((a) => a.quantity > 0)
+                        : !!ammo.selected?.id && ammo.selected.compatible);
+                attack.canAttack = loaded;
                 attack.altUsages = attack.altUsages.filter(
                     (usage) => usage.type === "strike" && (usage.item.altUsageType === "melee" || usage.item.isThrown),
                 );

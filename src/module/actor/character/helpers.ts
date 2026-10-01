@@ -323,7 +323,8 @@ function getAttackAmmo(
     const selected = ammo ? { id: ammo.id, compatible: ammo.isAmmoFor(weapon) } : null;
     const loaded = getLoadedAmmo(weapon);
     const capacity = weapon.system.ammo?.capacity ?? 0;
-    const magsDepleted = loaded.every((a) => a.isOfType("ammo") && a.isMagazine && a.system.uses.value === 0);
+    const magsDepleted =
+        loaded.length > 0 && loaded.every((a) => a.isOfType("ammo") && a.isMagazine && a.system.uses.value === 0);
     const remaining = magsDepleted ? 1 : Math.max(0, capacity - R.sumBy(loaded, (l) => l.quantity));
 
     // Get reload glyph. Repeating weapons always take 3 actions total
