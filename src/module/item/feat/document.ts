@@ -11,7 +11,7 @@ import { ActionCost, Frequency, RawItemChatData } from "@item/base/data/index.ts
 import { Rarity } from "@module/data.ts";
 import { RuleElement, RuleElementOptions, RuleElementSource } from "@module/rules/index.ts";
 import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
-import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
+import { ErrorPF2e, objectHasKey, ordinalString, setHasElement, sluggify } from "@util";
 import * as R from "remeda";
 import { FeatSource, FeatSystemData } from "./data.ts";
 import { adjustFeatTraitsAndCategory, featCanHaveKeyOptions, suppressFeats } from "./helpers.ts";
@@ -346,9 +346,12 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             journalLink?: boolean;
         },
     ): string {
-        // Add header with Item link and feat level
+        // Add header with Item link and feat/feature level
+        const headerLevel = this.isFeat
+            ? _loc("PF2E.Item.Feat.LevelN", { level: this.level })
+            : ordinalString(this.level);
         const header = config.header
-            ? `<h2 class="embed heading"><span>@UUID[${this.uuid}]</span> <span>${_loc("PF2E.Item.Feat.LevelN", { level: this.level })}</span></h2>`
+            ? `<h2 class="embed heading"><span>@UUID[${this.uuid}]</span> <span>${headerLevel}</span></h2>`
             : "";
 
         // Non-common rarity followed by alphabetically ordered traits

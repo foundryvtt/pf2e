@@ -28,7 +28,36 @@
         "rules": [
             {
                 "key": "GrantItem",
+                "preselectChoices": {
+                    "ancestry": "vesk"
+                },
                 "uuid": "Compendium.sf2e.feats.Item.Adopted Ancestry"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:level:1",
+                        "item:category:ancestry",
+                        {
+                            "or": [
+                                "item:trait:ancestry",
+                                "item:trait:vesk"
+                            ]
+                        },
+                        {
+                            "not": "item:trait:lineage"
+                        }
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "adoptedOverlords",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.AncestralParagon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.system.rulesSelections.adoptedOverlords}"
             }
         ],
         "subfeatures": {

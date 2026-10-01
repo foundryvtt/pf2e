@@ -29,7 +29,18 @@
             "remaster": false,
             "title": "Pathfinder #170: Spoken on the Song Wind"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.folktales-lore",
+                "value": {
+                    "attribute": "int",
+                    "label": "{item|name}",
+                    "rank": "match(when(gte(@actor.system.skills.performance.rank, 4), 2),1)"
+                }
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

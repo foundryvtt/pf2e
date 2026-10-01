@@ -470,10 +470,6 @@
                     "9p9r928k51pc985p0ikh": {
                         "damage": "2d6+12",
                         "damageType": "slashing"
-                    },
-                    "nmd7jnwq41k6jyxhxk3g": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -485,7 +481,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

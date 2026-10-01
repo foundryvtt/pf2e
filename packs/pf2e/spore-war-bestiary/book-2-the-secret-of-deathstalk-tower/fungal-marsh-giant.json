@@ -492,10 +492,6 @@
                     "QLCQywJenYZX35WS": {
                         "damage": "2d10+13",
                         "damageType": "slashing"
-                    },
-                    "d1YP6YEWZsGBrLBg": {
-                        "damage": "1d6",
-                        "damageType": "acid"
                     }
                 },
                 "description": {
@@ -507,7 +503,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "corrosive"
+                    }
+                ],
                 "slug": "scythe",
                 "traits": {
                     "value": [

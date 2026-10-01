@@ -1,10 +1,10 @@
 <script lang="ts">
     import SvelectePf2e from "@module/sheet/components/svelecte-pf2e.svelte";
+    import { dropTarget, type DropData } from "@module/sheet/drop-target.ts";
     import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import type { PickableThing, PickAThingRenderContext } from "./app.ts";
     import { UUIDUtils } from "@util/uuid.ts";
     import { ItemPF2e } from "@item";
-    import type { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
     import { sluggify } from "@util/misc.ts";
     import * as R from "remeda";
 
@@ -49,14 +49,12 @@
         item?.sheet.render(true);
     }
 
-    async function handleDrop(event: DragEvent) {
-        const dataString = event.dataTransfer?.getData("text/plain");
-        const dropData: DropCanvasItemData | undefined = JSON.parse(dataString ?? "");
-        if (dropData?.type !== "Item") {
+    async function handleDrop(dropped: DropData) {
+        if (dropped.type !== "Item") {
             ui.notifications.error("Only an item can be dropped here.");
             return;
         }
-        const droppedItem = await ItemPF2e.fromDropData(dropData);
+        const droppedItem = await ItemPF2e.fromDropData(dropped);
         if (!droppedItem || !testAllowedDrop(droppedItem)) return;
 
         // Drop accepted: Add to button list or select menu
@@ -70,7 +68,7 @@
     }
 </script>
 
-<div class="standard-form" ondrop={includeDropZone ? handleDrop : null} role="form">
+<div class="standard-form" {@attach dropTarget({ onDrop: handleDrop, disabled: !includeDropZone })} role="form">
     <header>{data.prompt}</header>
     <section class="contents">
         {#if selectMenu}

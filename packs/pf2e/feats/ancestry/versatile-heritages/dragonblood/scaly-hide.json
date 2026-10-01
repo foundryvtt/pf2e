@@ -39,12 +39,20 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "flags.system.scalyHideBonus",
+                "predicate": [
+                    {
+                        "not": "feat:scales-of-the-dragon"
+                    }
+                ],
                 "priority": 19,
                 "value": "ternary(gte(@actor.level,5),2,1)"
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
+                    {
+                        "not": "feat:scales-of-the-dragon"
+                    },
                     {
                         "not": "self:armored"
                     }
@@ -57,6 +65,9 @@
                 "key": "AdjustModifier",
                 "mode": "add",
                 "predicate": [
+                    {
+                        "not": "feat:scales-of-the-dragon"
+                    },
                     {
                         "not": "self:armored"
                     }
@@ -71,6 +82,9 @@
                 "mode": "add",
                 "predicate": [
                     {
+                        "not": "feat:scales-of-the-dragon"
+                    },
+                    {
                         "not": "self:armored"
                     }
                 ],
@@ -83,6 +97,9 @@
                 "key": "AdjustModifier",
                 "mode": "add",
                 "predicate": [
+                    {
+                        "not": "feat:scales-of-the-dragon"
+                    },
                     {
                         "not": "self:armored"
                     }

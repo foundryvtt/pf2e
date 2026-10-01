@@ -27,7 +27,7 @@ import type {
     HitPointsStatistic,
     StrikeData,
 } from "@actor/data/base.ts";
-import { InitiativeTraceData } from "@actor/initiative.ts";
+import type { InitiativeTraceData } from "@actor/initiative.ts";
 import type { Modifier, StatisticModifier } from "@actor/modifiers.ts";
 import type { ActorAlliance, SaveType } from "@actor/types.ts";
 import type { MeleePF2e } from "@item";
@@ -175,6 +175,8 @@ interface NPCSystemData extends Omit<NPCSystemSource, "attributes" | "perception
 
 interface NPCPerceptionData extends CreaturePerceptionData {
     mod: number;
+    details: string;
+    rank?: never;
 }
 
 interface NPCAttributes extends Omit<NPCAttributesSource, AttributesSourceOmission>, CreatureAttributes {

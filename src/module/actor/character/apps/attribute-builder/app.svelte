@@ -916,7 +916,8 @@
             }
 
             input[type="checkbox"] {
-                --checkbox-background-color: var(--table-row-color-highlight);
+                /* Core's dark-theme checkbox blends into the panel */
+                --checkbox-background-color: light-dark(var(--color-dark-6), var(--table-row-color-highlight));
             }
         }
 

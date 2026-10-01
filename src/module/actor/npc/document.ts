@@ -18,7 +18,7 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { CreatureIdentificationData, creatureIdentificationDCs } from "@module/recall-knowledge.ts";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene";
-import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
+import { ArmorStatistic, Statistic } from "@system/statistic/index.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { createHTMLElement, signedInteger, sluggify } from "@util";
 import * as R from "remeda";
@@ -256,35 +256,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             attribute: armorStatistic.attribute ?? "dex",
         });
 
+        this.preparePerception();
         this.prepareSaves();
-
-        // Perception
-        {
-            const domains = ["perception", "wis-based", "all"];
-            this.perception = new PerceptionStatistic(this, {
-                slug: "perception",
-                label: "PF2E.PerceptionLabel",
-                attribute: "wis",
-                domains,
-                modifiers: [
-                    new Modifier({
-                        slug: "base",
-                        label: "PF2E.ModifierTitle",
-                        modifier: system.perception.mod,
-                        adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
-                    }),
-                ],
-                check: { type: "perception-check" },
-                senses: system.perception.senses,
-                vision: system.perception.vision,
-            });
-            system.perception = fu.mergeObject(this.perception.getTraceData(), {
-                attribute: this.perception.attribute ?? "wis",
-                details: system.perception.details,
-                mod: this.perception.mod,
-            });
-        }
-
         this.prepareSkills();
 
         // Process strikes
@@ -305,6 +278,21 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         // Initiative
         this.initiative = new ActorInitiative(this, R.pick(system.initiative, ["statistic", "tiebreakPriority"]));
         system.initiative = this.initiative.getTraceData();
+    }
+
+    protected override preparePerception(): void {
+        const modifierAdjustments = this.synthetics.modifierAdjustments;
+        const baseModifier = new Modifier({
+            slug: "base",
+            label: "PF2E.ModifierTitle",
+            modifier: this.system.perception.mod,
+            adjustments: extractModifierAdjustments(modifierAdjustments, ["perception", "wis-based", "all"], "base"),
+        });
+        super.preparePerception([baseModifier]);
+        this.system.perception = Object.assign(this.perception.getTraceData(), {
+            details: this.system.perception.details,
+            mod: this.perception.mod,
+        });
     }
 
     private prepareSaves(): void {

@@ -1,0 +1,35 @@
+{
+    "_id": "FVTyfoJNPboqdtTe",
+    "folder": "xX8qsQCaZGdbCKJk",
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "Undead",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "familiar",
+        "description": {
+            "value": "<p>Your familiar is undead. It has void healing and is immune to death effects, disease, poison, and @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]. It's destroyed at 0 HP.</p>"
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Book of the Dead"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.hp.negativeHealing",
+                "value": true
+            }
+        ],
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "action"
+}
