@@ -2823,15 +2823,6 @@
                     "9SRRKnRtY6F689rN": {
                         "damage": "3d8+15",
                         "damageType": "slashing"
-                    },
-                    "VyKg6E8kd1COJA7a": {
-                        "category": "persistent",
-                        "damage": "1d6",
-                        "damageType": "bleed"
-                    },
-                    "uaqQ0t8uahBoz7Ow": {
-                        "damage": "1d6",
-                        "damageType": "acid"
                     }
                 },
                 "description": {
@@ -2843,7 +2834,26 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "corrosive"
+                    },
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "wounding"
+                    }
+                ],
                 "slug": "battle-axe",
                 "traits": {
                     "value": [

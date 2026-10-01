@@ -30,11 +30,9 @@ class ActorInitiative {
     constructor(actor: ActorPF2e, { statistic, tiebreakPriority }: { statistic: string; tiebreakPriority: ZeroToTwo }) {
         this.actor = actor;
         this.tiebreakPriority = tiebreakPriority;
-
         const base = actor.getStatistic(statistic);
         const ponderousPenalty = actor.isOfType("character") ? createPonderousPenalty(actor) : null;
         const rollLabel = _loc("PF2E.InitiativeWithSkill", { skillName: base?.label ?? "" });
-
         const data: StatisticData = {
             slug: "initiative",
             label: base?.label ?? "PF2E.InitiativeLabel",
@@ -43,8 +41,7 @@ class ActorInitiative {
             check: { type: "initiative", label: rollLabel },
             modifiers: [ponderousPenalty ?? []].flat(),
         };
-
-        this.statistic = base ? base.extend(data) : new Statistic(actor, data);
+        this.statistic = base?.extend(data) ?? new Statistic(actor, data);
     }
 
     get attribute(): AttributeString | null {

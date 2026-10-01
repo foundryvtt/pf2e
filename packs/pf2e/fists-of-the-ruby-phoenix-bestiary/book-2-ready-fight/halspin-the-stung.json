@@ -2780,10 +2780,6 @@
                     "it84mxcuitlabcdhisxw": {
                         "damage": "2d8+10",
                         "damageType": "piercing"
-                    },
-                    "f5kk676s3ht6gbd73263": {
-                        "damage": "1d6",
-                        "damageType": "acid"
                     }
                 },
                 "description": {
@@ -2798,7 +2794,17 @@
                     "increment": 100,
                     "max": null
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "corrosive"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

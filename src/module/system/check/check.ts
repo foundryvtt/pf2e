@@ -203,7 +203,12 @@ class Check {
 
             return (
                 context.dosAdjustments
-                    ?.filter((a) => a.predicate?.test(temporaryRollOptions) ?? true)
+                    ?.filter(
+                        (a) =>
+                            a.predicate?.test(
+                                a.options ? new Set([...postRollOptions, ...a.options]) : temporaryRollOptions,
+                            ) ?? true,
+                    )
                     .reduce((record, data) => {
                         for (const outcome of ["all", ...DEGREE_OF_SUCCESS_STRINGS] as const) {
                             if (data.adjustments[outcome]) {

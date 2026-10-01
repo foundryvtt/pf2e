@@ -2263,10 +2263,6 @@
                     "value": 22
                 },
                 "damageRolls": {
-                    "v5HcqhecnnpD3wZ4": {
-                        "damage": "1d6",
-                        "damageType": "cold"
-                    },
                     "vBWkjr3F2grEeP0b": {
                         "damage": "2d6+8",
                         "damageType": "bludgeoning"
@@ -2281,7 +2277,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "frost"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

@@ -30,11 +30,25 @@
                 "key": "Resistance",
                 "predicate": [
                     {
-                        "not": "self:effect:sacrificial-shell"
+                        "nor": [
+                            "self:effect:sacrificial-shell",
+                            "feat:adopted-overlords"
+                        ]
                     }
                 ],
                 "type": "precision",
                 "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "feat:adopted-overlords",
+                    {
+                        "not": "self:effect:sacrificial-shell"
+                    }
+                ],
+                "type": "precision",
+                "value": "(max(1,floor(@actor.level/2))+2)"
             }
         ],
         "subfeatures": {

@@ -25,7 +25,70 @@
             "remaster": true,
             "title": "Starfinder Galactic Ancestries"
         },
-        "rules": [],
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "lte": [
+                            "self:level",
+                            10
+                        ]
+                    }
+                ],
+                "selector": [
+                    "strike-attack-roll"
+                ],
+                "type": "proficiency",
+                "value": "@actor.level"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.attacks.simple.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            11
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.attacks.martial.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            11
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.attacks.advanced.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            11
+                        ]
+                    }
+                ],
+                "value": 1
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

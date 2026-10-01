@@ -1,18 +1,32 @@
+import { ToCompendiumOptions } from "@client/_module.mjs";
+import { ActiveEffectChangeTypeConfig } from "@client/config.mjs";
+import ActiveEffectRegistry from "@client/helpers/active-effect-registry.mjs";
 import { DocumentConstructionContext } from "@common/_types.mjs";
 import {
     DatabaseCreateCallbackOptions,
     DatabaseDeleteCallbackOptions,
     DatabaseUpdateCallbackOptions,
-} from "@common/abstract/_types.mjs";
-import Document from "@common/abstract/document.mjs";
+    DataModel,
+} from "@common/abstract/_module.mjs";
+import { ImageFilePath } from "@common/constants.mjs";
 import { DataField } from "@common/data/fields.mjs";
 import BaseActiveEffect, {
     ActiveEffectSource,
     EffectChangeData,
     EffectDurationData,
+    EffectStartData,
 } from "@common/documents/active-effect.mjs";
-import { Actor, BaseActor, BaseItem, BaseUser, Item } from "./_module.mjs";
+import {
+    ActiveEffectChangeData,
+    ActiveEffectDuration,
+    Actor,
+    BaseActor,
+    BaseItem,
+    BaseUser,
+    Item,
+} from "./_module.mjs";
 import { ClientDocument } from "./abstract/client-document.mjs";
+import { CompendiumCollection } from "./collections/_module.mjs";
 
 declare const ClientBaseActiveEffect: new <TParent extends BaseActor | BaseItem | null>(
     ...args: any
@@ -26,6 +40,26 @@ declare const ClientBaseActiveEffect: new <TParent extends BaseActor | BaseItem 
 export default class ActiveEffect<
     TParent extends Actor | Item | null = Actor | Item | null,
 > extends ClientBaseActiveEffect<TParent> {
+    /**
+     * A cached compilation of core and registered application phases, along with their labels
+     */
+    static get CHANGE_PHASES(): Record<string, { label: string; hint: string }>;
+
+    /**
+     * A cached compilation of core and registered change types, along with their labels and default priorities
+     */
+    static get CHANGE_TYPES(): Record<string, ActiveEffectChangeTypeConfig>;
+
+    /**
+     * A cached compilation of core and registered expiry events
+     */
+    static get EXPIRY_EVENTS(): Record<string, string>;
+
+    /**
+     * A helper class that accepts registration of ActiveEffects and manages their prepared duration and expiry data.
+     */
+    static registry: ActiveEffectRegistry;
+
     /**
      * Create an ActiveEffect instance from some status effect ID.
      * Delegates to {@link ActiveEffect._fromStatusEffect} to create the ActiveEffect instance
@@ -61,6 +95,21 @@ export default class ActiveEffect<
     /* -------------------------------------------- */
 
     /**
+     * The Actor in which this ActiveEffect is embedded, either directly or as a grandchild Document
+     */
+    get actor(): Actor | null;
+
+    /**
+     * The Item in which this ActiveEffect is embedded
+     */
+    get item(): Item | null;
+
+    /**
+     * Provide a thumbnail image path used to represent this document.
+     */
+    get thumbnail(): ImageFilePath;
+
+    /**
      * Is there some system logic that makes this active effect ineligible for application?
      */
     get isSuppressed(): boolean;
@@ -68,7 +117,7 @@ export default class ActiveEffect<
     /**
      * Retrieve the Document that this ActiveEffect targets for modification.
      */
-    get target(): foundry.abstract.Document | null;
+    get target(): TParent | TokenDocument | null;
 
     /**
      * Whether the Active Effect currently applying its changes to the target.
@@ -76,9 +125,33 @@ export default class ActiveEffect<
     get active(): boolean;
 
     /**
-     * Does this Active Effect currently modify an Actor?
+     * Whether this Active Effect currently modifies an Actor.
      */
     get modifiesActor(): boolean;
+
+    /**
+     * Whether this Active Effect has a temporary duration
+     */
+    get isTemporary(): boolean;
+
+    /**
+     * Whether this Active Effect is eligible to be registered with the {@link ActiveEffectRegistry}
+     */
+    get isExpiryTrackable(): boolean;
+
+    /**
+     * The source name of the Active Effect. The source is retrieved synchronously.
+     * Therefore "Unknown" (localized) is returned if the origin points to a document inside a compendium.
+     * Returns "None" (localized) if it has no origin, and "Unknown" (localized) if the origin cannot be resolved.
+     * @type {string}
+     */
+    get sourceName(): string;
+
+    /* -------------------------------------------- */
+    /*  Data Preparation                            */
+    /* -------------------------------------------- */
+
+    protected override _initialize(options?: object): void;
 
     override prepareBaseData(): void;
 
@@ -88,7 +161,7 @@ export default class ActiveEffect<
      * Update derived Active Effect duration data.
      * Configure the remaining and label properties to be getters which lazily recompute only when necessary.
      */
-    updateDuration(): EffectDurationData;
+    updateDuration(): ActiveEffectDuration;
 
     /**
      * Determine whether the ActiveEffect requires a duration update.
@@ -99,85 +172,230 @@ export default class ActiveEffect<
 
     /**
      * Compute derived data related to active effect duration.
+     * @param duration Unprepared duration data
+     * @param context Contextual information indicating what lead to this call
      */
-    _prepareDuration(): {
-        type: string;
-        duration: number | null;
-        remaining: number | null;
-        label: string;
-        _worldTime?: number;
-        _combatTime?: number;
-    };
+    protected _prepareDuration(duration?: EffectDurationData, context?: object): ActiveEffectDuration;
 
     /**
-     * Format a round+turn combination as a decimal
-     * @param round    The round number
-     * @param turn     The turn number
-     * @param [nTurns] The maximum number of turns in the encounter
-     * @returns The decimal representation
+     * Prepare duration data from time-based (minutes, seconds, etc.) source data.
+     * @param duration Unprepared duration data
+     * @param context Contextual information indicating what lead to this call
      */
-    protected _getCombatTime(round: number, turn: number, nTurns?: number): number;
+    protected _prepareTimeBaseDuration(duration?: EffectDurationData, context?: object): ActiveEffectDuration;
 
     /**
-     * Format a number of rounds and turns into a human-readable duration label
-     * @param rounds The number of rounds
-     * @param turns   The number of turns
-     * @returns The formatted label
+     * Prepare duration data from combat-based (rounds or turns) source data.
+     * @param duration Unprepared duration data
+     * @param context Contextual information indicating what lead to this call
      */
-    protected _getDurationLabel(rounds: number, turns: number): string;
-
-    /**
-     * Describe whether the ActiveEffect has a temporary duration based on combat turns or rounds.
-     */
-    get isTemporary(): boolean;
-
-    /**
-     * A cached property for obtaining the source name
-     */
-    get sourceName(): string;
+    protected _prepareCombatBaseDuration(duration?: EffectDurationData, context?: object): ActiveEffectDuration;
 
     /* -------------------------------------------- */
     /*  Methods                                     */
     /* -------------------------------------------- */
 
-    /**
-     * Apply EffectChangeData to a field within a DataModel.
-     * @param model  The model instance.
-     * @param change The change to apply.
-     * @param field  The field. If not supplied, it will be retrieved from the supplied model.
-     * @returns The updated value.
-     */
-    static applyField(model: Document, change: EffectChangeData, field?: DataField): unknown;
+    override toCompendium(pack?: CompendiumCollection, options?: ToCompendiumOptions): object;
 
     /**
-     * Apply this ActiveEffect to a provided Actor.
-     * TODO: This method is poorly conceived. Its functionality is static, applying a provided change to an Actor
-     * TODO: When we revisit this in Active Effects V2 this should become an Actor method, or a static method
-     * @param actor  The Actor to whom this effect should be applied
-     * @param change The change data being applied
-     * @returns An object of property paths and their updated values.
+     * Determine whether a change from this ActiveEffect should be applied during the current phase. Systems and modules
+     * may override this method to introduce additional conditions under which a change is applied.
+     * @param change The change being considered.
+     * @param options Options which affect whether the change is applied.
+     * @param options.phase The application phase currently being evaluated.
+     * @param options.replacementData Replacement data to be used as part of the change's application
+     * @returns Should the change be applied during this phase (or at all)?
      */
-    apply(actor: Actor, change: EffectChangeData): Record<string, unknown>;
+    shouldApplyChange(change: ActiveEffectChangeData, options?: { phase?: string; replacementData?: string }): boolean;
+
+    /**
+     * Acquire replacement data for use in the application of this effect's changes.
+     * @param baseData Base data sourced from elsewhere (by default from `Actor#getRollData`)
+     * @returns Data used to resolve "@" expressions in string {@link ActiveEffectChangeData} values
+     */
+    getReplacementData(baseData: object): object;
+
+    /**
+     * Apply this ActiveEffect to a target Document.
+     * @param targetDoc The Document to which this effect should be applied
+     * @param change The change data being applied
+     * @param options Options affecting the change application
+     * @param options.replacementData Data used to resolve "@" expressions in a string value
+     * @param options.modifyTarget Modify the target Document with the updated value.
+     * @returns An object of property keys and their updated values
+     */
+
+    static applyChange(
+        targetDoc: Actor | Item | TokenDocument,
+        change: ActiveEffectChangeData,
+        options?: { replacementData?: object; modifyTarget?: boolean },
+    ): Record<string, unknown>;
+
+    /**
+     * Apply EffectChangeData to a field within a Document.
+     * @param targetDoc The model instance.
+     * @param change The change to apply.
+     * @param options Additional options to configure the change application.
+     * @param options.field The field: if not supplied, it will be retrieved from the supplied Document.
+     * @param options.replacementData Data used to resolve "@" expressions.
+     * @param options.modifyTarget Modify the target Document with the updated value.
+     * @returns The updated value.
+     */
+    static applyChangeField(
+        targetDoc: Actor | Item | TokenDocument,
+        change: EffectChangeData,
+        options?: { field?: DataField; replacementData?: Record<string, unknown>; modifyTarget?: boolean },
+    ): unknown;
 
     /**
      * Apply this ActiveEffect to a provided Actor using a heuristic to infer the value types based on the current value
      * and/or the default value in the template.json.
-     * @param actor    The Actor to whom this effect should be applied.
-     * @param change   The change data being applied.
-     * @param changes  The aggregate update paths and their updated values.
+     * @param targetDoc  The Document or DataModel to which this effect should be applied
+     * @param change The change data being applied.
+     * @param changes The aggregate update paths and their updated values.
+     * @param options.replacementData Data used to resolve "@" expressions.
+     * @param options.modifyTarget Modify the target Document with the updated value.
      */
-    protected _applyLegacy(actor: Actor, change: EffectChangeData, changes: Record<string, unknown>): void;
+    protected static _applyChangeUnguided(
+        targetDoc: Actor | Item | TokenDocument | DataModel,
+        change: ActiveEffectChangeData,
+        changes: Record<string, unknown>,
+        options?: { replacementData?: Record<string, unknown>; modifyTarget?: boolean },
+    ): void;
+
+    /**
+     * Recursively replace data references in a string change value.
+     * @param data An object providing replacements
+     * @returns The string with all data references resolved
+     * @throws An Error if data replacement failed
+     */
+    protected static _replaceDataRefs(raw: string, data: Record<string, unknown>): string | null;
+
+    /**
+     * Apply an ActiveEffect that uses an "add" change type.
+     * The way that effects are added depends on the data type of the current value.
+     *
+     * If the current value is null, the change value is assigned directly.
+     * If the current type is a string, the change value is concatenated.
+     * If the current type is a number, the change value is cast to numeric and added.
+     * If the current type is an array, the change value is appended to the existing array if it matches in type.
+     *
+     * @param targetDoc The Document to which this effect should be applied
+     * @param change The change data being applied
+     * @param current The current value being modified
+     * @param delta The parsed value of the change object
+     * @param changes An object which accumulates changes to be applied
+     */
+    protected static _applyChangeAdd(
+        targetDoc: Actor | Item | TokenDocument,
+        change: EffectChangeData,
+        current: unknown,
+        delta: unknown,
+        changes: object,
+    ): void;
+
+    /**
+     * Apply an ActiveEffect that uses a "subtract" change type.
+     * The way that effects are added depends on the data type of the current value.
+     *
+     * If the current value is null, the change value is assigned directly.
+     * If the current type is a string, the change value is replaced in the current value with the empty string.
+     * If the current type is a number, the change value is cast to numeric and subtracted.
+     * If the current type is an array, the change value is spliced out of the array if present.
+     *
+     * @param targetDoc The Document to which this effect should be applied
+     * @param change The change data being applied
+     * @param current The current value being modified
+     * @param delta The parsed value of the change object
+     * @param changes An object which accumulates changes to be applied
+     */
+    static _applyChangeSubtract(
+        targetDoc: Actor | Item | TokenDocument,
+        change: EffectChangeData,
+        current: unknown,
+        delta: unknown,
+        changes: object,
+    ): void;
+
+    /**
+     * Apply an ActiveEffect that uses a MULTIPLY application mode.
+     * Changes which MULTIPLY must be numeric to allow for multiplication.
+     * @param targetDoc The Document to which this effect should be applied
+     * @param change The change data being applied
+     * @param current The current value being modified
+     * @param delta The parsed value of the change object
+     * @param changes An object which accumulates changes to be applied
+     */
+    protected static _applyChangeMultiply(
+        targetDoc: Actor | Item | TokenDocument,
+        change: EffectChangeData,
+        current: unknown,
+        delta: unknown,
+        changes: object,
+    ): void;
+
+    /**
+     * Apply an ActiveEffect that uses an OVERRIDE application mode.
+     * Numeric data is overridden by numbers, while other data types are overridden by any value
+     * @param targetDoc The Document to which this effect should be applied
+     * @param change The change data being applied
+     * @param current The current value being modified
+     * @param delta The parsed value of the change object
+     * @param changes An object which accumulates changes to be applied
+     */
+    protected static _applyChangeOverride(
+        targetDoc: Actor | Item | TokenDocument,
+        change: EffectChangeData,
+        current: unknown,
+        delta: unknown,
+        changes: object,
+    ): void;
+
+    /**
+     * Apply an ActiveEffect that uses an UPGRADE, or DOWNGRADE application mode.
+     * Changes which UPGRADE or DOWNGRADE must be numeric to allow for comparison.
+     * @param targetDoc The Document to which this effect should be applied
+     * @param change The change data being applied
+     * @param current The current value being modified
+     * @param delta The parsed value of the change object
+     * @param changes An object which accumulates changes to be applied
+     */
+    protected static _applyChangeUpgrade(
+        targetDoc: Actor | Item | TokenDocument,
+        change: EffectChangeData,
+        current: unknown,
+        delta: unknown,
+        changes: object,
+    ): void;
+
+    /**
+     * Apply an ActiveEffect that uses a CUSTOM change type.
+     * @param targetDoc The Document to which this effect should be applied
+     * @param change The change data being applied
+     * @param current The current value being modified
+     * @param delta The parsed value of the change object
+     * @param changes An object which accumulates changes to be applied
+     */
+    protected static _applyChangeCustom(
+        targetDoc: Actor | Item | TokenDocument,
+        change: EffectChangeData,
+        current: unknown,
+        delta: unknown,
+        changes: object,
+    ): void;
+
+    /**
+     * A determination of whether the ActiveEffect's expiry event was reached. This check is independent of whether the
+     * duration was also reached.
+     * @param event The event that triggered this check
+     * @param context Contextual information for use in the determination
+     */
+    isExpiryEvent(event: string, context?: object): boolean;
 
     /**
      * Retrieve the initial duration configuration.
      */
-    static getInitialDuration(): { startTime: number; startRound?: number; startTurn?: number };
-
-    /* -------------------------------------------- */
-    /*  Flag Operations                             */
-    /* -------------------------------------------- */
-
-    override getFlag(scope: string, key: string): unknown;
+    static getEffectStart(combat?: Combat | null): EffectStartData;
 
     /* -------------------------------------------- */
     /*  Event Handlers                              */

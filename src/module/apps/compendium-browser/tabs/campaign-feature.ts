@@ -74,7 +74,9 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
 
         // Filters
         this.filterData.checkboxes.category.options = this.generateCheckboxOptions(KINGMAKER_CATEGORIES);
-        this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits);
+        this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, {
+            sort: false,
+        });
         this.filterData.source.options = this.generateSourceCheckboxOptions(publications);
         this.filterData.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.kingmakerTraits);
 

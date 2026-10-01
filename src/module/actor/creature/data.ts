@@ -14,7 +14,7 @@ import type { ActorSizePF2e } from "@actor/data/size.ts";
 import type { Modifier, RawModifier } from "@actor/modifiers.ts";
 import type { AttributeString, MovementType, SaveType, SkillSlug } from "@actor/types.ts";
 import type { ImageFilePath } from "@common/constants.d.mts";
-import type { LabeledNumber, Size, ValueAndMax, ValueAndMaybeMax, ZeroToThree } from "@module/data.ts";
+import type { LabeledNumber, Size, ValueAndMax, ValueAndMaybeMax, ZeroToFour, ZeroToThree } from "@module/data.ts";
 import type { ArmorClassTraceData } from "@system/statistic/index.ts";
 import type { PerceptionTraceData } from "@system/statistic/perception.ts";
 import { LandSpeedStatisticTraceData, SpeedStatisticTraceData } from "@system/statistic/speed.ts";
@@ -127,6 +127,8 @@ type SenseData =
 
 interface CreaturePerceptionData extends PerceptionTraceData {
     attribute: AttributeString;
+    mod?: number;
+    rank?: ZeroToFour;
 }
 
 /** Data describing the value & modifier for a base ability score. */

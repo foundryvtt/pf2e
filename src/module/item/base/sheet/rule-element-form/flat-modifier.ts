@@ -58,9 +58,15 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource, FlatModifierR
         formData: { key: string } & Partial<FlatModifierSource> & Partial<Record<string, JSONValue>>,
     ): void {
         // Flat Modifier types may have mutually exclusive properties
-        delete formData[formData.type === "ability" ? "value" : "ability"];
+        if (formData.type === "ability") {
+            if ("value" in formData) formData.value = _del;
+            formData.ability ??= "str";
+        } else if ("ability" in formData) {
+            formData.ability = _del;
+            formData.value ??= 0;
+        }
 
-        // `critical` is a tri-state of false, true, and null (default).
+        // `critical` is a nullable boolean field
         formData.critical = tupleHasValue([false, "false"], formData.critical) ? false : !!formData.critical || null;
 
         // If this cannot possibly be damage, delete the damage properties

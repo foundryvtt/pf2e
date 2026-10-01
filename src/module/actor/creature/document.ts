@@ -535,6 +535,11 @@ abstract class CreaturePF2e<
         }
     }
 
+    /** Prepare the perception Statistic, with overriding methods responsible for building trace data. */
+    protected preparePerception(modifiers: Modifier[] = []): void {
+        this.perception = new PerceptionStatistic(this, { modifiers });
+    }
+
     /**
      * Changes the carry type of an item (held/worn/stowed/etc) and/or regrips/reslots
      * @param item    The item

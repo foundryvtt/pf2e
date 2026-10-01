@@ -3,7 +3,7 @@ import type { MovementType } from "@actor/types.ts";
 import { CharacterAttack } from "@actor/character/data.ts";
 import { SENSE_TYPES } from "@actor/creature/values.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
-import { DamageDicePF2e, Modifier, StatisticModifier } from "@actor/modifiers.ts";
+import { DamageDicePF2e, Modifier } from "@actor/modifiers.ts";
 import { MOVEMENT_TYPES } from "@actor/values.ts";
 import { WeaponPF2e } from "@item";
 import { RollNotePF2e } from "@module/notes.ts";
@@ -12,6 +12,7 @@ import { RecordField } from "@system/schema-data-fields.ts";
 import { fastestMovementSpeed, SpeedStatistic } from "@system/statistic/speed.ts";
 import { objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
+import { isSharedStatisticModifier, suppressUnsharedModifiers, useFixedStatisticModifier } from "../../helpers.ts";
 import { RuleElement } from "../base.ts";
 import { CreatureSizeRuleElement } from "../creature-size.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSource } from "../data.ts";
@@ -224,15 +225,15 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
         const acOverride = Number(this.resolveValue(overrides.armorClass.modifier, armorClass.value)) || 0;
         if (!acOverride) return;
 
-        const useForm = this.#useFormModifier({
-            form: acOverride,
+        const useForm = useFixedStatisticModifier({
+            fixed: acOverride,
             own: armorClass.value,
             modifiers: armorClass.modifiers,
             ownIfHigher: overrides.armorClass.ownIfHigher,
         });
         if (!useForm) return;
 
-        this.#suppressModifiers(armorClass);
+        suppressUnsharedModifiers(armorClass);
         const newModifier = (Number(this.resolveValue(overrides.armorClass.modifier)) || 0) - 10;
         armorClass.modifiers.push(new Modifier(this.modifierLabel, newModifier, "untyped"));
         actor.system.attributes.ac = fu.mergeObject(actor.system.attributes.ac, armorClass.parent.getTraceData());
@@ -268,8 +269,8 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
 
             const currentSkill = actor.skills[key];
             const newModifier = Number(this.resolveValue(newSkill.modifier)) || 0;
-            const useForm = this.#useFormModifier({
-                form: newModifier,
+            const useForm = useFixedStatisticModifier({
+                fixed: newModifier,
                 own: currentSkill.mod,
                 modifiers: currentSkill.check.modifiers,
                 ownIfHigher: newSkill.ownIfHigher,
@@ -283,7 +284,7 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
                 type: "untyped",
             });
 
-            actor.skills[key] = currentSkill.extend({ modifiers: [baseMod], filter: this.#filterModifier });
+            actor.skills[key] = currentSkill.extend({ modifiers: [baseMod], filter: isSharedStatisticModifier });
             actor.system.skills[key] = fu.mergeObject(actor.system.skills[key], actor.skills[key].getTraceData());
         }
     }
@@ -354,15 +355,15 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
         for (const action of strikeActions) {
             const strike = strikes[action.slug ?? ""];
             if (!strike || action.type !== "strike") continue;
-            const useForm = this.#useFormModifier({
-                form: Number(this.resolveValue(strike.modifier)),
+            const useForm = useFixedStatisticModifier({
+                fixed: Number(this.resolveValue(strike.modifier)),
                 own: action.totalModifier,
                 modifiers: action.modifiers,
                 ownIfHigher: !!strike.ownIfHigher,
             });
             if (!this.ownUnarmed && useForm) {
                 // Replace inapplicable attack-roll modifiers with the battle form's
-                this.#suppressModifiers(action);
+                suppressUnsharedModifiers(action);
                 this.#suppressNotes(
                     Object.entries(synthetics.rollNotes).flatMap(([key, note]) => (/\bdamage\b/.test(key) ? note : [])),
                 );
@@ -413,7 +414,7 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
                 return;
             }
             const statistic = new SpeedStatistic(actor, { type, base: speedOverride });
-            this.#suppressModifiers(statistic);
+            suppressUnsharedModifiers(statistic);
             setBuilt(type, statistic);
         };
         for (const type of MOVEMENT_TYPES) {
@@ -438,45 +439,9 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
         const travelSpeed = travelParent
             ? travelParent.derive("travel", { mode: "equal" })
             : new SpeedStatistic(actor, { type: "travel", base: 0, domains: [] });
-        this.#suppressModifiers(travelSpeed);
+        suppressUnsharedModifiers(travelSpeed);
         actor.movement.speeds.travel = travelSpeed;
         prepared.travel = travelSpeed.getTraceData();
-    }
-
-    /** Disable ineligible check modifiers */
-    #suppressModifiers(statistic: { modifiers: readonly Modifier[] }): void {
-        for (const modifier of statistic.modifiers) {
-            if (!this.#filterModifier(modifier)) {
-                modifier.adjustments.push({ slug: null, test: () => true, suppress: true });
-                modifier.ignored = true;
-                modifier.enabled = false;
-            }
-        }
-        if (statistic instanceof StatisticModifier) {
-            statistic.calculateTotal();
-        }
-    }
-
-    #filterModifier(modifier: Modifier) {
-        if (modifier.slug === "battle-form") return true;
-        if (modifier.type === "ability") return false;
-        return ["status", "circumstance"].includes(modifier.type) || modifier.modifier < 0;
-    }
-
-    /**
-     * Whether the battle form's fixed modifier should replace the actor's own statistic: modifiers that apply on
-     * top of the form's modifier (status penalties, etc.) count on both sides of the comparison.
-     */
-    #useFormModifier(args: {
-        form: number;
-        own: number;
-        modifiers: readonly Modifier[];
-        ownIfHigher: boolean;
-    }): boolean {
-        const shared = args.modifiers
-            .filter((m) => m.enabled && this.#filterModifier(m))
-            .reduce((sum, m) => sum + m.modifier, 0);
-        return !args.ownIfHigher || args.form + shared >= args.own;
     }
 
     #suppressNotes(notes: RollNotePF2e[]): void {

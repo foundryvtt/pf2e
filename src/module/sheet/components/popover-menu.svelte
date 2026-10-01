@@ -141,6 +141,7 @@
             &:hover,
             &:focus {
                 background: var(--table-row-color-highlight);
+                color: inherit;
             }
         }
     }
