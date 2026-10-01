@@ -30,6 +30,7 @@ import {
     WeaponPF2e,
 } from "@item";
 import { ArmorCategory, ArmorGroup } from "@item/armor/types.ts";
+import { armorSpecialization } from "./armor-specialization.ts";
 import { ConditionSlug } from "@item/condition/types.ts";
 import { CONSUMABLE_CATEGORIES } from "@item/consumable/values.ts";
 import { DeityDomain } from "@item/deity/types.ts";
@@ -818,6 +819,7 @@ export const PF2ECONFIG = {
     weaponReload,
     armorCategories,
     armorGroups,
+    armorSpecialization,
     consumableCategories,
     identification: configFromLocalization(EN_JSON.PF2E.identification, "PF2E.identification"),
 
