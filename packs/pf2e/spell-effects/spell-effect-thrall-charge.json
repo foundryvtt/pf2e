@@ -1,0 +1,61 @@
+{
+    "_id": "Wd1fYphfUNpZlgcH",
+    "img": "icons/magic/death/undead-ghost-strike-white.webp",
+    "name": "Spell Effect: Thrall Charge",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Thrall Charge]</p>\n<p>The target Thrall gains an additional 1d6 damage to their Strike. If the target Thrall gets destroyed as part of their Strike, they gain a status bonus to the Strike`s damage equal to this spell's rank.</p><hr /><p><strong>Heightened (2nd)</strong> The additional damage increases to 2d6.</p>\n<p><strong>Heightened (6th)</strong> The additional damage increases to 3d6.</p>\n<p><strong>Heightened (10th)</strong> The additional damage increases to 4d6.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+        {
+            "diceNumber": "ternary(gte(@item.level, 10), 4,ternary(gte(@item.level, 6), 3, ternary(gte(@item.level, 2), 2, 1)))",
+            "dieSize": "d6",
+            "key": "DamageDice",
+            "selector": "strike-damage"
+        },
+        {
+            "domain": "damage-roll",
+            "key": "RollOption",
+            "label": "Destroy Thrall",
+            "option": "thrall-charge-destruction",
+            "toggleable": true
+        },
+        {
+            "key": "FlatModifier",
+            "label": "Destroy Thrall",
+            "predicate": [
+                "thrall-charge-destruction"
+            ],
+            "selector": "strike-damage",
+            "type": "status",
+            "value": "@item.level"
+        }
+    ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
