@@ -211,14 +211,18 @@ export class Load {
         // Default action for creatures unless prone
         movementActions.walk.canSelect = (token) => {
             const actor = token.actor as ActorPF2e | null;
-            return !!actor?.isOfType("creature") && !actor.hasCondition("prone");
+            return !!actor?.isOfType("creature") && !actor.hasCondition("prone") && !!actor.system.movement.speeds.land;
         };
         movementActions.walk.img = null;
 
         // Default action for creatures when prone
         movementActions.crawl.canSelect = (token) => {
             const actor = token.actor as ActorPF2e | null;
-            return !!actor?.isOfType("creature") && actor.hasCondition("prone");
+            return (
+                !!actor?.isOfType("creature") &&
+                actor.hasCondition("prone") &&
+                !!actor.system.movement.speeds.land?.crawl
+            );
         };
 
         // Default action for vehicles

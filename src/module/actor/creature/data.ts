@@ -70,7 +70,7 @@ interface CreatureResourcesSource {
 
 interface CreatureMovementData {
     speeds: {
-        land: LandSpeedStatisticTraceData;
+        land: LandSpeedStatisticTraceData | null;
         burrow: SpeedStatisticTraceData | null;
         climb: SpeedStatisticTraceData | null;
         fly: SpeedStatisticTraceData | null;
