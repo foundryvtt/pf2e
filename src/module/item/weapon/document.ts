@@ -486,7 +486,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             }
 
             // Determine capacity from traits. Weapons that load magazines cannot load more than one
-            if (!existingTypeData?.magazine) {
+            if (existingTypeData?.magazine) {
+                this.system.ammo.capacity = 1;
+            } else {
                 const capacityTrait = this.system.traits.value.find((t) => /^capacity-\d+$/.test(t));
                 const capacityFromTrait = capacityTrait ? Number(capacityTrait.replace("capacity-", "")) : null;
                 const capacityFromDoubleBarrel = this.system.traits.value.includes("double-barrel") ? 2 : null;
