@@ -29,16 +29,25 @@
             "selector": "strike-damage"
         },
         {
-            "domain": "damage-roll",
-            "key": "RollOption",
-            "label": "PF2E.SpecificRule.SpellEffectThrallCharge.RollOptionLabel",
-            "option": "destroy-thrall",
-            "toggleable": true
+            "adjustName": false,
+            "choices": [
+                {
+                    "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                    "value": "yes"
+                },
+                {
+                    "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                    "value": "no"
+                }
+            ],
+            "key": "ChoiceSet",
+            "prompt": "PF2E.SpecificRule.SpellEffectThrallCharge.Prompt.DestroyThrall",
+		    "rollOption": "thrall-charge:destroy-thrall"
         },
         {
             "key": "FlatModifier",
             "predicate": [
-                "destroy-thrall"
+                "thrall-charge:destroy-thrall:yes"
             ],
             "selector": "strike-damage",
             "type": "status",
