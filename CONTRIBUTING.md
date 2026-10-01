@@ -8,8 +8,8 @@ If you would like to contribute to the project then I welcome all support. If yo
 
 ### Prerequisites
 
-- Node.js 24.14 or newer.
-- pnpm, which is used to run the project's scripts. The version is pinned in the `packageManager` field of `package.json`. pnpm switches to the pinned version automatically, so you do not need to install a matching version by hand; the latest will do. See https://pnpm.io/installation for installation instructions. The standalone script is the recommended method.
+- Node.js 24.14 or newer. See https://docs.npmjs.com/downloading-and-installing-node-js-and-npm for installation instructions.
+- pnpm. The version is pinned in `package.json` and pnpm switches to the pinned version automatically, so you do not need to install a specific version; the latest will do. See https://pnpm.io/installation for installation instructions.
 
 ### Building
 
