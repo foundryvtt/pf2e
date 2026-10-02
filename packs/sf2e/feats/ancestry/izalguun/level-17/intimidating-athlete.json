@@ -12,7 +12,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>Your physique is so impressive that your acts of strength astound your foes. When you succeed or critically succeed at an Athletics check to [[/act grapple]], [[/act reposition]], [[/act shove]], or [[/act trip]], you can, as a free action, attempt an Athletics or Intimidation check to [[/act demoralize]] one creature within 30 feet. You also gain the @UUID[Compendium.sf2e.feats.Item.Intimidating Glare] skill feat, even if you don't meet the prerequisites.</p>"
+            "value": "<p>Your physique is so impressive that your acts of strength astound your foes. When you succeed or critically succeed at an Athletics check to [[/act grapple]], [[/act reposition]], [[/act shove]], or [[/act trip]], you can, as a free action, attempt an Athletics ([[/act demoralize skill=athletics]]) or Intimidation ([[/act demoralize skill=intimidation]]) check to @UUID[Compendium.sf2e.actions.Item.Demoralize] one creature within 30 feet. You also gain the @UUID[Compendium.sf2e.feats.Item.Intimidating Glare] skill feat, even if you don't meet the prerequisites.</p>"
         },
         "level": {
             "value": 17
@@ -33,7 +33,8 @@
             {
                 "key": "Note",
                 "outcome": [
-                    "criticalSuccess"
+                    "criticalSuccess",  
+                    "success"
                 ],
                 "predicate": [
                     {
