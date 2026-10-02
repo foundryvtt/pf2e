@@ -449,7 +449,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const strikingDice = ABP.isEnabled(actor) ? ABP.getStrikingDice(actor?.level ?? 0) : this.system.runes.striking;
         const gradeData = CONFIG.PF2E.weaponImprovements[this.system.grade ?? "commercial"];
         this.system.damage.dice =
-            inherentDiceNumber === 1 && !this.flags[SYSTEM_ID].battleForm
+            inherentDiceNumber === 1 && !this.flags[SYSTEM_ID].battleForm && !this.flags[SYSTEM_ID].fixedAttack
                 ? Math.max(gradeData.dice, inherentDiceNumber + strikingDice)
                 : this.system.damage.dice;
 

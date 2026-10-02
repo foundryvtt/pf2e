@@ -530,11 +530,11 @@ class WeaponDamagePF2e {
         if (!weapon) return;
 
         const notIgnored = modifiers.filter((modifier) => !modifier.ignored);
-        for (const rule of actor.rules) {
-            rule.applyDamageExclusion?.(weapon, notIgnored);
-        }
         for (const modifier of notIgnored) {
             modifier.ignored = !modifier.predicate.test(options);
+        }
+        for (const rule of actor.rules) {
+            rule.applyDamageExclusion?.(weapon, notIgnored);
         }
     }
 
