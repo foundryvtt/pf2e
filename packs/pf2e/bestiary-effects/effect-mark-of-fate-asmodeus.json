@@ -1,10 +1,10 @@
 {
-    "_id": "yHI1DhZkAyqwRpDh",
+    "_id": "CtSpaB1PXAkMunj5",
     "img": "icons/magic/symbols/rune-sigil-black-pink.webp",
-    "name": "Effect: Mark of Fate",
+    "name": "Effect: Mark of Fate (Asmodeus)",
     "system": {
         "description": {
-            "value": "<p>You gain weakness 10 to unholy and take a –2 circumstance penalty to Charisma-based skill checks against followers of Urgathoa.</p>"
+            "value": "<p>You gain weakness 15 to unholy and take a –2 circumstance penalty to Charisma-based skill checks against followers of Asmodeus.</p>"
         },
         "duration": {
             "expiry": null,
@@ -12,19 +12,20 @@
             "unit": "unlimited",
             "value": -1
         },
+        "fromSpell": false,
         "level": {
-            "value": 15
+            "value": 19
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
-            "title": "Pathfinder NPC Core"
+            "title": "Pathfinder Adventure Path: Hell's Destiny"
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "urgathoa-follower"
+                    "asmodeus-follower"
                 ],
                 "selector": "cha-skill-check",
                 "type": "circumstance",
@@ -33,7 +34,7 @@
             {
                 "key": "Weakness",
                 "type": "unholy",
-                "value": 10
+                "value": 15
             }
         ],
         "start": {
