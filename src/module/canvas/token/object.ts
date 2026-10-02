@@ -601,11 +601,14 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return super._onRelease(options);
     }
 
-    /** Handle system-specific status effects (upstream handles invisible and blinded) */
+    /** Handle system-specific status effects (upstream handles invisible and blinded). */
     override _onApplyStatusEffect(statusId: string, active: boolean): void {
         super._onApplyStatusEffect(statusId, active);
-        if (["undetected", "unnoticed"].includes(statusId)) {
-            canvas.perception.update({ refreshVision: true, refreshLighting: true });
+        switch (statusId) {
+            case "undetected":
+            case "unnoticed":
+                canvas.perception.update({ refreshVision: true, refreshLighting: true });
+                break;
         }
     }
 

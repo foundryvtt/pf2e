@@ -7,9 +7,9 @@ import type { TokenPF2e } from "./index.ts";
 
 /**
  * Measure the minimum distance between two rectangles
- * @param r0      The origin rectangle
- * @param r1      The destination rectangle
- * @param [reach] If this is a reach measurement, the origin actor's reach
+ * @param r0 The origin rectangle
+ * @param r1 The destination rectangle
+ * @param options.reach If this is a reach measurement, the origin actor's reach
  */
 function measureDistanceCuboid(
     r0: PIXI.Rectangle,
@@ -27,14 +27,9 @@ function measureDistanceCuboid(
     if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
         return canvas.grid.measurePath([r0, r1]).distance;
     }
-
     const gridWidth = canvas.grid.sizeX;
+    const distance = { dx: 0, dy: 0, dz: 0 };
 
-    const distance = {
-        dx: 0,
-        dy: 0,
-        dz: 0,
-    };
     // Return early if the rectangles overlap
     const rectanglesOverlap = [
         [r0, r1],
@@ -67,21 +62,17 @@ function measureDistanceCuboid(
     if (token && target && token.document.elevation !== target.document.elevation && token.actor && target.actor) {
         const selfElevation = token.document.elevation;
         const targetElevation = target.document.elevation;
-
-        const [selfDimensions, targetDimensions] = [token.actor.dimensions, target.actor.dimensions];
-
         const gridSize = canvas.dimensions.size;
         const gridDistance = canvas.dimensions.distance;
-
         const elevation0 = Math.floor((selfElevation / gridDistance) * gridSize);
-        const height0 = Math.floor((selfDimensions.height / gridDistance) * gridSize);
+        const depth0 = Math.floor((token.document.depth / gridDistance) * gridSize);
         const elevation1 = Math.floor((targetElevation / gridDistance) * gridSize);
-        const height1 = Math.floor((targetDimensions.height / gridDistance) * gridSize);
+        const depth1 = Math.floor((target.document.depth / gridDistance) * gridSize);
 
         // simulate xz plane
         const xzPlane = {
-            self: new PIXI.Rectangle(r0.x, elevation0, r0.width, height0),
-            target: new PIXI.Rectangle(r1.x, elevation1, r1.width, height1),
+            self: new PIXI.Rectangle(r0.x, elevation0, r0.width, depth0),
+            target: new PIXI.Rectangle(r1.x, elevation1, r1.width, depth1),
         };
 
         // check for overlappig

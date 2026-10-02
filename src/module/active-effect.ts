@@ -43,6 +43,49 @@ export class ActiveEffectPF2e<TParent extends ActorPF2e | ItemPF2e | null> exten
         );
     }
 
+    static override applyChange(
+        targetDoc: Actor | Item | TokenDocument,
+        change: fd.ActiveEffectChangeData,
+        options?: { replacementData?: object; modifyTarget?: boolean },
+    ): Record<string, unknown> {
+        if (targetDoc.documentName !== "Token") return super.applyChange(targetDoc, change, options);
+        // Modify or hold back token changes
+        switch (change.key) {
+            case "detectionModes.basicSight":
+            case "detectionModes.lightPerception": {
+                // Upstream does not handle changing null to Infinity outside of normal data preparation.
+                if (Number(game.release.version) >= 14.369 || !R.isPlainObject(change.value)) break;
+                const range = Number(change.value.range ?? Infinity);
+                const value = { enabled: change.value.enabled, range };
+                if (options?.modifyTarget) fu.setProperty(targetDoc, change.key, value);
+                return { [change.key]: value };
+            }
+            case "detectionModes.hearing": {
+                if (Number(game.release.version) >= 14.369 || !R.isPlainObject(change.value)) break;
+                const range = Number(targetDoc.parent?.flags[SYSTEM_ID]?.hearingRange ?? Infinity);
+                const value = { enabled: change.value.enabled, range };
+                if (options?.modifyTarget) fu.setProperty(targetDoc, change.key, value);
+                return { [change.key]: value };
+            }
+            case "sight.range": {
+                if (Number(game.release.version) >= 14.369) break;
+                const value = Number(change.value ?? Infinity);
+                if (options?.modifyTarget) fu.setProperty(targetDoc, change.key, value);
+                return { [change.key]: value };
+            }
+            case "width":
+            case "height":
+            case "depth":
+                if (!targetDoc.flags[SYSTEM_ID]?.linkToActorSize) return {};
+                break;
+            case "texture.scaleX":
+            case "texture.scaleY":
+                if (!targetDoc.flags[SYSTEM_ID]?.autoscale) return {};
+                break;
+        }
+        return super.applyChange(targetDoc, change, options);
+    }
+
     /** Only allow the death overlay effect */
     protected override async _preCreate(
         data: DeepPartial<this["_source"]>,

@@ -1,11 +1,6 @@
 import type { SceneViewOptions } from "@client/documents/_types.d.mts";
 import type { SceneUpdateOptions } from "@client/documents/scene.d.mts";
-import type {
-    DatabaseDeleteOperation,
-    DatabaseUpdateOperation,
-    Document,
-    EmbeddedCollection,
-} from "@common/abstract/_module.d.mts";
+import type { DatabaseUpdateOperation, Document, EmbeddedCollection } from "@common/abstract/_module.d.mts";
 import { LightLevels, SceneFlagsPF2e } from "./data.ts";
 import { checkAuras } from "./helpers.ts";
 import type { RegionDocumentPF2e } from "./index.ts";
@@ -58,9 +53,6 @@ class ScenePF2e extends Scene {
         return (this.active && !soleUserIsGM) || (this.isView && soleUserIsGM);
     }
 
-    /** A map of `TokenDocument` IDs embedded in this scene long with new dimensions from actor size-category changes */
-    #sizeSyncBatch = new Map<string, { width: number; height: number }>();
-
     override prepareData(): void {
         super.prepareData();
         Promise.resolve().then(() => {
@@ -71,12 +63,10 @@ class ScenePF2e extends Scene {
     /** Toggle Unrestricted Global Vision according to scene darkness level */
     override prepareBaseData(): void {
         super.prepareBaseData();
-
-        this.flags[SYSTEM_ID] = fu.mergeObject(
+        this.flags[SYSTEM_ID] = Object.assign(
             { hearingRange: null, rulesBasedVision: null, syncDarkness: "default" },
             this.flags[SYSTEM_ID] ?? {},
         );
-
         if (this.rulesBasedVision) {
             this.environment.globalLight.enabled = true;
             this.environment.globalLight.darkness.max = 1 - (LightLevels.DARKNESS + 0.001);
@@ -100,23 +90,6 @@ class ScenePF2e extends Scene {
         }
     }
 
-    /** Synchronize a token's dimensions with its actor's size category. */
-    syncTokenDimensions(tokenDoc: TokenDocumentPF2e, dimensions: { width: number; height: number }): void {
-        if (!tokenDoc.parent?.tokens.has(tokenDoc.id)) return;
-        this.#sizeSyncBatch.set(tokenDoc.id, dimensions);
-        this.#processSyncBatch();
-    }
-
-    /** Retrieve size and clear size-sync batch, make updates. */
-    #processSyncBatch = foundry.utils.debounce((): void => {
-        const entries = this.#sizeSyncBatch
-            .entries()
-            .toArray()
-            .map(([_id, { width, height }]) => ({ _id, width, height }));
-        this.#sizeSyncBatch.clear();
-        this.updateEmbeddedDocuments("Token", entries, { animation: { movementSpeed: 1.5 } });
-    }, 0);
-
     /**
      * Reset all troop actors on scene change in case some of them need to poach rule elements from siblings This is
      * mostly needed for the Drained condition.
@@ -137,8 +110,12 @@ class ScenePF2e extends Scene {
     override _onUpdate(changed: DeepPartial<this["_source"]>, options: SceneUpdateOptions, userId: string): void {
         super._onUpdate(changed, options, userId);
 
-        const flagChanges = changed.flags?.pf2e ?? {};
+        const flagChanges = changed.flags?.[SYSTEM_ID] ?? {};
         if (this.isView && ["rulesBasedVision", "hearingRange"].some((k) => flagChanges[k] !== undefined)) {
+            for (const token of this.tokens) {
+                token.actor?.reset();
+                // token._onRelatedUpdate({})
+            }
             canvas.perception.update({ initializeLighting: true, initializeVision: true });
         }
 
@@ -166,29 +143,6 @@ class ScenePF2e extends Scene {
 
         if (["behaviors", "regions", "tokens"].includes(collection)) {
             this.#refreshTerrainAwareness();
-        }
-    }
-
-    protected override _onDeleteDescendantDocuments<P extends Document>(
-        parent: P,
-        collection: string,
-        documents: Document<P>[],
-        ids: string[],
-        options: DatabaseDeleteOperation<P>,
-        userId: string,
-    ): void {
-        super._onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId);
-
-        // Upstream will only refresh lighting if the delete token's source is emitting light: handle cases where
-        // the token's prepared data light data was overridden from TokenLight REs.
-        const tokensHadSyntheticLights = documents.some(
-            (d) =>
-                d instanceof TokenDocumentPF2e &&
-                !(d._source.light.dim || d._source.light.bright) &&
-                d.actor?.synthetics.tokenOverrides.light,
-        );
-        if (tokensHadSyntheticLights) {
-            canvas.perception.update({ initializeLighting: true, initializeVision: true });
         }
     }
 }
