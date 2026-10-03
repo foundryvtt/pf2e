@@ -229,7 +229,7 @@ class ChatMessagePF2e extends ChatMessage<UserPF2e | null> {
                 const defaultRingThickness = 0.1269848;
                 const defaultSubjectThickness = 0.6666666;
                 const scaleCorrection = token.ring.enabled ? 1 / (defaultRingThickness + defaultSubjectThickness) : 1;
-                return [tokenImage, Math.max(1, token.texture.scaleX ?? 1) * scaleCorrection];
+                return [tokenImage, Math.max(1, Math.abs(token.texture.scaleX ?? 1)) * scaleCorrection];
             })();
 
             const image = document.createElement("img");
