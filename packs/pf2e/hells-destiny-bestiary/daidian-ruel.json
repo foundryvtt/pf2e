@@ -254,10 +254,6 @@
                     "value": 38
                 },
                 "damageRolls": {
-                    "AZt19fmjntFH9kIK": {
-                        "damage": "1d6",
-                        "damageType": "mental"
-                    },
                     "TnzZp73Fo1jXgxfE": {
                         "damage": "3d6+20",
                         "damageType": "bludgeoning"
@@ -304,10 +300,6 @@
                     "SW4PRzpL65unRxCm": {
                         "damage": "3d6+20",
                         "damageType": "bludgeoning"
-                    },
-                    "qvOWe1bZNRgAt3IW": {
-                        "damage": "1d6",
-                        "damageType": "mental"
                     }
                 },
                 "description": {
@@ -591,7 +583,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any weapon the graveknight wields or unarmed attack the graveknight uses gains the effects of the <em>greater fearsome</em> weapon rune, deals an additional 1d6 mental damage, and functions as a +1 striking weapon rune.</p>"
+                    "value": "<p>Any weapon the graveknight wields or unarmed attack the graveknight uses gains the effects of the <em>greater fearsome</em> weapon rune, deals an additional 1d6 mental damage, and functions as a <em>+1 striking weapon</em> rune.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -600,15 +592,17 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": [
-                            "strike-damage"
-                        ],
-                        "text": "PF2E.WeaponPropertyRune.greaterFearsome.Note.criticalSuccess",
-                        "title": "PF2E.WeaponPropertyRune.greaterFearsome.Name"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greaterFearsome"
+                    },
+                    {
+                        "damageType": "mental",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "strike-damage"
                     }
                 ],
                 "slug": "graveknight-ruinous-weapons",

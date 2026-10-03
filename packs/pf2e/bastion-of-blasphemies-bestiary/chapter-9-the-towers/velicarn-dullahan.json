@@ -638,10 +638,6 @@
                     "value": 19
                 },
                 "damageRolls": {
-                    "8uXhoPRkznfBj7UF": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    },
                     "OlFyAqi4ltsFpvsc": {
                         "damage": "3d8+10",
                         "damageType": "slashing"
@@ -656,7 +652,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "astral"
+                    }
+                ],
                 "slug": null,
                 "subjectToMAP": true,
                 "traits": {

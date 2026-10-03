@@ -1309,10 +1309,6 @@
                     "0": {
                         "damage": "2d4+8",
                         "damageType": "bludgeoning"
-                    },
-                    "1": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -1344,14 +1340,13 @@
                         "selector": "{item|_id}-damage"
                     },
                     {
-                        "category": "persistent",
-                        "critical": "true",
-                        "damageType": "fire",
-                        "diceNumber": 1,
-                        "dieSize": "d10",
-                        "key": "DamageDice",
-                        "label": "PF2E.WeaponPropertyRune.flaming.Name",
-                        "selector": "{item|_id}-damage"
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
                     }
                 ],
                 "slug": "staff",

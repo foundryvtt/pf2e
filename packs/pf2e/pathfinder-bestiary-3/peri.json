@@ -370,10 +370,6 @@
                     "0": {
                         "damage": "3d6+13",
                         "damageType": "slashing"
-                    },
-                    "n3fg8uxtmtrbylc9zkfi": {
-                        "damage": "2d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -699,24 +695,20 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
+                        "definition": [
+                            "item:slug:scimitar"
                         ],
-                        "selector": "scimitar-damage",
-                        "text": "PF2E.WeaponPropertyRune.greaterFlaming.Note.success",
-                        "title": "{item|name}",
-                        "visibility": "owner"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greaterFlaming"
                     },
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "scimitar-damage",
-                        "text": "PF2E.WeaponPropertyRune.greaterFlaming.Note.criticalSuccess",
-                        "title": "{item|name}",
-                        "visibility": "owner"
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "scimitar-damage"
                     }
                 ],
                 "slug": null,

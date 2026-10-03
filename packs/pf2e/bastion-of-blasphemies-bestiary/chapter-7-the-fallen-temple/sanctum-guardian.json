@@ -495,10 +495,6 @@
                     "fluspgWAKhEtbKP7": {
                         "damage": "2d10+13",
                         "damageType": "slashing"
-                    },
-                    "nchuSOFnYEgO3AIj": {
-                        "damage": "1d4",
-                        "damageType": "void"
                     }
                 },
                 "description": {
@@ -512,25 +508,13 @@
                 "range": null,
                 "rules": [
                     {
-                        "category": "persistent",
-                        "critical": true,
-                        "damageType": "void",
-                        "diceNumber": 2,
-                        "dieSize": "d4",
-                        "key": "DamageDice",
-                        "label": "PF2E.WeaponPropertyRune.decaying.Name",
-                        "selector": "{item|_id}-damage"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
+                        "definition": [
+                            "item:id:{item|_id}"
                         ],
-                        "selector": [
-                            "{item|_id}-damage"
-                        ],
-                        "text": "PF2E.WeaponPropertyRune.decaying.Note.criticalSuccess",
-                        "title": "PF2E.WeaponPropertyRune.decaying.Name"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "decaying"
                     }
                 ],
                 "slug": "scythe",
