@@ -2475,12 +2475,13 @@
                 "range": null,
                 "rules": [
                     {
-                        "damageType": "bleed",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "label": "PF2E.WeaponPropertyRune.wounding.Name",
-                        "selector": "{item|id}-damage"
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "wounding"
                     }
                 ],
                 "slug": "reapers-sigh",
@@ -2558,13 +2559,13 @@
                     "value": 21
                 },
                 "damageRolls": {
-                    "fGYBK5eCj2WtVDKa": {
-                        "damage": "1d4",
-                        "damageType": "poison"
-                    },
-                    "w4EpzEyHfOfH7s9L": {
+                    "0": {
                         "damage": "2d4+7",
                         "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "1d4",
+                        "damageType": "poison"
                     }
                 },
                 "description": {
