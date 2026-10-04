@@ -33,6 +33,34 @@
 
 {{formGroup systemFields.subjectToMAP value=source.system.subjectToMAP}}
 
+{{#if (eq data.action "strike")}}
+    <fieldset class="material-runes">
+        <legend>{{localize "PF2E.Item.NPCAttack.PropertyRunes"}}</legend>
+        {{#each propertyRuneSlots as |slot index|}}
+            <div class="form-group">
+                <label for="{{../fieldIdPrefix}}runes-property-{{index}}" {{#if slot.disabled}}class="disabled"{{/if}}>
+                    {{localize (concat "PF2E.PropertyRuneLabel" (add index 1))}}
+                </label>
+                <select
+                    name="system.runes.property.{{index}}"
+                    id="{{../fieldIdPrefix}}runes-property-{{index}}"
+                    {{disabled slot.disabled}}
+                    class="{{#if slot.adjusted}}adjusted{{/if}}"
+                >
+                    {{selectOptions
+                        @root.runeTypes.property
+                        selected=slot.slug
+                        valueAttr="slug"
+                        labelAttr="name"
+                        blank=""
+                        localize=true
+                    }}
+                </select>
+            </div>
+        {{/each}}
+    </fieldset>
+{{/if}}
+
 <ol class="form-list">
     {{#each data.damageRolls as |damageRoll key|}}
         <li class="damage-partial" data-key="{{key}}">

@@ -8,10 +8,12 @@ import type {
     ItemTraitsNoRarity,
     TraitConfig,
 } from "@item/base/data/system.ts";
+import { RUNE_DATA, prunePropertyRunes } from "@item/physical/runes.ts";
 import type { EffectAreaShape } from "@item/types.ts";
 import { EFFECT_AREA_SHAPES } from "@item/values.ts";
 import type { WeaponMaterialData } from "@item/weapon/data.ts";
 import type { WeaponPropertyRuneType } from "@item/weapon/types.ts";
+import { WEAPON_PROPERTY_RUNE_TYPES } from "@item/weapon/values.ts";
 import { getLegacyRangeData } from "@module/migration/migrations/949-npc-range-data.ts";
 import { damageCategoriesUnique } from "@scripts/config/damage.ts";
 import type { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
@@ -35,9 +37,6 @@ class MeleeSystemData extends ItemSystemModel<MeleePF2e, NPCAttackSystemSchema> 
     static override LOCALIZATION_PREFIXES = [...super.LOCALIZATION_PREFIXES, "PF2E.Item.NPCAttack"];
 
     declare material: WeaponMaterialData;
-
-    /** Weapon property runes (or rather the effects thereof) added via rule element */
-    declare runes: { property: WeaponPropertyRuneType[] };
 
     static override defineSchema(): NPCAttackSystemSchema {
         const traitChoices: Record<NPCAttackTrait, string> = CONFIG.PF2E.npcAttackTraits;
@@ -138,6 +137,19 @@ class MeleeSystemData extends ItemSystemModel<MeleePF2e, NPCAttackSystemSchema> 
                 { required: true, nullable: true, initial: null },
             ),
             subjectToMAP: new fields.BooleanField({ initial: true }),
+            /** Property runes on this attack. AdjustStrike may add more during actor preparation. */
+            runes: new fields.SchemaField({
+                property: new fields.ArrayField(
+                    new fields.StringField({
+                        required: true,
+                        nullable: false,
+                        blank: false,
+                        choices: R.mapToObj([...WEAPON_PROPERTY_RUNE_TYPES], (slug) => [slug, slug]),
+                        initial: undefined,
+                    }),
+                    { max: 4 },
+                ),
+            }),
         };
     }
 
@@ -148,8 +160,8 @@ class MeleeSystemData extends ItemSystemModel<MeleePF2e, NPCAttackSystemSchema> 
         // Set precious material (currently unused)
         this.material = { type: null, grade: null, effects: [] };
 
-        // Set empty property runes array for use by rule elements
-        this.runes = { property: [] };
+        // Keep stored runes. AdjustStrike appends to this array later in actor preparation.
+        this.runes.property = prunePropertyRunes(this.runes.property, RUNE_DATA.weapon.property);
 
         for (const attackDamage of Object.values(this.damageRolls)) {
             if (attackDamage.damageType === "bleed") attackDamage.category = "persistent";
@@ -228,6 +240,17 @@ type NPCAttackSystemSchema = Omit<ItemSystemSchema, "traits"> & {
         true
     >;
     subjectToMAP: fields.BooleanField;
+    /** Property runes on this attack. AdjustStrike may add more during actor preparation. */
+    runes: fields.SchemaField<{
+        property: fields.ArrayField<
+            fields.StringField<WeaponPropertyRuneType, WeaponPropertyRuneType, true, false, false>,
+            WeaponPropertyRuneType[],
+            WeaponPropertyRuneType[],
+            true,
+            false,
+            true
+        >;
+    }>;
 };
 
 type EffectAreaSchema = {
