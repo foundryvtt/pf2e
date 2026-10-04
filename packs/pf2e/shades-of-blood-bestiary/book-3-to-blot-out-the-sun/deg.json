@@ -1154,10 +1154,6 @@
                     "8tqKb3mIf41rDsgW": {
                         "damage": "2d4+6",
                         "damageType": "bludgeoning"
-                    },
-                    "wmlakvxXNJzDbDL9": {
-                        "damage": "1d6",
-                        "damageType": "sonic"
                     }
                 },
                 "description": {
@@ -1169,7 +1165,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "thundering"
+                    }
+                ],
                 "slug": "gauntlet",
                 "traits": {
                     "value": [

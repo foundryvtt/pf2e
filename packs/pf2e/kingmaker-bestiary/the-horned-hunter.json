@@ -1079,10 +1079,6 @@
                     "GEYKF1XIJxhguQn2": {
                         "damage": "3d6+16",
                         "damageType": "piercing"
-                    },
-                    "Szwzb8lnydO7xr9A": {
-                        "damage": "1d6",
-                        "damageType": "sonic"
                     }
                 },
                 "description": {
@@ -1097,7 +1093,26 @@
                     "increment": 60,
                     "max": null
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "grievous"
+                    },
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "thundering"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
