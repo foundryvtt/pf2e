@@ -498,10 +498,6 @@
                     "ET3PRJGIwWkMEeBM": {
                         "damage": "3d8+17",
                         "damageType": "slashing"
-                    },
-                    "OerCp3ItqMwBYb2x": {
-                        "damage": "2d10",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -544,10 +540,6 @@
                     "aVpxlsxcW2xWMytm": {
                         "damage": "2d8+17",
                         "damageType": "bludgeoning"
-                    },
-                    "r38oRv5WdB5bbVK7": {
-                        "damage": "2d10",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -598,10 +590,6 @@
                     "SplCF9GhDCXfm38u": {
                         "damage": "3d6+17",
                         "damageType": "piercing"
-                    },
-                    "TgYfGiqHWy5OWDYq": {
-                        "damage": "2d10",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -1000,7 +988,44 @@
                     "remaster": false,
                     "title": "Pathfinder Bestiary"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greaterFlaming"
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            {
+                                "not": "damage:category:persistent"
+                            }
+                        ],
+                        "property": "dice-number",
+                        "selectors": [
+                            "strike-damage"
+                        ],
+                        "slug": "greater-flaming",
+                        "value": 2
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            {
+                                "not": "damage:category:persistent"
+                            }
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "strike-damage"
+                        ],
+                        "slug": "greater-flaming",
+                        "value": 10
+                    }
+                ],
                 "slug": "graveknight-ruinous-weapons",
                 "traits": {
                     "rarity": "common",
