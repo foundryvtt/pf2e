@@ -805,11 +805,13 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                     // Unless there is a fixed attack modifier, give an attack bonus approximating a high-threat NPC
                     value: this.flags[SYSTEM_ID].fixedAttack || Math.round(1.5 * this.actor.level + 7),
                 },
-                damageRolls: [baseDamage, splashDamage, persistentDamage].flat().reduce(
-                    (rolls: Record<string, NPCAttackDamage>, roll) =>
-                        fu.mergeObject(rolls, { [fu.randomID()]: roll }),
-                    {},
-                ),
+                damageRolls: [baseDamage, splashDamage, persistentDamage]
+                    .flat()
+                    .reduce(
+                        (rolls: Record<string, NPCAttackDamage>, roll) =>
+                            fu.mergeObject(rolls, { [fu.randomID()]: roll }),
+                        {},
+                    ),
                 traits: {
                     value: newTraits,
                 },
