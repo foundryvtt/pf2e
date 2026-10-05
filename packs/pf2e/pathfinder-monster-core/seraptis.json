@@ -791,11 +791,6 @@
                     "value": 32
                 },
                 "damageRolls": {
-                    "WpG4RsOFGPHdw50X": {
-                        "category": "persistent",
-                        "damage": "1d6",
-                        "damageType": "bleed"
-                    },
                     "dqusXOMf2j6n0mQE": {
                         "damage": "2d6+16",
                         "damageType": "slashing"
@@ -814,7 +809,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "wounding"
+                    }
+                ],
                 "slug": "scimitar",
                 "traits": {
                     "value": [

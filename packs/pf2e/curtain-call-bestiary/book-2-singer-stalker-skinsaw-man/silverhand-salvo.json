@@ -782,10 +782,6 @@
                     "6uXNbZJAMbXBd6I5": {
                         "damage": "3d6+11",
                         "damageType": "piercing"
-                    },
-                    "USvfJp9kVOA3SJY3": {
-                        "damage": "1d4",
-                        "damageType": "spirit"
                     }
                 },
                 "description": {
@@ -797,7 +793,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "unholy"
+                    }
+                ],
                 "slug": "sword-cane",
                 "traits": {
                     "value": [

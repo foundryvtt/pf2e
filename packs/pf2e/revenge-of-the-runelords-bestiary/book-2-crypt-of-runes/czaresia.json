@@ -890,16 +890,11 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 34
+                    "value": 37
                 },
                 "damageRolls": {
                     "0": {
                         "damage": "3d6+16",
-                        "damageType": "bludgeoning"
-                    },
-                    "1": {
-                        "category": "splash",
-                        "damage": "3",
                         "damageType": "bludgeoning"
                     }
                 },
@@ -912,7 +907,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "shockwave"
+                    }
+                ],
                 "slug": "mace",
                 "traits": {
                     "value": [
