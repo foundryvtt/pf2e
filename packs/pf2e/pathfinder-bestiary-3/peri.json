@@ -704,11 +704,19 @@
                         "value": "greaterFlaming"
                     },
                     {
-                        "damageType": "fire",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "selector": "scimitar-damage"
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            {
+                                "not": "damage:category:persistent"
+                            }
+                        ],
+                        "property": "dice-number",
+                        "selectors": [
+                            "scimitar-damage"
+                        ],
+                        "slug": "greater-flaming",
+                        "value": 2
                     }
                 ],
                 "slug": null,
