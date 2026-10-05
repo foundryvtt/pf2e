@@ -4,7 +4,7 @@
     "name": "Effect: Balisse Feather",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Balisse Feather], @UUID[Compendium.pf2e.equipment-srd.Item.Balisse Feather (Greater)]</p>\n<p>Unless you have the holy trait, you take a –2 status penalty to AC and saving throws.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Balisse Feather], @UUID[Compendium.pf2e.equipment-srd.Item.Balisse Feather (Greater)]</p>\n<p>Unless you have the holy trait, you take a –2 status penalty to AC and saving throws, and your resistances are reduced by 5 (10 if affected by the greater feather).</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -23,6 +23,20 @@
         },
         "rules": [
             {
+                "choices": [
+                    {
+                        "label": "Balisse Feather",
+                        "value": "5"
+                    },
+                    {
+                        "label": "Balisse Feather (Greater)",
+                        "value": "10"
+                    }
+                ],
+                "flag": "balisseFeather",
+                "key": "ChoiceSet"
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
                     {
@@ -35,6 +49,17 @@
                 ],
                 "type": "status",
                 "value": -2
+            },
+            {
+                "key": "Resistance",
+                "mode": "subtract",
+                "predicate": [
+                    {
+                        "not": "self:trait:holy"
+                    }
+                ],
+                "type": [],
+                "value": "{item|flags.system.rulesSelections.balisseFeather}"
             }
         ],
         "start": {
