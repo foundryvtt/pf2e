@@ -1,27 +1,39 @@
-import { calculateAppliedDamage, type IWRInput } from "@system/damage/iwr.ts";
+import { calculateAppliedDamage, type IWRInput } from "@system/damage/applied-damage.ts";
 import type { DamageType } from "@system/damage/types.ts";
 import { BASE_DAMAGE_TYPES_TO_CATEGORIES } from "@system/damage/values.ts";
 
 type CalculateParams = Parameters<typeof calculateAppliedDamage>[0];
-type InstanceSnapshot = IWRInput["roll"]["instances"][number];
+type InstanceRecord = IWRInput["roll"]["instances"][number];
 type ImmunityRecord = IWRInput["immunities"][number];
 type WeaknessRecord = IWRInput["weaknesses"][number];
 type ResistanceRecord = IWRInput["resistances"][number];
 
+type InstanceOptions = {
+    materials?: string[];
+    persistent?: boolean;
+    evaluatePersistent?: boolean;
+    critImmuneTotal?: number;
+    precision?: number;
+    splash?: number;
+    expression?: string | null;
+};
+
 /** An evaluated, non-persistent instance unless overridden. `formalDescription` is built like `DamageInstance`'s. */
-function instance(
-    type: DamageType,
-    total: number,
-    options: Partial<Omit<InstanceSnapshot, "type" | "total" | "formalDescription">> & { materials?: string[] } = {},
-): InstanceSnapshot {
-    const { materials = [], ...overrides } = options;
-    const persistent = overrides.persistent ?? false;
+function instance(type: DamageType, total: number, options: InstanceOptions = {}): InstanceRecord {
+    const {
+        materials = [],
+        persistent = false,
+        evaluatePersistent = false,
+        critImmuneTotal = total,
+        precision = 0,
+        splash = 0,
+        expression = null,
+    } = options;
     const category = BASE_DAMAGE_TYPES_TO_CATEGORIES[type];
     return {
         type,
         total,
         persistent,
-        evaluatePersistent: false,
         formalDescription: new Set([
             "damage",
             `damage:type:${type}`,
@@ -29,16 +41,15 @@ function instance(
             ...(persistent ? ["damage:category:persistent"] : []),
             ...materials.map((m) => `damage:material:${m}`),
         ]),
-        critImmuneTotal: total,
-        precision: 0,
-        splash: 0,
-        expression: null,
-        ...overrides,
+        critImmuneTotal,
+        options: { evaluatePersistent },
+        head: { expression: expression ?? "" },
+        componentTotal: (component) => (component === "precision" ? precision : splash),
     };
 }
 
 /** Unevaluated persistent damage: total 0, formula kept for the condition */
-function persistentInstance(type: DamageType, expression: string): InstanceSnapshot {
+function persistentInstance(type: DamageType, expression: string): InstanceRecord {
     return instance(type, 0, { persistent: true, expression });
 }
 
@@ -123,32 +134,59 @@ function resistance(
     };
 }
 
-function concussive(): IWRInput["roll"]["irRedirects"] {
+type Bypass = NonNullable<IWRInput["roll"]["options"]["bypass"]>;
+type Redirects = {
+    immunities: Bypass["immunity"]["redirect"];
+    resistances: Bypass["resistance"]["redirect"];
+};
+
+function concussive(): Redirects {
     return {
         immunities: [{ from: "piercing", to: "bludgeoning" }],
         resistances: [{ from: "piercing", to: "bludgeoning" }],
     };
 }
 
+type RollBuild = {
+    total?: number;
+    increasedFrom?: number;
+    degreeOfSuccess?: number | null;
+    ignoredResistances?: ResistanceRecord[];
+    irRedirects?: Redirects;
+};
+
 /**
- * IWR input with no IWR, no bypass, and every damage type affecting the target.
- * Roll total defaults to the sum of instance totals.
+ * IWR input with no immunities, weaknesses, or resistances. Every damage type affects the target.
+ * `roll.total` defaults to the sum of instance totals.
  */
 function iwr(
-    options: Partial<Omit<IWRInput, "roll">> & {
-        instances: InstanceSnapshot[];
-        roll?: Partial<Omit<IWRInput["roll"], "instances">>;
+    options: Partial<Omit<IWRInput, "roll" | "ignoredResistances">> & {
+        instances: InstanceRecord[];
+        roll?: RollBuild;
     },
 ): IWRInput {
     const { instances, roll = {}, ...overrides } = options;
+    const {
+        total,
+        increasedFrom,
+        degreeOfSuccess,
+        ignoredResistances = [],
+        irRedirects = { immunities: [], resistances: [] },
+    } = roll;
     return {
         roll: {
-            total: instances.reduce((sum, i) => sum + i.total, 0),
+            total: total ?? instances.reduce((sum, i) => sum + (i.total ?? 0), 0),
             instances,
-            ignoredResistances: [],
-            irRedirects: { immunities: [], resistances: [] },
-            ...roll,
+            options: {
+                increasedFrom,
+                degreeOfSuccess,
+                bypass: {
+                    immunity: { redirect: irRedirects.immunities },
+                    resistance: { redirect: irRedirects.resistances },
+                },
+            },
         },
+        ignoredResistances,
         immunities: [],
         weaknesses: [],
         resistances: [],
@@ -160,10 +198,7 @@ function iwr(
 }
 
 /** Damage or healing already resolved before IWR: a number, `skipIWR`, a dead target, or IWR disabled */
-function bypass(
-    finalDamage: number,
-    persistent: { type: DamageType; expression: string }[] = [],
-): CalculateParams["result"] {
+function bypass(finalDamage: number, persistent: InstanceRecord[] = []): CalculateParams["result"] {
     return { finalDamage, applications: [], persistent };
 }
 

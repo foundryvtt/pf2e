@@ -1,6 +1,5 @@
 import { ActorAlliance, ActorDimensions, ActorInstances, ApplyDamageParams, AuraData, SaveType } from "@actor/types.ts";
 import type { ToCompendiumOptions } from "@client/_types.d.mts";
-import type { Rolled } from "@client/dice/_module.d.mts";
 import type { DialogV2Configuration } from "@client/applications/api/dialog.d.mts";
 import type { ActorUUID } from "@client/documents/_module.d.mts";
 import type { DocumentConstructionContext } from "@common/_types.d.mts";
@@ -48,8 +47,8 @@ import type { RollOptionRuleElement } from "@module/rules/rule-element/roll-opti
 import type { UserPF2e } from "@module/user/document.ts";
 import type { ScenePF2e } from "@scene/document.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
-import { calculateAppliedDamage, type IWRApplicationData, type IWRInput } from "@system/damage/iwr.ts";
-import type { DamageInstance } from "@system/damage/roll.ts";
+import { calculateAppliedDamage } from "@system/damage/applied-damage.ts";
+import { applyIWR, type IWRApplicationData } from "@system/damage/iwr.ts";
 import type { DamageType } from "@system/damage/types.ts";
 import type {
     ArmorStatistic,
@@ -1043,6 +1042,17 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
     }
 
+    /** Damage resolved through IWR, before shield, hardness, and hit points */
+    #getIWRInput(damage: ApplyDamageParams["damage"], skipIWR: boolean, rollOptions: Set<string>): IWRApplicationData {
+        if (typeof damage === "number") {
+            return { finalDamage: Math.trunc(damage), applications: [], persistent: [] };
+        }
+        if (skipIWR) {
+            return { finalDamage: damage.total, applications: [], persistent: [] };
+        }
+        return applyIWR(this, damage, rollOptions);
+    }
+
     /**
      * Apply rolled dice damage to the token or tokens which are currently controlled.
      * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
@@ -1070,65 +1080,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             skipIWR = true;
         }
 
-        const isDead = this.isDead;
-        const iwrEnabled = game.pf2e.settings.iwr;
         // Round damage and healing (negative values) toward zero
-        const result: IWRApplicationData | IWRInput =
-            typeof damage === "number"
-                ? { finalDamage: Math.trunc(damage), applications: [], persistent: [] }
-                : skipIWR
-                  ? { finalDamage: damage.total, applications: [], persistent: [] }
-                  : isDead
-                    ? { finalDamage: 0, applications: [], persistent: [] }
-                    : !iwrEnabled
-                      ? {
-                            finalDamage: damage.total,
-                            applications: [],
-                            persistent: damage.instances.flatMap((instance) =>
-                                instance.persistent && !instance.options.evaluatePersistent
-                                    ? [{ type: instance.type, expression: instance.head.expression }]
-                                    : [],
-                            ),
-                        }
-                      : {
-                            roll: {
-                                total: damage.total,
-                                instances: (damage.instances as Rolled<DamageInstance>[]).map((instance) => ({
-                                    type: instance.type,
-                                    total: instance.total,
-                                    persistent: instance.persistent,
-                                    evaluatePersistent: !!instance.options.evaluatePersistent,
-                                    formalDescription: instance.formalDescription,
-                                    critImmuneTotal: instance.critImmuneTotal,
-                                    precision: instance.componentTotal("precision"),
-                                    splash: instance.componentTotal("splash"),
-                                    expression:
-                                        instance.persistent && !instance.options.evaluatePersistent
-                                            ? instance.head.expression
-                                            : null,
-                                })),
-                                increasedFrom: damage.options.increasedFrom,
-                                degreeOfSuccess: damage.options.degreeOfSuccess,
-                                ignoredResistances:
-                                    damage.options.bypass?.resistance.ignore.map(
-                                        (ir) => new Resistance({ type: ir.type, value: ir.max }),
-                                    ) ?? [],
-                                irRedirects: {
-                                    immunities: damage.options.bypass?.immunity.redirect ?? [],
-                                    resistances: damage.options.bypass?.resistance.redirect ?? [],
-                                },
-                            },
-                            immunities: this.attributes.immunities,
-                            weaknesses: this.attributes.weaknesses,
-                            resistances: this.attributes.resistances,
-                            isAffectedBy: (type) => this.isAffectedBy(type),
-                            immunityTypeLabel: (type) => new Immunity({ type }).typeLabel,
-                            resistanceTypeLabel: (type) => new Resistance({ type, value: 0 }).typeLabel,
-                        };
+        const result = this.#getIWRInput(damage, skipIWR, rollOptions);
 
         // Extract Target-specific healing adjustments (unless final)
         // Currently only healing modifiers are implemented
-        const domain = "finalDamage" in result && result.finalDamage < 0 ? "healing-received" : "damage-received";
+        const domain = result.finalDamage < 0 ? "healing-received" : "damage-received";
         const isDamage = domain === "damage-received";
         const isHealing = !isDamage;
         const { modifiers, damageDice } = (() => {
@@ -1294,7 +1251,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             ? damageResult.persistent.map((instance) => {
                   const condition = game.pf2e.ConditionManager.getCondition("persistent-damage").toObject();
                   condition.system.persistent = {
-                      formula: instance.expression,
+                      formula: instance.head.expression,
                       damageType: instance.type,
                       dc: 15,
                       criticalHit: damage instanceof Roll ? damage.options.degreeOfSuccess === 3 : false,
@@ -1314,7 +1271,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         const persistentDamages = game.i18n.getListFormatter({ style: "long", type: "conjunction" }).format(
             damageResult.persistent.map((instance) => {
-                const formula = instance.expression;
+                const formula = instance.head.expression;
                 const damageType = _loc(CONFIG.PF2E.damageRollFlavors[instance.type]);
                 return instance.type === "bleed"
                     ? _loc(`${locPrefix}.PersistentEntry.bleed`, { formula, damageType })
