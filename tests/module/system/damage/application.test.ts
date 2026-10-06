@@ -68,9 +68,10 @@ describe("applied damage calculation", () => {
 
     describe("persistent damage", () => {
         test("persistent damage is kept even when resistance negates the rest of the instance type", () => {
+            const persistentFire = persistentInstance("fire", "1d6");
             const damage = calculate({
                 result: iwr({
-                    instances: [instance("fire", 5), persistentInstance("fire", "1d6")],
+                    instances: [instance("fire", 5), persistentFire],
                     resistances: [resistance("fire", 10)],
                 }),
             });
@@ -78,7 +79,7 @@ describe("applied damage calculation", () => {
             expect(damage.applications).toEqual([
                 { category: "resistance", type: "fire", adjustment: -5, ignored: false },
             ]);
-            expect(damage.persistent).toEqual([{ type: "fire", expression: "1d6" }]);
+            expect(damage.persistent).toEqual([persistentFire]);
             expect(damage.finalDamage).toBe(0);
         });
 
@@ -193,16 +194,17 @@ describe("applied damage calculation", () => {
         });
 
         test("apply-once weakness is not triggered by unevaluated persistent damage alone", () => {
+            const persistentFire = persistentInstance("fire", "1d6");
             const damage = calculate({
                 result: iwr({
-                    instances: [persistentInstance("fire", "1d6")],
+                    instances: [persistentFire],
                     weaknesses: [weakness("holy", 5, { applyOnce: true })],
                 }),
                 rollOptions: new Set(["item:trait:holy"]),
             });
 
             expect(damage.applications).toEqual([]);
-            expect(damage.persistent).toEqual([{ type: "fire", expression: "1d6" }]);
+            expect(damage.persistent).toEqual([persistentFire]);
             expect(damage.finalDamage).toBe(0);
         });
 
@@ -886,6 +888,26 @@ describe("applied damage calculation", () => {
             ]);
             expect(damage.updates).toEqual({ "system.attributes.hp.value": 19 });
             expect(damage.totalApplied).toBe(11);
+        });
+
+        test("does not apply IWR again when finalDamage is already resolved", () => {
+            const damage = calculate({
+                result: {
+                    finalDamage: 10,
+                    applications: [{ category: "resistance", type: "slashing", adjustment: -5, ignored: false }],
+                    persistent: [],
+                },
+                baseActorHardness: 4,
+            });
+
+            expect(damage.finalDamage).toBe(10);
+            expect(damage.damageAbsorbedByActor).toBe(4);
+            expect(damage.applications).toEqual([
+                { category: "resistance", type: "slashing", adjustment: -5, ignored: false },
+                { category: "reduction", type: "PF2E.Damage.Hardness.Full", adjustment: -4 },
+            ]);
+            expect(damage.updates).toEqual({ "system.attributes.hp.value": 24 });
+            expect(damage.totalApplied).toBe(6);
         });
 
         test("adamantine halves hardness when the weapon grade meets the target's hardness", () => {
