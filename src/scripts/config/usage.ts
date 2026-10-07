@@ -1,5 +1,6 @@
 const WEAPON_UPGRADES = {
-    "installed-in-a-grenade-launcher-or-two-handed-weapon-with-an-undermounted-grenade-launcher": "PF2E.TraitInstalledInAGrenadeLauncherOrTwoHandedWeaponWithAnUndermoundedGrenadeLauncher",
+    "installed-in-a-grenade-launcher-or-two-handed-weapon-with-an-undermounted-grenade-launcher":
+        "PF2E.TraitInstalledInAGrenadeLauncherOrTwoHandedWeaponWithAnUndermoundedGrenadeLauncher",
     "installed-in-a-ranged-weapon": "PF2E.TraitInstalledInARangedWeapon",
     "installed-in-a-weapon": "PF2E.TraitInstalledInAWeapon",
     "installed-in-a-weapon-sight": "PF2E.TraitInstalledInAWeaponSight",
@@ -9,7 +10,8 @@ const WEAPON_UPGRADES = {
     "installed-in-a-weapon-that-uses-projectile": "PF2E.TraitInstalledInAWeaponThatUsesProjectile",
     "installed-in-a-weapon-with-the-kickback-trait": "PF2E.TraitInstalledInAWeaponWithTheKickbackTrait",
     "installed-in-an-area-weapon": "PF2E.TraitInstalledInAnAreaWeapon",
-    "installed-in-an-area-weapon-that-deals-acid-cold-fire-or-void-damage": "PF2E.TraitInstalledInAnAreaWeaponThatDealsAcidColdFireOrVoidDamage",
+    "installed-in-an-area-weapon-that-deals-acid-cold-fire-or-void-damage":
+        "PF2E.TraitInstalledInAnAreaWeaponThatDealsAcidColdFireOrVoidDamage",
     "installed-in-one-handed-weapon-grip": "PF2E.TraitInstalledInOneHandedWeaponGrip",
     "installed-in-ranged-weapon-without-a-loudener": "PF2E.TraitInstalledInRangedWeaponWithoutALoudener",
     "installed-in-two-handed-weapon": "PF2E.TraitInstalledInTwoHandedWeapon",
