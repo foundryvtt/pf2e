@@ -449,7 +449,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const strikingDice = ABP.isEnabled(actor) ? ABP.getStrikingDice(actor?.level ?? 0) : this.system.runes.striking;
         const gradeData = CONFIG.PF2E.weaponImprovements[this.system.grade ?? "commercial"];
         this.system.damage.dice =
-            inherentDiceNumber === 1 && !this.flags[SYSTEM_ID].battleForm
+            inherentDiceNumber === 1 && !this.flags[SYSTEM_ID].battleForm && !this.flags[SYSTEM_ID].fixedAttack
                 ? Math.max(gradeData.dice, inherentDiceNumber + strikingDice)
                 : this.system.damage.dice;
 
@@ -486,7 +486,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             }
 
             // Determine capacity from traits. Weapons that load magazines cannot load more than one
-            if (!existingTypeData?.magazine) {
+            if (existingTypeData?.magazine) {
+                this.system.ammo.capacity = 1;
+            } else {
                 const capacityTrait = this.system.traits.value.find((t) => /^capacity-\d+$/.test(t));
                 const capacityFromTrait = capacityTrait ? Number(capacityTrait.replace("capacity-", "")) : null;
                 const capacityFromDoubleBarrel = this.system.traits.value.includes("double-barrel") ? 2 : null;
@@ -626,6 +628,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     override clone(data?: Record<string, unknown>, context?: WeaponCloneContext): this {
         const clone = super.clone(data, context);
+        if (this.rule) clone.rule = this.rule;
         if (context?.altUsage && clone instanceof WeaponPF2e) {
             clone.altUsageType = context.altUsage;
             const comboSibling = this.system.traits.value.includes("combination") ? this : this.comboSibling;

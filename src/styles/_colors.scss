@@ -406,3 +406,10 @@ body.theme-dark .application:not(.themed),
     --color-whisper-roll-background: #12122be6;
     --tag-color: var(--color-light-4);
 }
+
+// Core's light-theme row highlight is near-black, so use a tint darker than the 10% row stripes
+body.theme-light,
+.themed.theme-light,
+.app.theme-light .standard-form {
+    --table-row-color-highlight: color-mix(in srgb, var(--color-dark-1) 25%, transparent);
+}

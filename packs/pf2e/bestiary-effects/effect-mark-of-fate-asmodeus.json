@@ -1,0 +1,52 @@
+{
+    "_id": "CtSpaB1PXAkMunj5",
+    "img": "icons/magic/symbols/rune-sigil-black-pink.webp",
+    "name": "Effect: Mark of Fate (Asmodeus)",
+    "system": {
+        "description": {
+            "value": "<p>You gain weakness 15 to unholy and take a –2 circumstance penalty to Charisma-based skill checks against followers of Asmodeus.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 19
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Hell's Destiny"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "asmodeus-follower"
+                ],
+                "selector": "cha-skill-check",
+                "type": "circumstance",
+                "value": -2
+            },
+            {
+                "key": "Weakness",
+                "type": "unholy",
+                "value": 15
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

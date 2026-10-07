@@ -7,9 +7,12 @@ import { UUIDUtils } from "@util/uuid.ts";
 
 /** Given an HTML element, resolves the sheet and its document */
 function resolveSheetDocument(html: HTMLElement): ClientDocument | null {
-    const sheet: { id?: string; document?: unknown } | null =
-        ui.windows[Number(html.closest<HTMLElement>(".app.sheet")?.dataset.appid)] ?? null;
-    const doc = sheet?.document;
+    const appElement = html.closest<HTMLElement>(".application");
+    const sheet: { id?: string; document?: unknown; actor?: unknown } | null = appElement
+        ? (foundry.applications.instances.get(appElement.id) ?? null)
+        : (ui.windows[Number(html.closest<HTMLElement>(".app.sheet")?.dataset.appid)] ?? null);
+    // AppV2 windows that aren't document sheets (e.g. spell preparation) are bound to an actor instead
+    const doc = sheet?.document ?? sheet?.actor;
     return doc && (doc instanceof ActorPF2e || doc instanceof ItemPF2e || doc instanceof JournalEntry) ? doc : null;
 }
 

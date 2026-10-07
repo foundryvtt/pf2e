@@ -1,4 +1,6 @@
 import type { ActorPF2e, ActorType, CharacterPF2e, NPCPF2e } from "@actor";
+import type { CharacterStrike } from "@actor/character/data.ts";
+import { DamageDicePF2e, Modifier } from "@actor/modifiers.ts";
 import type { ImageFilePath } from "@common/constants.d.mts";
 import { WeaponPF2e } from "@item";
 import { performLatePreparation } from "@item/helpers.ts";
@@ -15,6 +17,7 @@ import type {
 import type { OneToTwo } from "@module/data.ts";
 import type { DamageDieSize, DamageType } from "@system/damage/index.ts";
 import { objectHasKey, sluggify } from "@util";
+import { isSharedStatisticModifier, suppressUnsharedModifiers, useFixedStatisticModifier } from "../helpers.ts";
 import { RuleElement, RuleElementOptions } from "./base.ts";
 import type { BattleFormSource } from "./battle-form/types.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
@@ -136,6 +139,7 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
                         : `systems/${SYSTEM_ID}/icons/default-icons/melee.svg`,
             }),
             attackModifier: new fields.NumberField({ integer: true, positive: true, nullable: true, initial: null }),
+            ownIfHigher: new fields.BooleanField({ initial: true }),
             replaceAll: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             replaceBasicUnarmed: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             battleForm: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
@@ -190,7 +194,7 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
         this.actor.synthetics.strikes[slug] = (unarmedRunes) => this.#constructWeapon({ slug, unarmedRunes });
     }
 
-    /** Exclude other strikes if this rule element specifies that its strike replaces all others */
+    /** Exclude other strikes if specified, then apply a PC fixed attack modifier if present */
     override afterPrepareData(): void {
         if (this.ignored || !this.actor.isOfType("character")) return;
 
@@ -210,6 +214,55 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
         } else if (this.replaceBasicUnarmed) {
             const systemData = this.actor.system;
             systemData.actions.findSplice((a) => a.item?.slug === "basic-unarmed");
+        }
+
+        const attackModifier = this.attackModifier;
+        if (!attackModifier) return;
+
+        const actions = this.actor.system.actions.flatMap((action) =>
+            [action, ...action.altUsages].filter(
+                (a): a is CharacterStrike => a.type === "strike" && a.item.rule === this,
+            ),
+        );
+        for (const action of actions) {
+            const useFixed = useFixedStatisticModifier({
+                fixed: attackModifier,
+                own: action.totalModifier,
+                modifiers: action.modifiers,
+                ownIfHigher: this.ownIfHigher,
+            });
+            if (!useFixed) continue;
+
+            suppressUnsharedModifiers(action);
+            action.unshift(
+                new Modifier({
+                    label: this.getReducedLabel(this.item.name),
+                    slug: "attack-modifier",
+                    modifier: attackModifier,
+                }),
+            );
+            action.breakdown = action.modifiers
+                .filter((m) => m.enabled)
+                .map((m) => `${m.label} ${m.signedValue}`)
+                .join(", ");
+        }
+    }
+
+    /** A fixed attack modifier comes with listed damage, which only status, circumstance, and penalties adjust */
+    override applyDamageExclusion(weapon: WeaponPF2e, modifiers: (DamageDicePF2e | Modifier)[]): void {
+        if (this.ignored || !this.attackModifier || weapon.rule !== this || !this.actor.isOfType("character")) return;
+
+        for (const modifier of modifiers) {
+            // Trait damage uses the trait as its slug, or a prefix of it for boost and scatter
+            const fromTrait = this.traits.some((t) => t === modifier.slug || t.startsWith(`${modifier.slug}-`));
+            const applies =
+                fromTrait ||
+                modifier.source === this.item.uuid ||
+                (modifier instanceof Modifier && isSharedStatisticModifier(modifier));
+            if (!applies) {
+                modifier.enabled = false;
+                modifier.ignored = true;
+            }
         }
     }
 
@@ -253,7 +306,7 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
             flags: {
                 [SYSTEM_ID]: {
                     battleForm: this.battleForm,
-                    fixedAttack: actorIsNPC ? (this.attackModifier ?? null) : null,
+                    fixedAttack: this.attackModifier,
                 },
             },
             system: {
@@ -366,10 +419,13 @@ type StrikeSchema = RuleElementSchema & {
         true
     >;
     /**
-     * A fixed attack modifier: usable only if the strike is generated for an NPC
-     * Also causes the damage to not be recalculated when converting the resulting weapon to an NPC attack
+     * A fixed attack modifier. For NPCs it becomes the attack bonus, and damage isn't recalculated when converting
+     * the weapon to an NPC attack. For PCs it replaces the base attack-roll modifiers, and damage keeps only what
+     * the strike lists plus status, circumstance, and penalties.
      */
     attackModifier: fields.NumberField<number, number, false, true, true>;
+    /** Whether a PC keeps their own attack modifier when it's higher than `attackModifier` */
+    ownIfHigher: fields.BooleanField<boolean, boolean, true, false, true>;
     range: fields.SchemaField<
         {
             increment: fields.NumberField<number, number, false, true, true>;
