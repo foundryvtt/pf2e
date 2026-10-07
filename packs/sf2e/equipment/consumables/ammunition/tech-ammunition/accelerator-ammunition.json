@@ -1,0 +1,110 @@
+{
+    "_id": "BA9W7yxshVmu5Rlh",
+    "folder": "lSOWDN0CGj0ewjcm",
+    "img": "systems/sf2e/icons/abilities/rocket-in-mid-flight.webp",
+    "name": "Accelerator Ammunition",
+    "system": {
+        "baseItem": "projectile-ammo",
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "craftableAs": [],
+        "description": {
+            "value": "<p>These rounds include onboard gyrojets that increase velocity the farther they travel. Attacks against targets further than 60 feet away gain a circumstance bonus to damage equal to the number of weapon damage dice (or twice the number of dice using a sniper weapon). Attacks against targets further than 120 feet away instead gain a circumstance bonus to damage equal to twice the number of weapon damage dice (or three times the number of dice using a sniper weapon).</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 6
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "per": 10,
+            "value": {
+                "sp": 300
+            }
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Starfinder Tech Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "gte": [
+                            "target:distance",
+                            60
+                        ]
+                    }
+                ],
+                "selector": [
+                    "{item|id}-ranged-damage"
+                ],
+                "slug": "accelerator-ammunition-damage",
+                "type": "circumstance",
+                "value": "@weapon.system.damage.dice"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "gte": [
+                                    "target:distance",
+                                    120
+                                ]
+                            },
+                            "parent:origin:item:group:sniper"
+                        ]
+                    }
+                ],
+                "selector": "{item|id}-ranged-damage",
+                "slug": "accelerator-ammunition-damage",
+                "value": "@weapon.system.damage.dice * 2"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "gte": [
+                            "target:distance",
+                            120
+                        ]
+                    },
+                    "parent:origin:item:group:sniper"
+                ],
+                "selector": "{item|id}-ranged-damage",
+                "slug": "accelerator-ammunition-damage",
+                "value": "@weapon.system.damage.dice * 3"
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "consumable",
+                "tech"
+            ]
+        },
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
+        }
+    },
+    "type": "ammo"
+}
