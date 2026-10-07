@@ -1,0 +1,107 @@
+{
+    "_id": "gKFUjdfdvbXMrRS6",
+    "folder": "Xw6klgOmofb4g4Ck",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "v16eKlF07bwgLNYd",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Summon Elemental",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A starship enters the hazard's zone</p><hr /><p><strong>Effect</strong> The hazard summons a specific 6th-level creature on board the triggering starship, determined when the hazard is created. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "object-immunities"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Planar Breach",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 16
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A planar breach oozes energy and spawns monsters.</p>",
+            "disable": "<p>@Check[crafting|dc:24] (expert; generator) to disrupt the rift with an electromagnetic pulse, or @Check[nature|dc:22] (expert; magic conduit) or Occultism (expert; magic conduit) to seal the breach, or Counter Magic (magic conduit; 3rd rank; counteract DC 24) to counteract the breach</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Tech Core"
+            },
+            "reset": "<p>The hazard resets in 10 minutes unless the planar breach is sealed permanently by counteracting it.</p>",
+            "routine": "<p>(1 action) Energy flows through the planar breach to fuel the elemental. The elemental immediately takes its turn, using 3 actions, and can use reactions unlike most summoned creatures.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "magical",
+                "starship"
+            ]
+        }
+    },
+    "type": "hazard"
+}

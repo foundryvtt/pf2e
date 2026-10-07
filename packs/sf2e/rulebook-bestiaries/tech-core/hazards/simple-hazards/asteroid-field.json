@@ -1,0 +1,154 @@
+{
+    "_id": "CFVl5DPPJopqTP3e",
+    "folder": "WXKipnCCPj9jrktD",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "1H41TzvGbAD7gQp2",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Collide",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A starship moves through the hazard's zone but doesn't start or end its movement in that zone</p><hr /><p><strong>Effect</strong> The hazard makes a collision Strike against the triggering starship. One asteroid is destroyed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "95N4SsYl0zcFq2PD",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Collision",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "5CHvjEB5Io23i0Cz": {
+                        "damage": "2d8+7",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": false,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Asteroid Field",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 19
+            },
+            "emitsSound": "encounter",
+            "hardness": 12,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "value": 10
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "object-immunities"
+                },
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 8
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>A sprawling field of floating rocks litters this part of space. The hazard is a Large starship object.</p>",
+            "disable": "<p>@Check[computers|dc:21] (trained; scanners) to calculate a safe route, or @Check[piloting|dc:23] (trained; pilot's console) to navigate around the hazard (these checks don't disable the hazard)</p>",
+            "isComplex": false,
+            "level": {
+                "value": 5
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Tech Core"
+            },
+            "reset": "<p>The asteroid field resets automatically until at least 10 asteroids have been destroyed, eliminating the hazard.</p>",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "value": 14
+            },
+            "reflex": {
+                "value": 8
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "starship"
+            ]
+        }
+    },
+    "type": "hazard"
+}

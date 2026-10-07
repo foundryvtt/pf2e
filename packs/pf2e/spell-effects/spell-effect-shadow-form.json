@@ -1,0 +1,62 @@
+{
+    "_id": "n5U2OoIzV7Gxdm3K",
+    "img": "icons/creatures/magical/spirit-undead-ghost-purple.webp",
+    "name": "Spell Effect: Shadow Form",
+    "system": {
+        "description": {
+            "value": "<p>You gain immunity to precision damage, resistance to void and to non-magical physical damage, and weakness to any damage with the light trait. You can Squeeze at full speed through any space with at least one dimension a foot wide. Your shadow spells deal additional damage equal to the spell's rank (of the same damage type as the spell).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "key": "Immunity",
+                "type": "precision"
+            },
+            {
+                "key": "Resistance",
+                "type": "void",
+                "value": "ternary(gte(@item.level,9),15,10)"
+            },
+            {
+                "key": "Weakness",
+                "type": "light",
+                "value": "ternary(gte(@item.level,9),10,5)"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:shadow"
+                ],
+                "selector": [
+                    "spell-damage"
+                ],
+                "value": "@item.level"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

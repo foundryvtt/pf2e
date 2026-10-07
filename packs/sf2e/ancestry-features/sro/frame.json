@@ -1,0 +1,73 @@
+{
+    "_id": "6S8la9YRD0bjLHdM",
+    "folder": "fB9ebtnN3yD6eJM8",
+    "img": "icons/commodities/metal/clasp-steel-braid.webp",
+    "name": "Frame",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestryfeature",
+        "description": {
+            "value": "<p>No two SROs are alike. Select your size: Small, Medium, or Large. Small SROs gain an attribute boost to Dexterity, Large SROs gain an attribute boost to Strength, and Medium SROs can choose to gain an attribute boost to either Dexterity or Strength. Once chosen, this selection can't be changed.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.ActorSizeLarge",
+                        "value": {
+                            "size": "large"
+                        }
+                    },
+                    {
+                        "label": "PF2E.ActorSizeMedium",
+                        "value": {
+                            "size": "medium"
+                        }
+                    },
+                    {
+                        "label": "PF2E.ActorSizeSmall",
+                        "value": {
+                            "size": "small"
+                        }
+                    }
+                ],
+                "flag": "choice",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.CreatureSize"
+            },
+            {
+                "key": "CreatureSize",
+                "value": "{item|flags.system.rulesSelections.choice.size}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sro"
+            ]
+        }
+    },
+    "type": "feat"
+}

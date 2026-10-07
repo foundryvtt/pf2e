@@ -1,0 +1,61 @@
+{
+    "_id": "gSe58xd7OtP4qwmV",
+    "img": "icons/magic/water/projectile-water-wave-teal.webp",
+    "name": "Spell Effect: Rude Awakening",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 status bonus to all saving throws for the duration, which increases to a +2 status bonus to saving throws against emotion effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "selector": [
+                    "saving-throw"
+                ],
+                "slug": "rude-awakening-saves",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:emotion"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "slug": "rude-awakening-emotion",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

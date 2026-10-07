@@ -1,0 +1,85 @@
+{
+    "_id": "X1xuYSTJ7ojsoLxY",
+    "folder": "HX8khoty7JB7v4vw",
+    "img": "icons/containers/kitchenware/pot-meal.webp",
+    "name": "Censer",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Censer implements are vessels in which incense is burned, producing a haze of smoke that often carries a potent odor. Censers, thuribles, and other similar items are routinely used in religious ceremonies and represent practices that alter the atmosphere of a place, usually to drive off unwanted forces. Censer implements are often associated with the harrow suit of stars and the astrological sign of the underworld dragon.</p>\n<p>Goblins, especially those of the Chitterwood, have created a kind of censer that is known as a stink torch. Despite its name, a stink torch doesn't give off any illumination when lit, just a haze of acrid smoke.</p><h3><strong>Initiate Benefit</strong></h3><p>@Embed[Compendium.pf2e.classfeatures.Item.5cpC7dZjEDuSAZef inline=true]</p><h3><strong>Adept Benefit</strong></h3><p>@Embed[Compendium.pf2e.classfeatures.Item.ZOlDwzTQ9PDJsJSR inline=true]</p><h3><strong>Intensify Vulnerability</strong></h3><p>The incense within your censer is particularly dangerous to your targets. When you successfully Strike the target of your Exploit Vulnerability while it is within your smoke cloud, the creature takes @Damage[1d6[persistent,poison]] damage (or 2d6 on a critical hit).</p><h3><strong>Paragon Benefit</strong></h3><p>@Embed[Compendium.pf2e.classfeatures.Item.TR5AzAIDbTxbHrO9 inline=true]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Item.Censer Implement"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.thaumaturge.initiateBenefit",
+                "predicate": [
+                    "feat:thaumaturge-dedication"
+                ],
+                "value": "Compendium.pf2e.classfeatures.Item.Initiate Benefit (Censer)"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:thaumaturge"
+                ],
+                "uuid": "Compendium.pf2e.classfeatures.Item.Initiate Benefit (Censer)"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.system.thaumaturge.adeptChoices",
+                "predicate": [
+                    "class:thaumaturge"
+                ],
+                "priority": 20,
+                "value": {
+                    "label": "{item|name}",
+                    "predicate": [
+                        {
+                            "not": "feature:adept-benefit-censer"
+                        }
+                    ],
+                    "value": "Compendium.pf2e.classfeatures.Item.Adept Benefit (Censer)"
+                }
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "thaumaturge-implement"
+            ],
+            "rarity": "common",
+            "value": [
+                "thaumaturge"
+            ]
+        }
+    },
+    "type": "feat"
+}

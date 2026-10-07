@@ -1,0 +1,81 @@
+{
+    "_id": "AcLI8InNjZrgj0Ii",
+    "folder": "3ercTRbubKK7gAVL",
+    "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+    "name": "(Shadowbound) Shadow Form",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 3
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>A shadowbound creature can assume a shadowy form. In this state, the creature gains the incorporeal trait. It has resistance 10 to all damage (except force, ghost touch, spirit, or vitality; double resistance vs. non-magical), is immune to precision damage, and can't use any actions with the attack or manipulate trait. It has a fly Speed of 15 feet and can slip through tiny cracks. The shadowbound creature can Dismiss this effect to become solid again, but if it does so in an area of bright light, it's @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} for 1 round.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "shadow-form",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "shadow-form"
+                ],
+                "selector": [
+                    "fly-speed"
+                ],
+                "value": 15
+            },
+            {
+                "add": [
+                    "incorporeal"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "shadow-form"
+                ]
+            },
+            {
+                "doubleVs": [
+                    "non-magical"
+                ],
+                "exceptions": [
+                    "force",
+                    "ghost-touch",
+                    "spirit",
+                    "vitality"
+                ],
+                "key": "Resistance",
+                "predicate": [
+                    "shadow-form"
+                ],
+                "type": "all-damage",
+                "value": 10
+            },
+            {
+                "key": "Immunity",
+                "predicate": [
+                    "shadow-form"
+                ],
+                "type": "precision"
+            }
+        ],
+        "traits": {
+            "value": [
+                "concentrate",
+                "polymorph",
+                "shadow"
+            ]
+        }
+    },
+    "type": "action"
+}

@@ -1,0 +1,53 @@
+{
+    "_id": "Kcmpt2nqrUKiCQte",
+    "img": "icons/magic/fire/beam-strike-whip-red.webp",
+    "name": "Effect: Strix Vengeance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Strix Vengeance]</p>\n<p>You deal an additional 1d6 precision damage on Strikes against the marked creature. The bonus increases to 2d6 if you use a <em>striking</em> weapon or unarmed attack and 3d6 if you use a <em>major striking</em> weapon or unarmed attack.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "strix-vengeance",
+                "uuid": ""
+            },
+            {
+                "category": "precision",
+                "diceNumber": "ternary(gte(@weapon.system.damage.dice,4),3,ternary(gte(@weapon.systyem.damage.dice, 2),2,1))",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:mark:strix-vengeance"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,58 @@
+{
+    "_id": "n5h45KB6hL3oVyQc",
+    "img": "systems/sf2e/icons/abilities/purple-cube.webp",
+    "name": "Spell Effect: Build Shield Generator",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Build Shield Generator]</p>\n<p>You gain a +1 status bonus to AC, as well as resistance to acid, cold, electricity, fire, force, and sonic damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "ac"
+                ],
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "Resistance",
+                "type": [
+                    "acid",
+                    "cold",
+                    "electricity",
+                    "fire",
+                    "force",
+                    "sonic "
+                ],
+                "value": "@item.level"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
