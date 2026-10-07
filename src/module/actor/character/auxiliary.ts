@@ -14,7 +14,7 @@ import { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data.ts";
 interface AuxiliaryInteractParams {
     weapon: WeaponPF2e<CharacterPF2e>;
     action: "interact";
-    annotation: "draw" | "grip" | "modular" | "pick-up" | "retrieve" | "sheathe" | "boost";
+    annotation: "combination" | "draw" | "grip" | "modular" | "pick-up" | "retrieve" | "sheathe" | "boost";
     hands?: ZeroToTwo;
 }
 
@@ -79,6 +79,8 @@ class WeaponAuxiliaryAction {
                     return [action === "interact" ? 1 : 0, "held", annotation];
                 case "sheathe":
                     return [1, "worn", annotation];
+                case "combination":
+                    return [1, null, annotation];
                 case "modular":
                     return [1, null, annotation];
                 case "drop":
@@ -117,6 +119,20 @@ class WeaponAuxiliaryAction {
 
     get options(): SheetOptions | null {
         const traits = this.weapon.system.traits;
+        if (this.annotation === "combination") {
+            const toggle = traits.toggles.combination;
+            if (!toggle) return null;
+            return R.mapToObj(toggle.options, (value) => [
+                value,
+                {
+                    value,
+                    label: _loc(
+                        value === "melee" ? "PF2E.Item.Weapon.MeleeUsage.Label" : "PF2E.Item.Weapon.RangedUsage.Label",
+                    ),
+                    selected: value === toggle.selected,
+                },
+            ]);
+        }
         if (this.annotation === "modular") {
             const toggles = traits.toggles.modular;
             if (!toggles) return null;
@@ -143,7 +159,7 @@ class WeaponAuxiliaryAction {
 
     /**
      * Execute an auxiliary action.
-     * [options.selection] A choice of some kind: currently only has meaning for modular trait toggling
+     * [options.selection] A choice of some kind: modular trait toggle or combination weapon mode
      */
     async execute({ selection = null }: { selection?: string | null } = {}): Promise<void> {
         const { actor, weapon } = this;
@@ -155,6 +171,12 @@ class WeaponAuxiliaryAction {
             await weapon.rule.toggleGrip(this.hands === 2 ? 2 : 1);
         } else if (this.carryType) {
             await actor.changeCarryType(this.weapon, { carryType: this.carryType, handsHeld: this.hands ?? 0 });
+        } else if (this.annotation === "combination" && (selection === "melee" || selection === "ranged")) {
+            const updated = await weapon.system.traits.toggles.update({
+                trait: "combination",
+                selected: selection,
+            });
+            if (!updated) return;
         } else if (selection && this.annotation === "modular" && selection) {
             const updated = await weapon.system.traits.toggles.update({
                 trait: "modular",
@@ -243,6 +265,14 @@ class WeaponAuxiliaryAction {
                 weapon: weapon.name,
                 shield: weapon.shield?.name ?? weapon.name,
                 modularConfig: modularConfig ? this.#getModularConfigLabel(modularConfig) : null,
+                combinationUsage:
+                    this.annotation === "combination" && (selection === "melee" || selection === "ranged")
+                        ? _loc(
+                              selection === "melee"
+                                  ? "PF2E.Item.Weapon.MeleeUsage.Label"
+                                  : "PF2E.Item.Weapon.RangedUsage.Label",
+                          )
+                        : null,
             }),
         });
 

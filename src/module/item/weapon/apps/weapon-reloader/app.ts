@@ -43,6 +43,7 @@ class WeaponReloader extends SvelteApplicationMixin<
     #anchorAppId: string | null = null;
     #anchorId: string | null = null;
     #hook: number | null = null;
+    #origin: { top: number; loaded: number } | null = null;
 
     /** A special close if clicked outside listener, pre-bound to "this" for add/remove support */
     #closeListener = (event: PointerEvent | KeyboardEvent | WheelEvent) => {
@@ -167,14 +168,23 @@ class WeaponReloader extends SvelteApplicationMixin<
 
     protected override _prePosition(position: fa.ApplicationPosition): void {
         super._prePosition(position);
-        const anchorId = this.#anchorId;
-        const target = anchorId ? document.querySelector(`[data-anchor-id="${anchorId}"]`) : null;
-        if (target && this.element.parentElement) {
-            const bounds = target.getBoundingClientRect();
-            const pad = fh.interaction.TooltipManager.TOOLTIP_MARGIN_PX;
-            position.left = bounds.left;
-            position.top = bounds.bottom + pad;
-        }
+        const sheet = this.#anchorAppId ? document.querySelector(`[data-appid="${this.#anchorAppId}"]`) : null;
+        const target = this.#anchorId
+            ? (sheet ?? document).querySelector(`[data-anchor-id="${this.#anchorId}"]`)
+            : null;
+        if (!target || !this.element.parentElement) return;
+
+        const bounds = target.getBoundingClientRect();
+        const pad = fh.interaction.TooltipManager.TOOLTIP_MARGIN_PX;
+        position.left = bounds.left;
+
+        const ammo = target.closest(".ammo");
+        const loaded = ammo ? ammo.querySelectorAll(".loaded") : [];
+        const chamber = loaded[0] ?? target;
+        const chamberHeight = chamber.getBoundingClientRect().height;
+        const origin = this.#origin ?? { top: bounds.bottom + pad, loaded: loaded.length };
+        this.#origin ??= origin;
+        position.top = origin.top + (loaded.length - origin.loaded) * chamberHeight;
     }
 
     protected override async _onFirstRender(
