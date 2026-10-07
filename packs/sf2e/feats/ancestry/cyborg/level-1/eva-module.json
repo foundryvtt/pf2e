@@ -1,0 +1,58 @@
+{
+    "_id": "gfvi2JVXeEfHrVIa",
+    "folder": "rwCmN7h3FIKUC2kt",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "EVA Module",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your frame is better equipped to deal with the vacuum of space, making you an ideal starship pilot or space explorer. You aren't clumsy while @UUID[Compendium.sf2e.conditions.Item.Untethered]. In addition, you gain the cosmic trait, meaning you don't need to breathe while in space or a vacuum and are immune to the harmful environmental effects of being in space.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "add": [
+                    "cosmic"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "penalty:slug:clumsy",
+                    "self:effect:untethered"
+                ],
+                "selector": "all",
+                "suppress": true
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "cyborg"
+            ]
+        }
+    },
+    "type": "feat"
+}
