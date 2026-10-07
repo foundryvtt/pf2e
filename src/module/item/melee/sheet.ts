@@ -1,6 +1,5 @@
 import type { DocumentSheetV1Options } from "@client/appv1/api/document-sheet-v1.d.mts";
 import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
-import { RUNE_DATA, prunePropertyRunes } from "@item/physical/runes.ts";
 import { EffectAreaShape } from "@item/types.ts";
 import { EFFECT_AREA_SHAPES } from "@item/values.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
@@ -23,14 +22,6 @@ export class MeleeSheetPF2e extends ItemSheetPF2e<MeleePF2e> {
             sheetData.data.damageRolls[key].damage = itemSource.system.damageRolls[key].damage;
         }
 
-        const propertyRunes = item.system.runes.property;
-        const sourcePropertyRunes = itemSource.system.runes?.property ?? [];
-        const propertyRuneSlots = Array.fromRange(4).map((i) => ({
-            slug: propertyRunes[i] ?? null,
-            adjusted: !!propertyRunes[i] && !sourcePropertyRunes.includes(propertyRunes[i]),
-            disabled: i > 0 && !propertyRunes[i - 1],
-        }));
-
         return {
             ...sheetData,
             attackActions: R.mapValues(NPC_ATTACK_ACTIONS, (a) => _loc(a)),
@@ -38,15 +29,10 @@ export class MeleeSheetPF2e extends ItemSheetPF2e<MeleePF2e> {
             damageTypes: CONFIG.PF2E.damageTypes,
             damageCategories: damageCategoriesUnique,
             attackEffects: createSheetOptions(this.getAttackEffectOptions(), item.system.attackEffects),
+            linkFromWeapon: item.flags[SYSTEM_ID].linkFromWeapon !== false,
             modifierOrSave: {
                 label: _loc(`PF2E.Actor.NPC.BonusLabel.${isCheck ? "modifier" : "save"}`),
                 value: item.system.bonus.value + (isCheck ? 0 : 10),
-            },
-            propertyRuneSlots,
-            runeTypes: {
-                property: Object.values(RUNE_DATA.weapon.property)
-                    .map((rune) => ({ slug: rune.slug, name: _loc(rune.name) }))
-                    .sort((a, b) => a.name.localeCompare(b.name)),
             },
         };
     }
@@ -96,24 +82,10 @@ export class MeleeSheetPF2e extends ItemSheetPF2e<MeleePF2e> {
             formData["system.range.max"] = null;
         }
 
-        const propertyRuneIndices = [0, 1, 2, 3] as const;
-        const sourcePropertyRunes = this.item._source.system.runes?.property ?? [];
-        const propertyRuneUpdates = propertyRuneIndices.flatMap((i) => {
-            const key = `system.runes.property.${i}`;
-            if (!(key in formData)) return [];
-            const sourceValue = sourcePropertyRunes[i];
-            const wasAdjusted = formData[key] !== sourceValue;
-            const isEventSource = event.target && "name" in event.target && event.target.name === key;
-            return (wasAdjusted && !isEventSource ? sourceValue : formData[key]) ?? [];
-        });
-        if (propertyRuneUpdates.length > 0) {
-            formData["system.runes.property"] = prunePropertyRunes(
-                propertyRuneUpdates.filter((rune): rune is string => typeof rune === "string" && !!rune),
-                RUNE_DATA.weapon.property,
-            );
-            for (const index of propertyRuneIndices) {
-                delete formData[`system.runes.property.${index}`];
-            }
+        // Checked removes the flag so the default stays "inherit". Unchecked stores the opt-out.
+        if (this.item.linkedWeapon) {
+            const key = `flags.${SYSTEM_ID}.linkFromWeapon`;
+            formData[key] = formData[key] ? _del : false;
         }
 
         return super._updateObject(event, formData);
@@ -126,19 +98,11 @@ interface MeleeSheetData extends ItemSheetDataPF2e<MeleePF2e> {
     damageTypes: ConfigPF2e["PF2E"]["damageTypes"];
     damageCategories: Record<DamageCategoryUnique, string>;
     attackEffects: SheetOptions;
+    /** True unless the attack has opted out of copying runes and material from its linked weapon */
+    linkFromWeapon: boolean;
     /** The statistic value to display, based on whether it is a check or a save */
     modifierOrSave: {
         label: string;
         value: number;
     };
-    propertyRuneSlots: PropertyRuneSheetSlot[];
-    runeTypes: {
-        property: { slug: string; name: string }[];
-    };
-}
-
-interface PropertyRuneSheetSlot {
-    slug: string | null;
-    adjusted: boolean;
-    disabled: boolean;
 }

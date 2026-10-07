@@ -817,7 +817,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 },
                 rules: fu.deepClone(this._source.system.rules),
                 range: !isThrown && (rangeData.increment || rangeData.max) ? rangeData : null,
-                runes: { property: [...this.system.runes.property] },
             },
             flags: { [SYSTEM_ID]: { linkedWeapon: this.id } },
         };
@@ -828,6 +827,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         attack.category = this.category;
         attack.group = this.group;
         attack.baseType = this.baseType;
+        if (attack.flags[SYSTEM_ID].linkFromWeapon !== false) {
+            attack.applyLinkedWeaponProperties(this);
+        }
 
         return [attack, ...this.getAltUsages({ recurse: false }).flatMap((u) => u.toNPCAttacks())];
     }

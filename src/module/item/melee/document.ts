@@ -111,6 +111,12 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return item?.isOfType("weapon") ? item : null;
     }
 
+    applyLinkedWeaponProperties(weapon: WeaponPF2e): void {
+        const { type, grade, effects } = weapon.system.material;
+        this.system.runes.property = [...weapon.system.runes.property];
+        this.system.material = { type, grade, effects: [...effects] };
+    }
+
     protected override _initialize(options?: Record<string, unknown>): void {
         this.category = this.group = this.baseType = null;
         super._initialize(options);
@@ -135,6 +141,10 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         this.baseType = tupleHasValue(["claw", "fist", "jaws"], this.slug)
             ? this.slug
             : (linkedWeapon?.baseType ?? null);
+
+        if (linkedWeapon && this.flags[SYSTEM_ID].linkFromWeapon !== false) {
+            this.applyLinkedWeaponProperties(linkedWeapon);
+        }
     }
 
     override onPrepareSynthetics(this: MeleePF2e<ActorPF2e>): void {
