@@ -1,8 +1,8 @@
 import type { RollRole } from "@actor/roll-context/types.ts";
-import { ActorAlliance, ActorDimensions, ActorInstances, ApplyDamageParams, AuraData, SaveType } from "@actor/types.ts";
+import { ActorAlliance, ActorInstances, ApplyDamageParams, AuraData, SaveType } from "@actor/types.ts";
 import type { ToCompendiumOptions } from "@client/_types.d.mts";
 import type { DialogV2Configuration } from "@client/applications/api/dialog.d.mts";
-import type { ActorUUID } from "@client/documents/_module.d.mts";
+import type { ActiveEffectChangeData, ActorUUID } from "@client/documents/_module.d.mts";
 import type { DocumentConstructionContext } from "@common/_types.d.mts";
 import type {
     DatabaseCreateOperation,
@@ -214,19 +214,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     get size(): Size {
         return this.system.traits?.size?.value ?? "med";
-    }
-
-    /**
-     * With the exception of vehicles, actor heights aren't specified. For the purpose of three-dimensional
-     * token-distance measurement, however, the system will generally treat actors as cubes.
-     */
-    get dimensions(): ActorDimensions {
-        const size = this.system.traits?.size ?? new ActorSizePF2e({ value: "med" });
-        return {
-            length: size.long,
-            width: size.wide,
-            height: Math.min(size.long, size.wide),
-        };
     }
 
     /**
@@ -835,7 +822,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         details.level.value = Math.floor(details.level.value) || 0;
 
         const traits: ActorTraitsData<string> | undefined = this.system.traits;
-        if (traits?.size) traits.size = new ActorSizePF2e(traits.size);
+        if (R.isPlainObject(traits?.size)) traits.size = new ActorSizePF2e(traits.size);
 
         // Setup the basic structure of pf2e flags with roll options
         this.flags[SYSTEM_ID] = fu.mergeObject(this.flags[SYSTEM_ID] ?? {}, {
@@ -869,6 +856,42 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         for (const rule of this.rules) {
             rule.onApplyActiveEffects?.();
         }
+    }
+
+    override applyActiveEffects(phase: string): void {
+        super.applyActiveEffects(phase);
+        if (phase !== "final") return;
+
+        // Creature all changes during the final phase for the actor but initial phase for tokens: rule elements
+        // override by using the final phase for tokens
+        const changes = this.tokenActiveEffectChanges.initial ?? [];
+        const baseChange: ActiveEffectChangeData = { type: "override", priority: 50, phase: "initial" };
+
+        // Set disposition according to actor alliance
+        const dispositionChange = { ...baseChange, key: "disposition" };
+        switch (this.alliance) {
+            case "party":
+                dispositionChange.value = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
+                break;
+            case "opposition":
+                dispositionChange.value = CONST.TOKEN_DISPOSITIONS.HOSTILE;
+                break;
+            default:
+                dispositionChange.value = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
+        }
+        changes.push(dispositionChange);
+
+        const size = this.system.traits?.size;
+        if (!size) return;
+        const dimensions = size.tokenDimensions;
+        const scale = size.value === "sm" ? 0.8 : 1;
+        changes.push(
+            { ...baseChange, key: "width", value: dimensions.width },
+            { ...baseChange, key: "height", value: dimensions.height },
+            { ...baseChange, key: "depth", value: dimensions.depth },
+            { ...baseChange, key: "texture.scaleX", value: scale },
+            { ...baseChange, key: "texture.scaleY", value: scale },
+        );
     }
 
     /** Prepare data among owned items as well as actor-data preparation performed by items */

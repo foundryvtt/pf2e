@@ -8,13 +8,14 @@ import { ActorSpellcasting } from "@actor/spellcasting.ts";
 import type { MovementType, SaveType, SkillSlug } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, MOVEMENT_TYPES } from "@actor/values.ts";
 import type { Rolled } from "@client/dice/_module.d.mts";
+import type { ActiveEffectChangeData } from "@client/documents/_types.d.mts";
 import type {
     DatabaseDeleteCallbackOptions,
     DatabaseDeleteOperation,
     DatabaseUpdateOperation,
 } from "@common/abstract/_types.d.mts";
 import { ArmorPF2e, ItemPF2e, PhysicalItemPF2e, ShieldPF2e, SpellcastingEntryPF2e } from "@item";
-import { ArmorSource } from "@item/base/data/index.ts";
+import type { ArmorSource } from "@item/base/data/index.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import type { EquippedData, ItemCarryType } from "@item/physical/data.ts";
 import { isEquipped } from "@item/physical/usage.ts";
@@ -449,6 +450,42 @@ abstract class CreaturePF2e<
         this.spellcasting ??= new ActorSpellcasting(this);
         this.spellcasting.initialize([...this.itemTypes.spellcastingEntry, new RitualSpellcasting(this)]);
         super.prepareDataFromItems();
+    }
+
+    override applyActiveEffects(phase: string): void {
+        super.applyActiveEffects(phase);
+        if (phase !== "final") return;
+
+        // Prepare token AE changes from perception
+        const changes = (this.tokenActiveEffectChanges.final ??= []);
+        const baseChange: ActiveEffectChangeData = { type: "override", priority: 9, phase: "final" };
+        const { perception, hasDarkvision } = this;
+        const basicSight = { enabled: perception.hasVision, range: hasDarkvision ? null : 0 };
+        const lightPerception = { enabled: perception.hasVision, range: null };
+        const hearing = { enabled: !this.hasCondition("deafened"), range: null };
+        changes.push(
+            { ...baseChange, key: "detectionModes.basicSight", value: basicSight },
+            { ...baseChange, key: "detectionModes.lightPerception", value: lightPerception },
+            { ...baseChange, key: "detectionModes.hearing", value: hearing },
+            { ...baseChange, key: "sight.visionMode", value: hasDarkvision ? "darkvision" : "basic" },
+        );
+        if (hasDarkvision) {
+            changes.push({ ...baseChange, key: "sight.range", value: null });
+            if (this.flags[SYSTEM_ID].colorDarkvision) {
+                changes.push({ ...baseChange, key: "sight.saturation", value: 1 });
+            } else if (!game.user.settings.monochromeDarkvision) {
+                changes.push({ ...baseChange, key: "sight.saturation", value: 0 });
+            }
+        }
+        if (perception.senses.has("see-invisibility")) {
+            const value = { enabled: !this.hasCondition("blinded"), range: null };
+            changes.push({ ...baseChange, key: "detectionModes.seeInvisibility", value });
+        }
+        const tremorsense = perception.senses.get("tremorsense");
+        if (tremorsense) {
+            const value = { enabled: true, range: tremorsense.range };
+            changes.push({ ...baseChange, key: "detectionModes.feelTremor", value });
+        }
     }
 
     override prepareDerivedData(): void {
