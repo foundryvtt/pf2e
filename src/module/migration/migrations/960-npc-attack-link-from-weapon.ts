@@ -19,6 +19,6 @@ export class Migration960NPCAttackLinkFromWeapon extends MigrationBase {
         const damageRolls = source.system.damageRolls;
         if (!R.isPlainObject(damageRolls) || Object.keys(damageRolls).length < 2) return;
 
-        flags.synchWeaponProperties = false;
+        flags.syncWeaponProperties = false;
     }
 }
