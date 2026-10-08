@@ -4,8 +4,9 @@ import type { Rolled } from "@client/dice/_module.d.mts";
 import { applyIWRToInput, type IWRApplication, type IWRInput } from "./applied-damage.ts";
 import type { DamageInstance, DamageRoll } from "./roll.ts";
 
-/** Apply an actor's IWR to an evaluated damage roll */
+/** Apply an actor's IWR applications to an evaluated damage roll's instances */
 function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<string>): IWRApplicationData {
+    // Skip the whole exercise if the actor is dead
     if (actor.isDead) {
         return { finalDamage: 0, applications: [], persistent: [] };
     }

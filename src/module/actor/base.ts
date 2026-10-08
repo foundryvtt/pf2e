@@ -1042,17 +1042,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
     }
 
-    /** Damage resolved through IWR, before shield, hardness, and hit points */
-    #getIWRInput(damage: ApplyDamageParams["damage"], skipIWR: boolean, rollOptions: Set<string>): IWRApplicationData {
-        if (typeof damage === "number") {
-            return { finalDamage: Math.trunc(damage), applications: [], persistent: [] };
-        }
-        if (skipIWR) {
-            return { finalDamage: damage.total, applications: [], persistent: [] };
-        }
-        return applyIWR(this, damage, rollOptions);
-    }
-
     /**
      * Apply rolled dice damage to the token or tokens which are currently controlled.
      * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
@@ -1081,7 +1070,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
 
         // Round damage and healing (negative values) toward zero
-        const result = this.#getIWRInput(damage, skipIWR, rollOptions);
+        const result: IWRApplicationData =
+            typeof damage === "number"
+                ? { finalDamage: Math.trunc(damage), applications: [], persistent: [] }
+                : skipIWR
+                  ? { finalDamage: damage.total, applications: [], persistent: [] }
+                  : applyIWR(this, damage, rollOptions);
 
         // Extract Target-specific healing adjustments (unless final)
         // Currently only healing modifiers are implemented
@@ -1131,7 +1125,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         // Apply stacking rules just in case even though the context of previously applied modifiers has been lost
         const modifierAdjustment = applyStackingRules(modifiers ?? []);
 
-        // Add adjustments to breakdown
         breakdown.push(
             ...damageDice.map((dice) => `${dice.label} ${dice.diceNumber}${dice.dieSize}`),
             ...modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${signedInteger(m.modifier)}`),
