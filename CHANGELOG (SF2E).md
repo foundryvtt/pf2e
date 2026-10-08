@@ -1,3 +1,62 @@
+## 1.6.0
+
+### Highlights
+
+- (Ambrose, Mecha Maya, Rigo, Tikael) Add Tech Core content
+
+### System Improvements
+
+- (Chromatic Penguin) Add `affects` option to `AdjustDegreeOfSuccess`
+- (Chromatic Penguin) Add temporary HP roll options
+- (Chromatic Penguin) Use listed damage for PC Strike REs with a fixed attack modifier
+- (Dantar) Allow Strike RE for PCs to use own or fixed attack modifier
+- (Dantar) Brush up persistent damage chat card
+- (Dantar) Show travel speed breakdown tooltip
+- (Idle) Add `preselectChoices` to auras
+- (kromko) Apply derived feat traits in compendium browser filters
+- (kromko) Improve feat embed headings and support a generic feature level label
+- (stwlam) Make RE-created lore skills non-editable from PC and NPC sheets
+- (stwlam) Prepare base data of lore skills early enough for AE-likes
+- (Supe) Close tooltip when opening scene darkness slider
+
+### Bugfixes
+
+- (Ambrose) Fix localization for World Clock settings in Scene config
+- (Chromatic Penguin) Allow null NPC skill bases and show the resolved modifier as placeholder
+- (Chromatic Penguin) Always give magazine weapons a capacity of 1
+- (Chromatic Penguin) Brush up compendium browser accessibility and theming
+- (Chromatic Penguin) Fix class features without a source ID not being granted on level up
+- (Chromatic Penguin) Fix logo border and PF logo showing on SF limited character sheet
+- (Chromatic Penguin) Fix mirrored tokens ignoring scale in chat portraits
+- (Chromatic Penguin) Keep drag data for content links in detached and AppV2 windows
+- (HeliumAnt) Fix parchment backgrounds when served under a route prefix
+- (kromko) Strip special characters and lower diacritic marks in ABC Picker search
+- (stwlam) Check that token is on viewed level in `TokenPF2e#_isVisionSource`
+- (stwlam) Handle unquantified Reach trait when determining reach of NPC attacks
+- (stwlam) Honor `Scene#environment#darknessLock` in `ScenePF2e#darknessSyncedToTime`
+
+### Data Updates
+
+- (kromko) Change SF archetypes journal to use enhanced feat embeds
+- (kromko) Clean up some equipment effects
+- (kromko) Consolidate some lores
+- (kromko) Fix a few embedded item sources
+- (kromko) Fix some broken links
+- (kromko) Fix typo in Blinding Awe description
+- (kromko) Remove inline checks and links from trait descriptions
+- (Longstrider) Add Medicinal Trinket effect
+- (Longstrider) Add missing traits to Strength in Numbers
+- (Longstrider) Add Nightmare spell link to Desna entries
+- (Longstrider) Brush up brenneri, copaxi, fonqugon, formian, ijtikri, izalguun, madrosarai, maraquoi, moyishuu, and novian feats
+- (Longstrider) Brush up Secrets of the Swarm item descriptions
+- (steve148) Fix functionary's mask rarity
+- (theksi) Add actors and items from Starfinder Society scenarios 2-01 through 2-06
+- (Tikael) Clean up and localize background lore skills
+
+### Under the Hood
+
+- (stwlam) Consolidate perception preparation among creature actors
+
 ## 1.5.1
 
 ### System Improvements
