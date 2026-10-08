@@ -73,12 +73,12 @@
         <div class="form-fields">
             {{#if document.linkedWeapon}}
                 <span>{{document.linkedWeapon.name}}</span>
-                <label for="{{fieldIdPrefix}}link-from-weapon">{{localize "PF2E.Item.NPCAttack.LinkFromWeapon"}}</label>
+                <label for="{{fieldIdPrefix}}synch-weapon-properties">{{localize "PF2E.Item.NPCAttack.SynchWeaponProperties"}}</label>
                 <input
                     type="checkbox"
-                    name="flags.pf2e.linkFromWeapon"
-                    id="{{fieldIdPrefix}}link-from-weapon"
-                    {{checked linkFromWeapon}}
+                    name="flags.pf2e.synchWeaponProperties"
+                    id="{{fieldIdPrefix}}synch-weapon-properties"
+                    {{checked synchWeaponProperties}}
                 />
             {{else}}
                 {{localize "PF2E.NoneOption"}}

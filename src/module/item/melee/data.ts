@@ -27,9 +27,9 @@ type MeleeSource = BaseItemSourcePF2e<"melee", MeleeSystemSource> & {
 
 type MeleeFlags = ItemFlagsPF2e & {
     [SYSTEM_ID]: {
-        /** When `false`, do not copy runes and material from the linked weapon. Absent treated as `true`. */
-        linkFromWeapon?: boolean;
         linkedWeapon?: string;
+        /** When `false`, do not copy runes and material from `linkedWeapon`. Absent is prepared to `true`. */
+        synchWeaponProperties?: boolean;
     };
 };
 
