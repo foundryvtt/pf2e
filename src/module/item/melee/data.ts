@@ -38,7 +38,7 @@ class MeleeSystemData extends ItemSystemModel<MeleePF2e, NPCAttackSystemSchema> 
 
     declare material: WeaponMaterialData;
 
-    /** In-memory property runes. Filled from a linked weapon, then extended by AdjustStrike. */
+    /** In-memory property runes. Filled from a linked weapon, then extended by rule elements. */
     declare runes: { property: WeaponPropertyRuneType[] };
 
     static override defineSchema(): NPCAttackSystemSchema {
