@@ -2185,10 +2185,6 @@
                     "3MTzT5IYvPbosxsB": {
                         "damage": "2d10+13",
                         "damageType": "slashing"
-                    },
-                    "hesmgSFnkPG6xa36": {
-                        "damage": "1d6",
-                        "damageType": "bleed"
                     }
                 },
                 "description": {
@@ -2200,7 +2196,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "wounding"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
