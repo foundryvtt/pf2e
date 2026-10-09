@@ -120,10 +120,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElement<TSchem
         }
 
         if (this.mode === "add" && Array.isArray(current)) {
-            const duplicate =
-                current.includes(newValue) ||
-                (R.isPlainObject(newValue) && current.some((entry) => R.isDeepEqual(entry, newValue)));
-            if (!duplicate) current.push(newValue);
+            if (!current.some((e) => R.isDeepEqual(e, newValue))) current.push(newValue);
         } else if (["subtract", "remove"].includes(this.mode) && Array.isArray(current)) {
             current.splice(current.indexOf(newValue), 1);
         } else {
