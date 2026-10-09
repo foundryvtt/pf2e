@@ -507,11 +507,6 @@
                     "QumYmpcLbs2hI2hq": {
                         "damage": "3d4+7",
                         "damageType": "slashing"
-                    },
-                    "pAJqTZ7IVbzYFTZn": {
-                        "category": "persistent",
-                        "damage": "1d6",
-                        "damageType": "bleed"
                     }
                 },
                 "description": {
@@ -523,7 +518,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "wounding"
+                    }
+                ],
                 "slug": "war-razor",
                 "traits": {
                     "value": [

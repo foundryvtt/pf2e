@@ -880,11 +880,6 @@
                     "value": 36
                 },
                 "damageRolls": {
-                    "HYnAw4l6QM4W5nu7": {
-                        "category": "persistent",
-                        "damage": "1d6",
-                        "damageType": "bleed"
-                    },
                     "uzuYZA9QtIzlomJm": {
                         "damage": "3d6+14",
                         "damageType": "piercing"
@@ -899,11 +894,31 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "keen"
+                    },
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "wounding"
+                    }
+                ],
                 "slug": "shortsword",
                 "traits": {
                     "value": [
                         "agile",
+                        "dawnsilver",
                         "finesse",
                         "magical",
                         "versatile-s"

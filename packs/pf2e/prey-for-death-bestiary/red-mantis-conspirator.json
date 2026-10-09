@@ -940,11 +940,6 @@
                     "value": 27
                 },
                 "damageRolls": {
-                    "BfxJ8a04u2nCxgjK": {
-                        "category": "persistent",
-                        "damage": "1d6",
-                        "damageType": "bleed"
-                    },
                     "s1UIwPRWnLGSCk1b": {
                         "damage": "2d6+7",
                         "damageType": "slashing"
@@ -959,7 +954,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "wounding"
+                    }
+                ],
                 "slug": "sawtooth-saber",
                 "traits": {
                     "value": [

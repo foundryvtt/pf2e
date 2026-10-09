@@ -3923,18 +3923,9 @@
                     "value": 39
                 },
                 "damageRolls": {
-                    "d2OsICYr6majuqN0": {
-                        "damage": "1d4",
-                        "damageType": "spirit"
-                    },
                     "nqnvwxEofoowV3fj": {
                         "damage": "3d4+16",
                         "damageType": "piercing"
-                    },
-                    "tbS0rfujtFTDEzr0": {
-                        "category": "persistent",
-                        "damage": "1d6",
-                        "damageType": "bleed"
                     }
                 },
                 "description": {
@@ -3946,7 +3937,26 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "wounding"
+                    },
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "unholy"
+                    }
+                ],
                 "slug": "dagger",
                 "traits": {
                     "value": [

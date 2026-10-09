@@ -370,10 +370,6 @@
                     "0": {
                         "damage": "3d6+13",
                         "damageType": "slashing"
-                    },
-                    "n3fg8uxtmtrbylc9zkfi": {
-                        "damage": "2d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -690,7 +686,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The peri can call forth a powerful weapon from their heart of flame. In their hands, this is a <em>+2 @UUID[Compendium.pf2e.equipment-srd.Item.Flaming (Greater)]{Greater Flaming} greater striking weapon</em> that deals @Damage[2d6[fire]] damage instead of 1d6.</p>"
+                    "value": "<p>The peri can call forth a powerful weapon from their heart of flame. In their hands, this is a <em>+2 @UUID[Compendium.pf2e.equipment-srd.Item.Flaming (Greater)]{Greater Flaming} greater striking weapon</em> that deals 2d6 fire damage instead of 1d6.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -699,24 +695,28 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
+                        "definition": [
+                            "item:slug:scimitar"
                         ],
-                        "selector": "scimitar-damage",
-                        "text": "PF2E.WeaponPropertyRune.greaterFlaming.Note.success",
-                        "title": "{item|name}",
-                        "visibility": "owner"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greaterFlaming"
                     },
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            {
+                                "not": "damage:category:persistent"
+                            }
                         ],
-                        "selector": "scimitar-damage",
-                        "text": "PF2E.WeaponPropertyRune.greaterFlaming.Note.criticalSuccess",
-                        "title": "{item|name}",
-                        "visibility": "owner"
+                        "property": "dice-number",
+                        "selectors": [
+                            "scimitar-damage"
+                        ],
+                        "slug": "greater-flaming",
+                        "value": 2
                     }
                 ],
                 "slug": null,

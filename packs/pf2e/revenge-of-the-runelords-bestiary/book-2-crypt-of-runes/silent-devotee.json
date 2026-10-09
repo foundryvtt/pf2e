@@ -219,11 +219,6 @@
                     "1g7O9IrOEyu87Ucf": {
                         "damage": "2d8+13",
                         "damageType": "slashing"
-                    },
-                    "DzK0G4yDjV0CLwvu": {
-                        "category": "persistent",
-                        "damage": "1d6",
-                        "damageType": "bleed"
                     }
                 },
                 "description": {
@@ -235,7 +230,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "wounding"
+                    }
+                ],
                 "slug": "longsword",
                 "traits": {
                     "value": [

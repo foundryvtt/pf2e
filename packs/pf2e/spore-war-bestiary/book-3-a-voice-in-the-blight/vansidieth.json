@@ -1473,10 +1473,6 @@
                     "JVoSIYwvKuplXbRE": {
                         "damage": "3d8+15",
                         "damageType": "slashing"
-                    },
-                    "Tzi1AUDI0l86qSOl": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -1506,6 +1502,15 @@
                             "two-handed"
                         ],
                         "selector": "{item|_id}-damage"
+                    },
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greaterFlaming"
                     }
                 ],
                 "slug": "bastard-sword",

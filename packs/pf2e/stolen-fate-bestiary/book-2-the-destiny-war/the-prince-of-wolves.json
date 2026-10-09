@@ -1247,11 +1247,6 @@
                     "HYQXln9Ey5EioVMA": {
                         "damage": "3d6+15",
                         "damageType": "bludgeoning"
-                    },
-                    "L09rFa8Svn2GlZAI": {
-                        "category": "persistent",
-                        "damage": "1d6",
-                        "damageType": "bleed"
                     }
                 },
                 "description": {
@@ -1263,7 +1258,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "wounding"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [

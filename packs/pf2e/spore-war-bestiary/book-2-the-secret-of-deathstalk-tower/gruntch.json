@@ -723,7 +723,7 @@
                 "runes": {
                     "potency": 2,
                     "property": [
-                        "thundering"
+                        "greaterThundering"
                     ],
                     "striking": 2
                 },
@@ -759,13 +759,13 @@
                     "value": 33
                 },
                 "damageRolls": {
-                    "VHzb2WH5R5iHSiZS": {
-                        "damage": "2d6",
-                        "damageType": "mental"
-                    },
-                    "yWV43UKeCVjN1Gg5": {
+                    "0": {
                         "damage": "3d10+15",
                         "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "2d6",
+                        "damageType": "mental"
                     }
                 },
                 "description": {
@@ -895,10 +895,6 @@
                         "damage": "3d8+15",
                         "damageType": "slashing"
                     },
-                    "qb8mdpg06Yh9eU7y": {
-                        "damage": "1d6",
-                        "damageType": "sonic"
-                    },
                     "s1rNdmL2PoP0XQXD": {
                         "damage": "2d6",
                         "damageType": "mental"
@@ -913,7 +909,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greaterThundering"
+                    }
+                ],
                 "slug": "battle-axe",
                 "traits": {
                     "value": [

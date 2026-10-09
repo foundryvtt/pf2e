@@ -569,10 +569,6 @@
                     "5ooxDTdUCAML6E1L": {
                         "damage": "3d6+11",
                         "damageType": "bludgeoning"
-                    },
-                    "BX9VwGT6oOcEQC9X": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -584,7 +580,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
+                    }
+                ],
                 "slug": "flail",
                 "traits": {
                     "value": [

@@ -1163,10 +1163,6 @@
                     "55rMuoiWt7CHu9sY": {
                         "damage": "2d6+11",
                         "damageType": "bludgeoning"
-                    },
-                    "wilixBzV2uY5sWUf": {
-                        "damage": "1d6",
-                        "damageType": "mental"
                     }
                 },
                 "description": {
@@ -1178,7 +1174,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "nightmare"
+                    }
+                ],
                 "slug": "flail",
                 "traits": {
                     "value": [

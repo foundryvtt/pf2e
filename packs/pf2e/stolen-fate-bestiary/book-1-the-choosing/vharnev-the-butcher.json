@@ -1550,11 +1550,6 @@
                     "value": 23
                 },
                 "damageRolls": {
-                    "eVDuOpSLIDfPi7zH": {
-                        "category": "persistent",
-                        "damage": "1d6",
-                        "damageType": "bleed"
-                    },
                     "ziej7h69AaZeicpO": {
                         "damage": "2d8 + 11",
                         "damageType": "slashing"
@@ -1569,7 +1564,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "wounding"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [

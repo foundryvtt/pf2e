@@ -2419,10 +2419,6 @@
                     "dmu9r7m738kq9r119141": {
                         "damage": "2d12+12",
                         "damageType": "bludgeoning"
-                    },
-                    "c1ajgvdh5adwbx5y0ubm": {
-                        "damage": "1d6",
-                        "damageType": "sonic"
                     }
                 },
                 "description": {
@@ -2434,7 +2430,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "thundering"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

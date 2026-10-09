@@ -499,10 +499,6 @@
                     "MEWRnndX5KpKbykZ": {
                         "damage": "5d8+18",
                         "damageType": "bludgeoning"
-                    },
-                    "biYgvxjEFQ3zOpMf": {
-                        "damage": "2d10",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -546,10 +542,6 @@
                     "value": 34
                 },
                 "damageRolls": {
-                    "0j5YNpNuJQaKJsip": {
-                        "damage": "2d10",
-                        "damageType": "fire"
-                    },
                     "lgbJiIOaiUcB2xR2": {
                         "damage": "6d6+18",
                         "damageType": "piercing"
@@ -594,10 +586,6 @@
                     "value": 38
                 },
                 "damageRolls": {
-                    "azsbQd5UZdlcWNEt": {
-                        "damage": "2d10",
-                        "damageType": "fire"
-                    },
                     "qU6eXMSu8qpEfOf4": {
                         "damage": "6d8+18",
                         "damageType": "slashing"
@@ -1009,13 +997,40 @@
                 },
                 "rules": [
                     {
-                        "category": "persistent",
-                        "critical": true,
-                        "damageType": "fire",
-                        "diceNumber": 2,
-                        "dieSize": "d10",
-                        "key": "DamageDice",
-                        "selector": "strike-damage"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greaterFlaming"
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            {
+                                "not": "damage:category:persistent"
+                            }
+                        ],
+                        "property": "dice-number",
+                        "selectors": [
+                            "strike-damage"
+                        ],
+                        "slug": "greater-flaming",
+                        "value": 2
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            {
+                                "not": "damage:category:persistent"
+                            }
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "strike-damage"
+                        ],
+                        "slug": "greater-flaming",
+                        "value": 10
                     }
                 ],
                 "slug": "graveknight-ruinous-weapons",

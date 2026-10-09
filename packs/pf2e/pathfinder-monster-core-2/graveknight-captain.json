@@ -255,10 +255,6 @@
                     "pUyiqNRL2wKcYeW7": {
                         "damage": "2d8+7",
                         "damageType": "bludgeoning"
-                    },
-                    "yB0LiVGYDER6L8U8": {
-                        "damage": "1d6",
-                        "damageType": "acid"
                     }
                 },
                 "description": {
@@ -298,10 +294,6 @@
                     "m523gk7118lgycj8zje6": {
                         "damage": "2d4+7",
                         "damageType": "bludgeoning"
-                    },
-                    "7sm8jukyn4uk1iyfdern": {
-                        "damage": "1d6",
-                        "damageType": "acid"
                     }
                 },
                 "description": {
@@ -319,6 +311,7 @@
                     "value": [
                         "acid",
                         "agile",
+                        "magical",
                         "unarmed"
                     ]
                 }
@@ -533,14 +526,21 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any weapon or unarmed attack the graveknight uses gains the effects of a +1 striking weapon and a caustic weapon rune.</p>"
+                    "value": "<p>Any weapon or unarmed attack the graveknight uses gains the effects of a <em>+1 striking</em> weapon and a <em>caustic</em> weapon rune.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "corrosive"
+                    }
+                ],
                 "slug": "graveknight-ruinous-weapons",
                 "traits": {
                     "value": []

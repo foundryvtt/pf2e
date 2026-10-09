@@ -1441,10 +1441,6 @@
                     "0": {
                         "damage": "3d6+16",
                         "damageType": "bludgeoning"
-                    },
-                    "1": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -1462,6 +1458,7 @@
                     "value": [
                         "agile",
                         "fire",
+                        "magical",
                         "unarmed"
                     ]
                 }
@@ -1735,7 +1732,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any weapon or unarmed attack the graveknight uses gains the effects of a +1 greater striking weapon and a greater flaming weapon rune.</p>"
+                    "value": "<p>Any weapon or unarmed attack the graveknight uses gains the effects of a <em>+1 greater striking</em> weapon and a <em>greater flaming</em> weapon rune.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1744,15 +1741,10 @@
                 },
                 "rules": [
                     {
-                        "definition": [
-                            {
-                                "not": "item:category:unarmed"
-                            }
-                        ],
                         "key": "AdjustStrike",
                         "mode": "add",
                         "property": "property-runes",
-                        "value": "greater-flaming"
+                        "value": "greaterFlaming"
                     }
                 ],
                 "slug": "graveknight-ruinous-weapons",

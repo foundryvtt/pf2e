@@ -692,7 +692,7 @@
                 "runes": {
                     "potency": 3,
                     "property": [
-                        "astral",
+                        "greaterAstral",
                         "greaterDecaying"
                     ],
                     "striking": 2
@@ -887,14 +887,6 @@
                     "dagOJrj3n8XSzn7m": {
                         "damage": "3d8+16",
                         "damageType": "piercing"
-                    },
-                    "j3uJeV7F5shsGVgB": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    },
-                    "jPkChCLBXpuEVzpj": {
-                        "damage": "1d4",
-                        "damageType": "void"
                     }
                 },
                 "description": {
@@ -906,7 +898,26 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greaterAstral"
+                    },
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greaterDecaying"
+                    }
+                ],
                 "slug": "trident",
                 "traits": {
                     "value": [

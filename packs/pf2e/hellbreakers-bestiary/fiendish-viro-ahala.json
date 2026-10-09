@@ -536,10 +536,6 @@
                     "D1bgoNtIQEiMnZbs": {
                         "damage": "1d8+9",
                         "damageType": "slashing"
-                    },
-                    "m7RdDDCfYlxly5yh": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -553,25 +549,13 @@
                 "range": null,
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
+                        "definition": [
+                            "item:id:{item|_id}"
                         ],
-                        "selector": [
-                            "{item|id}-damage"
-                        ],
-                        "text": "PF2E.WeaponPropertyRune.flaming.Note.criticalSuccess",
-                        "title": "PF2E.WeaponPropertyRune.flaming.Name"
-                    },
-                    {
-                        "category": "persistent",
-                        "critical": true,
-                        "damageType": "fire",
-                        "diceNumber": 1,
-                        "dieSize": "d10",
-                        "key": "DamageDice",
-                        "label": "PF2E.WeaponPropertyRune.flaming.Name",
-                        "selector": "strike-damage"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
                     }
                 ],
                 "slug": "longsword",

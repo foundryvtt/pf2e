@@ -398,10 +398,6 @@
                     "0": {
                         "damage": "3d6+16",
                         "damageType": "slashing"
-                    },
-                    "n3fg8uxtmtrbylc9zkfi": {
-                        "damage": "4d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -743,24 +739,28 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
+                        "definition": [
+                            "item:slug:scimitar"
                         ],
-                        "selector": "scimitar-damage",
-                        "text": "PF2E.WeaponPropertyRune.greaterFlaming.Note.success",
-                        "title": "{item|name}",
-                        "visibility": "owner"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greaterFlaming"
                     },
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            {
+                                "not": "damage:category:persistent"
+                            }
                         ],
-                        "selector": "scimitar-damage",
-                        "text": "PF2E.WeaponPropertyRune.greaterFlaming.Note.criticalSuccess",
-                        "title": "{item|name}",
-                        "visibility": "owner"
+                        "property": "dice-number",
+                        "selectors": [
+                            "scimitar-damage"
+                        ],
+                        "slug": "greater-flaming",
+                        "value": 4
                     }
                 ],
                 "slug": null,

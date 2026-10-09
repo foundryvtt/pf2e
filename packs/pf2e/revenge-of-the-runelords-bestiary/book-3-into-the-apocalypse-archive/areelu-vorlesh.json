@@ -1197,7 +1197,7 @@
                 }
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
+            "name": "Astral Unholy Dagger",
             "sort": 1600000,
             "system": {
                 "attackEffects": {
@@ -1207,14 +1207,6 @@
                     "value": 39
                 },
                 "damageRolls": {
-                    "15jgHAOtFk0O35tW": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    },
-                    "CTqVezUfezkxLF2h": {
-                        "damage": "1d4",
-                        "damageType": "spirit"
-                    },
                     "XhId1kiZ58xNx2Kc": {
                         "damage": "4d4+12",
                         "damageType": "piercing"
@@ -1228,12 +1220,32 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greaterAstral"
+                    },
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "unholy"
+                    }
+                ],
                 "slug": "dagger",
                 "traits": {
                     "value": [
                         "agile",
                         "finesse",
+                        "magical",
                         "versatile-s"
                     ]
                 }
@@ -1253,13 +1265,13 @@
                     "value": 36
                 },
                 "damageRolls": {
-                    "8UPOqNEE0jUqbqR0": {
-                        "damage": "2d6",
-                        "damageType": "spirit"
-                    },
-                    "Wk152fD2OXlhGNNp": {
+                    "0": {
                         "damage": "4d8+12",
                         "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "2d6",
+                        "damageType": "spirit"
                     }
                 },
                 "description": {

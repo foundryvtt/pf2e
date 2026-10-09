@@ -642,10 +642,6 @@
                     "ud3vapbc7w84cwsn28hy": {
                         "damage": "2d8+10",
                         "damageType": "slashing"
-                    },
-                    "irqj8sdac9nx678lcx7i": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -657,7 +653,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

@@ -2459,10 +2459,6 @@
                     "value": 27
                 },
                 "damageRolls": {
-                    "DYCmfHb2Om2pYcxQ": {
-                        "damage": "1d6",
-                        "damageType": "sonic"
-                    },
                     "hIepXRH7TTKExJjg": {
                         "damage": "2d8+10",
                         "damageType": "slashing"
@@ -2477,7 +2473,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "thundering"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

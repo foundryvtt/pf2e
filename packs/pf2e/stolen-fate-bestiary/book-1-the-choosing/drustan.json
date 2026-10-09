@@ -920,11 +920,6 @@
                     "0": {
                         "damage": "3d8+11",
                         "damageType": "slashing"
-                    },
-                    "1": {
-                        "category": "persistent",
-                        "damage": "1d6",
-                        "damageType": "bleed"
                     }
                 },
                 "description": {
@@ -938,19 +933,13 @@
                 "range": null,
                 "rules": [
                     {
-                        "key": "CriticalSpecialization",
-                        "predicate": [
-                            "item:id:{item|_id}"
-                        ]
-                    },
-                    {
                         "definition": [
                             "item:id:{item|_id}"
                         ],
                         "key": "AdjustStrike",
                         "mode": "add",
                         "property": "property-runes",
-                        "value": "flaming"
+                        "value": "wounding"
                     }
                 ],
                 "slug": null,
@@ -1075,7 +1064,23 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            "item:slug:bastard-sword"
+                        ]
+                    },
+                    {
+                        "definition": [
+                            "item:slug:bastard-sword"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
