@@ -35,7 +35,12 @@ import { CheckDC } from "@system/degree-of-success.ts";
 import { Predicate } from "@system/predication.ts";
 import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@system/statistic/index.ts";
 import { PerceptionStatistic } from "@system/statistic/perception.ts";
-import { classifySpeedDeriveKind, getDeriveParentType, SpeedStatistic } from "@system/statistic/speed.ts";
+import {
+    classifySpeedDeriveKind,
+    fastestMovementSpeed,
+    getDeriveParentType,
+    SpeedStatistic,
+} from "@system/statistic/speed.ts";
 import { ErrorPF2e, localizer, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { CreatureMovementData, CreatureResources, CreatureSystemData, VisionLevel, VisionLevels } from "./data.ts";
@@ -758,12 +763,8 @@ abstract class CreaturePF2e<
 
         /** Capture ancestry / NPC bases before traces are overwritten */
         const systemValues = R.mapToObj(MOVEMENT_TYPES, (type) => {
-            if (type === "land") {
-                const land = this.system.movement.speeds.land;
-                return [type, { value: land.base, source: land.source ?? null }];
-            }
             const data = this.system.movement.speeds[type];
-            return data && data.value > 0 ? [type, { value: data.value, source: data.source ?? null }] : [type, null];
+            return data && data.base > 0 ? [type, { value: data.base, source: data.source ?? null }] : [type, null];
         });
 
         const selectCandidate = (candidates: SpeedBaseCandidate[]): SpeedBaseCandidate | null => {
@@ -838,22 +839,15 @@ abstract class CreaturePF2e<
             }
 
             const selected = selectCandidate(candidates);
-            if (type !== "land" && !selected) {
+            // A base of 0 removes the speed. Leave a numeric stub so later formulas reading this speed resolve to 0.
+            if (!selected || selected.value <= 0) {
                 setSpeedStat(type, null);
-                this.system.movement.speeds[type as Exclude<MovementType, "land">] = null;
+                this.system.movement.speeds[type] = { value: 0, base: 0 } as CreatureMovementData["speeds"][K];
                 return;
             }
 
-            const landFallback: SpeedBaseCandidate = {
-                value: 0,
-                source: null,
-                force: false,
-                formula: 0,
-                dependsOn: [],
-            };
-            const chosen = selected ?? landFallback;
-            if (chosen.value > 0) this.flags[SYSTEM_ID].rollOptions.all[`speed:${type}`] = true;
-            const statistic = buildSpeedStatistic(type, chosen);
+            this.flags[SYSTEM_ID].rollOptions.all[`speed:${type}`] = true;
+            const statistic = buildSpeedStatistic(type, selected);
             setSpeedStat(type, statistic);
             this.system.movement.speeds[type] = statistic.getTraceData() as CreatureMovementData["speeds"][K];
         };
@@ -879,8 +873,12 @@ abstract class CreaturePF2e<
             prepareType(type);
         }
 
-        const landSpeed = speedStats.land ?? new SpeedStatistic(this, { type: "land", base: 0, modifiers });
-        const travelSpeed = landSpeed.derive("travel", { mode: "equal", modifiers: modifiers.map((m) => m.clone()) });
+        const landSpeed = speedStats.land ?? null;
+        const travelParent = landSpeed ?? fastestMovementSpeed(speedStats);
+        const travelModifiers = modifiers.map((modifier) => modifier.clone());
+        const travelSpeed = travelParent
+            ? travelParent.derive("travel", { mode: "equal", modifiers: travelModifiers })
+            : new SpeedStatistic(this, { type: "travel", base: 0, domains: [] });
         this.movement.speeds = {
             land: landSpeed,
             burrow: speedStats.burrow ?? null,
