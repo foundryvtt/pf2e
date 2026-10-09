@@ -1,0 +1,77 @@
+{
+    "_id": "9B8AWB92wlBHEqky",
+    "folder": "dQNz4LKOv73OtqoO",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Ley Seeker",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "dex",
+                    "int"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>At some point in your past, you had a strange encounter with a ley line. The experience left you changed: your nerves now jangle with an energy you can neither control nor understand. While there's nothing inherently criminal about your fixation with ley lines, it nonetheless led to your imprisonment. The fallout of your original encounter might have caused some harm you couldn't repair, for example, or perhaps you've taken to a life of crime in your obsession to find new sources of ley magic.</p>\n<p>Choose two attribute boosts. One must be to <strong>Dexterity</strong> or <strong>Intelligence</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the skill associated with the tradition of the ley line you encountered (Arcana for arcane, Nature for primal, Occultism for occult, and Religion for divine). You're also trained in the Ley Line Lore skill. You can always use Ley Line Lore to @UUID[Compendium.pf2e.actionspf2e.Item.Tap Ley Line]{Tap a Ley Line}, regardless of the ley line's tradition. In addition, failing or critically failing to Tap a Ley Line doesn't prevent you from attempting to Tap that Ley Line again.</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Vautlines Player's Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Arcana",
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "PF2E.Skill.Nature",
+                        "value": "nature"
+                    },
+                    {
+                        "label": "PF2E.Skill.Occultism",
+                        "value": "occultism"
+                    },
+                    {
+                        "label": "PF2E.Skill.Religion",
+                        "value": "religion"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.system.rulesSelections.skill}.rank",
+                "value": 1
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Ley Line Lore"
+            ],
+            "value": []
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": []
+        }
+    },
+    "type": "background"
+}
