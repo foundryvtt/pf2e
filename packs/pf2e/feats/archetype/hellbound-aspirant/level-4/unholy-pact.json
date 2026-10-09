@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>ou pledge your allegiance to Asmodeus, Moloch, or a high-ranking archdevil. You gain the devil, fiend, and unholy traits, as well as weakness to holy damage equal to half your level. Additionally, you gain the cleric's Domain Initiate feat but must select fire, trickery, or tyranny as your domain. If you can't cast spells already, you gain the Cast a Spell activity and are trained in the spell attack modifier and spell DC statistics. Your key spellcasting attribute for hellbound aspirant spells is Charisma, and they are divine spells. You also gain the @UUID[Compendium.pf2e.actionspf2e.Item.Invoke Infernal Focus] action.</p>"
+            "value": "<p>You pledge your allegiance to Asmodeus, Moloch, or a high-ranking archdevil. You gain the devil, fiend, and unholy traits, as well as weakness to holy damage equal to half your level. Additionally, you gain the cleric's @UUID[Compendium.pf2e.feats-srd.Item.Domain Initiate] feat but must select fire, trickery, or tyranny as your domain. If you can't cast spells already, you gain the @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell] activity and are trained in the spell attack modifier and spell DC statistics. Your key spellcasting attribute for hellbound aspirant spells is Charisma, and they are divine spells. You also gain the @UUID[Compendium.pf2e.actionspf2e.Item.Invoke Infernal Focus] action.</p>"
         },
         "level": {
             "value": 4
@@ -29,9 +29,41 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
         },
-        "rules": [],
+        "rules": [
+            {
+                "add": [
+                    "devil",
+                    "fiend",
+                    "unholy"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "Weakness",
+                "type": "holy",
+                "value": "floor(@actor.level/2)"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Domain Initiate"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Cast a Spell"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Invoke Infernal Focus"
+            }
+        ],
         "subfeatures": {
-            "proficiencies": {},
+            "proficiencies": {
+                "spellcasting": {
+                    "attribute": null,
+                    "rank": 1
+                }
+            },
             "senses": {},
             "suppressedFeatures": []
         },

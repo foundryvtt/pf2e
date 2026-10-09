@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Embracing your devilish nature, you've grown accustomed to changing your appearance to deceive others. If you are doomed when you assemble a disguise to Impersonate, you gain a +2 circumstance bonus to your Deception checks to interact with someone while disguised and to the DC for observers to detect your disguise. Additionally, you can cast 3rd-rank illusory disguise as a divine innate spell once per day.</p>"
+            "value": "<p>Embracing your devilish nature, you've grown accustomed to changing your appearance to deceive others. If you are doomed when you assemble a disguise to Impersonate, you gain a +2 circumstance bonus to your Deception checks to interact with someone while disguised and to the DC for observers to detect your disguise. Additionally, you can cast 3rd-rank @UUID[Compendium.pf2e.spells-srd.Item.Illusory Disguise] as a divine innate spell once per day.</p>"
         },
         "level": {
             "value": 6
@@ -32,7 +32,33 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.DevilInDisguise.Toggle",
+                "option": "devil-in-disguise",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:impersonate",
+                    "devil-in-disguise"
+                ],
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "devil-in-disguise"
+                ],
+                "selector": "deception-dc",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
