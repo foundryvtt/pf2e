@@ -3,7 +3,6 @@ import { SenseData } from "@actor/creature/index.ts";
 import { CreatureTrait } from "@actor/creature/types.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { AttributeString } from "@actor/types.ts";
-import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.d.mts";
 import { ABCItemPF2e, type FeatPF2e } from "@item";
 import { Size } from "@module/data.ts";
 import { sluggify } from "@util";
@@ -113,12 +112,10 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
             }
         }
 
-        // Add voluntary boost and flaws (if they exist)
-        if (this.system.voluntary) {
-            const { boost, flaws } = this.system.voluntary;
-            if (boost) build.attributes.boosts.ancestry.push(boost);
-            build.attributes.flaws.ancestry.push(...flaws);
-        }
+        // Add voluntary flaws, and the boost they grant in legacy mode
+        const { legacy, boost, flaws } = this.system.voluntary;
+        if (legacy && boost) build.attributes.boosts.ancestry.push(boost);
+        build.attributes.flaws.ancestry.push(...flaws);
 
         // Add languages
         build.languages.max += this.system.additionalLanguages.count;
@@ -156,35 +153,6 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         for (const trait of this.traits) {
             actor.rollOptions.all[`self:trait:${trait}`] = true;
         }
-    }
-
-    /** Ensure certain fields are integers. */
-    protected override _preUpdate(
-        changed: DeepPartial<this["_source"]>,
-        options: DatabaseUpdateCallbackOptions,
-        user: fd.BaseUser,
-    ): Promise<boolean | void> {
-        if (!changed.system) return super._preUpdate(changed, options, user);
-
-        const additionalLanguages = changed.system.additionalLanguages;
-        if (additionalLanguages?.count !== undefined) {
-            additionalLanguages.count = Math.floor(Math.clamp(Number(additionalLanguages.count) || 0, 0, 99));
-        }
-
-        if (changed.system.hands !== undefined) {
-            changed.system.hands = Math.floor(Math.clamp(changed.system.hands || 0, 0, 12) / 2) * 2;
-        }
-
-        if (changed.system.hp !== undefined) {
-            changed.system.hp = Math.clamp(Math.floor(changed.system.hp / 2) * 2, 4, 12);
-        }
-
-        for (const fieldName of ["speed", "reach"] as const) {
-            if (changed.system[fieldName] === undefined) continue;
-            changed.system[fieldName] = Math.clamp(Math.ceil(changed.system[fieldName] / 5) * 5, 0, 100);
-        }
-
-        return super._preUpdate(changed, options, user);
     }
 }
 
