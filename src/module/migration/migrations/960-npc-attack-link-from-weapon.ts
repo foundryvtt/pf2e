@@ -3,7 +3,7 @@ import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
-/** Opt existing generated strikes with extra damage instances out of linked-weapon rune and material inheritance. */
+/** Opt existing linked strikes out of rune and material inheritance when that would double an existing effect. */
 export class Migration960NPCAttackLinkFromWeapon extends MigrationBase {
     static override version = 0.96;
 
@@ -17,7 +17,14 @@ export class Migration960NPCAttackLinkFromWeapon extends MigrationBase {
         if (actorSource.items.every((item) => item.type !== "weapon" || item._id !== linkedId)) return;
 
         const damageRolls = source.system.damageRolls;
-        if (!R.isPlainObject(damageRolls) || Object.keys(damageRolls).length < 2) return;
+        const hasMultipleDamage = R.isPlainObject(damageRolls) && Object.keys(damageRolls).length >= 2;
+        const hasRuneOrMaterialAdjust = source.system.rules.some(
+            (rule) =>
+                rule.key === "AdjustStrike" &&
+                "property" in rule &&
+                (rule.property === "materials" || rule.property === "property-runes"),
+        );
+        if (!hasMultipleDamage && !hasRuneOrMaterialAdjust) return;
 
         flags.syncWeaponProperties = false;
     }
