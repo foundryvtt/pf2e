@@ -22,6 +22,15 @@ interface CheckboxData {
     /** Defaults to the object key of this filter */
     optionPrefix?: string;
     selected: string[];
+    /** An optional toggle button that substitutes the values of selected options while active */
+    toggle?: CheckboxToggle;
+}
+
+interface CheckboxToggle {
+    active: boolean;
+    label: string;
+    /** Maps option keys to the values used in their place while the toggle is active */
+    substitutions: Record<string, string>;
 }
 
 interface TraitData<T extends string = string> {
@@ -142,6 +151,7 @@ interface HazardFilters extends BaseFilterData {
 interface SpellFilters extends BaseFilterData {
     checkboxes: {
         category: CheckboxData;
+        defense: CheckboxData;
         rank: CheckboxData;
         rarity: CheckboxData;
         traditions: CheckboxData;
@@ -181,6 +191,7 @@ export type {
     CheckboxData,
     CheckboxOption,
     CheckboxOptions,
+    CheckboxToggle,
     CompendiumBrowserIndexData,
     EquipmentFilters,
     FeatFilters,
