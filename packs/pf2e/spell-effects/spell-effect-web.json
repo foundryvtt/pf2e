@@ -1,10 +1,10 @@
 {
-    "_id": "MhDPkNoILoXc5lKS",
+    "_id": "tCMVyxQhzYCjBQtK",
     "img": "icons/creatures/webs/web-spider-glowing-pink.webp",
-    "name": "Spell Effect: Web (Immobilized)",
+    "name": "Spell Effect: Web",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Web]</p>\n<p>You are immobilized.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Web]</p>\n<p>You take a –10-foot circumstance penalty to your Speeds.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -23,9 +23,10 @@
         },
         "rules": [
             {
-                "inMemoryOnly": true,
-                "key": "GrantItem",
-                "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized"
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "type": "circumstance",
+                "value": -10
             }
         ],
         "start": {
