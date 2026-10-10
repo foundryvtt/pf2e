@@ -7,7 +7,7 @@ const WEAPON_UPGRADES = {
     "installed-in-a-weapon-that-deals-acid-or-fire-damage": "PF2E.TraitInstalledInAWeaponThatDealsAcidOrFireDamage",
     "installed-in-a-weapon-that-deals-cold-damage": "PF2E.TraitInstalledInAWeaponThatDealsColdDamage",
     "installed-in-a-weapon-that-uses-a-battery": "PF2E.TraitInstalledInAWeaponThatUsesABattery",
-    "installed-in-a-weapon-that-uses-projectile": "PF2E.TraitInstalledInAWeaponThatUsesProjectile",
+    "installed-in-a-weapon-that-uses-projectiles": "PF2E.TraitInstalledInAWeaponThatUsesProjectiles",
     "installed-in-a-weapon-with-the-kickback-trait": "PF2E.TraitInstalledInAWeaponWithTheKickbackTrait",
     "installed-in-an-area-weapon": "PF2E.TraitInstalledInAnAreaWeapon",
     "installed-in-an-area-weapon-that-deals-acid-cold-fire-or-void-damage":

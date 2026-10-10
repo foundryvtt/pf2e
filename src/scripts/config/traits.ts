@@ -1516,7 +1516,7 @@ const traitDescriptions = {
     dedication: "PF2E.TraitDescriptionDedication",
     "deflecting-bludgeoning": "PF2E.TraitDescriptionDeflecting",
     "deflecting-physical-ranged": "PF2E.TraitDescriptionDeflecting",
-    "deflecting-piercing": "PF2E.TraitDescriptionDeflectingPiercing",
+    "deflecting-piercing": "PF2E.TraitDescriptionDeflecting",
     "deflecting-slashing": "PF2E.TraitDescriptionDeflecting",
     deflecting: "PF2E.TraitDescriptionDeflecting",
     delayed: "PF2E.TraitDescriptionDelayed",

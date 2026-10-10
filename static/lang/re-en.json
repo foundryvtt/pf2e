@@ -4342,7 +4342,7 @@
             "Roseguard": "Roseguard Lore",
             "Sailing": "Sailing Lore",
             "Salvage": "Salvage Lore",
-            "Salvation'sEnd": "Salvation's End Lore",
+            "SalvationsEnd": "Salvation's End Lore",
             "Sandpoint": "Sandpoint Lore",
             "SarkorianHistory": "Sarkorian History Lore",
             "Scam": "Scam Lore",
@@ -7599,6 +7599,7 @@
                 "AdvancedAthamaruWeapons": "Advanced Athamaru Weapons",
                 "AdvancedAzarketiWeapons": "Advanced Azarketi Weapons",
                 "AdvancedBowsAndCrossbows": "Advanced Bows and Crossbows",
+                "AdvancedBugbearWeapons": "Advanced Bugbear Weapons",
                 "AdvancedCatfolkWeapons": "Advanced Catfolk Weapons",
                 "AdvancedConrasuWeapons": "Advanced Conrasu Weapons",
                 "AdvancedDwarfWeapons": "Advanced Dwarven Weapons",
@@ -7659,6 +7660,7 @@
                 "MartialAzarketiWeapons": "Martial Azarketi Weapons",
                 "MartialBombsFirearms": "Martial Bombs & Firearms",
                 "MartialBowsAndCrossbows": "Martial Bows and Crossbows",
+                "MartialBugbearWeapons": "Martial Bugbear Weapons",
                 "MartialCatfolkWeapons": "Martial Catfolk Weapons",
                 "MartialCentaurWeapons": "Martial Centaur Weapons",
                 "MartialConrasuWeapons": "Martial Conrasu Weapons",
@@ -10391,6 +10393,9 @@
                 "Magboots": {
                     "ClimbMetalSurfaces": "Magboots — Climb metal surfaces"
                 },
+                "Necrograft": {
+                    "BoneBlade": "Bone Blade"
+                },
                 "RevealingFlashlight": {
                     "Lit": "Flashlight Lit"
                 },
@@ -10433,6 +10438,18 @@
                 },
                 "Upgrades": {
                     "Weapon": {
+                        "AcidModule": {
+                            "LabelCommercial": "Commercial Acid Module",
+                            "LabelTactical": "Tactical Acid Module",
+                            "CriticalNoteCommercial": "On a critical hit, the target also takes a –1 status penalty to its AC until the end of your next turn unless it succeeds at a @Check[fortitude|dc:24] save.",
+                            "CriticalNoteTactical": "On a critical hit, the target also takes a –1 status penalty to its AC until the end of your next turn unless it succeeds at a @Check[fortitude|dc:34] save."
+                        },
+                        "BoomRipple": {
+                            "LabelCommercial": "Commercial Boom Ripple",
+                            "LabelTactical": "Tactical Boom Ripple",
+                            "CriticalNoteCommercial": "When you critically hit with this weapon, you create a shock wave in a @Template[type:burst|distance:10] at a corner of your choice on the space of the Strike's target or, if you critically hit using the primary target class feature, the shock wave uses the area of your Area Fire instead. Creatures in the area take @Damage[2d6[bludgeoning]|options:area-damage] damage (@Check[reflex|dc:20|basic|options:area-effect,forced-movement] save), and creatures that critically fail their save are knocked back 10 feet from the center of the area. This is forced movement.",
+                            "CriticalNoteTactical": "When you critically hit with this weapon, you create a shock wave in a @Template[type:burst|distance:20] at a corner of your choice on the space of the Strike's target or, if you critically hit using the primary target class feature, the shock wave uses the area of your Area Fire instead. Creatures in the area take @Damage[4d6[bludgeoning]|options:area-damage] damage (@Check[reflex|dc:30|basic|options:area-effect,forced-movement] save), and creatures that critically fail their save are knocked back 10 feet from the center of the area. This is forced movement."
+                        },
                         "DivinityJammer": {
                             "Label": "Divinity Jammer",
                             "CriticalNote": "On a critical hit with the weapon, the target becomes @UUID[Compendium.sf2e.conditions.Item.e1XGnhKNSQIm5IXg]{Stupefied 1} until the end of your next turn. If the target is a celestial, fiend, monitor, or creature with divine spells or abilities, it becomes stupefied 1 for 3 rounds instead."
@@ -10468,6 +10485,12 @@
                             "LabelTactical": "Tactical Loudener",
                             "CriticalNoteCommercial": "On a critical hit, the target must succeed at a @Check[fortitude|dc:24] save or be @UUID[Compendium.pf2e.conditionitems.Item.9PR9y0bi4JPKnHPR]{Deafened} for 1 minute (or 1 hour on a critical failure).",
                             "CriticalNoteTactical": "On a critical hit, the target must succeed at a @Check[fortitude|dc:34] save or be @UUID[Compendium.pf2e.conditionitems.Item.9PR9y0bi4JPKnHPR]{Deafened} for 1 minute (or 1 hour on a critical failure)."
+                        },
+                        "RadiationModule": {
+                            "LabelCommercial": "Commercial Radiation Module",
+                            "LabelTactical": "Tactical Radiation Module",
+                            "CriticalNoteCommercial": "On a critical hit, the target must attempt a @Check[fortitude|dc:22] save against severe radiation sickness.",
+                            "CriticalNoteTactical": "On a critical hit, the target must attempt a @Check[fortitude|dc:32] save against severe radiation sickness."
                         },
                         "ShockModule": {
                             "LabelCommercial": "Commercial Shock Module",
@@ -10541,6 +10564,11 @@
                 "AdvancedGuns": "Advanced Guns",
                 "MartialAndSimpleGuns": "Martial & Simple Guns",
                 "SimpleGuns": "Simple Guns"
+            },
+            "Mechanic": {
+                "Exocortex": {
+                    "Prompt": "Select an Exocortex."
+                }
             },
             "Mystic": {
                 "Connection": {
@@ -10858,6 +10886,11 @@
                 },
                 "SudoSpell": {
                     "Alteration": "The spell's energy reverberates and echoes. You can Cast the Spell a second time before the end of your next turn without expending a spell slot."
+                }
+            },
+            "Technomancer": {
+                "ProgrammingLanguages": {
+                    "Prompt": "Select a Programming Language."
                 }
             },
             "Vesk": {
