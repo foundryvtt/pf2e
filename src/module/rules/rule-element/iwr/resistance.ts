@@ -4,12 +4,16 @@ import type { StrictArrayField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleValue } from "../data.ts";
 import { IWRException, IWRExceptionField, IWRRuleElement, IWRRuleSchema } from "./base.ts";
+import fields = foundry.data.fields;
 
 /** @category RuleElement */
 class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
     static override defineSchema(): ResistanceRuleSchema {
         return {
             ...super.defineSchema(),
+            mode: new fields.StringField({ required: true, choices: ["add", "remove", "subtract"], initial: "add" }),
+            // A type is optional when subtracting from all resistances
+            type: new fields.ArrayField(new fields.StringField({ required: true, blank: false })),
             value: new ResolvableValueField({ required: true, nullable: false, initial: undefined }),
             exceptions: this.createExceptionsField(this.dictionary),
             doubleVs: this.createExceptionsField(this.dictionary),
@@ -20,8 +24,40 @@ class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
         return CONFIG.PF2E.resistanceTypes;
     }
 
+    static override validateJoint(source: fields.SourceFromSchema<IWRRuleSchema>): void {
+        super.validateJoint(source);
+
+        if (source.type.length === 0 && source.mode !== "subtract") {
+            throw Error("  type: must have at least one entry");
+        }
+    }
+
     get property(): Resistance[] {
         return this.actor.system.attributes.resistances;
+    }
+
+    /**
+     * Reducing resistances is deferred until all of them have been added: if no type is given, all of the actor's
+     * resistances are reduced.
+     */
+    override afterPrepareData(): void {
+        if (this.mode !== "subtract") return super.afterPrepareData();
+        if (!this.test()) return;
+
+        this.type = this.resolveInjectedProperties(this.type);
+        const unrecognizedTypes = this.type.filter((t) => !(t in CONFIG.PF2E.resistanceTypes));
+        if (unrecognizedTypes.length > 0) {
+            for (const type of unrecognizedTypes) this.failValidation(`Type "${type}" is unrecognized`);
+            return;
+        }
+
+        const value = Math.floor(Number(this.resolveValue(this.value)));
+        if (!Number.isInteger(value) || value <= 0) {
+            this.failValidation("A `value` to subtract must be a positive integer");
+            return;
+        }
+
+        this.actor.synthetics.resistanceReductions.push({ types: this.type, value });
     }
 
     getIWR(value: number): Resistance[] {

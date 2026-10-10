@@ -19,6 +19,8 @@ import { EphemeralEffectRuleElement } from "./rule-element/ephemeral-effect.ts";
 import { FastHealingRuleElement } from "./rule-element/fast-healing.ts";
 import { FlatModifierRuleElement } from "./rule-element/flat-modifier.ts";
 import { GrantItemRuleElement } from "./rule-element/grant-item/rule-element.ts";
+import { IgnoreImmunityRuleElement } from "./rule-element/ignore-immunity.ts";
+import { IgnoreResistanceRuleElement } from "./rule-element/ignore-resistance.ts";
 import type { RuleElementOptions, RuleElementSource } from "./rule-element/index.ts";
 import { ItemAlterationRuleElement } from "./rule-element/item-alteration/rule-element.ts";
 import { ImmunityRuleElement } from "./rule-element/iwr/immunity.ts";
@@ -67,6 +69,8 @@ class RuleElements {
         FastHealing: FastHealingRuleElement,
         FlatModifier: FlatModifierRuleElement,
         GrantItem: GrantItemRuleElement,
+        IgnoreImmunity: IgnoreImmunityRuleElement,
+        IgnoreResistance: IgnoreResistanceRuleElement,
         Immunity: ImmunityRuleElement,
         ItemAlteration: ItemAlterationRuleElement,
         LoseHitPoints: LoseHitPointsRuleElement,

@@ -328,7 +328,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         if (!game.pf2e.settings.iwr) return false;
         const item = typeof effect === "string" ? null : "parent" in effect ? effect : new ItemProxyPF2e(effect);
         const statements = new Set(item ? item.getRollOptions("item") : ["item:type:condition", `item:slug:${effect}`]);
-        return this.attributes.immunities.some((i) => i.test(statements));
+
+        // Persistent damage retains any immunity bypass of the damage that caused it
+        const persistent = item?.isOfType("condition") ? item.system.persistent : null;
+        const bypassed = [persistent?.ignoredImmunities, persistent?.downgradedImmunities.map((d) => d.type)].flat();
+        return this.attributes.immunities.some((i) => !bypassed.includes(i.type) && i.test(statements));
     }
 
     /** Whether this actor is affected by damage of a certain type despite lack of explicit immunity */
@@ -748,6 +752,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         this.synthetics = {
             criticalSpecializations: { standard: [], alternate: [] },
             damageAlterations: {},
+            damageBypasses: {},
             damageDice: { damage: [] },
             degreeOfSuccessAdjustments: {},
             opposingDegreeOfSuccessAdjustments: { origin: {}, target: {} },
@@ -758,6 +763,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             movementTypes: {},
             multipleAttackPenalties: {},
             ephemeralEffects: {},
+            resistanceReductions: [],
             resources: {},
             rollNotes: {},
             rollSubstitutions: {},
@@ -794,6 +800,15 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         // Call post-derived-preparation `RuleElement` hooks
         for (const rule of this.rules) {
             rule.afterPrepareData?.();
+        }
+
+        // Reduce resistances only once all have been added
+        const resistances = this.system.attributes.resistances;
+        for (const { types, value } of this.synthetics.resistanceReductions) {
+            for (const resistance of resistances.filter((r) => types.length === 0 || types.includes(r.type))) {
+                resistance.value -= value;
+                if (resistance.value <= 0) resistances.splice(resistances.indexOf(resistance), 1);
+            }
         }
 
         // Run the spellcasting entries that need to run after special statistic
@@ -1284,6 +1299,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
 
         // Apply persistent damage as conditions
+        const originBypass = damage instanceof Roll ? damage.options.bypass : undefined;
         const persistentDamage = hitPoints.max
             ? result.persistent.map((instance) => {
                   const condition = game.pf2e.ConditionManager.getCondition("persistent-damage").toObject();
@@ -1292,6 +1308,14 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                       damageType: instance.type,
                       dc: 15,
                       criticalHit: damage instanceof Roll ? damage.options.degreeOfSuccess === 3 : false,
+                      // Persistent damage retains any resistance bypass of the damage that caused it. An unlimited
+                      // maximum (`Infinity`) is stored as `null`
+                      ignoredResistances: (originBypass?.resistance.ignore ?? []).map(({ type, max }) => ({
+                          type,
+                          max: Number.isFinite(max) ? max : null,
+                      })),
+                      ignoredImmunities: originBypass?.immunity.ignore ?? [],
+                      downgradedImmunities: originBypass?.immunity.downgrade ?? [],
                   };
                   condition.system.traits = {
                       value: R.unique(

@@ -6,11 +6,12 @@ import type {
     DeferredDamageDiceOptions,
     DeferredPromise,
     DeferredValue,
+    DeferredValueParams,
     Modifier,
     ModifierAdjustment,
 } from "@actor/modifiers.ts";
 import type { RollRole } from "@actor/roll-context/types.ts";
-import type { MovementType } from "@actor/types.ts";
+import type { MovementType, ResistanceType } from "@actor/types.ts";
 import type { TokenAnimationOptions } from "@client/_module.d.mts";
 import type { TokenDocumentUUID } from "@client/documents/_module.d.mts";
 import type { ImageFilePath, VideoFilePath } from "@common/constants.d.mts";
@@ -22,7 +23,7 @@ import type { WeaponRuneSource } from "@item/weapon/data.ts";
 import type { WeaponPropertyRuneType } from "@item/weapon/types.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import type { RollNotePF2e } from "@module/notes.ts";
-import type { MaterialDamageEffect } from "@system/damage/types.ts";
+import type { DamageIRBypassData, MaterialDamageEffect } from "@system/damage/types.ts";
 import type { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import type { Predicate } from "@system/predication.ts";
 import type { Statistic } from "@system/statistic/index.ts";
@@ -38,6 +39,7 @@ interface RuleElementSynthetics {
         alternate: CritSpecSynthetic[];
     };
     damageAlterations: Record<string, DamageAlteration[]>;
+    damageBypasses: Record<string, DeferredDamageBypass[]>;
     damageDice: DamageDiceSynthetics;
     degreeOfSuccessAdjustments: Record<string, DegreeOfSuccessAdjustment[]>;
     opposingDegreeOfSuccessAdjustments: Record<RollRole, Record<string, DegreeOfSuccessAdjustment[]>>;
@@ -51,6 +53,7 @@ interface RuleElementSynthetics {
     modifiers: ModifierSynthetics;
     movementTypes: { [K in MovementType]?: MovementTypeSynthetic[] };
     multipleAttackPenalties: Record<string, MAPSynthetic[]>;
+    resistanceReductions: ResistanceReduction[];
     resources: Record<string, SpecialResourceRuleElement>;
     rollNotes: Record<string, RollNotePF2e[]>;
     rollSubstitutions: Record<string, RollSubstitution[]>;
@@ -89,6 +92,7 @@ type ModifierAdjustmentSynthetics = { all: ModifierAdjustment[]; damage: Modifie
 >;
 type DeferredModifier = DeferredValue<Modifier>;
 type DeferredDamageDice = (args: DeferredDamageDiceOptions) => DamageDicePF2e | null;
+type DeferredDamageBypass = (args?: DeferredValueParams) => DamageIRBypassData;
 type DeferredMovementType = DeferredValue<BaseSpeedSynthetic | null>;
 type DeferredEphemeralEffect = DeferredPromise<EffectSource | ConditionSource | null>;
 type DeferredStrike = (runes?: WeaponRuneSource) => WeaponPF2e<ActorPF2e> | null;
@@ -107,6 +111,12 @@ interface BaseSpeedSynthetic {
     /** Raw BaseSpeed value; used to classify equal / scaled / independent after the parent exists */
     formula: string | number;
     dependsOn: MovementType[];
+}
+
+interface ResistanceReduction {
+    /** The types of resistance to reduce: if empty, all of them */
+    types: ResistanceType[];
+    value: number;
 }
 
 interface MAPSynthetic {
@@ -177,6 +187,7 @@ export type {
     MovementTypeSynthetic,
     CritSpecEffect,
     DamageDiceSynthetics,
+    DeferredDamageBypass,
     DeferredDamageDice,
     DeferredEphemeralEffect,
     DeferredModifier,
@@ -185,6 +196,7 @@ export type {
     ModifierAdjustmentSynthetics,
     ModifierSynthetics,
     PotencySynthetic,
+    ResistanceReduction,
     RollOptionToggle,
     RollSubstitution,
     RollTwiceSynthetic,
