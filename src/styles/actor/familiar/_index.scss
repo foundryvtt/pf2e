@@ -459,9 +459,33 @@
         }
     }
 
-    .actions-list .action {
+    .actions-list li.action {
+        align-items: start;
+        display: grid;
+        grid:
+            "name     controls" auto
+            "buttons  buttons" auto
+            "summary  summary" auto
+            / minmax(0, 1fr) auto;
         padding-top: 4px;
         padding-bottom: 4px;
+
+        > h4 {
+            grid-area: name;
+            min-width: 0;
+        }
+
+        > .controls {
+            grid-area: controls;
+        }
+
+        > .button-group {
+            grid-area: buttons;
+        }
+
+        > .item-summary {
+            grid-area: summary;
+        }
     }
 
     .effects-list {
