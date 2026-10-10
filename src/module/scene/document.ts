@@ -30,6 +30,7 @@ class ScenePF2e extends Scene {
 
     /** Is this scene's darkness value synced to the world time? */
     get darknessSyncedToTime(): boolean {
+        if (this.environment.darknessLock) return false;
         return (
             this.flags[SYSTEM_ID].syncDarkness === "enabled" ||
             (this.flags[SYSTEM_ID].syncDarkness === "default" && game.pf2e.settings.worldClock.syncDarkness)
@@ -137,11 +138,14 @@ class ScenePF2e extends Scene {
     override _onUpdate(changed: DeepPartial<this["_source"]>, options: SceneUpdateOptions, userId: string): void {
         super._onUpdate(changed, options, userId);
 
-        const flagChanges = changed.flags?.pf2e ?? {};
-        if (this.isView && ["rulesBasedVision", "hearingRange"].some((k) => flagChanges[k] !== undefined)) {
-            canvas.perception.update({ initializeLighting: true, initializeVision: true });
+        // Refresh the canvas and UI as needed
+        const flagChanges = changed.flags?.[SYSTEM_ID] ?? {};
+        if (this.isView) {
+            if ("syncDarkness" in flagChanges) ui.controls.render({ reset: true });
+            if ("rulesBasedVision" in flagChanges || "hearingRange" in flagChanges) {
+                canvas.perception.update({ initializeLighting: true, initializeVision: true });
+            }
         }
-
         if (changed.active === true || (this.active && changed.flags?.pf2e?.environmentTypes)) {
             this.#refreshTerrainAwareness();
         }

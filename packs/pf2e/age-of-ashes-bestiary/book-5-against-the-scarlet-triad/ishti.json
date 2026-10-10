@@ -986,10 +986,6 @@
                     "lyboy2e26nm6xygbdokx": {
                         "damage": "3d4+17",
                         "damageType": "piercing"
-                    },
-                    "rlwi3j58zpax36byw5zw": {
-                        "damage": "1d6",
-                        "damageType": "acid"
                     }
                 },
                 "description": {
@@ -1001,7 +997,17 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "corrosive"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

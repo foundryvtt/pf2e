@@ -1,0 +1,50 @@
+{
+    "_id": "zYQ0A3cET9h0iMW3",
+    "img": "systems/sf2e/icons/abilities/purple-cattle-prod.webp",
+    "name": "Spell Effect: Cosmic Radiation Rods",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Cosmic Radiation Rods]</p>\n<p>You gain resistance to damage from radiation effects and a status bonus to Fortitude saves against poison and radiation effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "radiation",
+                "value": "ternary(gte(@item.level,10),15,ternary(gte(@item.level,7),10,5))"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "ac"
+                ],
+                "value": "ternary(gte(@item.level,10),3,ternary(gte(@item.level,7),2,1))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

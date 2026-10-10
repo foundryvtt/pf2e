@@ -259,7 +259,7 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8mhSUxEvNuXDP8Ki"
             },
             "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.webp",
-            "name": "Bracers of Armor II",
+            "name": "Bands of Force (Greater)",
             "sort": 500000,
             "system": {
                 "baseItem": null,
@@ -268,7 +268,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>These stiff leather armguards grant you a +2 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5. You can affix talismans to <em>bracers of armor</em> as though they were light armor.</p>"
+                    "value": "<p>Decorated with clear gemstones, these thick metal bands spread an inflexible layer of force over your body. The force grants you a +2 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5 as armor. You can affix talismans to the bands as though they were light armor.</p>\n<p><strong>Activate—Return Force</strong> <span class=\"action-glyph\">R</span> (force, manipulate)</p>\n<p><strong>Trigger</strong> A creature critically misses you with a melee Strike</p><hr /><p><strong>Effect</strong> You [[/act shove options=bands-of-force-greater]] the creature using the bands' Athletics modifier of +21.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -289,44 +289,68 @@
                 },
                 "price": {
                     "value": {
-                        "gp": 4000
+                        "gp": 4500
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
                 },
                 "quantity": 1,
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "selector": "ac",
-                        "type": "item",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "selector": "saving-throw",
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "slug": "bands-of-force",
                         "type": "item",
                         "value": 2
                     },
                     {
                         "key": "DexterityModifierCap",
                         "value": 5
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "bands-of-force-greater"
+                        ],
+                        "selector": [
+                            "athletics"
+                        ],
+                        "slug": "bands-of-force-greater",
+                        "value": 21
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": [
+                            "bands-of-force-greater",
+                            {
+                                "or": [
+                                    "bonus:type:proficiency",
+                                    "modifier:type:ability"
+                                ]
+                            }
+                        ],
+                        "selector": "athletics",
+                        "suppress": true
                     }
                 ],
                 "size": "med",
-                "slug": "bracers-of-armor-ii",
+                "slug": "bands-of-force-greater",
                 "traits": {
                     "rarity": "common",
                     "value": [
+                        "force",
                         "invested",
                         "magical"
                     ]
                 },
                 "usage": {
-                    "value": "wornbracers"
+                    "value": "wornarmbands"
                 }
             },
             "type": "equipment"
@@ -350,10 +374,6 @@
                     "maz5uonc5s1cgmwwoylf": {
                         "damage": "3d6+13",
                         "damageType": "bludgeoning"
-                    },
-                    "wvwe1eg8o5bjqs1kxsh4": {
-                        "damage": "1d6",
-                        "damageType": "acid"
                     }
                 },
                 "description": {
@@ -400,10 +420,6 @@
                     "5d37rmo4xwr7bj8pq1i5": {
                         "damage": "3d8+13",
                         "damageType": "bludgeoning"
-                    },
-                    "o6hc9mwq9gu0dlrom4bh": {
-                        "damage": "1d6",
-                        "damageType": "acid"
                     }
                 },
                 "description": {
@@ -447,10 +463,6 @@
                     "nfgh2otk4angqssqerlq": {
                         "damage": "3d6+13",
                         "damageType": "bludgeoning"
-                    },
-                    "4k9npd98pt3rg7bef782": {
-                        "damage": "1d6",
-                        "damageType": "acid"
                     }
                 },
                 "description": {
@@ -532,7 +544,17 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:trait:unarmed"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "corrosive"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

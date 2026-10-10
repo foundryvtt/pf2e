@@ -21,17 +21,19 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens Ancestry Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "illusion"
+                    "item:trait:illusion"
                 ],
-                "selector": "perception",
+                "selector": [
+                    "perception"
+                ],
                 "type": "circumstance",
                 "value": 1
             },
@@ -40,12 +42,14 @@
                 "predicate": [
                     {
                         "or": [
-                            "illusion",
-                            "shadow"
+                            "item:trait:illusion",
+                            "item:trait:shadow"
                         ]
                     }
                 ],
-                "selector": "will",
+                "selector": [
+                    "will"
+                ],
                 "type": "circumstance",
                 "value": 1
             }

@@ -41,72 +41,24 @@
                 "rollOption": "spirit-guide-form"
             },
             {
-                "hasHands": true,
-                "key": "BattleForm",
-                "overrides": {
-                    "resistances": [
-                        {
-                            "doubleVs": [
-                                "non-magical"
-                            ],
-                            "exceptions": [
-                                "force",
-                                "ghost-touch",
-                                "spirit"
-                            ],
-                            "type": "all-damage",
-                            "value": 10
-                        }
-                    ],
-                    "senses": {
-                        "darkvision": {}
-                    },
-                    "strikes": {
-                        "claw": {
-                            "ability": "str",
-                            "baseType": "claw",
-                            "category": "unarmed",
-                            "damage": {
-                                "damageType": "slashing",
-                                "dice": 3,
-                                "die": "d6",
-                                "modifier": 5
-                            },
-                            "modifier": 29,
-                            "predicate": [
-                                "spirit-guide-form:claw"
-                            ],
-                            "traits": [
-                                "agile",
-                                "backstabber",
-                                "finesse",
-                                "unarmed"
-                            ]
-                        },
-                        "jaws": {
-                            "ability": "str",
-                            "baseType": "jaws",
-                            "category": "unarmed",
-                            "damage": {
-                                "damageType": "piercing",
-                                "dice": 3,
-                                "die": "d10",
-                                "modifier": 5
-                            },
-                            "modifier": 29,
-                            "predicate": [
-                                "spirit-guide-form:jaws"
-                            ],
-                            "traits": [
-                                "forceful",
-                                "unarmed"
-                            ]
-                        }
-                    },
-                    "traits": [
-                        "incorporeal"
-                    ]
-                }
+                "damageType": "force",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|_id}-damage"
+            },
+            {
+                "doubleVs": [
+                    "non-magical"
+                ],
+                "exceptions": [
+                    "force",
+                    "ghost-touch",
+                    "spirit"
+                ],
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": 10
             },
             {
                 "damageType": "force",
@@ -114,6 +66,66 @@
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "selector": "{item|_id}-damage"
+            },
+            {
+                "add": [
+                    "incorporeal"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "attackModifier": 29,
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 3,
+                        "die": "d10",
+                        "modifier": 5
+                    }
+                },
+                "group": "brawling",
+                "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.jaws",
+                "predicate": [
+                    "spirit-guide-form:jaws"
+                ],
+                "range": null,
+                "replaceAll": true,
+                "slug": "jaws",
+                "traits": [
+                    "forceful",
+                    "unarmed"
+                ]
+            },
+            {
+                "attackModifier": 29,
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 3,
+                        "die": "d6",
+                        "modifier": 5
+                    }
+                },
+                "group": "brawling",
+                "img": "icons/commodities/claws/claw-bear-brown.webp",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.claw",
+                "predicate": [
+                    "spirit-guide-form:claw"
+                ],
+                "range": null,
+                "replaceAll": true,
+                "slug": "claw",
+                "traits": [
+                    "agile",
+                    "backstabber",
+                    "finesse",
+                    "unarmed"
+                ]
             }
         ],
         "start": {

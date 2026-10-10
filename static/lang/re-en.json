@@ -962,6 +962,7 @@
                 "MagicalWeaponsBrightLight": "magical weapons shedding bright light",
                 "MagicalWood": "magical wood",
                 "NonMagicalAttacks": "non-magical attacks",
+                "NonMagicalPhysical": "non-magical physical damage",
                 "NonWeapons": "non-weapons",
                 "PersistentAcid": "persistent acid",
                 "PersistentFire": "persistent fire",
@@ -3500,7 +3501,7 @@
                 "Moderate": "Moderate"
             },
             "Life": {
-                "DescriptionMajor": "Each time you use a spell slot to cast a 5th-rank or higher spell that takes 2 or more actions to cast, you disperse vitality energy in a @Template[burst|distance:30] with the effects of a 3-action @UUID[Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs]{Heal} spell with a rank 4 lower than that of the spell you cast. This healing occurs immediately after you finish @UUID[Compendium.pf2e.actionspf2e.aBQ8ajvEBByv45yz]{Casting the Spell}. You don't benefit from this healing. Instead, you lose double the number of Hit Points rolled for the heal spell.",
+                "DescriptionMajor": "Each time you use a spell slot to cast a 5th-rank or higher spell that takes 2 or more actions to cast, you disperse vitality energy in a @Template[burst|distance:30] with the effects of a 3-action @UUID[Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs]{Heal} spell with a rank 4 lower than that of the spell you cast. This healing occurs immediately after you finish @UUID[Compendium.pf2e.actionspf2e.Item.aBQ8ajvEBByv45yz]{Casting the Spell}. You don't benefit from this healing. Instead, you lose double the number of Hit Points rolled for the heal spell.",
                 "DescriptionModerate": "Whenever you finish casting a non-cantrip spell, you restore @Damage[@item.level[healing]] Hit Points to your choice of either one target of the spell or the creature nearest to you. You can't heal yourself in this way. This healing has the healing, necromancy, and vitality traits, as well as the tradition trait of the spell.",
                 "ToggleLabel": "All targets of Heal are living creatures"
             },
@@ -4183,7 +4184,6 @@
         "SpecificLore": {
             "Absalom": "Absalom Lore",
             "AbsalomStation": "Absalom Station Lore",
-            "Abyss": "Abyss Lore",
             "Abyssal": "Abyssal Lore",
             "Academia": "Academia Lore",
             "Accounting": "Accounting Lore",
@@ -4241,8 +4241,8 @@
             "Droskar": "Droskar Lore",
             "Dwarf": "Dwarf Lore",
             "DwarvenPantheon": "Dwarven Pantheon Lore",
+            "Elf": "Elf Lore",
             "Engineering": "Engineering Lore",
-            "Eox": "Eox Lore",
             "Eoxian": "Eoxian Lore",
             "Farming": "Farming Lore",
             "Fashion": "Fashion Lore",
@@ -4299,6 +4299,7 @@
             "Library": "Library Lore",
             "LifeScience": "Life Science Lore",
             "Lissala": "Lissala Lore",
+            "Lizardfolk": "Lizardfolk Lore",
             "Loremaster": "Loremaster Lore",
             "Magaambya": "Magaambya Lore",
             "MagicalTerrain": "Magical Terrain Lore",
@@ -4318,7 +4319,6 @@
             "Orc": "Orc Lore",
             "OrcPantheon": "Orc Pantheon Lore",
             "Otari": "Otari Lore",
-            "Pathfinder": "Pathfinder Lore",
             "PathfinderSociety": "Pathfinder Society Lore",
             "PhysicalScience": "Physical Science Lore",
             "Piloting": "Piloting Lore",
@@ -4343,7 +4343,7 @@
             "Roseguard": "Roseguard Lore",
             "Sailing": "Sailing Lore",
             "Salvage": "Salvage Lore",
-            "Salvation'sEnd": "Salvation's End Lore",
+            "SalvationsEnd": "Salvation's End Lore",
             "Sandpoint": "Sandpoint Lore",
             "SarkorianHistory": "Sarkorian History Lore",
             "Scam": "Scam Lore",
@@ -4583,7 +4583,7 @@
                 "Wolf": "Wolf"
             },
             "AnimalSkin": {
-                "BracersOfArmor": "Animal Skin w/ Bracers of Armor",
+                "BandsOfForce": "Animal Skin w/ Bands of Force",
                 "ExplorersClothing": "Animal Skin w/ Explorer's Clothing",
                 "MageArmor": "Animal Skin w/ Mage Armor"
             },
@@ -5197,7 +5197,7 @@
                     "Description": "Your ally's movement from your Liberating Step is unaffected by difficult terrain, greater difficult terrain, narrow surfaces, and uneven ground. If you have the exalted reaction benefit, this applies to everyone who Steps."
                 },
                 "WeightOfGuilt": {
-                    "Description": "Guilt clouds the minds of those who ignore your Glimpse of Redemption. Instead of making the triggering creature enfeebled 2, you can make it @UUID[Compendium.pf2e.conditionitems.e1XGnhKNSQIm5IXg]{Stupefied 2} for the same duration."
+                    "Description": "Guilt clouds the minds of those who ignore your Glimpse of Redemption. Instead of making the triggering creature enfeebled 2, you can make it @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 2} for the same duration."
                 }
             },
             "ChangeShape": {
@@ -5792,7 +5792,7 @@
             "DragonDisciple": {
                 "Prompt": "Select a dragon.",
                 "ScalesOfTheDragon": {
-                    "BracersOfArmor": "Scales of the Dragon w/ Bracers of Armor",
+                    "BandsOfForce": "Scales of the Dragon w/ Bands of Force",
                     "ExplorersClothing": "Scales of the Dragon w/ Explorer's Clothing",
                     "MageArmor": "Scales of the Dragon w/ Mage Armor"
                 }
@@ -5829,7 +5829,7 @@
                     "Description": "When you use Breath of the Dragon, the area of your breath becomes difficult terrain for 1 minute. In addition, a creature who fails or critically fails its saving throw takes @Damage[2d6[persistent,@actor.flags.system.dragonblood.damageType]] damage of the same type"
                 },
                 "ScalyHide": {
-                    "BracersOfArmor": "Scaly Hide w/ Bracers of Armor",
+                    "BandsOfForce": "Scaly Hide w/ Bands of Force",
                     "ExplorersClothing": "Scaly Hide w/ Explorer's Clothing",
                     "MageArmor": "Scaly Hide w/ Mage Armor"
                 }
@@ -6831,7 +6831,7 @@
             },
             "Formian": {
                 "FormianBiotoxin": {
-                    "Text": "On a critical hit with your jaws Strike, the target must succeed at a @Check[fortitude|against:class-spell|options:inflicts:enfeebled] save against the higher of your class DC or spell DC or be @UUID[CCompendium.sf2e.conditions.Item.MIRkyAjyBeXivMa7]{Enfeebled 1} for 1 round (or 1 minute on a critical failure)."
+                    "Text": "On a critical hit with your jaws Strike, the target must succeed at a @Check[fortitude|against:class-spell|options:inflicts:enfeebled] save against the higher of your class DC or spell DC or be @UUID[Compendium.sf2e.conditions.Item.MIRkyAjyBeXivMa7]{Enfeebled 1} for 1 round (or 1 minute on a critical failure)."
                 },
                 "Mageslayer": {
                     "MageslayerClaw": "Mageslayer Claw",
@@ -6896,8 +6896,8 @@
                 "TerrainAttunement": {
                     "Aquatic": "You gain a swim Speed equal to your land Speed. If you're on a surface, temporary waves of water follow your movements, allowing you to use your swim Speed—if you have one—as your land Speed. This effect lasts 1 round.",
                     "Arctic": "Enemies must attempt a @Check[fortitude] save. They take a –5-foot status penalty to their Speeds for 2 rounds (–10-foot on a critical failure).",
-                    "Desert": "Enemies must attempt a @Check[fortitude] save. On a failure, they're @UUID[Compendium.pf2e.conditionitems.HL2l2VRSaQHu9lUw]{Fatigued} until they drink water or another potable liquid.",
-                    "Forest": "Branches and vines reach out to get in your foes' way. Enemies must attempt a @Check[reflex] save. On a failure, they become @UUID[Compendium.pf2e.conditionitems.i3OJZU2nk64Df3xm]{Clumsy 1} for 1 round (@UUID[Compendium.pf2e.conditionitems.i3OJZU2nk64Df3xm]{Clumsy 2} on a critical failure).",
+                    "Desert": "Enemies must attempt a @Check[fortitude] save. On a failure, they're @UUID[Compendium.pf2e.conditionitems.Item.HL2l2VRSaQHu9lUw]{Fatigued} until they drink water or another potable liquid.",
+                    "Forest": "Branches and vines reach out to get in your foes' way. Enemies must attempt a @Check[reflex] save. On a failure, they become @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} for 1 round (@UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 2} on a critical failure).",
                     "Gravelands": "You gain a +1 status bonus to saving throws against the spells and abilities of haunts and undead creatures for 1 round.",
                     "Label": "Terrain Attunement",
                     "Mountain": "You gain resistance to physical damage (except adamantine) equal to the spell level for 1 round.",
@@ -7315,7 +7315,10 @@
             "ItemStrike": "{item} Strike",
             "Izalgun": {
                 "IntimidatingAthlete": {
-                    "Note": "You can attempt an [[/act demoralize skill=athletics]]{Athletics} or Intimidation check to [[/act demoralize]] one creature within 30 feet."
+                    "Note": "You can attempt an Athletics ([[/act demoralize skill=athletics]]) or Intimidation ([[/act demoralize skill=intimidation]]) check to @UUID[Compendium.sf2e.actions.Item.2u915NdUyQan6uKF]{Demoralize} one creature within 30 feet."
+                },
+                "SolidStance": {
+                    "ToggleLabel": "Solid Stance — Didn't move this turn"
                 }
             },
             "Jotunborn": {
@@ -7597,6 +7600,7 @@
                 "AdvancedAthamaruWeapons": "Advanced Athamaru Weapons",
                 "AdvancedAzarketiWeapons": "Advanced Azarketi Weapons",
                 "AdvancedBowsAndCrossbows": "Advanced Bows and Crossbows",
+                "AdvancedBugbearWeapons": "Advanced Bugbear Weapons",
                 "AdvancedCatfolkWeapons": "Advanced Catfolk Weapons",
                 "AdvancedConrasuWeapons": "Advanced Conrasu Weapons",
                 "AdvancedDwarfWeapons": "Advanced Dwarven Weapons",
@@ -7657,6 +7661,7 @@
                 "MartialAzarketiWeapons": "Martial Azarketi Weapons",
                 "MartialBombsFirearms": "Martial Bombs & Firearms",
                 "MartialBowsAndCrossbows": "Martial Bows and Crossbows",
+                "MartialBugbearWeapons": "Martial Bugbear Weapons",
                 "MartialCatfolkWeapons": "Martial Catfolk Weapons",
                 "MartialCentaurWeapons": "Martial Centaur Weapons",
                 "MartialConrasuWeapons": "Martial Conrasu Weapons",
@@ -7795,11 +7800,14 @@
                 }
             },
             "MountainStance": {
-                "BracersOfArmor": "Mountain Stance w/ Bracers of Armor",
+                "BandsOfForce": "Mountain Stance w/ Bands of Force",
                 "ExplorersClothing": "Mountain Stance w/ Explorer's Clothing",
                 "MageArmor": "Mountain Stance w/ Mage Armor"
             },
             "Moyishuu": {
+                "SonicSync": {
+                    "Note": "You can change your soulfeel to a different emotion as a free action."
+                },
                 "Soulfeel": {
                     "Fury": "Fury",
                     "Joy": "Joy",
@@ -8087,6 +8095,7 @@
                 "LevelOneAncestryFeat": "Select a 1st-level ancestry feat.",
                 "LevelOneClassFeat": "Select a 1st-level class feat.",
                 "LevelOneOrTwoClassFeat": "Select a 1st or 2nd-level class feat.",
+                "Lore": "Select a lore.",
                 "Material": "Select a material.",
                 "MovementType": "Select a movement type.",
                 "PathToPerfection": "Select a path to perfection.",
@@ -8953,6 +8962,11 @@
                 "PromptTwo": "Select a 2nd benefit.",
                 "TempHP": "Temporary Hit Points"
             },
+            "SpellEffectThrallCharge": {
+                "Prompt": {
+                    "DestroyThrall": "Destroy Thrall as part of the Strike?"
+                }
+            },
             "SpellEffectUnravelKnowledge": {
                 "ToggleLabel": "Unravel Knowledge — Apply penalty to check or DC"
             },
@@ -9025,7 +9039,7 @@
             "SpellTrickster": {
                 "AgileHand": {
                     "CriticalFailureNote": "If you critically fail, the spell ends and you can't use this modification again for 24 hours.",
-                    "Description": "When you cast _telekinetic hand_, you can modify its target to be a set of thieves' tools. When you Cast the Spell in this way, the tools move up to 20 feet towards a device or lock. After you Sustain the spell on future turns, you can use the tools to attempt Thievery checks to @UUID[Compendium.pf2e.actionspf2e.cYdz2grcOcRt4jk6]{Disable a Device} or @UUID[Compendium.pf2e.actionspf2e.2EE4aF4SZpYf0R6H]{Pick a Lock} within the spell's range, but you take a -2 penalty to your Thievery check. If you critically fail, the spell ends and you can't use this modification again for 24 hours.",
+                    "Description": "When you cast _telekinetic hand_, you can modify its target to be a set of thieves' tools. When you Cast the Spell in this way, the tools move up to 20 feet towards a device or lock. After you Sustain the spell on future turns, you can use the tools to attempt Thievery checks to @UUID[Compendium.pf2e.actionspf2e.Item.cYdz2grcOcRt4jk6]{Disable a Device} or @UUID[Compendium.pf2e.actionspf2e.Item.2EE4aF4SZpYf0R6H]{Pick a Lock} within the spell's range, but you take a -2 penalty to your Thievery check. If you critically fail, the spell ends and you can't use this modification again for 24 hours.",
                     "PenaltyLabel": "Thievery with Agile Hand"
                 },
                 "AnimateNet": {
@@ -9678,6 +9692,13 @@
                         "Base": "Your fangs Strike deals an additional @Damage[1d6[bleed]] damage.",
                         "FourteenthLevel": "Your fangs Strike deals an additional @Damage[2d6[bleed]] damage.",
                         "TwentiethLevel": "Your fangs Strike deals an additional @Damage[3d6[bleed]] damage."
+                    }
+                }
+            },
+            "Vaultlines": {
+                "Background": {
+                    "FleshwarpResearcher": {
+                        "ToggleLabel": "Fleshwarp Researcher — Treating creature with the fleshwarp trait"
                     }
                 }
             },
@@ -10373,6 +10394,9 @@
                 "Magboots": {
                     "ClimbMetalSurfaces": "Magboots — Climb metal surfaces"
                 },
+                "Necrograft": {
+                    "BoneBlade": "Bone Blade"
+                },
                 "RevealingFlashlight": {
                     "Lit": "Flashlight Lit"
                 },
@@ -10415,6 +10439,18 @@
                 },
                 "Upgrades": {
                     "Weapon": {
+                        "AcidModule": {
+                            "LabelCommercial": "Commercial Acid Module",
+                            "LabelTactical": "Tactical Acid Module",
+                            "CriticalNoteCommercial": "On a critical hit, the target also takes a –1 status penalty to its AC until the end of your next turn unless it succeeds at a @Check[fortitude|dc:24] save.",
+                            "CriticalNoteTactical": "On a critical hit, the target also takes a –1 status penalty to its AC until the end of your next turn unless it succeeds at a @Check[fortitude|dc:34] save."
+                        },
+                        "BoomRipple": {
+                            "LabelCommercial": "Commercial Boom Ripple",
+                            "LabelTactical": "Tactical Boom Ripple",
+                            "CriticalNoteCommercial": "When you critically hit with this weapon, you create a shock wave in a @Template[type:burst|distance:10] at a corner of your choice on the space of the Strike's target or, if you critically hit using the primary target class feature, the shock wave uses the area of your Area Fire instead. Creatures in the area take @Damage[2d6[bludgeoning]|options:area-damage] damage (@Check[reflex|dc:20|basic|options:area-effect,forced-movement] save), and creatures that critically fail their save are knocked back 10 feet from the center of the area. This is forced movement.",
+                            "CriticalNoteTactical": "When you critically hit with this weapon, you create a shock wave in a @Template[type:burst|distance:20] at a corner of your choice on the space of the Strike's target or, if you critically hit using the primary target class feature, the shock wave uses the area of your Area Fire instead. Creatures in the area take @Damage[4d6[bludgeoning]|options:area-damage] damage (@Check[reflex|dc:30|basic|options:area-effect,forced-movement] save), and creatures that critically fail their save are knocked back 10 feet from the center of the area. This is forced movement."
+                        },
                         "DivinityJammer": {
                             "Label": "Divinity Jammer",
                             "CriticalNote": "On a critical hit with the weapon, the target becomes @UUID[Compendium.sf2e.conditions.Item.e1XGnhKNSQIm5IXg]{Stupefied 1} until the end of your next turn. If the target is a celestial, fiend, monitor, or creature with divine spells or abilities, it becomes stupefied 1 for 3 rounds instead."
@@ -10450,6 +10486,12 @@
                             "LabelTactical": "Tactical Loudener",
                             "CriticalNoteCommercial": "On a critical hit, the target must succeed at a @Check[fortitude|dc:24] save or be @UUID[Compendium.pf2e.conditionitems.Item.9PR9y0bi4JPKnHPR]{Deafened} for 1 minute (or 1 hour on a critical failure).",
                             "CriticalNoteTactical": "On a critical hit, the target must succeed at a @Check[fortitude|dc:34] save or be @UUID[Compendium.pf2e.conditionitems.Item.9PR9y0bi4JPKnHPR]{Deafened} for 1 minute (or 1 hour on a critical failure)."
+                        },
+                        "RadiationModule": {
+                            "LabelCommercial": "Commercial Radiation Module",
+                            "LabelTactical": "Tactical Radiation Module",
+                            "CriticalNoteCommercial": "On a critical hit, the target must attempt a @Check[fortitude|dc:22] save against severe radiation sickness.",
+                            "CriticalNoteTactical": "On a critical hit, the target must attempt a @Check[fortitude|dc:32] save against severe radiation sickness."
                         },
                         "ShockModule": {
                             "LabelCommercial": "Commercial Shock Module",
@@ -10523,6 +10565,11 @@
                 "AdvancedGuns": "Advanced Guns",
                 "MartialAndSimpleGuns": "Martial & Simple Guns",
                 "SimpleGuns": "Simple Guns"
+            },
+            "Mechanic": {
+                "Exocortex": {
+                    "Prompt": "Select an Exocortex."
+                }
             },
             "Mystic": {
                 "Connection": {
@@ -10840,6 +10887,11 @@
                 },
                 "SudoSpell": {
                     "Alteration": "The spell's energy reverberates and echoes. You can Cast the Spell a second time before the end of your next turn without expending a spell slot."
+                }
+            },
+            "Technomancer": {
+                "ProgrammingLanguages": {
+                    "Prompt": "Select a Programming Language."
                 }
             },
             "Vesk": {

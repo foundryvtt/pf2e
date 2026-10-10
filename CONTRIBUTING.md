@@ -1,10 +1,10 @@
-# CONTRIBUTING.md
+# Contributing
 
 ## Welcome All
 
 If you would like to contribute to the project then I welcome all support. If you are (or would like to be) a developer, then hit us up on Discord (https://discord.gg/pf2e) and we can help get you up and running. Pull requests are welcome, and there are plenty of issues logged if you want to sink your teeth into something.
 
-## Setup
+## Development
 
 ### Prerequisites
 
@@ -47,6 +47,6 @@ Unsolicited new features are generally not accepted. If you'd like to contribute
 
 A pull request may not contain any AI-written changes. PRs noticed as having any AI-written changes will be summarily closed without merging.
 
-#### Prettier
+#### Style
 
 We have integrated [Prettier](https://prettier.io/) into this project to enforce a consistent coding—even if it's not one everybody likes. Github CI will block merges of any PR that fails the test suite, which includes style linting. To manually fix style issues, you can call `npm run lint:fix` from the project environment.

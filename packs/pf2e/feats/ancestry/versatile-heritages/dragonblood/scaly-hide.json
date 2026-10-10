@@ -39,12 +39,20 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "flags.system.scalyHideBonus",
+                "predicate": [
+                    {
+                        "not": "feat:scales-of-the-dragon"
+                    }
+                ],
                 "priority": 19,
                 "value": "ternary(gte(@actor.level,5),2,1)"
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
+                    {
+                        "not": "feat:scales-of-the-dragon"
+                    },
                     {
                         "not": "self:armored"
                     }
@@ -58,10 +66,13 @@
                 "mode": "add",
                 "predicate": [
                     {
+                        "not": "feat:scales-of-the-dragon"
+                    },
+                    {
                         "not": "self:armored"
                     }
                 ],
-                "relabel": "PF2E.SpecificRule.Dragonblood.ScalyHide.BracersOfArmor",
+                "relabel": "PF2E.SpecificRule.Dragonblood.ScalyHide.BandsOfForce",
                 "selector": "ac",
                 "slug": "bands-of-force",
                 "value": "@actor.flags.system.scalyHideBonus"
@@ -70,6 +81,9 @@
                 "key": "AdjustModifier",
                 "mode": "add",
                 "predicate": [
+                    {
+                        "not": "feat:scales-of-the-dragon"
+                    },
                     {
                         "not": "self:armored"
                     }
@@ -83,6 +97,9 @@
                 "key": "AdjustModifier",
                 "mode": "add",
                 "predicate": [
+                    {
+                        "not": "feat:scales-of-the-dragon"
+                    },
                     {
                         "not": "self:armored"
                     }

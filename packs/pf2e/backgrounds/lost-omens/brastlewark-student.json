@@ -1,0 +1,85 @@
+{
+    "_id": "RBLjBZ37G34wgxRh",
+    "folder": "nn4hRh4pE2VoaWrU",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Brastlewark Student",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "int"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You are or were a student of Brastlewark's Academe Alcheme, Sorcere Laude, or Tinkerer Tech academies. Whether you excelled, barely scraped by, or failed to live up to your potential during your time at the academy, your experiences there shaped your approach to the world.</p>\n<p>Choose two attribute boosts. One must be to <strong>Intelligence</strong> or <strong>Charisma</strong>, and one is a free attribute boost.</p>\n<p>You're trained in your choice of the Arcana or Crafting skill and in the Academia Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Recognize Spell] skill feat if you chose Arcana or the @UUID[Compendium.pf2e.feats-srd.Item.Crafter's Appraisal] skill feat if you chose Crafting.</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Arcana",
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "PF2E.Skill.Crafting",
+                        "value": "crafting"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                "rollOption": "brastlewark-student-skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.system.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "brastlewark-student-skill:arcana"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Recognize Spell"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "brastlewark-student-skill:crafting"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Crafter's Appraisal"
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Academia Lore"
+            ],
+            "value": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "background"
+}

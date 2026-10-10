@@ -1,0 +1,88 @@
+{
+    "_id": "Ia38Pz0FGOLMvcUN",
+    "folder": "zDlxATrLAlbYA2Mv",
+    "img": "icons/weapons/polearms/spear-flared-silver-pink.webp",
+    "name": "Silver Spear",
+    "system": {
+        "area": null,
+        "cost": {
+            "value": ""
+        },
+        "counteraction": false,
+        "damage": {
+            "80AGmZaFzFt08YT6": {
+                "applyMod": false,
+                "category": null,
+                "formula": "12d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [
+                    "silver"
+                ],
+                "type": "piercing"
+            }
+        },
+        "defense": null,
+        "description": {
+            "value": "<p>You conjure a great silver lance and hurl it, piercing your foes. The spear is made of silver and deals 12d6 piercing damage. If the target is a fiend, it deals an additional 12d6 spirit damage.</p><hr /><p><strong>Critical Success</strong> The target takes double damage. If the creature is a fiend, the spear magically tethers it. For 1 minute, any teleportation actions it attempts are disrupted unless it first succeeds at a @Check[flat|dc:11|showDC:all].</p>\n<p><strong>Success</strong> The target takes full damage.</p><hr /><p><strong>Heightened (+1)</strong> The piercing damage increases by 2d6, and the spirit damage against fiends increases by 2d6.</p>"
+        },
+        "duration": {
+            "sustained": false,
+            "value": ""
+        },
+        "heightening": {
+            "area": 0,
+            "damage": {
+                "80AGmZaFzFt08YT6": "2d6"
+            },
+            "interval": 1,
+            "type": "interval"
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "range": {
+            "value": "120 feet"
+        },
+        "requirements": "",
+        "rules": [
+            {
+                "damageType": "spirit",
+                "diceNumber": "2 * @item.level",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:trait:fiend"
+                ],
+                "selector": "{item|id}-damage"
+            }
+        ],
+        "target": {
+            "value": "1 creature"
+        },
+        "time": {
+            "value": "2"
+        },
+        "traits": {
+            "rarity": "common",
+            "traditions": [
+                "arcane",
+                "divine",
+                "primal"
+            ],
+            "value": [
+                "attack",
+                "concentrate",
+                "manipulate",
+                "metal"
+            ]
+        }
+    },
+    "type": "spell"
+}

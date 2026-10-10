@@ -1,0 +1,181 @@
+{
+    "_id": "orZd4ZvgTHXM49IF",
+    "img": "icons/commodities/tech/battery-arcane-crystal-green.webp",
+    "name": "Spell Effect: Infuse Ammo",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Infuse Ammo]<br />Your weapon gains the chosen trait and deals and additional d6 of the chosen damage type.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:ranged"
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "value": "air"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "value": "earth"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitMetal",
+                        "value": "metal"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "value": "water"
+                    },
+                    {
+                        "label": "PF2E.TraitWood",
+                        "value": "wood"
+                    }
+                ],
+                "flag": "infuseAmmoElement",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon",
+                "rollOption": "infuse-ammo-element"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "predicate": [
+                            "infuse-ammo-element:metal"
+                        ],
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "infuse-ammo-element:earth",
+                                    "infuse-ammo-element:water"
+                                ]
+                            }
+                        ],
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "predicate": [
+                            "infuse-ammo-element:water"
+                        ],
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "predicate": [
+                            "infuse-ammo-element:air"
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            "infuse-ammo-element:fire"
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitPiercing",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "infuse-ammo-element:earth",
+                                    "infuse-ammo-element:wood"
+                                ]
+                            }
+                        ],
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "predicate": [
+                            "infuse-ammo-element:wood"
+                        ],
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "predicate": [
+                            "infuse-ammo-element:metal"
+                        ],
+                        "value": "slashing"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "predicate": [
+                            "infuse-ammo-element:air"
+                        ],
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "infuseAmmoDamage",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:id:{item|flags.system.rulesSelections.weapon}"
+                ],
+                "property": "traits",
+                "value": "{item|flags.system.rulesSelections.infuseAmmoElement}"
+            },
+            {
+                "damageType": "{item|flags.system.rulesSelections.infuseAmmoDamage}",
+                "diceNumber": "ternary(gte(@item.level, 6), 2,1)",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|flags.system.rulesSelections.weapon}-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

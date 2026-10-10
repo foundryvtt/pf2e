@@ -1,0 +1,64 @@
+{
+    "_id": "I8NaJxRqRlv8Yw0Y",
+    "img": "icons/magic/symbols/rune-sigil-white-pink.webp",
+    "name": "Effect: Decreed Strikes",
+    "system": {
+        "description": {
+            "value": "<p>The signifer's Strikes deal an additional 1d6 spirit damage and gain the divine trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "damageType": "spirit",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": [
+                    "composite-longbow-damage",
+                    "fist-damage",
+                    "morningstar-damage"
+                ]
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:slug:composite-longbow",
+                            "item:slug:fist",
+                            "item:slug:morningstar"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "divine"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

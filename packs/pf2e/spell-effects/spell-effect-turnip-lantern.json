@@ -1,0 +1,52 @@
+{
+    "_id": "sOfwDFEn1YrHYrza",
+    "img": "icons/sundries/lights/lantern-iron-yellow.webp",
+    "name": "Spell Effect: Turnip Lantern",
+    "system": {
+        "description": {
+            "value": "<p>You have a +1 status bonus to your AC, saving throws, and Perception checks against unholy creatures</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:trait:unholy"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw",
+                    "perception"
+                ],
+                "slug": "turnip-lantern",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

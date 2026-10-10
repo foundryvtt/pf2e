@@ -3209,7 +3209,7 @@
                             "ac",
                             "saving-throw"
                         ],
-                        "slug": "bracers-of-armor",
+                        "slug": "bands-of-force",
                         "type": "item",
                         "value": 1
                     },
@@ -3515,10 +3515,6 @@
                     "iHjKLAl3UPjQK4Hp": {
                         "damage": "2d4+8",
                         "damageType": "bludgeoning"
-                    },
-                    "y8VjkF7Dqd8Z2W16": {
-                        "damage": "3d6",
-                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -3550,6 +3546,15 @@
                         ],
                         "slug": "base",
                         "value": 8
+                    },
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "frost"
                     }
                 ],
                 "slug": "snowcasters-staff",
@@ -3580,10 +3585,6 @@
                     "value": 22
                 },
                 "damageRolls": {
-                    "TKCw7uQqccgjcx3F": {
-                        "damage": "2d6",
-                        "damageType": "cold"
-                    },
                     "fO5pQs2ejK1blW4J": {
                         "damage": "2d4+8",
                         "damageType": "piercing"
@@ -3632,10 +3633,6 @@
                     "qZncwUIv1zmEaA7z": {
                         "damage": "2d4+6",
                         "damageType": "piercing"
-                    },
-                    "rGMICxvONaxQoEv3": {
-                        "damage": "2d6",
-                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -3846,7 +3843,15 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "cold",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []

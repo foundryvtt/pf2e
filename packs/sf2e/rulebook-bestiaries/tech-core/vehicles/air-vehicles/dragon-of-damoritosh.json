@@ -1,0 +1,171 @@
+{
+    "_id": "tziikrgm9Cwe6POs",
+    "folder": "9ORoqgmB8gj9ewS3",
+    "img": "systems/sf2e/icons/default-icons/vehicle.svg",
+    "items": [
+        {
+            "_id": "tojIKM4fbH9IF5b9",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Dual Weapon Mounts",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A <em>dragon of Damoritosh</em> has two weapon mounts, one in each of the dragon's hands, which can each have any ranged weapon installed or removed with two Interact actions. Any of the dragon's crew or passengers can make Strikes with weapons installed this way. Weapons installed this way that require batteries don't consume any charges when fired, as they can draw power directly from the ship's engine.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "I3afglo5lm08iv58",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Fire Breath",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The massive flame cannon built into the dragon of Damoritosh's mouth ignites, dealing @Damage[12d6[fire]|options:area-damage] damage to creatures and objects in a @Template[type:cone|distance:40] or an @Template[type:line|distance:80] (@Check[reflex|dc:33|basic] save). This ability can be used by crew or passengers, in addition to the pilot. Fire Breath requires [[/gmr 1d4 #rounds]]{1d4 rounds} to cool down before it can be used again.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Upb8gpYzwArDJ13U",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Frightful Appearance",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragon of Damoritosh's intimidating design is magically enhanced to simulate the terrifying presence of an actual dragon. Creatures within a @Template[type:emanation|distance:60], except the crew and passengers, must attempt a @Check[will|dc:32] save. This ability can be used by crew or passengers, in addition to the pilot.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 4}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "magical",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Dragon of Damoritosh",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 32
+            },
+            "collisionDC": {
+                "value": 32
+            },
+            "collisionDamage": {
+                "value": "10d10"
+            },
+            "emitsSound": "encounter",
+            "hardness": 20,
+            "hp": {
+                "details": "",
+                "max": 240,
+                "temp": 0,
+                "value": 240
+            },
+            "immunities": [],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 20
+                }
+            ],
+            "weaknesses": []
+        },
+        "details": {
+            "AC": 0,
+            "crew": "1 pilot, 2 crew",
+            "description": "<p>A <em>dragon of Damoritosh</em> resembles a huge dragon formed from interlocking metal plates with enormous, magically enhanced wings, making it a terrifying sight to behold. The incredibly detailed dragon's head, which doubles as a flamethrower, was designed by talented artists to appear lifelike. The dragon has become a favorite vehicle for crowd suppression and intimidation campaigns—for those who can afford one.</p>",
+            "level": {
+                "value": 15
+            },
+            "passengers": "3",
+            "pilotingCheck": "Piloting (DC 31) or Arcana (DC 33)",
+            "price": 200000,
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Tech Core"
+            },
+            "space": {
+                "high": 15,
+                "long": 30,
+                "wide": 50
+            },
+            "speed": "fly 50 feet (magic or motorized)"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 26
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "grg"
+            },
+            "value": [
+                "magical",
+                "tech"
+            ]
+        }
+    },
+    "type": "vehicle"
+}

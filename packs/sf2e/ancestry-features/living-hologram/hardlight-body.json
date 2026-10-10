@@ -1,0 +1,81 @@
+{
+    "_id": "nURQYDhvY8VrIaAD",
+    "folder": "QPYs8E0dFNXI0LIk",
+    "img": "icons/magic/defensive/armor-green-hex.webp",
+    "name": "Hardlight Body",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestryfeature",
+        "description": {
+            "value": "<p>You have a central processing core containing your mind and soul that emits, projects, or otherwise manifests a Small, Medium, or Large body of hardlight around it. This body, whose size and appearance you define when you choose the living hologram ancestry, can have any appearance that fits within the size category you choose, though you have two hands (regardless of how many hands it looks like you have). Your hardlight body is semi-translucent but fully corporeal, and it provides cover normally. You can take the @UUID[Compendium.sf2e.actions.Item.Project Hardlight Body] and @UUID[Compendium.sf2e.actions.Item.Disable Hardlight Projector] actions to project or stop projecting your hardlight body, respectively.</p>\n<p>Your physiological needs are different than those of biological organisms. You don't need to eat, drink, breathe, or sleep. You still need a daily period of rest. During this period of rest, you Disable Hardlight Projector, then enter standby mode for 2 hours, which is similar to sleeping except you're aware of your surroundings and don't take penalties for being @UUID[Compendium.sf2e.conditions.Item.Unconscious].</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.ActorSizeLarge",
+                        "value": {
+                            "size": "large"
+                        }
+                    },
+                    {
+                        "label": "PF2E.ActorSizeMedium",
+                        "value": {
+                            "size": "medium"
+                        }
+                    },
+                    {
+                        "label": "PF2E.ActorSizeSmall",
+                        "value": {
+                            "size": "small"
+                        }
+                    }
+                ],
+                "flag": "choice",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.CreatureSize"
+            },
+            {
+                "key": "CreatureSize",
+                "value": "{item|flags.system.rulesSelections.choice.size}"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Disable Hardlight Projector"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Project Hardlight Body"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "living-hologram"
+            ]
+        }
+    },
+    "type": "feat"
+}
