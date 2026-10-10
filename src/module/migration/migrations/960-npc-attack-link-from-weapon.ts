@@ -26,6 +26,6 @@ export class Migration960NPCAttackLinkFromWeapon extends MigrationBase {
         );
         if (!hasMultipleDamage && !hasRuneOrMaterialAdjust) return;
 
-        flags.syncWeaponProperties = false;
+        flags.syncWeaponFeatures = false;
     }
 }

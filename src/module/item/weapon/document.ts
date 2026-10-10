@@ -827,7 +827,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         attack.category = this.category;
         attack.group = this.group;
         attack.baseType = this.baseType;
-        attack.syncWeaponProperties(this);
+        attack.syncWeaponFeatures(this);
 
         return [attack, ...this.getAltUsages({ recurse: false }).flatMap((u) => u.toNPCAttacks())];
     }

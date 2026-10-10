@@ -29,7 +29,7 @@ type MeleeFlags = ItemFlagsPF2e & {
     [SYSTEM_ID]: {
         linkedWeapon?: string;
         /** When `false`, do not copy runes and material from `linkedWeapon`. Absent is prepared to `true`. */
-        syncWeaponProperties?: boolean;
+        syncWeaponFeatures?: boolean;
     };
 };
 
