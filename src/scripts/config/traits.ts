@@ -1555,7 +1555,7 @@ const traitDescriptions = {
     emotion: "PF2E.TraitDescriptionEmotion",
     "entrench-melee": "PF2E.TraitDescriptionEntrench",
     "entrench-ranged": "PF2E.TraitDescriptionEntrench",
-    "entu-colony": "PF2E.TraitDescriptionEntu",
+    "entu-colony": "PF2E.TraitDescriptionEntuColony",
     environmental: "PF2E.TraitDescriptionEnvironmental",
     esoterica: "PF2E.TraitDescriptionEsoterica",
     ethereal: "PF2E.TraitDescriptionEthereal",
