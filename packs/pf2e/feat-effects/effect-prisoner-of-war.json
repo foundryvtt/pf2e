@@ -1,0 +1,49 @@
+{
+    "_id": "TNn8lrS7JWRiH6Dw",
+    "img": "icons/commodities/metal/chain-steel.webp",
+    "name": "Effect: Prisoner of War",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.backgrounds.Item.Prisoner of War]</p>\n<p>You gain a +1 circumstance bonus to saving throws against emotion effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 24
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Vautlines Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:emotion"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
