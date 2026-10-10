@@ -10,6 +10,7 @@ import { RuleElements, RuleElementSource } from "@module/rules/index.ts";
 import {
     createSheetTags,
     createTagifyTraits,
+    isControlDown,
     maintainFocusInRender,
     SheetOptions,
     TagifyEntry,
@@ -440,13 +441,25 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
                     });
                     break;
                 case "remove-rule-element":
-                    button.addEventListener("click", async () => {
+                    button.addEventListener("click", async (event) => {
                         const rules = this.item.toObject().system.rules;
                         const index = Number(button.dataset.ruleIndex ?? "NaN");
-                        if (rules && Number.isInteger(index) && rules.length > index) {
-                            rules.splice(index, 1);
-                            this.item.update({ "system.rules": rules });
-                        }
+                        if (!(rules && Number.isInteger(index) && rules.length > index)) return;
+
+                        const locPath = `PF2E.RuleElement.${rules[index].key}`;
+                        const localized = _loc(locPath);
+                        const name = localized === locPath ? _loc("PF2E.RuleElement.Unrecognized") : localized;
+                        const confirmed =
+                            isControlDown(event) ||
+                            (await foundry.applications.api.DialogV2.confirm({
+                                window: { title: "PF2E.Item.Rules.Remove", icon: "fa-solid fa-trash" },
+                                content: `<p>${_loc("PF2E.DeleteQuestion", { name: `"${name}"` })}</p>`,
+                                no: { default: true },
+                            }));
+                        if (!confirmed) return;
+
+                        rules.splice(index, 1);
+                        this.item.update({ "system.rules": rules });
                     });
                     break;
             }
