@@ -32,7 +32,33 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "unassuming-laborer",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:impersonate",
+                    "unassuming-laborer"
+                ],
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "unassuming-laborer"
+                ],
+                "selector": "deception-dc",
+                "slug": "unassuming-laborer-dc",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
