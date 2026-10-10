@@ -1,8 +1,8 @@
 <script lang="ts">
-    import Filters from "./filters.svelte";
-    import ResultItem from "./result-item.svelte";
     import { CompendiumBrowser } from "../browser.svelte.ts";
     import type { RangeInputParser } from "../tabs/data.ts";
+    import Filters from "./filters.svelte";
+    import ResultItem from "./result-item.svelte";
 
     interface Props {
         foundryApp: CompendiumBrowser;
@@ -15,8 +15,8 @@
     const activeTabName = $derived(browser.activeTabName as Exclude<typeof browser.activeTabName, "">);
     const tab = $derived(browser.tabs[activeTabName]);
 
-    function resetFilters(): void {
-        tab.resetFilters();
+    function resetFilters(key?: string): void {
+        tab.resetFilters(key);
     }
 
     const parseRangeInput: RangeInputParser = (name, lower, upper) => tab.parseRangeFilterInput(name, lower, upper);

@@ -5,6 +5,8 @@
 
     const { checkbox = $bindable(), searchable }: { checkbox: CheckboxData; searchable?: boolean } = $props();
     let searchTerm = $state("");
+    // The toggle is enabled if an option it substitutes is selected
+    const toggleEnabled = $derived(checkbox.selected.some((s) => !!checkbox.toggle?.substitutions[s]));
 
     function onChangeCheckbox(
         event: Event & { currentTarget: HTMLInputElement },
@@ -15,6 +17,7 @@
             checkbox.selected.push(data.name);
         } else {
             checkbox.selected = checkbox.selected.filter((name) => name !== data.name);
+            if (checkbox.toggle && !toggleEnabled) checkbox.toggle.active = false;
         }
         data.option.selected = checked;
     }
@@ -26,6 +29,21 @@
 </script>
 
 <div class="checkbox-container" transition:slide>
+    {#if checkbox.toggle}
+        <button
+            type="button"
+            class="flat filter-toggle"
+            aria-pressed={checkbox.toggle.active}
+            disabled={!toggleEnabled}
+            onclick={() => checkbox.toggle && (checkbox.toggle.active = !checkbox.toggle.active)}
+        >
+            <i
+                class="fa-solid fa-fw {checkbox.toggle.active ? 'fa-toggle-on' : 'fa-toggle-off'}"
+                aria-hidden="true"
+            ></i>
+            {_loc(checkbox.toggle.label)}
+        </button>
+    {/if}
     {#if searchable}
         <input
             type="search"
@@ -62,6 +80,23 @@
             display: flex;
             align-items: center;
             gap: var(--space-4);
+        }
+
+        button.filter-toggle {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            margin-left: var(--space-2);
+            margin-bottom: var(--space-2);
+
+            i {
+                font-size: 1.25em;
+                color: var(--color-text-secondary);
+            }
+
+            &:disabled {
+                opacity: 0.5;
+            }
         }
 
         .filter-sources {
