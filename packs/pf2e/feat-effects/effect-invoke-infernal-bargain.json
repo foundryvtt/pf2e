@@ -1,0 +1,49 @@
+{
+    "_id": "7kPmN2qR8sT4vW6x",
+    "img": "icons/magic/fire/flame-burning-fist-strike.webp",
+    "name": "Effect: Invoke Infernal Bargain",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Invoke Infernal Bargain]</p>\n<p>You gain a +2 status bonus to the next attack roll, skill check, or saving throw you attempt.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "removeAfterRoll": "if-enabled",
+                "selector": [
+                    "attack-roll",
+                    "saving-throw",
+                    "skill-check"
+                ],
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
