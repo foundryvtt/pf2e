@@ -1,0 +1,462 @@
+{
+    "_id": "dpSDWw3gZxSAkRcm",
+    "img": "systems/sf2e/icons/equipment/weapons/grenade-chemical.webp",
+    "name": "Spell Effect: Junk Grenade",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Junk Grenade]</p>\n<p>You gain a grenade in your hands</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "Prompt": "PF2E.SpecificRule.SpellEffectJunkBomb.Prompt.Grenade",
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectJunkBomb.Label.Electromag",
+                        "value": "electromag-grenade"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectJunkBomb.Label.Flash",
+                        "value": "flash-grenade"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectJunkBomb.Label.Frag",
+                        "value": "frag-grenade"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectJunkBomb.Label.Glitterbomb",
+                        "value": "glitterbomb"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectJunkBomb.Label.Incendiary",
+                        "value": "incendiary-grenade"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectJunkBomb.Label.Smoke",
+                        "value": "smoke-grenade"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "junk-grenade"
+            },
+            {
+                "Prompt": "PF2E.SpecificRule.SpellEffectJunkBomb.Prompt.Grade",
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Item.Physical.Grade.commercial",
+                        "value": "commercial"
+                    },
+                    {
+                        "label": "PF2E.Item.Physical.Grade.tactical",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "{item|level}",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "tactical"
+                    },
+                    {
+                        "label": "PF2E.Item.Physical.Grade.advanced",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "{item|level}",
+                                    4
+                                ]
+                            }
+                        ],
+                        "value": "advanced"
+                    },
+                    {
+                        "label": "PF2E.Item.Physical.Grade.superior",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "{item|level}",
+                                    5
+                                ]
+                            }
+                        ],
+                        "value": "superior"
+                    },
+                    {
+                        "label": "PF2E.Item.Physical.Grade.elite",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "{item|level}",
+                                    6
+                                ]
+                            }
+                        ],
+                        "value": "elite"
+                    },
+                    {
+                        "label": "PF2E.Item.Physical.Grade.ultimate",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "{item|level}",
+                                    8
+                                ]
+                            }
+                        ],
+                        "value": "ultimate"
+                    },
+                    {
+                        "label": "PF2E.Item.Physical.Grade.paragon",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "{item|level}",
+                                    9
+                                ]
+                            }
+                        ],
+                        "value": "paragon"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "junk-grenade-grade"
+            },
+            {
+                "choices": [
+                    {
+                        "predicate": [
+                            "junk-grenade:electromag-grenade",
+                            "junk-grenade-grade:commercial"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Electromag Grenade (Commercial)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:electromag-grenade",
+                            "junk-grenade-grade:elite"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Electromag Grenade (Elite)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:electromag-grenade",
+                            "junk-grenade-grade:paragon"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Electromag Grenade (Paragon)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:electromag-grenade",
+                            "junk-grenade-grade:tactical"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Electromag Grenade (Tactical)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:electromag-grenade",
+                            "junk-grenade-grade:advanced"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Electromag Grenade (Advanced)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:electromag-grenade",
+                            "junk-grenade-grade:superior"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Electromag Grenade (Superior)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:electromag-grenade",
+                            "junk-grenade-grade:ultimate"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Electromag Grenade (Ultimate)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:flash-grenade",
+                            "junk-grenade-grade:elite"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Flash Grenade (Elite)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:flash-grenade",
+                            "junk-grenade-grade:paragon"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Flash Grenade (Paragon)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:flash-grenade",
+                            "junk-grenade-grade:tactical"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Flash Grenade (Tactical)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:flash-grenade",
+                            "junk-grenade-grade:ultimate"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Flash Grenade (Ultimate)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:flash-grenade",
+                            "junk-grenade-grade:advanced"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Flash Grenade (Advanced)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:flash-grenade",
+                            "junk-grenade-grade:superior"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Flash Grenade (Superior)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:flash-grenade",
+                            "junk-grenade-grade:commercial"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Flash Grenade (Commercial)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:frag-grenade",
+                            "junk-grenade-grade:elite"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Frag Grenade (Elite)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:frag-grenade",
+                            "junk-grenade-grade:paragon"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Frag Grenade (Paragon)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:frag-grenade",
+                            "junk-grenade-grade:tactical"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Frag Grenade (Superior)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:frag-grenade",
+                            "junk-grenade-grade:ultimate"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Frag Grenade (Tactical)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:frag-grenade",
+                            "junk-grenade-grade:advanced"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Frag Grenade (Ultimate)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:frag-grenade",
+                            "junk-grenade-grade:superior"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Frag Grenade (Advanced)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:frag-grenade",
+                            "junk-grenade-grade:commercial"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Frag Grenade (Commercial)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:glitterbomb",
+                            "junk-grenade-grade:elite"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Glitterbomb (Elite)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:glitterbomb",
+                            "junk-grenade-grade:paragon"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Glitterbomb (Paragon)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:glitterbomb",
+                            "junk-grenade-grade:tactical"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Glitterbomb (Superior)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:glitterbomb",
+                            "junk-grenade-grade:ultimate"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Glitterbomb (Tactical)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:glitterbomb",
+                            "junk-grenade-grade:advanced"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Glitterbomb (Advanced)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:glitterbomb",
+                            "junk-grenade-grade:superior"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Glitterbomb (Ultimate)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:glitterbomb",
+                            "junk-grenade-grade:commercial"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Glitterbomb (Commercial)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:incendiary-grenade",
+                            "junk-grenade-grade:elite"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Incendiary Grenade (Elite)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:incendiary-grenade",
+                            "junk-grenade-grade:paragon"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Incendiary Grenade (Paragon)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:incendiary-grenade",
+                            "junk-grenade-grade:tactical"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Incendiary Grenade (Tactical)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:incendiary-grenade",
+                            "junk-grenade-grade:ultimate"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Incendiary Grenade (Superior)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:incendiary-grenade",
+                            "junk-grenade-grade:advanced"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Incendiary Grenade (Advanced)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:incendiary-grenade",
+                            "junk-grenade-grade:superior"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Incendiary Grenade (Ultimate)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:incendiary-grenade",
+                            "junk-grenade-grade:commercial"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Incendiary Grenade (Commercial)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:smoke-grenade",
+                            "junk-grenade-grade:elite"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Smoke Grenade (Elite)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:smoke-grenade",
+                            "junk-grenade-grade:paragon"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Smoke Grenade (Paragon)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:smoke-grenade",
+                            "junk-grenade-grade:tactical"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Smoke Grenade (Tactical)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:smoke-grenade",
+                            "junk-grenade-grade:ultimate"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Smoke Grenade (Ultimate)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:smoke-grenade",
+                            "junk-grenade-grade:advanced"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Smoke Grenade (Advanced)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:smoke-grenade",
+                            "junk-grenade-grade:superior"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Smoke Grenade (Superior)"
+                    },
+                    {
+                        "predicate": [
+                            "junk-grenade:smoke-grenade",
+                            "junk-grenade-grade:commercial"
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Smoke Grenade (Commercial)"
+                    }
+                ],
+                "flag": "junkGrenade",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.SpellEffectJunkBomb.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "granter": "cascade"
+                },
+                "uuid": "{item|flags.system.rulesSelections.junkGrenade}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
