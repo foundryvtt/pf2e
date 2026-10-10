@@ -18,39 +18,58 @@
     let isExpanded = $state(props.isExpanded);
 </script>
 
-<fieldset>
-    <legend>
-        {#if "isExpanded" in props}
-            <button
-                type="button"
-                class="flat expand-section"
-                onclick={() => (isExpanded = !isExpanded)}
-                aria-expanded={isExpanded}
-            >
-                <i class="fa-solid fa-fw {isExpanded ? 'fa-chevron-down' : 'fa-chevron-up'}" aria-hidden="true"></i>
-                <span>{_loc(props.label)}</span>
-            </button>
-        {:else}
-            {_loc(props.label)}
+<div class="filter-container">
+    <fieldset>
+        <legend>
+            {#if "isExpanded" in props}
+                <button
+                    type="button"
+                    class="flat expand-section"
+                    onclick={() => (isExpanded = !isExpanded)}
+                    aria-expanded={isExpanded}
+                >
+                    <i class="fa-solid fa-fw {isExpanded ? 'fa-chevron-down' : 'fa-chevron-up'}" aria-hidden="true"></i>
+                    <span>{_loc(props.label)}</span>
+                </button>
+            {:else}
+                {_loc(props.label)}
+            {/if}
+        </legend>
+        {#if isExpanded === undefined || isExpanded}
+            {@render props.children()}
         {/if}
-        {#if props.clearButton?.options.visible}
-            <button type="button" class="clear-filter" onclick={() => props.clearButton?.clear()}>
-                {_loc("PF2E.CompendiumBrowser.Filter.ClearFilter")}
-            </button>
-        {/if}
-    </legend>
-    {#if isExpanded === undefined || isExpanded}
-        {@render props.children()}
+    </fieldset>
+    {#if props.clearButton?.options.visible}
+        <button type="button" class="clear-filter" onclick={() => props.clearButton?.clear()}>
+            {_loc("PF2E.CompendiumBrowser.Filter.ClearFilter")}
+        </button>
     {/if}
-</fieldset>
+</div>
 
 <style lang="scss">
+    .filter-container {
+        margin: var(--space-8) var(--space-2);
+        position: relative;
+
+        button.clear-filter {
+            line-height: 1.5em;
+            position: absolute;
+            right: var(--space-10);
+            top: calc(1.25em * 1.25 / 2);
+            width: auto;
+            translate: 0 -50%;
+
+            &:not(:hover) {
+                background: var(--background);
+            }
+        }
+    }
+
     fieldset {
         border: 2px groove var(--color-fieldset-border);
-        margin: var(--space-8) var(--space-2);
+        margin: 0;
         border-radius: var(--space-5);
         padding: var(--space-6);
-        position: relative;
 
         legend {
             display: flex;
@@ -72,17 +91,6 @@
                     margin-right: 0.25em;
                     margin-left: unset;
                 }
-            }
-
-            button.clear-filter {
-                &:not(:hover) {
-                    background: var(--background);
-                }
-                line-height: 1.5em;
-                position: absolute;
-                right: var(--space-10);
-                top: var(--space-1);
-                width: auto;
             }
         }
     }
