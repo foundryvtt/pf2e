@@ -48,7 +48,11 @@
     // Arrow keys walk the row names across all groups, as a faster alternative to Tab
     const nameNav = (event: KeyboardEvent & { currentTarget: HTMLElement }): void => {
         if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
-        if (!(event.target instanceof HTMLButtonElement) || !event.target.classList.contains("name")) return;
+        if (
+            !(event.target && fu.isElementInstanceOf(event.target, HTMLButtonElement)) ||
+            !event.target.classList.contains("name")
+        )
+            return;
         event.preventDefault();
         const names = Array.from(event.currentTarget.querySelectorAll<HTMLButtonElement>("button.name"));
         names[names.indexOf(event.target) + (event.key === "ArrowDown" ? 1 : -1)]?.focus();

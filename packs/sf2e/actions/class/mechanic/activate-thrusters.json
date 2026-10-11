@@ -12,7 +12,7 @@
         },
         "category": "interaction",
         "description": {
-            "value": "<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p><strong>Effect</strong> Your drone Strides twice, moving through the spaces of any creatures in the way but not triggering reactions, and deals @Damage[5d6[bludgeoning]] damage to them with a @Check[reflex|against:class|basic] save against your class DC. A creature that critically fails its saving throw is additionally knocked @UUID[Compendium.sf2e.conditions.Item.Prone]. At 12th level and every 2 levels thereafter, the bludgeoning damage increases by 1d6.</p>"
+            "value": "<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p><strong>Effect</strong> Your drone Strides twice, moving through the spaces of any creatures in the way but not triggering reactions, and deals @Damage[max(5,(floor((@actor.level -10)/2)+5))d6[bludgeoning]|options:area-damage] damage to them with a @Check[reflex|against:class|basic|options:area-effect,inflicts:prone] save against your class DC. A creature that critically fails its saving throw is additionally knocked @UUID[Compendium.sf2e.conditions.Item.Prone]. At 12th level and every 2 levels thereafter, the bludgeoning damage increases by 1d6.</p>"
         },
         "frequency": {
             "max": 1,

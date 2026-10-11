@@ -29,7 +29,25 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Resistance",
+                "override": true,
+                "predicate": [
+                    {
+                        "or": [
+                            "devil-form:coarti",
+                            "devil-form:levaloch",
+                            "devil-form:sarglagon",
+                            "devil-form:vordine"
+                        ]
+                    }
+                ],
+                "priority": 110,
+                "type": "fire",
+                "value": "10 + floor(@actor.level/2)"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

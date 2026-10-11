@@ -20,7 +20,7 @@
     }
 
     const onSearchSource = fu.debounce((event: Event) => {
-        if (!(event.target instanceof HTMLInputElement)) return;
+        if (!(event.target && fu.isElementInstanceOf(event.target, HTMLInputElement))) return;
         searchTerm = event.target.value.trim().toLocaleLowerCase(game.i18n.lang);
     }, 250);
 </script>

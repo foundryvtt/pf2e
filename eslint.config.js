@@ -25,6 +25,14 @@ export default defineConfig(
             "prettier/prettier": "error",
             "no-console": "off",
             "no-plusplus": ["error", { allowForLoopAfterthoughts: true }],
+            "no-restricted-syntax": [
+                "error",
+                {
+                    selector:
+                        "BinaryExpression[operator='instanceof'][right.name=/^(Node|Element|Text|DocumentFragment|(HTML|SVG)\\w*Element|\\w*Event)$/]",
+                    message: "instanceof fails for nodes and events from detached windows: use fu.isElementInstanceOf",
+                },
+            ],
             "no-unused-expressions": ["error", { allowShortCircuit: true }],
             "no-var": "error",
             "spaced-comment": ["error", "always", { markers: ["/"] }],

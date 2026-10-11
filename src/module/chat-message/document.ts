@@ -156,7 +156,9 @@ class ChatMessagePF2e extends ChatMessage<UserPF2e | null> {
         const identifier =
             roll?.options.identifier ??
             (context && "identifier" in context ? context.identifier : null) ??
-            htmlQuery(document.body, `li.message[data-message-id="${this.id}"] [data-identifier]`)?.dataset.identifier;
+            [ui.chat.element, ui.chat.popout?.element]
+                .map((log) => htmlQuery(log, `li.message[data-message-id="${this.id}"] [data-identifier]`))
+                .find((el) => !!el)?.dataset.identifier;
 
         // Parse the identifier and attempt to figure it out based on weapon type matching
         const [itemId, slug, actionOrMeleeRanged] = identifier?.split(".") ?? [null, null, null];

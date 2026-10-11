@@ -169,7 +169,13 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         const pdElements = htmlQueryAll<InputOrSelect>(html, "[data-action=update-persistent]");
         for (const element of pdElements) {
             element.addEventListener("change", async (event): Promise<void> => {
-                if (!(event.target instanceof HTMLInputElement || event.target instanceof HTMLSelectElement)) {
+                if (
+                    !event.target ||
+                    !(
+                        fu.isElementInstanceOf(event.target, HTMLInputElement) ||
+                        fu.isElementInstanceOf(event.target, HTMLSelectElement)
+                    )
+                ) {
                     throw ErrorPF2e("Unexpected error updating persistent damage data");
                 }
 
