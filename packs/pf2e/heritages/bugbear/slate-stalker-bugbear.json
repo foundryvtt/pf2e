@@ -1,0 +1,56 @@
+{
+    "_id": "rhBw1AlQXCxMow2V",
+    "folder": "dE9bkYrwpofv66o4",
+    "img": "icons/environment/settlement/temple-night.webp",
+    "name": "Slate-Stalker Bugbear",
+    "system": {
+        "ancestry": {
+            "name": "Bugbear",
+            "slug": "bugbear",
+            "uuid": "Compendium.pf2e.ancestries.Item.GJL7lFWn1NibsHYg"
+        },
+        "description": {
+            "value": "<p>You come from the boldest bugbears, those who hide within the streets and alleys of larger settlements. Your fur is mottled gray, black, and brown, perfect for blending with urban environments and especially useful for climbing down chimneys and smokestacks. You gain a +1 circumstance bonus to Fortitude saves against inhaled effects (such as inhaled poisons). Additionally, you gain a +2 circumstance bonus to [[/act hide]] or [[/act sneak]] in urban environments.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:inhaled"
+                ],
+                "selector": [
+                    "fotitude"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "terrain:urban",
+                    {
+                        "or": [
+                            "action:hide",
+                            "action:sneak"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "stealth"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

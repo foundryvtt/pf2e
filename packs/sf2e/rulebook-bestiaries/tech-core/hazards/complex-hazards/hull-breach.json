@@ -1,0 +1,163 @@
+{
+    "_id": "UA91yafF7cN2n8Xd",
+    "folder": "Xw6klgOmofb4g4Ck",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "FkqBeRPHexq4cNGN",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Hazardous Airflow",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>All spaces within 10 feet of the hull breach are a vacuum. The area is difficult terrain. A creature can ignore this difficult terrain while moving toward the hull breach.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "object-immunities"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "E29HxZ5ajNKfR1ho",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Vacuum Breech",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A turn starts while the starship doesn't have any remaining Shield Points</p>\n<p><strong>Requirements</strong> The starship is in a vacuum, and the inside of the starship isn't a vacuum</p><hr /><p><strong>Effect</strong> Air rapidly escapes through the breach. The hazardous fills every space within 10 feet of its current space, unless those spaces are blocked by an airlock or a similarly strong and airtight barrier. The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "F0VJuo7cOrqPlXFf",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Pull Into Space",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Creatures in the spaces of hazardous airflow must attempt a @Check[fortitude|dc:20] save. On a failure, a creature is pulled 15 feet toward the hull breach along the shortest possible path (30 feet on critical failure). Untethered Large or smaller objects are also pulled and automatically fail. Creatures and objects pulled through the hull breach float into space. If they're untethered, they move away from the starship's zone, opposite of its heading, at a rate of 1 zone per minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Hull Breach",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 7
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A 5-foot breach in the airlock or hull sucks everything inside a starship into space.</p>",
+            "disable": "<p>@Check[crafting|dc:19] (trained) to patch up the hull, or restore 10 or more Hull Points to the starship; restoring 5 or more Shield Points to the starship suppresses the trap until the starship loses all its Shield Points but doesn't disable the trap; @Check[acrobatics|dc:19] to Maneuver in Flight or Athletics to Grab a Ledge avoids or stops the effects of Pull Into Space (this doesn't disable the trap)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Tech Core"
+            },
+            "reset": "",
+            "routine": "<p>(1 action) The trap Pulls Into Space.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "tech",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

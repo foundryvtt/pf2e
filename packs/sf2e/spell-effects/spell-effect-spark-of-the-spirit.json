@@ -1,0 +1,55 @@
+{
+    "_id": "uFR5PlthyVRRVmKr",
+    "img": "icons/magic/lightning/bolt-strike-pink.webp",
+    "name": "Spell Effect: Spark of the Spirit",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Spark of the Spirit]</p>\n<p>You are quickened and can use this additional action only to Interact or Step. You deal an additional 3d4 electricity damage when you Strike with a tech weapon.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.conditions.Item.Quickened"
+            },
+            {
+                "damageType": "electricity",
+                "diceNumber": 3,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:trait:tech"
+                ],
+                "selector": [
+                    "weapon-damage"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

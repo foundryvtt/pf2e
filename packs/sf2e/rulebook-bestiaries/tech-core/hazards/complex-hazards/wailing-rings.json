@@ -1,0 +1,108 @@
+{
+    "_id": "2jx21rs5Oi5uGf9A",
+    "folder": "Xw6klgOmofb4g4Ck",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "vdaCdL76igXnjBtF",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Minor Chord",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A starship enters the hazard's zone</p><hr /><p><strong>Effect</strong> The rings emit powerful dissonant vibrations. All starships and creatures on board starships in the hazard's zone must attempt a @Check[will|dc:25] save. The hazard then rolls initiative.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 4}.</p>\n<p><strong>Critical Failure</strong> The creature is frightened 4 and takes @Damage[1d10[persistent,mental]] damage until someone disables the hazard or until the creature is at least 20 zones away from the hazard.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "object-immunities"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fear",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Wailing Rings",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 11
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Glimmering rings of compressed ice and dust encircling a nearby planet emit a dreadful sound.</p>",
+            "disable": "<p>@Check[arcana|dc:30] (expert; magic conduit), Nature (expert; magic conduit) or Occultism (expert; magic conduit) to magically silence the wailing, @Check[Music Lore|dc:26] (expert; generator, scanners) or Performance (expert; generator, scanners) to harmonize with the wailing; one success negates the hazard's effects for that round (see Routine below)</p><p><strong>Special</strong> The hazard can be temporarily disabled but not permanently disabled.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 7
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Tech Core"
+            },
+            "reset": "",
+            "routine": "<p>(1 action) The hazard wails as one action, dealing @Damage[(2d10+9)[mental]] damage to all creatures in its zone (@Check[will|dc:23|basic] save).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "environmental",
+                "starship"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,125 @@
+{
+    "_id": "Zv4TNdngZmk5i3Xw",
+    "folder": "WXKipnCCPj9jrktD",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "7NlXefjfn0RAVmrT",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Action",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eAbtV6fLsTXlniXI",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Echoed Distress Beacon",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>This hazard appears as a Small starship on the sensor map and can be targeted with Hack Comms. Sensor Scream <span class=\"action-glyph\">R</span> (auditory, emotion, fear, mental, sonic)</p>\n<p><strong>Trigger</strong> A starship targets the hazard with Hack Comms</p><hr /><p><strong>Effect</strong> A cursed recording plays on every tech device inside the triggering starship. All creatures that can hear it must attempt a @Check[will|dc:18] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature takes @Damage[3d8[mental]] damage and is frightened 1.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[6d8[mental]] damage and is @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 2}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Cursed Relay",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 5
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Drifting through space, a garbled and eerie audio or holovid recording repeats the painful final moments of a cursed crew's lives on tech devices.</p>",
+            "disable": "<p>@Check[computers|dc:16] (trained) to hack the relay, @Check[occultism|dc:14] (trained) to soothe the spirits, or @Check[religion|dc:14] (trained) to release the spirits</p>",
+            "isComplex": false,
+            "level": {
+                "value": 2
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Tech Core"
+            },
+            "reset": "<p>The haunt resets in 24 hours unless the spirits are released.</p>",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt",
+                "tech"
+            ]
+        }
+    },
+    "type": "hazard"
+}

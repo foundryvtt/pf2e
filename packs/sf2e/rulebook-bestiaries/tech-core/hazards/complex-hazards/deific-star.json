@@ -1,0 +1,202 @@
+{
+    "_id": "JfeI83zV00ZzGINh",
+    "folder": "Xw6klgOmofb4g4Ck",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "j3nvlZlAuRlsSkRw",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Divine Adoration",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A starship moves within 10 zones of the hazard</p><hr /><p><strong>Effect</strong> The deific star compels lesser creatures to worship it. Creatures within 10 zones must attempt a @Check[will|dc:47] save. On a failure, creatures are @UUID[Compendium.sf2e.conditions.Item.Fascinated] and must spend all their actions worshipping the hazard as a god until the beginning of the hazard's next turn and can't use reactions during this time. Creatures with strong faith in another god gain a +1 status bonus to their save. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "object-immunities"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "incapacitation",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KQj5LbyYkzwwdQQt",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Direct Herald",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>This hazard summons a specific 18th-level or lower creature on board a starship within 10 zones. The creature is determined when the hazard is created. The creature might be a celestial, fiend, prismeni, or any other creature type associated with the deific star. The creature rolls initiative and remains until defeated or recalled. The creature also disappears if someone disables the hazard. If the hazard already has a herald present, the hazard instead directs the creature to take its turn immediately after the hazard or recalls the herald. The summoned herald can use 3 actions each round and reactions, unlike most summoned creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "M1KltIrIdMTLWwM4",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Stellar Blessing",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The hazard blesses a target. If the target is a starship, its HP and SP are fully restored, and all malfunctioning battle stations are repaired. If the target is a creature, its HP is fully restored, and all negative conditions affecting it are removed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "W3KBbWMDMuVnu5QT",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Stellar Smite",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The hazard smites a target, dealing @Damage[(4d10+22)[fire]] damage and @Damage[(4d10+22)[spirit]] damage with a @Check[fortitude|dc:47|basic] save. Any creature that dies from damage caused by Stellar Smite can't be brought back from the dead by any means other than a miraculous favor from a deity.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Deific Star",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(legendary)</p>",
+                "value": 41
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A sacred or profane entity with tremendous godlike power manifests as a living star.</p>",
+            "disable": "<p>@Check[deception|dc:48] (legendary; any battle station) or Diplomacy (legendary; any battle station) to earn the entity's favor, @Check[performance|dc:48] (legendary; any battle station) to challenge it to a contest and win, or @Check[religion|dc:48] (legendary; any battle station) to worship it or overwhelm it with another deity's power; four successes are required to disable the hazard</p>",
+            "isComplex": true,
+            "level": {
+                "value": 20
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Tech Core"
+            },
+            "reset": "<p>This hazard can't be destroyed except by a god or godlike entity and can reform at any time.</p>",
+            "routine": "<p>(3 actions) If the hazard is hostile to any starships within 10 zones, it Directs Herald and orders it to attack all targets the hazard has judged unworthy. Then, it uses Stellar Smite to punish targets and Stellar Blessing to reward others, depending on how the deific star's edicts and anathemas align with present targets. The hazard's edicts and anathemas should be determined when the hazard is created.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "magical",
+                "starship"
+            ]
+        }
+    },
+    "type": "hazard"
+}

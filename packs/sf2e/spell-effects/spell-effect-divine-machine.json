@@ -1,0 +1,68 @@
+{
+    "_id": "csZ7ugCP4zSqCUYu",
+    "img": "icons/commodities/tech/electronics-battery-energy-white-green.webp",
+    "name": "Spell Effect: Divine Machine",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Divine Machine]</p>\n<p>You grow to Large size, your reach increases by 5 feet (or by 10 feet if it started out Tiny), gain a +2 status bonus to AC and saving throws, and temporary Hit Points.<br /></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "self:trait:tech"
+                ],
+                "reach": {
+                    "override": 10
+                },
+                "resizeEquipment": true,
+                "value": "large"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:trait:tech"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "self:trait:tech"
+                ],
+                "value": "(@item.level - 1) * 5"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

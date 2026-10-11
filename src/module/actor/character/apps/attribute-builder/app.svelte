@@ -179,14 +179,14 @@
         };
     });
 
-    const legacyFlaws = $derived(data.ancestry?.system.voluntary?.boost !== undefined);
+    const legacyFlaws = $derived(!!data.ancestry?.system.voluntary.legacy);
 
     const voluntaryFlaws = $derived.by(() => {
         const ancestry = data.ancestry;
         if (!ancestry) return null;
 
-        const voluntary = ancestry.system.voluntary ?? { flaws: [] };
-        const isLegacy = voluntary.boost !== undefined;
+        const voluntary = ancestry.system.voluntary;
+        const isLegacy = voluntary.legacy;
         const flawsComplete = isLegacy && voluntary.flaws.length >= MAX_VOLUNTARY_FLAWS_LEGACY;
 
         const lockedBoosts = ancestry.system.alternateAncestryBoosts ? null : ancestry.lockedBoosts;
@@ -219,7 +219,7 @@
         });
 
         return {
-            remaining: voluntary && isLegacy && !voluntary.boost ? 1 : 0,
+            remaining: isLegacy && !voluntary.boost ? 1 : 0,
             buttons,
             voluntaryBoostsRemaining: 0,
             labels: getBoostFlawLabels(ancestry.system.flaws),

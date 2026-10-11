@@ -1,0 +1,62 @@
+{
+    "_id": "KBKUsdW1uKmI6hDi",
+    "img": "systems/pf2e/icons/spells/glibness.webp",
+    "name": "Spell Effect: Infernal Supervision",
+    "system": {
+        "description": {
+            "value": "<p>You have the Additional Lore feat for Legal Lore and gain a +1 status bonus to Deception and Intimidation checks, which increases to +2 against holy creatures.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "deception",
+                    "intimidation"
+                ],
+                "slug": "infernal-supervision-bonus",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:holy"
+                ],
+                "selector": [
+                    "deception",
+                    "intimidation"
+                ],
+                "slug": "infernal-supervision-holy-bonus",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

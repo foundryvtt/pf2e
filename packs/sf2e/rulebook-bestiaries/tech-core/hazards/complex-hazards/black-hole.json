@@ -1,0 +1,104 @@
+{
+    "_id": "912gqYo8hMIpaq75",
+    "folder": "Xw6klgOmofb4g4Ck",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "fuGsx2Q5z7ELz9QL",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Inescapable Gravity",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A starship or creature on board a starship starts its turn within 10 zones of the hazard</p><hr /><p><strong>Effect</strong> The triggering starship is pulled 1 zone toward the hazard and is trapped in the hazard's orbit. While trapped, the starship can't Change Heading or take any actions to move any number of zones except toward the hazard until someone disables the hazard each round. The hazard rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "object-immunities"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Black Hole",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 32
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A dark orb of super-compressed matter pulls everything toward it.</p>",
+            "disable": "<p>@Check[computers|dc:35] (expert; scanners), Nature (expert; scanners), or Physical Science Lore (trained; scanners) to calculate a safe path around the hazard, or @Check[piloting|dc:40] (expert; pilot's console) to avoid the event horizon; a success doesn't disable the hazard (see below)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 15
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Tech Core"
+            },
+            "reset": "<p>This hazard can't be permanently disabled, only escaped, and resets immediately.</p>",
+            "routine": "<p>(1 action) The hazard pulls the starship 1 zone toward it and continues to trap the starship. The starship experiences additional effects depending on how close it is to the hazard. A starship's speed cannot be reduced below 1 from this hazard.</p><p><strong>Within 10 zones:</strong> The starship's Speed is reduced by 1 zone.</p><p><strong>Within 6 zones:</strong> The starship's Speed is reduced by 2 zones.</p><p><strong>Within 4 zones:</strong> The starship's Speed is reduced by 4 zones, and two randomly determined battle stations are malfunctioning.</p><p><strong>Within 2 zones:</strong> The starship's Speed is reduced to 1 zone, and all battle stations are malfunctioning.</p><p><strong>Event Horizon (hazard's zone):</strong> The starship's battle stations are malfunctioning. The starship takes @Damage[(3d12+17)[bludgeoning]] damage each round from crushing gravity with a @Check[fortitude|dc:40|basic] save. If the starship is destroyed, all creatures and objects inside take damage instead.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "starship"
+            ]
+        }
+    },
+    "type": "hazard"
+}

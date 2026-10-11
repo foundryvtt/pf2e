@@ -1,0 +1,50 @@
+{
+    "_id": "dIou0yyQtW95xWzP",
+    "folder": "dE9bkYrwpofv66o4",
+    "img": "icons/magic/water/snowflake-ice-blue.webp",
+    "name": "Wikkawak Bugbear",
+    "system": {
+        "ancestry": {
+            "name": "Bugbear",
+            "slug": "bugbear",
+            "uuid": "Compendium.pf2e.ancestries.Item.GJL7lFWn1NibsHYg"
+        },
+        "description": {
+            "value": "<p>You hunt in the coldest reaches of the world, and your thick white fur is adapted to your environment, blending in with the frost and protecting you from the chill of blizzards and ice. You gain cold resistance equal to half your level (minimum 1). Additionally, you gain a +2 circumstance bonus to [[/act hide]] or [[/act sneak]] in arctic environments.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "cold",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "terrain:arctic",
+                    {
+                        "or": [
+                            "action:hide",
+                            "action:sneak"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "stealth"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

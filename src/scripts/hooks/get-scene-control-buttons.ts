@@ -6,6 +6,8 @@ import * as R from "remeda";
 export const GetSceneControlButtons = {
     listen: (): void => {
         Hooks.on("getSceneControlButtons", (controls) => {
+            const scene = canvas.scene;
+
             // Region Shapes
             const coneTool = controls.regions.tools.cone;
             if ("shapeData" in coneTool && R.isPlainObject(coneTool.shapeData)) {
@@ -29,8 +31,7 @@ export const GetSceneControlButtons = {
 
             const lightingControls = controls.lighting;
             const lightingTools = lightingControls.tools;
-            const dayTool = lightingTools.day;
-            if (!dayTool) return;
+            if (!lightingTools.day) return;
 
             // Indicate GM vision is on
             lightingControls.icon =
@@ -39,12 +40,14 @@ export const GetSceneControlButtons = {
                     : "fa-solid fa-lightbulb";
 
             // Scene darkness adjuster
+            const adjusterVisible =
+                game.user.isGM && !!scene && !scene.darknessSyncedToTime && !scene.environment.darknessLock;
             const adjusterTool: SceneControlTool = {
                 name: "darknessAdjuster",
                 title: "CONTROLS.AdjustSceneDarkness",
                 icon: "fa-solid fa-circle-half-stroke",
-                order: dayTool.order,
-                visible: game.user.isGM && game.pf2e.settings.rbv,
+                order: lightingTools.day.order,
+                visible: adjusterVisible,
                 toggle: true,
                 active: false,
                 onChange: (): void => {
@@ -57,6 +60,8 @@ export const GetSceneControlButtons = {
                     }
                 },
             };
+            if (!adjusterVisible && SceneDarknessAdjuster.instance.rendered) SceneDarknessAdjuster.instance.close();
+            if (scene?.darknessSyncedToTime) lightingTools.day.visible = lightingTools.night.visible = false;
 
             // GM vision
             const gmVisionTool = ((): SceneControlTool => {
@@ -69,8 +74,8 @@ export const GetSceneControlButtons = {
                     name: "gmVision",
                     title: `${gmVisionLabel} [${bindingLabel}]`,
                     icon: gmVisionIcon(),
-                    order: dayTool.order + 1,
-                    visible: !!binding && game.user.isGM,
+                    order: lightingTools.day.order + 1,
+                    visible: !!binding && game.user.isGM && !!scene,
                     toggle: true,
                     active: game.pf2e.settings.gmVision,
                     onChange: (): void => {
@@ -87,8 +92,9 @@ export const GetSceneControlButtons = {
             })();
 
             const newTools = [adjusterTool, gmVisionTool ?? []].flat();
-            for (const tool of Object.values(lightingTools).filter((t) => t.order >= dayTool.order)) {
-                tool.order += newTools.length;
+            const dayOrder = lightingTools.day.order;
+            for (const tool of fu.iterateValues(lightingTools)) {
+                if (tool.order >= dayOrder) tool.order += newTools.length;
             }
             for (const tool of newTools) {
                 lightingTools[tool.name] = tool;

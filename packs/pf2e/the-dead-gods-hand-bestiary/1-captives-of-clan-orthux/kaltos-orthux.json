@@ -34,9 +34,9 @@
                 "slots": {},
                 "slug": null,
                 "spelldc": {
-                    "dc": 18,
+                    "dc": 15,
                     "mod": 0,
-                    "value": 10
+                    "value": 7
                 },
                 "tradition": {
                     "value": "occult"
@@ -1264,7 +1264,7 @@
                 "damageRolls": {
                     "4Usr5MVPO9zMgGO0": {
                         "damage": "1d8+4",
-                        "damageType": "bludgeoning"
+                        "damageType": "slashing"
                     }
                 },
                 "description": {
@@ -1377,6 +1377,32 @@
                         ],
                         "property": "traits",
                         "value": "versatile-p"
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "chimeras-claw:goat-head",
+                            "dice:slug:base"
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "{item|id}-damage"
+                        ],
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "chimeras-claw:dragon-head",
+                            "dice:slug:base"
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "{item|id}-damage"
+                        ],
+                        "value": "piercing"
                     }
                 ],
                 "slug": "chimeras-claw",
@@ -1777,17 +1803,11 @@
             "intimidation": {
                 "base": 5
             },
-            "occultism": {
-                "base": 5
-            },
             "religion": {
                 "base": 4
             },
             "stealth": {
                 "base": 7
-            },
-            "survival": {
-                "base": 6
             }
         },
         "traits": {

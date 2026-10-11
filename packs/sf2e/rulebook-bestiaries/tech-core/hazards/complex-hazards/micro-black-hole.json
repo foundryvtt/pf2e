@@ -1,0 +1,104 @@
+{
+    "_id": "oqXjUZJ0XiO08oq5",
+    "folder": "Xw6klgOmofb4g4Ck",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "ow3wGb35u1tHX9WN",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Gravitational Anomaly",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A starship is within 3 zones of the hazard</p><hr /><p><strong>Effect</strong> The hazard pulls all starships within 3 zones 1 zone closer. These hazards become trapped in the hazard's gravity well. A trapped starship can't move away from the hazard, and a starship that's destroyed while trapped in this way is drawn irretrievably into the event horizon. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "object-immunities"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Micro Black Hole",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 13
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A mote of super-compressed matter pulls everything toward it.</p>",
+            "disable": "<p>@Check[piloting|dc:28] (expert; pilot's console) to avoid the event horizon, @Check[crafting|dc:28] (expert; generator) to divert enough power to the engines to avoid being pulled in, @Check[computers|dc:26] (expert; scanners), Nature (expert; magic conduit), or Physical Science Lore (trained; scanners) to calculate a safe path around the hazard</p>",
+            "isComplex": true,
+            "level": {
+                "value": 8
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Tech Core"
+            },
+            "reset": "",
+            "routine": "<p>(1 action) Each starship within 0 zones of the hazard and each creature on board those starships takes @Damage[(2d10+11)[bludgeoning]] damage with a @Check[fortitude|dc:26|basic] save.</p><hr><p><strong>Special</strong> This hazard draws in any starship within 3 zones every round. It can't be permanently disabled, only escaped, and resets immediately. Effects that would disable it instead make the disabling starship and creatures on board immune to the hazard for 1 round.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "starship"
+            ]
+        }
+    },
+    "type": "hazard"
+}

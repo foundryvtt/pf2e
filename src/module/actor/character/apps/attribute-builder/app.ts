@@ -125,7 +125,7 @@ class AttributeBuilder extends SvelteApplicationMixin<
     async toggleAlternateAncestryBoosts(): Promise<void> {
         const ancestry = this.#actor.ancestry;
         const hasAlternateBoosts = !!ancestry?.system.alternateAncestryBoosts;
-        await ancestry?.update({ "system.alternateAncestryBoosts": hasAlternateBoosts ? _del : [] });
+        await ancestry?.update({ "system.alternateAncestryBoosts": hasAlternateBoosts ? null : [] });
     }
 
     async toggleLegacyVoluntaryFlaw(): Promise<void> {
@@ -133,12 +133,12 @@ class AttributeBuilder extends SvelteApplicationMixin<
         if (!ancestry) return;
 
         const voluntary = ancestry.system.voluntary;
-        if (voluntary?.boost !== undefined) {
+        if (voluntary.legacy) {
             const flaws = R.unique(voluntary.flaws);
-            await ancestry.update({ system: { voluntary: { boost: _del, flaws } } });
+            await ancestry.update({ system: { voluntary: { legacy: false, boost: null, flaws } } });
         } else {
-            const flaws = voluntary?.flaws.slice(0, 2) ?? [];
-            await ancestry.update({ system: { voluntary: { boost: null, flaws } } });
+            const flaws = voluntary.flaws.slice(0, 2);
+            await ancestry.update({ system: { voluntary: { legacy: true, boost: null, flaws } } });
         }
     }
 
@@ -187,7 +187,7 @@ class AttributeBuilder extends SvelteApplicationMixin<
         const ancestry = this.#actor.ancestry;
         if (!ancestry) return;
 
-        const { flaws, boost } = ancestry.system.voluntary ?? { flaws: [] };
+        const { legacy, flaws, boost } = ancestry.system.voluntary;
 
         if (action === "flaw") {
             const alreadyHasFlaw = flaws.includes(attribute);
@@ -200,10 +200,9 @@ class AttributeBuilder extends SvelteApplicationMixin<
             }
 
             // Add a flaw if allowed (legacy mode has max 2, modern has max 6)
-            const maxFlaws =
-                boost !== undefined
-                    ? AttributeBuilder.MAX_VOLUNTARY_FLAWS_LEGACY
-                    : AttributeBuilder.ALL_ATTRIBUTES_COUNT;
+            const maxFlaws = legacy
+                ? AttributeBuilder.MAX_VOLUNTARY_FLAWS_LEGACY
+                : AttributeBuilder.ALL_ATTRIBUTES_COUNT;
             if (flaws.length < maxFlaws && !alreadyHasFlaw) {
                 flaws.push(attribute);
                 await ancestry.update({ system: { voluntary: { flaws } } });
@@ -221,8 +220,7 @@ class AttributeBuilder extends SvelteApplicationMixin<
             await ancestry.update({ system: { voluntary: { flaws } } });
         } else {
             // boost action
-            const currentBoost = ancestry.system.voluntary?.boost;
-            const newBoost = currentBoost === attribute ? null : attribute;
+            const newBoost = boost === attribute ? null : attribute;
             await ancestry.update({ system: { voluntary: { boost: newBoost } } });
         }
     }

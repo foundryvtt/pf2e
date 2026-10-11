@@ -29,11 +29,12 @@ export class SceneDarknessAdjuster extends fa.api.ApplicationV2 {
     }
 
     protected override async _renderHTML(_context: object): Promise<HTMLElement> {
-        if (!game.scenes.viewed) throw ErrorPF2e("Unexpected render call without viewed scene");
+        const scene = game.scenes.viewed;
+        if (!scene) throw ErrorPF2e("Unexpected render call without viewed scene");
 
         const result = document.createElement("div");
         result.className = "slider";
-        if (game.scenes.viewed.darknessSyncedToTime) result.setAttribute("disabled", "");
+        if (scene.darknessSyncedToTime) result.setAttribute("disabled", "");
         return result;
     }
 

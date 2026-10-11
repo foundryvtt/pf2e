@@ -1,0 +1,53 @@
+{
+    "_id": "JBVWu61tmge51qK5",
+    "img": "icons/equipment/head/helmet-tech-tactical.webp",
+    "name": "Spell Effect: Positronic Helmet",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Positronic Helmet]</p>\n<p>You gain the tech trait and a +1 status bonus to Perception checks and Will saves.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "add": [
+                    "tech"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "perception",
+                    "will"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,138 @@
+{
+    "_id": "KoD72XB1Iv5ntVZi",
+    "folder": "Xw6klgOmofb4g4Ck",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "nck0Tlm8C3FKd2J7",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Repeating Scene",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A starship enters the hazard's zone</p><hr /><p><strong>Effect</strong> The hazard sends the starship into a time loop. The events of the last 10 minutes on board the affected starship overlap with ongoing events, causing reality to distort. Creatures can hear and see the looping events. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "object-immunities"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AQfBOut6yH6GfcGC",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Distort Reality",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The loop's superposition with reality starts to strain space and time. Each creature on the affected starship takes @Damage[(3d10+18)[force]] damage with a @Check[fortitude|dc:37|basic] save. Every five times the hazard uses Distort Reality, creatures on board the starship take @Damage[(6d10+36)[mental]] damage and are @UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 2} for 1 day.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Time Loop",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master), or Scan for Magic</p>",
+                "value": 22
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Stuck in an endless time loop, the same scene plays out over and over again in redundant detail.</p>",
+            "disable": "<p>@Check[occultism|dc:38] (expert; magic conduit, scanners) or Religion (expert; magic conduit, scanners) to find the right timeline, @Check[arcana|dc:40] (expert; any battle station) or Society (expert; any battle station) to introduce enough paradoxes to shut down the loop; four successes are required to disable the hazard</p>",
+            "isComplex": true,
+            "level": {
+                "value": 14
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Tech Core"
+            },
+            "reset": "",
+            "routine": "<p>(1 action) The hazard uses Distort Reality on its turn every round until someone disables it.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "magical",
+                "starship"
+            ]
+        }
+    },
+    "type": "hazard"
+}

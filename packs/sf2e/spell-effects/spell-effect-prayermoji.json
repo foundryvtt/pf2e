@@ -1,0 +1,115 @@
+{
+    "_id": "vRAHOPMR2JqsLzbt",
+    "img": "icons/magic/holy/saint-glass-portrait-halo.webp",
+    "name": "Spell Effect: Prayermoji",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Prayermoji]</p>\n<p>You gain one of the following benefits:</p><ul><li><p><strong>Prayer of Grace</strong> You gain a +20-foot status bonus to your Speeds until the start of your next turn.</p></li><li><p><strong>Prayer of Healing</strong> You regain healing Hit Points at the start of your next turn.</p></li><li><p><strong>Prayer of Protection</strong> You gain a +1 status bonus to AC and saving throws until the start of your next turn.</p></li><li><p><strong>Prayer of Retribution</strong> Until the start of your next turn, creatures that hit you with melee Strikes take spirit damage.</p></li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "Prayeremoji",
+                "option": "prayer",
+                "suboptions": [
+                    {
+                        "label": "Prayer of Grace",
+                        "value": "grace"
+                    },
+                    {
+                        "label": "Prayer of Healing",
+                        "value": "healing"
+                    },
+                    {
+                        "label": "Prayer of Protection",
+                        "value": "protection"
+                    },
+                    {
+                        "label": "Prayer of Retribution",
+                        "value": "retribution"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "prayer:grace"
+                ],
+                "selector": [
+                    "all-speeds"
+                ],
+                "type": "status",
+                "value": 20
+            },
+            {
+                "key": "FastHealing",
+                "predicate": [
+                    "prayer:healing"
+                ],
+                "value": "@item.level -1"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "prayer:protection"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "value": 1
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "self:prayer-of-retribution",
+                "predicate": [
+                    "prayer:retribution"
+                ]
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "self:prayer-of-retribution",
+                    "item:melee",
+                    {
+                        "not": "item:trait:reach"
+                    }
+                ],
+                "selector": [
+                    "damage-received"
+                ],
+                "text": "You take @Damage[(@item.level - 1)[spirit]] damage",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
