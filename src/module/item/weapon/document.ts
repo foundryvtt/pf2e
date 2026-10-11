@@ -15,7 +15,6 @@ import type { PhysicalItemConstructionContext } from "@item/physical/document.ts
 import {
     IdentificationStatus,
     MystifiedData,
-    RUNE_DATA,
     checkPhysicalItemSystemChange,
     getPropertyRuneSlots,
 } from "@item/physical/index.ts";
@@ -717,17 +716,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 category: null,
             };
         })();
-        const fromPropertyRunes = this.system.runes.property
-            .flatMap((r) => RUNE_DATA.weapon.property[r].damage?.additional ?? [])
-            .map((additional): NPCAttackDamage => {
-                const [category = null, damage] =
-                    "diceNumber" in additional
-                        ? [additional.category, `${additional.diceNumber}${additional.dieSize}`]
-                        : [additional.damageCategory, additional.modifier.toString()];
-                const damageType = additional.damageType ?? baseDamage.damageType;
-                return { damage, damageType, category };
-            });
-
         const reachTraitToNPCReach = {
             tiny: null,
             sm: "reach-10",
@@ -817,7 +805,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                     // Unless there is a fixed attack modifier, give an attack bonus approximating a high-threat NPC
                     value: this.flags[SYSTEM_ID].fixedAttack || Math.round(1.5 * this.actor.level + 7),
                 },
-                damageRolls: [baseDamage, splashDamage, fromPropertyRunes, persistentDamage]
+                damageRolls: [baseDamage, splashDamage, persistentDamage]
                     .flat()
                     .reduce(
                         (rolls: Record<string, NPCAttackDamage>, roll) =>
@@ -839,6 +827,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         attack.category = this.category;
         attack.group = this.group;
         attack.baseType = this.baseType;
+        attack.syncWeaponFeatures(this);
 
         return [attack, ...this.getAltUsages({ recurse: false }).flatMap((u) => u.toNPCAttacks())];
     }

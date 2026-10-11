@@ -72,7 +72,14 @@
         <label>{{localize "PF2E.Item.NPCAttack.LinkedWeapon"}}</label>
         <div class="form-fields">
             {{#if document.linkedWeapon}}
-                {{document.linkedWeapon.name}}
+                <span>{{document.linkedWeapon.name}}</span>
+                <label for="{{fieldIdPrefix}}sync-weapon-features">{{localize "PF2E.Item.NPCAttack.SyncWeaponFeatures"}}</label>
+                <input
+                    type="checkbox"
+                    name="flags.pf2e.syncWeaponFeatures"
+                    id="{{fieldIdPrefix}}sync-weapon-features"
+                    {{checked syncWeaponFeatures}}
+                />
             {{else}}
                 {{localize "PF2E.NoneOption"}}
             {{/if}}

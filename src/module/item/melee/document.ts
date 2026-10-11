@@ -111,6 +111,13 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return item?.isOfType("weapon") ? item : null;
     }
 
+    syncWeaponFeatures(weapon: WeaponPF2e | null = this.linkedWeapon): void {
+        if (!weapon || !this.flags[SYSTEM_ID].syncWeaponFeatures) return;
+        const { type, grade, effects } = weapon.system.material;
+        this.system.runes.property = [...weapon.system.runes.property];
+        this.system.material = { type, grade, effects: [...effects] };
+    }
+
     protected override _initialize(options?: Record<string, unknown>): void {
         this.category = this.group = this.baseType = null;
         super._initialize(options);
@@ -118,6 +125,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     override prepareBaseData(): void {
         super.prepareBaseData();
+        this.flags[SYSTEM_ID].syncWeaponFeatures ??= true;
 
         // If thrown, set range data to the thrown value
         if (this.system.traits.config?.thrown) {
@@ -138,6 +146,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     override onPrepareSynthetics(this: MeleePF2e<ActorPF2e>): void {
+        this.syncWeaponFeatures();
         processSanctification(this);
     }
 

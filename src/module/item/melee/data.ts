@@ -28,6 +28,8 @@ type MeleeSource = BaseItemSourcePF2e<"melee", MeleeSystemSource> & {
 type MeleeFlags = ItemFlagsPF2e & {
     [SYSTEM_ID]: {
         linkedWeapon?: string;
+        /** When `false`, do not copy runes and material from `linkedWeapon`. Absent is prepared to `true`. */
+        syncWeaponFeatures?: boolean;
     };
 };
 
@@ -36,7 +38,7 @@ class MeleeSystemData extends ItemSystemModel<MeleePF2e, NPCAttackSystemSchema> 
 
     declare material: WeaponMaterialData;
 
-    /** Weapon property runes (or rather the effects thereof) added via rule element */
+    /** In-memory property runes. Filled from a linked weapon, then extended by rule elements. */
     declare runes: { property: WeaponPropertyRuneType[] };
 
     static override defineSchema(): NPCAttackSystemSchema {
@@ -145,10 +147,8 @@ class MeleeSystemData extends ItemSystemModel<MeleePF2e, NPCAttackSystemSchema> 
         super.prepareBaseData();
         if (this.action !== "strike") this.area ??= { type: "burst", value: 5 };
 
-        // Set precious material (currently unused)
+        // Empty until prepareSiblingData copies a linked weapon. AdjustStrike may append runes later.
         this.material = { type: null, grade: null, effects: [] };
-
-        // Set empty property runes array for use by rule elements
         this.runes = { property: [] };
 
         for (const attackDamage of Object.values(this.damageRolls)) {
