@@ -14,6 +14,7 @@ import { sluggify } from "./src/util/misc.ts";
 import pf2eManifest from "./system.pf2e.json" with { type: "json" };
 import sf2eManifest from "./system.sf2e.json" with { type: "json" };
 
+const ROOT_DIR = import.meta.dirname;
 const [SYSTEM_ID, systemJSON] =
     process.env.SYSTEM_ID === "sf2e" ? (["sf2e", sf2eManifest] as const) : (["pf2e", pf2eManifest] as const);
 const CONDITION_SOURCES = ((): ConditionSource[] => {
@@ -25,14 +26,14 @@ const EN_JSON = JSON.parse(fs.readFileSync("./static/lang/en.json", { encoding: 
 /** Get UUID redirects from JSON file, converting names to IDs. */
 function getUuidRedirects({ systemId }: { systemId: SystemId }): Record<CompendiumUUID, CompendiumUUID> {
     const redirectJSON = JSON.parse(
-        fs.readFileSync(path.resolve(__dirname, "build", "uuid-redirects", `${systemId}.json`), "utf-8"),
+        fs.readFileSync(path.resolve(ROOT_DIR, "build", "uuid-redirects", `${systemId}.json`), "utf-8"),
     );
     for (const [from, to] of Object.entries<string>(redirectJSON)) {
         const [, , pack, documentType, name] = to.split(".", 5);
         const packDir = systemJSON.packs
             .find((p) => p.type === documentType && p.name === pack)
             ?.path.replace(/^packs/, `packs/${systemId}`);
-        const dirPath = path.resolve(__dirname, packDir ?? "");
+        const dirPath = path.resolve(ROOT_DIR, packDir ?? "");
         const filename = `${sluggify(name)}.json`;
         const jsonPath = fs.existsSync(path.resolve(dirPath, filename))
             ? path.resolve(dirPath, filename)
@@ -202,7 +203,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         );
 
         // Add system CSS layer for HMR
-        const mainCss = path.resolve(__dirname, "src/pf2e.ts").split(path.sep).join("/");
+        const mainCss = path.resolve(ROOT_DIR, "src/pf2e.ts").split(path.sep).join("/");
         plugins.push({
             name: "hmr-layers",
             apply: "serve",
@@ -292,7 +293,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                     ws: true,
                 },
             },
-            watch: { ignored: ["dist", "packs", "tests"].map((d) => path.resolve(__dirname, d, "**")) },
+            watch: { ignored: ["dist", "packs", "tests"].map((d) => path.resolve(ROOT_DIR, d, "**")) },
         },
         plugins,
         css: {

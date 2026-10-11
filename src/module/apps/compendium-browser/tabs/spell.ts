@@ -1,3 +1,4 @@
+import type { MagicTradition, SpellTrait } from "@item/spell/types.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { getActionGlyph, ordinalString, sluggify } from "@util";
 import * as R from "remeda";
@@ -122,7 +123,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, {
             sort: false,
         });
-        this.filterData.traits.options = this.generateMultiselectOptions(
+        this.filterData.traits.options = this.generateMultiselectOptions<Exclude<SpellTrait, MagicTradition>>(
             R.omit(CONFIG.PF2E.spellTraits, Array.from(MAGIC_TRADITIONS)),
         );
         this.filterData.source.options = this.generateSourceCheckboxOptions(publications);
