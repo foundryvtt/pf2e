@@ -12,7 +12,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>You've upgraded your exocortex, making devices connected to it more mobile or nimble. This effect depends on the exocortex you selected. If you have a drone exocortex, you gain the Synchronized Step action. If you have a mine exocortex or turret exocortex, you gain the Reposition Exocortex action.</p>"
+            "value": "<p>You've upgraded your exocortex, making devices connected to it more mobile or nimble. This effect depends on the exocortex you selected. If you have a drone exocortex, you gain the @UUID[Compendium.sf2e.actions.Item.Synchronized Step] action. If you have a mine exocortex or turret exocortex, you gain the @UUID[Compendium.sf2e.actions.Item.Reposition Exocortex] action.</p>"
         },
         "level": {
             "value": 3
@@ -25,7 +25,27 @@
             "remaster": true,
             "title": "Starfinder Tech Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "or": [
+                            "feature:mine",
+                            "feature:turret"
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.sf2e.actions.Item.Reposition Exocortex"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "feature:drone"
+                ],
+                "uuid": "Compendium.sf2e.actions.Item.Synchronized Step"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
