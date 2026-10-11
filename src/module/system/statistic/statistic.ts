@@ -24,7 +24,7 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
-import { eventToRollParams } from "@module/sheet/helpers.ts";
+import { eventToRollParams, isRelevantEvent } from "@module/sheet/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { Check, CheckRollCallback } from "@system/check/check.ts";
 import type { CheckRoll } from "@system/check/index.ts";
@@ -403,7 +403,8 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
 
         // Allow use of events for modules and macros but not for internal system use
         const { messageMode, skipDialog } = (() => {
-            if (!("event" in args) || !R.isObjectType(args.event) || !(args.event instanceof PointerEvent)) return args;
+            const event = "event" in args && R.isObjectType(args.event) ? (args.event as Event) : null;
+            if (!isRelevantEvent(event)) return args;
             const { messageMode: maybeMode, skipDialog } = args;
             const messageMode = objectHasKey(CONFIG.ChatMessage.modes, maybeMode) ? maybeMode : "public";
             return Object.assign({ messageMode, skipDialog }, eventToRollParams(event, { type: "check" }));
