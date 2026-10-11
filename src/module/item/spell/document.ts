@@ -752,7 +752,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     override async toMessage(
-        event?: Maybe<PointerEvent>,
+        event?: Maybe<Event>,
         { actualCast = false, create = true, data, mode }: SpellToMessageOptions = {},
     ): Promise<ChatMessagePF2e | undefined> {
         // NOTE: The parent toMessage() pulls "contextual data" from the DOM dataset.

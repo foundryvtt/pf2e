@@ -21,7 +21,7 @@ async function add(actor: CharacterPF2e): Promise<void> {
             label: _loc("PF2E.AddShortLabel"),
             callback: async (_, button) => {
                 const element = button.form?.elements.namedItem("proficiency");
-                const selection = element instanceof HTMLSelectElement ? element.value : null;
+                const selection = element && fu.isElementInstanceOf(element, HTMLSelectElement) ? element.value : null;
                 if (selection) {
                     return selection in weaponGroups
                         ? (`weapon-group-${selection}` as WeaponGroupProficiencyKey)

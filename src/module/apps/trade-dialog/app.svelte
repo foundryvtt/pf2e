@@ -77,9 +77,9 @@
         const button = event.currentTarget;
         button.hidden = true;
         const input = button.nextElementSibling;
-        if (input instanceof HTMLInputElement) {
+        if (input && fu.isElementInstanceOf(input, HTMLInputElement)) {
             input.hidden = false;
-            if (event instanceof FocusEvent) input.focus();
+            if (fu.isElementInstanceOf(event, FocusEvent)) input.focus();
         }
     }
 
@@ -92,12 +92,12 @@
         const input = event.currentTarget;
         input.hidden = true;
         const button = input.previousElementSibling;
-        if (button instanceof HTMLButtonElement) button.hidden = false;
+        if (button && fu.isElementInstanceOf(button, HTMLButtonElement)) button.hidden = false;
     }
 
     function editQuantity(item: TradeItemData, event: Event): void {
         const input = event.target;
-        if (!(input instanceof HTMLInputElement)) return;
+        if (!(input && fu.isElementInstanceOf(input, HTMLInputElement))) return;
         const quantity = Math.clamp(Number(input.value) || 0, 0, item.quantity);
         if (quantity !== item.marked) {
             item.marked = quantity;

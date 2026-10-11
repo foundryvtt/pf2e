@@ -149,7 +149,7 @@ class ItemTransferDialog extends fa.api.DialogV2<ItemTransferConfiguration> {
         const span =
             purchaseButton.querySelector("span[data-price]") ??
             purchaseButton.insertAdjacentElement("beforeend", document.createElement("span"));
-        if (span instanceof HTMLSpanElement) {
+        if (span && fu.isElementInstanceOf(span, HTMLSpanElement)) {
             span.dataset.price = "";
             span.textContent = `(${cost.toString()})`;
         }

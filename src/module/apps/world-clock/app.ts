@@ -60,6 +60,9 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
     /** Is the ctrl key currently held down? */
     #ctrlKeyDown = false;
 
+    /** The document the control-key listeners are on */
+    #listenerDocument: Document | null = null;
+
     /**
      * Update a scene's darkness level to reflect the current time of day, animating by default if the scene is viewed.
      */
@@ -306,10 +309,7 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
         await super._onRender(context, options);
         const content = this.element.querySelector<HTMLElement>(".window-content");
         if (content) content.dataset.tooltipClass = "pf2e";
-        document.removeEventListener("keydown", this.#controlKeyHandler);
-        document.addEventListener("keydown", this.#controlKeyHandler);
-        document.removeEventListener("keyup", this.#controlKeyHandler);
-        document.addEventListener("keyup", this.#controlKeyHandler);
+        this.#addControlKeyListeners();
 
         // Restore the input values
         const valueInput = this.element.querySelector<HTMLInputElement>("input[name=diff-value]");
@@ -322,9 +322,32 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
 
     protected override _tearDown(options: fa.ApplicationClosingOptions): void {
         this.form?.reset();
-        document.removeEventListener("keydown", this.#controlKeyHandler);
-        document.removeEventListener("keyup", this.#controlKeyHandler);
+        this.#removeControlKeyListeners();
         return super._tearDown(options);
+    }
+
+    protected override _onDetach(from: Document, to: Document): void {
+        super._onDetach(from, to);
+        this.#addControlKeyListeners();
+    }
+
+    protected override _onAttach(from: Document, to: Document): void {
+        super._onAttach(from, to);
+        this.#addControlKeyListeners();
+    }
+
+    /** Listen on the document the window is in, which changes when it is popped out or back in */
+    #addControlKeyListeners(): void {
+        this.#removeControlKeyListeners();
+        this.#listenerDocument = this.element.ownerDocument;
+        this.#listenerDocument.addEventListener("keydown", this.#controlKeyHandler);
+        this.#listenerDocument.addEventListener("keyup", this.#controlKeyHandler);
+    }
+
+    #removeControlKeyListeners(): void {
+        this.#listenerDocument?.removeEventListener("keydown", this.#controlKeyHandler);
+        this.#listenerDocument?.removeEventListener("keyup", this.#controlKeyHandler);
+        this.#listenerDocument = null;
     }
 
     /** Create a message informing the user that scene darkness is synced to world time */

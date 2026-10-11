@@ -196,7 +196,11 @@ export class Load {
         // Prevent buttons from retaining focus when clicked so that canvas hotkeys still work
         document.addEventListener("mouseup", (): void => {
             const element = document.activeElement;
-            if (element instanceof HTMLButtonElement && !element.classList.contains("pm-dropdown")) {
+            if (
+                !!element &&
+                fu.isElementInstanceOf(element, HTMLButtonElement) &&
+                !element.classList.contains("pm-dropdown")
+            ) {
                 element.blur();
             }
         });

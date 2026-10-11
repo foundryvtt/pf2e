@@ -49,7 +49,7 @@
     }
 
     const onSearch = fu.debounce((event: Event) => {
-        if (!(event.target instanceof HTMLInputElement)) return;
+        if (!(event.target && fu.isElementInstanceOf(event.target, HTMLInputElement))) return;
         filter.search.text = event.target.value.trim();
     }, 250);
 </script>

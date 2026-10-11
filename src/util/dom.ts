@@ -50,7 +50,7 @@ function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
         element.innerHTML = innerHTML;
     } else {
         for (const child of children) {
-            const childElement = child instanceof HTMLElement ? child : new Text(child);
+            const childElement = typeof child === "string" ? new Text(child) : child;
             element.appendChild(childElement);
         }
     }
