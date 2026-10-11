@@ -17,6 +17,7 @@
         "level": {
             "value": 4
         },
+        "maxTakable": 2,
         "prerequisites": {
             "value": [
                 {
@@ -29,7 +30,39 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Creature.Sense.Type.Darkvision",
+                        "value": "darkvision"
+                    },
+                    {
+                        "label": "PF2E.Actor.Creature.Sense.Type.GreaterDarkvision",
+                        "value": "greater-darkvision"
+                    }
+                ],
+                "flag": "eyesOfNight",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Sense",
+                "rollOption": "eyes-of-night"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "eyes-of-night:darkvision"
+                ],
+                "selector": "darkvision"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "eyes-of-night:greater-darkvision"
+                ],
+                "selector": "greater-darkvision"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
