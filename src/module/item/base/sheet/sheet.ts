@@ -10,7 +10,6 @@ import { RuleElements, RuleElementSource } from "@module/rules/index.ts";
 import {
     createSheetTags,
     createTagifyTraits,
-    isControlDown,
     maintainFocusInRender,
     SheetOptions,
     TagifyEntry,
@@ -447,10 +446,9 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
                         if (!(rules && Number.isInteger(index) && rules.length > index)) return;
 
                         const locPath = `PF2E.RuleElement.${rules[index].key}`;
-                        const localized = _loc(locPath);
-                        const name = localized === locPath ? _loc("PF2E.RuleElement.Unrecognized") : localized;
+                        const name = game.i18n.has(locPath) ? _loc(locPath) : _loc("PF2E.RuleElement.Unrecognized");
                         const confirmed =
-                            isControlDown(event) ||
+                            event.shiftKey ||
                             (await foundry.applications.api.DialogV2.confirm({
                                 window: { title: "PF2E.Item.Rules.Remove", icon: "fa-solid fa-trash" },
                                 content: `<p>${_loc("PF2E.DeleteQuestion", { name: `"${name}"` })}</p>`,
