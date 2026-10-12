@@ -18,12 +18,13 @@ import type {
     HeritagePF2e,
     PhysicalItemPF2e,
 } from "@item";
-import { ItemPF2e, ItemProxyPF2e } from "@item";
+import { ItemPF2e, ItemProxyPF2e, type SpellPF2e } from "@item";
 import { TraitToggleViewData } from "@item/ability/trait-toggles.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { isSpellConsumableUUID } from "@item/consumable/spell-consumables.ts";
 import { Coins } from "@item/physical/coins.ts";
 import type { MagicTradition } from "@item/spell/types.ts";
+import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import type { SpellcastingSheetData } from "@item/spellcasting-entry/types.ts";
 import { WeaponReloader } from "@item/weapon/apps/weapon-reloader/app.ts";
 import type { BaseWeaponType, WeaponGroup } from "@item/weapon/types.ts";
@@ -39,10 +40,12 @@ import type { CheckDC } from "@system/degree-of-success.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import {
     ErrorPF2e,
+    getActionGlyph,
     htmlClosest,
     htmlQuery,
     htmlQueryAll,
     objectHasKey,
+    ordinalString,
     setHasElement,
     sluggify,
     sortLabeledRecord,
@@ -50,6 +53,7 @@ import {
 } from "@util";
 import { createTooltipster } from "@util/destroyables.ts";
 import { UUIDUtils } from "@util/uuid.ts";
+import MiniSearch from "minisearch";
 import * as R from "remeda";
 import { CreatureSheetPF2e } from "../creature/sheet.ts";
 import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies.ts";
@@ -85,6 +89,34 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     /** Non-persisted tweaks to formula data */
     #formulaQuantities: Record<string, number> = {};
 
+    /** Index of this PC's spells for the spell tab text filter */
+    #spellSearchEngine = new MiniSearch<Pick<SpellPF2e<TActor>, "id" | "name">>({
+        fields: ["name"],
+        idField: "id",
+        processTerm: (t) => (t.length > 1 ? t.toLocaleLowerCase(game.i18n.lang) : null),
+        searchOptions: { combineWith: "AND", prefix: true },
+    });
+
+    /** Active text query on the spell tab search input */
+    #spellTextQuery = "";
+
+    /** Active advanced filters on the spell tab */
+    #spellFilters: {
+        ranks: Set<string>;
+        traditions: Set<string>;
+        actionCosts: Set<string>;
+        saves: Set<string>;
+        damageTypes: Set<string>;
+        sustained: Set<"yes" | "no">;
+    } = {
+        ranks: new Set(),
+        traditions: new Set(),
+        actionCosts: new Set(),
+        saves: new Set(),
+        damageTypes: new Set(),
+        sustained: new Set(),
+    };
+
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         options.classes = [...options.classes, "character"];
@@ -92,6 +124,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         options.height = 750;
         options.scrollY.push(".tab[data-tab=spellcasting] > [data-panels]", ".tab.active .tab-content");
         options.dragDrop.push({ dragSelector: "ol[data-strikes] > li, ol[data-elemental-blasts] > li" });
+        options.filters = [
+            ...options.filters,
+            {
+                inputSelector: ".tab[data-tab=spellcasting] > .search input[type=search]",
+                contentSelector: ".tab[data-tab=spellcasting]",
+            },
+        ];
         options.tabs = [
             { navSelector: "nav.sheet-navigation", contentSelector: ".sheet-content", initial: "character" },
             { navSelector: "nav.actions-nav", contentSelector: ".actions-panels", initial: "encounter" },
@@ -271,6 +310,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         sheetData.hasNormalSpellcasting = sheetData.spellCollectionGroups["known-spells"].some(
             (s) => s.usesSpellProficiency,
         );
+        sheetData.hideSpellSlotHeaders = !!game.settings.get(SYSTEM_ID, "spellcasting.hideSlotHeaders");
 
         // ensure saves are displayed in the following order:
         sheetData.data.saves = {
@@ -395,7 +435,147 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             };
         });
 
+        this.#spellSearchEngine.removeAll();
+        this.#spellSearchEngine.addAll(actor.itemTypes.spell.map((s) => R.pick(s, ["id", "name"])));
+
+        const presentDamageTypes = new Set<string>();
+        for (const spell of actor.itemTypes.spell) {
+            for (const damage of Object.values(spell.system.damage ?? {})) {
+                if (damage?.type) presentDamageTypes.add(damage.type);
+            }
+        }
+        const presentTraditions = new Set<string>();
+        for (const entry of actor.spellcasting.contents) {
+            if (entry.tradition) presentTraditions.add(entry.tradition);
+        }
+
+        sheetData.spellFilterOptions = {
+            ranks: [
+                { value: "cantrip", label: _loc("PF2E.Actor.Creature.Spellcasting.Cantrips") },
+                ...Array.from({ length: 10 }, (_, i) => ({
+                    value: String(i + 1),
+                    label: ordinalString(i + 1),
+                })),
+            ],
+            traditions: [...MAGIC_TRADITIONS]
+                .filter((t) => presentTraditions.has(t))
+                .map((t) => ({
+                    value: t,
+                    label: _loc(CONFIG.PF2E.magicTraditions[t]),
+                })),
+            actionCosts: (["1", "2", "3", "free", "reaction"] as const).map((v) => ({
+                value: v,
+                label: `<span class="action-glyph">${getActionGlyph(v)}</span>`,
+            })),
+            saves: [
+                ...(["fortitude", "reflex", "will"] as const).map((s) => ({
+                    value: s,
+                    label: _loc(CONFIG.PF2E.saves[s]),
+                })),
+                { value: "none", label: _loc("PF2E.Actor.Character.Spellcasting.FilterSaveNone") },
+            ],
+            damageTypes: [...presentDamageTypes].sort().map((t) => ({
+                value: t,
+                label: _loc(CONFIG.PF2E.damageTypes[t as keyof typeof CONFIG.PF2E.damageTypes]) ?? t,
+            })),
+        };
+
         return sheetData;
+    }
+
+    protected override _onSearchFilter(
+        event: KeyboardEvent,
+        query: string,
+        rgx: RegExp,
+        html: HTMLElement | null,
+    ): void {
+        super._onSearchFilter(event, query, rgx, html);
+        if (!html?.classList.contains("spellcasting")) return;
+        this.#spellTextQuery = query;
+        this.#applySpellFilter(html);
+    }
+
+    /** Combine text query and advanced filters, apply hidden state to spell rows */
+    #applySpellFilter(html: HTMLElement): void {
+        const query = this.#spellTextQuery;
+        const filters = this.#spellFilters;
+        const textActive = query.length > 1;
+        const textMatches: Set<string> | null = textActive
+            ? new Set(this.#spellSearchEngine.search(query).map((s) => String(s.id)))
+            : null;
+
+        const traditionByEntry: Record<string, string | null> = {};
+        for (const entry of this.actor.spellcasting.contents) {
+            traditionByEntry[entry.id] = entry.tradition ?? null;
+        }
+        const spellsById: Record<string, SpellPF2e<TActor>> = R.mapToObj(this.actor.itemTypes.spell, (s) => [s.id, s]);
+
+        for (const row of htmlQueryAll(html, "li.spell[data-item-id]")) {
+            const itemId = row.dataset.itemId ?? "";
+            const entryId = row.dataset.entryId ?? "";
+            let hide = false;
+
+            if (textActive && !textMatches!.has(itemId)) hide = true;
+
+            if (!hide && filters.ranks.size > 0) {
+                const spell = spellsById[itemId];
+                const bucket = spell?.isCantrip ? "cantrip" : String(spell?.baseRank ?? "");
+                if (!filters.ranks.has(bucket)) hide = true;
+            }
+            if (!hide && filters.traditions.size > 0) {
+                const tradition = traditionByEntry[entryId];
+                if (!tradition || !filters.traditions.has(tradition)) hide = true;
+            }
+            if (!hide && filters.actionCosts.size > 0) {
+                const spell = spellsById[itemId];
+                const cost = String(spell?.system.time.value ?? "");
+                if (!filters.actionCosts.has(cost)) hide = true;
+            }
+            if (!hide && filters.saves.size > 0) {
+                const spell = spellsById[itemId];
+                const save = spell?.system.defense?.save?.statistic ?? "none";
+                if (!filters.saves.has(save)) hide = true;
+            }
+            if (!hide && filters.damageTypes.size > 0) {
+                const spell = spellsById[itemId];
+                const types = new Set(Object.values(spell?.system.damage ?? {}).map((d) => d.type));
+                if (![...filters.damageTypes].some((t) => types.has(t as never))) hide = true;
+            }
+            if (!hide && filters.sustained.size > 0) {
+                const spell = spellsById[itemId];
+                const sustained = !!spell?.system.duration?.sustained;
+                const bucket = sustained ? "yes" : "no";
+                if (!filters.sustained.has(bucket)) hide = true;
+            }
+
+            row.hidden = hide;
+        }
+
+        this.#updateFilterIndicator(html);
+    }
+
+    /** Update the toggle button's active-count badge so users see filters are in effect when the panel is closed */
+    #updateFilterIndicator(html: HTMLElement): void {
+        const toggleButton = htmlQuery(html, ":scope > .search > .advanced-toggle");
+        if (!toggleButton) return;
+        const f = this.#spellFilters;
+        const count =
+            f.ranks.size +
+            f.traditions.size +
+            f.actionCosts.size +
+            f.saves.size +
+            f.damageTypes.size +
+            f.sustained.size;
+        toggleButton.classList.toggle("has-active", count > 0);
+        toggleButton.dataset.activeCount = String(count);
+        if (count > 0) {
+            toggleButton.setAttribute(
+                "data-tooltip",
+                _loc("PF2E.Actor.Character.Spellcasting.FilterActive", { count }),
+            );
+        } else {
+            toggleButton.setAttribute("data-tooltip", _loc("PF2E.Actor.Character.Spellcasting.AdvancedFilter"));
+        }
     }
 
     /** Prepares all ability-type items that create an action in the sheet */
@@ -550,6 +730,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const html = $html[0];
 
         this.#activateNavListeners(html);
+        this.#activateSpellTabFilters(html);
 
         // Toggle the availability of the roll-initiative link
         this.toggleInitiativeLink();
@@ -794,6 +975,63 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     }
 
     /** Activate listeners of main sheet navigation section */
+    #activateSpellTabFilters(html: HTMLElement): void {
+        const tab = htmlQuery(html, ".tab[data-tab=spellcasting]");
+        if (!tab) return;
+        const filtersSection = htmlQuery(tab, ":scope > .spell-filters");
+        const toggleButton = htmlQuery(tab, ":scope > .search > .advanced-toggle");
+
+        toggleButton?.addEventListener("click", () => {
+            if (!filtersSection) return;
+            const open = filtersSection.hasAttribute("hidden");
+            if (open) filtersSection.removeAttribute("hidden");
+            else filtersSection.setAttribute("hidden", "");
+            toggleButton.setAttribute("aria-expanded", String(open));
+            toggleButton.classList.toggle("active", open);
+        });
+
+        for (const checkbox of htmlQueryAll<HTMLInputElement>(filtersSection, "input[type=checkbox][data-filter]")) {
+            checkbox.addEventListener("change", () => {
+                const dim = checkbox.dataset.filter;
+                if (dim === "rank") {
+                    if (checkbox.checked) this.#spellFilters.ranks.add(checkbox.value);
+                    else this.#spellFilters.ranks.delete(checkbox.value);
+                } else if (dim === "tradition") {
+                    if (checkbox.checked) this.#spellFilters.traditions.add(checkbox.value);
+                    else this.#spellFilters.traditions.delete(checkbox.value);
+                } else if (dim === "actionCost") {
+                    if (checkbox.checked) this.#spellFilters.actionCosts.add(checkbox.value);
+                    else this.#spellFilters.actionCosts.delete(checkbox.value);
+                } else if (dim === "save") {
+                    if (checkbox.checked) this.#spellFilters.saves.add(checkbox.value);
+                    else this.#spellFilters.saves.delete(checkbox.value);
+                } else if (dim === "damageType") {
+                    if (checkbox.checked) this.#spellFilters.damageTypes.add(checkbox.value);
+                    else this.#spellFilters.damageTypes.delete(checkbox.value);
+                } else if (dim === "sustained") {
+                    const v = checkbox.value as "yes" | "no";
+                    if (checkbox.checked) this.#spellFilters.sustained.add(v);
+                    else this.#spellFilters.sustained.delete(v);
+                }
+                this.#applySpellFilter(tab);
+            });
+        }
+
+        const clearButton = htmlQuery(filtersSection, ".clear-filters");
+        clearButton?.addEventListener("click", () => {
+            this.#spellFilters.ranks.clear();
+            this.#spellFilters.traditions.clear();
+            this.#spellFilters.actionCosts.clear();
+            this.#spellFilters.saves.clear();
+            this.#spellFilters.damageTypes.clear();
+            this.#spellFilters.sustained.clear();
+            for (const cb of htmlQueryAll<HTMLInputElement>(filtersSection, "input[type=checkbox][data-filter]")) {
+                cb.checked = false;
+            }
+            this.#applySpellFilter(tab);
+        });
+    }
+
     #activateNavListeners(html: HTMLElement): void {
         const sheetNavigation = htmlQuery(html, "nav.sheet-navigation");
         if (!sheetNavigation) return;
@@ -820,6 +1058,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         handlers["rest"] = async (event) => {
             return game.pf2e.actions.restForTheNight({ event, actors: this.actor });
+        };
+
+        // SPELLCASTING
+
+        handlers["toggle-slot-headers"] = () => {
+            const current = game.settings.get(SYSTEM_ID, "spellcasting.hideSlotHeaders");
+            return game.settings.set(SYSTEM_ID, "spellcasting.hideSlotHeaders", !current);
         };
 
         // MAIN TAB
@@ -1664,7 +1909,16 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     preparationType: object;
     showPFSTab: boolean;
     spellCollectionGroups: Record<SpellcastingTabSlug, SpellcastingSheetData[]>;
+    spellFilterOptions: {
+        ranks: { value: string; label: string }[];
+        traditions: { value: string; label: string }[];
+        actionCosts: { value: string; label: string }[];
+        saves: { value: string; label: string }[];
+        damageTypes: { value: string; label: string }[];
+    };
     hasNormalSpellcasting: boolean;
+    /** Whether the user has collapsed the spell slot rank headers on the spellcasting tab */
+    hideSpellSlotHeaders: boolean;
     tabVisibility: CharacterSheetTabVisibility;
     actions: {
         encounter: Record<"action" | "reaction" | "free", { label: string; actions: CharacterAbilityViewData[] }>;
