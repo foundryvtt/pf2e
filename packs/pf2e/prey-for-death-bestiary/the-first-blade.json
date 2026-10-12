@@ -376,15 +376,6 @@
                     "E7A2bmeXcoOxdQyj": {
                         "damage": "2d12+16",
                         "damageType": "slashing"
-                    },
-                    "SQxRObDcptpyFyLJ": {
-                        "category": "persistent",
-                        "damage": "1d6",
-                        "damageType": "bleed"
-                    },
-                    "rQ3ZvQpVXMJCTwkz": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
                     }
                 },
                 "description": {
@@ -463,10 +454,6 @@
                     "9CBuZHyPdahdwLnr": {
                         "damage": "2d6+16",
                         "damageType": "bludgeoning"
-                    },
-                    "AltvEMU77J18y7se": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
                     }
                 },
                 "description": {
@@ -710,6 +697,17 @@
                         ],
                         "property": "materials",
                         "value": "{item|flags.system.rulesSelections.conjureWeaponMaterial}"
+                    },
+                    {
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greaterAstral"
                     }
                 ],
                 "slug": null,
@@ -802,6 +800,18 @@
                         "text": "PF2E.Item.Weapon.CriticalSpecialization.hammer",
                         "title": "{item|name}",
                         "visibility": "owner"
+                    },
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "selector": "melee-strike-damage"
                     },
                     {
                         "key": "RollOption",
