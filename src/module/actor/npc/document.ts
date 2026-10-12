@@ -464,10 +464,12 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         const newHPAdjustment = getHpAdjustment(this.baseLevel, adjustment);
         const currentHP = this.system.attributes.hp.value;
         const newHP = currentHP - currentHPAdjustment + newHPAdjustment;
-        await this.update({
+        const changes = {
             "system.attributes.hp.value": Math.max(0, newHP),
             "system.attributes.adjustment": adjustment,
-        });
+        };
+        if (this.persisted) await this.update(changes);
+        else this.updateSource(changes);
     }
 
     /** Create a variant clone of this NPC, adjusting any of name, description, and images */
