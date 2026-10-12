@@ -26,14 +26,14 @@ import type { SocketMessage } from "@scripts/socket.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import {
-    ErrorPF2e,
-    SORTABLE_BASE_OPTIONS,
     createHTMLElement,
+    ErrorPF2e,
     fontAwesomeIcon,
     htmlClosest,
     htmlQuery,
     htmlQueryAll,
     setHasElement,
+    SORTABLE_BASE_OPTIONS,
     tupleHasValue,
 } from "@util";
 import { createSortable, createTooltipster } from "@util/destroyables.ts";
@@ -546,7 +546,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             // Create the new settlement and replace the current one. We'll also need to re-listen to it.
             // activateListeners() handles both rich text editing and expanding the item summary
             const newElement = createHTMLElement("div", { innerHTML: newHTML }).firstElementChild;
-            if (newElement instanceof HTMLElement) {
+            if (newElement && fu.isElementInstanceOf(newElement, HTMLElement)) {
                 // Preserve item summary expanded state
                 const isExpanded = !htmlQuery(settlementElement, ".item-summary")?.hidden;
                 htmlQuery(newElement, ".item-summary")!.hidden = !isExpanded;
@@ -705,9 +705,12 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     /** Override to not auto-disable fields on a thing meant to be used by players */
     protected override _disableFields(form: HTMLElement): void {
         for (const gmOnlyField of htmlQueryAll(form, "input, textarea, [data-access=owner]")) {
-            if (gmOnlyField instanceof HTMLTextAreaElement) {
+            if (fu.isElementInstanceOf(gmOnlyField, HTMLTextAreaElement)) {
                 gmOnlyField.readOnly = true;
-            } else if (gmOnlyField instanceof HTMLInputElement || gmOnlyField instanceof HTMLButtonElement) {
+            } else if (
+                fu.isElementInstanceOf(gmOnlyField, HTMLInputElement) ||
+                fu.isElementInstanceOf(gmOnlyField, HTMLButtonElement)
+            ) {
                 gmOnlyField.disabled = true;
             }
         }

@@ -99,7 +99,7 @@ function TokenConfigMixinPF2e<TBase extends ReturnType<typeof TokenApplicationMi
 
         #swapDispositionField(): void {
             const input = this.form?.elements.namedItem("disposition");
-            if (!(input instanceof HTMLSelectElement)) return;
+            if (!(input && fu.isElementInstanceOf(input, HTMLSelectElement))) return;
             const formGroup = input.closest<HTMLElement>(".form-group");
             if (!formGroup) return;
 

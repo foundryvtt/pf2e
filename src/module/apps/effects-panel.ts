@@ -4,7 +4,7 @@ import { AbstractEffectPF2e, AfflictionPF2e, ConditionPF2e, EffectPF2e } from "@
 import { PersistentDamageEditor } from "@item/condition/persistent-damage-editor.ts";
 import { createTooltipListener } from "@module/sheet/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
-import { ErrorPF2e, createHTMLElement, htmlQuery, htmlQueryAll } from "@util";
+import { createHTMLElement, ErrorPF2e, htmlQuery, htmlQueryAll } from "@util";
 
 export class EffectsPanel extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV2) {
     get #token(): TokenDocumentPF2e | null {
@@ -195,7 +195,7 @@ export class EffectsPanel extends fa.api.HandlebarsApplicationMixin(fa.api.Appli
                         viewData,
                     ),
                 }).firstElementChild;
-                if (!(content instanceof HTMLElement)) return null;
+                if (!(content && fu.isElementInstanceOf(content, HTMLElement))) return null;
 
                 // Provide item context so inline damage rolls can resolve the actor and item
                 content.dataset.itemUuid = effect.uuid;

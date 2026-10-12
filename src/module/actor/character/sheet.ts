@@ -869,7 +869,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         // Toggle certain weapon traits: currently Double Barrel or Versatile
         handlers["toggle-weapon-trait"] = async (_, button) => {
-            if (!(button instanceof HTMLButtonElement)) return;
+            if (!fu.isElementInstanceOf(button, HTMLButtonElement)) return;
 
             const weapon = this.getAttackActionFromDOM(button)?.item;
             const trait = button.dataset.trait;

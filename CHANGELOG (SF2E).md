@@ -1,3 +1,35 @@
+## 1.6.1
+
+### Bugfixes
+
+- (Chromatic Penguin) Fix detached window handling across apps
+- (Chromatic Penguin) Fix missing spell level on spell prep links
+- (Chromatic Penguin) Fix modifier tooltip type options on Firefox and brush up value stepper
+- (Dantar) Fix familiar abilities formatting
+- (Dantar) Fix skill proficiency selector sizing on Firefox
+- (Dantar) Make Pick-a-thing's placeholder localizable
+- (Dantar) Prevent AE-likes pushing duplicate entries onto complex-object arrays
+
+### Data Updates
+
+- (Ambrose) Add Improvised Weapons entry and correct Improving Equipment section in GM screen
+- (Ambrose) Add missing Junk Grenade spell and localize Junk trait
+- (Ambrose) Correct Necrotic Infusion (Tactical)'s name
+- (Dantar) Fix grenade rarities
+- (kromko) Add missing localizations
+- (kromko) Add missing trait to mechanic class features and prerequisite to Quickened Nanites
+- (kromko) Correct corrosive grenade names
+- (kromko) Fix formatting and capitalization in some item and spell names and descriptions
+- (kromko) Update necrolung description and rules, and remove the superior version
+- (Longstrider) Brush up mechanic class features, actions, and feats
+- (nobbyfix) Add localization for Tech Core armor traits
+- (nobbyfix) Update publication source for various Starfinder items
+- (Tikael) Fix usage of Arcane Adapter and Impact Enhancer
+
+### Under the Hood
+
+- (Chromatic Penguin) Convert `AncestrySystemData` to `TypeDataModel`
+
 ## 1.6.0
 
 ### Highlights

@@ -72,7 +72,9 @@ export class DistributeCoinsDialog extends fa.api.HandlebarsApplicationMixin(fa.
         // Get actor ids, we need to get it directly since the DOM may not give back an array if only one
         const actor = this.actor;
         const actorIds: string[] = Array.from(form.elements).flatMap((element) =>
-            element instanceof HTMLInputElement && element.name === "actorIds" && element.checked ? element.value : [],
+            fu.isElementInstanceOf(element, HTMLInputElement) && element.name === "actorIds" && element.checked
+                ? element.value
+                : [],
         );
 
         const selectedActors: CharacterPF2e[] = actorIds.flatMap((actorId) => {
