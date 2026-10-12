@@ -95,7 +95,17 @@ type HookParamsGetProseMirrorMenuDropDowns = HookParameters<
     [foundry.prosemirror.ProseMirrorMenu, Record<string, ProseMirrorDropDownConfig>]
 >;
 
+export interface HookedFunction {
+    hook: string;
+    id: number;
+    fn: HookCallback<unknown[]>;
+    once: boolean;
+}
+
 export default class Hooks {
+    /** A mapping of hook events which have functions registered to them. */
+    static get events(): Record<string, HookedFunction[]>;
+
     /**
      * Register a callback handler which should be triggered when a hook is triggered.
      *
@@ -132,7 +142,6 @@ export default class Hooks {
     static on(...args: HookParamsRender<SettingsConfig, "SettingsConfig">): number;
     static on(...args: HookParamsRender<TokenHUD, "TokenHUD", PlaceableHUDContext>): number;
     static on(...args: HookParamsRenderChatMessageHTML): number;
-
     static on(
         ...args: HookParamsRender<JournalPageSheet<JournalEntryPage<JournalEntry | null>>, "JournalPageSheet">
     ): number;
