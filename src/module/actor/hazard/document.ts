@@ -82,7 +82,15 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         attributes.hasHealth = attributes.hp.max > 0;
         // Hazards have object immunities (CRB p. 273): can be overridden by Immunity rule element
         if (!attributes.immunities.some((i) => i.type === "object-immunities")) {
-            attributes.immunities.unshift(new Immunity({ type: "object-immunities", source: "TYPES.Actor.hazard" }));
+            // Official statblocks sometimes give a hazard a weakness or resistance to a damage type covered by
+            // object immunities (e.g. a haunt weak to vitality). Except such source-authored types from the
+            // immunity, reading here in prepareBaseData so rule-element-added weaknesses don't suppress it.
+            const objectImmunityDamage = ["bleed", "mental", "poison", "spirit", "vitality", "void"] as const;
+            const sourceTypes = new Set([...attributes.weaknesses, ...attributes.resistances].map((wr) => wr.type));
+            const exceptions = objectImmunityDamage.filter((t) => sourceTypes.has(t));
+            attributes.immunities.unshift(
+                new Immunity({ type: "object-immunities", source: "TYPES.Actor.hazard", exceptions }),
+            );
         }
 
         if (this.isComplex) {
@@ -151,27 +159,6 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
 
         this.saves = this.prepareSaves();
         this.system.actions = this.itemTypes.melee.map((m) => attackFromMeleeItem(m));
-    }
-
-    /**
-     * Some hazards have an implicit immunity exception to certain damage types despite having object immunities: use a
-     * weakness or resistance as indication.
-     */
-    override prepareData(): void {
-        super.prepareData();
-
-        const weaknessesAndResistances = new Set(
-            [
-                this.system.attributes.weaknesses.map((w) => w.type),
-                this.system.attributes.resistances.map((r) => r.type),
-            ].flat(),
-        );
-        const objectImmunities = this.system.attributes.immunities.find((i) => i.type === "object-immunities");
-        for (const wrType of ["bleed", "mental", "poison", "spirit"] as const) {
-            if (weaknessesAndResistances.has(wrType)) {
-                objectImmunities?.exceptions.push(wrType);
-            }
-        }
     }
 
     private prepareSaves(): { [K in SaveType]?: Statistic } {
