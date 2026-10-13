@@ -1,3 +1,4 @@
+import type { ClientDocument } from "@client/documents/abstract/client-document.mjs";
 import User from "@client/documents/user.mjs";
 import {
     ApplicationClosingOptions,
@@ -39,6 +40,8 @@ export interface FilePickerConfiguration extends ApplicationConfiguration {
     tileSize: boolean;
     /** Redirect to the root directory rather than starting in the source directory of one of these files. */
     redirectToRoot: string[];
+    /** A Document instance associated with this FilePicker. */
+    document: ClientDocument;
 }
 
 export interface FavoriteFolder {
@@ -131,7 +134,7 @@ export default class FilePicker extends HandlebarsApplicationMixin(
     /**
      *  @param [options={}] Options that configure the behavior of the FilePicker
      */
-    constructor(options: FilePickerConfiguration);
+    constructor(options: Partial<FilePickerConfiguration>);
 
     /** The full requested path given by the user */
     request: string;
