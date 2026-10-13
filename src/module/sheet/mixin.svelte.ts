@@ -82,6 +82,8 @@ function SvelteApplicationMixin<
                     props: { ...result, getState: (): object => this.$state },
                 });
             }
+            // Ensure the DOM is settled before _onRender overrides run
+            svelte.flushSync();
         }
 
         protected override _onClose(options: fa.ApplicationClosingOptions): void {
