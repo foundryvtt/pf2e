@@ -11,34 +11,52 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [24.x]
-
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: pnpm/setup@v3
         with:
-          node-version: ${{ matrix.node-version }}
-
-      - uses: pnpm/action-setup@v4
-
-      - name: Cache NPM Deps
-        id: cache-npm
-        uses: actions/cache@v3
-        with:
-          path: node_modules/
-          key: npm-${{ hashFiles('package-lock.json') }}
-
-      - name: Install NPM Deps
-        if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
-        run: npm ci
+          cache: true
 
       - name: Build
         run: |
-          pnpm run build --system=pf2e
-          pnpm run build:packs --system=sf2e
+          pnpm build --system=pf2e
+          pnpm build:packs --system=sf2e
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/setup@v3
+        with:
+          cache: true
 
       - name: Test
-        run: npm run test
+        run: pnpm test
+
+  # Covers .ts and .svelte files, so the build job skips its own type check
+  typecheck:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/setup@v3
+        with:
+          cache: true
+
+      - name: Typecheck
+        run: pnpm check
+
+  # Drop the name and make this the required check when we move to v15/node 26
+  all-checks:
+    name: build (24.x)
+    needs: [build, test, typecheck]
+    if: always()
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check jobs
+        run: '[ "${{ needs.build.result }}${{ needs.test.result }}${{ needs.typecheck.result }}" = "successsuccesssuccess" ]'

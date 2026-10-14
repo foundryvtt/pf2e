@@ -73,6 +73,8 @@ class VisionDetectionMode extends fc.perception.DetectionModeDarkvision {
 }
 
 class HearingDetectionMode extends fc.perception.DetectionMode {
+    declare protected static _detectionFilter: fc.rendering.filters.OutlineOverlayFilter | undefined;
+
     constructor() {
         super({
             id: "hearing",
@@ -120,11 +122,6 @@ class HearingDetectionMode extends fc.perception.DetectionMode {
         const config = { type: "sound", edgeDirectionMode, useThreshold: true } as const;
         return !HearingDetectionMode._testCollision(visionSource, test, config);
     }
-}
-
-declare namespace HearingDetectionMode {
-    // eslint-disable-next-line no-var
-    var _detectionFilter: fc.rendering.filters.OutlineOverlayFilter | undefined;
 }
 
 type PointVisionSourcePF2e = fc.sources.PointVisionSource<TokenPF2e>;
