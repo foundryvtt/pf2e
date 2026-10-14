@@ -61,6 +61,12 @@ export interface DataFieldOptions<
     label?: string;
 
     /**
+     * Is a value of this field written to source data? A Non-persisted value is initialized (with its initial value),
+     * and ActiveEffects can use the field for change application.
+     */
+    persisted?: boolean;
+
+    /**
      * Localizable help text displayed on forms which render this field.
      */
     hint?: string;

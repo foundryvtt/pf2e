@@ -322,6 +322,8 @@ class CompendiumPack {
         }
         if ("system" in source) {
             if (publication && "publication" in source.system) {
+                source.system.publication.license = "ORC";
+                source.system.publication.remaster = true;
                 source.system.publication.title = publication;
             }
         }

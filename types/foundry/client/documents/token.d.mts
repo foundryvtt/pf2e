@@ -41,6 +41,7 @@ import {
     TokenRegionMovementSegment,
     TokenResumeMovementCallback,
     TokenSegmentizeMovementWaypoint,
+    TokenSource,
     TrackedAttributesDescription,
     User,
 } from "./_module.mjs";
@@ -56,6 +57,16 @@ declare const CanvasBaseToken: {
 interface CanvasBaseToken<TParent extends Scene | null> extends InstanceType<typeof CanvasBaseToken<TParent>> {}
 
 export default class TokenDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseToken<TParent> {
+    /**
+     * Property overrides copied from this TokenDocument's associated Actor
+     */
+    overrides: DeepPartial<TokenSource>;
+
+    /**
+     * Old overrides for synthetic actors, kept separately due to particularities of ActorDelta data re-initialization
+     */
+    protected _priorOverrides: DeepPartial<TokenSource> | null;
+
     /**
      * A semantically-intuitive alias of {@link TokenDocument#parent}
      */
@@ -741,7 +752,7 @@ export default class TokenDocument<TParent extends Scene | null = Scene | null> 
      * Send emulated update data to the Token PlaceableObject
      * @param priorOverrides Overrides prior to data reinitialization
      */
-    protected _renderActiveEffectChanges(priorOverrides: object): void;
+    protected _renderActiveEffectChanges(priorOverrides: DeepPartial<TokenSource>): void;
 
     /**
      * Callback invoked when {@link _onRelatedUpdate} detects overrides of at least one Token dimension. Enacting such
