@@ -8,7 +8,7 @@ import { ActorSizePF2e } from "@actor/data/size.ts";
 import { attackFromMeleeItem, setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { Modifier, StatisticModifier } from "@actor/modifiers.ts";
-import type { MovementType } from "@actor/types.ts";
+import type { MovementType, SaveType, SkillSlug } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { UserAction } from "@common/constants.d.mts";
 import type { ItemPF2e, MeleePF2e } from "@item";
@@ -30,6 +30,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
     declare initiative: ActorInitiative;
     /** If this is a troop, contains the actors of the other troop segments in the current scene */
     declare otherSegments: NPCPF2e[] | null;
+    /** Level-based stand-in for effects that call for a class DC */
+    declare classDC: Statistic<this>;
 
     static #resetBatch = new ResetBatch();
 
@@ -84,6 +86,19 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         );
     }
 
+    /** Retrieve the level-based class DC */
+    override getStatistic(slug: SaveType | SkillSlug | "perception"): Statistic<this>;
+    override getStatistic(slug: string, options?: { item: ItemPF2e | null }): Statistic<this> | null;
+    override getStatistic(slug: string, options?: { item: ItemPF2e | null }): Statistic | null {
+        switch (slug) {
+            case "class":
+            case "class-dc":
+            case "classDC":
+                return this.classDC ?? null;
+        }
+        return super.getStatistic(slug, options);
+    }
+
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
@@ -126,12 +141,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         this.rollOptions.all[`self:level:${level.value}`] = true;
 
         attributes.spellDC = null;
-        attributes.classDC = ((): { value: number } => {
-            const pwol = game.pf2e.settings.variants.pwol.enabled;
-            const levelBasedDC = calculateDC(level.base, { pwol, rarity: this.rarity });
-            const adjusted = this.isElite ? levelBasedDC + 2 : this.isWeak ? levelBasedDC - 2 : levelBasedDC;
-            return { value: adjusted };
-        })();
+        // Elite/weak adjustments are applied when the class DC statistic is prepared
+        attributes.classDC = { value: calculateDC(level.base, { pwol: game.pf2e.settings.variants.pwol.enabled }) };
         attributes.classOrSpellDC = { value: attributes.classDC.value };
         this.system.spellcasting = fu.mergeObject({ rituals: { dc: 0 } }, this.system.spellcasting);
 
@@ -255,6 +266,24 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         system.attributes.ac = fu.mergeObject(armorStatistic.getTraceData(), {
             attribute: armorStatistic.attribute ?? "dex",
         });
+
+        // Class DC
+        const classDomains = ["class", "all"];
+        this.classDC = new Statistic(this, {
+            slug: "class",
+            label: "TYPES.Item.class",
+            domains: classDomains,
+            modifiers: [
+                new Modifier({
+                    slug: "base",
+                    label: "PF2E.ModifierTitle",
+                    modifier: system.attributes.classDC.value - 10,
+                    adjustments: extractModifierAdjustments(modifierAdjustments, classDomains, "base"),
+                }),
+            ],
+        });
+        system.attributes.classDC.value = this.classDC.dc.value;
+        system.attributes.classOrSpellDC = { value: this.classDC.dc.value };
 
         this.preparePerception();
         this.prepareSaves();
