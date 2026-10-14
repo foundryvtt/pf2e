@@ -111,6 +111,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return item?.isOfType("weapon") ? item : null;
     }
 
+    /** Copy rune and material data from a linked or other weapon. */
     syncWeaponFeatures(weapon: WeaponPF2e | null = this.linkedWeapon): void {
         if (!weapon || !this.flags[SYSTEM_ID].syncWeaponFeatures) return;
         const { type, grade, effects } = weapon.system.material;
