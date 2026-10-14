@@ -614,14 +614,17 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 
     protected override _onHoverIn(
-        event: PointerEvent,
+        event: PIXI.FederatedEvent | Event,
         options?: { hoverOutOthers?: boolean; updateLegend?: boolean },
     ): boolean | void {
         this.renderFlags.set({ refreshDistanceLabel: true });
         return super._onHoverIn(event, options);
     }
 
-    protected override _onHoverOut(event: PointerEvent, options?: { updateLegend?: boolean }): boolean | void {
+    protected override _onHoverOut(
+        event: PIXI.FederatedEvent | Event,
+        options?: { updateLegend?: boolean },
+    ): boolean | void {
         this.renderFlags.set({ refreshDistanceLabel: true });
         return super._onHoverOut(event, options);
     }

@@ -327,7 +327,7 @@ export default abstract class PlaceableObject<
      * @param options.updateLegend Highlight corresponding entry in the sidebar legend.
      */
     protected _onHoverIn(
-        event: PointerEvent,
+        event: PIXI.FederatedEvent | Event,
         options?: { hoverOutOthers?: boolean; updateLegend?: boolean },
     ): boolean | void;
 
@@ -338,7 +338,7 @@ export default abstract class PlaceableObject<
      * @param options.updateLegend Highlight corresponding entry in the sidebar legend.
      * @protected
      */
-    protected _onHoverOut(event: PointerEvent): boolean | void;
+    protected _onHoverOut(event: PIXI.FederatedEvent | Event): boolean | void;
 
     /** Should the placeable propagate left click downstream? */
     protected _propagateLeftClick(event: PIXI.FederatedPointerEvent): boolean;
