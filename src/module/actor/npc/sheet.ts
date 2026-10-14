@@ -8,7 +8,7 @@ import { createAbilityViewData } from "@actor/sheet/helpers.ts";
 import { RecallKnowledgePopup } from "@actor/sheet/popups/recall-knowledge-popup.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES } from "@actor/values.ts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
-import type { MeleePF2e, MeleeSource } from "@item/melee/index.ts";
+import type { MeleePF2e } from "@item/melee/index.ts";
 import { createNPCAttackTraitsAndTags, createTagifyTraits, eventToRollParams } from "@module/sheet/helpers.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DicePF2e } from "@scripts/dice.ts";
@@ -444,21 +444,18 @@ class NPCSheetPF2e extends AbstractNPCSheet {
                         content: _loc("PF2E.Actor.NPC.GenerateAttack.Confirm.Content"),
                         no: { default: true },
                     });
-                    if (proceed) {
-                        await actor.deleteEmbeddedDocuments("Item", existing, { render: false });
-                    } else {
-                        return;
-                    }
+                    if (proceed) await actor.deleteEmbeddedDocuments("Item", existing, { render: false });
+                    else return;
                 }
 
                 // Create actions, and either relink to existing actions or create them
-                const attacks = item.toNPCAttacks().map((a) => a.toObject());
+                const attacks = item.toNPCAttacks();
                 const missingLinks = actor.itemTypes.melee.filter((m) => !m.linkedWeapon);
-                const getComparisonSubset = (item: MeleeSource | MeleePF2e) => ({
+                const getComparisonSubset = (item: MeleePF2e) => ({
                     name: item.name,
                     ...R.pick(item.system, ["action", "range"]),
                 });
-                const pairs = attacks.map((a): [MeleeSource, MeleePF2e | null] => [
+                const pairs = attacks.map((a): [MeleePF2e, MeleePF2e | null] => [
                     a,
                     missingLinks.find(
                         (l) =>
@@ -467,19 +464,27 @@ class NPCSheetPF2e extends AbstractNPCSheet {
                     ) ?? null,
                 ]);
                 const update = {
-                    itemCreates: pairs.filter((p) => !p[1]).map((p) => p[0]),
+                    itemCreates: pairs.filter((p) => !p[1]).map((p) => p[0].toObject()),
                     itemUpdates: pairs
-                        .filter((p): p is [MeleeSource, MeleePF2e] => !!p[1])
-                        .map(([newAction, oldAction]) => ({
-                            _id: oldAction.id,
-                            [`flags.${SYSTEM_ID}.linkedWeapon`]: newAction.flags[SYSTEM_ID].linkedWeapon,
-                        })),
+                        .filter((p): p is [MeleePF2e, MeleePF2e] => !!p[1])
+                        .map(([newAction, oldAction]) => {
+                            type UpdateData = { _id: string; flags?: Record<string, Record<string, unknown>> };
+                            const update: UpdateData = { _id: oldAction.id };
+                            const linkedWeapon = newAction.flags[SYSTEM_ID].linkedWeapon;
+                            if (linkedWeapon) {
+                                const { damageRolls, rules } = oldAction._source.system;
+                                const syncWeaponFeatures =
+                                    Object.keys(damageRolls).length > 1 || rules.length > 0 ? false : _del;
+                                update.flags = { [SYSTEM_ID]: { linkedWeapon, syncWeaponFeatures } };
+                            }
+                            return update;
+                        }),
                 };
                 await applyActorGroupUpdate(actor, update);
 
                 // Show correct notification based on update
                 const localizationKey = `PF2E.Actor.NPC.GenerateAttack.Notification.${update.itemCreates.length ? "New" : "Relinked"}`;
-                ui.notifications.info(_loc(localizationKey, { attack: attacks.at(0)?.name ?? "" }));
+                ui.notifications.info(localizationKey, { format: { attack: attacks.at(0)?.name ?? "" } });
             };
         }
 
