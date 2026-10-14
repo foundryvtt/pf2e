@@ -8,6 +8,7 @@ import { prepareBulkData } from "@item/physical/helpers.ts";
 import { Grade } from "@item/physical/types.ts";
 import { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values.ts";
 import type { ItemType } from "@item/types.ts";
+import { EFFECT_AREA_SHAPES } from "@item/values.ts";
 import { upgradeWeaponTrait } from "@item/weapon/helpers.ts";
 import { WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { MANDATORY_RANGED_GROUPS } from "@item/weapon/values.ts";
@@ -126,6 +127,49 @@ const ITEM_ALTERATION_HANDLERS = {
             const itemBonus = itemIsOfType(item, "armor") && mode === "override" ? item.system.runes.potency : 0;
             item.system.acBonus = Math.max(newValue, 0) + itemBonus;
             adjustCreatureShieldData(item);
+        },
+    }),
+    area: new ItemAlterationHandler({
+        fields: {
+            itemType: new fields.StringField({ required: true, choices: ["spell"] }),
+            mode: new fields.StringField({ required: true, choices: ["override", "remove"] }),
+            value: new fields.SchemaField(
+                {
+                    type: new fields.StringField({
+                        required: false,
+                        nullable: true,
+                        choices: EFFECT_AREA_SHAPES,
+                        initial: undefined,
+                    }),
+                    size: new fields.NumberField({
+                        required: false,
+                        nullable: true,
+                        initial: undefined,
+                    }),
+                },
+                { required: true, nullable: true, initial: null },
+            ),
+        },
+        validateForItem: (_item, alteration): validation.DataModelValidationFailure | void => {
+            if (
+                alteration.mode === "override" &&
+                !(R.isPlainObject(alteration.value) && ("type" in alteration.value || "size" in alteration.value))
+            ) {
+                return new validation.DataModelValidationFailure(
+                    `value: must be provided and contain type or size if mode is "override"`,
+                );
+            }
+        },
+        handle: function (data: AlterationApplicationData) {
+            if (!this.isValid(data)) return;
+            if (data.alteration.mode === "override") {
+                const newType = data.alteration.value?.type ?? data.item.system.area?.type ?? "burst";
+                const newSize = data.alteration.value?.size ?? data.item.system.area?.value ?? 5;
+                const nearestFive = Math.floor(newSize / 5) * 5;
+                data.item.system.area = { type: newType, value: Math.max(nearestFive, 5) };
+            } else {
+                data.item.system.area = null;
+            }
         },
     }),
     "area-size": new ItemAlterationHandler({
