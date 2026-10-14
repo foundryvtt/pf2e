@@ -29,6 +29,7 @@ export class MeleeSheetPF2e extends ItemSheetPF2e<MeleePF2e> {
             damageTypes: CONFIG.PF2E.damageTypes,
             damageCategories: damageCategoriesUnique,
             attackEffects: createSheetOptions(this.getAttackEffectOptions(), item.system.attackEffects),
+            syncWeaponFeatures: item.flags[SYSTEM_ID].syncWeaponFeatures ?? true,
             modifierOrSave: {
                 label: _loc(`PF2E.Actor.NPC.BonusLabel.${isCheck ? "modifier" : "save"}`),
                 value: item.system.bonus.value + (isCheck ? 0 : 10),
@@ -81,6 +82,12 @@ export class MeleeSheetPF2e extends ItemSheetPF2e<MeleePF2e> {
             formData["system.range.max"] = null;
         }
 
+        // Checked removes the flag so the default stays "inherit". Unchecked stores the opt-out.
+        if (this.item.linkedWeapon) {
+            const key = `flags.${SYSTEM_ID}.syncWeaponFeatures`;
+            formData[key] = formData[key] ? _del : false;
+        }
+
         return super._updateObject(event, formData);
     }
 }
@@ -91,6 +98,8 @@ interface MeleeSheetData extends ItemSheetDataPF2e<MeleePF2e> {
     damageTypes: ConfigPF2e["PF2E"]["damageTypes"];
     damageCategories: Record<DamageCategoryUnique, string>;
     attackEffects: SheetOptions;
+    /** True unless the attack has opted out of copying runes and material from its linked weapon */
+    syncWeaponFeatures: boolean;
     /** The statistic value to display, based on whether it is a check or a save */
     modifierOrSave: {
         label: string;
