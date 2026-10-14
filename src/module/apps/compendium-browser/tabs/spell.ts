@@ -106,8 +106,8 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                         defense.passive.statistic === "ac" ? "armor" : defense.passive.statistic.split("-")[0];
                     options.push(`defense:passive:${statistic}`);
                 }
-                if (!defense && options.includes(`trait:attack`) && !options.includes("category:ritual")) {
-                    options.push(`defense:passive:armor`);
+                if (!defense && options.includes("trait:attack") && !options.includes("category:ritual")) {
+                    options.push("defense:passive:armor");
                 }
 
                 spells.push({
@@ -160,10 +160,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                 },
             ),
         };
-        this.filterData.checkboxes.defense.substitutions = R.mapToObj(R.keys(CONFIG.PF2E.saves), (s) => [
-            `save:${s}`,
-            `save:basic:${s}`,
-        ]);
         this.filterData.selects.timefilter.options = [...times].sort().reduce(
             (result, time) => ({
                 ...result,
@@ -202,10 +198,10 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     label: "PF2E.Item.Spell.Defense.Label",
                     options: {},
                     selected: [],
-                    substitutions: {},
                     toggle: {
                         active: false,
                         label: "PF2E.CompendiumBrowser.Filter.Spells.Defense.BasicOnly",
+                        substitutions: R.mapToObj(R.keys(CONFIG.PF2E.saves), (s) => [`save:${s}`, `save:basic:${s}`]),
                     },
                 },
                 rarity: {

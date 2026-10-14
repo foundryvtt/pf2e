@@ -9,7 +9,7 @@
 
     interface FilterProps {
         filter: BrowserFilter;
-        resetFilters: (key?: string) => void;
+        resetFilters: () => void;
         parseRangeInput: RangeInputParser;
     }
     const { filter = $bindable(), resetFilters, parseRangeInput }: FilterProps = $props();
@@ -114,7 +114,7 @@
                 isExpanded={checkbox.isExpanded}
                 clearButton={{
                     options: { visible: checkbox.selected.length > 0 || !!checkbox.toggle?.active },
-                    clear: getClearFunction(checkbox, { name: key }),
+                    clear: getClearFunction(checkbox),
                 }}
                 label={checkbox.label}
             >

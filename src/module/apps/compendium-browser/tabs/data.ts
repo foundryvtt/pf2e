@@ -24,13 +24,13 @@ interface CheckboxData {
     selected: string[];
     /** An optional toggle button that substitutes the values of selected options while active */
     toggle?: CheckboxToggle;
-    /** Maps option keys to the values used in their place while the toggle is active */
-    substitutions?: Record<string, string>;
 }
 
 interface CheckboxToggle {
     active: boolean;
     label: string;
+    /** Maps option keys to the values used in their place while the toggle is active */
+    substitutions: Record<string, string>;
 }
 
 interface TraitData<T extends string = string> {

@@ -6,7 +6,7 @@
     const { checkbox = $bindable(), searchable }: { checkbox: CheckboxData; searchable?: boolean } = $props();
     let searchTerm = $state("");
     // The toggle is enabled if an option it substitutes is selected
-    const toggleEnabled = $derived(checkbox.selected.some((s) => !!checkbox.substitutions?.[s]));
+    const toggleEnabled = $derived(checkbox.selected.some((s) => !!checkbox.toggle?.substitutions[s]));
 
     function onChangeCheckbox(
         event: Event & { currentTarget: HTMLInputElement },
@@ -40,19 +40,20 @@
         />
     {/if}
     {#if checkbox.toggle}
-        <button
-            type="button"
-            class="flat filter-toggle"
-            aria-pressed={checkbox.toggle.active}
-            disabled={!toggleEnabled}
-            onclick={() => checkbox.toggle && (checkbox.toggle.active = !checkbox.toggle.active)}
-        >
+        <label class="filter-toggle">
+            <input
+                type="checkbox"
+                class="sr-only"
+                role="switch"
+                disabled={!toggleEnabled}
+                bind:checked={checkbox.toggle.active}
+            />
             <i
                 class="fa-solid fa-fw {checkbox.toggle.active ? 'fa-toggle-on' : 'fa-toggle-off'}"
                 aria-hidden="true"
             ></i>
             {_loc(checkbox.toggle.label)}
-        </button>
+        </label>
     {/if}
     {#each R.entries(checkbox.options) as [name, option] (name)}
         {#if !searchable || !searchTerm || option.selected || option.label
@@ -82,20 +83,19 @@
             gap: var(--space-4);
         }
 
-        button.filter-toggle {
-            display: flex;
-            align-items: center;
-            gap: var(--space-4);
+        label.filter-toggle {
             margin-left: var(--space-2);
             margin-bottom: var(--space-2);
+            cursor: pointer;
 
             i {
                 font-size: 1.25em;
                 color: var(--color-text-secondary);
             }
 
-            &:disabled {
+            &:has(input:disabled) {
                 opacity: 0.5;
+                cursor: default;
             }
         }
 

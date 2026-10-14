@@ -15,8 +15,8 @@
     const activeTabName = $derived(browser.activeTabName as Exclude<typeof browser.activeTabName, "">);
     const tab = $derived(browser.tabs[activeTabName]);
 
-    function resetFilters(key?: string): void {
-        tab.resetFilters(key);
+    function resetFilters(): void {
+        tab.resetFilters();
     }
 
     const parseRangeInput: RangeInputParser = (name, lower, upper) => tab.parseRangeFilterInput(name, lower, upper);

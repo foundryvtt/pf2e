@@ -131,7 +131,7 @@ export abstract class CompendiumBrowserTab {
         return fu.deepClone(this.defaultFilterData);
     }
 
-    /** Reset all filters  */
+    /** Reset all filters */
     resetFilters(): void {
         this.filterData = fu.deepClone(this.defaultFilterData);
     }
@@ -160,7 +160,7 @@ export abstract class CompendiumBrowserTab {
             for (const [key, checkbox] of R.entries(checkboxes)) {
                 if (checkbox.selected.length === 0) continue;
                 const prefix = checkbox.optionPrefix ?? key;
-                const substitutions = checkbox.toggle?.active && checkbox.substitutions ? checkbox.substitutions : {};
+                const substitutions = checkbox.toggle?.active ? checkbox.toggle.substitutions : {};
                 statements.push({ or: checkbox.selected.map((s) => `${prefix}:${substitutions[s] ?? s}`) });
             }
         }
