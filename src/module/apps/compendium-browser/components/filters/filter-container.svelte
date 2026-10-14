@@ -52,7 +52,7 @@
         position: relative;
 
         button.clear-filter {
-            line-height: 1.5em;
+            line-height: 1.5;
             position: absolute;
             right: var(--space-10);
             top: calc(1.25em * 1.25 / 2);

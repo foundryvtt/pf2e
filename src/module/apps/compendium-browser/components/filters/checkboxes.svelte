@@ -97,6 +97,11 @@
                 opacity: 0.5;
                 cursor: default;
             }
+
+            &:has(input:focus-visible) {
+                outline: 1px solid var(--color-warm-2);
+                box-shadow: 0 0 4px var(--color-warm-2);
+            }
         }
 
         .filter-sources {
