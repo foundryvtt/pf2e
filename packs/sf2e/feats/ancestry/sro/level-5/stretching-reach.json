@@ -29,7 +29,24 @@
             "remaster": true,
             "title": "Starfinder Tech Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "stretching-reach",
+                "toggleable": true
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:usage:hands:2",
+                    "stretching-reach"
+                ],
+                "property": "traits",
+                "value": "reach"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
