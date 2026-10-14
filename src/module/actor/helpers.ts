@@ -21,7 +21,6 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
-import { extractDegreeOfSuccessAdjustments } from "@system/degree-of-success.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { RegionDocumentPF2e, ScenePF2e } from "@scene";
 import type { EnvironmentRegionBehavior } from "@scene/region-behavior/types.ts";
@@ -29,6 +28,7 @@ import { Check, CheckCheckContext, CheckRoll } from "@system/check/index.ts";
 import { DamageDamageContext, DamagePF2e } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
+import { extractDegreeOfSuccessAdjustments } from "@system/degree-of-success.ts";
 import type { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { Statistic } from "@system/statistic/statistic.ts";
 import { ErrorPF2e, getActionGlyph, signedInteger, sluggify } from "@util/misc.ts";
@@ -66,7 +66,7 @@ async function resetActors(actors?: Iterable<ActorPF2e>, options: ResetActorsRen
 
     if (options.tokens) {
         for (const token of R.unique(Array.from(actors).flatMap((a) => a.getActiveTokens(true, true)))) {
-            token.simulateUpdate();
+            token.checkAuras();
         }
     }
 }
@@ -1109,12 +1109,12 @@ export {
     getAttackDamageDomains,
     getRangeIncrement,
     getStrikeAttackDomains,
+    getTempHPSourceId,
     isOffGuardFromFlanking,
     isReallyPC,
     iterateAllItems,
     migrateActorSource,
     resetActors,
-    getTempHPSourceId,
     setHitPointsRollOptions,
     transferItemsBetweenActors,
     userColorForActor,
