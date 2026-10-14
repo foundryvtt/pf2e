@@ -36,79 +36,16 @@
         "quantity": 1,
         "rules": [
             {
-                "choices": [
+                "key": "FlatModifier",
+                "predicate": [
                     {
-                        "label": "PF2E.SpecificRule.Witch.Patron.Theme.BabaYaga",
-                        "value": "occultism"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Witch.Patron.Theme.ChoirPolitic",
-                        "value": "society"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Witch.Patron.Theme.Cobyslarni",
-                        "value": "occultism"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Witch.Patron.Theme.DevourerOfDecay",
-                        "value": "nature"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Witch.Patron.Theme.FaithsFlamekeeper",
-                        "value": "religion"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Witch.Patron.Theme.MosquitoWitch",
-                        "value": "nature"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Witch.Patron.Theme.ParadoxOfOpposites",
-                        "value": "religion"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Witch.Patron.Theme.RippleInTheDeep",
-                        "value": "nature"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Witch.Patron.Theme.SilenceInSnow",
-                        "value": "Nature"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Witch.Patron.Theme.SpinnerOfThreads",
-                        "value": "occultism"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Witch.Patron.Theme.StarlessShadow",
-                        "value": "occultism"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Witch.Patron.Theme.TheInscribedOne",
-                        "value": "arcana"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Witch.Patron.Theme.TheResentment",
-                        "value": "occultism"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Witch.Patron.Theme.TheUnseenBroker",
-                        "value": "occultism"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Witch.Patron.Theme.WhisperOfWings",
-                        "value": "nature"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Witch.Patron.Theme.WildingSteward",
-                        "value": "nature"
+                        "or": [
+                            "class:witch",
+                            "feat:witch-dedication"
+                        ]
                     }
                 ],
-                "flag": "hexingJarSelection",
-                "key": "ChoiceSet",
-                "prompt": "Select your Patron"
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "{item|flags.system.rulesSelections.hexingJarSelection}",
+                "selector": "{actor|flags.system.witch.patronSkill}",
                 "type": "item",
                 "value": 2
             }
