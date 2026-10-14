@@ -131,18 +131,8 @@ export abstract class CompendiumBrowserTab {
         return fu.deepClone(this.defaultFilterData);
     }
 
-    /** Reset all filters or a specific property in the filterData object
-     * @param [key] An object property with notation a.b.c
-     */
-    resetFilters(key?: string): void {
-        if (key && this.filterData && this.defaultFilterData) {
-            const defaultValue = fu.getProperty(this.defaultFilterData, key);
-            if (defaultValue === undefined) {
-                throw ErrorPF2e(`Partial filter reset failed. Value at "${key}" is undefined!`);
-            }
-            fu.setProperty(this.filterData, key, defaultValue);
-            return;
-        }
+    /** Reset all filters  */
+    resetFilters(): void {
         this.filterData = fu.deepClone(this.defaultFilterData);
     }
 
@@ -170,7 +160,7 @@ export abstract class CompendiumBrowserTab {
             for (const [key, checkbox] of R.entries(checkboxes)) {
                 if (checkbox.selected.length === 0) continue;
                 const prefix = checkbox.optionPrefix ?? key;
-                const substitutions = checkbox.toggle?.active ? checkbox.toggle.substitutions : {};
+                const substitutions = checkbox.toggle?.active && checkbox.substitutions ? checkbox.substitutions : {};
                 statements.push({ or: checkbox.selected.map((s) => `${prefix}:${substitutions[s] ?? s}`) });
             }
         }

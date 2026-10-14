@@ -6,7 +6,7 @@
     const { checkbox = $bindable(), searchable }: { checkbox: CheckboxData; searchable?: boolean } = $props();
     let searchTerm = $state("");
     // The toggle is enabled if an option it substitutes is selected
-    const toggleEnabled = $derived(checkbox.selected.some((s) => !!checkbox.toggle?.substitutions[s]));
+    const toggleEnabled = $derived(checkbox.selected.some((s) => !!checkbox.substitutions?.[s]));
 
     function onChangeCheckbox(
         event: Event & { currentTarget: HTMLInputElement },
@@ -29,6 +29,16 @@
 </script>
 
 <div class="checkbox-container" transition:slide>
+    {#if searchable}
+        <input
+            type="search"
+            class="filter-sources"
+            spellcheck="false"
+            placeholder={_loc("PF2E.CompendiumBrowser.Filter.FilterSources")}
+            aria-label={_loc("PF2E.CompendiumBrowser.Filter.FilterSources")}
+            oninput={onSearchSource}
+        />
+    {/if}
     {#if checkbox.toggle}
         <button
             type="button"
@@ -43,16 +53,6 @@
             ></i>
             {_loc(checkbox.toggle.label)}
         </button>
-    {/if}
-    {#if searchable}
-        <input
-            type="search"
-            class="filter-sources"
-            spellcheck="false"
-            placeholder={_loc("PF2E.CompendiumBrowser.Filter.FilterSources")}
-            aria-label={_loc("PF2E.CompendiumBrowser.Filter.FilterSources")}
-            oninput={onSearchSource}
-        />
     {/if}
     {#each R.entries(checkbox.options) as [name, option] (name)}
         {#if !searchable || !searchTerm || option.selected || option.label

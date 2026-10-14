@@ -37,9 +37,7 @@
                     data.options[opt].selected = false;
                 }
                 data.selected = [];
-                if (data.toggle && options?.name) {
-                    resetFilters(`checkboxes.${options.name}.toggle.active`);
-                }
+                if (data.toggle) data.toggle.active = false;
             } else if ("from" in data) {
                 data.from = data.min;
                 data.to = data.max;

@@ -101,7 +101,11 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     options.push(`defense:save:${statistic}`);
                     if (defense.save.basic) options.push(`defense:save:basic:${statistic}`);
                 }
-                if (defense?.passive) options.push(`defense:passive:${defense.passive.statistic.split("-")[0]}`);
+                if (defense?.passive) {
+                    const statistic =
+                        defense.passive.statistic === "ac" ? "armor" : defense.passive.statistic.split("-")[0];
+                    options.push(`defense:passive:${statistic}`);
+                }
                 if (!defense && options.includes(`trait:attack`) && !options.includes("category:ritual")) {
                     options.push(`defense:passive:armor`);
                 }
@@ -156,7 +160,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                 },
             ),
         };
-        this.filterData.checkboxes.defense.toggle!.substitutions = R.mapToObj(R.keys(CONFIG.PF2E.saves), (s) => [
+        this.filterData.checkboxes.defense.substitutions = R.mapToObj(R.keys(CONFIG.PF2E.saves), (s) => [
             `save:${s}`,
             `save:basic:${s}`,
         ]);
@@ -198,10 +202,10 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     label: "PF2E.Item.Spell.Defense.Label",
                     options: {},
                     selected: [],
+                    substitutions: {},
                     toggle: {
                         active: false,
                         label: "PF2E.CompendiumBrowser.Filter.Spells.Defense.BasicOnly",
-                        substitutions: {},
                     },
                 },
                 rarity: {
