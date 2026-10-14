@@ -4,7 +4,7 @@ import { AbstractEffectPF2e, AfflictionPF2e, ConditionPF2e, EffectPF2e } from "@
 import { PersistentDamageEditor } from "@item/condition/persistent-damage-editor.ts";
 import { createTooltipListener } from "@module/sheet/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
-import { createHTMLElement, ErrorPF2e, htmlQuery, htmlQueryAll } from "@util";
+import { createHTMLElement, ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 
 export class EffectsPanel extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV2) {
     get #token(): TokenDocumentPF2e | null {
@@ -222,6 +222,38 @@ export class EffectsPanel extends fa.api.HandlebarsApplicationMixin(fa.api.Appli
                 return content;
             },
         });
+
+        this.element.addEventListener(
+            "pointerenter",
+            async (event) => {
+                const token = canvas.tokens.placeables.find((t) => t.id === this.#token?.id);
+                if (!token) return;
+                const selector = ".effect-item[data-item-id]";
+                const target = htmlClosest(event.target, selector);
+                if (!target) return;
+                const actor = this.#actor;
+                const itemId = target.dataset.itemId ?? "";
+
+                const item = actor?.items.get(itemId);
+                if (!item?.isOfType("effect")) return;
+
+                token.tokenMarkHighlight.effect = item;
+                token.renderFlags.set({ refreshState: true });
+            },
+            true,
+        );
+
+        this.element.addEventListener(
+            "pointerleave",
+            async () => {
+                const token = canvas.tokens.placeables.find((t) => t.id === this.#token?.id);
+                if (!token) return;
+
+                token.tokenMarkHighlight.effect = null;
+                token.renderFlags.set({ refreshState: true });
+            },
+            true,
+        );
 
         return super._onFirstRender(context, options);
     }

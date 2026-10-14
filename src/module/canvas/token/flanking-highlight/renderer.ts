@@ -1,6 +1,7 @@
 import { TokenMarkRuleElement } from "@module/rules/rule-element/token-mark/rule-element.ts";
 import type { TokenPF2e } from "../index.ts";
 import { reduceItemName } from "@item/helpers.ts";
+import { EffectPF2e } from "@item";
 
 /** Visual rendering of lines from token to flanking buddies token on highlight */
 class FlankingHighlightRenderer {
@@ -176,6 +177,8 @@ class TokenMarkHighlightRenderer {
     /** The token from which the line is extended */
     token: TokenPF2e;
 
+    effect: EffectPF2e | null = null;
+
     /** Color for highlight line */
     lineColor: number;
 
@@ -210,7 +213,7 @@ class TokenMarkHighlightRenderer {
     /** Draw flanking highlight if conditions are met */
     draw(): void {
         this.clear();
-        const tokenMarks = this.token.actor?.rules.filter((r): r is TokenMarkRuleElement => r.key === "TokenMark");
+        const tokenMarks = this.effect?.rules.filter((r): r is TokenMarkRuleElement => r.key === "TokenMark");
         if (!tokenMarks) return;
         if (canvas.tokens.highlightObjects && this.#shouldRender) {
             for (const target of canvas.tokens.placeables) {
@@ -318,6 +321,7 @@ class TokenMarkHighlightRenderer {
 
     /** Alias of `clear` */
     destroy(): void {
+        this.effect = null;
         this.clear();
     }
 
