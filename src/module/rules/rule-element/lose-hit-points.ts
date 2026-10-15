@@ -18,14 +18,14 @@ class LoseHitPointsRuleElement extends RuleElement<LoseHitPointsRuleSchema> {
     }
 
     override onCreate(actorUpdates: Record<string, unknown>): void {
-        if (this.ignored) return;
+        if (this.ignored || !this.test()) return;
         const value = Math.trunc(Math.abs(Number(this.resolveValue(this.value)) || 0));
         const currentHP = this.actor._source.system.attributes.hp.value;
         actorUpdates["system.attributes.hp.value"] = Math.max(currentHP - value, 0);
     }
 
     override beforePrepareData(): void {
-        if (this.ignored) return;
+        if (this.ignored || !this.test()) return;
 
         const { actor } = this;
         if (!this.recoverable) {
@@ -35,12 +35,19 @@ class LoseHitPointsRuleElement extends RuleElement<LoseHitPointsRuleSchema> {
     }
 
     override async preUpdate(changes: DeepPartial<ItemSourcePF2e>): Promise<void> {
-        if (!this.reevaluateOnUpdate || this.ignored) return;
+        if (!this.reevaluateOnUpdate || this.ignored || !this.test()) return;
         const previousValue = Math.trunc(Math.abs(Number(this.resolveValue(this.value)) || 0));
         const newItem = this.item.clone(changes);
-        const rule = newItem.system.rules.find((r): r is LoseHitPointsSource => r.key === this.key);
+        const ruleSource = typeof this.sourceIndex === "number" ? newItem.system.rules[this.sourceIndex] : undefined;
+        if (!ruleSource || ruleSource.key !== "LoseHitPoints") return;
         const newValue = Math.trunc(
-            Math.abs(Number(this.resolveValue(String(rule?.value), 0, { resolvables: { item: newItem } }))),
+            Math.abs(
+                Number(
+                    this.resolveValue(String((ruleSource as LoseHitPointsSource).value), 0, {
+                        resolvables: { item: newItem },
+                    }),
+                ) || 0,
+            ),
         );
         const valueChange = newValue - previousValue;
         if (valueChange > 0) {
