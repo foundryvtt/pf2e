@@ -1363,6 +1363,15 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         traits: ["magical"],
     },
     energyVulnerability: {
+        damage: {
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.energyVulnerability.Name",
+                    text: "PF2E.WeaponPropertyRune.energyVulnerability.Note.criticalSuccess",
+                },
+            ],
+        },
         level: 4,
         name: "PF2E.WeaponPropertyRune.energyVulnerability.Name",
         price: 90,
@@ -1713,6 +1722,15 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         traits: ["magical"],
     },
     greaterEnergyVulnerability: {
+        damage: {
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.greaterEnergyVulnerability.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterEnergyVulnerability.Note.criticalSuccess",
+                },
+            ],
+        },
         level: 16,
         name: "PF2E.WeaponPropertyRune.greaterEnergyVulnerability.Name",
         price: 9000,
