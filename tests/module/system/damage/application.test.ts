@@ -323,8 +323,7 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(15);
         });
 
-        test("critical-hits resistance larger than the doubled part is not capped", () => {
-            // Bug: The resistance also matches through the roll's outcome option, uncapped, and the larger value wins
+        test.fails("critical-hits resistance is capped at the doubled part", () => {
             const damage = calculate({
                 result: iwr({
                     instances: [instance("slashing", 20, { critImmuneTotal: 10 })],
@@ -335,9 +334,9 @@ describe("applied damage calculation", () => {
             });
 
             expect(damage.applications).toEqual([
-                { category: "resistance", type: "critical-hits", adjustment: -15, ignored: false },
+                { category: "resistance", type: "critical-hits", adjustment: -10, ignored: false },
             ]);
-            expect(damage.finalDamage).toBe(5);
+            expect(damage.finalDamage).toBe(10);
         });
     });
 
@@ -705,10 +704,10 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(10);
         });
 
-        test("application rows sort by category, with hardness last", () => {
-            // Potential Bug: applyIWR's application sort puts immunity before unaffected on a mixed roll.
-            // The immunity branch compares `b.type === "unaffected"` (a damage-type label) instead of
-            // `b.category`, so the match never succeeds and immunity always sorts first.
+        test.fails("application rows sort by category, with hardness last", () => {
+            // Unaffected and immunity both sort as first. The immunity branch checks `b.type === "unaffected"`
+            // (a damage-type label), so that comparison never prefers unaffected. Instance order then decides
+            // which of the two rows is listed first.
             const damage = calculate({
                 result: iwr({
                     instances: [instance("vitality", 10), instance("fire", 10), instance("slashing", 10)],
@@ -721,8 +720,8 @@ describe("applied damage calculation", () => {
             });
 
             expect(damage.applications).toEqual([
-                { category: "immunity", type: "fire", adjustment: -10 },
                 { category: "unaffected", type: "vitality", adjustment: -10 },
+                { category: "immunity", type: "fire", adjustment: -10 },
                 { category: "weakness", type: "slashing", adjustment: 5 },
                 { category: "resistance", type: "slashing", adjustment: -3, ignored: false },
                 { category: "reduction", type: "PF2E.Damage.Hardness.Full", adjustment: -4 },

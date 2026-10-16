@@ -7,9 +7,10 @@ import * as R from "remeda";
 import type { DamageType, ImmunityRedirect, ResistanceRedirect } from "./types.ts";
 import { BASE_DAMAGE_TYPES_TO_CATEGORIES } from "./values.ts";
 
-/** Resolve IWR (unless already resolved), then post-IWR adjustments, shield, hardness, and hit points */
+/** Post-IWR adjustments, shield, hardness, and hit points.*/
 function calculateAppliedDamage(params: CalculateAppliedDamageParams): AppliedDamage {
     const {
+        result,
         rollOptions,
         isDamage,
         final,
@@ -26,7 +27,6 @@ function calculateAppliedDamage(params: CalculateAppliedDamageParams): AppliedDa
         immuneToDeathEffects,
         isUndeadNPC,
     } = params;
-    const result = "finalDamage" in params.result ? params.result : applyIWRToInput(params.result, rollOptions);
 
     // Damage should never go negative, nor healing positive
     const clamp = isDamage ? Math.max : Math.min;
@@ -62,7 +62,7 @@ function calculateAppliedDamage(params: CalculateAppliedDamageParams): AppliedDa
             effectiveActorHardness === baseActorHardness ? "PF2E.Damage.Hardness.Full" : "PF2E.Damage.Hardness.Half";
         result.applications.push({
             category: "reduction",
-            type: typeLabel,
+            type: _loc(typeLabel),
             adjustment: -1 * damageAbsorbedByActor,
         });
     }
@@ -112,7 +112,7 @@ function calculateAppliedDamage(params: CalculateAppliedDamageParams): AppliedDa
 /** Determine actor updates for applying damage/healing across temporary hit points, stamina, and then hit points */
 function calculateHealthDelta(args: {
     hp: { max: number; value: number; temp: number };
-    sp?: Maybe<{ max: number; value: number }>;
+    sp: Maybe<{ max: number; value: number }>;
     staminaVariant: boolean;
     delta: number;
 }) {
@@ -129,8 +129,7 @@ function calculateHealthDelta(args: {
     })();
 
     const appliedToSP = ((): number => {
-        const staminaEnabled = !!sp && staminaVariant;
-        if (!staminaEnabled || delta <= 0) return 0;
+        if (!sp || !staminaVariant || delta <= 0) return 0;
         const remaining = delta - appliedToTemp;
         const applied = Math.min(sp.value, remaining);
         updates["system.attributes.hp.sp.value"] = Math.max(sp.value - applied, 0);
@@ -139,7 +138,7 @@ function calculateHealthDelta(args: {
 
     const appliedToHP = ((): number => {
         const remaining = delta - appliedToTemp - appliedToSP;
-        updates["system.attributes.hp.value"] = Math.min(Math.max(hp.value - remaining, 0), hp.max);
+        updates["system.attributes.hp.value"] = Math.clamp(hp.value - remaining, 0, hp.max);
         return remaining;
     })();
     const totalApplied = appliedToTemp + appliedToSP + appliedToHP;
@@ -527,6 +526,12 @@ interface DamageInstanceRecord {
     componentTotal(component: "precision" | "splash"): number;
 }
 
+/** The redirect lists IWR reads from `roll.options.bypass`. */
+interface Bypass {
+    immunity: { redirect: ImmunityRedirect[] };
+    resistance: { redirect: ResistanceRedirect[] };
+}
+
 /** The parts of a damage roll IWR reads. A rolled `DamageRoll` satisfies this. */
 interface DamageRollRecord<T extends DamageInstanceRecord = DamageInstanceRecord> {
     total: number;
@@ -534,10 +539,7 @@ interface DamageRollRecord<T extends DamageInstanceRecord = DamageInstanceRecord
     options: {
         increasedFrom?: number;
         degreeOfSuccess?: number | null;
-        bypass?: {
-            immunity: { redirect: ImmunityRedirect[] };
-            resistance: { redirect: ResistanceRedirect[] };
-        };
+        bypass?: Bypass;
     };
 }
 
@@ -555,7 +557,7 @@ interface IWRInput<T extends DamageInstanceRecord = DamageInstanceRecord> {
 }
 
 interface CalculateAppliedDamageParams {
-    result: IWRApplicationData | IWRInput;
+    result: IWRApplicationData;
     rollOptions: Set<string>;
     isDamage: boolean;
     final: boolean;
@@ -567,7 +569,7 @@ interface CalculateAppliedDamageParams {
     damageHasAdamantine: boolean;
     materialGrade: PreciousMaterialGrade;
     hitPoints: { max: number; value: number; temp: number };
-    sp?: Maybe<{ max: number; value: number }>;
+    sp: Maybe<{ max: number; value: number }>;
     staminaVariant: boolean;
     thresholds: { hp: number; segments: number }[] | null;
     immuneToDeathEffects: boolean;
@@ -636,4 +638,13 @@ type IWRApplication =
     | DamageReductionApplication;
 
 export { applyIWRToInput, calculateAppliedDamage };
-export type { IWRApplication, IWRApplicationData, IWRInput };
+export type {
+    Bypass,
+    DamageInstanceRecord,
+    ImmunityRecord,
+    IWRApplication,
+    IWRApplicationData,
+    IWRInput,
+    ResistanceRecord,
+    WeaknessRecord,
+};

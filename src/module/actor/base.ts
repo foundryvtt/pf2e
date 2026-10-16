@@ -1360,9 +1360,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     ? []
                     : persistentCreated.map((p) => p.system.persistent?.damage.formula).filter(R.isDefined),
                 iwr: {
-                    applications: damageResult.applications.map((a) =>
-                        a.category === "reduction" ? { ...a, type: _loc(a.type) } : a,
-                    ),
+                    applications: damageResult.applications,
                     visibility: this.hasPlayerOwner ? "all" : "gm",
                 },
                 canUndoDamage,

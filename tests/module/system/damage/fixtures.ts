@@ -1,12 +1,17 @@
-import { calculateAppliedDamage, type IWRInput } from "@system/damage/applied-damage.ts";
+import {
+    applyIWRToInput,
+    calculateAppliedDamage,
+    type Bypass,
+    type DamageInstanceRecord,
+    type ImmunityRecord,
+    type IWRInput,
+    type ResistanceRecord,
+    type WeaknessRecord,
+} from "@system/damage/applied-damage.ts";
 import type { DamageType } from "@system/damage/types.ts";
 import { BASE_DAMAGE_TYPES_TO_CATEGORIES } from "@system/damage/values.ts";
 
 type CalculateParams = Parameters<typeof calculateAppliedDamage>[0];
-type InstanceRecord = IWRInput["roll"]["instances"][number];
-type ImmunityRecord = IWRInput["immunities"][number];
-type WeaknessRecord = IWRInput["weaknesses"][number];
-type ResistanceRecord = IWRInput["resistances"][number];
 
 type InstanceOptions = {
     materials?: string[];
@@ -19,7 +24,7 @@ type InstanceOptions = {
 };
 
 /** An evaluated, non-persistent instance unless overridden. `formalDescription` is built like `DamageInstance`'s. */
-function instance(type: DamageType, total: number, options: InstanceOptions = {}): InstanceRecord {
+function instance(type: DamageType, total: number, options: InstanceOptions = {}): DamageInstanceRecord {
     const {
         materials = [],
         persistent = false,
@@ -49,7 +54,7 @@ function instance(type: DamageType, total: number, options: InstanceOptions = {}
 }
 
 /** Unevaluated persistent damage: total 0, formula kept for the condition */
-function persistentInstance(type: DamageType, expression: string): InstanceRecord {
+function persistentInstance(type: DamageType, expression: string): DamageInstanceRecord {
     return instance(type, 0, { persistent: true, expression });
 }
 
@@ -134,7 +139,6 @@ function resistance(
     };
 }
 
-type Bypass = NonNullable<IWRInput["roll"]["options"]["bypass"]>;
 type Redirects = {
     immunities: Bypass["immunity"]["redirect"];
     resistances: Bypass["resistance"]["redirect"];
@@ -161,7 +165,7 @@ type RollBuild = {
  */
 function iwr(
     options: Partial<Omit<IWRInput, "roll" | "ignoredResistances">> & {
-        instances: InstanceRecord[];
+        instances: DamageInstanceRecord[];
         roll?: RollBuild;
     },
 ): IWRInput {
@@ -198,7 +202,7 @@ function iwr(
 }
 
 /** Damage or healing already resolved before IWR: a number, `skipIWR`, a dead target, or IWR disabled */
-function bypass(finalDamage: number, persistent: InstanceRecord[] = []): CalculateParams["result"] {
+function bypass(finalDamage: number, persistent: DamageInstanceRecord[] = []): CalculateParams["result"] {
     return { finalDamage, applications: [], persistent };
 }
 
@@ -207,12 +211,13 @@ function bypass(finalDamage: number, persistent: InstanceRecord[] = []): Calcula
  * `isDamage` follows the actor's rule: healing only for a negative resolved total.
  */
 function calculate(
-    options: Partial<CalculateParams> & Pick<CalculateParams, "result">,
+    options: Partial<Omit<CalculateParams, "result">> & { result: CalculateParams["result"] | IWRInput },
 ): ReturnType<typeof calculateAppliedDamage> {
-    const { result } = options;
+    const { result: incoming, rollOptions = new Set(), ...rest } = options;
+    const result = "finalDamage" in incoming ? incoming : applyIWRToInput(incoming, rollOptions);
     return calculateAppliedDamage({
-        rollOptions: new Set(),
-        isDamage: !("finalDamage" in result && result.finalDamage < 0),
+        rollOptions,
+        isDamage: !("finalDamage" in incoming && incoming.finalDamage < 0),
         final: false,
         diceAdjustment: 0,
         modifierAdjustment: 0,
@@ -226,7 +231,8 @@ function calculate(
         thresholds: null,
         immuneToDeathEffects: false,
         isUndeadNPC: false,
-        ...options,
+        ...rest,
+        result,
     });
 }
 
