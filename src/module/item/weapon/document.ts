@@ -305,6 +305,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         })();
         const rangeIncrement = this.range?.increment;
 
+        const combination = this.system.traits.toggles.combination;
         const rollOptions = super.getRollOptions(prefix, options);
         rollOptions.push(
             ...Object.entries({
@@ -328,6 +329,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 ranged: this.isRanged,
                 thrown: this.isThrown,
                 "thrown-melee": thrownMelee,
+                [`combination:${combination?.selected}`]: !!combination,
                 ...propertyRunes,
                 ...ammunitionRollOptions,
             })
