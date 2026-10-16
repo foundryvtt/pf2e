@@ -53,6 +53,7 @@ export default class Game<
         macros: TMacro["_source"][];
         messages: TChatMessage["_source"][];
         packs: CompendiumMetadata[];
+        settings: Setting["_source"][];
         tables: foundry.documents.RollTableSource[];
         users: TUser["_source"][];
         version: string;
