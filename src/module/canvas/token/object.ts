@@ -299,7 +299,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         super._refreshVisibility();
         this.auras.draw();
         this.flankingHighlight.draw();
-        this.tokenMarkHighlight.draw();
     }
 
     protected override _refreshState(): void {

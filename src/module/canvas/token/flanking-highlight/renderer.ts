@@ -1,7 +1,6 @@
 import { TokenMarkRuleElement } from "@module/rules/rule-element/token-mark/rule-element.ts";
 import type { TokenPF2e } from "../index.ts";
 import { reduceItemName } from "@item/helpers.ts";
-import { EffectPF2e } from "@item";
 
 abstract class TokenHighlightRenderer {
     /** Layer graphics object to which flanking highlight lines and text will be drawn */
@@ -120,10 +119,25 @@ class FlankingHighlightRenderer extends TokenHighlightRenderer {
 /** Visual rendering of lines from token to flanking buddies token on highlight */
 class TokenMarkHighlightRenderer extends TokenHighlightRenderer {
     static override color: number = CONFIG.Canvas.dispositionColors.FRIENDLY;
+    static onsetTimeMS = 300;
+    static fadeInTimeMs = 150;
+    static fadeOutTimeMs = 300;
 
-    effect: EffectPF2e | null = null;
-    graphics: Map<string, PIXI.Graphics> | null = null;
-    container: PIXI.Container | null = null;
+    #effectId: string | null = null;
+    #animations: Set<string> | null = null;
+    #container: PIXI.Container | null = null;
+
+    get animations(): Set<string> {
+        return (this.#animations ??= new Set<string>());
+    }
+
+    get container(): PIXI.Container {
+        if (!this.#container) {
+            this.#container = new PIXI.Container();
+            this.token.layer.addChild(this.#container);
+        }
+        return this.#container;
+    }
 
     /**
      * Whether the flank highlight should be rendered to the user:
@@ -131,7 +145,9 @@ class TokenMarkHighlightRenderer extends TokenHighlightRenderer {
      * and the token must not be a preview or animating.
      */
     get #shouldRender(): boolean {
-        return this.canvasReady && this.#tokenIsEligible;
+        if (!this.canvasReady) return false;
+        if (!this.#tokenIsEligible) return false;
+        return true;
     }
 
     /** The token must be controlled or the user's assigned character, and it must not be a preview or animating. */
@@ -144,39 +160,74 @@ class TokenMarkHighlightRenderer extends TokenHighlightRenderer {
     }
 
     /** Draw flanking highlight if conditions are met */
-    draw(): void {
-        this.clear();
-        const tokenMarks = this.effect?.rules.filter((r) => r instanceof TokenMarkRuleElement);
-        if (!tokenMarks) return;
-        if (canvas.tokens.highlightObjects && this.#shouldRender) {
-            for (const target of canvas.tokens.placeables.filter((t) => t.isVisible)) {
-                this.drawForTarget(
-                    target,
-                    tokenMarks.filter((r) => r.uuid === target.document.uuid),
-                );
-            }
+    draw(id: string | null): void {
+        if (!id) {
+            this.#effectId = null;
+            return;
         }
-    }
+        if (!this.#shouldRender) return;
 
-    /**
-     * For a given target, find flanking buddies and draw flanking highlight lines between token and buddies
-     * @param target Potentially flanked target
-     */
-    drawForTarget(target: TokenPF2e, tokenMarks: TokenMarkRuleElement[]): void {
-        if (tokenMarks.length === 0) return;
-        this.drawLines(
-            target,
-            tokenMarks.map((r) => reduceItemName(r.label)),
-        );
+        const item = this.token.actor?.items.get(id);
+        if (!item?.isOfType("effect") || !item?.rules.some((e) => e instanceof TokenMarkRuleElement)) return;
+        this.#effectId = id;
+        if (this.animations.has(id)) return;
+
+        const tokenMarks = item.rules.filter((r) => r instanceof TokenMarkRuleElement);
+        if (!tokenMarks) return;
+        const targets = tokenMarks
+            .map((r) => ({
+                token: canvas.tokens.placeables.find((t) => t.isVisible && t.document.uuid === r.uuid),
+                label: reduceItemName(r.label),
+            }))
+            .filter((t) => t.token);
+        if (targets.length === 0) return;
+
+        const g = new PIXI.Graphics();
+        for (const { token, label } of targets) {
+            if (!token) continue;
+            this.drawLines(g, token, label);
+        }
+
+        // play animation
+        const alpha = new PIXI.AlphaFilter(0);
+        g.filters = [alpha];
+        this.animations.add(id);
+        this.container.addChild(g);
+
+        const f = () => {
+            if (this.#effectId === item.id) {
+                alpha.alpha = Math.min(
+                    1,
+                    alpha.alpha + canvas.app.ticker.deltaMS / TokenMarkHighlightRenderer.fadeInTimeMs,
+                );
+            } else {
+                alpha.alpha = Math.max(
+                    0,
+                    alpha.alpha - canvas.app.ticker.deltaMS / TokenMarkHighlightRenderer.fadeOutTimeMs,
+                );
+                if (alpha.alpha <= 0) {
+                    canvas.app.ticker.remove(f, this);
+                    this.animations.delete(id);
+                    this.container.removeChild(g);
+                }
+            }
+        };
+        canvas.app.ticker.add(f, this);
     }
 
     /**
      * Draw flanking highlight line between this token and a single buddy.
      * @param buddy Flanking buddy token
      */
-    drawLines(target: TokenPF2e, labels: string[]): void {
-        drawLine(this.layer, this.token.center, target.center, TokenMarkHighlightRenderer.color, true);
-        drawLabel(this.layer, this.token.center, target.center, TokenMarkHighlightRenderer.color, labels.join());
+    drawLines(g: PIXI.Graphics, target: TokenPF2e, label: string): void {
+        drawLine(g, this.token.center, target.center, TokenMarkHighlightRenderer.color, true);
+        drawLabel(g, this.token.center, target.center, TokenMarkHighlightRenderer.color, label);
+    }
+
+    override destroy(): void {
+        super.destroy();
+        this.#effectId = null;
+        this.#container?.destroy();
     }
 }
 
@@ -243,24 +294,30 @@ function drawArrowhead(graphics: PIXI.Graphics, { x, y }: PIXI.Point, angle: num
     graphics.drawPolygon(points);
 }
 
-function drawLabel(graphics: PIXI.Graphics, pointA: PIXI.Point, buddy: PIXI.Point, color: number, label: string): void {
+function drawLabel(
+    graphics: PIXI.Graphics,
+    pointA: PIXI.Point,
+    pointB: PIXI.Point,
+    color: number,
+    label: string,
+): void {
     // Midpoint coordinate between tokens
-    const mid_x = Math.round((pointA.x + buddy.x) / 2);
-    const mid_y = Math.round((pointA.y + buddy.y) / 2);
+    const mid_x = Math.round((pointA.x + pointB.x) / 2);
+    const mid_y = Math.round((pointA.y + pointB.y) / 2);
 
     // Vector between tokens
-    const vect_x = buddy.x - pointA.x;
-    const vect_y = buddy.y - pointA.y;
+    const dx = pointB.x - pointA.x;
+    const dy = pointB.y - pointA.y;
 
-    // find the perpendicular vector "above" the line
-    const perp_vect_x = vect_x <= -vect_x ? -vect_y : vect_y;
-    const perp_vect_y = vect_x <= -vect_x ? vect_x : -vect_x;
+    // line angle in fraction of revolutions [-0.5, 0.5]
+    const rev = Math.atan2(dy, dx) / PIXI.PI_2;
+    // if line is vertical, write text to the left, otherwise write above
+    const perp_rev = dy === 0 ? 0.75 : dx >= 0 ? rev - 0.25 : rev + 0.25;
 
     // Midpoint coordinate offset perpendicularly above line
     const offsetPixels = 20.0;
-    const offsetScale = offsetPixels / Math.sqrt(perp_vect_x ** 2 + perp_vect_y ** 2);
-    const perp_x = mid_x + Math.round(perp_vect_x * offsetScale);
-    const perp_y = mid_y + Math.round(perp_vect_y * offsetScale);
+    const perp_x = mid_x + Math.cos(perp_rev * PIXI.PI_2) * offsetPixels;
+    const perp_y = mid_y + Math.sin(perp_rev * PIXI.PI_2) * offsetPixels;
 
     // Styling
     const style = CONFIG.canvasTextStyle.clone();
@@ -272,14 +329,9 @@ function drawLabel(graphics: PIXI.Graphics, pointA: PIXI.Point, buddy: PIXI.Poin
     const text = new fc.containers.PreciseText(label, style);
     text.anchor.set(0.5, 0.5);
 
-    // Rotate text to match line, ensuring it is not upside-down
-    let rotation = Math.atan2(vect_y, vect_x);
-    if (rotation > Math.PI / 2) {
-        rotation = rotation - Math.PI;
-    } else if (rotation < -Math.PI / 2) {
-        rotation = rotation + Math.PI;
-    }
-    text.rotation = rotation;
+    // Text just needs to be rotated additional 90 degrees clockwise
+    const rotation = perp_rev + 0.25;
+    text.rotation = rotation * PIXI.PI_2;
 
     text.position.set(perp_x, perp_y);
     graphics.addChild(text);

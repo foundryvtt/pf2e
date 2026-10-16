@@ -2,6 +2,7 @@ import type { ActorPF2e } from "@actor";
 import type { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.d.mts";
 import { AbstractEffectPF2e, AfflictionPF2e, ConditionPF2e, EffectPF2e } from "@item";
 import { PersistentDamageEditor } from "@item/condition/persistent-damage-editor.ts";
+import { TokenMarkHighlightRenderer } from "@module/canvas/token/flanking-highlight/renderer.ts";
 import { createTooltipListener } from "@module/sheet/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { createHTMLElement, ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
@@ -223,22 +224,21 @@ export class EffectsPanel extends fa.api.HandlebarsApplicationMixin(fa.api.Appli
             },
         });
 
+        const tokenMarkHighlight = fu.debounce(
+            (itemId: string | null) =>
+                canvas.tokens.placeables.find((t) => t.id === this.#token?.id)?.tokenMarkHighlight.draw(itemId),
+            TokenMarkHighlightRenderer.onsetTimeMS,
+        );
+
         this.element.addEventListener(
             "pointerenter",
             async (event) => {
-                const token = canvas.tokens.placeables.find((t) => t.id === this.#token?.id);
-                if (!token) return;
                 const selector = ".effect-item[data-item-id]";
                 const target = htmlClosest(event.target, selector);
                 if (!target) return;
-                const actor = this.#actor;
                 const itemId = target.dataset.itemId ?? "";
 
-                const item = actor?.items.get(itemId);
-                if (!item?.isOfType("effect")) return;
-
-                token.tokenMarkHighlight.effect = item;
-                token.renderFlags.set({ refreshState: true });
+                tokenMarkHighlight(itemId);
             },
             true,
         );
@@ -246,11 +246,7 @@ export class EffectsPanel extends fa.api.HandlebarsApplicationMixin(fa.api.Appli
         this.element.addEventListener(
             "pointerleave",
             async () => {
-                const token = canvas.tokens.placeables.find((t) => t.id === this.#token?.id);
-                if (!token) return;
-
-                token.tokenMarkHighlight.effect = null;
-                token.renderFlags.set({ refreshState: true });
+                tokenMarkHighlight(null);
             },
             true,
         );
