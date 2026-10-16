@@ -287,27 +287,15 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [
-                    {
-                        "definition": [
-                            "item:id:{item|_id}"
-                        ],
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "property-runes",
-                        "value": "greaterShock"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": [
                         "agile",
-                        "cold-iron",
                         "finesse",
                         "magical",
                         "nonlethal",
-                        "silver",
                         "unarmed"
                     ]
                 }
@@ -460,7 +448,35 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:slug:fist"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "cold-iron"
+                    },
+                    {
+                        "definition": [
+                            "item:slug:fist"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "silver"
+                    },
+                    {
+                        "definition": [
+                            "item:trait:unarmed"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greaterShock"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
