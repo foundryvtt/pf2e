@@ -34,13 +34,11 @@ type SpecialVisionType = Extract<
     "low-light-vision" | "darkvision" | "greater-darkvision" | "see-invisibility"
 >;
 
-type OtherCreatureSpeeds<A extends CreaturePF2e> = {
-    [T in Exclude<MovementType, "land">]: SpeedStatistic<A, T> | null;
-};
-interface CreatureSpeeds<TActor extends CreaturePF2e> extends OtherCreatureSpeeds<TActor> {
-    land: SpeedStatistic<TActor, "land">;
+type CreatureSpeeds<TActor extends CreaturePF2e> = {
+    [K in MovementType]: SpeedStatistic<TActor, K> | null;
+} & {
     travel: SpeedStatistic<TActor, "travel">;
-}
+};
 
 interface CreatureMovement<TActor extends CreaturePF2e> {
     speeds: CreatureSpeeds<TActor>;

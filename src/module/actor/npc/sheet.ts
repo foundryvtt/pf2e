@@ -268,14 +268,16 @@ class NPCSheetPF2e extends AbstractNPCSheet {
 
         // Speed
         const speeds = sheetData.data.movement.speeds;
+        const land = speeds.land;
+        const sourceLand = sourceAttributes.speed.value;
         const noLandTravel = R.omit(speeds, ["land", "travel"]);
         sheetData.speeds = {
             land: {
-                label: speeds.land.label,
-                value: speeds.land.value,
+                label: land?.label ?? "",
+                value: land?.value ?? 0,
                 details: sourceAttributes.speed.details,
-                adjustedHigher: speeds.land.value > sourceAttributes.speed.value,
-                adjustedLower: sourceAttributes.speed.value < speeds.land.value,
+                adjustedHigher: land ? land.value > sourceLand : false,
+                adjustedLower: land ? land.value < sourceLand : sourceLand > 0,
             },
             ...R.mapValues(noLandTravel, (speed, type) => {
                 if (!speed) return null;

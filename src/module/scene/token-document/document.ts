@@ -375,8 +375,14 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         switch (actor.type) {
             case "character":
             case "npc":
-            case "familiar":
-                return !actor.inCombat ? "travel" : actor.hasCondition("prone") ? "crawl" : "walk";
+            case "familiar": {
+                if (!actor.inCombat) return "travel";
+                if (!actor.isOfType("creature")) return "displace";
+                const speeds = actor.system.movement.speeds;
+                if (actor.hasCondition("prone")) return "crawl";
+                if (speeds.land) return "walk";
+                return (["fly", "burrow", "climb", "swim"] as const).find((type) => speeds[type]) ?? "walk";
+            }
             case "army":
                 return "deploy";
             case "vehicle":
