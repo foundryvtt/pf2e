@@ -236,6 +236,7 @@ async function placeRegionFromItem(
     const data: DeepPartial<fd.RegionSource> = {
         name: item.name,
         shapes: [shape],
+        levels: canvas.level ? [canvas.level.id] : [],
         color: game.user.color.toString(),
         highlightMode: "coverage",
         displayMeasurements: true,
