@@ -900,17 +900,7 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [
-                    {
-                        "definition": [
-                            "item:id:{item|id}"
-                        ],
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "property-runes",
-                        "value": "ghost-touch"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "subjectToMAP": true,
                 "traits": {
@@ -1011,14 +1001,24 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The soul glutton's claw Strikes affect incorporeal creatures with the effects of a ghost touch property rune and scar the soul. The first time in a round that a creature is damaged by a soul glutton's claw Strike, it must succeed at a @Check[will|dc:30|options:inflicts:frightened,inflicts:doomed] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} (plus @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} on a critical failure).</p>"
+                    "value": "<p>The soul glutton's claw Strikes affect incorporeal creatures with the effects of a <em>ghost touch</em> property rune and scar the soul. The first time in a round that a creature is damaged by a soul glutton's claw Strike, it must succeed at a @Check[will|dc:30|options:inflicts:frightened,inflicts:doomed] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} (plus @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:slug:claw"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "ghost-touch"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
