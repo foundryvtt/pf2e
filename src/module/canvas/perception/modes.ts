@@ -123,7 +123,7 @@ class HearingDetectionMode extends fc.perception.DetectionMode {
 }
 
 declare namespace HearingDetectionMode {
-    // eslint-disable-next-line no-var
+    // eslint-disable-next-line no-var, @typescript-eslint/no-unused-vars
     var _detectionFilter: fc.rendering.filters.OutlineOverlayFilter | undefined;
 }
 
