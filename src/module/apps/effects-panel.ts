@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import type { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.d.mts";
 import { AbstractEffectPF2e, AfflictionPF2e, ConditionPF2e, EffectPF2e } from "@item";
 import { PersistentDamageEditor } from "@item/condition/persistent-damage-editor.ts";
-import { TokenMarkHighlightRenderer } from "@module/canvas/token/flanking-highlight/renderer.ts";
+import { TokenMarkHighlightRenderer } from "@module/canvas/token/highlight/renderer.ts";
 import { createTooltipListener } from "@module/sheet/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { createHTMLElement, ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll } from "@util";

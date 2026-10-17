@@ -3,8 +3,15 @@ import type { TokenPF2e } from "../index.ts";
 import { reduceItemName } from "@item/helpers.ts";
 
 abstract class TokenHighlightRenderer {
-    /** Layer graphics object to which flanking highlight lines and text will be drawn */
-    #layer: PIXI.Graphics | null = null;
+    /** Layer graphics object to which highlight lines and text will be drawn */
+    #container: PIXI.Container | null = null;
+    get container(): PIXI.Container {
+        if (!this.#container) {
+            this.#container = new PIXI.Container();
+            this.token.layer.addChild(this.#container);
+        }
+        return this.#container;
+    }
 
     /** Origin token from which the line is extended */
     token: TokenPF2e;
@@ -16,25 +23,31 @@ abstract class TokenHighlightRenderer {
         this.token = token;
     }
 
+    /** Canvas must be ready with a scene in focus */
     protected get canvasReady(): boolean {
         return canvas.ready && !!canvas.scene;
     }
 
-    /** Get existing layer graphics object or create one if one does not exist */
-    get layer(): PIXI.Graphics {
-        return this.#layer ?? this.#addLayer();
+    /** The token must be controlled or the user's assigned character, and it must not be a preview or animating. */
+    protected get tokenIsEligible(): boolean {
+        return !!(
+            ((this.token.controlled && this.token.isOwner) ||
+                (this.token.actor && this.token.actor?.id === game.user.character?.id)) &&
+            !(this.token.isPreview || this.token.isAnimating)
+        );
     }
 
-    /** Creates layer graphics object */
-    #addLayer(): PIXI.Graphics {
-        this.#layer = new PIXI.Graphics();
-        return this.token.layer.addChild(this.#layer);
+    /**
+     * Check whether the scene and the token satisfy the requirements for drawing the highlight
+     */
+    protected get shouldRender(): boolean {
+        return this.canvasReady && this.tokenIsEligible;
     }
 
     /** Destroys and removes layer graphics, incuding any text children */
     clear(): void {
-        this.#layer?.destroy({ children: true });
-        this.#layer = null;
+        this.#container?.destroy({ children: true });
+        this.#container = null;
     }
 
     /** Alias of `clear` */
@@ -47,32 +60,23 @@ abstract class TokenHighlightRenderer {
 class FlankingHighlightRenderer extends TokenHighlightRenderer {
     static override color = CONFIG.Canvas.dispositionColors.CONTROLLED;
 
+    #graphics: PIXI.Graphics | null = null;
+    get graphics(): PIXI.Graphics {
+        if (!this.#graphics) {
+            this.#graphics = new PIXI.Graphics();
+            this.container.addChild(this.#graphics);
+        }
+        return this.#graphics;
+    }
+
     constructor(token: TokenPF2e) {
         super(token);
-    }
-
-    /**
-     * Whether the flank highlight should be rendered to the user:
-     * Canvas must be ready with a scene in focus, the user must own or have selected this token,
-     * and the token must not be a preview or animating.
-     */
-    get #shouldRender(): boolean {
-        return this.canvasReady && this.#tokenIsEligible;
-    }
-
-    /** The token must be controlled or the user's assigned character, and it must not be a preview or animating. */
-    get #tokenIsEligible(): boolean {
-        return !!(
-            ((this.token.controlled && this.token.isOwner) ||
-                (this.token.actor && this.token.actor?.id === game.user.character?.id)) &&
-            !(this.token.isPreview || this.token.isAnimating)
-        );
     }
 
     /** Draw flanking highlight if conditions are met */
     draw(): void {
         this.clear();
-        if (canvas.tokens.highlightObjects && game.user.targets.size && this.#shouldRender) {
+        if (canvas.tokens.highlightObjects && game.user.targets.size && this.shouldRender) {
             for (const target of game.user.targets) {
                 this.drawForTarget(target);
             }
@@ -103,16 +107,21 @@ class FlankingHighlightRenderer extends TokenHighlightRenderer {
      * @param buddy Flanking buddy token
      */
     drawBuddyLine(buddy: TokenPF2e): void {
-        drawLine(this.layer, this.token.center, buddy.center, FlankingHighlightRenderer.color, false);
+        drawLine(this.graphics, this.token.center, buddy.center, FlankingHighlightRenderer.color, false);
 
         // Add text indicator
         drawLabel(
-            this.layer,
+            this.graphics,
             this.token.center,
             buddy.center,
             FlankingHighlightRenderer.color,
             _loc("PF2E.Token.Flanking"),
         );
+    }
+
+    override clear(): void {
+        super.clear();
+        this.#graphics = null;
     }
 }
 
@@ -123,57 +132,34 @@ class TokenMarkHighlightRenderer extends TokenHighlightRenderer {
     static fadeInTimeMs = 150;
     static fadeOutTimeMs = 300;
 
+    // Highlight is currently displayed for the item with this id
     #effectId: string | null = null;
     #animations: Set<string> | null = null;
-    #container: PIXI.Container | null = null;
 
+    // keep track of the already running animations
     get animations(): Set<string> {
         return (this.#animations ??= new Set<string>());
     }
 
-    get container(): PIXI.Container {
-        if (!this.#container) {
-            this.#container = new PIXI.Container();
-            this.token.layer.addChild(this.#container);
-        }
-        return this.#container;
-    }
-
-    /**
-     * Whether the flank highlight should be rendered to the user:
-     * Canvas must be ready with a scene in focus, the user must own or have selected this token,
-     * and the token must not be a preview or animating.
-     */
-    get #shouldRender(): boolean {
-        if (!this.canvasReady) return false;
-        if (!this.#tokenIsEligible) return false;
-        return true;
-    }
-
-    /** The token must be controlled or the user's assigned character, and it must not be a preview or animating. */
-    get #tokenIsEligible(): boolean {
-        return !!(
-            ((this.token.controlled && this.token.isOwner) ||
-                (this.token.actor && this.token.actor?.id === game.user.character?.id)) &&
-            !(this.token.isPreview || this.token.isAnimating)
-        );
-    }
-
-    /** Draw flanking highlight if conditions are met */
+    /** Draw the highlight for the parameter effect id, remove the highlight if nullish */
     draw(id: string | null): void {
         if (!id) {
             this.#effectId = null;
             return;
         }
-        if (!this.#shouldRender) return;
+        if (!this.shouldRender) return;
 
+        // Check if the item with this id is on the token actor, it's an effect, and has TokenMark rules
         const item = this.token.actor?.items.get(id);
         if (!item?.isOfType("effect") || !item?.rules.some((e) => e instanceof TokenMarkRuleElement)) return;
         this.#effectId = id;
+
+        // If this effect's animation is already running, no need to do anything anymore
+        // The animation itself handles fadeout
         if (this.animations.has(id)) return;
 
         const tokenMarks = item.rules.filter((r) => r instanceof TokenMarkRuleElement);
-        if (!tokenMarks) return;
+        // The target must be visible to the user, and exist on the current scene
         const targets = tokenMarks
             .map((r) => ({
                 token: canvas.tokens.placeables.find((t) => t.isVisible && t.document.uuid === r.uuid),
@@ -188,12 +174,14 @@ class TokenMarkHighlightRenderer extends TokenHighlightRenderer {
             this.drawLines(g, token, label);
         }
 
-        // play animation
+        // Add animation to gradually change container's alpha
         const alpha = new PIXI.AlphaFilter(0);
         g.filters = [alpha];
+
         this.animations.add(id);
         this.container.addChild(g);
 
+        // Can't use foundry.canvas.animation.CanvasAnimation.animate as it runs from a current state to a predetermined end state in a finite animation
         const f = () => {
             if (this.#effectId === item.id) {
                 alpha.alpha = Math.min(
@@ -216,8 +204,7 @@ class TokenMarkHighlightRenderer extends TokenHighlightRenderer {
     }
 
     /**
-     * Draw flanking highlight line between this token and a single buddy.
-     * @param buddy Flanking buddy token
+     * Draw TokenMark highight line and label
      */
     drawLines(g: PIXI.Graphics, target: TokenPF2e, label: string): void {
         drawLine(g, this.token.center, target.center, TokenMarkHighlightRenderer.color, true);
@@ -227,7 +214,6 @@ class TokenMarkHighlightRenderer extends TokenHighlightRenderer {
     override destroy(): void {
         super.destroy();
         this.#effectId = null;
-        this.#container?.destroy();
     }
 }
 
@@ -311,10 +297,9 @@ function drawLabel(
 
     // line angle in fraction of revolutions [-0.5, 0.5]
     const rev = Math.atan2(dy, dx) / PIXI.PI_2;
-    // if line is vertical, write text to the left, otherwise write above
+    // write the text above the line (if vertical - write from source to target)
     const perp_rev = dy === 0 ? 0.75 : dx >= 0 ? rev - 0.25 : rev + 0.25;
 
-    // Midpoint coordinate offset perpendicularly above line
     const offsetPixels = 20.0;
     const perp_x = mid_x + Math.cos(perp_rev * PIXI.PI_2) * offsetPixels;
     const perp_y = mid_y + Math.sin(perp_rev * PIXI.PI_2) * offsetPixels;

@@ -10,7 +10,7 @@ import * as R from "remeda";
 import type { CanvasPF2e, TokenLayerPF2e } from "../index.ts";
 import { measureDistanceCuboid, squareAtPoint } from "../index.ts";
 import { AuraRenderers } from "./aura/index.ts";
-import { FlankingHighlightRenderer, TokenMarkHighlightRenderer } from "./flanking-highlight/renderer.ts";
+import { FlankingHighlightRenderer, TokenMarkHighlightRenderer } from "./highlight/renderer.ts";
 
 class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends fc.placeables.Token<TDocument> {
     constructor(document: TDocument) {
