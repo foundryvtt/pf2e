@@ -18,7 +18,14 @@ class TokenNameRuleElement extends RuleElement<TokenNameRuleSchema> {
 
     override afterPrepareData(): void {
         if (!this.test()) return;
-        this.actor.synthetics.tokenOverrides.name = this.resolveInjectedProperties(this.value);
+        const changes = (this.actor.tokenActiveEffectChanges.final ??= []);
+        changes.push({
+            type: "override",
+            key: "name",
+            value: this.resolveInjectedProperties(this.value),
+            priority: this.priority,
+            phase: "final",
+        });
     }
 }
 

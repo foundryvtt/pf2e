@@ -1,0 +1,256 @@
+{
+    "_id": "eAAlLec6iEgYZUWm",
+    "folder": "Xw6klgOmofb4g4Ck",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "XeJRA29WlSQGDDXU",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Infernal Grasp",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A starship enters the trap's zone</p><hr /><p><strong>Effect</strong> The trap makes an infernal chain Strike against the triggering starship. The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "m1DKmr0Wm7tNYdbV",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Infernal Chain",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "chain-wrap"
+                    ]
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "TqmCAZ13u5sj2dp1": {
+                        "damage": "2d8+7",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": "<p>range 4 zones</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "VtHJEZ5qllH5235G",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Chain Wrap",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>On a successful infernal chain Strike, the trap latches onto the targeted starship. While latched onto a starship, the trap moves along with it, sharing its zone.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "object-immunities"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Qh1LlSkc9aQXxUax",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Heat Up",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The trap floods the starship with infernal heat. Crew members helming a battle station take @Damage[2d8[fire]] damage with a @Check[fortitude|dc:22|basic] save. On a failure, the battle station they're helming becomes malfunctioning until the trap is disabled or the station is repaired.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "fire",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "cLvdwkcqpmb2vNuv",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Hell's Hush",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A starship within 4 zones must attempt a @Check[will|dc:22] save. On a failure, all magic and technological communications on board the starship cease to function. Comm units can't send or receive data, and starships can't Hack Comms. Crew helming battle stations in different rooms can't use normal ship communications. Telepathy and other spells that allow creatures to communicate cease functioning. Creatures with innate telepathy from their ancestry or class features like group chat are temporarily blocked from psychic communication, receiving only vague emotional impressions from other creatures while within 4 zones of the hazard. A creature helming the starship's magic conduit can use Counter Magic to counteract Hell Hush (3rd rank; DC 20).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Infernal Vice",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 20
+            },
+            "emitsSound": "encounter",
+            "hardness": 14,
+            "hp": {
+                "details": "",
+                "max": 58,
+                "temp": 0,
+                "value": 58
+            },
+            "immunities": [],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 8
+                }
+            ],
+            "stealth": {
+                "details": "<p>or @Check[religion|dc:22] (expert) to understand the divine magic at play, or Scan for Magic</p>",
+                "value": 10
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "spirit",
+                    "value": 8
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>Massive starmetal jaws blaze with diabolical runes that reek of sulfur and brimstone.</p>",
+            "disable": "<p>@Check[Legal Lore|dc:25] (expert; scanners) or Religion (expert; magic conduit) to rewrite the trap's diabolical bindings, or Counter Magic (magic conduit; 3rd rank; counteract DC 20) to counteract the trap</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Tech Core"
+            },
+            "reset": "",
+            "routine": "<p>(3 actions) The trap moves up to 4 zones, then makes an infernal chain Strike against a starship in range. If it's attached to a starship, it spends its final action to Heat Up. Otherwise, it spends its final action to block a target's comms with Hell's Hush to block the target's comms.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 16
+            },
+            "reflex": {
+                "value": 9
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "starship",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

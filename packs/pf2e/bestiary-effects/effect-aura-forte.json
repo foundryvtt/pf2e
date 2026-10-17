@@ -1,0 +1,59 @@
+{
+    "_id": "Hn0krKSiQoFms4J0",
+    "img": "icons/magic/sonic/projectile-sound-rings-wave.webp",
+    "name": "Effect: Aura Forte",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 circumstance bonus to saving throws against emotion effects and to attack rolls and weapon damage rolls.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:emotion"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "slug": "aura-forte-saving-throw-bonus",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "weapon-damage",
+                    "attack-roll"
+                ],
+                "slug": "aura-forte-attack-damage-bonus",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,229 @@
+{
+    "_id": "M1KzptrIAD0SyF8Y",
+    "folder": "Xw6klgOmofb4g4Ck",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "EcS3kUDVBCCZ9hbd",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Boarding Party",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The hazard contains a specific 1st-level creature or two specific –1-level creatures. When a creature in the boarding party is Deployed as a Boarder, it's removed from the hazard's boarding party.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PRE1r2L8RCB0dYWW",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Detect Enemy",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An enemy starship starts its turn within 3 zones of the boarding pod</p><hr /><p><strong>Effect</strong> The boarding pod moves 1 zone toward the triggering starship, then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "e3nPi9wAyI3KLrQh",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Collide",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>This hazard flies toward a starship and attempts to collide with it. The target must succeed at a @Check[reflex|dc:17] save, or the hazard becomes embedded in the starship. It moves with the starship until it's destroyed or disabled.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dXmqtpdfg2eEROwt",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Deploy Boarder",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The hazard is embedded in a starship</p><hr /><p><strong>Effect</strong> This hazard unleashes its boarding party, determined when the hazard is created. The boarding creature rolls initiative and fights until destroyed. The boarding creature can use 3 actions each round and can use reactions.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "elBgurbKsVB8B0qU",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Jet Propel",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The hazard moves 2 zones.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "move"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Boarding Pod",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 19
+            },
+            "emitsSound": "encounter",
+            "hardness": 5,
+            "hp": {
+                "details": "",
+                "max": 24,
+                "temp": 0,
+                "value": 24
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "object-immunities"
+                },
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 7
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A boarding pod containing a hostile boarding party launches through space.</p>",
+            "disable": "<p>@Check[computers|dc:17] (trained; scanners) to hack and disable the boarding pod before it collides (two successes are required to disable it in this way); @Check[piloting|dc:17] (trained; pilot's console) to shake off a boarding pod that has collided with the starship</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Tech Core"
+            },
+            "reset": "<p>Manually salvage the boarding pod and repair it.</p>",
+            "routine": "<p>(2 actions) The hazard Jet Propels, then Collides against a starship in its zone. If the hazard has successfully Collided against a starship, it instead Deploys Boarder.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 10
+            },
+            "reflex": {
+                "value": 4
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "starship",
+                "tech",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

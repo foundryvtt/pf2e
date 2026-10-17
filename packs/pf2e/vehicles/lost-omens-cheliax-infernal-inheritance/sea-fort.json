@@ -1,0 +1,174 @@
+{
+    "_id": "L6CKdeFyJcZTaRvD",
+    "folder": "JvSZjJ0UKSNo7MQu",
+    "img": "systems/pf2e/icons/default-icons/vehicle.svg",
+    "items": [
+        {
+            "_id": "c6FbcKPzbPRu3XFl",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Extend Blockade",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The pilot deploys steel walls that extend from the hull of the ship by 50 feet in each direction, increasing its length to 250 feet. The sea fort can Extend Blockade only while its swim Speed is 0, and Extend Blockade can't be active at the same time as Raise Ramparts.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jXz46wHaTGGFxrNW",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Hunker Down",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The pilot drops the sea fort's anchor, reducing its swim Speed to 0 and securing it to its current position in the sea. While anchored, it gains a +2 circumstance bonus to its AC and Fortitude saving throws. The pilot can use this activity again to raise the anchor.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "hunker-down",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "hunker-down"
+                        ],
+                        "selector": [
+                            "ac",
+                            "fortitude"
+                        ],
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sAAD2OycM9PMT05l",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Raise Ramparts",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>he pilot deploys magnetized steel walls that extend from the sea fort's sides, increasing its height to 60 feet. The ramparts have an AC of 20, Hardness 10, and 80 HP (BT 40). Thanks to the magnetic runes, metal projectiles fired at the sea fort strike the ramparts first and can't damage the ship itself until they're broken. The sea fort can Raise Ramparts only while its swim Speed is 0, and Raise Ramparts can't be active at the same time as Extended Blockade. If the ramparts are destroyed, Raise Ramparts can't be used until they're repaired.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Sea Fort",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 26
+            },
+            "collisionDC": {
+                "value": 27
+            },
+            "collisionDamage": {
+                "value": "7d10"
+            },
+            "emitsSound": "encounter",
+            "hardness": 15,
+            "hp": {
+                "details": "",
+                "max": 180,
+                "temp": 0,
+                "value": 180
+            },
+            "immunities": [],
+            "resistances": [],
+            "weaknesses": []
+        },
+        "details": {
+            "AC": 0,
+            "crew": "1 pilot, 8 crew",
+            "description": "<p>Enormous masses of steel kept afloat by magic, sea forts were originally developed by the Corentyn armada to enforce blockades. While not particularly fast or maneuverable, their high resistance to damage and ability to expand their reach with additional walls makes them difficult to ignore. Armadas often keep them anchored to shield a narrow channel or vulnerable land target or use them to shield smaller and nimbler craft as they prepare an attack.</p>",
+            "level": {
+                "value": 10
+            },
+            "passengers": "10",
+            "pilotingCheck": "Arcana (DC 29) or Sailing Lore (DC 27)",
+            "price": 3500,
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+            },
+            "space": {
+                "high": 30,
+                "long": 150,
+                "wide": 25
+            },
+            "speed": "swim 15 feet (magical)"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 19
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "grg"
+            },
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "vehicle"
+}

@@ -3072,7 +3072,7 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rqJzQawe3CbXiWnG"
             },
             "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.webp",
-            "name": "Bracers of Armor III",
+            "name": "Bands of Force (Major)",
             "sort": 4500000,
             "system": {
                 "baseItem": null,
@@ -3081,7 +3081,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>These stiff leather armguards grant you a +3 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5. You can affix talismans to <em>bracers of armor</em> as though they were light armor.</p>"
+                    "value": "<p>Decorated with clear gemstones, these thick metal bands spread an inflexible layer of force over your body. The force grants you a +3 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5 as armor. You can affix talismans to the bands as though they were light armor.</p>\n<p><strong>Activate—Return Force</strong> <span class=\"action-glyph\">R</span> (force, manipulate)</p>\n<p><strong>Trigger</strong> A creature critically misses you with a melee Strike</p><hr /><p><strong>Effect</strong> You [[/act shove options=bands-of-force-major]] the creature using the bands' Athletics modifier of +33.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -3102,13 +3102,13 @@
                 },
                 "price": {
                     "value": {
-                        "gp": 60000
+                        "gp": 70000
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
                 },
                 "quantity": 1,
                 "rules": [
@@ -3118,26 +3118,52 @@
                             "ac",
                             "saving-throw"
                         ],
-                        "slug": "bracers-of-armor",
+                        "slug": "bands-of-force",
                         "type": "item",
                         "value": 3
                     },
                     {
                         "key": "DexterityModifierCap",
                         "value": 5
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "bands-of-force-major"
+                        ],
+                        "selector": [
+                            "athletics"
+                        ],
+                        "slug": "bands-of-force-major",
+                        "value": 33
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": [
+                            "bands-of-force-major",
+                            {
+                                "or": [
+                                    "bonus:type:proficiency",
+                                    "modifier:type:ability"
+                                ]
+                            }
+                        ],
+                        "selector": "athletics",
+                        "suppress": true
                     }
                 ],
                 "size": "med",
-                "slug": "bracers-of-armor-iii",
+                "slug": "bands-of-force-major",
                 "traits": {
                     "rarity": "common",
                     "value": [
+                        "force",
                         "invested",
                         "magical"
                     ]
                 },
                 "usage": {
-                    "value": "wornbracers"
+                    "value": "wornarmbands"
                 }
             },
             "type": "equipment"

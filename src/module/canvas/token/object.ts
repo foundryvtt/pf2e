@@ -1,3 +1,4 @@
+import { TokenAnimationOptions } from "@client/_module.mjs";
 import type { TokenResourceData, TokenShape } from "@client/canvas/placeables/token.d.mts";
 import type { TokenUpdateCallbackOptions } from "@client/documents/token.d.mts";
 import type { Point } from "@common/_types.d.mts";
@@ -601,11 +602,14 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return super._onRelease(options);
     }
 
-    /** Handle system-specific status effects (upstream handles invisible and blinded) */
+    /** Handle system-specific status effects (upstream handles invisible and blinded). */
     override _onApplyStatusEffect(statusId: string, active: boolean): void {
         super._onApplyStatusEffect(statusId, active);
-        if (["undetected", "unnoticed"].includes(statusId)) {
-            canvas.perception.update({ refreshVision: true, refreshLighting: true });
+        switch (statusId) {
+            case "undetected":
+            case "unnoticed":
+                canvas.perception.update({ refreshVision: true, refreshLighting: true });
+                break;
         }
     }
 
@@ -653,10 +657,18 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     /** Reset aura renders when token size or GM hidden changes. */
     override _onUpdate(
-        changed: DeepPartial<TDocument["_source"]>,
+        changed: DeepPartial<TDocument["_source"]> & { texture?: { animation?: TokenAnimationOptions } },
         options: TokenUpdateCallbackOptions,
         userId: string,
     ): void {
+        // Prevent upstream from needlessly redrawing the entire ring
+        if (changed.ring?.enabled === !!this.ring) delete changed.ring.enabled;
+        // Move smuggled animation options over to actual options
+        if (changed.texture?.animation) {
+            options.animation = changed.texture.animation;
+            delete changed.texture.animation;
+        }
+
         super._onUpdate(changed, options, userId);
         if (changed.width || "hidden" in changed) {
             if (this.animation) {

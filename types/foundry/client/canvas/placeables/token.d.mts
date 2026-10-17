@@ -21,7 +21,7 @@ import { PointLightSource, PointVisionSource, VisionSourceData } from "../source
 import { LightSourceData } from "../sources/base-light-source.mjs";
 import PlaceableObject, { PlaceableShape } from "./placeable-object.mjs";
 import Region, { RegionMovementSegment, RegionMovementWaypoint } from "./region.mjs";
-import { BaseTokenRuler, TokenTurnMarker } from "./tokens/_module.mjs";
+import { BaseTokenRuler, TokenRing, TokenTurnMarker } from "./tokens/_module.mjs";
 
 /** A Token is an implementation of PlaceableObject that represents an Actor within a viewed Scene on the game canvas. */
 export default class Token<TDocument extends TokenDocument = TokenDocument> extends PlaceableObject<TDocument> {
@@ -127,9 +127,8 @@ export default class Token<TDocument extends TokenDocument = TokenDocument> exte
      * A TokenRing instance which is used if this Token applies a dynamic ring.
      * This property is null if the Token does not use a dynamic ring.
      * todo: Replace with correct type
-     * @type {foundry.canvas.tokens.TokenRing|null}
      */
-    get ring(): object;
+    get ring(): TokenRing | null;
 
     /** A convenience boolean to test whether the Token is using a dynamic ring. */
     get hasDynamicRing(): boolean;

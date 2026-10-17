@@ -82,7 +82,7 @@ class HTMLTagifyTagsElement extends foundry.applications.elements.AbstractFormIn
     override _activateListeners(): void {
         this._primaryInput.addEventListener("change", (event) => {
             const target = event.target;
-            if (target instanceof HTMLInputElement) {
+            if (target && fu.isElementInstanceOf(target, HTMLInputElement)) {
                 this.value = target.value || "[]";
             }
         });

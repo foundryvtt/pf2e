@@ -1,11 +1,11 @@
 <script lang="ts">
     import * as R from "remeda";
+    import type { BrowserFilter, CheckboxData, LevelData, RangeInputParser, RangesInputData } from "../tabs/data.ts";
+    import Checkboxes from "./filters/checkboxes.svelte";
     import FilterContainer from "./filters/filter-container.svelte";
-    import Traits from "./filters/traits.svelte";
     import Level from "./filters/level.svelte";
     import Ranges from "./filters/ranges.svelte";
-    import Checkboxes from "./filters/checkboxes.svelte";
-    import type { BrowserFilter, CheckboxData, LevelData, RangeInputParser, RangesInputData } from "../tabs/data.ts";
+    import Traits from "./filters/traits.svelte";
 
     interface FilterProps {
         filter: BrowserFilter;
@@ -37,6 +37,7 @@
                     data.options[opt].selected = false;
                 }
                 data.selected = [];
+                if (data.toggle) data.toggle.active = false;
             } else if ("from" in data) {
                 data.from = data.min;
                 data.to = data.max;
@@ -49,7 +50,7 @@
     }
 
     const onSearch = fu.debounce((event: Event) => {
-        if (!(event.target instanceof HTMLInputElement)) return;
+        if (!(event.target && fu.isElementInstanceOf(event.target, HTMLInputElement))) return;
         filter.search.text = event.target.value.trim();
     }, 250);
 </script>
@@ -112,7 +113,7 @@
             <FilterContainer
                 isExpanded={checkbox.isExpanded}
                 clearButton={{
-                    options: { visible: checkbox.selected.length > 0 },
+                    options: { visible: checkbox.selected.length > 0 || !!checkbox.toggle?.active },
                     clear: getClearFunction(checkbox),
                 }}
                 label={checkbox.label}

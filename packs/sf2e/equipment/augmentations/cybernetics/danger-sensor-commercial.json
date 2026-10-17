@@ -1,0 +1,76 @@
+{
+    "_id": "sdUDVj6VcamRcijv",
+    "folder": "k3fPO0HvmMLbqeQx",
+    "img": "icons/commodities/tech/sensor-yellow.webp",
+    "name": "Danger Sensor (Commercial)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>This advanced sensor and microprocessor suite, installed directly into your central nervous system, automatically detects incoming danger and signals your brain in nanoseconds, improving your reaction time when you need it most. You gain a +1 item bonus to Perception checks for initiative or against hostile creatures and hazards within 60 feet.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 5
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "sp": 1600
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "initiative"
+                ],
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "lte": [
+                            "target:distance",
+                            60
+                        ]
+                    }
+                ],
+                "selector": [
+                    "perception"
+                ],
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "tech"
+            ]
+        },
+        "usage": {
+            "value": "implanted"
+        }
+    },
+    "type": "equipment"
+}

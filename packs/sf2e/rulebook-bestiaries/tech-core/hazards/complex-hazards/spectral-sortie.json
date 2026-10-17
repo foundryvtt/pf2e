@@ -1,0 +1,191 @@
+{
+    "_id": "Q0RE3Sjb6Z2gxciz",
+    "folder": "Xw6klgOmofb4g4Ck",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "zWneZhzcWSup0CR2",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Attack Formation",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A starship moves within 4 zones of the haunt's zone</p><hr /><p><strong>Effect</strong> Four spectral vessels materialize in the haunt's zone. The haunt attempts two spectral laser Strikes against the triggering starship, then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SRY4jGAIxnOsPQKF",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Spectral Laser",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "I7glsqSVnvZawUYT": {
+                        "damage": "1d8+12",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": "<p>(range increment 4 zones)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": false,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "AvUmvc87HVIermrc",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Flyby Formation",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> At least two spectral starships remain</p><hr /><p><strong>Effect</strong> Two spectral starships move together up to 4 zones. Each attempts a spectral laser Strike against a target at any point during their movement; all targets are @UUID[Compendium.sf2e.conditions.Item.Off-Guard] to these Strikes.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Spectral Sortie",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 33
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "25 HP for each Spectral Starship",
+                "max": 100,
+                "temp": 0,
+                "value": 100
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "object-immunities"
+                },
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 27
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "holy",
+                    "value": 15
+                },
+                {
+                    "exceptions": [],
+                    "type": "spirit",
+                    "value": 15
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>Ghostly starships battle ceaselessly in this sector.</p>",
+            "disable": "<p>@Check[deception|dc:36] (master; scanners) to trick a spectral starship into believing its battle is won; @Check[religion|dc:34] (master; magic conduit) to exorcise one spectral starship; one success disables a spectral starship, and four successes are required to disable the haunt</p>",
+            "isComplex": true,
+            "level": {
+                "value": 12
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Tech Core"
+            },
+            "reset": "<p>The spectral starships can't be permanently destroyed unless they're exorcised. They reform over the course of 24 hours, after which the haunt can trigger again.</p>",
+            "routine": "<p>(1 action per spectral starship) The spectral starships operate in pairs and maneuver to surround their targets whenever possible. On a typical round, one pair performs Flyby Formation, while the other pair opens fire, each of them firing one spectral laser Strikes. The haunt fights until all spectral starships are exorcised or temporarily destroyed.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 19
+            },
+            "reflex": {
+                "value": 25
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt",
+                "starship"
+            ]
+        }
+    },
+    "type": "hazard"
+}

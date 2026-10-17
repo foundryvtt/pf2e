@@ -1,0 +1,147 @@
+{
+    "_id": "KomnJHpQMJhDWKIk",
+    "folder": "Xw6klgOmofb4g4Ck",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "630xnNptqs0H18Jp",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Prime Munition",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A starship enters the trap's zone</p><hr /><p><strong>Effect</strong> The trap's detonation value is set to 0, then the trap rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RPLFvFsUyPPCafPr",
+            "img": "systems/sf2e/icons/actions/FreeAction.webp",
+            "name": "Detonate",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The detonation value reaches 5, someone fails a check to disarm or reprogram the explosive, or a starship leaves the trap's zone</p><hr /><p><strong>Effect</strong> The trap explodes, dealing @Damage[(6d12+37)[fire]] damage to all starships within 1 zone (@Check[reflex|dc:38|basic] save) and exposing all creatures on board to incredible radiation. Starships up to 2 zones away take @Damage[(4d12+26)[fire]] damage, and creatures on board those starships are exposed to severe radiation.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "radiation"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Unstable Munition",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 37
+            },
+            "emitsSound": "encounter",
+            "hardness": 27,
+            "hp": {
+                "details": "",
+                "max": 110,
+                "temp": 0,
+                "value": 110
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "object-immunities"
+                },
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 28
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 20
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>A stray munition packed with powerful explosives is primed to detonate.</p>",
+            "disable": "<p>@Check[computers|dc:38] (expert) to reprogram the explosive, or @Check[crafting|dc:34] (expert) to disarm the explosive, or @Check[religion|dc:43] (master) to pray for a miracle; three successes required to disable the trap</p>",
+            "isComplex": true,
+            "level": {
+                "value": 17
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Tech Core"
+            },
+            "reset": "",
+            "routine": "<p>(1 action) The trap's detonation value goes up by 1. When the detonation value reaches 5, the trap emits a red light before it Detonates.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 30
+            },
+            "reflex": {
+                "value": 26
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "tech",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

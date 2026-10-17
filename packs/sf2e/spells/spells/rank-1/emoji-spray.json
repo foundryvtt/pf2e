@@ -1,0 +1,159 @@
+{
+    "_id": "HmiwNtwDnfRKGrSI",
+    "folder": "PUfxgisPd7TTDluV",
+    "img": "systems/sf2e/icons/abilities/purple-triangle-sign.webp",
+    "name": "Emoji Spray",
+    "system": {
+        "area": {
+            "type": "cone",
+            "value": 15
+        },
+        "cost": {
+            "value": ""
+        },
+        "counteraction": false,
+        "damage": {},
+        "defense": null,
+        "description": {
+            "value": "<p>You unleash a cone of thematic emojis. Choose a type of emoji you spray, which determines the effects of the spell. Each creature in the area experiences the chosen effect.</p><ul><li><p><strong>Eye Emojis</strong> Bright eyes cling to the creature, which must attempt a Fortitude save. Emoji spray gains the light and visual traits.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is distracted by the light, becoming @UUID[Compendium.sf2e.conditions.Item.Off-Guard] until the start of your next turn.</p>\n<p><strong>Failure</strong> As success, but the creature can't benefit from the @UUID[Compendium.sf2e.conditions.Item.Concealed] condition and takes a –2 circumstance penalty to Stealth checks to [[/act hide]] for as long as it's off-guard.</p></li><li><p><strong>Food Emojis</strong> Food gets into the creature's circuits. The creature must succeed at a Reflex save or the creature and one tech item of your choice that it's holding becomes @UUID[Compendium.sf2e.conditions.Item.Glitching]{Glitching 1} (@UUID[Compendium.sf2e.conditions.Item.Glitching]{Glitching 2} on a critical failure).</p></li><li><p><strong>Grawlix Emojis</strong> Symbols representing profanity barrage the creature, dealing 2d4 mental damage (basic Will save); on a failure, it also becomes @UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 1} (@UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 3} on a critical failure). Emoji spray gains the mental trait.</p></li><li><p><strong>Weapon Emojis</strong> Swords and daggers pierce the creature, dealing 1d6 persistent bleed damage (basic Reflex save) as the weapons tear into it.</p></li></ul><hr /><p><strong>Heightened (+1)</strong> The mental damage increases by 2d4, and the persistent bleed damage increases by 1d6.</p>"
+        },
+        "duration": {
+            "sustained": false,
+            "value": ""
+        },
+        "level": {
+            "value": 1
+        },
+        "overlays": {
+            "16mLx5wBHaUKtMNR": {
+                "name": "Emoji Spray (Grawlix Emojis)",
+                "overlayType": "override",
+                "sort": 3,
+                "system": {
+                    "damage": {
+                        "Q5Usl6qmn44EKbUE": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "2d4",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "mental"
+                        }
+                    },
+                    "defense": {
+                        "save": {
+                            "basic": true,
+                            "statistic": "will"
+                        }
+                    },
+                    "heightening": {
+                        "area": 0,
+                        "damage": {
+                            "Q5Usl6qmn44EKbUE": "2d4"
+                        },
+                        "interval": 1,
+                        "type": "interval"
+                    }
+                }
+            },
+            "2lZknsBcDvpH2UWV": {
+                "name": "Emoji Spray (Eye Emojis)",
+                "overlayType": "override",
+                "sort": 1,
+                "system": {
+                    "defense": {
+                        "save": {
+                            "basic": false,
+                            "statistic": "fortitude"
+                        }
+                    },
+                    "traits": {
+                        "value": [
+                            "concentrate",
+                            "light",
+                            "manipulate",
+                            "visual"
+                        ]
+                    }
+                }
+            },
+            "m54VKiJjVACq3ldL": {
+                "name": "Emoji Spray (Weapon Emojis)",
+                "overlayType": "override",
+                "sort": 4,
+                "system": {
+                    "damage": {
+                        "hePsvX36vWXEytVI": {
+                            "applyMod": false,
+                            "category": "persistent",
+                            "formula": "1d6",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "bleed"
+                        }
+                    },
+                    "defense": {
+                        "save": {
+                            "basic": true,
+                            "statistic": "reflex"
+                        }
+                    },
+                    "heightening": {
+                        "area": 0,
+                        "damage": {
+                            "hePsvX36vWXEytVI": "1d6"
+                        },
+                        "interval": 1,
+                        "type": "interval"
+                    }
+                }
+            },
+            "vYWL5t6DBT03wVdP": {
+                "name": "Emoji Spray (Food Emojis)",
+                "overlayType": "override",
+                "sort": 2,
+                "system": {
+                    "defense": {
+                        "save": {
+                            "basic": false,
+                            "statistic": "reflex"
+                        }
+                    }
+                }
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "range": {
+            "value": ""
+        },
+        "requirements": "",
+        "rules": [],
+        "target": {
+            "value": ""
+        },
+        "time": {
+            "value": "2"
+        },
+        "traits": {
+            "rarity": "common",
+            "traditions": [
+                "arcane",
+                "divine",
+                "occult"
+            ],
+            "value": [
+                "concentrate",
+                "manipulate"
+            ]
+        }
+    },
+    "type": "spell"
+}

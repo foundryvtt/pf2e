@@ -156,7 +156,9 @@ class ChatMessagePF2e extends ChatMessage<UserPF2e | null> {
         const identifier =
             roll?.options.identifier ??
             (context && "identifier" in context ? context.identifier : null) ??
-            htmlQuery(document.body, `li.message[data-message-id="${this.id}"] [data-identifier]`)?.dataset.identifier;
+            [ui.chat.element, ui.chat.popout?.element]
+                .map((log) => htmlQuery(log, `li.message[data-message-id="${this.id}"] [data-identifier]`))
+                .find((el) => !!el)?.dataset.identifier;
 
         // Parse the identifier and attempt to figure it out based on weapon type matching
         const [itemId, slug, actionOrMeleeRanged] = identifier?.split(".") ?? [null, null, null];
@@ -229,7 +231,7 @@ class ChatMessagePF2e extends ChatMessage<UserPF2e | null> {
                 const defaultRingThickness = 0.1269848;
                 const defaultSubjectThickness = 0.6666666;
                 const scaleCorrection = token.ring.enabled ? 1 / (defaultRingThickness + defaultSubjectThickness) : 1;
-                return [tokenImage, Math.max(1, token.texture.scaleX ?? 1) * scaleCorrection];
+                return [tokenImage, Math.max(1, Math.abs(token.texture.scaleX ?? 1)) * scaleCorrection];
             })();
 
             const image = document.createElement("img");

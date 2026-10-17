@@ -210,7 +210,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             );
             const ancestryBoostsSelected =
                 (sheetData.ancestry?.system.alternateAncestryBoosts?.length === 2 || unfilledAncestryBoosts <= 0) &&
-                sheetData.ancestry?.system.voluntary?.boost !== null;
+                (!sheetData.ancestry?.system.voluntary.legacy || !!sheetData.ancestry.system.voluntary.boost);
             const backgroundBoostsSelected = Object.values(sheetData.background?.system.boosts ?? {}).every(
                 (b) => b.value.length === 0 || !!b.selected,
             );
@@ -869,7 +869,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         // Toggle certain weapon traits: currently Double Barrel or Versatile
         handlers["toggle-weapon-trait"] = async (_, button) => {
-            if (!(button instanceof HTMLButtonElement)) return;
+            if (!fu.isElementInstanceOf(button, HTMLButtonElement)) return;
 
             const weapon = this.getAttackActionFromDOM(button)?.item;
             const trait = button.dataset.trait;

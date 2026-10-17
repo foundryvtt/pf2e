@@ -103,7 +103,8 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        const flat = event.target instanceof HTMLElement ? event.target.dataset.flat : false;
+        const flat =
+            event.target && fu.isElementInstanceOf(event.target, HTMLElement) ? event.target.dataset.flat : false;
         const value = this.#getUpdateData(formData);
         if (flat) {
             return super._updateObject(event, { [this.objectProperty]: value });

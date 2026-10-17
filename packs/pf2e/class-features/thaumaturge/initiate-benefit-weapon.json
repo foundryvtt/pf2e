@@ -1,0 +1,49 @@
+{
+    "_id": "MZajaYrn6c1A1XcO",
+    "folder": "HX8khoty7JB7v4vw",
+    "img": "icons/weapons/axes/pickaxe-bone-purple.webp",
+    "name": "Initiate Benefit (Weapon)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your weapon trembles slightly in your hand, seeking out your foe's weakness to it and interrupting their actions. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Implement's Interruption] reaction.</p>\n<p>At 5th level, when you gain thaumaturgic weapon expertise, your instinctive knowledge of your weapon implement also grants you the weapon's critical specialization effect.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Dark Archive (Remastered)"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Implement's Interruption"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:id:{actor|flags.system.thaumaturge.weaponImplement}",
+                    "feature:weapon-expertise"
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "thaumaturge"
+            ]
+        }
+    },
+    "type": "feat"
+}

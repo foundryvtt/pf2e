@@ -226,7 +226,7 @@ class CompendiumPack {
         world: /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]{16}\]|@UUID\[(?:Item|JournalEntry|Actor)/g,
         compendium:
             /@Compendium\[(?:pf2e|sf2e)\.(?<packName>[^.]+)\.(?<docType>Actor|JournalEntry|Item|Macro|RollTable)\.(?<docName>[^\]]+)\]\{?/g,
-        uuid: /@UUID\[Compendium\.(?:pf2e|sf2e)\.(?<packName>[^.]+)\.(?<docType>Actor|JournalEntry|Item|Macro|RollTable)\.(?<docName>[^\]]+)\]\{?/g,
+        uuid: /@UUID\[Compendium\.(?:pf2e|sf2e)\.(?<packName>[^.]+)\.(?:(?<docType>Actor|JournalEntry|Item|Macro|RollTable)\.)?(?<docName>[^\]]+)\]\{?/g,
     };
 
     static loadJSON(packDirName: string, { systemId }: { systemId: SystemId }): CompendiumPack {
@@ -322,6 +322,8 @@ class CompendiumPack {
         }
         if ("system" in source) {
             if (publication && "publication" in source.system) {
+                source.system.publication.license = "ORC";
+                source.system.publication.remaster = true;
                 source.system.publication.title = publication;
             }
         }

@@ -1,0 +1,143 @@
+{
+    "_id": "otz1rbzsOF0gGSCd",
+    "folder": "WXKipnCCPj9jrktD",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "7NlXefjfn0RAVmrT",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Ionize",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A starship moves into the hazard's zone</p><hr /><p><strong>Effect</strong> The hazard makes a lightning Strike against the triggering starship. If it hits, all tech creatures and items on board the starship are @UUID[Compendium.sf2e.conditions.Item.Glitching]{Glitching 3}, and all battle stations become malfunctioning; creatures that succeed at a @Check[fortitude|dc:17] save are unaffected, as are any battle stations they're helming and any gear in their possession. These effects last for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "object-immunities"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iqCo4DeNU3dRmATV",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Lightning",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "XTQ7b7vYa620lQfB": {
+                        "damage": "2d6+5",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": false,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Ionized Gas Cloud",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 7
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A cloud of superheated gas crackles with electricity.</p>",
+            "disable": "<p>@Check[nature|dc:18] (trained; any battle station) to find a safe route through it, or @Check[piloting|dc:17] (trained; pilot's console) to ride the turbulence safely</p>",
+            "isComplex": false,
+            "level": {
+                "value": 1
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Tech Core"
+            },
+            "reset": "<p>The gas particles ionize again in 1 hour.</p>",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "starship",
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

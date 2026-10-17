@@ -120,9 +120,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElement<TSchem
         }
 
         if (this.mode === "add" && Array.isArray(current)) {
-            if (!current.includes(newValue)) {
-                current.push(newValue);
-            }
+            if (!current.some((e) => R.isDeepEqual(e, newValue))) current.push(newValue);
         } else if (["subtract", "remove"].includes(this.mode) && Array.isArray(current)) {
             current.splice(current.indexOf(newValue), 1);
         } else {

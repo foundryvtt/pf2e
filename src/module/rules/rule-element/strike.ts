@@ -1,6 +1,6 @@
 import type { ActorPF2e, ActorType, CharacterPF2e, NPCPF2e } from "@actor";
 import type { CharacterStrike } from "@actor/character/data.ts";
-import { Modifier } from "@actor/modifiers.ts";
+import { DamageDicePF2e, Modifier } from "@actor/modifiers.ts";
 import type { ImageFilePath } from "@common/constants.d.mts";
 import { WeaponPF2e } from "@item";
 import { performLatePreparation } from "@item/helpers.ts";
@@ -17,7 +17,7 @@ import type {
 import type { OneToTwo } from "@module/data.ts";
 import type { DamageDieSize, DamageType } from "@system/damage/index.ts";
 import { objectHasKey, sluggify } from "@util";
-import { suppressUnsharedModifiers, useFixedStatisticModifier } from "../helpers.ts";
+import { isSharedStatisticModifier, suppressUnsharedModifiers, useFixedStatisticModifier } from "../helpers.ts";
 import { RuleElement, RuleElementOptions } from "./base.ts";
 import type { BattleFormSource } from "./battle-form/types.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
@@ -248,6 +248,24 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
         }
     }
 
+    /** A fixed attack modifier comes with listed damage, which only status, circumstance, and penalties adjust */
+    override applyDamageExclusion(weapon: WeaponPF2e, modifiers: (DamageDicePF2e | Modifier)[]): void {
+        if (this.ignored || !this.attackModifier || weapon.rule !== this || !this.actor.isOfType("character")) return;
+
+        for (const modifier of modifiers) {
+            // Trait damage uses the trait as its slug, or a prefix of it for boost and scatter
+            const fromTrait = this.traits.some((t) => t === modifier.slug || t.startsWith(`${modifier.slug}-`));
+            const applies =
+                fromTrait ||
+                modifier.source === this.item.uuid ||
+                (modifier instanceof Modifier && isSharedStatisticModifier(modifier));
+            if (!applies) {
+                modifier.enabled = false;
+                modifier.ignored = true;
+            }
+        }
+    }
+
     /**
      * Construct a `WeaponPF2e` instance for use as the synthetic strike
      * @param damageType The resolved damage type for the strike
@@ -288,7 +306,7 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
             flags: {
                 [SYSTEM_ID]: {
                     battleForm: this.battleForm,
-                    fixedAttack: actorIsNPC ? (this.attackModifier ?? null) : null,
+                    fixedAttack: this.attackModifier,
                 },
             },
             system: {
@@ -402,7 +420,8 @@ type StrikeSchema = RuleElementSchema & {
     >;
     /**
      * A fixed attack modifier. For NPCs it becomes the attack bonus, and damage isn't recalculated when converting
-     * the weapon to an NPC attack. For PCs it replaces the base attack-roll modifiers.
+     * the weapon to an NPC attack. For PCs it replaces the base attack-roll modifiers, and damage keeps only what
+     * the strike lists plus status, circumstance, and penalties.
      */
     attackModifier: fields.NumberField<number, number, false, true, true>;
     /** Whether a PC keeps their own attack modifier when it's higher than `attackModifier` */

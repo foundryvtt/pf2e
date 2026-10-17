@@ -1,0 +1,60 @@
+{
+    "_id": "17ZH6LgktXgcaqiK",
+    "img": "icons/creatures/reptiles/serpent-horned-green.webp",
+    "name": "Effect: Sibilant Whispers",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Sibilant Whispers]</p>\n<p>You can read and understand Sakvroth. You gain a +2 status bonus to Deception, Diplomacy, and Intimidation checks to influence serpentfolk.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Vautlines Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.build.languages.granted",
+                "value": {
+                    "slug": "sakvroth",
+                    "source": "{item|name}"
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:trait:serpentfolk"
+                ],
+                "selector": [
+                    "deception",
+                    "diplomacy",
+                    "intimidation"
+                ],
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

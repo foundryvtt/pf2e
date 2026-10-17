@@ -1,0 +1,106 @@
+{
+    "_id": "7MOx2VBvqiKchNMD",
+    "folder": "Xw6klgOmofb4g4Ck",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "CDvXrwm8pEmi6XkA",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Spirit Invasion",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature starts helming a battle station or uses a station action on the affected starship</p><hr /><p><strong>Effect</strong> The spirits attempt to repel the triggering creature and seize control of the battle station. The creature must attempt a @Check[will|dc:30] save with the following results. The haunt then rolls initiative.</p><hr /><p><strong>Critical Success</strong> The creature rebukes the spirit. Skill checks attempted by the creature to disable the haunt gain a +1 status bonus for 1 hour.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The spirit takes control of the battle station, and the helming creature is @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Critical Failure</strong> The spirit takes control of the battle station, and the helming creature is @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 2} and @UUID[Compendium.sf2e.conditions.Item.Slowed]{Slowed 1} as it experiences memories of grisly deaths in deep space from the perspectives of the slain.</p>\n<p>The spirit controlling a battle station continuously attempts to repel any creature that tries to helm the battle station until the haunt is disabled. As long as it's in control of a battle station, the haunt uses its routine to prioritize helming the battle stations it controls in the most destructive way possible.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "object-immunities"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult",
+                        "spirit"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Possessed Battle Stations",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 16
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The tormented spirits of dead crewmates infest the starship's battle stations and try to force the crew to reenact their catastrophic deaths.</p>",
+            "disable": "<p>@Check[arcana|dc:28] (expert; magic conduit), Nature (expert; magic conduit), Occultism (expert; magic conduit), or Religion (expert; magic conduit) to magically purify the station, or @Check[athletics|dc:28] (expert; gunnery) or Intimidation (expert; gunnery) to overpower the spirit, or @Check[computers|dc:28] (expert; scanners) to ban the spirit from the data matrix, or @Check[computers|dc:28] (expert; drone console) or Crafting (expert; drone console) to force reset the possessed drones, or @Check[computers|dc:34] (expert; magic conduit, scanners) to delete a spirit's soul code, or @Check[crafting|dc:28] (expert; generator) to execute emergency countermeasures, or @Check[piloting|dc:28] (expert; pilot's console) to disorient the spirit with ace maneuvers, or @Check[religion|dc:31] (expert; magic conduit) to exorcise a battle station; a success purges one battle station, and a number of successes equal to the number of battle stations on board the starship are required to disable the haunt</p>",
+            "isComplex": true,
+            "level": {
+                "value": 11
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Tech Core"
+            },
+            "reset": "<p>Unless exorcised or purged (see above), the spirits return to their battle stations over the course of 24 hours, after which the haunt can trigger again.</p>",
+            "routine": "<p>(6 actions) The haunt uses its actions to helm any battle stations it controls, prioritizing piloting console station actions to move the starship closer to danger. The haunt always takes harmful or useless actions, such as leaving cover or changing the starship's heading in battle, putting the starship on a collision course, firing on allies, or neglecting the shields.</p><p>After 6 rounds, if the haunt hasn't been disabled, all creatures on board the starship experience a reenactment of the spirit crew's annihilation and take @Damage[(2d12+15)[spirit]] damage (@Check[will|dc:30|basic] save). On a critical failure, a creature is @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 2}. The haunt ends once the reenactment occurs.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}
