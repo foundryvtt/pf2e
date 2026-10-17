@@ -231,6 +231,11 @@ function drawLine(graphics: PIXI.Graphics, pointA: PIXI.Point, pointB: PIXI.Poin
     const cos = dx / l;
     const sin = dy / l;
 
+    if (ordered && l < c * 3) {
+        // Adjust target point so that the arrowhead doesn't start inside or before the source circle
+        pointB = new PIXI.Point(pointA.x + 3 * cos * c, pointA.y + 3 * sin * c);
+    }
+
     const lineEnd = ordered ? new PIXI.Point(pointB.x - cos * c, pointB.y - sin * c) : pointB;
 
     // Draw outline
