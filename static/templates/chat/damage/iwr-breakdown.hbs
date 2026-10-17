@@ -1,7 +1,10 @@
 <ul>
     {{#each applications as |application|}}
         <li>
-            {{#if application.ignored}}
+            {{#if application.bypass}}
+                {{localize (concat "PF2E.Damage.IWR.ApplicationBreakdown.immunityBypass." application.bypass)
+                    type=application.type resistance=application.resistance}}
+            {{else if application.ignored}}
                 {{localize "PF2E.Damage.IWR.ApplicationBreakdown.ignored" type=application.type}}
             {{else if application.redirect}}
                 {{localize (concat "PF2E.Damage.IWR.ApplicationBreakdown.redirect." application.category)
@@ -11,6 +14,9 @@
             {{else}}
                 {{localize (concat "PF2E.Damage.IWR.ApplicationBreakdown." application.category)
                     type=application.type adjustment=(signedInteger application.adjustment zeroIsNegative=true)}}
+                {{#if application.bypassed}}
+                    {{localize "PF2E.Damage.IWR.ApplicationBreakdown.bypassed" amount=application.bypassed}}
+                {{/if}}
             {{/if}}
         </li>
     {{/each}}

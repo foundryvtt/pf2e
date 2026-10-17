@@ -7,7 +7,7 @@ import {
     ModifierAdjustment,
     ModifierObjectParams,
 } from "@actor/modifiers.ts";
-import { ResistanceType } from "@actor/types.ts";
+import { ImmunityType, ResistanceType } from "@actor/types.ts";
 import type { ArmorPF2e, MeleePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { AbilityTrait } from "@item/ability/types.ts";
 import { ArmorPropertyRuneType, ResilientRuneType } from "@item/armor/types.ts";
@@ -422,6 +422,8 @@ interface WeaponPropertyRuneData<TSlug extends WeaponPropertyRuneType> extends P
          * target's resistance.
          */
         ignoredResistances?: { type: ResistanceType; max: number }[];
+        /** A list of immunities this weapon's damage will ignore--not limited to damage from the rune */
+        ignoredImmunities?: ImmunityType[];
     };
     strikeAdjustments?: Pick<StrikeAdjustment, "adjustTraits" | "adjustWeapon">[];
 }
@@ -1677,6 +1679,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                 },
             ],
             ignoredResistances: [{ type: "void", max: Infinity }],
+            ignoredImmunities: ["void"],
         },
         level: 15,
         name: "PF2E.WeaponPropertyRune.greaterDecaying.Name",

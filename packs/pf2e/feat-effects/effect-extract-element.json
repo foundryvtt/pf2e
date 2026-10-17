@@ -1,0 +1,122 @@
+{
+    "_id": "7nGqy5jK3holkFf3",
+    "img": "systems/pf2e/icons/spells/disapperance.webp",
+    "name": "Effect: Extract Element",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Extract Element]</p>\n<p>A kineticist has extracted elemental matter from you. You take a -1 circumstance penalty to your saves and AC against their impulses, and their impulses of the extracted element ignore your resistances and bypass your immunity to it.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 5
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "value": "air"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "value": "earth"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitMetal",
+                        "value": "metal"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "value": "water"
+                    },
+                    {
+                        "label": "PF2E.TraitWood",
+                        "value": "wood"
+                    }
+                ],
+                "flag": "element",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Element"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "origin:action:trait:impulse",
+                            "origin:action:slug:elemental-blast"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": -1
+            },
+            {
+                "key": "IgnoreImmunity",
+                "predicate": [
+                    "origin:effect:kinetic-aura",
+                    {
+                        "or": [
+                            "origin:action:trait:impulse",
+                            "origin:action:slug:elemental-blast"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "damage-received"
+                ],
+                "type": [
+                    "{item|flags.system.rulesSelections.element}"
+                ],
+                "value": "@actor.level"
+            },
+            {
+                "key": "IgnoreResistance",
+                "predicate": [
+                    "origin:effect:kinetic-aura",
+                    {
+                        "or": [
+                            "origin:action:trait:impulse",
+                            "origin:action:slug:elemental-blast"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "damage-received"
+                ],
+                "type": [
+                    "{item|flags.system.rulesSelections.element}"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -754,6 +754,21 @@ const ITEM_ALTERATION_HANDLERS = {
                         initial: 15,
                     }),
                     criticalHit: new fields.BooleanField({ required: true, nullable: false, initial: false }),
+                    ignoredResistances: new fields.ArrayField(
+                        new fields.SchemaField({
+                            type: new fields.StringField({ required: true, nullable: false, blank: false }),
+                            max: new fields.NumberField({ required: true, nullable: true, initial: null }),
+                        }),
+                    ),
+                    ignoredImmunities: new fields.ArrayField(
+                        new fields.StringField({ required: true, nullable: false, blank: false }),
+                    ),
+                    downgradedImmunities: new fields.ArrayField(
+                        new fields.SchemaField({
+                            type: new fields.StringField({ required: true, nullable: false, blank: false }),
+                            resistance: new fields.NumberField({ required: true, nullable: false, initial: 1 }),
+                        }),
+                    ),
                 },
                 { nullable: false } as const,
             ),
