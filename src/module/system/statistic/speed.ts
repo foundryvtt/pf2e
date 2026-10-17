@@ -26,12 +26,8 @@ type SpeedDeriveKind = "equal" | "scaled" | "independent";
 function fastestMovementSpeed<TActor extends ActorPF2e>(speeds: {
     [K in MovementType]?: SpeedStatistic<TActor, K> | null;
 }): SpeedStatistic<TActor, Exclude<MovementType, "land">> | null {
-    const present = MOVEMENT_TYPES.filter((type) => type !== "land").flatMap((type) => {
-        const statistic = speeds[type];
-        return statistic ? [statistic] : [];
-    });
-    const fastestValue = present.reduce((highest, statistic) => Math.max(highest, statistic.value), 0);
-    return present.find((statistic) => statistic.value === fastestValue) ?? null;
+    const others = [speeds.burrow, speeds.climb, speeds.fly, speeds.swim].filter(R.isNonNullish);
+    return R.firstBy(others, [(s) => s.value, "desc"]) ?? null;
 }
 
 function getDeriveParentType(formula: string | number, dependsOn: MovementType[]): MovementType | null {
