@@ -1,0 +1,77 @@
+{
+    "_id": "LcU9sRniest1l5qo",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-poisons/malyass-root-paste.webp",
+    "name": "Effect: Ashes of the War God",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Ashes of the War God] for use with an Armor or Weapon</p>\n<p><strong>Armor</strong> The armor becomes <em>+3 major resilient armor</em>.</p>\n<p><strong>Weapon</strong> The weapon becomes a <em>+3 major striking weapon</em>.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 20
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #206: Bring the House Down"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "armor",
+                        "weapon"
+                    ]
+                },
+                "flag": "item",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Item"
+            },
+            {
+                "itemId": "{item|flags.system.rulesSelections.item}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:type:armor"
+                ],
+                "property": "runes-resilient",
+                "value": 3
+            },
+            {
+                "itemId": "{item|flags.system.rulesSelections.item}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:type:weapon"
+                ],
+                "property": "runes-striking",
+                "value": 3
+            },
+            {
+                "itemId": "{item|flags.system.rulesSelections.item}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "property": "runes-potency",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
