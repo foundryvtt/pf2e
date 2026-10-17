@@ -27,16 +27,27 @@
         },
         "rules": [
             {
+                "allowDuplicate": false,
                 "key": "GrantItem",
                 "uuid": "Compendium.sf2e.feats.Item.Widen Spell"
             },
             {
-                "key": "GrantItem",
-                "uuid": "Compendium.sf2e.actions.Item.Overclock Armor"
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.medium.rank",
+                "predicate": [
+                    "feature:defensive-measures"
+                ],
+                "value": 2
             }
         ],
         "subfeatures": {
-            "proficiencies": {},
+            "proficiencies": {
+                "medium": {
+                    "attribute": null,
+                    "rank": 1
+                }
+            },
             "senses": {},
             "suppressedFeatures": []
         },

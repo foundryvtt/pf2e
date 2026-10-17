@@ -27,12 +27,50 @@
         },
         "rules": [
             {
+                "allowDuplicate": false,
                 "key": "GrantItem",
                 "uuid": "Compendium.sf2e.feats.Item.Reach Spell"
             },
             {
-                "key": "GrantItem",
-                "uuid": "Compendium.sf2e.actions.Item.Overclock Weapon"
+                "definition": [
+                    "item:category:martial",
+                    "item:trait:tech"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialTechWeapons",
+                "slug": "tech-weapons",
+                "value": 1
+            },
+            {
+                "definition": [
+                    "item:category:martial",
+                    "item:trait:tech"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialTechWeapons",
+                "predicate": [
+                    "feature:weapon-expertise"
+                ],
+                "slug": "tech-weapons",
+                "value": 2
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:trait:tech",
+                    {
+                        "or": [
+                            "item:category:simple",
+                            "item:category:martial"
+                        ]
+                    },
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    }
+                ]
             }
         ],
         "subfeatures": {
