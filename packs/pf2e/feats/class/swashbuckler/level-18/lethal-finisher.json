@@ -50,6 +50,34 @@
                 "toggleable": true
             },
             {
+                "alwaysActive": false,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.LethalFinisherDamage",
+                "option": "lethal-result",
+                "predicate": [
+                    "finisher:lethal"
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": "critical-success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
                 "key": "Note",
                 "predicate": [
                     "finisher:lethal"
@@ -57,6 +85,97 @@
                 "selector": "strike-attack-roll",
                 "text": "{item|system.description.value}",
                 "title": "{item|name}"
+            },
+            {
+                "damageCategory": "precision",
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "lethal-result:critical-success",
+                    {
+                        "or": [
+                            "item:melee",
+                            {
+                                "and": [
+                                    "feat:flying-blade",
+                                    "item:thrown",
+                                    "target:range-increment:1"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "strike-damage"
+                ],
+                "slug": "lethal-finisher-damage",
+                "value": 6
+            },
+            {
+                "category": "precision",
+                "diceNumber": 6,
+                "dieSize": "d6",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "or": [
+                            "lethal-result:success",
+                            "lethal-result:critical-failure",
+                            "lethal-result:failure"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:melee",
+                            {
+                                "and": [
+                                    "feat:flying-blade",
+                                    "item:thrown",
+                                    "target:range-increment:1"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "lethal-finisher-damage"
+            },
+            {
+                "key": "DamageAlteration",
+                "predicate": [
+                    "lethal-result:failure"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "lethal-finisher-damage",
+                "value": 6
+            },
+            {
+                "key": "DamageAlteration",
+                "predicate": [
+                    "lethal-result:critical-failure"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "lethal-finisher-damage",
+                "value": 12
             }
         ],
         "traits": {
