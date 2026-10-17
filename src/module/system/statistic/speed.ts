@@ -1,6 +1,7 @@
-import { ActorPF2e } from "@actor";
+import { ActorPF2e, type CreaturePF2e } from "@actor";
+import type { CreatureSpeeds } from "@actor/creature/types.ts";
 import { StatisticModifier, type Modifier } from "@actor/modifiers.ts";
-import { MovementType } from "@actor/types.ts";
+import type { MovementType } from "@actor/types.ts";
 import { MOVEMENT_TYPES } from "@actor/values.ts";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import { ErrorPF2e, localizer } from "@util";
@@ -216,5 +217,32 @@ interface LandSpeedStatisticTraceData extends SpeedStatisticTraceData<"land"> {
     step: number | null;
 }
 
-export { SpeedStatistic, classifySpeedDeriveKind, fastestMovementSpeed, getDeriveParentType };
+/** Derive travel, then write movement statistics and their traces. */
+function publishMovementSpeeds<TActor extends CreaturePF2e>(
+    actor: TActor,
+    speeds: { [K in MovementType]?: SpeedStatistic<TActor, K> | null },
+    options: {
+        modifiers?: readonly Modifier[];
+        adjustTravel?: (travel: SpeedStatistic<TActor, "travel">) => void;
+    } = {},
+): void {
+    const parent = speeds.land ?? fastestMovementSpeed(speeds);
+    const travel =
+        parent?.derive("travel", {
+            mode: "equal",
+            modifiers: options.modifiers?.map((modifier) => modifier.clone()),
+        }) ?? new SpeedStatistic(actor, { type: "travel", base: 0, domains: [] });
+    options.adjustTravel?.(travel);
+
+    actor.movement.speeds = {
+        ...R.mapToObj(MOVEMENT_TYPES, (type) => [type, speeds[type] ?? null]),
+        travel,
+    } as CreatureSpeeds<TActor>;
+    actor.system.movement.speeds = R.mapValues(
+        actor.movement.speeds,
+        (statistic) => statistic?.getTraceData() ?? null,
+    ) as TActor["system"]["movement"]["speeds"];
+}
+
+export { SpeedStatistic, classifySpeedDeriveKind, getDeriveParentType, publishMovementSpeeds };
 export type { LandSpeedStatisticTraceData, SpeedStatisticTraceData };

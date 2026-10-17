@@ -9,7 +9,7 @@ import { WeaponPF2e } from "@item";
 import { RollNotePF2e } from "@module/notes.ts";
 import { Predicate } from "@system/predication.ts";
 import { RecordField } from "@system/schema-data-fields.ts";
-import { fastestMovementSpeed, SpeedStatistic } from "@system/statistic/speed.ts";
+import { publishMovementSpeeds, SpeedStatistic } from "@system/statistic/speed.ts";
 import { objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { isSharedStatisticModifier, suppressUnsharedModifiers, useFixedStatisticModifier } from "../../helpers.ts";
@@ -421,27 +421,7 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
             applySpeed(type);
         }
 
-        actor.movement.speeds.land = built.land ?? null;
-        actor.movement.speeds.burrow = built.burrow ?? null;
-        actor.movement.speeds.climb = built.climb ?? null;
-        actor.movement.speeds.fly = built.fly ?? null;
-        actor.movement.speeds.swim = built.swim ?? null;
-
-        const prepared = actor.system.movement.speeds;
-        prepared.land = actor.movement.speeds.land?.getTraceData() ?? null;
-        prepared.burrow = actor.movement.speeds.burrow?.getTraceData() ?? null;
-        prepared.climb = actor.movement.speeds.climb?.getTraceData() ?? null;
-        prepared.fly = actor.movement.speeds.fly?.getTraceData() ?? null;
-        prepared.swim = actor.movement.speeds.swim?.getTraceData() ?? null;
-
-        const landSpeed = actor.movement.speeds.land;
-        const travelParent = landSpeed ?? fastestMovementSpeed(actor.movement.speeds);
-        const travelSpeed = travelParent
-            ? travelParent.derive("travel", { mode: "equal" })
-            : new SpeedStatistic(actor, { type: "travel", base: 0, domains: [] });
-        suppressUnsharedModifiers(travelSpeed);
-        actor.movement.speeds.travel = travelSpeed;
-        prepared.travel = travelSpeed.getTraceData();
+        publishMovementSpeeds(actor, built, { adjustTravel: suppressUnsharedModifiers });
     }
 
     #suppressNotes(notes: RollNotePF2e[]): void {

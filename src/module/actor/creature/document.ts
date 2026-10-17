@@ -37,8 +37,8 @@ import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@syste
 import { PerceptionStatistic } from "@system/statistic/perception.ts";
 import {
     classifySpeedDeriveKind,
-    fastestMovementSpeed,
     getDeriveParentType,
+    publishMovementSpeeds,
     SpeedStatistic,
 } from "@system/statistic/speed.ts";
 import { ErrorPF2e, localizer, setHasElement, sluggify, tupleHasValue } from "@util";
@@ -873,24 +873,7 @@ abstract class CreaturePF2e<
             prepareType(type);
         }
 
-        const landSpeed = speedStats.land ?? null;
-        const travelParent = landSpeed ?? fastestMovementSpeed(speedStats);
-        const travelModifiers = modifiers.map((modifier) => modifier.clone());
-        const travelSpeed = travelParent
-            ? travelParent.derive("travel", { mode: "equal", modifiers: travelModifiers })
-            : new SpeedStatistic(this, { type: "travel", base: 0, domains: [] });
-        this.movement.speeds = {
-            land: landSpeed,
-            burrow: speedStats.burrow ?? null,
-            climb: speedStats.climb ?? null,
-            fly: speedStats.fly ?? null,
-            swim: speedStats.swim ?? null,
-            travel: travelSpeed,
-        };
-        this.system.movement.speeds = R.mapValues(
-            this.movement.speeds,
-            (s) => s?.getTraceData() ?? null,
-        ) as CreatureMovementData["speeds"];
+        publishMovementSpeeds(this, speedStats, { modifiers });
     }
 
     /* -------------------------------------------- */
