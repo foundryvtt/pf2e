@@ -175,6 +175,7 @@ class TokenMarkHighlightRenderer extends TokenHighlightRenderer {
         }
 
         // Add animation to gradually change container's alpha
+        // Can't change container's or graphics' alpha property as that directly translates to constituent lines and polygons, making the overlaps extremely visible
         const alpha = new PIXI.AlphaFilter(0);
         g.filters = [alpha];
 
@@ -182,6 +183,7 @@ class TokenMarkHighlightRenderer extends TokenHighlightRenderer {
         this.container.addChild(g);
 
         // Can't use foundry.canvas.animation.CanvasAnimation.animate as it runs from a current state to a predetermined end state in a finite animation
+        // Increase alpha while currently hovered item's id is the same as the highighted item id, otherwise lower it and disable both the animation and the graphic object at 0
         const f = () => {
             if (this.#effectId === item.id) {
                 alpha.alpha = Math.min(
@@ -211,8 +213,8 @@ class TokenMarkHighlightRenderer extends TokenHighlightRenderer {
         drawLabel(g, this.token.center, target.center, TokenMarkHighlightRenderer.color, label);
     }
 
-    override destroy(): void {
-        super.destroy();
+    override clear(): void {
+        super.clear();
         this.#effectId = null;
     }
 }
@@ -231,36 +233,36 @@ function drawLine(graphics: PIXI.Graphics, pointA: PIXI.Point, pointB: PIXI.Poin
 
     const lineEnd = ordered ? new PIXI.Point(pointB.x - cos * c, pointB.y - sin * c) : pointB;
 
-    // Draw backround
-    // line
+    // Draw outline
+    // Line
     graphics.lineStyle(o, 0x000000).moveTo(pointA.x, pointA.y).lineTo(lineEnd.x, lineEnd.y);
 
-    // shapes
-    // start circle
+    // Shapes
+    // Origin circle
     graphics
         .beginFill(0x000000)
         .lineStyle(t / 2, 0x000000)
         .drawCircle(pointA.x, pointA.y, c);
     if (ordered) {
-        // arrowhead
+        // Arrowhead
         drawArrowhead(graphics, pointB, Math.atan2(pointB.y - pointA.y, pointB.x - pointA.x), c * 2);
     } else {
-        // circle
+        // Circle
         graphics.drawCircle(pointB.x, pointB.y, c);
     }
 
     // Draw foreground
-    // line
+    // Line
     graphics.lineStyle(t, color).moveTo(pointA.x, pointA.y).lineTo(lineEnd.x, lineEnd.y);
 
-    // shapes
-    // start circle
+    // Shapes
+    // Origin circle
     graphics.beginFill(color).lineStyle(0, 0x000000, 0).drawCircle(pointA.x, pointA.y, c);
     if (ordered) {
-        // arrowhead
+        // Arrowhead
         drawArrowhead(graphics, pointB, Math.atan2(pointB.y - pointA.y, pointB.x - pointA.x), c * 2);
     } else {
-        // circle
+        // Circle
         graphics.drawCircle(pointB.x, pointB.y, c);
     }
 }
@@ -288,21 +290,21 @@ function drawLabel(
     label: string,
 ): void {
     // Midpoint coordinate between tokens
-    const mid_x = Math.round((pointA.x + pointB.x) / 2);
-    const mid_y = Math.round((pointA.y + pointB.y) / 2);
+    const midX = Math.round((pointA.x + pointB.x) / 2);
+    const midY = Math.round((pointA.y + pointB.y) / 2);
 
     // Vector between tokens
     const dx = pointB.x - pointA.x;
     const dy = pointB.y - pointA.y;
 
-    // line angle in fraction of revolutions [-0.5, 0.5]
+    // Line angle in fraction of revolutions [-0.5, 0.5]
     const rev = Math.atan2(dy, dx) / PIXI.PI_2;
-    // write the text above the line (if vertical - write from source to target)
-    const perp_rev = dy === 0 ? 0.75 : dx >= 0 ? rev - 0.25 : rev + 0.25;
+    // Write the text above the line (if vertical - write from source to target)
+    const perpRev = dy === 0 ? 0.75 : dx >= 0 ? rev - 0.25 : rev + 0.25;
 
     const offsetPixels = 20.0;
-    const perp_x = mid_x + Math.cos(perp_rev * PIXI.PI_2) * offsetPixels;
-    const perp_y = mid_y + Math.sin(perp_rev * PIXI.PI_2) * offsetPixels;
+    const perpX = midX + Math.cos(perpRev * PIXI.PI_2) * offsetPixels;
+    const perpY = midY + Math.sin(perpRev * PIXI.PI_2) * offsetPixels;
 
     // Styling
     const style = CONFIG.canvasTextStyle.clone();
@@ -315,10 +317,9 @@ function drawLabel(
     text.anchor.set(0.5, 0.5);
 
     // Text just needs to be rotated additional 90 degrees clockwise
-    const rotation = perp_rev + 0.25;
-    text.rotation = rotation * PIXI.PI_2;
+    text.rotation = (perpRev + 0.25) * PIXI.PI_2;
 
-    text.position.set(perp_x, perp_y);
+    text.position.set(perpX, perpY);
     graphics.addChild(text);
 }
 
