@@ -6,6 +6,7 @@ import {
     type CalculateAppliedDamageParams,
     type DamageInstanceRecord,
     type ImmunityRecord,
+    type IWRApplicationData,
     type IWRInput,
     type ResistanceRecord,
     type WeaknessRecord,
@@ -168,7 +169,7 @@ function iwr(
     const { instances, roll = {}, ignoredResistances = [], ...overrides } = options;
     const {
         total,
-        options: rollOptions = {},
+        options: optionsOverrides = {},
         bypass = { immunity: { redirect: [] }, resistance: { redirect: [] } },
     } = roll;
     return {
@@ -176,7 +177,7 @@ function iwr(
             total: total ?? instances.reduce((sum, i) => sum + (i.total ?? 0), 0),
             instances,
             options: {
-                ...rollOptions,
+                ...optionsOverrides,
                 bypass,
             },
         },
@@ -192,7 +193,7 @@ function iwr(
 }
 
 /** Damage or healing already resolved before IWR: a number, `skipIWR`, a dead target, or IWR disabled */
-function resolved(finalDamage: number): CalculateAppliedDamageParams["result"] {
+function resolved(finalDamage: number): IWRApplicationData {
     return { finalDamage, applications: [], persistent: [] };
 }
 
@@ -202,7 +203,7 @@ function resolved(finalDamage: number): CalculateAppliedDamageParams["result"] {
  */
 function calculate(
     options: Partial<Omit<CalculateAppliedDamageParams, "result">> & {
-        result: CalculateAppliedDamageParams["result"] | IWRInput;
+        result: IWRApplicationData | IWRInput;
     },
 ): AppliedDamage {
     const { result: incoming, rollOptions = new Set(), ...rest } = options;
