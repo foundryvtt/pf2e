@@ -7,7 +7,7 @@ import * as R from "remeda";
 import type { DamageType, ImmunityRedirect, ResistanceRedirect } from "./types.ts";
 import { BASE_DAMAGE_TYPES_TO_CATEGORIES } from "./values.ts";
 
-/** Post-IWR adjustments, shield, hardness, and hit points.*/
+/** Post-IWR adjustments, shield, hardness, and hit points. */
 function calculateAppliedDamage(params: CalculateAppliedDamageParams): AppliedDamage {
     const {
         result,
@@ -639,7 +639,9 @@ type IWRApplication =
 
 export { applyIWRToInput, calculateAppliedDamage };
 export type {
+    AppliedDamage,
     Bypass,
+    CalculateAppliedDamageParams,
     DamageInstanceRecord,
     ImmunityRecord,
     IWRApplication,

@@ -1,7 +1,9 @@
 import {
     applyIWRToInput,
     calculateAppliedDamage,
+    type AppliedDamage,
     type Bypass,
+    type CalculateAppliedDamageParams,
     type DamageInstanceRecord,
     type ImmunityRecord,
     type IWRInput,
@@ -11,8 +13,6 @@ import {
 import type { DamageType } from "@system/damage/types.ts";
 import { BASE_DAMAGE_TYPES_TO_CATEGORIES } from "@system/damage/values.ts";
 
-type CalculateParams = Parameters<typeof calculateAppliedDamage>[0];
-
 type InstanceOptions = {
     materials?: string[];
     persistent?: boolean;
@@ -20,7 +20,7 @@ type InstanceOptions = {
     critImmuneTotal?: number;
     precision?: number;
     splash?: number;
-    expression?: string | null;
+    expression?: string;
 };
 
 /** An evaluated, non-persistent instance unless overridden. `formalDescription` is built like `DamageInstance`'s. */
@@ -32,7 +32,7 @@ function instance(type: DamageType, total: number, options: InstanceOptions = {}
         critImmuneTotal = total,
         precision = 0,
         splash = 0,
-        expression = null,
+        expression = "",
     } = options;
     const category = BASE_DAMAGE_TYPES_TO_CATEGORIES[type];
     return {
@@ -48,7 +48,7 @@ function instance(type: DamageType, total: number, options: InstanceOptions = {}
         ]),
         critImmuneTotal,
         options: { evaluatePersistent },
-        head: { expression: expression ?? "" },
+        head: { expression },
         componentTotal: (component) => (component === "precision" ? precision : splash),
     };
 }
@@ -139,24 +139,20 @@ function resistance(
     };
 }
 
-type Redirects = {
-    immunities: Bypass["immunity"]["redirect"];
-    resistances: Bypass["resistance"]["redirect"];
-};
-
-function concussive(): Redirects {
+function concussive(): Bypass {
     return {
-        immunities: [{ from: "piercing", to: "bludgeoning" }],
-        resistances: [{ from: "piercing", to: "bludgeoning" }],
+        immunity: { redirect: [{ from: "piercing", to: "bludgeoning" }] },
+        resistance: { redirect: [{ from: "piercing", to: "bludgeoning" }] },
     };
 }
 
 type RollBuild = {
     total?: number;
-    increasedFrom?: number;
-    degreeOfSuccess?: number | null;
-    ignoredResistances?: ResistanceRecord[];
-    irRedirects?: Redirects;
+    options?: {
+        increasedFrom?: number;
+        degreeOfSuccess?: number | null;
+    };
+    bypass?: Bypass;
 };
 
 /**
@@ -164,30 +160,24 @@ type RollBuild = {
  * `roll.total` defaults to the sum of instance totals.
  */
 function iwr(
-    options: Partial<Omit<IWRInput, "roll" | "ignoredResistances">> & {
+    options: Partial<Omit<IWRInput, "roll">> & {
         instances: DamageInstanceRecord[];
         roll?: RollBuild;
     },
 ): IWRInput {
-    const { instances, roll = {}, ...overrides } = options;
+    const { instances, roll = {}, ignoredResistances = [], ...overrides } = options;
     const {
         total,
-        increasedFrom,
-        degreeOfSuccess,
-        ignoredResistances = [],
-        irRedirects = { immunities: [], resistances: [] },
+        options: rollOptions = {},
+        bypass = { immunity: { redirect: [] }, resistance: { redirect: [] } },
     } = roll;
     return {
         roll: {
             total: total ?? instances.reduce((sum, i) => sum + (i.total ?? 0), 0),
             instances,
             options: {
-                increasedFrom,
-                degreeOfSuccess,
-                bypass: {
-                    immunity: { redirect: irRedirects.immunities },
-                    resistance: { redirect: irRedirects.resistances },
-                },
+                ...rollOptions,
+                bypass,
             },
         },
         ignoredResistances,
@@ -202,8 +192,8 @@ function iwr(
 }
 
 /** Damage or healing already resolved before IWR: a number, `skipIWR`, a dead target, or IWR disabled */
-function bypass(finalDamage: number, persistent: DamageInstanceRecord[] = []): CalculateParams["result"] {
-    return { finalDamage, applications: [], persistent };
+function resolved(finalDamage: number): CalculateAppliedDamageParams["result"] {
+    return { finalDamage, applications: [], persistent: [] };
 }
 
 /**
@@ -211,8 +201,10 @@ function bypass(finalDamage: number, persistent: DamageInstanceRecord[] = []): C
  * `isDamage` follows the actor's rule: healing only for a negative resolved total.
  */
 function calculate(
-    options: Partial<Omit<CalculateParams, "result">> & { result: CalculateParams["result"] | IWRInput },
-): ReturnType<typeof calculateAppliedDamage> {
+    options: Partial<Omit<CalculateAppliedDamageParams, "result">> & {
+        result: CalculateAppliedDamageParams["result"] | IWRInput;
+    },
+): AppliedDamage {
     const { result: incoming, rollOptions = new Set(), ...rest } = options;
     const result = "finalDamage" in incoming ? incoming : applyIWRToInput(incoming, rollOptions);
     return calculateAppliedDamage({
@@ -236,4 +228,4 @@ function calculate(
     });
 }
 
-export { bypass, calculate, concussive, immunity, instance, iwr, persistentInstance, resistance, weakness };
+export { calculate, concussive, immunity, instance, iwr, persistentInstance, resistance, resolved, weakness };

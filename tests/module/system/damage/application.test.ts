@@ -1,6 +1,5 @@
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
 import {
-    bypass,
     calculate,
     concussive,
     immunity,
@@ -8,6 +7,7 @@ import {
     iwr,
     persistentInstance,
     resistance,
+    resolved,
     weakness,
 } from "./fixtures.ts";
 
@@ -227,7 +227,7 @@ describe("applied damage calculation", () => {
             const damage = calculate({
                 result: iwr({
                     instances: [instance("slashing", 20, { critImmuneTotal: 10 })],
-                    roll: { degreeOfSuccess: DEGREE_OF_SUCCESS.CRITICAL_SUCCESS },
+                    roll: { options: { degreeOfSuccess: DEGREE_OF_SUCCESS.CRITICAL_SUCCESS } },
                     immunities: [immunity("critical-hits")],
                     weaknesses: [weakness("slashing", 5)],
                 }),
@@ -245,7 +245,7 @@ describe("applied damage calculation", () => {
             const damage = calculate({
                 result: iwr({
                     instances: [instance("slashing", 20, { critImmuneTotal: 10 })],
-                    roll: { degreeOfSuccess: DEGREE_OF_SUCCESS.CRITICAL_SUCCESS },
+                    roll: { options: { degreeOfSuccess: DEGREE_OF_SUCCESS.CRITICAL_SUCCESS } },
                     immunities: [
                         immunity("critical-hits", {
                             test: (statements) =>
@@ -265,7 +265,7 @@ describe("applied damage calculation", () => {
             const damage = calculate({
                 result: iwr({
                     instances: [instance("slashing", 10)],
-                    roll: { degreeOfSuccess: DEGREE_OF_SUCCESS.SUCCESS },
+                    roll: { options: { degreeOfSuccess: DEGREE_OF_SUCCESS.SUCCESS } },
                     immunities: [immunity("critical-hits")],
                     resistances: [resistance("critical-hits", 5)],
                 }),
@@ -280,7 +280,7 @@ describe("applied damage calculation", () => {
             const damage = calculate({
                 result: iwr({
                     instances: [instance("slashing", 20, { critImmuneTotal: 10, precision: 6 })],
-                    roll: { degreeOfSuccess: DEGREE_OF_SUCCESS.CRITICAL_SUCCESS },
+                    roll: { options: { degreeOfSuccess: DEGREE_OF_SUCCESS.CRITICAL_SUCCESS } },
                     immunities: [immunity("precision")],
                 }),
                 rollOptions: new Set(["check:outcome:critical-success"]),
@@ -294,7 +294,7 @@ describe("applied damage calculation", () => {
             const damage = calculate({
                 result: iwr({
                     instances: [instance("slashing", 20, { critImmuneTotal: 10, precision: 6 })],
-                    roll: { degreeOfSuccess: DEGREE_OF_SUCCESS.CRITICAL_SUCCESS },
+                    roll: { options: { degreeOfSuccess: DEGREE_OF_SUCCESS.CRITICAL_SUCCESS } },
                     immunities: [immunity("critical-hits"), immunity("precision")],
                 }),
                 rollOptions: new Set(["check:outcome:critical-success"]),
@@ -311,7 +311,7 @@ describe("applied damage calculation", () => {
             const damage = calculate({
                 result: iwr({
                     instances: [instance("slashing", 20, { critImmuneTotal: 10 })],
-                    roll: { degreeOfSuccess: DEGREE_OF_SUCCESS.CRITICAL_SUCCESS },
+                    roll: { options: { degreeOfSuccess: DEGREE_OF_SUCCESS.CRITICAL_SUCCESS } },
                     resistances: [resistance("critical-hits", 5)],
                 }),
                 rollOptions: new Set(["check:outcome:critical-success"]),
@@ -327,7 +327,7 @@ describe("applied damage calculation", () => {
             const damage = calculate({
                 result: iwr({
                     instances: [instance("slashing", 20, { critImmuneTotal: 10 })],
-                    roll: { degreeOfSuccess: DEGREE_OF_SUCCESS.CRITICAL_SUCCESS },
+                    roll: { options: { degreeOfSuccess: DEGREE_OF_SUCCESS.CRITICAL_SUCCESS } },
                     resistances: [resistance("critical-hits", 15)],
                 }),
                 rollOptions: new Set(["check:outcome:critical-success"]),
@@ -466,7 +466,7 @@ describe("applied damage calculation", () => {
                 result: iwr({
                     instances: [instance("fire", 10)],
                     resistances: [ignored],
-                    roll: { ignoredResistances: [ignored] },
+                    ignoredResistances: [ignored],
                 }),
             });
 
@@ -482,7 +482,7 @@ describe("applied damage calculation", () => {
                 result: iwr({
                     instances: [instance("fire", 12), instance("slashing", 8)],
                     resistances: [ignored, resistance("slashing", 3)],
-                    roll: { ignoredResistances: [ignored] },
+                    ignoredResistances: [ignored],
                 }),
             });
 
@@ -529,7 +529,7 @@ describe("applied damage calculation", () => {
                 result: iwr({
                     instances: [instance("piercing", 10)],
                     resistances: [resistance("piercing", 5)],
-                    roll: { irRedirects: concussive() },
+                    roll: { bypass: concussive() },
                 }),
             });
 
@@ -550,7 +550,7 @@ describe("applied damage calculation", () => {
                 result: iwr({
                     instances: [instance("piercing", 10)],
                     resistances: [resistance("piercing", 5), resistance("bludgeoning", 3)],
-                    roll: { irRedirects: concussive() },
+                    roll: { bypass: concussive() },
                 }),
             });
 
@@ -571,7 +571,7 @@ describe("applied damage calculation", () => {
                 result: iwr({
                     instances: [instance("piercing", 10)],
                     resistances: [resistance("piercing", 5), resistance("bludgeoning", 10)],
-                    roll: { irRedirects: concussive() },
+                    roll: { bypass: concussive() },
                 }),
             });
 
@@ -586,7 +586,7 @@ describe("applied damage calculation", () => {
                 result: iwr({
                     instances: [instance("piercing", 10)],
                     resistances: [resistance("physical", 5)],
-                    roll: { irRedirects: concussive() },
+                    roll: { bypass: concussive() },
                 }),
             });
 
@@ -602,7 +602,7 @@ describe("applied damage calculation", () => {
                     instances: [instance("piercing", 10)],
                     immunities: [immunity("bludgeoning")],
                     resistances: [resistance("piercing", 5)],
-                    roll: { irRedirects: concussive() },
+                    roll: { bypass: concussive() },
                 }),
             });
 
@@ -618,7 +618,12 @@ describe("applied damage calculation", () => {
                     instances: [instance("piercing", 10)],
                     immunities: [immunity("piercing")],
                     resistances: [resistance("piercing", 5)],
-                    roll: { irRedirects: { immunities: [{ from: "piercing", to: "bludgeoning" }], resistances: [] } },
+                    roll: {
+                        bypass: {
+                            immunity: { redirect: [{ from: "piercing", to: "bludgeoning" }] },
+                            resistance: { redirect: [] },
+                        },
+                    },
                 }),
             });
 
@@ -634,7 +639,7 @@ describe("applied damage calculation", () => {
                     instances: [instance("piercing", 10)],
                     immunities: [immunity("piercing")],
                     resistances: [resistance("piercing", 5), resistance("bludgeoning", 3)],
-                    roll: { irRedirects: concussive() },
+                    roll: { bypass: concussive() },
                 }),
             });
 
@@ -657,7 +662,7 @@ describe("applied damage calculation", () => {
                                 ![...statements].includes("damage:category:physical"),
                         }),
                     ],
-                    roll: { irRedirects: concussive() },
+                    roll: { bypass: concussive() },
                 }),
             });
 
@@ -679,7 +684,7 @@ describe("applied damage calculation", () => {
             const damage = calculate({
                 result: iwr({
                     instances: [instance("slashing", 0), instance("fire", 0)],
-                    roll: { total: 1, increasedFrom: -3 },
+                    roll: { total: 1, options: { increasedFrom: -3 } },
                     weaknesses: [weakness("slashing", 2), weakness("fire", 2)],
                 }),
             });
@@ -733,7 +738,7 @@ describe("applied damage calculation", () => {
     describe("healing", () => {
         test("stays negative and healing dice and modifiers add to it", () => {
             const damage = calculate({
-                result: bypass(-10),
+                result: resolved(-10),
                 diceAdjustment: 3,
                 modifierAdjustment: 5,
                 hitPoints: { max: 30, value: 10, temp: 0 },
@@ -746,7 +751,7 @@ describe("applied damage calculation", () => {
 
         test("a healing penalty cannot flip healing into damage", () => {
             const damage = calculate({
-                result: bypass(-10),
+                result: resolved(-10),
                 modifierAdjustment: -20,
             });
 
@@ -757,7 +762,7 @@ describe("applied damage calculation", () => {
 
         test("skips temp HP and stamina, caps at max HP, and keeps the full negative totalApplied", () => {
             const damage = calculate({
-                result: bypass(-20),
+                result: resolved(-20),
                 hitPoints: { max: 30, value: 25, temp: 4 },
                 sp: { max: 10, value: 8 },
                 staminaVariant: true,
@@ -772,7 +777,7 @@ describe("applied damage calculation", () => {
     describe("hit points", () => {
         test("applies to temp HP, then stamina, then HP, and totalApplied includes overflow past 0", () => {
             const damage = calculate({
-                result: bypass(20),
+                result: resolved(20),
                 hitPoints: { max: 30, value: 10, temp: 3 },
                 sp: { max: 10, value: 5 },
                 staminaVariant: true,
@@ -788,7 +793,7 @@ describe("applied damage calculation", () => {
 
         test("does not spend stamina unless the variant is on", () => {
             const damage = calculate({
-                result: bypass(8),
+                result: resolved(8),
                 hitPoints: { max: 30, value: 10, temp: 0 },
                 sp: { max: 10, value: 5 },
                 staminaVariant: false,
@@ -800,7 +805,7 @@ describe("applied damage calculation", () => {
 
         test("max HP 0 writes no updates, applies 0, and does not trigger instant death", () => {
             const damage = calculate({
-                result: bypass(50),
+                result: resolved(50),
                 hitPoints: { max: 0, value: 0, temp: 5 },
                 rollOptions: new Set(["item:trait:death"]),
             });
@@ -811,7 +816,7 @@ describe("applied damage calculation", () => {
         });
 
         test("zero damage leaves HP unchanged and applies 0", () => {
-            const damage = calculate({ result: bypass(0) });
+            const damage = calculate({ result: resolved(0) });
 
             expect(damage.updates).toEqual({ "system.attributes.hp.value": 30 });
             expect(damage.totalApplied).toBe(0);
@@ -822,7 +827,7 @@ describe("applied damage calculation", () => {
     describe("shield and hardness", () => {
         test("shield hardness absorbs first and the shield takes the rest, capped at its HP", () => {
             const damage = calculate({
-                result: bypass(10),
+                result: resolved(10),
                 shield: { hardness: 3, hp: 4 },
             });
 
@@ -834,7 +839,7 @@ describe("applied damage calculation", () => {
 
         test("a 0-HP shield takes no damage", () => {
             const damage = calculate({
-                result: bypass(10),
+                result: resolved(10),
                 shield: { hardness: 3, hp: 0 },
             });
 
@@ -845,7 +850,7 @@ describe("applied damage calculation", () => {
 
         test("no shield block absorbs nothing", () => {
             const damage = calculate({
-                result: bypass(10),
+                result: resolved(10),
                 shield: null,
             });
 
@@ -856,7 +861,7 @@ describe("applied damage calculation", () => {
 
         test("actor hardness absorbs what remains after the shield and logs a Full row", () => {
             const damage = calculate({
-                result: bypass(20),
+                result: resolved(20),
                 shield: { hardness: 5, hp: 10 },
                 baseActorHardness: 4,
             });
@@ -911,7 +916,7 @@ describe("applied damage calculation", () => {
 
         test("adamantine halves hardness when the weapon grade meets the target's hardness", () => {
             const damage = calculate({
-                result: bypass(20),
+                result: resolved(20),
                 baseActorHardness: 10,
                 damageHasAdamantine: true,
                 materialGrade: "standard",
@@ -925,7 +930,7 @@ describe("applied damage calculation", () => {
 
         test("adamantine does not halve hardness above the weapon grade", () => {
             const damage = calculate({
-                result: bypass(20),
+                result: resolved(20),
                 baseActorHardness: 14,
                 damageHasAdamantine: true,
                 materialGrade: "standard",
@@ -939,7 +944,7 @@ describe("applied damage calculation", () => {
 
         test("low-grade adamantine has hardness 0 and does not halve", () => {
             const damage = calculate({
-                result: bypass(20),
+                result: resolved(20),
                 baseActorHardness: 10,
                 damageHasAdamantine: true,
                 materialGrade: "low",
@@ -953,7 +958,7 @@ describe("applied damage calculation", () => {
 
         test("final application skips actor hardness", () => {
             const damage = calculate({
-                result: bypass(20),
+                result: resolved(20),
                 baseActorHardness: 10,
                 final: true,
             });
@@ -973,7 +978,7 @@ describe("applied damage calculation", () => {
 
         test("reports a crossing only when the segment band changes", () => {
             const damage = calculate({
-                result: bypass(12),
+                result: resolved(12),
                 hitPoints: { max: 30, value: 25, temp: 0 },
                 thresholds: troopThresholds,
             });
@@ -985,7 +990,7 @@ describe("applied damage calculation", () => {
 
         test("does not report a hit that stays in the same band", () => {
             const damage = calculate({
-                result: bypass(4),
+                result: resolved(4),
                 hitPoints: { max: 30, value: 25, temp: 0 },
                 thresholds: troopThresholds,
             });
@@ -999,13 +1004,13 @@ describe("applied damage calculation", () => {
     describe("instant death", () => {
         test("requires damage applied and HP ending at 0", () => {
             const leftover = calculate({
-                result: bypass(10),
+                result: resolved(10),
                 rollOptions: new Set(["item:trait:death"]),
             });
             expect(leftover.updates["system.attributes.hp.value"]).toBe(20);
             expect(leftover.instantDeath).toBeNull();
 
-            const atZero = calculate({ result: bypass(30) });
+            const atZero = calculate({ result: resolved(30) });
             expect(atZero.updates["system.attributes.hp.value"]).toBe(0);
             expect(atZero.totalApplied).toBe(30);
             expect(atZero.instantDeath).toBeNull();
@@ -1013,13 +1018,13 @@ describe("applied damage calculation", () => {
 
         test("death effects win unless the target is immune", () => {
             const death = calculate({
-                result: bypass(30),
+                result: resolved(30),
                 rollOptions: new Set(["item:trait:death"]),
             });
             expect(death.instantDeath).toBe("death-effect");
 
             const immune = calculate({
-                result: bypass(30),
+                result: resolved(30),
                 rollOptions: new Set(["item:trait:death"]),
                 immuneToDeathEffects: true,
             });
@@ -1028,7 +1033,7 @@ describe("applied damage calculation", () => {
 
         test("disintegrate reduces the target to fine powder", () => {
             const damage = calculate({
-                result: bypass(30),
+                result: resolved(30),
                 rollOptions: new Set(["item:type:spell", "item:slug:disintegrate"]),
             });
 
@@ -1037,7 +1042,7 @@ describe("applied damage calculation", () => {
 
         test("an undead NPC is destroyed", () => {
             const damage = calculate({
-                result: bypass(30),
+                result: resolved(30),
                 isUndeadNPC: true,
             });
 
@@ -1046,7 +1051,7 @@ describe("applied damage calculation", () => {
 
         test("massive damage is twice max HP plus max stamina", () => {
             const damage = calculate({
-                result: bypass(25),
+                result: resolved(25),
                 hitPoints: { max: 10, value: 10, temp: 0 },
                 sp: { max: 5, value: 5 },
                 staminaVariant: true,
@@ -1057,7 +1062,7 @@ describe("applied damage calculation", () => {
             expect(damage.instantDeath).toBeNull();
 
             const massive = calculate({
-                result: bypass(30),
+                result: resolved(30),
                 hitPoints: { max: 10, value: 10, temp: 0 },
                 sp: { max: 5, value: 5 },
                 staminaVariant: true,
@@ -1067,13 +1072,13 @@ describe("applied damage calculation", () => {
 
         test("death effects beat disintegrate, and undead destruction beats massive damage", () => {
             const death = calculate({
-                result: bypass(30),
+                result: resolved(30),
                 rollOptions: new Set(["item:trait:death", "item:type:spell", "item:slug:disintegrate"]),
             });
             expect(death.instantDeath).toBe("death-effect");
 
             const undead = calculate({
-                result: bypass(60),
+                result: resolved(60),
                 isUndeadNPC: true,
             });
             expect(undead.instantDeath).toBe("destroyed");
