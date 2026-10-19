@@ -328,7 +328,7 @@ class CraftingAbility implements CraftingAbilityData {
         itemSource.system.quantity = batchSize;
         itemSource.system.temporary = true;
         itemSource.system.size = this.actor.ancestry?.size === "tiny" ? "tiny" : "med";
-        if (item.isAlchemical && itemIsOfType(itemSource, "consumable", "equipment", "weapon")) {
+        if (item.isAlchemical && itemIsOfType(itemSource, "consumable", "equipment", "weapon", "ammo")) {
             itemSource.system.traits.value.push("infused");
             itemSource.system.traits.value.sort(); // required for stack matching
         }
