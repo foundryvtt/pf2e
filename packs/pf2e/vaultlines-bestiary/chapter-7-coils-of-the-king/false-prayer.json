@@ -1,0 +1,105 @@
+{
+    "_id": "hycTQDHU2KKRY8m2",
+    "folder": "FUHH9Of9ZX3Vb1zb",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "t6Pa412PoVeDv7rr",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Divine Command",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves adjacent to the doors to area <strong>H17</strong> or attempts to disable the hazard and fails</p><hr /><p><strong>Effect</strong> The light from the statue's eyes intensifies. The statue casts @UUID[Compendium.pf2e.spells-srd.Item.Overwhelming Presence] (@Check[will|dc:41|options:area-effect,item:type:spell|traits:auditory,concentrate,incapacitation,manipulate,mental,visual]), targeting each living creature in the room. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "False Prayer",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 42
+            },
+            "emitsSound": "encounter",
+            "hardness": 30,
+            "hp": {
+                "details": "",
+                "max": 120,
+                "temp": 0,
+                "value": 120
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 35
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A statue dedicated to Ydersius fills the chamber with the divine glory of the Father of Serpents.</p>",
+            "disable": "<p>@Check[deception|dc:43] (master) to falsely proclaim the party's devotion to Ydersius, @Check[religion|dc:41] (master) to rededicate the statue to Yig, or @Check[thievery|dc:38] (expert) twice to pry the statue's eyes from their sockets</p>",
+            "isComplex": true,
+            "level": {
+                "value": 18
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            },
+            "reset": "<p>Unless the statue is destroyed, both its eyes are removed, or the statue is rededicated to Yig, the hazard deactivates and resets 1 minute after no living creatures are in the room.</p>",
+            "routine": "<p>(2 actions) The statue uses each of its two actions to cast a 9th-rank @UUID[Compendium.pf2e.spells-srd.Item.Blazing Bolt] spell (DC 41), targeting up to three living creatures per casting. For each eye removed from the statue, the hazard has 1 fewer action. Until the beginning of the statue's next turn, the doors to area <strong>H17</strong> don't require an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Force Open] (but opening them still requires an Interact action).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 33
+            },
+            "reflex": {
+                "value": 27
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

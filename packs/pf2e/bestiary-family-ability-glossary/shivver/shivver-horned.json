@@ -1,0 +1,49 @@
+{
+    "_id": "ZLOT1nOzBFp3ag73",
+    "folder": "TnHFGoxeVuPSGLwj",
+    "img": "systems/pf2e/icons/default-icons/action.svg",
+    "name": "(Shivver) Horned",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>Twisted horns spiral from the shivver's skull. The horns grant the shivver a horns Strike (an unarmed attack that deals 3d10+12 piercing damage), and they gain the Powerful Charge ability.</p><hr /><p><strong>Powerful Charge</strong> <span class=\"action-glyph\">2</span> The shivver Strides twice and makes a horn Strike. As long as the shivver moved at least 20 feet, the Strike's damage increases to 4d10+12.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path #225: Vaultlines"
+        },
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "name",
+                "value": "PF2E.NPCAbility.Shivver.Horned.Name"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 3,
+                        "die": "d10",
+                        "modifier": 12
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Horns"
+            }
+        ],
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "action"
+}

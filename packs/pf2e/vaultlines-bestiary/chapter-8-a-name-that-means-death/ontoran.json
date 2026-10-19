@@ -1,0 +1,172 @@
+{
+    "_id": "Ks6ucw4zL9XekEY8",
+    "folder": "XDdQGzOLP6SxUBl3",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "T8gzBMJrT9YQzpFj",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Awaken",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature approaches within 15 feet of the Tectonic Forge</p><hr /><p><strong>Effect</strong> Ontoran's spirit materializes with a bloodcurdling wail, dealing @Damage[(8d10+44)[void]|options:area-damage] damage to living creatures within 30 feet (@Check[fortitude|dc:42|basic|options:area-effect] save) and animating his crystalline constructs. Each construct Strides up to 25 feet, then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oM5lre607WISkqKR",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Crystalline Fist",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 38
+                },
+                "damageRolls": {
+                    "cNnAnsvfPINWjxr9": {
+                        "damage": "3d10+24",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "crystalline-fist",
+                        "selection": "bludgeoning",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitBludgeoning",
+                                "value": "bludgeoning"
+                            },
+                            {
+                                "label": "PF2E.TraitPiercing",
+                                "value": "piercing"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
+                        "selectors": [
+                            "{item|id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": "{item|flags.system.rulesSelections.crystallineFist}"
+                    }
+                ],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Ontoran",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 45
+            },
+            "emitsSound": "encounter",
+            "hardness": 12,
+            "hp": {
+                "details": "per construct",
+                "max": 100,
+                "temp": 0,
+                "value": 100
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 41
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The vengeful spirit of the murdered human wizard Ontoran drains the life from living intruders and channels it into his collection of unfinished crystalline constructs.</p>",
+            "disable": "<p>@Check[occultism|dc:48] (legendary) or @Check[religion|dc:48] (legendary) to exorcise Ontoran's spirit or @Check[deception|dc:50] or @Check[diplomacy|dc:50] (master) to convince him that the party will grant him vengeance against Nuzial; three total successes are required to disable the haunt. The haunt can also be disabled if all 4 of its crystalline constructs are destroyed.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 20
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            },
+            "reset": "<p>If all living creatures in the laboratory are slain or the haunt is successfully exorcised, any remaining crystalline constructs deactivate and the wizard's spirit fades away. If Ontoran was not convinced that his murder would be avenged, any broken or destroyed constructs are reconstituted over the course of 1 hour, even if no raw materials remain, and the haunt resets. If Ontoran is assured that he will have his vengeance, or if the Tectonic Forge is removed from the laboratory while the haunt is inactive, it is permanently disabled.</p>",
+            "routine": "<p>(9 actions) The haunt uses its first action to howl in fury, dealing @Damage[8d6[void]|options:area-damage] damage to living creatures within 30 feet (@Check[fortitude|dc:42|basic|options:area-effect] save) and healing the crystalline constructs for 10 HP for each creature that took void damage. Each construct then uses 2 of the haunt's remaining actions to Stride up to 25 feet or make one or more crystalline fist Strikes. Each construct has its own multiple attack penalty, and the haunt loses 2 actions for each destroyed construct.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 36
+            },
+            "reflex": {
+                "value": 30
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,52 @@
+{
+    "_id": "XAJT1v1yuS6FXucl",
+    "folder": "TnHFGoxeVuPSGLwj",
+    "img": "systems/pf2e/icons/default-icons/action.svg",
+    "name": "(Shivver) Gibbering",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>The shivver's extra mouths grant it a jaws Strike, an agile unarmed attack that deals 3d6+12 piercing damage. It can make @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Reactive Strike]{Reactive Strikes} with that Strike.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path #225: Vaultlines"
+        },
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "name",
+                "value": "PF2E.NPCAbility.Shivver.Gibbering.Name"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 3,
+                        "die": "d6",
+                        "modifier": 12
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "traits": [
+                    "agile"
+                ]
+            }
+        ],
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "action"
+}

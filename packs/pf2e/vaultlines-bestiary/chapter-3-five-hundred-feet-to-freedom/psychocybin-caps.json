@@ -1,0 +1,138 @@
+{
+    "_id": "tg7z1Uq9f7Has1Zr",
+    "folder": "pNmS4gTVFe5Jy681",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "5KLGYCo9ZbSYFw0N",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spore Eruption",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves onto the catwalk, Flies within 10 feet of the mushrooms, or damages the mushrooms</p><hr /><p><strong>Effect</strong> The triggering creature and all creatures within 10 feet of them are exposed to psychocybin spores.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "u6QlTyH2Oam1FEmX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Psychocybin Spores",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A creature that becomes @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} reacts by releasing anything they're carrying. If the creature is holding onto a ladder, they fall.</p>\n<p><strong>Saving Throw</strong> @Check[will|dc:36|options:damaging-effect,inflicts:stunned]</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> @Damage[(1d12+12)[mental]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[(2d12+12)[mental]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[(3d12+12)[mental]] damage and stunned 3 (1 round)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "inhaled",
+                        "mental",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Psychocybin Caps",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 34
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 126,
+                "temp": 0,
+                "value": 126
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": -10
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The mushrooms release spores that cause hallucinations, allowing the fungi to feed off the victim's psychic energy.</p>",
+            "disable": "<p>@Check[nature|dc:35] or @Check[survival|dc:35] to cut back the mushrooms without triggering the spores</p>",
+            "isComplex": false,
+            "level": {
+                "value": 15
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            },
+            "reset": "<p>If a creature within 10 feet of psychocybin caps becomes @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3}, the effect generates enough mental energy to allow the fungi to reset.</p>",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "value": 29
+            },
+            "reflex": {
+                "value": 23
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "fungus"
+            ]
+        }
+    },
+    "type": "hazard"
+}
