@@ -1,0 +1,159 @@
+{
+    "_id": "KFhGOwLu6uKMHWbl",
+    "folder": "FUHH9Of9ZX3Vb1zb",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Aq0MjuICSLDNhSfA",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Defense Activated",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature damages the gate or fails to bypass the gate by any other means other than a Games Lore or Society check</p><hr /><p><strong>Effect</strong> The hazard makes an electroshock Strike against the triggering creature. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wW3qup8YO2mlLfos",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Electroshock",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 36
+                },
+                "damageRolls": {
+                    "WvrNl5PXtECXFf0s": {
+                        "damage": "4d12+12",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": "<p>On a critical hit, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": [
+                            "{item|id}-attack"
+                        ],
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "subjectToMAP": false,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "reach-30"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Puzzle Gate",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 28,
+            "hp": {
+                "details": "",
+                "max": 112,
+                "temp": 0,
+                "value": 112
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 23
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>This complicated lock requires solving five puzzles in quick succession.</p>",
+            "disable": "<p>@Check[athletics|dc:44] (master) to [[/act force-open]] the gate, @Check[crafting|dc:41] or @Check[thievery|dc:41] (expert) twice to dismantle the puzzle lock, or @Check[Games Lore|dc:34] (expert) or @Check[society|dc:36] (expert) five times to solve the puzzles</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            },
+            "reset": "<p>The hazard resets after 1 minute if even one puzzle remains unsolved. The hazard doesn't reset if the gate is destroyed.</p>",
+            "routine": "<p>The puzzle makes an electroshock Strike against two different creatures.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

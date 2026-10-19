@@ -1,0 +1,177 @@
+{
+    "_id": "GzfQPe3nI0MJLMG9",
+    "folder": "FUHH9Of9ZX3Vb1zb",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "0u00vVINt4mDL9Po",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Breathe Energy",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature approaches within 10 feet of the mukradi heads</p><hr /><p><strong>Effect</strong> Each head rises off the wall and moves up to 30 feet. The first head then breathes a @Template[line|distance:30|width:10]{10-foot-wide, 30-foot-long line} of acid dealing @Damage[4d10[acid]|options:area-damage] damage (@Check[reflex|dc:40|basic|options:area-effect] save). The second head breathes a @Template[type:cone|distance:30] of fire dealing @Damage[4d10[fire]|options:area-damage] damage (@Check[reflex|dc:40|basic|options:area-effect] save). The third head breathes a @Template[type:line|distance:60] of electricity dealing @Damage[4d10[electricity]|options:area-damage] damage (@Check[reflex|dc:40|basic|options:area-effect] save). The hazard rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0zcJ16ZhbG8RQu6v",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Maw",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 36
+                },
+                "damageRolls": {
+                    "aB0nhkSrK7z2fmnC": {
+                        "damage": "2d12+12",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "maw",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitAcid",
+                                "value": "acid"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitElectricity",
+                                "value": "electricity"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "{item|flags.system.rulesSelections.maw}",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "{item|id}-damage"
+                    }
+                ],
+                "slug": null,
+                "subjectToMAP": false,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Animated Mukradi Heads",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 40
+            },
+            "emitsSound": "encounter",
+            "hardness": 30,
+            "hp": {
+                "details": "per head",
+                "max": 50,
+                "temp": 0,
+                "value": 50
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [
+                        "spirit"
+                    ],
+                    "type": "object-immunities"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 33
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Three mukradi heads, animated by the souls of Zyphaniss's victims, rise into the air and fire energy throughout the room.</p>",
+            "disable": "<p>@Check[occultism|dc:40] or @Check[religion|dc:40] (expert) three times to cast out the souls animating the heads</p>",
+            "isComplex": true,
+            "level": {
+                "value": 18
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            },
+            "reset": "<p>The hazard deactivates 1 minute after all living creatures leave the area or after all three heads are destroyed. After 1 hour, if at least one head remains, the hazard reactivates.</p>",
+            "routine": "<p>(3 actions) For each mukradi skull disabled or destroyed, the haunt has 1 fewer action. On each action, a different head moves up to 30 feet and attempts a maw Strike against a different living creature.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

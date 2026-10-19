@@ -1,0 +1,410 @@
+{
+    "_id": "K7v1B9PG2wag1Diz",
+    "folder": "gnkoN3DOsVf0t2zA",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "dbknkUzLYQLHIWty",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Stylet",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "J0LQFWklc4HlSkfn": {
+                        "damage": "3d8+13",
+                        "damageType": "piercing"
+                    },
+                    "j1Yg8NlR4kLNOj3H": {
+                        "category": "persistent",
+                        "damage": "1d8",
+                        "damageType": "bleed"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "IfCBRGZRP11iICkO",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Pincers",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "tPcX8IQmiNnxAFx8": {
+                        "damage": "3d6+13",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "agile",
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "yKi8mo3zVgSwfhPk",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Eyespots",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A warpigrade can't see anything beyond 30 feet.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "t1gkQiBthXezL85x",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Tun State",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The warpigrade would be reduced to 0 Hit Points or would die due to starvation, suffocation, or similar environmental causes</p>\n<p><strong>Frequency</strong> once per week</p>\n<p><strong>Requirements</strong> The warpigrade isn't already in tun state</p><hr /><p><strong>Effect</strong> The warpigrade doesn't die but instead remains at 1 Hit Point and curls into a dry ball, called a tun. While in this tun state, the warpigrade is @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], doesn't need to eat, drink, or breathe, and doubles its resistance to 20. It remains in tun state indefinitely until covered in significant amounts of water, at which point it begins to rehydrate, gaining regeneration 5. The regeneration persists until it reaches maximum Hit Points. The warpigrade then exits its tun state.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "P1W"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "tun-state",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.GiantTardigrade.TunState.Dry",
+                                "value": "dry"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.GiantTardigrade.TunState.Rehydrating",
+                                "value": "rehydrating"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "tun-state"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Unconscious"
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "tun-state"
+                        ],
+                        "type": "all-damage",
+                        "value": 20
+                    },
+                    {
+                        "key": "FastHealing",
+                        "predicate": [
+                            "tun-state:rehydrating"
+                        ],
+                        "value": 5
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5l6l57vUubo2m04g",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Ingest Aspect",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The warpigrade has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] with its pincers</p><hr /><p><strong>Effect</strong> The warpigrade makes a stylet Strike. If it succeeds, the warpigrade attempts to absorb some of the victim's essence. The creature attempts a @Check[fortitude|dc:33] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} or @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (determine randomly) for 1 round. If the creature becomes clumsy, the warpigrade gains a +1 status bonus to its AC and Reflex save for 1 round; if the creature becomes enfeebled, the warpigrade instead gains the bonus to its attack and damage rolls.</p>\n<p><strong>Failure</strong> As success, except if the creature is already clumsy or enfeebled, the condition value and corresponding status bonus increase by 1 (to a maximum of 4), and the effect lasts for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, except the condition value and status bonus increase by 2.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zanTwx7iAQUEbNpS",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Vacuum Mouth",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The warpigrade doesn't have a target @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]</p><hr /><p><strong>Effect</strong> The warpigrade draws in air with its mouth. All creatures in a @Template[cone|distance:20] must succeed at a @Check[reflex|dc:30|options:area-effect,forced-movement] save or be pulled adjacent to the warpigrade. The warpigrade chooses one creature that failed its save, Grabbing the target in its claws and making a stylet Strike.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Kz5MAYhdulsMjRzv",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Warpigrade",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 1
+            },
+            "con": {
+                "mod": 8
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 29
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 180,
+                "temp": 0,
+                "value": 180
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "all-damage",
+                    "value": 15
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": 25
+                    }
+                ],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "Variant giant tardigrade",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 13
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 21,
+            "senses": [
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "wavesense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 28
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 21
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 26
+            },
+            "stealth": {
+                "base": 18
+            },
+            "survival": {
+                "base": 24
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "huge"
+            },
+            "value": [
+                "aberration",
+                "amphibious"
+            ]
+        }
+    },
+    "type": "npc"
+}

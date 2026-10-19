@@ -1,0 +1,499 @@
+{
+    "_id": "IRwTMBMW1nQ69FGD",
+    "folder": "UfY2GK0vNyWi13Q6",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "LZAVlH7SDFTD51ye",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Touch",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "sickening-touch"
+                    ]
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "ZAJCaSa5ydKg3yLt": {
+                        "damage": "2d10+15",
+                        "damageType": "poison"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "magical",
+                        "radiation"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "L0RiI2rO75fZ14xm",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Deep Sight",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The sicklight wisp can see into and through solid matter within the radius of its sicklight glow. Certain metals (such as lead) block this vision.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oKwfC3IsWWSh2VLt",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Magic Immunity",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A sicklight wisp is immune to all spells except @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage], @UUID[Compendium.pf2e.spells-srd.Item.Quandary], @UUID[Compendium.pf2e.spells-srd.Item.Revealing Light], and vitality spells.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "exceptions": [
+                            {
+                                "definition": [
+                                    "item:type:spell",
+                                    {
+                                        "or": [
+                                            "item:slug:force-barrage",
+                                            "item:slug:quandary",
+                                            "item:slug:revealing-light",
+                                            "item:trait:vitality"
+                                        ]
+                                    }
+                                ],
+                                "label": "PF2E.IWR.Custom.WispVulnerabilities"
+                            }
+                        ],
+                        "key": "Immunity",
+                        "type": "magic"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uiQ7schhFrvu7uWT",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Scrying Sickness",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The wisp automatically tries to counteract all magical detection, revelation, and scrying effects used against any target or location within 50 feet of the wisp, using their @Check[stealth] modifier for the counteract modifier. On a success, the creature that attempted the magical detection is targeted by the @UUID[Compendium.pf2e.spells-srd.Item.Never Mind] spell (@Check[will|dc:33|options:item:type:spell|traits:concentrate,curse,incapacitation,manipulate,mental]).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IE8uEWuCxmJjn7mj",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "L6EPtXkFxfsWASaT",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Feed on Sickness",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> An enemy within 15 feet of the sicklight wisp is sickened</p><hr /><p><strong>Effect</strong> The sicklight wisp feeds on the creature's illness. The creature takes @Damage[4d10[void]] damage (@Check[fortitude|dc:33|basic] save). The wisp regains @Damage[2d10[healing]] Hit Points, and if the sicklight wisp has Gone Dark, their sicklight glow reactivates.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OIB8c2iLciTwqWuV",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Go Dark",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sicklight wisp deactivates their Sicklight Glow, becoming @UUID[Compendium.pf2e.conditionitems.Item.Invisible]. They can end this effect with another use of this action. If the wisp makes a radioactive touch Strike while invisible, the tracing of green energy left behind lets any observer determine the wisp's location, making them only @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to all observers until the wisp moves.</p>"
+                },
+                "frequency": null,
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "go-dark",
+                        "selection": "Compendium.pf2e.conditionitems.Item.Invisible",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.ConditionTypeInvisible",
+                                "value": "Compendium.pf2e.conditionitems.Item.Invisible"
+                            },
+                            {
+                                "label": "PF2E.ConditionTypeHidden",
+                                "value": "Compendium.pf2e.conditionitems.Item.Hidden"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "go-dark"
+                        ],
+                        "uuid": "{item|flags.system.rulesSelections.goDark}"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Mb2hibsXLWjucuqE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sickening Touch",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature hit by the sicklight wisp's radioactive touch Strike or that ends its turn in the wisp's sicklight glow aura must succeed at a @Check[fortitude|dc:33|options:inflicts:sickened] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure). If the creature is already sickened, their sickened value instead increases by 1 (by 2 on a critical failure), to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 4}. If the creature reaches sickened 4, they can't reduce their sickened value until the effect is counteracted by a cleanse affliction spell or similar effect.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hUfHspw1XEstlobQ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sicklight Glow",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>50 feet. A sicklight wisp, though naturally @UUID[Compendium.pf2e.conditionitems.Item.Invisible], glows with a greenish illumination, casting dim light in the aura and making them visible. A creature that ends its turn within the aura is subjected to the wisp's sickening touch.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            {
+                                "not": "go-dark"
+                            }
+                        ],
+                        "radius": 50,
+                        "traits": [
+                            "light",
+                            "radiation"
+                        ]
+                    },
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            {
+                                "not": "go-dark"
+                            }
+                        ],
+                        "value": {
+                            "animation": {
+                                "type": "pulse"
+                            },
+                            "bright": 0,
+                            "color": "#5f9e49",
+                            "coloration": 101,
+                            "dim": 50
+                        }
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "light",
+                        "radiation"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Sicklight Wisp",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 4
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 8
+            },
+            "int": {
+                "mod": 5
+            },
+            "str": {
+                "mod": -5
+            },
+            "wis": {
+                "mod": 7
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 36
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "void healing",
+                "max": 140,
+                "temp": 0,
+                "value": 140
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "radiation"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 50
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "sakvroth"
+                ]
+            },
+            "level": {
+                "value": 13
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The greenish pall that sicklight wisps cast over their surroundings causes creatures within it to sicken and die. Whereas the will-o'-wisps typically encountered on the surface feed on fear, sicklight wisps feast on the illness they spread, taking joy in robbing creatures of their vigor and health.</p>\n<p>Though most commonly associated with the pit of Mobhad Leigh, sicklight wisps are occasionally encountered elsewhere in the Darklands. Wicked creatures sometimes employ the wisps to foil attempts at scrying on their subterranean lairs, as anyone who uses magic to spy upon a sicklight wisp risks having their mind irrevocably shattered.</p><h2>Curse of the Infirm</h2><p>In the Darklands, sicklight wisps are feared by both healers and the sick, because they're drawn to hospitals and other places of healing. Able to travel invisibly and evade scrying, the wisps slip into sickrooms, becoming briefly visible as they drain the remaining life from ailing victims. To protect against the wisps, some long-standing institutions of healing have taken to planting radlight caps around their facilities, since these otherwise dangerous mushrooms turn black in the presence of even an invisible sicklight wisp.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "deep sight",
+            "mod": 24,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 20
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 26
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 23
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 25
+            },
+            "deception": {
+                "base": 21
+            },
+            "intimidation": {
+                "base": 21
+            },
+            "stealth": {
+                "base": 25
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "aberration"
+            ]
+        }
+    },
+    "type": "npc"
+}

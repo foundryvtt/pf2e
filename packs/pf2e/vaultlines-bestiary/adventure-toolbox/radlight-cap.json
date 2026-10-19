@@ -1,0 +1,429 @@
+{
+    "_id": "jePoe1TQgY52l689",
+    "folder": "UfY2GK0vNyWi13Q6",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "tJzhd00oU2uNQhKW",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 30 feet",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MCVdPkU5VIWloz2U",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "value": [
+                        "aura",
+                        "magical",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "L4BV3htXcbUVvfi1",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Color Change",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>At the start of each round, the radlight cap changes color, going in order from red to yellow to green to blue and back to red, provided the radlight cap is alive and isn't black. Multiple radlight caps encountered within 100 feet of each other synchronize their color changes, such that all caps are the same color at the same time.</p>\n<p>At the start of each round, if a radlight cap is within 100 feet of an object or creature that emits radiation, the radlight cap's color changes to black. While black, the radlight cap loses its Radlight aura and can't take actions or reactions.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "color-change",
+                        "selection": "red",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.Color.Red",
+                                "value": "red"
+                            },
+                            {
+                                "label": "PF2E.Color.Yellow",
+                                "value": "yellow"
+                            },
+                            {
+                                "label": "PF2E.Color.Green",
+                                "value": "green"
+                            },
+                            {
+                                "label": "PF2E.Color.Blue",
+                                "value": "blue"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.system.colorChange",
+                        "predicate": [
+                            "color-change:red"
+                        ],
+                        "value": {
+                            "color": "#d11515",
+                            "damageType": "fire"
+                        }
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.system.colorChange",
+                        "predicate": [
+                            "color-change:yellow"
+                        ],
+                        "value": {
+                            "color": "#ffea05",
+                            "damageType": "electricity"
+                        }
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.system.colorChange",
+                        "predicate": [
+                            "color-change:green"
+                        ],
+                        "value": {
+                            "color": "#1daa2d",
+                            "damageType": "force"
+                        }
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.system.colorChange",
+                        "predicate": [
+                            "color-change:blue"
+                        ],
+                        "value": {
+                            "color": "#137eb4",
+                            "damageType": "mental"
+                        }
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UrqZSBKy65HPQId3",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Lifesense (Imprecise) 30 feet",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "lifesense",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lPo0HsZpWivPvHEv",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Radlight",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. The aura sheds dim light the same color as the radlight cap's current color (see Color Change).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "traits": [
+                            "light"
+                        ]
+                    },
+                    {
+                        "key": "TokenLight",
+                        "value": {
+                            "alpha": 0.4,
+                            "animation": {
+                                "type": "pulse"
+                            },
+                            "bright": 0,
+                            "color": "{actor|flags.system.colorChange.color}",
+                            "coloration": 101,
+                            "dim": 30
+                        }
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "light"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BA4P5zGjN8184tR2",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Radlight Spores",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The radlight cap takes damage or meets the condition corresponding to its current color, as described below</p><hr /><p><strong>Effect</strong> The radlight cap uses Radlight Spores.</p><ul><li><p><strong>Blue</strong> The radlight cap detects a sound louder than a whisper.</p></li><li><p><strong>Green</strong> A non-fungus creature within 30 feet ends their turn without having moved at least 5 feet.</p></li><li><p><strong>Red</strong> A non-fungus creature within 30 feet takes an attack, move, or manipulate action that the radlight cap can detect.</p></li><li><p><strong>Yellow</strong> A non-fungus creature within 30 feet ends their turn without being @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p></li></ul>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nzAkCioBn4Ggjpqc",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Radlight Spores",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The radlight cap releases a cloud of spores in a @Template[type:emanation|distance:30]. The spores deal @Damage[2d10|options:area-damage,radlight-spores] damage (@Check[fortitude|dc:24|basic] save) to all non-fungus creatures in the area. The type of damage dealt and an additional effect is determined by the radlight cap's current color.</p><ul><li><p><strong>Blue</strong> The spores deal mental damage. Creatures that fail their save can't breathe or speak for 1 round.</p></li><li><p><strong>Green</strong> The spores deal force damage. Creatures that fail their save are pushed 10 feet away from the radlight cap.</p></li><li><p><strong>Red</strong> The spores deal fire damage. Creatures that fail their save are @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round.</p></li><li><p><strong>Yellow</strong> The spores deal electricity damage. Creatures that fail their save are knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p></li></ul>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
+                        "selectors": [
+                            "{item|id}-inline-damage"
+                        ],
+                        "value": "{actor|flags.system.colorChange.damageType}"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Radlight Cap",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -3
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 0
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 21
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 120,
+                "temp": 0,
+                "value": 120
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 5
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 6
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The radlights caps that flourish in many parts of Nar-Voth look like softly glowing, halfling-sized toadstools: a relatively common sight in the Darklands. When radlight caps change color, however, their dangerous nature becomes evident. With each color change, the fungi gain a new set of stimuli that trigger their deadly spore clouds. While a field of blue mushrooms may have attacked noisy interlopers, when they shift to red they assault anyone who moves a muscle. Many Nar-Voth natives, even non-sentient ones, have learned the colors and corresponding behaviors that will see them safely through a field of radlight caps.</p><h2>Red Light, Green Light</h2><p>Ayindilar elves claim that they originally cultivated radlight caps as an advanced warning system against radiation, and that the fungus's other color changes are merely an unintended mutation. Regardless, their original function remains useful enough that the elves rarely eradicate growths of radlight caps. Rather, they teach this warning rhyme to those who must pass through a radlight forest:</p>\n<p><em>Red light stop,<br />Yellow drop.<br />Green light rush,<br />Blue light hush.<br />Black for terror, black for flight,<br />For this way comes the sickness light.</em></p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 15,
+            "senses": [
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "lifesense"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "tremorsense"
+                }
+            ],
+            "vision": false
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 8
+            }
+        },
+        "skills": {},
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "fungus",
+                "mindless"
+            ]
+        }
+    },
+    "type": "npc"
+}
