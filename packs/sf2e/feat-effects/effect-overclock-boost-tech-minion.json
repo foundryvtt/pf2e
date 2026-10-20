@@ -1,0 +1,51 @@
+{
+    "_id": "73fhZn7GghPif7eJ",
+    "img": "icons/magic/defensive/shield-barrier-blades-teal.webp",
+    "name": "Effect: Overclock Boost (Tech Minion)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.actions.Item.Overclock Gear]</p>\n<p>If you're a tech minion, you gain a +1 item bonus to attack rolls and AC. If the origin is at least 10th level, the item bonus increases to +2, and at 15th level, it increases to +3.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:trait:minion",
+                    "self:trait:tech"
+                ],
+                "selector": [
+                    "attack",
+                    "ac"
+                ],
+                "type": "item",
+                "value": "ternary(gte(@item.origin.level, 15), 3, ternary(gte(@item.origin.level, 10), 2, 1))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

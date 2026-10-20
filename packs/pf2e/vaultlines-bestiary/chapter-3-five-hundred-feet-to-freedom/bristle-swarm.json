@@ -1,0 +1,264 @@
+{
+    "_id": "6EFOGhVuzXRPTCq7",
+    "folder": "pNmS4gTVFe5Jy681",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "BmIByVc1RrsVva4M",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Web Sense",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The spider has imprecise tremorsense to detect the vibrations of creatures touching its web.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "web-sense",
+                        "toggleable": true
+                    },
+                    {
+                        "acuity": "imprecise",
+                        "key": "Sense",
+                        "predicate": [
+                            "web-sense"
+                        ],
+                        "range": 30,
+                        "selector": "tremorsense"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dUXTDhVm2YfUEh6Y",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Swarm Mind",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.SwarmMind]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "swarm-mind",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QKiSaiB9RfDqXAVL",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Cloud of Bristles",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each enemy in the spider swarm's space takes @Damage[4d8[piercing]] damage with a @Check[reflex|dc:32|basic|options:area-effect,inflicts:dazzled,inflicts:persistent-damage] save. A creature that fails its save takes @Damage[2d8[persistent,piercing]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for as long as the persistent damage remains.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Bristle Swarm",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -4
+            },
+            "con": {
+                "mod": 2
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 0
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 35
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 210,
+                "temp": 0,
+                "value": 210
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                },
+                {
+                    "exceptions": [],
+                    "type": "swarm-mind"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "bludgeoning",
+                    "value": 8
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "piercing",
+                    "value": 12
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "slashing",
+                    "value": 12
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 30
+                    }
+                ],
+                "value": 30
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 12
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 12
+                }
+            ]
+        },
+        "details": {
+            "blurb": "Variant spider swarm",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 9
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "web sense",
+            "mod": 24,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 24
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 27
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 22
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 25
+            },
+            "athletics": {
+                "base": 22
+            },
+            "stealth": {
+                "base": 25
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "animal",
+                "swarm"
+            ]
+        }
+    },
+    "type": "npc"
+}

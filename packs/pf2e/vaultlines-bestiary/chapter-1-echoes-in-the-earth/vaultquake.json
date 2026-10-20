@@ -1,0 +1,97 @@
+{
+    "_id": "UCZzqykjmLrkDOtM",
+    "folder": "KxfZNGy2YgmMnd75",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "pwX5OhEqgZI4zlyb",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Disorienting Screech",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The vaultline retreats.</p><hr /><p><strong>Effect</strong> Each creature in the area attempts a @Check[will|dc:30|options:area-effect,inflicts:stunned,inflicts:stupefied] save with the following effects. The hazard then rolls initiative.</p><hr /><p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2} and stupefied 1 for an indefinite duration.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Vaultquake",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>to see the ley line energy retreating throughout the cavern</p>",
+                "value": 0
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The retreating vaultline causes a series of cave-ins.</p>",
+            "disable": "<p>@Check[arcana|dc:31], @Check[nature|dc:31], @Check[occultism|dc:31], or @Check[religion|dc:31] (master) to disperse the ley line's power as it retreats, or @Check[survival|dc:27] (expert) to predict where rubble might fall next. The DC of the flat check for this round (see Routine) is increased by 4 on a success or by 8 on a critical success. Increasing the flat check DC to 21 or higher stabilizes the cavern, ending the hazard.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 11
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            },
+            "reset": "<p>After 4 rounds, the hazard ends automatically as the vaultquake subsides.</p>",
+            "routine": "<p>(1 action) The GM rolls a @Check[flat|dc:9] to determine if a cave-in occurs. On a successful check, falling rubble deals @Damage[(2d12+15)[bludgeoning]] damage to a random PC (@Check[reflex|dc:30|basic] save). On a critical success, the collapse deals @Damage[(2d12+15)[bludgeoning]|options:area-damage] damage to all the PCs instead.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

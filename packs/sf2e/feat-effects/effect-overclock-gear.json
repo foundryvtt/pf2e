@@ -1,0 +1,161 @@
+{
+    "_id": "IZjP3Gwd8SmJiGH6",
+    "img": "icons/skills/movement/arrows-up-trio-red.webp",
+    "name": "Effect: Overclock Gear",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.actions.Item.Overclock Gear]</p>\n<p>You gain the benefits of your programming language's overclock boost and can use its unique Overclock Pulse action.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "actorFlag": true,
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:trait:tech"
+                    ],
+                    "slugsAsValues": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "overclockWeapon",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "feature:dps"
+                ]
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    "feature:dps"
+                ],
+                "uuid": "Compendium.sf2e.actions.Item.Overclock Weapon"
+            },
+            {
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "feature:dps"
+                ],
+                "selectors": "{actor|flags.system.overclockWeapon}-attack",
+                "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Overclock Boost (Reduce Cover)"
+            },
+            {
+                "domain": "{actor|flags.system.overclockWeapon}-attack",
+                "key": "RollOption",
+                "option": "ignore-range-penalty:2",
+                "predicate": [
+                    "feature:dps"
+                ]
+            },
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:trait:tech",
+                        "item:equipped"
+                    ],
+                    "slugsAsValues": true,
+                    "types": [
+                        "armor"
+                    ]
+                },
+                "key": "ChoiceSet",
+                "predicate": [
+                    "feature:fortrun"
+                ]
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    "feature:fortrun"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.sf2e.actions.Item.Overclock Armor"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    "feature:servoshell"
+                ],
+                "uuid": "Compendium.sf2e.actions.Item.Overclock Bot"
+            },
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        {
+                            "or": [
+                                "item:slug:spell-gem-1st-rank-spell",
+                                "item:slug:spell-gem-2nd-rank-spell",
+                                "item:slug:spell-gem-3rd-rank-spell",
+                                "item:slug:spell-gem-4th-rank-spell",
+                                "item:slug:spell-gem-5th-rank-spell",
+                                "item:slug:spell-gem-6th-rank-spell",
+                                "item:slug:spell-gem-7th-rank-spell",
+                                "item:slug:spell-gem-8th-rank-spell",
+                                "item:slug:spell-gem-9th-rank-spell",
+                                "item:slug:spell-gem-10th-rank-spell",
+                                "item:slug:spell-chip-1st-rank-spell",
+                                "item:slug:spell-chip-2nd-rank-spell",
+                                "item:slug:spell-chip-3rd-rank-spell",
+                                "item:slug:spell-chip-4th-rank-spell",
+                                "item:slug:spell-chip-5th-rank-spell",
+                                "item:slug:spell-chip-6th-rank-spell",
+                                "item:slug:spell-chip-7th-rank-spell",
+                                "item:slug:spell-chip-8th-rank-spell",
+                                "item:slug:spell-chip-9th-rank-spell",
+                                "item:slug:spell-chip-10th-rank-spell"
+                            ]
+                        }
+                    ],
+                    "types": [
+                        "consumable",
+                        "equipment"
+                    ]
+                },
+                "flag": "overclockSpell",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "feature:viper"
+                ]
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "feature:viper"
+                ],
+                "uuid": "Compendium.sf2e.actions.Item.Overclock Spell Gear"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
