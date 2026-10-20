@@ -1065,7 +1065,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             }
 
             // ... a roll-option toggle?
-            const label = previewElement?.innerText.trim();
+            // Use the label span so suboption select text is excluded
+            const label = htmlQuery(previewElement, "label > span")?.innerText.trim();
             const rollOptionData = previewElement?.dataset ?? {};
             if (item && label && rollOptionData.domain && rollOptionData.option) {
                 return {
