@@ -1659,14 +1659,6 @@
                     "QZhvoy7jcKDaPumt": {
                         "damage": "3d10+11",
                         "damageType": "bludgeoning"
-                    },
-                    "axklQd7u3TK6MXsM": {
-                        "damage": "1d4",
-                        "damageType": "void"
-                    },
-                    "zwrkPY28PBWhZINE": {
-                        "damage": "1d6",
-                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -1711,14 +1703,6 @@
                     "JPiaCyI3dAQ08gJ9": {
                         "damage": "3d4+11",
                         "damageType": "bludgeoning"
-                    },
-                    "gSohxBJa0TJpoMXp": {
-                        "damage": "1d4",
-                        "damageType": "void"
-                    },
-                    "ttYvcHuiAnNkGJKu": {
-                        "damage": "1d6",
-                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -2039,7 +2023,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Meliar's unarmed attacks and mace gain the +2 greater striking decaying frost runes when used by him, and his Strikes gain the death trait.</p>"
+                    "value": "<p>Meliar's unarmed attacks and mace gain the <em>+2 greater striking decaying frost</em> runes when used by him, and his Strikes gain the death trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2048,61 +2032,32 @@
                 },
                 "rules": [
                     {
-                        "category": "persistent",
-                        "critical": true,
-                        "damageType": "void",
-                        "diceNumber": 2,
-                        "dieSize": "d4",
-                        "hideIfDisabled": true,
-                        "key": "DamageDice",
-                        "label": "PF2E.WeaponPropertyRune.decaying.Name",
-                        "predicate": [
+                        "definition": [
                             {
                                 "or": [
-                                    "unarmed",
+                                    "item:category:unarmed",
                                     "item:slug:mace"
                                 ]
                             }
                         ],
-                        "selector": "strike-damage"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "decaying"
                     },
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
+                        "definition": [
                             {
                                 "or": [
-                                    "unarmed",
+                                    "item:category:unarmed",
                                     "item:slug:mace"
                                 ]
                             }
                         ],
-                        "selector": [
-                            "strike-damage"
-                        ],
-                        "text": "PF2E.WeaponPropertyRune.decaying.Note.criticalSuccess",
-                        "title": "PF2E.WeaponPropertyRune.decaying.Name"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            {
-                                "or": [
-                                    "unarmed",
-                                    "item:slug:mace"
-                                ]
-                            }
-                        ],
-                        "selector": [
-                            "strike-damage"
-                        ],
-                        "text": "PF2E.WeaponPropertyRune.frost.Note.criticalSuccess",
-                        "title": "PF2E.WeaponPropertyRune.frost.Name"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "frost"
                     }
                 ],
                 "slug": null,
