@@ -29,6 +29,15 @@
             {
                 "allowDuplicate": false,
                 "key": "GrantItem",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:technomancer",
+                            "feat:jailbreak-the-system"
+                        ]
+                    }
+                ],
+                "reevaluateOnUpdate": true,
                 "uuid": "Compendium.sf2e.feats.Item.Widen Spell"
             },
             {
@@ -36,18 +45,32 @@
                 "mode": "upgrade",
                 "path": "system.proficiencies.defenses.medium.rank",
                 "predicate": [
-                    "feature:defensive-measures"
+                    {
+                        "or": [
+                            "class:technomancer",
+                            "feat:firmware-enhancement"
+                        ]
+                    }
                 ],
-                "value": 2
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.medium.rank",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:technomancer",
+                            "feat:firmware-enhancement"
+                        ]
+                    }
+                ],
+                "sameAs": "light"
             }
         ],
         "subfeatures": {
-            "proficiencies": {
-                "medium": {
-                    "attribute": null,
-                    "rank": 1
-                }
-            },
+            "proficiencies": {},
             "senses": {},
             "suppressedFeatures": []
         },
