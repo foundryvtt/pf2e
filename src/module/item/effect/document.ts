@@ -13,6 +13,7 @@ import type { RuleElement, RuleElementOptions } from "@module/rules/index.ts";
 import { ErrorPF2e, sluggify } from "@util";
 import * as R from "remeda";
 import type { EffectFlags, EffectSource, EffectSystemData } from "./data.ts";
+import { TokenMarkRuleElement } from "@module/rules/rule-element/token-mark/rule-element.ts";
 
 class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
     override get badge(): EffectBadge | null {
@@ -39,6 +40,11 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
     /** Does this effect originate from an aura? */
     get fromAura(): boolean {
         return !!this.flags[SYSTEM_ID].aura;
+    }
+
+    /** Does this effect contain TokenMark rule element that tracks some token? Does not check the validity or existence of the tracked token */
+    get hasTokenMark(): boolean {
+        return this.rules.some((r) => r instanceof TokenMarkRuleElement && r.uuid !== null);
     }
 
     override prepareBaseData(): void {
