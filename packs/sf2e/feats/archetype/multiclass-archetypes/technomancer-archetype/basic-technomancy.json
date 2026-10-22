@@ -29,7 +29,31 @@
             "remaster": true,
             "title": "Starfinder Tech Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:category:class",
+                        "item:trait:technomancer",
+                        {
+                            "lte": [
+                                "item:level",
+                                2
+                            ]
+                        }
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "basicTechnomancy",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.system.rulesSelections.basicTechnomancy}"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

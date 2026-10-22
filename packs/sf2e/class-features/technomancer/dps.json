@@ -29,6 +29,15 @@
             {
                 "allowDuplicate": false,
                 "key": "GrantItem",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:technomacner",
+                            "feat:jailbreak-the-system"
+                        ]
+                    }
+                ],
+                "reevaluateOnUpdate": true,
                 "uuid": "Compendium.sf2e.feats.Item.Reach Spell"
             },
             {
@@ -38,6 +47,14 @@
                 ],
                 "key": "MartialProficiency",
                 "label": "PF2E.SpecificRule.MartialProficiency.MartialTechWeapons",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:technomacner",
+                            "feat:firmware-enhancement"
+                        ]
+                    }
+                ],
                 "slug": "tech-weapons",
                 "value": 1
             },
@@ -49,10 +66,15 @@
                 "key": "MartialProficiency",
                 "label": "PF2E.SpecificRule.MartialProficiency.MartialTechWeapons",
                 "predicate": [
-                    "feature:weapon-expertise"
+                    {
+                        "or": [
+                            "class:technomacner",
+                            "feat:firmware-enhancement"
+                        ]
+                    }
                 ],
-                "slug": "tech-weapons",
-                "value": 2
+                "sameAs": "simple",
+                "slug": "tech-weapons"
             },
             {
                 "key": "CriticalSpecialization",
@@ -68,6 +90,12 @@
                         "gte": [
                             "self:level",
                             5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "class:technomacner",
+                            "feat:firmware-enhancement"
                         ]
                     }
                 ]
