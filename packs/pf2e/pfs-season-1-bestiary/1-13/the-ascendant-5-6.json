@@ -609,10 +609,6 @@
                     "8ljukf2n92y4qc36ms91": {
                         "damage": "1d6",
                         "damageType": "spirit"
-                    },
-                    "qscw5ydv4rgt4cnokdlm": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -676,6 +672,7 @@
                     "rarity": "common",
                     "value": [
                         "agile",
+                        "unarmed",
                         "unholy"
                     ]
                 }
@@ -724,6 +721,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
+                        "unarmed",
                         "unholy"
                     ]
                 }
@@ -896,7 +894,19 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
