@@ -29,7 +29,31 @@
             "remaster": true,
             "title": "Pathfinder Impossible Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "Overwhelming Spellstrike",
+                "option": "overwhelming-spellstrike",
+                "toggleable": true
+            },
+            {
+                "key": "IgnoreResistance",
+                "predicate": [
+                    "overwhelming-spellstrike"
+                ],
+                "selector": [
+                    "spell-damage"
+                ],
+                "type": [
+                    "acid",
+                    "cold",
+                    "electricity",
+                    "fire",
+                    "sonic"
+                ],
+                "value": "@actor.level"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
