@@ -3046,6 +3046,9 @@
         },
         {
             "_id": "MwRE1hXCF5TDo9tt",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.k8V3wTG1gMU5ksUr"
+            },
             "img": "systems/pf2e/icons/equipment/weapons/rhoka-sword.webp",
             "name": "Rhoka Sword",
             "sort": 4000000,
@@ -3069,7 +3072,7 @@
                     "die": "d8"
                 },
                 "description": {
-                    "value": "<p>The rhoka sword is the preferred weapon of urdefhan soldiers, though all urdefhans know how to wield these instruments of war.</p>"
+                    "value": "<p>The rhoka sword is the preferred weapon among urdefhans, and all of their kind know how to wield these instruments of war.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -3097,9 +3100,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #165: Eyes of Empty Death"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core 2"
                 },
                 "quantity": 1,
                 "range": null,
@@ -3304,7 +3307,28 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.RhokaSword",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": 10
+                    }
+                ],
                 "slug": "rhoka-sword",
                 "subjectToMAP": true,
                 "traits": {
@@ -3492,7 +3516,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Triaza channels her desire to devour her prey into her weapon. She expends a casting of vampiric feast of a rank of her choosing, then makes a Strike with her rhoka sword. On a hit, the target must also save against vampiric feast of the chosen rank.</p>\n<p>This ability counts as two attacks for the purposes of calculating Triaza's multiple attack penalty. Triaza can't use Bloodthirsty Spellstrike again until she uses Rapid Recharge, casts a conflux spell, or uses a single action (which has the concentrate trait) to recharge it.</p>"
+                    "value": "<p>Triaza channels her desire to devour her prey into her weapon. She expends a casting of @UUID[Compendium.pf2e.spells-srd.Item.Vampiric Feast] of a rank of her choosing, then makes a Strike with her rhoka sword. On a hit, the target must also save against <em>vampiric feast</em> of the chosen rank.</p>\n<p>This ability counts as two attacks for the purposes of calculating Triaza's multiple attack penalty. Triaza can't use Bloodthirsty Spellstrike again until she uses Rapid Recharge, casts a conflux spell, or uses a single action (which has the concentrate trait) to recharge it.</p>"
                 },
                 "publication": {
                     "license": "OGL",
