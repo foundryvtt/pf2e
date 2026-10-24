@@ -1,0 +1,55 @@
+{
+    "_id": "JWCcndHToYH8luab",
+    "img": "icons/magic/air/fog-gas-smoke-dense-green.webp",
+    "name": "Effect: Toxic Sporecloud",
+    "system": {
+        "badge": {
+            "labels": null,
+            "loop": false,
+            "max": 6,
+            "min": null,
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>Granted by Toxic Sporecloud</p>\n<p>The fungal abomination exudes a dangerous cloud of spores that fills a ten-foot emanation around it. Each successive round that a fungal abomination activates this spore cloud, the range of the aura extends by 10 feet, to a maximum distance of 60 feet after six rounds of activity. A creature in the aura or that ends their turn in the aura takes @Damage[8d6[poison]] damage and must attempt a @Check[fortitude|dc:37] save.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #212: A Voice in the Blight"
+        },
+        "rules": [
+            {
+                "key": "Aura",
+                "radius": "@item.badge.value * 10",
+                "traits": [
+                    "aura",
+                    "incapacitation",
+                    "poison"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
