@@ -136,6 +136,7 @@
                     "value": [
                         "agile",
                         "finesse",
+                        "magical",
                         "versatile-s"
                     ]
                 }
@@ -184,6 +185,7 @@
                     "value": [
                         "agile",
                         "finesse",
+                        "magical",
                         "thrown-10"
                     ]
                 }
@@ -204,14 +206,25 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The xun's Strike hits an @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creature and deals damage</p>\n<hr />\n<p><strong>Effect</strong> The xun applies one of the following debilitations, which lasts until the end of the xun's next turn or for 1 week on a critical hit.</p>\n<p><strong>Debilitation</strong> The target takes a –10-foot status penalty to its Speeds.</p>\n<p><strong>Debilitation</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}.</p>"
+                    "value": "<p><strong>Trigger</strong> The xun's Strike hits an @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creature and deals damage</p><hr /><p><strong>Effect</strong> The xun applies one of the following debilitations, which lasts until the end of the xun's next turn or for 1 week on a critical hit.</p>\n<p><strong>Debilitation</strong> The target takes a –10-foot status penalty to its Speeds.</p>\n<p><strong>Debilitation</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Lasting Debilitating Strike]</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Lasting Debilitating Strike (Critical Hit)]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "{item|description}",
+                        "title": "<span class=\"action-glyph\">F</span> {item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -234,7 +247,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The master xun @UUID[Compendium.pf2e.actionspf2e.Item.Step]{Steps} or @UUID[Compendium.pf2e.actionspf2e.Item.Feint]{Feints}, then @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize]{Demoralizes}.</p>"
+                    "value": "<p>The master xun Steps or [[/act feint]]{Feints}, then [[/act demoralize]]{Demoralizes}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
