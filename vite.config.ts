@@ -19,7 +19,7 @@ const ROOT_DIR = import.meta.dirname;
 const [SYSTEM_ID, systemJSON] =
     process.env.SYSTEM_ID === "sf2e" ? (["sf2e", sf2eManifest] as const) : (["pf2e", pf2eManifest] as const);
 const CONDITION_SOURCES = ((): ConditionSource[] => {
-    const output = execSync(`pnpm run build:conditions --system=${SYSTEM_ID}`, { encoding: "utf-8" });
+    const output = execSync(`pnpm build:conditions --system=${SYSTEM_ID}`, { encoding: "utf-8" });
     return JSON.parse(output.slice(output.indexOf("[")));
 })();
 const EN_JSON = JSON.parse(fs.readFileSync("./static/lang/en.json", { encoding: "utf-8" }));
@@ -105,7 +105,8 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     };
 
     const plugins = [
-        checker({ typescript: true }),
+        // CI type-checks in its own job with svelte-check, which also covers .ts files
+        checker({ typescript: true, enableBuild: !process.env.CI }),
         sveltePlugin({
             preprocess: command === "serve" ? [vitePreprocess(), hmrPreprocess] : vitePreprocess(),
         }),
