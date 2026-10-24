@@ -1,5 +1,6 @@
 import type { TextureTransitionType } from "@client/canvas/rendering/filters/transition.d.mts";
-import type { HexColorString, ImageFilePath, VideoFilePath } from "@common/constants.d.mts";
+import { ActiveEffectChangeData } from "@client/documents/_types.mjs";
+import type { HexColorString } from "@common/constants.d.mts";
 import { isImageOrVideoPath } from "@util";
 import { RuleElement } from "./base.ts";
 import { ModelPropsFromRESchema, RuleElementSchema } from "./data.ts";
@@ -15,8 +16,8 @@ class TokenImageRuleElement extends RuleElement<TokenImageRuleSchema> {
             ...super.defineSchema(),
             value: new fields.StringField({
                 required: true,
-                nullable: false,
-                initial: undefined,
+                nullable: true,
+                initial: null,
                 label: "TOKEN.FIELDS.texture.src.label",
             }),
             tint: new fields.ColorField({ label: "TOKEN.FIELDS.texture.tint.label" }),
@@ -79,8 +80,9 @@ class TokenImageRuleElement extends RuleElement<TokenImageRuleSchema> {
                         min: 0,
                         max: 8388607,
                     }),
+                    enabled: new fields.BooleanField({ initial: true, persisted: false }),
                 },
-                { required: false, nullable: false, initial: undefined },
+                { required: true, nullable: true, initial: null },
             ),
             animation: new fields.SchemaField(
                 {
@@ -118,35 +120,43 @@ class TokenImageRuleElement extends RuleElement<TokenImageRuleSchema> {
     }
 
     override afterPrepareData(): void {
-        const src = this.resolveInjectedProperties(this.value);
-        if (!isImageOrVideoPath(src)) return this.failValidation("Missing or invalid value field");
-
         if (!this.test()) return;
-
-        const texture: { src: ImageFilePath | VideoFilePath; scaleX?: number; scaleY?: number; tint?: Maybe<Color> } = {
-            src,
-        };
-        if (this.scale) {
-            texture.scaleX = this.scale;
-            texture.scaleY = this.scale;
+        const changes: ActiveEffectChangeData[] = [];
+        const baseChange = { type: "override", priority: this.priority, phase: "final" };
+        const has = { texture: false, subject: false };
+        if (this.value) {
+            const src = this.resolveInjectedProperties(this.value);
+            if (!isImageOrVideoPath(src)) return this.failValidation("invalid value field");
+            has.texture = true;
+            changes.push({ ...baseChange, key: "texture.src", value: src });
+            if (this.tint) changes.push({ ...baseChange, key: "texture.tint", value: this.tint.toHTML() });
+            if (typeof this.alpha === "number") {
+                changes.push({ ...baseChange, key: "texture.alpha", value: this.alpha });
+            }
+            if (this.scale) {
+                changes.push({ ...baseChange, key: "texture.scaleX", value: this.scale });
+                changes.push({ ...baseChange, key: "texture.scaleY", value: this.scale });
+            }
         }
-        texture.tint = this.tint;
-        this.actor.synthetics.tokenOverrides.texture = texture;
-
-        const subjectTexture = this.resolveInjectedProperties(this.ring?.subject.texture ?? "");
-        if (this.ring && fh.media.ImageHelper.hasImageExtension(subjectTexture)) {
-            this.actor.synthetics.tokenOverrides.ring = {
-                subject: {
-                    scale: this.ring.subject.scale,
-                    texture: subjectTexture,
-                },
-                colors: { ...this.ring.colors },
-                effects: this.ring.effects,
-            };
+        if (this.ring?.subject.texture) {
+            const subjectTexture = this.resolveInjectedProperties(this.ring?.subject.texture ?? "");
+            if (!fh.media.ImageHelper.hasImageExtension(subjectTexture)) {
+                return this.failValidation("invalid subject texture");
+            }
+            has.subject = true;
+            this.ring.subject.texture = subjectTexture;
+            changes.push({ ...baseChange, key: "ring", value: fu.deepClone(this.ring) });
         }
+        if (!has.texture && !has.subject) {
+            return this.failValidation("either a texture source or subject texture must be provided");
+        }
+        if (this.alpha !== null) changes.push({ ...baseChange, key: "alpha", value: this.alpha });
 
-        this.actor.synthetics.tokenOverrides.alpha = this.alpha;
-        this.actor.synthetics.tokenOverrides.animation = this.animation ?? {};
+        // Smuggle animation options 🤫
+        if (this.animation) changes.push({ ...baseChange, key: "texture.animation", value: this.animation });
+
+        const allChanges = (this.actor.tokenActiveEffectChanges.final ??= []);
+        allChanges.push(...changes);
     }
 }
 
@@ -155,7 +165,7 @@ interface TokenImageRuleElement
 
 type TokenImageRuleSchema = RuleElementSchema & {
     /** An image or video path */
-    value: fields.StringField<string, string, true, false, false>;
+    value: fields.StringField<string, string, true, true, true>;
     /** Dynamic token ring */
     ring: fields.SchemaField<
         {
@@ -192,10 +202,11 @@ type TokenImageRuleSchema = RuleElementSchema & {
             subject: { texture: string; scale: number };
             colors: { background: Color | null; ring: Color | null };
             effects: number;
+            enabled: true;
         },
-        false,
-        false,
-        false
+        true,
+        true,
+        true
     >;
     /** An optional scale adjustment */
     scale: fields.NumberField<number, number, false, true, true>;

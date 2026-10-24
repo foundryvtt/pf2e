@@ -182,7 +182,7 @@ class SpellPreparationApp extends SvelteApplicationMixin<
             actor: this.actor,
             search: this.#search,
             actions: {
-                sendToChat: (id, event) => this.#getSpell(id).toMessage(event instanceof PointerEvent ? event : null),
+                sendToChat: (id, event) => this.#getSpell(id).toMessage(event),
                 edit: (id) => this.#getSpell(id).sheet.render(true),
                 ...(editable ? mutations : {}),
             },
@@ -211,6 +211,7 @@ class SpellPreparationApp extends SvelteApplicationMixin<
     ): SpellRowData {
         return {
             ...R.pick(spell, ["id", "uuid", "img", "name"]),
+            castRank: spell.rank,
             updatedAt: spell._stats.modifiedTime ?? undefined,
             glyph: getActionGlyph(spell.system.time.value),
             defense: spell.defense?.label ?? null,

@@ -1,0 +1,362 @@
+{
+    "_id": "mIQZN2Evae5L10YX",
+    "folder": "UfY2GK0vNyWi13Q6",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "m9wGrRzS3XtFaAVD",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tentacle",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "BtFpVKlQSnzaAYia": {
+                        "damage": "2d8+16",
+                        "damageType": "bludgeoning"
+                    },
+                    "cJAV74893TaS5Yad": {
+                        "category": "persistent",
+                        "damage": "6",
+                        "damageType": "bleed"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "reach-15"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "qAzowgnlUYvYhMTd",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Fast Healing 20",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FastHealing",
+                        "value": 20
+                    }
+                ],
+                "slug": "fast-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0DeEFtFjw6q0rBHS",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Pain-Wracked Rage",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> The shivver takes more than 20 damage from a single instance of damage</p><hr /><p><strong>Effect</strong> The shivver is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of their next turn. They're then @UUID[Compendium.pf2e.conditionitems.Item.Quickened] for [[/gmr 1d4 #rounds]]{1d4 rounds}, but while quickened their regeneration is deactivated, and they can use the extra action only to Strike.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lXF276G0AEuSQXUw",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Compression",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A shivver can move through a gap at least 1 foot wide without @UUID[Compendium.pf2e.actionspf2e.Item.Squeeze]{Squeezing} and can Squeeze through a gap at least 6 inches wide. Narrow confines are not difficult terrain for a shivver.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1MRPT0F48G1JABbg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The shivver deals an additional 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KDBPL64JXlNyRUWH",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Shivver",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 7
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 30
+            },
+            "adjustment": null,
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "fast healing 20",
+                "max": 185,
+                "temp": 0,
+                "value": 185
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 25
+                    }
+                ],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "sakvroth"
+                ]
+            },
+            "level": {
+                "value": 12
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>In some Darklands cultures, prisoners are routinely fleshwarped into grotesque shapes at the whims of their cruel captors. These unfortunate victims are dubbed \"shivvers\" after the thrill of horror they elicit and as a nod to one of the more infamous Darklands prisons. Once ordinary humanoids, shivvers now sport wriggling tentacles, insectile mandibles, and other bizarre \"improvements.\" The agony these modifications cause is enough to drive many shivvers into murderous rages.</p><hr /><p>It's often said that encountering a fleshwarp is evidence there's an even greater monster nearby: the cruel being that tortured the fleshwarp into its distorted form. The Darklands are home to many such monsters, both the fleshwarps and their creators.</p><h2>Fugitives of the Shiv</h2><p>While some prisons pride themselves on being inescapable, the wardens of the Shiv once routinely released their more \"artistically\" fleshwarped captives before their sentences were fully served. The wardens believed that the products of their cruel punishments would inspire fear and obedience throughout the Darklands.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 25,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 23
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 20
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 25,
+                "special": [
+                    {
+                        "base": 27,
+                        "label": "To Squeeze",
+                        "predicate": [
+                            "action:squeeze"
+                        ]
+                    }
+                ]
+            },
+            "athletics": {
+                "base": 23
+            },
+            "deception": {
+                "base": 18
+            },
+            "intimidation": {
+                "base": 20
+            },
+            "stealth": {
+                "base": 27
+            },
+            "survival": {
+                "base": 22
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "aberration"
+            ]
+        }
+    },
+    "type": "npc"
+}

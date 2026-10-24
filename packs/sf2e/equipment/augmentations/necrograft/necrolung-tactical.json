@@ -10,7 +10,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>Spongy black webbing radiates from a grayish purple mass of necrotized flesh that pulses when it's exposed to air. Specially grown in vats from waste produced in the necrograft manufacturing process, this necrolung allows ou can breathe in any toxic atmosphere for up to 24 hours without taking damage, and you gain a +1 status bonus to saves against inhaled diseases and poisons.</p>\n<p>Installing or removing a necrolung takes only 1 minute and requires no skill checks as it slithers down your throat and integrates into your respiratory system. This augmentation doesn't count toward your implant limit.</p>"
+            "value": "<p>Spongy black webbing radiates from this grayish purple mass of necrotized flesh that pulses when exposed to air. Specially grown in vats from waste produced in the necrograft manufacturing process, necrolungs allow living creatures to breathe efficiently and safely on Eox. You can breathe in any toxic atmosphere for up to 24 hours without taking damage, and you gain a +1 status bonus to saves against inhaled diseases and poisons.</p>\n<p>Installing or removing a necrolung takes only 1 minute and requires no skill checks as it slithers down your throat and integrates into your respiratory system. Unlike a commercial necrolung, this augmentation does count toward your implant limit.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -39,6 +39,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
+                    "item:trait:inhaled",
                     {
                         "or": [
                             "item:trait:disease",
@@ -52,16 +53,6 @@
                 "slug": "necrolung",
                 "type": "item",
                 "value": 1
-            },
-            {
-                "key": "AdjustModifier",
-                "mode": "upgrade",
-                "predicate": [
-                    "item:trait:inhaled"
-                ],
-                "selector": "saving-throw",
-                "slug": "necrolung",
-                "value": 2
             }
         ],
         "size": "med",

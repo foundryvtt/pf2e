@@ -1,0 +1,80 @@
+{
+    "_id": "zVHGsn88FcmlMM3c",
+    "img": "icons/commodities/biological/wing-lizard-green.webp",
+    "name": "Spell Effect: Tiny Wings",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Tiny Wings]</p>\n<p>You gain a 20-foot fly Speed. If you already have a fly Speed, you instead gain a +15-foot status bonus to your fly Speed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Fly",
+                        "predicate": [
+                            {
+                                "not": "speed:fly"
+                            }
+                        ],
+                        "value": "gain-speed"
+                    },
+                    {
+                        "label": "PF2E.Bonus",
+                        "predicate": [
+                            "speed:fly"
+                        ],
+                        "value": "increase-speed"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "tiny-wings"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "tiny-wings:gain-speed"
+                ],
+                "selector": "fly-speed",
+                "value": 20
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "tiny-wings:increase-speed"
+                ],
+                "selector": [
+                    "fly-speed"
+                ],
+                "type": "status",
+                "value": 15
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

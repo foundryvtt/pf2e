@@ -72,13 +72,15 @@ async function skillActionPrompt(config: SkillActionPromptConfig): Promise<Skill
                 const form = button.form;
                 const stringValue = (name: string): string => {
                     const element = form?.elements.namedItem(name);
-                    return element instanceof HTMLInputElement || element instanceof HTMLSelectElement
+                    return element &&
+                        (fu.isElementInstanceOf(element, HTMLInputElement) ||
+                            fu.isElementInstanceOf(element, HTMLSelectElement))
                         ? element.value
                         : "";
                 };
                 const isChecked = (name: string): boolean => {
                     const element = form?.elements.namedItem(name);
-                    return element instanceof HTMLInputElement && element.checked;
+                    return !!element && fu.isElementInstanceOf(element, HTMLInputElement) && element.checked;
                 };
 
                 return {

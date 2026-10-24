@@ -40,7 +40,22 @@
             "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:emotion",
+                            "item:trait:possession"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "runes": {
             "potency": 2,
             "property": [],

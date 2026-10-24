@@ -1,0 +1,467 @@
+{
+    "_id": "v0YygDzZp5ruYnR3",
+    "folder": "gnkoN3DOsVf0t2zA",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "2G7DfirT9h5oFFcO",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Nerve Ending",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "involuntary-reaction"
+                    ]
+                },
+                "bonus": {
+                    "value": 29
+                },
+                "damageRolls": {
+                    "bdgNivLhBgT2kt3C": {
+                        "damage": "3d10+15",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "9usJW9VpyKOHvfvR",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "value": [
+                        "aura",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "g1drMf4S2fIn7BsT",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Thoughtsense 60 feet",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The raw nerve senses all non-mindless creatures at the listed range.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "R9dmFoSow0fx5GWx",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QSXLyzAjmby6VHGx",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Accelerating Inquest",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The raw nerve mentally probes a creature within 100 feet, attempting an @Check[occultism|against:will] check against the creature's Will DC. On a success, the raw nerve can Step, and gains a +2 circumstance bonus to AC against that creature until the start of the raw nerve's next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Accelerating Inquest]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "detection",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aJ1kIcdfxRr6HoyR",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Float",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A raw nerve floats a few inches from the ground. As such, it can ignore difficult terrain.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.movement.terrain.difficult.ignored",
+                        "value": {
+                            "environment": "all",
+                            "feature": "all"
+                        }
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lKJGj7jNXnV0xOa8",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Involuntary Reaction",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature struck by a raw nerve's nerve ending strike must succeed at a @Check[reflex|dc:34] saving throw or be unable to use reactions until the start of its next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "involuntary-reaction",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "E4Bzy2eCZCoTogAF",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Synaptic Overload",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The raw nerve releases a burst of mental energy in a @Template[cone|distance:30], dealing @Damage[6d12[mental]|options:area-damage] damage to each creature in the cone (@Check[will|dc:31|options:area-effect,damaging-effect,inflicts:stunned] save).</p><hr /><p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2}</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "incapacitation",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "R7vQc0E9qqVPuJ0H",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Fleshwarping Lore",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 31
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "The Antediluvian",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 3
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": 8
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 35
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 290,
+                "temp": 0,
+                "value": 290
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "death-effects"
+                },
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "exceptions": [],
+                    "type": "mental"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                },
+                {
+                    "exceptions": [],
+                    "type": "electricity"
+                }
+            ],
+            "speed": {
+                "details": "float",
+                "otherSpeeds": [],
+                "value": 30
+            },
+            "weaknesses": [
+                {
+                    "type": "slashing",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "blurb": "Variant raw nerve",
+            "languages": {
+                "details": "can't speak any language, telepathy 100 feet",
+                "value": [
+                    "common",
+                    "necril"
+                ]
+            },
+            "level": {
+                "value": 14
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 26,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "thoughtsense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 23
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 28
+            }
+        },
+        "skills": {
+            "intimidation": {
+                "base": 25
+            },
+            "medicine": {
+                "base": 24
+            },
+            "occultism": {
+                "base": 28
+            },
+            "stealth": {
+                "base": 25
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "undead"
+            ]
+        }
+    },
+    "type": "npc"
+}

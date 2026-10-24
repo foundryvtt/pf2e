@@ -192,14 +192,10 @@ class VehicleSystemData extends ActorSystemModel<VehiclePF2e, VehicleSystemSchem
     }
 
     override prepareBaseData(): void {
+        const sizeCategory = this.traits.size.value;
+        this.traits.size = new ActorSizePF2e({ value: sizeCategory, ...this.details.space });
         super.prepareBaseData();
         this.details.alliance = null;
-
-        // Set the dimensions of this vehicle in its size object
-        const size = this.traits.size;
-        const dimensions = this.parent.dimensions;
-        size.long = dimensions.length;
-        size.wide = dimensions.width;
 
         if (!this.attributes.immunities.some((i) => i.type === "object-immunities")) {
             this.attributes.immunities.push(new Immunity({ type: "object-immunities", source: "TYPES.Actor.vehicle" }));

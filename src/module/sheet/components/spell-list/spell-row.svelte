@@ -38,6 +38,7 @@
     class:drop-above={dropEdge === "above"}
     class:drop-below={dropEdge === "below"}
     data-item-id={spell.id}
+    data-cast-rank={spell.castRank}
     draggable={editable ? true : undefined}
     ondragstart={editable
         ? (event) => {
@@ -67,7 +68,11 @@
     ondragleave={isDropTarget
         ? (event) => {
               event.stopPropagation();
-              if (!(event.relatedTarget instanceof Node && event.currentTarget.contains(event.relatedTarget))) {
+              if (!(
+                  event.relatedTarget &&
+                  fu.isElementInstanceOf(event.relatedTarget, Node) &&
+                  event.currentTarget.contains(event.relatedTarget)
+              )) {
                   dropEdge = null;
               }
           }
@@ -139,7 +144,7 @@
                     const fallback = htmlClosest(row, "section")?.querySelector("button.group-label");
                     await actions.delete?.(spell.id);
                     const target = neighbor?.querySelector("button.name") ?? fallback;
-                    if (target instanceof HTMLElement) target.focus();
+                    if (target && fu.isElementInstanceOf(target, HTMLElement)) target.focus();
                 }}
             />
         {/if}

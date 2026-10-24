@@ -1,0 +1,418 @@
+{
+    "_id": "OGlPBAYK9bXOQSMo",
+    "folder": "FUHH9Of9ZX3Vb1zb",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "9L22TuUeYV5NcXKA",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Painful Touch",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "cxW9jio1hDNrPvWq": {
+                        "damage": "4d6+14",
+                        "damageType": "mental"
+                    },
+                    "mzTJKx52ggFQK9tw": {
+                        "category": "persistent",
+                        "damage": "2d6",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "RPKu05fN9SnDhN9k",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Lifesense",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "lifesense",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SYQ9pdehNV4ryw9w",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 10 (Deactivated by Mental)",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "mental"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 10
+                    }
+                ],
+                "slug": "regeneration",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gnpUtPxORZFL3ge0",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Endless Suffering",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The type of torture that killed a tormented determines the effect of their Tortured Gaze. The damage type listed in parentheses deactivates their regeneration and is their damage weakness.</p>\n<p><strong>Lost in a Maze</strong> (mental) The tormented lost themselves in the confusing depths of the Ghostfang Coils. For 1 minute, the target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Weakness",
+                        "type": "mental",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7ExB5NXG4gI6NaQ4",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Tortured Gaze",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet, or 60 feet if the tormented is at 125 HP or lower.</p>\n<p>The psychic agony of a tormented spills into the world around them, creating murderous hallucinations replicating the tormented's last moments. A non-undead creature that ends its turn in the aura must succeed at a @Check[will|dc:32|options:area-effect] save or be @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute. While it has a condition from Tortured Gaze, a creature can't gain a new condition from the aura.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": "ternary(gt(@actor.system.attributes.hp.value,125),30,60)",
+                        "traits": [
+                            "divine",
+                            "illusion",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "divine",
+                        "illusion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EjwMgjX8AyvObnlu",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dTghrpVy5Fq43qGt",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Scream in Agony",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each creature in the tormented's Tortured Gaze aura takes @Damage[14d6[mental]|options:area-effect,inflicts:sickened] damage (@Check[will|dc:34|basic] save). A creature that fails is also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure). The tormented can't Scream in Agony again for [[/gmr 1d4 #Recharge Scream in Agony]]{1d4 rounds} but recharges the ability whenever they take damage from an attacker's critical hit or their own critical failure on a saving throw.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "divine",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Tormented (Lost in a Maze)",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 8
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -1
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 5
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 35
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "regeneration 10 (deactivated by mental), void healing",
+                "max": 250,
+                "temp": 0,
+                "value": 250
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "death-effects"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 25
+                    }
+                ],
+                "value": 25
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "common",
+                    "necril"
+                ]
+            },
+            "level": {
+                "value": 14
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 27,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "lifesense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 22
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 26
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 27
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 24
+            },
+            "athletics": {
+                "base": 26
+            },
+            "intimidation": {
+                "base": 28
+            },
+            "stealth": {
+                "base": 24
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "undead"
+            ]
+        }
+    },
+    "type": "npc"
+}

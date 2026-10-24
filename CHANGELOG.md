@@ -1,3 +1,36 @@
+## 8.6.1
+
+### Bugfixes
+
+- (Chromatic Penguin) Fix detached window handling across apps
+- (Chromatic Penguin) Fix missing spell level on spell prep links
+- (Chromatic Penguin) Fix modifier tooltip type options on Firefox and brush up value stepper
+- (Dantar) Fix familiar abilities formatting
+- (Dantar) Fix skill proficiency selector sizing on Firefox
+- (Dantar) Make Pick-a-thing's placeholder localizable
+- (Dantar) Prevent AE-likes pushing duplicate entries onto complex-object arrays
+
+### Data Updates
+
+- (adamhp) Add Kingmaker publication title to Kingmaker effects
+- (Ambrose) Add Infernal Inheritance content to Archetype journals
+- (Ambrose) Correct Silver Spear's spell details
+- (Ambrose) Remove select legacy NPC actors and redirect to their Infernal Inheritance reprints
+- (Dantar) Automate some Infernal Inheritance entries, including Hellbound Aspirant feats
+- (Dire Weasel) Add backlink to Exploding Bullet effect
+- (Dire Weasel) Add spell effects for Remake Physiology and Under Sunless Skies
+- (kromko) Add missing localizations
+- (kromko) Add missing physical items publication sources
+- (kromko) Fix formatting and capitalization in some item names, activations, and descriptions
+- (kromko) Restore column spanning of the flexible spellcaster spell table note
+- (nobbyfix) Update publication source for actions and effects from Cheliax, Infernal Inheritance
+- (rectulo) Fix typos and formatting in Cloudborne Haven, Planar Collision, and Remake Physiology descriptions
+- (Rigo) Add backgrounds from Vaultlines Player's Guide
+
+### Under the Hood
+
+- (Chromatic Penguin) Convert `AncestrySystemData` to `TypeDataModel`
+
 ## 8.6.0
 
 ### Highlights

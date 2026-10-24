@@ -1,0 +1,378 @@
+{
+    "_id": "nQMyNbz4dNTN6Ij6",
+    "folder": "pNmS4gTVFe5Jy681",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "Vb2e5ONWli33N0Ce",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "Lp79dA3dLsTrHaaG": {
+                        "damage": "1d10",
+                        "damageType": "void"
+                    },
+                    "aTHFj3OMA1mr3g5p": {
+                        "damage": "2d6+10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "xuwMa2H6zgMEQ2l7",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Slow",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A ghost mold zombie is permanently @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} and can't use reactions.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VepgtQqZFKP0Q6LZ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Vitality Spasm",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Trigger</strong> The ghost mold zombie takes vitality damage</p><hr /><p><strong>Effect</strong> A burst of paranoia-inducing spores emerges from the zombie in a @Template[type:emanation|distance:10]. All creatures in the area must attempt a @Check[will|dc:29|options:area-effect,inflicts:frightened] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}.</p>\n<p><strong>Critical Failure</strong> As failure, except the creature doesn't treat any creature as an ally for as long as it remains frightened.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "item:damage:type:vitality"
+                        ],
+                        "selector": [
+                            "damage-received"
+                        ],
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jrf8ftxaiCmd6Bbk",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2wV3Zy5IZVW3IAWK",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Fearsome Exposure",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Due to ongoing exposure to the spores that blanket a ghost mold zombie, a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the zombie doesn't automatically reduce the value of its @UUID[Compendium.pf2e.conditionitems.Item.Frightened] condition at the end of its turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kufmq1eJc1GpzNR6",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Ghost Mold Zombie",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -2
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": -1
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 7
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 29
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "void healing",
+                "max": 180,
+                "temp": 0,
+                "value": 180
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "death-effects"
+                },
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "slashing",
+                    "value": 10
+                },
+                {
+                    "exceptions": [],
+                    "type": "vitality",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "blurb": "Variant zombie",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 10
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 18,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "lifesense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 22
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 18
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 21
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mindless",
+                "undead",
+                "unholy",
+                "zombie"
+            ]
+        }
+    },
+    "type": "npc"
+}

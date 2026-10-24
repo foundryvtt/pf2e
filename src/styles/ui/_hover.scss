@@ -143,11 +143,13 @@
                         background: transparent;
                         border: 1px solid var(--color-border-light-1);
                         border-radius: 2px;
+                        color-scheme: dark;
                         cursor: pointer;
                         height: 1.125rem;
+                        --color-select-option-bg: var(--color-cool-5);
 
                         option {
-                            color: var(--text-dark);
+                            color: var(--text-light);
                             font-size: var(--font-size-13);
                             min-height: 1rem;
                             text-transform: capitalize;
@@ -238,42 +240,50 @@
 
                     .add-modifier {
                         border-top: 1px solid var(--sidebar-title);
-                        align-items: baseline;
+                        align-items: center;
                         font-size: 0.8rem;
-                        gap: var(--space-4) var(--space-8);
+                        gap: var(--space-10) 0;
                         grid:
-                            "value name name" 1fr
-                            "type type btn" 1fr
-                            / 2.625rem 1fr 1fr;
+                            "value name name" auto
+                            "type type btn" auto
+                            / auto 1fr auto;
                         padding-top: var(--space-5);
 
+                        // Underline the whole stepper so it joins the name input's underline
                         .add-modifier-value {
                             align-items: center;
-                            column-gap: var(--space-4);
-                            display: grid;
-                            font-size: 1rem;
-                            grid:
-                                "input plus" 1fr
-                                "input minus" 1fr
-                                / 1fr var(--space-10);
+                            border-bottom: 1px solid rgba(white, 0.5);
+                            display: flex;
                             grid-area: value;
-                            text-align: right;
+                            height: var(--input-height);
 
-                            input {
-                                grid-area: input;
+                            &:focus-within {
+                                border-bottom-color: var(--color-text-light-0);
                             }
 
-                            .fa-solid {
-                                cursor: pointer;
-                                font-size: var(--font-size-9);
-                                margin-top: var(--space-2);
+                            input {
+                                border: none;
+                                font-size: 1rem;
+                                height: 100%;
+                                padding: 0;
+                                text-align: center;
+                                width: 2rem;
+                            }
 
-                                &.fa-plus-circle {
-                                    grid-area: plus;
-                                }
+                            button {
+                                background: none;
+                                border: none;
+                                box-shadow: none;
+                                color: var(--text-light);
+                                font-size: var(--font-size-10);
+                                height: auto;
+                                min-width: 0;
+                                padding: var(--space-4);
+                                width: auto;
 
-                                &.fa-minus-circle {
-                                    grid-area: minus;
+                                &:hover,
+                                &:focus-visible {
+                                    color: var(--color-pf-tertiary);
                                 }
                             }
                         }
@@ -288,6 +298,7 @@
                             color: var(--color-pf-tertiary);
                             grid-area: btn;
                             line-height: 1.5;
+                            margin-left: var(--space-8);
                             white-space: nowrap;
                         }
                     }

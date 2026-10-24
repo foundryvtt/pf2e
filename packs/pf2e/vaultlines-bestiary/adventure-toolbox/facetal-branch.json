@@ -1,0 +1,632 @@
+{
+    "_id": "wnLNQTNlr5vF9TAc",
+    "folder": "UfY2GK0vNyWi13Q6",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "CreunqPRJXTlXafA",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Mandibles",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "improved-grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 34
+                },
+                "damageRolls": {
+                    "zOWfk6PFi36XgZgY": {
+                        "damage": "3d8+24",
+                        "damageType": "force"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "force",
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "V77gVGHeBQMcBuRQ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Gem Ray",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "blinding-attack"
+                    ]
+                },
+                "bonus": {
+                    "value": 34
+                },
+                "damageRolls": {
+                    "irivFJ5sH8dFAwvX": {
+                        "damage": "3d10+24",
+                        "damageType": "force"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 40,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "force"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "sxok5nxYyO5B12Xw",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Temporal Telepathy",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The facetal branch can communicate telepathically with themselves at a specific moment in the past, provided their past self occupies the branch's current space.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ewjz8tvV71Xwlpnu",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Gem Form",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When a facetal node is reduced to 0 Hit Points, their hardlight body is destroyed, leaving behind the node's true form, a Tiny glowing gemstone. In this form, the node's Speed is 0, they're immune to damage, and they're deactivated. While deactivated, they can't take actions or speak, although they can use telepathy. The node remains deactivated until it reactivates at a time determined by the GM (usually after decades or more).</p>\n<p>While deactivated, the facetal branch can't use temporal telepathy, and their luminescent aura is deactivated.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Ck7FqLoWoPJEqEcY",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Luminescent Aura",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. The facetal branch's glowing gem fills the area of the aura with bright light. The branch can deactivate or activate its aura as a single action with the concentrate trait.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "luminescent-aura",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "luminescent-aura"
+                        ],
+                        "value": {
+                            "alpha": 0.2,
+                            "animation": {
+                                "speed": 2,
+                                "type": "starlight"
+                            },
+                            "bright": 30,
+                            "color": "#f69b1f",
+                            "coloration": 101,
+                            "dim": 0
+                        }
+                    },
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "luminescent-aura"
+                        ],
+                        "value": {
+                            "alpha": 0.15,
+                            "animation": {
+                                "type": "sunburst"
+                            },
+                            "bright": 30,
+                            "color": "#f69b1f",
+                            "coloration": 101,
+                            "dim": 0
+                        }
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "light",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "auhwjjdCoiNL3vhY",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Blinding Attack",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>On a critical hit with a gem ray Strike, the target is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "light"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hsC0LEx2Tmu5vJBx",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Blinking Strobe",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The node's gem coruscates with light. Enemies within a @Template[type:emanation|distance:30] must attempt a @Check[fortitude|dc:40|options:area-effect,inflicts:dazzled,inflicts:blinded] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p>\n<p><strong>Critical Failure</strong> As failure, and the target is teleported to a space of the node's choice within 30 feet that the node can see.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "light",
+                        "primal",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PgK6G5QsHGnCu9S6",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Hardlight Projection",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The node projects a new Huge, insect-like form around itself, changing its appearance but not its statistics. The node's projected form is a solid body made of hardlight. While using a projected form, the node's true form, a Tiny gem, is always visible embedded in the projection's abdomen or thorax. The gemstone is the facetal's sensory organ, and if the gemstone is covered, the facetal node is @UUID[Compendium.pf2e.conditionitems.Item.Blinded].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "light",
+                        "polymorph",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xFKazim15tV9Jn1H",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Temporal Skip",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The facetal branch can pluck creatures from the very flow of time. One creature the branch can see within 30 feet must attempt a @Check[fortitude|dc:40] save. The branch can target themself, automatically failing their save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and becomes temporarily immune to Temporal Skip for 24 hours.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The creature winks out of existence for 1 round (or for up to 1 hour if the branch targeted themself). Until the creature reappears, time doesn't pass for the creature. When the effect ends, the creature returns to the space it occupied when it disappeared or to the nearest space if the original is now filled.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "incapacitation",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SHd8SRJbMwaVWzLP",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Cy38wto1SPFHMOM2",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Planar Lore",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 35
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "JVuxSdalHFMNLU3c",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Sairazul Lore",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 37
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "dgAkkNAhM4IqPd0a",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Temporal Lore",
+            "sort": 1300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 37
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Facetal Branch",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 7
+            },
+            "con": {
+                "mod": 7
+            },
+            "dex": {
+                "mod": 7
+            },
+            "int": {
+                "mod": 9
+            },
+            "str": {
+                "mod": 9
+            },
+            "wis": {
+                "mod": 9
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 42
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 310,
+                "temp": 0,
+                "value": 310
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "blinded"
+                },
+                {
+                    "exceptions": [],
+                    "type": "dazzled"
+                },
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "radiation"
+                },
+                {
+                    "exceptions": [],
+                    "type": "sleep"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 20
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 35
+                    }
+                ],
+                "value": 35
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "telepathy 300 feet, temporal telepathy",
+                "value": [
+                    "orvian",
+                    "petran"
+                ]
+            },
+            "level": {
+                "value": 18
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Facetal branches are elder facetals whose gemstone bodies have grown into large glowing crystals. Instead of donning humanoid guises as facetal nodes do, facetal branches use hardlight to project insect-like bodies in the image of their deity, Sairazul.</p>\n<p>With minds capable of revisiting their memories with crystalline perfection, facetal branches can both move and communicate across space and time. They're named after the constant improvements they make to their past selves, navigating branches of alternate histories to achieve crystalline perfection.</p><h2>Gathering Moss</h2><p>While their younger cousins, facetal nodes, travel to accumulate knowledge, facetal branches turn their explorations inwards, scrutinizing past actions for minor imperfections that could stunt their slow, crystalline growth. When they identify a flaw, they can reach backwards in time to alter their past—but only if their past self occupies the same location as their present one. For this reason, facetal branches tend to stay put.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 33,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 120,
+                    "type": "tremorsense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 33
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 30
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 36
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 31
+            },
+            "arcana": {
+                "base": 35
+            },
+            "athletics": {
+                "base": 35
+            },
+            "stealth": {
+                "base": 31
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "huge"
+            },
+            "value": [
+                "earth",
+                "elemental"
+            ]
+        }
+    },
+    "type": "npc"
+}

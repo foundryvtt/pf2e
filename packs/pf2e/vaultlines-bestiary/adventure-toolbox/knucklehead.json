@@ -1,0 +1,479 @@
+{
+    "_id": "RRR7fbzzRSkMhdfS",
+    "folder": "UfY2GK0vNyWi13Q6",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "AZuF1jAx3gB4LbkQ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Arm Hand",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "improved-grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "AOAZmCnVwkVbrplN": {
+                        "damage": "3d10+10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "agile",
+                        "deadly-3d10",
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "6zeEH5aerbBpJTWb",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Rock",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "qqr0QyYXITc1zyng": {
+                        "damage": "3d6+10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 30,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "brutal"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "PuIYGKN4O4vOeDJd",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "reactive-strike",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "y5PvZrXCx1MPsCL6",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Tighten Grip",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by the knucklehead attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Escape]</p><hr /><p><strong>Effect</strong> The DC of the Escape check is increased by 2 and the creature takes @Damage[2d10[bludgeoning]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BrYDJH36S5AyfiUl",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "All Fours",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The knucklehead drops to all fours, or stands upright. While on all fours and not @UUID[Compendium.pf2e.conditionitems.Item.Prone], the knucklehead's walking Speed is 50 feet, its [[/act long-jump]] and [[/act high-jump]] distance is equal to its Speed, and it can't use its arm hand Strike.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "all-fours",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "all-fours"
+                        ],
+                        "selector": "land-speed",
+                        "value": 50
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YqoEgtlagOIPp7DQ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Devouring Squeeze",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The knucklehead has a creature @UUID[Compendium.pf2e.conditionitems.Item.Restrained] in its head hand</p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The knucklehead squeezes the creature, gnawing hungrily through both armor and flesh. The creature takes @Damage[(2d10+10)[bludgeoning]] damage, and if the creature is wearing armor with Hardness 14 or lower, the armor is @UUID[Compendium.pf2e.conditionitems.Item.Broken]. If the creature isn't wearing armor or if its armor is already broken, the creature instead takes an additional @Damage[2d10[piercing]] damage, and the knucklehead regains Hit Points equal to the amount of piercing damage dealt.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fvoGVahqBTTRtCqC",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Ground Slam",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The knucklehead slams the ground with an arm hand. The ground in a @Template[type:emanation|distance:10] becomes difficult terrain. If the knucklehead has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] in its arm hand, that creature takes @Damage[(2d10+10)[bludgeoning]|options:area-damage] damage. Other creatures in the area take @Damage[3d10[bludgeoning]|options:area-damage] damage with a basic @Check[reflex|dc:30|options:area-effect,inflicts:prone] save. A creature that fails the save also falls @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "88edwCYWtfCbJHeb",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shattering Punch",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The knucklehead's arm hand Strikes ignore an object's Hardness. If the knucklehead Strikes a stone surface, it breaks off a boulder-sized chunk of stone, which it can use to make rock Strikes.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "E1woGtuRFSPtBiH1",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Switch Hands",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The knucklehead has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] in one of its arm hands</p><hr /><p><strong>Effect</strong> The knucklehead moves the creature to its head hand. The creature is restrained. While the creature is restrained, they can't breathe or talk. The knucklehead can't have more than one creature restrained in its head hand.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3aQHiNJ4jeUeoC2O",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Knucklehead",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -4
+            },
+            "con": {
+                "mod": 7
+            },
+            "dex": {
+                "mod": 6
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 8
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 34
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 315,
+                "temp": 0,
+                "value": 315
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "visual"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "sonic",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 25
+                    }
+                ],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 14
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Knuckleheads are fleshwarps named after the oversized hand that sprouts from their neck in place of a skull. Their dangling, armor-plated arms are equally disproportionate, even in comparison to their massive frames, which range in size from 10 to 14 feet tall. Knuckleheads can use their arms either as a second pair of legs or to deliver stone-shattering punches. They feed by crushing a victim in their head-hand, the palm of which is split by a toothy maw.</p><hr /><p>It's often said that encountering a fleshwarp is evidence there's an even greater monster nearby: the cruel being that tortured the fleshwarp into its distorted form. The Darklands are home to many such monsters, both the fleshwarps and their creators.</p><h2>Failed Experiments</h2><p>Knuckleheads are the product of an effort to turn prisoners into obedient servants, but it turns out that a brain isn't an optional luxury when creating the perfect laborer. Driven by hunger and blind instinct, knuckleheads hunted their creators and fellow prisoners alike. Now that they've escaped into the Darklands, they prowl pitch-black caverns, attracted by the smell of flesh.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "no hearing",
+            "mod": 21,
+            "senses": [
+                {
+                    "acuity": "precise",
+                    "range": 120,
+                    "type": "scent"
+                }
+            ],
+            "vision": false
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 28
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 24
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 21
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 26
+            },
+            "athletics": {
+                "base": 29
+            },
+            "stealth": {
+                "base": 22
+            },
+            "survival": {
+                "base": 24
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "aberration",
+                "mindless"
+            ]
+        }
+    },
+    "type": "npc"
+}

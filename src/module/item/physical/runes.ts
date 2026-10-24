@@ -1363,6 +1363,15 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         traits: ["magical"],
     },
     energyVulnerability: {
+        damage: {
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.energyVulnerability.Name",
+                    text: "PF2E.WeaponPropertyRune.energyVulnerability.Note.criticalSuccess",
+                },
+            ],
+        },
         level: 4,
         name: "PF2E.WeaponPropertyRune.energyVulnerability.Name",
         price: 90,
@@ -1598,11 +1607,6 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     title: "PF2E.WeaponPropertyRune.greaterBrilliant.Name",
                     text: "PF2E.WeaponPropertyRune.greaterBrilliant.Note.criticalSuccess",
                 },
-                {
-                    outcome: ["success"],
-                    title: "PF2E.WeaponPropertyRune.greaterBrilliant.Name",
-                    text: "PF2E.WeaponPropertyRune.greaterBrilliant.Note.success",
-                },
             ],
             ignoredResistances: [
                 { type: "fire", max: Infinity },
@@ -1625,11 +1629,6 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     outcome: ["criticalSuccess"],
                     title: "PF2E.WeaponPropertyRune.greaterCorrosive.Name",
                     text: "PF2E.WeaponPropertyRune.greaterCorrosive.Note.criticalSuccess",
-                },
-                {
-                    outcome: ["success"],
-                    title: "PF2E.WeaponPropertyRune.greaterCorrosive.Name",
-                    text: "PF2E.WeaponPropertyRune.greaterCorrosive.Note.success",
                 },
             ],
             ignoredResistances: [{ type: "acid", max: Infinity }],
@@ -1713,6 +1712,15 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         traits: ["magical"],
     },
     greaterEnergyVulnerability: {
+        damage: {
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.greaterEnergyVulnerability.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterEnergyVulnerability.Note.criticalSuccess",
+                },
+            ],
+        },
         level: 16,
         name: "PF2E.WeaponPropertyRune.greaterEnergyVulnerability.Name",
         price: 9000,
@@ -1782,11 +1790,6 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     outcome: ["criticalSuccess"],
                     title: "PF2E.WeaponPropertyRune.greaterFrost.Name",
                     text: "PF2E.WeaponPropertyRune.greaterFrost.Note.criticalSuccess",
-                },
-                {
-                    outcome: ["success"],
-                    title: "PF2E.WeaponPropertyRune.greaterFrost.Name",
-                    text: "PF2E.WeaponPropertyRune.greaterFrost.Note.success",
                 },
             ],
             ignoredResistances: [{ type: "cold", max: Infinity }],
@@ -1886,11 +1889,6 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     title: "PF2E.WeaponPropertyRune.greaterShock.Name",
                     text: "PF2E.WeaponPropertyRune.greaterShock.Note.criticalSuccess",
                 },
-                {
-                    outcome: ["success"],
-                    title: "PF2E.WeaponPropertyRune.greaterShock.Name",
-                    text: "PF2E.WeaponPropertyRune.greaterShock.Note.success",
-                },
             ],
             ignoredResistances: [{ type: "electricity", max: Infinity }],
         },
@@ -1909,11 +1907,6 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     outcome: ["criticalSuccess"],
                     title: "PF2E.WeaponPropertyRune.greaterThundering.Name",
                     text: "PF2E.WeaponPropertyRune.greaterThundering.Note.criticalSuccess",
-                },
-                {
-                    outcome: ["success"],
-                    title: "PF2E.WeaponPropertyRune.greaterThundering.Name",
-                    text: "PF2E.WeaponPropertyRune.greaterThundering.Note.success",
                 },
             ],
             ignoredResistances: [{ type: "sonic", max: Infinity }],

@@ -1,6 +1,6 @@
 import type { ImageFilePath } from "@common/constants.mjs";
 import type { ItemUUID } from "@common/documents/_module.mjs";
-import type { ZeroToTen } from "@module/data.ts";
+import type { OneToTen, ZeroToTen } from "@module/data.ts";
 
 /** A middle column a spell list can display. Widths: defense 6rem, range 4rem, uses 4rem. */
 type SpellListColumn = "defense" | "range" | "uses";
@@ -20,6 +20,8 @@ interface SpellRowData {
     uuid: ItemUUID;
     img: ImageFilePath;
     name: string;
+    /** The rank the spell's summary renders at, read by content links dragged out of it */
+    castRank: OneToTen;
     /** When the spell was last modified, keeping its expanded summary fresh */
     updatedAt?: number;
     /** Action glyph text for the cast time ("" when not renderable as a glyph) */

@@ -1,8 +1,8 @@
 <script lang="ts">
-    import Filters from "./filters.svelte";
-    import ResultItem from "./result-item.svelte";
     import { CompendiumBrowser } from "../browser.svelte.ts";
     import type { RangeInputParser } from "../tabs/data.ts";
+    import Filters from "./filters.svelte";
+    import ResultItem from "./result-item.svelte";
 
     interface Props {
         foundryApp: CompendiumBrowser;

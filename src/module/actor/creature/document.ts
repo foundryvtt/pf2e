@@ -8,13 +8,14 @@ import { ActorSpellcasting } from "@actor/spellcasting.ts";
 import type { MovementType, SaveType, SkillSlug } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, MOVEMENT_TYPES } from "@actor/values.ts";
 import type { Rolled } from "@client/dice/_module.d.mts";
+import type { ActiveEffectChangeData } from "@client/documents/_types.d.mts";
 import type {
     DatabaseDeleteCallbackOptions,
     DatabaseDeleteOperation,
     DatabaseUpdateOperation,
 } from "@common/abstract/_types.d.mts";
 import { ArmorPF2e, ItemPF2e, PhysicalItemPF2e, ShieldPF2e, SpellcastingEntryPF2e } from "@item";
-import { ArmorSource } from "@item/base/data/index.ts";
+import type { ArmorSource } from "@item/base/data/index.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import type { EquippedData, ItemCarryType } from "@item/physical/data.ts";
 import { isEquipped } from "@item/physical/usage.ts";
@@ -35,7 +36,12 @@ import { CheckDC } from "@system/degree-of-success.ts";
 import { Predicate } from "@system/predication.ts";
 import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@system/statistic/index.ts";
 import { PerceptionStatistic } from "@system/statistic/perception.ts";
-import { classifySpeedDeriveKind, getDeriveParentType, SpeedStatistic } from "@system/statistic/speed.ts";
+import {
+    classifySpeedDeriveKind,
+    getDeriveParentType,
+    publishMovementSpeeds,
+    SpeedStatistic,
+} from "@system/statistic/speed.ts";
 import { ErrorPF2e, localizer, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { CreatureMovementData, CreatureResources, CreatureSystemData, VisionLevel, VisionLevels } from "./data.ts";
@@ -451,6 +457,42 @@ abstract class CreaturePF2e<
         super.prepareDataFromItems();
     }
 
+    override applyActiveEffects(phase: string): void {
+        super.applyActiveEffects(phase);
+        if (phase !== "final") return;
+
+        // Prepare token AE changes from perception
+        const changes = (this.tokenActiveEffectChanges.initial ??= []);
+        const baseChange: ActiveEffectChangeData = { type: "override", priority: 50, phase: "initial" };
+        const { perception, hasDarkvision } = this;
+        const basicSight = { enabled: perception.hasVision, range: hasDarkvision ? null : 0 };
+        const lightPerception = { enabled: perception.hasVision, range: null };
+        const hearing = { enabled: !this.hasCondition("deafened"), range: null };
+        changes.push(
+            { ...baseChange, key: "detectionModes.basicSight", value: basicSight },
+            { ...baseChange, key: "detectionModes.lightPerception", value: lightPerception },
+            { ...baseChange, key: "detectionModes.hearing", value: hearing },
+            { ...baseChange, key: "sight.visionMode", value: hasDarkvision ? "darkvision" : "basic" },
+        );
+        if (hasDarkvision) {
+            changes.push({ ...baseChange, key: "sight.range", value: null });
+            if (this.flags[SYSTEM_ID].colorDarkvision) {
+                changes.push({ ...baseChange, key: "sight.saturation", value: 1 });
+            } else if (!game.user.settings.monochromeDarkvision) {
+                changes.push({ ...baseChange, key: "sight.saturation", value: 0 });
+            }
+        }
+        if (perception.senses.has("see-invisibility")) {
+            const value = { enabled: !this.hasCondition("blinded"), range: null };
+            changes.push({ ...baseChange, key: "detectionModes.seeInvisibility", value });
+        }
+        const tremorsense = perception.senses.get("tremorsense");
+        if (tremorsense) {
+            const value = { enabled: true, range: tremorsense.range };
+            changes.push({ ...baseChange, key: "detectionModes.feelTremor", value });
+        }
+    }
+
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
@@ -758,12 +800,8 @@ abstract class CreaturePF2e<
 
         /** Capture ancestry / NPC bases before traces are overwritten */
         const systemValues = R.mapToObj(MOVEMENT_TYPES, (type) => {
-            if (type === "land") {
-                const land = this.system.movement.speeds.land;
-                return [type, { value: land.base, source: land.source ?? null }];
-            }
             const data = this.system.movement.speeds[type];
-            return data && data.value > 0 ? [type, { value: data.value, source: data.source ?? null }] : [type, null];
+            return data && data.base > 0 ? [type, { value: data.base, source: data.source ?? null }] : [type, null];
         });
 
         const selectCandidate = (candidates: SpeedBaseCandidate[]): SpeedBaseCandidate | null => {
@@ -838,22 +876,15 @@ abstract class CreaturePF2e<
             }
 
             const selected = selectCandidate(candidates);
-            if (type !== "land" && !selected) {
+            // A base of 0 removes the speed. Leave a numeric stub so later formulas reading this speed resolve to 0.
+            if (!selected || selected.value <= 0) {
                 setSpeedStat(type, null);
-                this.system.movement.speeds[type as Exclude<MovementType, "land">] = null;
+                this.system.movement.speeds[type] = { value: 0, base: 0 } as CreatureMovementData["speeds"][K];
                 return;
             }
 
-            const landFallback: SpeedBaseCandidate = {
-                value: 0,
-                source: null,
-                force: false,
-                formula: 0,
-                dependsOn: [],
-            };
-            const chosen = selected ?? landFallback;
-            if (chosen.value > 0) this.flags[SYSTEM_ID].rollOptions.all[`speed:${type}`] = true;
-            const statistic = buildSpeedStatistic(type, chosen);
+            this.flags[SYSTEM_ID].rollOptions.all[`speed:${type}`] = true;
+            const statistic = buildSpeedStatistic(type, selected);
             setSpeedStat(type, statistic);
             this.system.movement.speeds[type] = statistic.getTraceData() as CreatureMovementData["speeds"][K];
         };
@@ -879,20 +910,7 @@ abstract class CreaturePF2e<
             prepareType(type);
         }
 
-        const landSpeed = speedStats.land ?? new SpeedStatistic(this, { type: "land", base: 0, modifiers });
-        const travelSpeed = landSpeed.derive("travel", { mode: "equal", modifiers: modifiers.map((m) => m.clone()) });
-        this.movement.speeds = {
-            land: landSpeed,
-            burrow: speedStats.burrow ?? null,
-            climb: speedStats.climb ?? null,
-            fly: speedStats.fly ?? null,
-            swim: speedStats.swim ?? null,
-            travel: travelSpeed,
-        };
-        this.system.movement.speeds = R.mapValues(
-            this.movement.speeds,
-            (s) => s?.getTraceData() ?? null,
-        ) as CreatureMovementData["speeds"];
+        publishMovementSpeeds(this, speedStats, { modifiers });
     }
 
     /* -------------------------------------------- */

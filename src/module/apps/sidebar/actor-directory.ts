@@ -179,7 +179,7 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
     }
 
     protected override _onDragStart(event: DragEvent): void {
-        if (!(event.target instanceof HTMLElement && event.dataTransfer)) {
+        if (!(event.target && fu.isElementInstanceOf(event.target, HTMLElement) && event.dataTransfer)) {
             return super._onDragStart(event);
         }
 

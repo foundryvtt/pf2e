@@ -1,0 +1,430 @@
+{
+    "_id": "fEvbge1I9eDCQ4Mt",
+    "folder": "XDdQGzOLP6SxUBl3",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "bgyMFYSXYDYSmmUM",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 31
+                },
+                "damageRolls": {
+                    "9kye7HIuBSkmCtxD": {
+                        "damage": "4d10+9",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "magical",
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "YMvCmpHsMAP4Fapd",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Crystal Shard",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 31
+                },
+                "damageRolls": {
+                    "dnjzvLSxsG6Kh6DY": {
+                        "damage": "4d10+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 100,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "earth",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "sdXO1sq7jTiI9LHD",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Overgrown",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>These vault lifters have been partially reclaimed by the elements. At the start of an encounter, the lifter is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} until the end of its first turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": [
+                            "initiative"
+                        ],
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vFe36uIHulZ5o7yY",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Activate Rotor",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The vault lifter's rotor spins, becoming a buzzing blur. While the rotor is activated, the lifter gains a fly Speed of 40 feet. The spinning rotor also creates an aura in a @Template[type:emanation|distance:5] around the lifter. Any creature that enters or starts its turn in the area must attempt a @Check[fortitude|dc:34|options:damaging-effect,forced-movement,inflicts:prone] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected, and the vault lifter's rotor is deactivated. The lifter loses its fly Speed and aura until it Activates Rotor again.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d8[slashing]|options:area-damage] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[4d8[slashing]|options:area-damage] damage.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[8d8[slashing]|options:area-damage] damage. If the creature isn't @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by the vault lifter, they are pushed back 15 feet and knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "activate-rotor",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "activate-rotor"
+                        ],
+                        "selector": "fly",
+                        "value": 40
+                    },
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "activate-rotor"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "l6NRWWaC6EmEx9sp",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Carry",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A vault lifter can Fly at half Speed while it has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained], carrying that creature along with it.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IWfz9CXXr3A4SL05",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Draw In",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The vault lifter attempts to [[/act reposition]] a creature it has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained], moving the creature into a space adjacent to it. This attempt neither applies nor counts toward the lifter's multiple attack penalty.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GC5YbcsuLKeA2T9Y",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Overdrive",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The vault lifter's rotor is activated</p><hr /><p><strong>Effect</strong> The lifter Flies up to three times its Fly Speed in a straight line without triggering reactions. At the end of this flight, the lifter must attempt a @Check[fortitude|dc:40] saving throw. On a failure, the lifter's rotor is deactivated.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Z1KAj7nWJ9KL89uk",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Eroded Vault Lifter",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -5
+            },
+            "con": {
+                "mod": 8
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": -1
+            },
+            "str": {
+                "mod": 9
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 36
+            },
+            "adjustment": "weak",
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 292,
+                "temp": 0,
+                "value": 272
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "radiation"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 15
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "Weak vault lifter",
+            "languages": {
+                "details": "(can't speak any language)",
+                "value": [
+                    "orvian"
+                ]
+            },
+            "level": {
+                "value": 16
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Vault lifters are sentient stone constructs roughly carved into the semblance of giant xiomorns. Each vault lifter is encircled by a spinning ring, called a rotor, which grants the lifter the ability to fly.</p>\n<p>Xiomorns created vault lifters to help construct their vaults throughout the Plane of Earth and across the Universe. With the ability to airlift heavy burdens and possessed with enough intelligence to carry out complex instructions, vault lifters were valuable lieutenants in the xiomorns' vast terraforming projects. Vault lifters were intended to be more than simple laborers, however; they were also built as weapons of war. In combat, vault lifters spin their rotors into fearsome buzz saws capable of propelling them at high speeds and slicing foes in half.</p><h2>Abandoned Guardians</h2><p>While some vault lifters continue to serve living xiomorns, others have been left behind in long-abandoned locations. Over the years, many of these forgotten vault lifters have completed their assignments and deactivated themselves. Others continue to perform some unending task, such as \"keep this area clean,\" \"prevent unauthorized entry,\" or \"I'll be back in a bit—wait for my return.\" After millennia spent in solitude, some abandoned vault lifters become fanatical about their final orders, spinning them into complex philosophical systems heavy with moral significance.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 25,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 120,
+                    "type": "tremorsense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 30
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 27
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 24
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 32
+            },
+            "stealth": {
+                "base": 29
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "construct"
+            ]
+        }
+    },
+    "type": "npc"
+}

@@ -1,6 +1,8 @@
-import { ActorPF2e } from "@actor";
+import { ActorPF2e, type CreaturePF2e } from "@actor";
+import type { CreatureSpeeds } from "@actor/creature/types.ts";
 import { StatisticModifier, type Modifier } from "@actor/modifiers.ts";
-import { MovementType } from "@actor/types.ts";
+import type { MovementType } from "@actor/types.ts";
+import { MOVEMENT_TYPES } from "@actor/values.ts";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import { ErrorPF2e, localizer } from "@util";
 import * as R from "remeda";
@@ -20,6 +22,14 @@ const SPEED_VALUE_PATTERN = /movement\.speeds\.(land|burrow|climb|fly|swim)\.val
  *   speed with full modifier domains (all-speeds, speed, type-speed).
  */
 type SpeedDeriveKind = "equal" | "scaled" | "independent";
+
+/** Fastest burrow, climb, fly, or swim speed. Ties break by MOVEMENT_TYPES order. */
+function fastestMovementSpeed<TActor extends ActorPF2e>(speeds: {
+    [K in MovementType]?: SpeedStatistic<TActor, K> | null;
+}): SpeedStatistic<TActor, Exclude<MovementType, "land">> | null {
+    const others = [speeds.burrow, speeds.climb, speeds.fly, speeds.swim].filter(R.isNonNullish);
+    return R.firstBy(others, [(s) => s.value, "desc"]) ?? null;
+}
 
 function getDeriveParentType(formula: string | number, dependsOn: MovementType[]): MovementType | null {
     if (dependsOn.length === 0) return null;
@@ -96,7 +106,7 @@ class SpeedStatistic<TActor extends ActorPF2e, TType extends MovementType | "tra
     get value(): number {
         if (this.#value === null) {
             const total = this.base + new StatisticModifier("", this.modifiers, this.rollOptions).totalModifier;
-            this.#value = this.base > 0 ? Math.max(5, total) : Math.max(0, total);
+            this.#value = this.base > 0 ? Math.max(5, total) : 0;
         }
         return this.#value;
     }
@@ -168,7 +178,7 @@ class SpeedStatistic<TActor extends ActorPF2e, TType extends MovementType | "tra
           ? SpeedStatisticTraceData<TType>
           : never;
     override getTraceData(): LandSpeedStatisticTraceData | SpeedStatisticTraceData<TType> {
-        const data: SpeedStatisticTraceData<TType> & { crawl?: number; step?: number } = {
+        const data: SpeedStatisticTraceData<TType> & { crawl?: number | null; step?: number | null } = {
             type: this.type,
             slug: this.slug,
             label: this.label,
@@ -179,8 +189,8 @@ class SpeedStatistic<TActor extends ActorPF2e, TType extends MovementType | "tra
             modifiers: this.modifiers.filter((m) => m.enabled && m.value !== 0).map((m) => m.toObject()),
         };
         if (this.type === "land") {
-            data.crawl = 5;
-            data.step = 5;
+            data.crawl = this.value >= 10 ? 5 : null;
+            data.step = this.value >= 10 ? 5 : null;
         }
         return data;
     }
@@ -203,9 +213,36 @@ interface SpeedStatisticTraceData<
 }
 
 interface LandSpeedStatisticTraceData extends SpeedStatisticTraceData<"land"> {
-    crawl: number;
-    step: number;
+    crawl: number | null;
+    step: number | null;
 }
 
-export { SpeedStatistic, classifySpeedDeriveKind, getDeriveParentType };
+/** Derive travel, then write movement statistics and their traces. */
+function publishMovementSpeeds<TActor extends CreaturePF2e>(
+    actor: TActor,
+    speeds: { [K in MovementType]?: SpeedStatistic<TActor, K> | null },
+    options: {
+        modifiers?: readonly Modifier[];
+        adjustTravel?: (travel: SpeedStatistic<TActor, "travel">) => void;
+    } = {},
+): void {
+    const parent = speeds.land ?? fastestMovementSpeed(speeds);
+    const travel =
+        parent?.derive("travel", {
+            mode: "equal",
+            modifiers: options.modifiers?.map((modifier) => modifier.clone()),
+        }) ?? new SpeedStatistic(actor, { type: "travel", base: 0, domains: [] });
+    options.adjustTravel?.(travel);
+
+    actor.movement.speeds = {
+        ...R.mapToObj(MOVEMENT_TYPES, (type) => [type, speeds[type] ?? null]),
+        travel,
+    } as CreatureSpeeds<TActor>;
+    actor.system.movement.speeds = R.mapValues(
+        actor.movement.speeds,
+        (statistic) => statistic?.getTraceData() ?? null,
+    ) as TActor["system"]["movement"]["speeds"];
+}
+
+export { SpeedStatistic, classifySpeedDeriveKind, getDeriveParentType, publishMovementSpeeds };
 export type { LandSpeedStatisticTraceData, SpeedStatisticTraceData };

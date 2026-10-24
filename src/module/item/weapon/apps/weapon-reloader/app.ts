@@ -46,13 +46,12 @@ class WeaponReloader extends SvelteApplicationMixin<
 
     /** A special close if clicked outside listener, pre-bound to "this" for add/remove support */
     #closeListener = (event: PointerEvent | KeyboardEvent | WheelEvent) => {
-        if (event instanceof KeyboardEvent && event.key === "Escape") {
+        if (fu.isElementInstanceOf(event, KeyboardEvent) && event.key === "Escape") {
             event.stopPropagation();
             this.close();
         } else if (
-            event instanceof PointerEvent &&
-            event.target instanceof HTMLElement &&
-            event.target.closest(".application") !== this.element
+            fu.isElementInstanceOf(event, PointerEvent) &&
+            htmlClosest(event.target, ".application") !== this.element
         ) {
             this.close();
         }

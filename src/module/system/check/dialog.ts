@@ -136,7 +136,7 @@ export class CheckModifiersDialog extends fav1.api.Application {
         // Restrict manual entry to a signed integer: a leading +/- followed by digits.
         const modifierValueInput = html.querySelector<HTMLInputElement>(".add-modifier-value");
         modifierValueInput?.addEventListener("beforeinput", (event) => {
-            if (!(event instanceof InputEvent) || event.data === null) return;
+            if (!fu.isElementInstanceOf(event, InputEvent) || event.data === null) return;
             const input = event.currentTarget as HTMLInputElement;
             const newValue =
                 input.value.slice(0, input.selectionStart ?? 0) +

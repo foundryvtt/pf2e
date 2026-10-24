@@ -16,4 +16,4 @@ const args = argv
     .parseSync();
 console.log(`Building system: ${args.system}`);
 process.env.SYSTEM_ID = args.system;
-execSync("npx vite build", { encoding: "utf-8", stdio: "inherit" });
+execSync("pnpm exec vite build", { encoding: "utf-8", stdio: "inherit" });

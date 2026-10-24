@@ -1931,7 +1931,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Constrain PFS player and character numbers
         for (const property of ["playerNumber", "characterNumber"] as const) {
             if (typeof changed.system.pfs?.[property] === "number") {
-                const [min, max] = property === "playerNumber" ? [1, 9_999_999] : [2001, 9999];
+                const [min, max] = property === "playerNumber" ? [1, 99_999_999] : [2001, 9999];
                 changed.system.pfs[property] = Math.clamp(changed.system.pfs[property] || 0, min, max);
             } else if (changed.system.pfs && changed.system.pfs[property] !== null) {
                 changed.system.pfs[property] = this.system.pfs[property] ?? null;

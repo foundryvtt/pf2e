@@ -45,13 +45,13 @@ import {
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import {
     ErrorPF2e,
-    SORTABLE_BASE_OPTIONS,
     htmlClosest,
     htmlQuery,
     htmlQueryAll,
     objectHasKey,
     setHasElement,
     signedInteger,
+    SORTABLE_BASE_OPTIONS,
     tupleHasValue,
 } from "@util";
 import { createSortable } from "@util/destroyables.ts";
@@ -395,7 +395,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             input.addEventListener("focus", () => {
                 const propertyPath = input.dataset.property ?? "";
                 input.name = propertyPath;
-                if (input instanceof HTMLInputElement) {
+                if (fu.isElementInstanceOf(input, HTMLInputElement)) {
                     const savedValue = fu.getProperty(this.actor._source, propertyPath);
                     const baseValue = isNullable && savedValue === null ? null : Math.trunc(Number(savedValue) || 0);
                     input.value = (baseValue ?? "").toString();
@@ -412,7 +412,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                 const currentValue = preparedValue === null && isNullable ? preparedValue : Number(preparedValue) || 0;
                 const baseValue = Math.trunc(Number(fu.getProperty(this.actor._source, propertyPath)) || 0);
                 const newValue = isNullable && input.value === "" ? null : Math.trunc(Number(input.value));
-                if (input instanceof HTMLInputElement) {
+                if (fu.isElementInstanceOf(input, HTMLInputElement)) {
                     if (input.type === "number" && input.dataset.dtype === "Number") {
                         input.type = "text";
                     }
@@ -441,7 +441,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
 
                 const value = (() => {
                     const value =
-                        element instanceof HTMLInputElement && element.type === "checkbox"
+                        fu.isElementInstanceOf(element, HTMLInputElement) && element.type === "checkbox"
                             ? element.checked
                             : element.value;
                     if (typeof value === "boolean") return value;
@@ -896,7 +896,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
     async #onDropInventoryItem(event: Sortable.SortableEvent & { originalEvent?: DragEvent }): Promise<void> {
         if (!this.isEditable) return;
         const dropTarget = event.originalEvent?.target;
-        const droppedOnCanvas = !!dropTarget && dropTarget instanceof HTMLCanvasElement;
+        const droppedOnCanvas = !!dropTarget && fu.isElementInstanceOf(dropTarget, HTMLCanvasElement);
         const droppedOnOtherSheet = !droppedOnCanvas && htmlClosest(event.originalEvent?.target, "form") !== this.form;
         if (droppedOnOtherSheet) return;
 
@@ -1007,7 +1007,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
 
     /** Add support for dropping actions and toggles */
     protected override _onDragStart(event: DragEvent): void {
-        if (!(event.target instanceof HTMLElement) || !event.dataTransfer) {
+        if (!(event.target && fu.isElementInstanceOf(event.target, HTMLElement)) || !event.dataTransfer) {
             return;
         }
 

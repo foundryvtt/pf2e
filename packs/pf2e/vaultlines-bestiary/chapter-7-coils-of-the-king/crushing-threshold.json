@@ -1,0 +1,105 @@
+{
+    "_id": "Qn2u9uT5h3aIluOa",
+    "folder": "FUHH9Of9ZX3Vb1zb",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "6C8dUXd69lNtfVFg",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Welcome to the Coils",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the northernmost alcove</p><hr /><p><strong>Effect</strong> Zyphaniss's telepathic chuckle echoes in the minds of all creatures in the area. A 9th-rank @UUID[Compendium.pf2e.spells-srd.Item.Wall of Force] appears across the entrance of the northern alcove. Any creature in that alcove can attempt a @Check[reflex|dc:38] save to leap out of the alcove before the <em>wall of force</em> traps them inside. The hazard rolls initiative</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Crushing Threshold",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 44
+            },
+            "emitsSound": "encounter",
+            "hardness": 30,
+            "hp": {
+                "details": "",
+                "max": 120,
+                "temp": 0,
+                "value": 120
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 30
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The ceilings of four alcoves slam down, threatening to crush everything inside.</p>",
+            "disable": "<p>@Check[thievery|dc:40] (master) twice to @UUID[Compendium.pf2e.actionspf2e.Item.Pick a Lock]{Pick the Lock} of the iron door or @Check[athletics|dc:44] (master) to [[/act force-open]] the door</p>",
+            "isComplex": true,
+            "level": {
+                "value": 18
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            },
+            "reset": "<p>Once the ceiling of the northernmost alcove descends, all four ceilings return to their original positions, the wall of force sealing the northern alcove disappears, and the hazard resets. Opening the iron door (even from the opposite side) permanently disables the hazard.</p>",
+            "routine": "<p>(1 action) The ceiling of one of the four alcoves—starting with the southernmost alcove and moving one alcove north each round—slams down with incredible force. A creature bracing the ceiling can prevent it from descending by making a successful @Check[athletics|dc:44] check, but the creature must repeat this check each round. The ceiling drops if the creature fails the check or leaves the alcove. Creatures and objects in an alcove when a ceiling drops each take @Damage[(6d12+41)[bludgeoning]|options:area-damage] damage (@Check[fortitude|dc:44|basic|options:area-effect|options:inflicts:prone] save). A creature that takes this damage also falls @UUID[Compendium.pf2e.conditionitems.Item.Prone]. The contents of the alcove are then teleported to the secret hallway north of area <strong>H2</strong>, leaving the alcove filled with nothing but a block of solid stone.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 35
+            },
+            "reflex": {
+                "value": 27
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

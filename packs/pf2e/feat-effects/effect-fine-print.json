@@ -1,0 +1,48 @@
+{
+    "_id": "uZTN2MjVK0UsNvWf",
+    "img": "icons/sundries/documents/document-sealed-white-orange.webp",
+    "name": "Effect: Fine Print",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Fine Print]</p>\n<p>Your contract blade deals an additional 2d4 precision damage to the off-guard creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "category": "precision",
+                "diceNumber": 2,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:condition:off-guard"
+                ],
+                "selector": "{actor|flags.system.trackedItems.contractBlade}-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

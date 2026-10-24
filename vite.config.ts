@@ -10,14 +10,16 @@ import Peggy from "peggy";
 import * as Vite from "vite";
 import checker from "vite-plugin-checker";
 import { viteStaticCopy } from "vite-plugin-static-copy";
+import duplicates from "./build/duplicates.json" with { type: "json" };
 import { sluggify } from "./src/util/misc.ts";
 import pf2eManifest from "./system.pf2e.json" with { type: "json" };
 import sf2eManifest from "./system.sf2e.json" with { type: "json" };
 
+const ROOT_DIR = import.meta.dirname;
 const [SYSTEM_ID, systemJSON] =
     process.env.SYSTEM_ID === "sf2e" ? (["sf2e", sf2eManifest] as const) : (["pf2e", pf2eManifest] as const);
 const CONDITION_SOURCES = ((): ConditionSource[] => {
-    const output = execSync(`pnpm run build:conditions --system=${SYSTEM_ID}`, { encoding: "utf-8" });
+    const output = execSync(`pnpm build:conditions --system=${SYSTEM_ID}`, { encoding: "utf-8" });
     return JSON.parse(output.slice(output.indexOf("[")));
 })();
 const EN_JSON = JSON.parse(fs.readFileSync("./static/lang/en.json", { encoding: "utf-8" }));
@@ -25,14 +27,14 @@ const EN_JSON = JSON.parse(fs.readFileSync("./static/lang/en.json", { encoding: 
 /** Get UUID redirects from JSON file, converting names to IDs. */
 function getUuidRedirects({ systemId }: { systemId: SystemId }): Record<CompendiumUUID, CompendiumUUID> {
     const redirectJSON = JSON.parse(
-        fs.readFileSync(path.resolve(__dirname, "build", "uuid-redirects", `${systemId}.json`), "utf-8"),
+        fs.readFileSync(path.resolve(ROOT_DIR, "build", "uuid-redirects", `${systemId}.json`), "utf-8"),
     );
     for (const [from, to] of Object.entries<string>(redirectJSON)) {
         const [, , pack, documentType, name] = to.split(".", 5);
         const packDir = systemJSON.packs
             .find((p) => p.type === documentType && p.name === pack)
             ?.path.replace(/^packs/, `packs/${systemId}`);
-        const dirPath = path.resolve(__dirname, packDir ?? "");
+        const dirPath = path.resolve(ROOT_DIR, packDir ?? "");
         const filename = `${sluggify(name)}.json`;
         const jsonPath = fs.existsSync(path.resolve(dirPath, filename))
             ? path.resolve(dirPath, filename)
@@ -45,6 +47,32 @@ function getUuidRedirects({ systemId }: { systemId: SystemId }): Record<Compendi
     }
 
     return redirectJSON;
+}
+
+/** Map PF2e pack names to their SF2e counterpart and the IDs of the documents in it, including PF2e duplicates */
+function getSF2ePacks(): Record<string, { name: string; ids: Set<string> } | undefined> {
+    const readIds = (paths: string[]) => paths.map((p): string => JSON.parse(fs.readFileSync(p, "utf-8"))._id);
+    const globJSON = (dirPath: string) =>
+        globSync(path.resolve(dirPath, "**/*.json"), { windowsPathsNoEscape: true, ignore: "**/_folders.json" });
+
+    return Object.fromEntries(
+        pf2eManifest.packs.flatMap((pf2ePack) => {
+            const sf2ePack = sf2eManifest.packs.find((p) => p.path === pf2ePack.path);
+            if (!sf2ePack) return [];
+            const dirName = path.basename(sf2ePack.path);
+            const ids = readIds(globJSON(path.resolve(ROOT_DIR, "packs/sf2e", dirName)));
+            const duplicateSlugs = new Set(
+                duplicates
+                    .flatMap((g) => (g.entries as Record<string, string[] | undefined>)[dirName] ?? [])
+                    .map((n) => sluggify(n)),
+            );
+            if (duplicateSlugs.size > 0) {
+                const pf2ePaths = globJSON(path.resolve(ROOT_DIR, "packs/pf2e", dirName));
+                ids.push(...readIds(pf2ePaths.filter((p) => duplicateSlugs.has(path.basename(p, ".json")))));
+            }
+            return [[pf2ePack.name, { name: sf2ePack.name, ids: new Set(ids) }]];
+        }),
+    );
 }
 
 const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
@@ -77,22 +105,23 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     };
 
     const plugins = [
-        checker({ typescript: true }),
+        // CI type-checks in its own job with svelte-check, which also covers .ts files
+        checker({ typescript: true, enableBuild: !process.env.CI }),
         sveltePlugin({
             preprocess: command === "serve" ? [vitePreprocess(), hmrPreprocess] : vitePreprocess(),
         }),
     ];
     const packUUIDPattern = /Compendium\.pf2e\.[^\]]+/g;
+    const sf2ePacks = SYSTEM_ID === "sf2e" ? getSF2ePacks() : {};
+    // UUIDs of PF2e-only content are left alone for PF2e Anachronism to redirect
     const adjustUUIDForSF2e = (s: string): string =>
-        s.replace(packUUIDPattern, (uuid) =>
-            uuid
-                .replace("Compendium.pf2e.", "Compendium.sf2e.")
-                .replace(".actionspf2e.", ".actions.")
-                .replace(".ancestryfeatures.", ".ancestry-features.")
-                .replace(".classfeatures.", ".class-features.")
-                .replace(".conditionitems.", ".conditions.")
-                .replace("-srd.", "."),
-        );
+        s.replace(packUUIDPattern, (uuid) => {
+            const [, , pf2ePackName, , id] = uuid.split(".");
+            const sf2ePack = sf2ePacks[pf2ePackName];
+            return sf2ePack?.ids.has(id)
+                ? uuid.replace(`Compendium.pf2e.${pf2ePackName}.`, `Compendium.sf2e.${sf2ePack.name}.`)
+                : uuid;
+        });
     if (buildMode === "production") {
         plugins.push(
             // Handle minification after build to allow for tree-shaking and whitespace minification
@@ -202,7 +231,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         );
 
         // Add system CSS layer for HMR
-        const mainCss = path.resolve(__dirname, "src/pf2e.ts").split(path.sep).join("/");
+        const mainCss = path.resolve(ROOT_DIR, "src/pf2e.ts").split(path.sep).join("/");
         plugins.push({
             name: "hmr-layers",
             apply: "serve",
@@ -292,7 +321,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                     ws: true,
                 },
             },
-            watch: { ignored: ["dist", "packs", "tests"].map((d) => path.resolve(__dirname, d, "**")) },
+            watch: { ignored: ["dist", "packs", "tests"].map((d) => path.resolve(ROOT_DIR, d, "**")) },
         },
         plugins,
         css: {

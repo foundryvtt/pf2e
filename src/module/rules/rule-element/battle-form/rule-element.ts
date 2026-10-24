@@ -1,4 +1,5 @@
 import type { ActorType, CharacterPF2e } from "@actor";
+import type { MovementType } from "@actor/types.ts";
 import { CharacterAttack } from "@actor/character/data.ts";
 import { SENSE_TYPES } from "@actor/creature/values.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
@@ -8,7 +9,7 @@ import { WeaponPF2e } from "@item";
 import { RollNotePF2e } from "@module/notes.ts";
 import { Predicate } from "@system/predication.ts";
 import { RecordField } from "@system/schema-data-fields.ts";
-import { LandSpeedStatisticTraceData, SpeedStatistic } from "@system/statistic/speed.ts";
+import { publishMovementSpeeds, SpeedStatistic } from "@system/statistic/speed.ts";
 import { objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { isSharedStatisticModifier, suppressUnsharedModifiers, useFixedStatisticModifier } from "../../helpers.ts";
@@ -397,26 +398,30 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
         const speeds = this.overrides.speeds;
         if (R.isEmpty(speeds)) return;
 
-        for (const type of MOVEMENT_TYPES) {
+        const built: { [K in MovementType]?: SpeedStatistic<CharacterPF2e, K> | null } = {};
+        const setBuilt = <K extends MovementType>(
+            type: K,
+            statistic: SpeedStatistic<CharacterPF2e, K> | null,
+        ): void => {
+            built[type] = statistic as { [P in MovementType]?: SpeedStatistic<CharacterPF2e, P> | null }[K];
+        };
+        const applySpeed = <K extends MovementType>(type: K): void => {
             const speedOverride = this.resolveValue(speeds[type], null);
             actor.synthetics.movementTypes[type] = [];
-
-            if (typeof speedOverride !== "number") {
+            if (typeof speedOverride !== "number" || speedOverride <= 0) {
                 delete actor.rollOptions.all[`speed:${type}`];
-                if (type !== "land") {
-                    actor.system.movement.speeds[type] = null;
-                    continue;
-                }
-                // Land can't be null, so create it with no modifiers as a workaround
-                const statistic = new SpeedStatistic(actor, { type, base: 0, domains: [] });
-                actor.system.movement.speeds.land = statistic.getTraceData();
-                continue;
+                setBuilt(type, null);
+                return;
             }
-
             const statistic = new SpeedStatistic(actor, { type, base: speedOverride });
             suppressUnsharedModifiers(statistic);
-            actor.system.movement.speeds[type] = statistic.getTraceData() as LandSpeedStatisticTraceData;
+            setBuilt(type, statistic);
+        };
+        for (const type of MOVEMENT_TYPES) {
+            applySpeed(type);
         }
+
+        publishMovementSpeeds(actor, built, { adjustTravel: suppressUnsharedModifiers });
     }
 
     #suppressNotes(notes: RollNotePF2e[]): void {

@@ -1,0 +1,96 @@
+{
+    "_id": "olojUPbWvBoSsr9R",
+    "folder": "FUHH9Of9ZX3Vb1zb",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "7X1oDURhj2WQbuyA",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "The Crowd Goes Wild!",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature enters the area</p><hr /><p><strong>Effect</strong> The chamber fills with the sound of cheering spectators. Each creature in the area attempts a @Check[will|dc:40|options:area-effect,inflicts:confused,inflicts:stunned] saving throw with the effects below. The hazard then rolls initiative.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is rattled briefly by the roar and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The cries of the bloodthirsty crowd overwhelm the creature. The creature is @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 minute but can attempt a new save at the end of each of their turns to end the confusion.</p>\n<p><strong>Critical Failure</strong> The creature is confused for 1 minute or until the haunt is disabled, with no save to end early.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Thisty Sands",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 35
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Illusory spectators cry out for blood as tendrils of sand hold unwilling combatants in place.</p>",
+            "disable": "<p>@Check[arcana|dc:38] or @Check[nature|dc:38] (master) twice to undo the magic that animates the sand, @Check[intimidation|dc:34] or @Check[performance|dc:34] (expert) twice to win over the crowd, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (9th rank; counteract DC 36)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 17
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            },
+            "reset": "<p>The hazard deactivates once no living creatures are in the room, resetting after 1 minute.</p>",
+            "routine": "<p>(1 action) Tendrils of sand rise from the floor. Up to two creatures in the room must attempt a @Check[reflex|dc:38|options:forced-movement,inflicts:prone] save. On a failed save, the tendrils wrap around the creature and move it to an unoccupied square closest to the center of the arena. If the creature was Flying, the tendril also pulls it to the ground. On a critical failure, the creature is also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. The tendrils then collapse back into the floor.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

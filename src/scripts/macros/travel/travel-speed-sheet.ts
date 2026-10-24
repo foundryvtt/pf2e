@@ -151,7 +151,7 @@ class TravelSpeedSheet extends fav1.api.FormApplication<object, TravelSpeedSheet
         return this.actorFormToSheetData(actor, {
             detectionMode: "before",
             explorationActivity: "Search",
-            speed: actor.system.movement.speeds.land.value,
+            speed: actor.system.movement.speeds.land?.value ?? actor.system.movement.speeds.travel.value,
         });
     }
 

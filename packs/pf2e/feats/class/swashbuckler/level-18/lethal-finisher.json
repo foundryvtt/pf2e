@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You stab your foe in a vital organ, possibly killing them outright. Make a Strike. On a success, you forego your precise strike damage from the finisher.</p>\n<p>Instead, your target takes additional precision damage based on a @Check[fortitude|against:swashbuckler] save against your class DC. If your Strike was a critical hit, the target's saving throw outcome is one degree worse.</p>\n<hr />\n<p><strong>Critical Success</strong> You deal 6 precision damage.</p>\n<p><strong>Success</strong> You deal 6d6 precision damage.</p>\n<p><strong>Failure</strong> You deal 12d6 precision damage.</p>\n<p><strong>Critical Failure</strong> You deal 18d6 precision damage.</p>"
+            "value": "<p>You stab your foe in a vital organ, possibly killing them outright. Make a Strike. On a success, you forego your @UUID[Compendium.pf2e.classfeatures.Item.Precise Strike] damage from the finisher.</p>\n<p>Instead, your target takes additional precision damage based on a @Check[fortitude|against:swashbuckler|options:damaging-effect] save against your class DC. If your Strike was a critical hit, the target's saving throw outcome is one degree worse.</p><hr /><p><strong>Critical Success</strong> You deal 6 precision damage.</p>\n<p><strong>Success</strong> You deal 6d6 precision damage.</p>\n<p><strong>Failure</strong> You deal 12d6 precision damage.</p>\n<p><strong>Critical Failure</strong> You deal 18d6 precision damage.</p>"
         },
         "level": {
             "value": 18
@@ -50,6 +50,34 @@
                 "toggleable": true
             },
             {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.LethalDamage",
+                "option": "lethal-result",
+                "predicate": [
+                    "finisher:lethal"
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": "critical-success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
                 "key": "Note",
                 "predicate": [
                     "finisher:lethal"
@@ -57,6 +85,112 @@
                 "selector": "strike-attack-roll",
                 "text": "{item|system.description.value}",
                 "title": "{item|name}"
+            },
+            {
+                "critical": false,
+                "damageCategory": "precision",
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "lethal-result:critical-success",
+                    {
+                        "or": [
+                            "item:melee",
+                            {
+                                "and": [
+                                    "feat:flying-blade",
+                                    "item:thrown",
+                                    "target:range-increment:1"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "strike-damage"
+                ],
+                "slug": "lethal-finisher-damage",
+                "value": 6
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "finisher:lethal"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "finisher",
+                "value": "@actor.flags.system.swashbuckler.preciseStrike"
+            },
+            {
+                "category": "precision",
+                "critical": false,
+                "diceNumber": 6,
+                "dieSize": "d6",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "or": [
+                            "lethal-result:success",
+                            "lethal-result:critical-failure",
+                            "lethal-result:failure"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:melee",
+                            {
+                                "and": [
+                                    "feat:flying-blade",
+                                    "item:thrown",
+                                    "target:range-increment:1"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "lethal-finisher-damage"
+            },
+            {
+                "key": "DamageAlteration",
+                "predicate": [
+                    "lethal-result:failure"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "lethal-finisher-damage",
+                "value": 6
+            },
+            {
+                "key": "DamageAlteration",
+                "predicate": [
+                    "lethal-result:critical-failure"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "lethal-finisher-damage",
+                "value": 12
             }
         ],
         "traits": {

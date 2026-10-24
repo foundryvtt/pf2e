@@ -1,0 +1,98 @@
+{
+    "_id": "IL6zgRUHKAccnmiC",
+    "folder": "gnkoN3DOsVf0t2zA",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "nZTNt2WNOkcvozts",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Fleshwarp",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the ecdysis engine</p><hr /><p><strong>Effect</strong> The warpline arcs throughout the area. Each creature in the room must attempt a @Check[reflex|dc:36|options:area-effect,inflicts:sickened] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and gains a +1 status bonus to further saves against the hazard.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "morph"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Malfunctioning Engine",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 29
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The malfunctioning <em>ecdysis engine</em> warps the flesh of creatures that enter the room.</p>",
+            "disable": "<p>@Check[arcana|dc:32] (expert) or @Check[occultism|dc:32] (expert) four times to disrupt the magic, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (6th rank, DC 30) to cleanse the vaultline's effect on the <em>ecdysis engine</em>. Closing the sluice in area <strong>B1</strong> drains power from the engine and counts as one success, as does calibrating the control panel in area <strong>B23</strong>. For each success, reduce the hazard's number of actions by 1.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 12
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            },
+            "reset": "",
+            "routine": "<p>(4 actions) The warpline focuses on a random creature in the room, which must make a @Check[fortitude|dc:36] save. A single creature can't be targeted more than once on the hazard's turn.</p><hr><p><strong>Critical Success</strong> The creature is unaffected and gains a +1 status bonus to further saves vs. the hazard.</p><p><strong>Success</strong> The creature is unaffected.</p><p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} or @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} (determined randomly), or its enfeebled or clumsy condition value increases by 1 (to a maximum of 4 for each condition).</p><p><strong>Critical Failure</strong> As failure, except the condition value becomes 2 or increases by 2.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

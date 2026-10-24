@@ -196,7 +196,11 @@ export class Load {
         // Prevent buttons from retaining focus when clicked so that canvas hotkeys still work
         document.addEventListener("mouseup", (): void => {
             const element = document.activeElement;
-            if (element instanceof HTMLButtonElement && !element.classList.contains("pm-dropdown")) {
+            if (
+                !!element &&
+                fu.isElementInstanceOf(element, HTMLButtonElement) &&
+                !element.classList.contains("pm-dropdown")
+            ) {
                 element.blur();
             }
         });
@@ -213,14 +217,18 @@ export class Load {
         // Default action for creatures unless prone
         movementActions.walk.canSelect = (token) => {
             const actor = token.actor as ActorPF2e | null;
-            return !!actor?.isOfType("creature") && !actor.hasCondition("prone");
+            return !!actor?.isOfType("creature") && !actor.hasCondition("prone") && !!actor.system.movement.speeds.land;
         };
         movementActions.walk.img = null;
 
         // Default action for creatures when prone
         movementActions.crawl.canSelect = (token) => {
             const actor = token.actor as ActorPF2e | null;
-            return !!actor?.isOfType("creature") && actor.hasCondition("prone");
+            return (
+                !!actor?.isOfType("creature") &&
+                actor.hasCondition("prone") &&
+                !!actor.system.movement.speeds.land?.crawl
+            );
         };
 
         // Default action for vehicles

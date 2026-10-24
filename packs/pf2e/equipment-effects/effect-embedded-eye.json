@@ -1,0 +1,66 @@
+{
+    "_id": "nR7pQ2sT5vW8xY3a",
+    "img": "icons/equipment/finger/ring-ball-silver.webp",
+    "name": "Effect: Embedded Eye",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Embedded Eye]</p>\n<p>You gain a +1 status bonus to saving throws against visual effects, and to Perception checks and Will saves against illusions.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:visual"
+                ],
+                "selector": "saving-throw",
+                "slug": "embedded-eye-visual",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "illusion",
+                            "item:trait:illusion"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "perception",
+                    "will"
+                ],
+                "slug": "embedded-eye-disbelieve",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

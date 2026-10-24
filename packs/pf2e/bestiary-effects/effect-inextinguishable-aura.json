@@ -4,7 +4,7 @@
     "name": "Effect: Inextinguishable Aura",
     "system": {
         "description": {
-            "value": "<p>When you attempt a flat check to end persistent fire damage, it must roll twice and take the worst result.</p>"
+            "value": "<p>When you attempt a flat check to end persistent fire damage, you must roll twice and take the worst result.</p>"
         },
         "duration": {
             "expiry": null,
@@ -25,6 +25,10 @@
             {
                 "keep": "lower",
                 "key": "RollTwice",
+                "predicate": [
+                    "item:damage:type:fire"
+                ],
+                "removeAfterRoll": false,
                 "selector": "pd-recovery-check"
             }
         ],

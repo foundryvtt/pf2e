@@ -1,7 +1,6 @@
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { setHitPointsRollOptions } from "@actor/helpers.ts";
 import { Modifier } from "@actor/modifiers.ts";
-import type { ActorDimensions } from "@actor/types.ts";
 import type { ItemType } from "@item/types.ts";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
@@ -14,15 +13,6 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
 
     override get allowedItemTypes(): (ItemType | "physical")[] {
         return [...super.allowedItemTypes, "physical", "action"];
-    }
-
-    /** Vehicle dimensions are specified for all three axes and usually do not form cubes */
-    override get dimensions(): ActorDimensions {
-        return {
-            length: this.system.details.space.long,
-            width: this.system.details.space.wide,
-            height: this.system.details.space.high,
-        };
     }
 
     override get hardness(): number {
@@ -42,9 +32,7 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
 
         // Set the prototype token's dimensions according to the vehicle dimensions
         if (this.prototypeToken.flags?.pf2e?.linkToActorSize) {
-            const { width, height } = this.system.traits.size.tokenDimensions;
-            this.prototypeToken.width = width;
-            this.prototypeToken.height = height;
+            Object.assign(this.prototypeToken, this.system.traits.size.tokenDimensions);
         }
     }
 

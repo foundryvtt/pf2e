@@ -1,0 +1,147 @@
+{
+    "_id": "sOIhBFPNP6OwEQb0",
+    "folder": "pNmS4gTVFe5Jy681",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "7y6ujjGrvBEwYzKT",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spectral Snakebites",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature touches Jazali's religious symbol.</p><hr /><p><strong>Effect</strong> Puncture wounds appear across the flesh of the triggering creature, who must attempt a @Check[fortitude|dc:39|options:damaging-effect,inflicts:persistent-damage] save. The hazard then rolls initiative.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[(3d12+17)[piercing]] damage.</p>\n<p><strong>Failure</strong> As failure, except the creature also takes @Damage[2d6[persistent,bleed]] damage as their blood fails to clot.</p>\n<p><strong>Critical Failure</strong> As failure, except the persistent bleed damage is 4d6.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "J8HKzGJgXfKhyMFR",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "CAXj0OwupQbpVSRy": {
+                        "damage": "3d12+17",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": false,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Devouring Serpents",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 34
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 98,
+                "temp": 0,
+                "value": 98
+            },
+            "immunities": [],
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "vitality"
+                    ],
+                    "type": "all-damage",
+                    "value": 15
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 27
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Spectral serpents emerge from the ground to devour living creatures.</p>",
+            "disable": "<p>@Check[occultism|dc:38] (expert) or Religion (expert) to placate Yig, or @Check[athletics|dc:41] (master) to force the serpents' jaws closed; three successes total to disable the haunt</p>",
+            "isComplex": true,
+            "level": {
+                "value": 15
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            },
+            "reset": "",
+            "routine": "<p>The haunt makes a jaws Strike against each creature in the chamber as its first action. As its second action, it forces each creature hit by its jaws Strike to attempt a @Check[reflex|dc:34|options:inflicts:grabbed,inflicts:restrained] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] until it [[/act escape dc=36]]{Escapes}. On a critical failure, or if the creature was already grabbed by the haunt, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Restrained] instead.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 28
+            },
+            "reflex": {
+                "value": 23
+            },
+            "will": {
+                "value": 30
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

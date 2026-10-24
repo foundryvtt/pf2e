@@ -8,8 +8,7 @@ If you would like to contribute to the project then I welcome all support. If yo
 
 ### Prerequisites
 
-- Node.js 24.14 or newer.
-- pnpm, which is used to run the project's scripts. The version is pinned in the `packageManager` field of `package.json`. pnpm switches to the pinned version automatically, so you do not need to install a matching version by hand; the latest will do. See https://pnpm.io/installation for installation instructions. The standalone script is the recommended method.
+- pnpm. Install using the instructions for your operating system on https://pnpm.io/installation.
 
 ### Building
 
@@ -17,15 +16,15 @@ The project uses vite to bundle the ES module and compile the SASS files needed 
 
 - Clone the repo into a local folder in your dev environment `git clone https://github.com/foundryvtt/pf2e.git`
 
-- From within the clone's folder, Install dependencies with `npm ci`. The repo's lockfile is `package-lock.json`, so dependencies are installed with npm; pnpm is currently only used to run the scripts below.
+- From within the clone's folder, install dependencies with `pnpm install`. After that, pnpm installs dependency changes automatically whenever you run one of the scripts below, so you only need to do this once.
 
-- You'll now need to create a symbolic link between the build folder ("dist") and your Foundry data folder. This can be done manually or by running `npm run link` and following the instructions.
+- You'll now need to create a symbolic link between the build folder ("dist") and your Foundry data folder. This can be done manually or by running `pnpm run link` and following the instructions (`pnpm link` without `run` is a built-in pnpm command).
 
-- Run `pnpm run build --system=pf2e` to perform a one-off build.
+- Run `pnpm build --system=pf2e` to perform a one-off build.
 
-- Run `npm run watch` to have any coding changes you make in your dev environment trigger an automatic rebuild.
+- Run `pnpm hot` while Foundry is running to start a development server, then open http://localhost:30001 instead of Foundry's usual address.
 
-- To update compendium datafiles, run `pnpm run extractPacks ${compendium db filename} --system=pf2e` after editing the item directly in the built world's compendium, rather than editing the json files directly.
+- To update compendium datafiles, run `pnpm extractPacks ${compendium db filename} --system=pf2e` after editing the item directly in the built world's compendium, rather than editing the json files directly.
 
 ## How to Help
 
@@ -49,4 +48,4 @@ A pull request may not contain any AI-written changes. PRs noticed as having any
 
 #### Style
 
-We have integrated [Prettier](https://prettier.io/) into this project to enforce a consistent coding—even if it's not one everybody likes. Github CI will block merges of any PR that fails the test suite, which includes style linting. To manually fix style issues, you can call `npm run lint:fix` from the project environment.
+We have integrated [Prettier](https://prettier.io/) into this project to enforce a consistent coding—even if it's not one everybody likes. Github CI will block merges of any PR that fails the test suite, which includes style linting, or the type check. To check locally, run `pnpm lint` and `pnpm check`. To manually fix style issues, you can call `pnpm lint:fix` from the project environment.

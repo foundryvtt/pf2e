@@ -1,0 +1,133 @@
+{
+    "_id": "EeX7GgHxYDW6HiID",
+    "folder": "OqzHev9DzL7M2kNK",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "e9U45lr02hEtNvIq",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Rejuvenation",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The avatar of Yig animates</p><hr /><p><strong>Effect</strong> The soul of Zyphaniss rejuvenates inside his <em>soul cage</em>. The hazard rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yh6v0aG9aWuC544E",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Rebuke",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An adjacent creature attacks the <em>soul cage</em> or attempts a Thievery check to remove it</p><hr /><p><strong>Effect</strong> Zyphaniss unleashes a surge of magic to defend his soul cage from the triggering creature. This has the effects of an 8th-rank @UUID[Compendium.pf2e.spells-srd.Item.Chain Lightning] (@Check[reflex|basic|dc:46|options:inflicts:stunned,item:slug:chain-lightning,item:type:spell|traits:concentrate,electricity,manipulate]) spell, except that any creature that fails the save is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Zyphaniss's Soul Cage",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 45
+            },
+            "emitsSound": "encounter",
+            "hardness": 30,
+            "hp": {
+                "details": "",
+                "max": 120,
+                "temp": 0,
+                "value": 120
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 38
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The malevolent spirit inside the soul cage defends itself against attempts to remove it from the avatar's forehead.</p>",
+            "disable": "<p>@Check[arcana|dc:48], @Check[nature|dc:48], @Check[occultism|dc:48], or @Check[religion|dc:48] (legendary) three times to break the entropic vaultline's magical connection to the avatar. Once the connection is broken, the <em>soul cage</em> loses its Hardness, and its AC is reduced to 40. Destroying the <em>soul cage</em> disables the hazard. Alternatively, three successful @Check[thievery|dc:45] (legendary) checks remove the <em>soul cage</em> from its socket, disabling the hazard but leaving the <em>soul cage</em> intact. Reducing the avatar of Yig to 0 HP also disables the hazard.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 19
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            },
+            "reset": "<p>If the avatar of Yig hasn't been reduced to 0 Hit Points and Zyphaniss's <em>soul cage</em> is removed from it without being destroyed, the avatar reactivates with full HP as soon as the <em>soul cage</em> is returned to the socket on its forehead.</p>",
+            "routine": "<p>(1 action) If the avatar of Yig's Annihilation Beams are available to use, the hazard focuses both beams in a @Template[type:burst|distance:20] within 120 feet. The ground in the area becomes difficult terrain. Any creatures in the area take @Damage[15d10[untyped]|options:area-damage] damage (no damage type) and must attempt a @Check[reflex|dc:43|basic|options:area-effect,damaging-effect,inflicts:prone,inflicts:stunned] save with the following effects. A creature reduced to 0 HP is reduced to a fine powder as the @UUID[Compendium.pf2e.spells-srd.Item.Disintegrate] spell. The hazard can't use this action again until the avatar's Annihilation Beams become usable again.</p><hr><p><strong>Critical Success</strong> The creature takes no damage.</p><p><strong>Success</strong> The creature takes half damage.</p><p><strong>Failure</strong> The creature takes full damage and is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p><p><strong>Critical Failure</strong> The creature takes full damage, is knocked prone, and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 33
+            },
+            "reflex": {
+                "value": 28
+            },
+            "will": {
+                "value": 36
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

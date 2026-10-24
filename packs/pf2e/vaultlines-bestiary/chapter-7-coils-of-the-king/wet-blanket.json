@@ -1,0 +1,99 @@
+{
+    "_id": "IgKxZgWKx3X4qTfj",
+    "folder": "FUHH9Of9ZX3Vb1zb",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "skI9jqDdI74UzzfC",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Crescendo",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves adjacent to the iron gate</p><hr /><p><strong>Effect</strong> Wet Blanket's discordant tune swells to a crescendo. Each creature in the area must succeed at a @Check[will|dc:42|options:area-effect,inflicts:stupefied] saving throw or be @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute (or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure). The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Wet Blanket",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 35
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Wet Blanket's invisible spirit plays a discordant tune that confounds the senses.</p>",
+            "disable": "<p>@Check[diplomacy|dc:40] or @Check[intimidation|dc:40] (expert) twice to convince Wet Blanket to stay silent, @Check[occultism|dc:42] or @Check[religion|dc:42] (master) to exorcise Wet Blanket's spirit, or @Check[performance|dc:38] (expert) twice to drown out Wet Blanket's music. A PC holding Wet Blanket's fiddle of the maestro gains a +2 item bonus to any check made to disable the haunt.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 17
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            },
+            "reset": "<p>Unless the haunt is disabled, Wet Blanket falls silent once all creatures leave the room. She returns if another creature moves adjacent to the gate.</p>",
+            "routine": "<p>(1 action; auditory, concentrate, emotion, incapacitation, mental) Wet Blanket's tune causes creatures who hear it to act irrationally. Each creature in the area attempts a @Check[will|dc:40|options:area-effect,inflicts:confused,inflicts:stunned|traits:auditory,concentrate,emotion,incapacitation,mental] save.</p><hr><p><strong>Critical Success</strong> The creature is unaffected and becomes immune to the tune for 1 minute.</p><p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p><p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 minute. They can attempt a new save at the end of each of their turns to end the confusion.</p><p><strong>Critical Failure</strong> As failure, and the creature immediately attacks themself. The Strike doesn't give the creature a flat check to recover from the confusion.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

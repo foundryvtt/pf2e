@@ -29,8 +29,8 @@ const args = argv
                 default: true,
             })
             .example([
-                ["npm run $0 spells  # extract only spells, from packs in dist/"],
-                ["npm run $0 all     # as above, but extract everything"],
+                ["pnpm $0 spells  # extract only spells, from packs in dist/"],
+                ["pnpm $0 all     # as above, but extract everything"],
             ]);
     })
     .help(false)

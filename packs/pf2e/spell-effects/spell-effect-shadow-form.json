@@ -32,6 +32,18 @@
                 "value": "ternary(gte(@item.level,9),15,10)"
             },
             {
+                "definition": [
+                    "damage:category:physical",
+                    {
+                        "not": "item:magical"
+                    }
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.NonMagicalPhysical",
+                "type": "custom",
+                "value": "ternary(gte(@item.level,9),15,10)"
+            },
+            {
                 "key": "Weakness",
                 "type": "light",
                 "value": "ternary(gte(@item.level,9),10,5)"

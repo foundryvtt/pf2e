@@ -1,0 +1,363 @@
+{
+    "_id": "oSB9zE2VILq8rtA2",
+    "folder": "pNmS4gTVFe5Jy681",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "5prPKlVBHjC7Wxze",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "UsBJbXCUTPIf2KTz": {
+                        "damage": "2d4+4",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Axw88vJ50br8rnGm",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Ultrasonic Pulse",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "FKHRG8rBKPm2Y8gJ": {
+                        "damage": "4d4+10",
+                        "damageType": "sonic"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": null,
+                    "max": 20
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ixyuGv3740jeO7S2",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "+21 To Seek Creatures Using Hearing",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:seek",
+                            "hearing"
+                        ],
+                        "selector": [
+                            "perception"
+                        ],
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MTdbe1o0MezutCnt",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Speak with Bats",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Yintro can communicate with bats and use Diplomacy to [[/act make-an-impression]] on bats and [[/act request]] things from bats.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "91bFUjbw2HHvyVnT",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Pointed Joke",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The court jester can use Performance instead of Intimidation to [[/act demoralize statistic=performance]].</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6LH1KfqmAuVvitcw",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "No Peeking!",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The jester blows chalk or face powder in an adjacent enemy's face. The target must make a @Check[fortitude|dc:27|options:inflicts:blinded,inflicts:dazzled,inflicts:off-guard] saving throw.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Failure</strong> target is dazzled and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Yintro",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 6
+            },
+            "con": {
+                "mod": 1
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": 3
+            },
+            "str": {
+                "mod": 1
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 27
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 150,
+                "temp": 0,
+                "value": 150
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "poison",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 40
+                    }
+                ],
+                "value": 10
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "cold-iron",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "blurb": "Variant court jester",
+            "languages": {
+                "details": "",
+                "value": [
+                    "fey",
+                    "sakvroth"
+                ]
+            },
+            "level": {
+                "value": 9
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 19,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 20
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 20
+            },
+            "deception": {
+                "base": 17
+            },
+            "diplomacy": {
+                "base": 17
+            },
+            "performance": {
+                "base": 20
+            },
+            "society": {
+                "base": 17
+            },
+            "stealth": {
+                "base": 17
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "fey",
+                "sprite"
+            ]
+        }
+    },
+    "type": "npc"
+}

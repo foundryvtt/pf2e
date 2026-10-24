@@ -41,7 +41,10 @@ function dropTarget({ onDrop, accept, disabled = false }: DropTargetOptions): At
             // Browsers may leave relatedTarget empty. Leaving the element entirely also resets a count thrown off by a
             // child removed mid-drag.
             const entered = event.relatedTarget ?? element.ownerDocument.elementFromPoint(event.clientX, event.clientY);
-            depth = element.contains(entered as Node | null) ? Math.max(depth - 1, 0) : 0;
+            depth =
+                entered && fu.isElementInstanceOf(entered, Node) && element.contains(entered)
+                    ? Math.max(depth - 1, 0)
+                    : 0;
             setHover(depth > 0);
         };
         const onDropEvent = (event: DragEvent): void => {

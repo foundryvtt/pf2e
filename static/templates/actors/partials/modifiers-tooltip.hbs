@@ -21,14 +21,14 @@
         {{#if @root.editable}}
             <li class="item add-modifier">
                 <div class="add-modifier-value">
-                    <input type="number" placeholder="+1">
-                    <i class="fa-solid fa-circle-plus" data-action="increment"></i>
-                    <i class="fa-solid fa-minus-circle" data-action="decrement"></i>
+                    <button type="button" data-action="decrement" aria-label="{{localize "PF2E.ModifierDecrease"}}"><i class="fa-solid fa-minus"></i></button>
+                    <input type="number" id="{{@root.options.id}}-{{slug}}-modifier-value" placeholder="+1" aria-label="{{localize "PF2E.Roll.Dialog.ModifierValue"}}">
+                    <button type="button" data-action="increment" aria-label="{{localize "PF2E.ModifierIncrease"}}"><i class="fa-solid fa-plus"></i></button>
                 </div>
 
-                <input type="text" class="add-modifier-name" placeholder={{localize "PF2E.ModifierNamePlaceholder"}}>
+                <input type="text" class="add-modifier-name" id="{{@root.options.id}}-{{slug}}-modifier-name" placeholder="{{localize "PF2E.ModifierNamePlaceholder"}}" aria-label="{{localize "PF2E.Roll.Dialog.ModifierName"}}">
 
-                <select class="tag-legacy add-modifier-type">
+                <select class="tag-legacy add-modifier-type" id="{{@root.options.id}}-{{slug}}-modifier-type" aria-label="{{localize "PF2E.Roll.Dialog.ModifierType"}}">
                     <option value="">{{localize "PF2E.ModifierTypeTitle"}}</option>
                     <option value="ability">{{localize "PF2E.ModifierType.ability"}}</option>
                     <option value="proficiency">{{localize "PF2E.ModifierType.proficiency"}}</option>

@@ -552,13 +552,17 @@
             "name": "Eclipse Burst",
             "sort": 1000000,
             "system": {
-                "area": null,
+                "area": {
+                    "type": "burst",
+                    "value": 60
+                },
                 "cost": {
                     "value": ""
                 },
-                "counteraction": false,
+                "counteraction": true,
                 "damage": {
                     "0": {
+                        "applyMod": false,
                         "category": null,
                         "formula": "8d10",
                         "kinds": [
@@ -566,6 +570,16 @@
                         ],
                         "materials": [],
                         "type": "cold"
+                    },
+                    "v1pnjhfu6e9akqe0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "8d4",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "void"
                     }
                 },
                 "defense": {
@@ -575,15 +589,17 @@
                     }
                 },
                 "description": {
-                    "value": "<p>A globe of freezing darkness explodes in the area, dealing 8d10 cold damage to creatures in the area, plus 8d4 additional void damage to living creatures. Each creature in the area must attempt a Reflex save. If the globe overlaps with an area of magical light or affects a creature affected by magical light, eclipse burst attempts to counteract the light effect.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Blinded] by the darkness for an unlimited duration.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The cold damage increases by 1d10 and the void damage against the living increases by 1d4.</p>"
+                    "value": "<p>A globe of freezing darkness explodes in the area, dealing 8d10 cold damage to creatures in the area, plus an additional 8d4 void damage to living creatures. Each creature in the area must attempt a Reflex save.</p>\n<p>If the globe overlaps with an area of magical light or affects a creature affected by magical light, <em>eclipse burst</em> attempts to counteract the light effect.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Blinded] by the darkness for an unlimited duration.</p><hr /><p><strong>Heightened (+1)</strong> The cold damage increases by 1d10 and the void damage against the living increases by 1d4.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": ""
                 },
                 "heightening": {
+                    "area": 0,
                     "damage": {
-                        "0": "1d10"
+                        "0": "1d10",
+                        "v1pnjhfu6e9akqe0": "1d4"
                     },
                     "interval": 1,
                     "type": "interval"
@@ -595,9 +611,9 @@
                     "value": "2YsgkSpxPr5k633t"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "500 feet"

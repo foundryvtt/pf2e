@@ -25,7 +25,24 @@
             "remaster": true,
             "title": "Invasion's Edge Player's Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "exceptional-reach",
+                "toggleable": true
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:usage:hands:2",
+                    "exceptional-reach"
+                ],
+                "property": "traits",
+                "value": "reach"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

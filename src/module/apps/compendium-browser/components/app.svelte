@@ -10,7 +10,7 @@
     const tabId = (tabName: string): string => `${browser.id}-tab-${tabName}`;
 
     async function onClickNav(event: PointerEvent & { currentTarget: EventTarget }): Promise<void> {
-        if (!(event.target instanceof HTMLElement)) return;
+        if (!(event.target && fu.isElementInstanceOf(event.target, HTMLElement))) return;
         const clickedTab = event.target.dataset.tabName;
         if (tupleHasValue(browser.dataTabsList, clickedTab)) {
             browser.activeTab = browser.tabs[clickedTab];

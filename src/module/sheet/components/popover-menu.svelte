@@ -31,14 +31,20 @@
     const setup: Attachment<HTMLElement> = (menu) => {
         void identity;
         if (!menu.matches(":popover-open")) menu.showPopover();
+        // The menu's own window and document, which differ from the globals in a detached window
+        const doc = menu.ownerDocument;
+        const win = doc.defaultView ?? window;
         menu.querySelector("button")?.focus();
 
         // Activate on pointerup, since no click event arrives if a re-render replaces the item
         // mid-gesture. The click listener covers keyboard activation, which fires no pointerup.
         const onActivate = (event: MouseEvent) => {
             if (event.type === "pointerup" && event.button !== 0) return;
-            const item = event.target instanceof HTMLElement ? event.target.closest("button[data-menu-id]") : null;
-            if (!(item instanceof HTMLElement) || typeof item.dataset.menuId !== "string") return;
+            const item =
+                event.target && fu.isElementInstanceOf(event.target, HTMLElement)
+                    ? event.target.closest("button[data-menu-id]")
+                    : null;
+            if (!(item && fu.isElementInstanceOf(item, HTMLElement)) || typeof item.dataset.menuId !== "string") return;
             onSelect(item.dataset.menuId);
             onClose(true);
         };
@@ -46,13 +52,18 @@
         const onWindowPointerup = (event: PointerEvent) => {
             if (event.button === 0) return;
             setTimeout(() => {
-                if (menu.isConnected && !menu.contains(document.activeElement)) {
+                if (menu.isConnected && !menu.contains(doc.activeElement)) {
                     menu.querySelector("button")?.focus();
                 }
             });
         };
         const onDismissPointerdown = (event: PointerEvent) => {
-            if (event.target instanceof Node && !anchor?.contains(event.target) && !menu.contains(event.target)) {
+            if (
+                event.target &&
+                fu.isElementInstanceOf(event.target, Node) &&
+                !anchor?.contains(event.target) &&
+                !menu.contains(event.target)
+            ) {
                 onClose(false);
             }
         };
@@ -66,7 +77,7 @@
             if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
             event.preventDefault();
             const buttons = Array.from(menu.querySelectorAll<HTMLButtonElement>("button[data-menu-id]"));
-            const index = buttons.indexOf(document.activeElement as HTMLButtonElement);
+            const index = buttons.indexOf(doc.activeElement as HTMLButtonElement);
             const step = event.key === "ArrowDown" ? 1 : -1;
             // Focus outside the items (index -1) enters at the first or last item
             buttons.at(index === -1 ? (step === 1 ? 0 : -1) : (index + step) % buttons.length)?.focus();
@@ -74,16 +85,16 @@
         menu.addEventListener("pointerup", onActivate);
         menu.addEventListener("click", onActivate);
         menu.addEventListener("keydown", onMenuKeydown);
-        window.addEventListener("pointerup", onWindowPointerup);
-        window.addEventListener("pointerdown", onDismissPointerdown);
-        window.addEventListener("keydown", onDismissKeydown);
+        win.addEventListener("pointerup", onWindowPointerup);
+        win.addEventListener("pointerdown", onDismissPointerdown);
+        win.addEventListener("keydown", onDismissKeydown);
         return () => {
             menu.removeEventListener("pointerup", onActivate);
             menu.removeEventListener("click", onActivate);
             menu.removeEventListener("keydown", onMenuKeydown);
-            window.removeEventListener("pointerup", onWindowPointerup);
-            window.removeEventListener("pointerdown", onDismissPointerdown);
-            window.removeEventListener("keydown", onDismissKeydown);
+            win.removeEventListener("pointerup", onWindowPointerup);
+            win.removeEventListener("pointerdown", onDismissPointerdown);
+            win.removeEventListener("keydown", onDismissKeydown);
         };
     };
 </script>

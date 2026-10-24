@@ -10,9 +10,8 @@ import { htmlClosest } from "@util";
 export function extendDragData(windowDoc: Document = document): void {
     windowDoc.body.addEventListener("dragstart", (event): void => {
         const { dataTransfer } = event;
-        // instanceof fails for elements in detached windows
-        const targetElement = event.target as HTMLElement | null;
-        if (!(dataTransfer && targetElement?.nodeName === "A")) return;
+        const targetElement = event.target;
+        if (!(dataTransfer && targetElement && fu.isElementInstanceOf(targetElement, HTMLAnchorElement))) return;
 
         // Pass along the persistent damage formula so the drop-canvas-data hook can handle it
         if (

@@ -1,0 +1,145 @@
+{
+    "_id": "t0vU9qH2APDFjvoK",
+    "folder": "k3s55tGDy7IZYJQu",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "TXNIt7GnyfDePj1e",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Moldy Death",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If a creature dies while taking persistent damage from the ghost mold spores, a new patch of mold blossoms from their corpse. The GM might decide that the creature's spirit rises as a ghost or other undead.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "B3PrLOC2MMdEZRti",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spore Burst",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> A living creature moves adjacent to the mold or the mold is included in the area of a vitality effect</p><hr /><p><strong>Effect</strong> The mold releases a burst of spores in a @Template[type:emanation|distance:10]. Any creature in the area must attempt a @Check[fortitude|dc:32|options:area-effect,damaging-effect,inflicts:frightened,inflicts:confused] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[4d12[void]|options:area-damage] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature takes @Damage[8d12[void],2d12[persistent,void]|options:area-damage] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}.</p>\n<p><strong>Critical Failure</strong> As failure, except the creature is @UUID[Compendium.pf2e.conditionitems.Item.Confused] for as long as it remains frightened.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Ghost Mold",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 28
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 70,
+                "temp": 0,
+                "value": 70
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 23
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>A patch of black mold releases spoors when living creatures approach.</p>",
+            "disable": "<p>@Check[survival|dc:29] (expert) to remove the mold safely</p>",
+            "isComplex": false,
+            "level": {
+                "value": 11
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            },
+            "reset": "<p>Unless entirely eradicated (typically with acid or fire), the mold regrows over the course of 2 weeks.</p>",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "value": 24
+            },
+            "reflex": {
+                "value": 18
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -89,11 +89,11 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
             const speeds = actor.system.movement.speeds;
             switch (rulerAction) {
                 case "walk":
-                    return speeds.land.value;
+                    return speeds.land?.value ?? null;
                 case "crawl":
-                    return speeds.land.crawl;
+                    return speeds.land?.crawl ?? null;
                 case "step":
-                    return speeds.land.step;
+                    return speeds.land?.step ?? null;
                 default:
                     return tupleHasValue(MOVEMENT_TYPES, rulerAction) ? (speeds[rulerAction]?.value ?? null) : null;
             }

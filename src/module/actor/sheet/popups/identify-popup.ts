@@ -149,8 +149,7 @@ class IdentifyItemPopup extends fa.api.HandlebarsApplicationMixin<
         _event: PointerEvent,
         target: HTMLElement,
     ): Promise<void> {
-        // Read the attribute rather than the property: `instanceof` fails for a detached window's elements
-        if (target.getAttribute("value") === "identified") {
+        if (fu.isElementInstanceOf(target, HTMLButtonElement) && target.value === "identified") {
             await this.item.setIdentificationStatus("identified");
         }
         await this.close();

@@ -108,7 +108,7 @@ async function maintainFocusInRender(sheet: Application, renderLogic: () => Prom
     if (!activeElement || !activeWasHere) return;
 
     // If the active element was a tagify that is part of this sheet, re-render
-    if (activeElement instanceof HTMLInputElement && activeElement.dataset.property) {
+    if (fu.isElementInstanceOf(activeElement, HTMLInputElement) && activeElement.dataset.property) {
         const sameInput = htmlQuery(element, `input[data-property="${activeElement.dataset.property}"]`);
         sameInput?.focus();
     } else if (activeElement.classList.contains("tagify__input")) {
@@ -381,6 +381,7 @@ export {
     getBasePhysicalItemViewData,
     getItemFromDragEvent,
     isControlDown,
+    isRelevantEvent,
     maintainFocusInRender,
     sendItemToChat,
 };

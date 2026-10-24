@@ -29,7 +29,7 @@ class MarkTargetPrompt {
     }
 
     activateListeners(): void {
-        if (document.activeElement instanceof HTMLElement) {
+        if (document.activeElement && fu.isElementInstanceOf(document.activeElement, HTMLElement)) {
             document.activeElement.blur();
         }
 

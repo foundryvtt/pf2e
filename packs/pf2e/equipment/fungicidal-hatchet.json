@@ -1,0 +1,114 @@
+{
+    "_id": "cxd42ni65bHcqNze",
+    "img": "icons/weapons/axes/axe-broad-jagged.webp",
+    "name": "Fungicidal Hatchet",
+    "system": {
+        "ammo": null,
+        "baseItem": "hatchet",
+        "bonus": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 0.1
+        },
+        "category": "martial",
+        "containerId": null,
+        "damage": {
+            "damageType": "slashing",
+            "dice": 1,
+            "die": "d6"
+        },
+        "description": {
+            "value": "<p>A woody mushroom stem forms the handle of this <em>+1 striking hatchet</em>, and its blade is shaped like the cross section of a mushroom cap. The weapon deals an additional 1 poison damage on a successful Strike, or an additional 1d6 poison damage if the target has the fungus trait.</p>"
+        },
+        "expend": null,
+        "grade": null,
+        "group": "axe",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 5
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 150
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path #225: Vaultlines"
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": null
+        },
+        "rules": [
+            {
+                "damageType": "poison",
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "target:trait:fungus"
+                    }
+                ],
+                "selector": [
+                    "{item|id}-damage"
+                ],
+                "value": 1
+            },
+            {
+                "damageType": "poison",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:trait:fungus"
+                ],
+                "selector": "{item|id}-damage"
+            }
+        ],
+        "runes": {
+            "potency": 1,
+            "property": [],
+            "striking": 1
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 1,
+                "property": [],
+                "striking": 1
+            }
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "agile",
+                "sweep",
+                "thrown-10"
+            ]
+        },
+        "usage": {
+            "canBeAmmo": false,
+            "value": "held-in-one-hand"
+        }
+    },
+    "type": "weapon"
+}

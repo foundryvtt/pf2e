@@ -5,6 +5,7 @@
     let { value = $bindable(), ...props }: SvelecteParams = $props();
     const className = $derived(((props.class ?? "") + " pf2e").trim());
     const positionResolver = $derived(props.positionResolver ?? popoverPositionResolver);
+    const placeholder = $derived(props.placeholder ?? _loc("PF2E.SelectLabel"));
 
     // Promotes dropdown to top layer to escape clipping from ancestor backdrop-filter.
     function popoverPositionResolver(dropdown: HTMLElement) {
@@ -25,7 +26,7 @@
 </script>
 
 <div class="svelecte-pf2e">
-    <Svelecte {...props} bind:value class={className} {positionResolver} />
+    <Svelecte {...props} bind:value class={className} {positionResolver} {placeholder} />
 </div>
 
 <style lang="scss">

@@ -1,0 +1,52 @@
+{
+    "_id": "VuukEElqLYTju6RA",
+    "img": "icons/skills/melee/shield-damaged-broken-brown.webp",
+    "name": "Effect: Overclock Boost (Reduce Cover)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.actions.Item.Overclock Gear] via Ephemeral Effect</p>\n<p>Your circumstance bonus from cover is reduced.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "subtract",
+                "selector": "ac",
+                "slug": "cover",
+                "value": "ternary(gte(@item.origin.level, 12), 4, 2)"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "selector": "ac",
+                "slug": "cover",
+                "value": 0
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

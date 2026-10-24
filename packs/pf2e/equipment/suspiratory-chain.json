@@ -1,0 +1,92 @@
+{
+    "_id": "aIKI8PvPbVV3SX8o",
+    "img": "systems/pf2e/icons/equipment/armor/chainmail.webp",
+    "name": "Suspiratory Chain",
+    "system": {
+        "acBonus": 4,
+        "baseItem": "chain-mail",
+        "bulk": {
+            "value": 2
+        },
+        "category": "medium",
+        "checkPenalty": -2,
+        "containerId": null,
+        "description": {
+            "value": "<p>A gentle breeze seems to flow through the mesh of this +1 chain mail, which protects against one of the Darklands' signature threats: bad air. You can hold your breath for 10 rounds longer than usual before suffocating, and the armor grants you a +1 item bonus to saving throws against inhaled threats, such as inhaled poisons.</p><hr /><p><strong>Activate—Gasp</strong> <span class=\"action-glyph\">1</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You enter an area where you can't breathe or where breathing would harm you</p><hr /><p><strong>Effect</strong> Your armor filters air to you, allowing you to breathe without harm for 10 minutes or until you return to an environment where you can breathe normally.</p>"
+        },
+        "dexCap": 1,
+        "grade": null,
+        "group": "chain",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 6
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 250
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path #225: Vaultlines"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.system.remainingAir.rounds",
+                "value": 10
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:inhaled",
+                    "item:trait:poison"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "runes": {
+            "potency": 1,
+            "property": [],
+            "resilient": 0
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 1,
+                "property": [],
+                "resilient": 0
+            }
+        },
+        "speedPenalty": -5,
+        "strength": 3,
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "air",
+                "flexible",
+                "noisy"
+            ]
+        }
+    },
+    "type": "armor"
+}

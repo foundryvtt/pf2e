@@ -1,0 +1,70 @@
+{
+    "_id": "WeETxBgUROPpVVTZ",
+    "img": "icons/skills/melee/strike-sword-blood-red.webp",
+    "name": "Effect: Lasting Debilitating Strike (Critical Hit)",
+    "system": {
+        "description": {
+            "value": "<p>You either take a –10-foot status penalty to your Speeds or you become enfeebled 1.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "days",
+            "value": 7
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 14
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #167: Ready? Fight!"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Rogue.Debilitation.SpeedPenalty.Label",
+                        "value": "speed-penalty"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Rogue.Debilitation.Enfeebled.Label",
+                        "value": "enfeebled"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "lasting-debilitating-strike"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "lasting-debilitating-strike:speed-penalty"
+                ],
+                "selector": "all-speeds",
+                "type": "status",
+                "value": -10
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "lasting-debilitating-strike:enfeebled"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -582,10 +582,6 @@
                     "0": {
                         "damage": "1d6+4",
                         "damageType": "slashing"
-                    },
-                    "1": {
-                        "damage": "1d6",
-                        "damageType": "bleed"
                     }
                 },
                 "description": {
@@ -839,14 +835,22 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The death scout deals an additional @Damage[1d6[bleed]] with shauth blades and can use their Wicked Bite through magical shauth weapon Strikes.</p>"
+                    "value": "<p>The death scout deals an additional 1d6 persistent bleed damage with shauth blades and can use their Wicked Bite through magical shauth weapon Strikes.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "shauth-blade-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

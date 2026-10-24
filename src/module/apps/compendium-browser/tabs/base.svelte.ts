@@ -160,7 +160,8 @@ export abstract class CompendiumBrowserTab {
             for (const [key, checkbox] of R.entries(checkboxes)) {
                 if (checkbox.selected.length === 0) continue;
                 const prefix = checkbox.optionPrefix ?? key;
-                statements.push({ or: checkbox.selected.map((s) => `${prefix}:${s}`) });
+                const substitutions = checkbox.toggle?.active ? checkbox.toggle.substitutions : {};
+                statements.push({ or: checkbox.selected.map((s) => `${prefix}:${substitutions[s] ?? s}`) });
             }
         }
 
