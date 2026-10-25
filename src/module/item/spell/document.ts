@@ -27,6 +27,7 @@ import { OneToTen, Rarity, ZeroToThree, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import {
     extractDamageAlterations,
+    extractDamageBypasses,
     extractDamageDice,
     extractModifierAdjustments,
     extractModifiers,
@@ -426,6 +427,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             modifiers,
             dice: damageDice,
             kinds: this.damageKinds,
+            bypass: extractDamageBypasses(actor.synthetics.damageBypasses, domains, {
+                resolvables: { spell: this, target: contextData.target?.actor ?? null },
+                test: contextData.options,
+            }),
         };
 
         if (!params.skipDialog) {
@@ -435,7 +440,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         const { formula, breakdown } = createDamageFormula(formulaData);
         const showBreakdown = game.pf2e.settings.metagame.breakdowns || !!context.self?.actor?.hasPlayerOwner;
-        const roll = new DamageRoll(formula, {}, { showBreakdown });
+        const roll = new DamageRoll(formula, {}, { showBreakdown, bypass: formulaData.bypass });
 
         const template: SpellDamageTemplate = {
             name: this.name,
