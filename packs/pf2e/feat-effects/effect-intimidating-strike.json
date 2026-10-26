@@ -1,0 +1,60 @@
+{
+    "_id": "7uFy3bCpKlyXnpcu",
+    "img": "icons/skills/melee/strike-axe-red.webp",
+    "name": "Effect: Intimidating Strike",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Intimidating Strike]</p>\n<p>If you hit and deal damage, the target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}, or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical hit.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "selector": [
+                    "strike-damage"
+                ],
+                "text": "PF2E.SpecificRule.Barbarian.IntimidatingStrike.Success",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": [
+                    "strike-damage"
+                ],
+                "text": "PF2E.SpecificRule.Barbarian.IntimidatingStrike.CriticalSuccess",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
