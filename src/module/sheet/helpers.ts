@@ -149,7 +149,7 @@ function eventToRollParams(event: Maybe<Event>, rollType: { type: "check" | "dam
 /** Set roll mode from a user's input: used for messages that are not actually rolls. */
 function eventToMessageMode(event: Maybe<Event>): ChatMessageMode | undefined {
     if (!isRelevantEvent(event)) return undefined;
-    if (!(fh.interaction.KeyboardManager.CONTROL_KEY_STRING === "⌘" ? event.metaKey : event.ctrlKey)) return undefined;
+    if (!(event.ctrlKey || event.metaKey)) return undefined;
     return game.user.isGM ? "gm" : "blind";
 }
 
