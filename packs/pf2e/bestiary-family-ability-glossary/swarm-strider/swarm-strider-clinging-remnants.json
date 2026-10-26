@@ -12,7 +12,7 @@
         },
         "category": "offensive",
         "description": {
-            "value": "<p>A swarm strider's melee Strikes and ranged Strikes made against targets within their weapon's first range increment deposit biting vermin on the target, dealing @Damage[1d4[persistent,piercing]] damage, increasing to 2d4 at 5th level, 3d4 at 10th level, 4d4 at 15th level, and 5d4 at 20th level.</p>"
+            "value": "<p>A swarm strider's melee Strikes and ranged Strikes made against targets within their weapon's first range increment deposit biting vermin on the target, dealing 1d4 persistent piercing damage, increasing to 2d4 at 5th level, 3d4 at 10th level, 4d4 at 15th level, and 5d4 at 20th level.</p>"
         },
         "publication": {
             "license": "ORC",
@@ -26,6 +26,22 @@
                 "mode": "override",
                 "property": "name",
                 "value": "PF2E.NPCAbility.SwarmStrider.ClingingRemnants.Name"
+            },
+            {
+                "category": "persistent",
+                "damageType": "piercing",
+                "diceNumber": "ternary(gte(@actor.level,20),5,ternary(gte(@actor.level,15),4,ternary(gte(@actor.level,10),3,ternary(gte(@actor.level,5),2,1))))",
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:melee",
+                            "target:range-increment:1"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
             }
         ],
         "traits": {
