@@ -1,0 +1,109 @@
+{
+    "_id": "sEjsoeHXBAsB9oZ7",
+    "img": "icons/sundries/survival/cuffs-shackles-tan.webp",
+    "name": "Effect: Fetters",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Fetters (Simple)], @UUID[Compendium.pf2e.equipment-srd.Item.Fetters (Average)], @UUID[Compendium.pf2e.equipment-srd.Item.Fetters (Good)], @UUID[Compendium.pf2e.equipment-srd.Item.Fetters (Superior)]</p>\n<p><strong>Ankles</strong> You take a –20-foot circumstance penalty to your Speeds.</p>\n<p><strong>Wrists</strong> You must succeed at a DC 11 flat check any time you use a manipulate action or else that action fails.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.BodyParts.Ankles",
+                        "value": "ankles"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BodyParts.Wrists",
+                        "value": "wrists"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.BodyParts.Prompt",
+                "rollOption": "fetters"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "fetters:ankles"
+                ],
+                "selector": [
+                    "all-speeds"
+                ],
+                "type": "circumstance",
+                "value": -20
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "fetters:wrists",
+                    "item:trait:manipulate"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Equipment.Fetters.WristsNote"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "fetters:wrists",
+                    "item:trait:manipulate"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Equipment.Fetters.WristsNote"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "fetters:wrists",
+                    "item:trait:manipulate"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Equipment.Fetters.WristsNote"
+                    }
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
