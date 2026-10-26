@@ -587,6 +587,9 @@
         },
         {
             "_id": "lMm6DJypPFFWuKCY",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.zsYcDy8Svo8t9BHj"
+            },
             "folder": "unHCFiaT59yYwPXs",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Clinging Remnants",
@@ -600,14 +603,37 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A swarm strider's melee Strikes and ranged Strikes made against targets within their weapon's first range increment deposit biting vermin on the target, dealing @Damage[2d4[persistent,piercing]] damage.</p>"
+                    "value": "<p>A swarm strider's melee Strikes and ranged Strikes made against targets within their weapon's first range increment deposit biting vermin on the target, dealing 2d4 persistent piercing damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FirstRangeIncrement",
+                        "option": "target:range-increment:1",
+                        "toggleable": "totm"
+                    },
+                    {
+                        "category": "persistent",
+                        "damageType": "piercing",
+                        "diceNumber": 2,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:melee",
+                                    "target:range-increment:1"
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
