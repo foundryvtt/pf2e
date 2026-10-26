@@ -551,6 +551,11 @@
         },
         {
             "_id": "D8hU2mbW29Ls0pPP",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "ZGpp3B5TyyCzBOlv"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Holy Lance",
             "sort": 900000,
@@ -568,14 +573,10 @@
                     "tteidYFHEQKuTzA4": {
                         "damage": "2d8+11",
                         "damageType": "piercing"
-                    },
-                    "uU2ZIvViuRF1MIbU": {
-                        "damage": "1d4",
-                        "damageType": "spirit"
                     }
                 },
                 "description": {
-                    "value": "<p>(or 2d4 spirit vs. an unholy target)</p>"
+                    "value": ""
                 },
                 "publication": {
                     "license": "ORC",
@@ -583,19 +584,7 @@
                     "title": "Pathfinder Monster Core"
                 },
                 "range": null,
-                "rules": [
-                    {
-                        "damageType": "spirit",
-                        "diceNumber": 1,
-                        "dieSize": "d4",
-                        "key": "DamageDice",
-                        "label": "Vs. an Unholy Target",
-                        "predicate": [
-                            "target:trait:unholy"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -837,7 +826,19 @@
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "holy"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
