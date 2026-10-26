@@ -287,6 +287,8 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             fu: "foundry.utils",
         },
         resolve: { tsconfigPaths: true },
+        // Pre-bundle dependencies before the first hot request since we don't have HTML for vite to scan
+        optimizeDeps: { entries: ["src/pf2e.ts"] },
         build: {
             outDir,
             emptyOutDir: false, // Fails if world is running due to compendium locks: handled with `npm run clean`
