@@ -1,0 +1,18 @@
+/* Shared frame, bevel and glow treatments. Declared where the palette is so var() resolves against it */
+body,
+.app,
+.themed.theme-light {
+    --pf-shadow-bevel: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+    --pf-shadow-frame-brown:
+        0 0 0 1px #918c88, 0 0 0 2px #e1d8cf, 0 0 0 3px #a98f39, inset 0 0 8px rgba(0, 0, 0, 0.5), 0 0 8px black;
+    --pf-shadow-frame-gold: 0 0 0 1px #9f725b, 0 0 0 2px var(--color-pf-tertiary), 0 0 0 3px #956d58;
+    --pf-shadow-frame-gold-inset:
+        inset 0 0 0 1px #9f725b, inset 0 0 0 2px var(--color-pf-tertiary), inset 0 0 0 3px #956d58,
+        0 0 20px rgba(0, 0, 0, 0.8);
+    /* Icon frame rings. Callers add their own inset shadow */
+    --pf-shadow-frame-icon: 0 0 0 1px var(--color-pf-tertiary), 0 0 0 2px #9f725b;
+    --pf-shadow-frame-silver: 0 0 0 1px #c0c0c0, 0 0 0 2px #808080;
+    --pf-shadow-input: 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 0 4px rgba(0, 0, 0, 0.5);
+    --pf-border-image-corners: url("/assets/sheet/corner-box.webp") 9 repeat;
+    --pf-text-glow: 0 0 4px var(--color-pf-tertiary);
+}
