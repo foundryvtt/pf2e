@@ -113,24 +113,42 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         enforce: "pre",
         transform: (code, id) => {
             if (SYSTEM_ID !== "sf2e") return;
-            if (id === `${stylesDir}/main.css`) return `${code}\n@import "./sf2e/index.css";`;
-            if (id === `${stylesDir}/vite-hmr.css`) return `${code}\n@import "./sf2e/index.css" layer(system);`;
+            if (id === `${stylesDir}/main.css`) return `${code}\n@import "./sf2e/index.css" layer(base);`;
+            if (id === `${stylesDir}/vite-hmr.css`) return `${code}\n@import "./sf2e/index.css" layer(system.base);`;
             return;
         },
     };
 
-    // Add system layer to svelte CSS in HMR
-    const hmrPreprocess = {
-        name: "svelte-hmr-layer",
-        style: ({ content }: { content: string }) => ({ code: `@layer system { ${content} }` }),
+    // Sub-layers of `system` are declared in styles/layers.css. Foundry imports the built stylesheet into `system`;
+    // the dev server serves styles itself, so they name `system` explicitly there.
+    const systemLayer = command === "serve" ? "system." : "";
+    const componentLayer = {
+        name: "svelte-component-layer",
+        // Third-party components are layered with the other vendor CSS
+        style: ({ content, filename }: { content: string; filename?: string }) =>
+            filename?.includes("node_modules") ? undefined : { code: `@layer ${systemLayer}components { ${content} }` },
+    };
+    // Third-party CSS keeps its place at the start of the base rules. It can end up ahead of layers.css in the
+    // bundle, so it repeats the layer order to keep its own layer from being declared first.
+    const layerOrder = fs
+        .readFileSync(path.resolve(ROOT_DIR, "src/styles/layers.css"), "utf-8")
+        .match(/@layer [^;]+;/)?.[0];
+    const vendorLayer: Vite.Plugin = {
+        name: "vendor-layer",
+        transform: (code, id) => {
+            if (!/node_modules\/.+\.css$/.test(id)) return;
+            const layered = `${layerOrder}\n@layer base { ${code} }`;
+            return command === "serve" ? `@layer system { ${layered} }` : layered;
+        },
     };
 
     const plugins = [
         sf2eStyles,
+        vendorLayer,
         // CI type-checks in its own job with svelte-check, which also covers .ts files
         checker({ typescript: true, enableBuild: !process.env.CI }),
         sveltePlugin({
-            preprocess: command === "serve" ? [vitePreprocess(), hmrPreprocess] : vitePreprocess(),
+            preprocess: [vitePreprocess(), componentLayer],
         }),
     ];
     const packUUIDPattern = /Compendium\.pf2e\.[^\]]+/g;
@@ -260,7 +278,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             transform: (code, id) => {
                 if (id === mainCss) {
                     return code.replace("styles/main.css", "styles/vite-hmr.css");
-                } else if (/node_modules\/.+\.css$/.test(id)) {
+                } else if (id === `${stylesDir}/layers.css`) {
                     return `@layer system { ${code} }`;
                 }
                 return;
