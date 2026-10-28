@@ -16,7 +16,7 @@ This project uses vite to bundle the ES module and compile the SASS files needed
 
 - Clone the repository into a local folder (e.g. `git clone https://github.com/foundryvtt/pf2e.git`) and navigate to the created folder.
 
-- From within the clone's folder, install dependencies with `pnpm install`. This only need to be done one as pnpm installs dependency changes automatically whenever one of the scripts is run.
+- Install dependencies with `pnpm install`. This only need to be done once as pnpm installs dependency changes automatically whenever one of the scripts is run.
 
 - Link builds to your local FoundryVTT data folder. This can be done manually or by running `pnpm run link` and following the instructions (`pnpm link` without `run` is a built-in pnpm command).
 
