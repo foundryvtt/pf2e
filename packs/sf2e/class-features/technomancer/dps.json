@@ -99,6 +99,26 @@
                         ]
                     }
                 ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.technomancerDPS.coverReduction",
+                "predicate": [
+                    "class:technomancer"
+                ],
+                "value": "ternary(gte(@actor.level, 12), 4, 2)"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.technomancerDPS.coverReduction",
+                "predicate": [
+                    {
+                        "not": "class:technomancer"
+                    }
+                ],
+                "value": 2
             }
         ],
         "subfeatures": {

@@ -25,14 +25,9 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
+                    "parent:origin:item:tag:technomancer-class",
                     "self:trait:minion",
-                    "self:trait:tech",
-                    {
-                        "eq": [
-                            "{item|origin.class.slug}",
-                            "technomancer"
-                        ]
-                    }
+                    "self:trait:tech"
                 ],
                 "selector": [
                     "attack",
@@ -48,12 +43,7 @@
                     "self:trait:minion",
                     "self:trait:tech",
                     {
-                        "not": {
-                            "eq": [
-                                "{item|origin.class.slug}",
-                                "technomancer"
-                            ]
-                        }
+                        "not": "parent:origin:item:tag:technomancer-class"
                     }
                 ],
                 "selector": [
