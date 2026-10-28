@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You gain the modify class feature. In addition, you can Modify your exocortex (as noted in your exocortex class feature), and you gain the unique mods granted by your exocortex.</p><hr /><p><strong>Special</strong> If you're at least 10th level, you can select this feat a second time to gain the damage customizations class feature.</p>"
+            "value": "<p>You gain the @UUID[Compendium.sf2e.class-features.Item.Modify] class feature. In addition, you can @UUID[Compendium.sf2e.actions.Item.Modify] your exocortex (as noted in your @UUID[Compendium.sf2e.class-features.Item.Exocortex]} class feature), and you gain the unique mods granted by your exocortex.</p><hr /><p><strong>Special</strong> If you're at least 10th level, you can select this feat a second time to gain the @UUID[Compendium.sf2e.class-features.Item.Damage Customizations] class feature.</p>"
         },
         "level": {
             "value": 6
@@ -30,7 +30,33 @@
             "remaster": true,
             "title": "Starfinder Tech Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "count": true,
+                "key": "RollOption",
+                "option": "modify"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "modify:1"
+                ],
+                "uuid": "Compendium.sf2e.class-features.Item.Modify"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            10
+                        ]
+                    },
+                    "modify:2"
+                ],
+                "uuid": "Compendium.sf2e.class-features.Item.Damage Customizations"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
