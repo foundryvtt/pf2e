@@ -25,34 +25,9 @@
             {
                 "key": "AdjustModifier",
                 "mode": "subtract",
-                "predicate": [
-                    {
-                        "eq": [
-                            "{item|origin.class.slug}",
-                            "technomancer"
-                        ]
-                    }
-                ],
                 "selector": "ac",
                 "slug": "cover",
-                "value": "ternary(gte(@item.origin.level, 12), 4, 2)"
-            },
-            {
-                "key": "AdjustModifier",
-                "mode": "subtract",
-                "predicate": [
-                    {
-                        "not": {
-                            "eq": [
-                                "{item|origin.class.slug}",
-                                "technomancer"
-                            ]
-                        }
-                    }
-                ],
-                "selector": "ac",
-                "slug": "cover",
-                "value": "2"
+                "value": "@item.origin.flags.system.technomancerDPS.coverReduction"
             },
             {
                 "key": "AdjustModifier",
