@@ -101,7 +101,7 @@
     </button>
 {/if}
 
-<style lang="scss">
+<style>
     button {
         --color-boost: var(--color-level-success-border);
         --color-boost-dark: color-mix(in srgb, var(--color-level-success-border) 70%, black);

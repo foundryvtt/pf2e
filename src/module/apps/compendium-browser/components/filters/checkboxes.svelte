@@ -72,7 +72,7 @@
     {/each}
 </div>
 
-<style lang="scss">
+<style>
     .checkbox-container {
         display: flex;
         flex-direction: column;

@@ -1,0 +1,235 @@
+@import "./red-action-boxes.css";
+@import "./header.css";
+@import "./sidebar.css";
+
+.app.sheet.hazard section.window-content {
+    ul,
+    ol {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        margin: 0;
+        padding: 0;
+        border-bottom: none;
+    }
+
+    form {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+
+        .tagify > span {
+            min-width: 1.25rem;
+        }
+
+        .tagify--hasMaxTags > span {
+            display: none;
+        }
+
+        a.disabled {
+            color: var(--color-disabled);
+            pointer-events: none;
+        }
+    }
+
+    .window-content {
+        margin: 0;
+        padding: 0;
+    }
+
+    .window-content {
+        margin: 0;
+        padding: 0;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+        margin: 0;
+        padding: 0;
+        background: none;
+        border: 1px solid transparent;
+
+        &:hover:not(:disabled),
+        &:focus {
+            border: 1px solid var(--color-shadow-dark);
+            box-shadow: 0 0 10px #00005a;
+        }
+    }
+
+    .container {
+        background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
+        display: flex;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .content {
+        flex: 1;
+        overflow: hidden auto;
+        padding: 0 var(--space-5) 1.25rem;
+        scrollbar-gutter: stable;
+    }
+
+    .toggles {
+        .section-body {
+            border-radius: 3px;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        label {
+            align-items: center;
+            display: flex;
+            gap: var(--space-4);
+
+            input[type="checkbox"] {
+                flex: 0 0 1.25rem;
+                margin: 0;
+                width: 1.25rem;
+                height: 1.25rem;
+            }
+
+            select {
+                background: none;
+                margin-left: var(--space-4);
+            }
+        }
+    }
+
+    .section-container {
+        padding: var(--space-4) var(--space-6) 0;
+
+        .editor {
+            flex: 1;
+
+            /* Hide editor button for those controlled by section controls */
+            /* In the current version of foundry, not rendering the button in handlebars auto opens the prompt instead. */
+            .editor-edit {
+                display: none;
+            }
+
+            &.prosemirror {
+                height: 12.5rem; /* When the editor is open, fill more space */
+            }
+        }
+
+        > .section-body {
+            padding: var(--space-4);
+        }
+
+        &.stealth .section-header {
+            h4 {
+                gap: var(--space-1);
+            }
+
+            input {
+                background: rgba(0, 0, 0, 0.1);
+                text-align: center;
+                width: 4ch;
+
+                &:hover:not(:disabled),
+                &:focus {
+                    box-shadow: none;
+                }
+
+                &::placeholder {
+                    color: var(--text-light-disabled);
+                }
+            }
+        }
+
+        &.skills > .section-body {
+            .list {
+                display: flex;
+                flex-flow: row wrap;
+            }
+        }
+
+        .actions-list,
+        .attacks-list {
+            border-bottom: 1px solid var(--alt);
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            .action {
+                padding: var(--space-4) 0;
+            }
+        }
+
+        &.publication {
+            margin-top: var(--space-8);
+
+            .section-header {
+                background: none;
+                color: var(--color-pf-primary);
+            }
+
+            .section-body {
+                align-items: baseline;
+                gap: 0.25em;
+                display: grid;
+                grid-template:
+                    "title title title" 2fr
+                    "authors license remaster" 3fr / 50% 25% 25%;
+
+                label {
+                    font-weight: 500;
+                }
+
+                input[type="text"] {
+                    height: 1.6rem;
+                }
+
+                .title {
+                    grid-area: title;
+                    display: flex;
+                    width: calc(100% - 0.5em);
+                }
+
+                .authors {
+                    grid-area: authors;
+                }
+
+                .license {
+                    grid-area: license;
+
+                    select {
+                        margin-top: 1px;
+                    }
+                }
+
+                .remaster {
+                    grid-area: remaster;
+                }
+
+                .license,
+                .remaster {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    label {
+                        padding: 0;
+                    }
+                }
+                border-top: none;
+                padding: var(--space-4) var(--space-8);
+
+                input[type="text"] {
+                    background: rgba(0, 0, 0, 0.05);
+                }
+            }
+        }
+    }
+}

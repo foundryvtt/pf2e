@@ -46,7 +46,7 @@
     {/if}
 </div>
 
-<style lang="scss">
+<style>
     .filter-container {
         margin: var(--space-8) var(--space-2);
         position: relative;

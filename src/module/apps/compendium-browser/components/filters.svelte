@@ -159,7 +159,7 @@
     {/if}
 </div>
 
-<style lang="scss">
+<style>
     .control-area {
         overflow-y: auto;
         padding-right: var(--space-4);

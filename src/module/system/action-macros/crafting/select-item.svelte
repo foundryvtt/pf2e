@@ -63,7 +63,7 @@
     </section>
 </article>
 
-<style lang="scss">
+<style>
     article {
         display: flex;
         flex-direction: column;

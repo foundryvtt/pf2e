@@ -696,7 +696,7 @@
     </div>
 </form>
 
-<style lang="scss">
+<style>
     form {
         position: relative;
     }

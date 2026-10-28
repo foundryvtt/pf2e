@@ -47,7 +47,7 @@
     <SvelectePf2e {...props} {i18n} />
 </div>
 
-<style lang="scss">
+<style>
     .traits-select {
         display: flex;
         margin-bottom: 0.25em;

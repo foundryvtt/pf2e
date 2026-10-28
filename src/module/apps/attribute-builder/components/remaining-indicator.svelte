@@ -15,7 +15,7 @@
     </div>
 {/if}
 
-<style lang="scss">
+<style>
     .remaining {
         grid-area: remaining;
         display: flex;

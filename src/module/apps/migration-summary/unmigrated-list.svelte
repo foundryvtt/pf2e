@@ -40,7 +40,7 @@
     {/each}
 </div>
 
-<style lang="scss">
+<style>
     .document-list {
         max-height: 10rem;
         overflow-y: auto;

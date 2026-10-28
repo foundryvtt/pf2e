@@ -1,0 +1,62 @@
+.app.actor.sheet.character section.window-content .crb-style {
+    .pf-rank {
+        font-family: var(--sans-serif);
+        font-size: var(--font-size-10);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        text-rendering: optimizeLegibility;
+        background: var(--color-proficiency-untrained);
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        border-radius: 2px;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+        color: var(--text-light);
+        align-items: center;
+        display: block;
+        font-weight: 500;
+        height: 1.125rem;
+        overflow: hidden;
+        padding: var(--space-1);
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 4.25rem;
+
+        &.readonly {
+            pointer-events: none;
+        }
+
+        &[data-rank="0"],
+        option[value="0"] {
+            background: var(--color-proficiency-untrained);
+        }
+
+        &[data-rank="1"],
+        option[value="1"] {
+            background: var(--color-proficiency-trained);
+        }
+
+        &[data-rank="2"],
+        option[value="2"] {
+            background: var(--color-proficiency-expert);
+        }
+
+        &[data-rank="3"],
+        option[value="3"] {
+            background: var(--color-proficiency-master);
+        }
+
+        &[data-rank="4"],
+        option[value="4"] {
+            background: var(--color-proficiency-legendary);
+        }
+    }
+
+    select.pf-rank {
+        cursor: pointer;
+        line-height: initial;
+
+        &:disabled {
+            cursor: default;
+        }
+    }
+}

@@ -119,7 +119,7 @@
     </footer>
 </div>
 
-<style lang="scss">
+<style>
     /* Use the app font so heading size/level stay independent of core's per-level fonts. */
     h2 {
         font-family: inherit;

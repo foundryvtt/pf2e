@@ -228,7 +228,7 @@
     </footer>
 </form>
 
-<style lang="scss">
+<style>
     /* Core's standard-form gap only spaces the window content's direct children, so repeat it */
     form {
         display: flex;

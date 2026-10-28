@@ -105,6 +105,20 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
               })()
             : { foundryPort: 30000, serverPort: 30001 };
 
+    // sf2e styling is appended to the main stylesheet only. Svelte components are system-agnostic and theme
+    // themselves through CSS custom properties.
+    const stylesDir = path.resolve(ROOT_DIR, "src/styles").split(path.sep).join("/");
+    const sf2eStyles: Vite.Plugin = {
+        name: "sf2e-styles",
+        enforce: "pre",
+        transform: (code, id) => {
+            if (SYSTEM_ID !== "sf2e") return;
+            if (id === `${stylesDir}/main.css`) return `${code}\n@import "./sf2e/index.css";`;
+            if (id === `${stylesDir}/vite-hmr.css`) return `${code}\n@import "./sf2e/index.css" layer(system);`;
+            return;
+        },
+    };
+
     // Add system layer to svelte CSS in HMR
     const hmrPreprocess = {
         name: "svelte-hmr-layer",
@@ -112,6 +126,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     };
 
     const plugins = [
+        sf2eStyles,
         // CI type-checks in its own job with svelte-check, which also covers .ts files
         checker({ typescript: true, enableBuild: !process.env.CI }),
         sveltePlugin({
@@ -244,7 +259,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             apply: "serve",
             transform: (code, id) => {
                 if (id === mainCss) {
-                    return code.replace("styles/main.scss", "styles/vite-hmr.scss");
+                    return code.replace("styles/main.css", "styles/vite-hmr.css");
                 } else if (/node_modules\/.+\.css$/.test(id)) {
                     return `@layer system { ${code} }`;
                 }
@@ -333,21 +348,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             watch: { ignored: ["dist", "packs", "packs-temp", "tests"].map((d) => path.resolve(ROOT_DIR, d, "**")) },
         },
         plugins,
-        css: {
-            devSourcemap: buildMode === "development",
-            preprocessorOptions: {
-                scss: {
-                    additionalData: (source: string, filename: string) => {
-                        // `sf2e/index` is system-specific styling, layered into the main stylesheet
-                        // entry only. Svelte components are system-agnostic and theme themselves
-                        // through CSS custom properties, so they never need it (and their <style> is
-                        // scoped, which would rewrite its selectors anyway).
-                        if (SYSTEM_ID !== "sf2e" || filename?.includes(".svelte")) return source;
-                        return `${source}\n@import "sf2e/index";`;
-                    },
-                },
-            },
-        },
+        css: { devSourcemap: buildMode === "development" },
     };
 });
 

@@ -1,5 +1,5 @@
 import { HooksPF2e } from "@scripts/hooks/index.ts";
-import "./styles/main.scss";
+import "./styles/main.css";
 
 HooksPF2e.listen();
 

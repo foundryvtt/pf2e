@@ -122,13 +122,13 @@
     <fieldset>
         <legend>{_loc("PF2E.SkillsLabel")}</legend>
         <div class="skills-list">
-            <div class="skill header">
+            <div class="skill header subgrid-row">
                 <div class="name">{_loc("PF2E.SkillLabel")}</div>
                 <div>{_loc("PF2E.Actor.NPC.SkillsEditor.Note")}</div>
                 <div>{_loc("PF2E.ModifierTitle")}</div>
             </div>
             {#each data.trainedSkills as skill (skill.slug)}
-                <div class="skill">
+                <div class="skill subgrid-row">
                     <label class="name" for="{uid}-skill-{skill.slug}-modifier">{skill.label}</label>
                     <input
                         type="text"
@@ -154,8 +154,8 @@
                         onclick={() => handleRemoveSkill(skill.slug)}
                     />
                     {#if skill.special.length > 0}
-                        <div class="specials">
-                            <div class="special-row header">
+                        <div class="specials subgrid-row">
+                            <div class="special-row header subgrid-row">
                                 <span>{_loc("PF2E.Actor.NPC.SkillsEditor.Special")}</span>
                                 <span>{_loc("PF2E.Actor.NPC.SkillsEditor.Predicate")}</span>
                                 <span>{_loc("PF2E.ModifierTitle")}</span>
@@ -167,7 +167,7 @@
                                 />
                             </div>
                             {#each skill.special as special, idx (idx)}
-                                <div class="special-row">
+                                <div class="special-row subgrid-row">
                                     <input
                                         type="text"
                                         id="{uid}-skill-{skill.slug}-special-{idx}-label"
@@ -249,13 +249,13 @@
     <fieldset>
         <legend>{_loc("PF2E.LoreSkillsHeader")}</legend>
         <div class="skills-list">
-            <div class="skill header lore">
+            <div class="skill header lore subgrid-row">
                 <div class="name">{_loc("PF2E.Lore")}</div>
                 <div class="modifier-header">{_loc("PF2E.ModifierTitle")}</div>
             </div>
 
             {#each data.loreSkills as skill (skill.itemId)}
-                <div class="skill lore">
+                <div class="skill lore subgrid-row">
                     <label class="name" for="{uid}-lore-{skill.itemId}-modifier">{skill.label}</label>
                     <input
                         class="modifier"
@@ -313,13 +313,7 @@
     </fieldset>
 </form>
 
-<style lang="scss">
-    @mixin subgrid-row {
-        display: grid;
-        grid-column: 1 / -1;
-        grid-template-columns: subgrid;
-    }
-
+<style>
     fieldset + fieldset {
         margin-block-start: var(--space-8);
     }
@@ -327,6 +321,13 @@
     input[aria-invalid="true"] {
         border-color: var(--color-level-error);
         outline: 1px solid var(--color-level-error);
+    }
+
+    /* A row spanning its grid parent and sharing the parent's columns */
+    .subgrid-row {
+        display: grid;
+        grid-column: 1 / -1;
+        grid-template-columns: subgrid;
     }
 
     .skills-list {
@@ -345,7 +346,6 @@
         }
 
         > div {
-            @include subgrid-row;
             align-items: center;
             padding-block: var(--space-2);
             padding-inline: var(--space-4);
@@ -374,11 +374,9 @@
                 }
 
                 .specials {
-                    @include subgrid-row;
                     row-gap: var(--space-6);
 
                     .special-row {
-                        @include subgrid-row;
                         align-items: center;
 
                         &.header {
@@ -403,6 +401,7 @@
 
             &.skill-selector,
             &.lore-skill-creator {
+                grid-column: 1 / -1;
                 display: flex;
                 flex-wrap: wrap;
                 gap: var(--space-4) var(--space-10);
