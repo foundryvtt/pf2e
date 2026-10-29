@@ -60,9 +60,13 @@
                             {{#unless skill.itemId}}disabled{{/unless}}>
                         {{> (resolvePath "templates/actors/character/partials/proficiencylevels-dropdown.hbs") proflevel=skill.rank}}
                     </select>
-                    {{#if (and skill.itemId ../editable)}}
+                    {{#if ../editable}}
                         <div class="item-controls">
-                            <a data-action="delete-item" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
+                            {{#if skill.itemId}}
+                                <a data-action="delete-item" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
+                            {{else}}
+                                <i class="fa-solid fa-fw fa-trash" style="visibility: hidden"></i>
+                            {{/if}}
                         </div>
                     {{/if}}
                 </li>
