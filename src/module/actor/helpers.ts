@@ -327,6 +327,11 @@ function isOffGuardFromFlanking(target: ActorPF2e, origin: ActorPF2e): boolean {
     );
 }
 
+/** Alternate usages (combination melee, thrown) share the weapon's ID but don't use its ammunition */
+function usesAmmo(weapon: WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e>): boolean {
+    return weapon.isOfType("weapon") && !!weapon.system.ammo && !weapon.altUsageType;
+}
+
 function getStrikeAttackDomains(
     weapon: WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e>,
     proficiencyRank: ZeroToFour | null,
@@ -342,6 +347,7 @@ function getStrikeAttackDomains(
         weapon.system.traits.otherTags.map((t) => `${t}-tag-attack-roll`),
         `${weapon.id}-attack`,
         `${weapon.id}-${meleeOrRanged}-attack`,
+        usesAmmo(weapon) ? `${weapon.id}-ammo-attack` : [],
         `${weaponSlug}-attack`,
         `${weaponSlug}-attack-roll`,
         `${unarmedOrWeapon}-attack-roll`,
@@ -407,6 +413,7 @@ function getAttackDamageDomains(
     const domains = [
         `${weapon.id}-damage`,
         `${weapon.id}-${meleeOrRanged}-damage`,
+        usesAmmo(weapon) ? `${weapon.id}-ammo-damage` : null,
         `${slug}-damage`,
         `${meleeOrRanged}-${action}-damage`,
         `${meleeOrRanged}-damage`,
