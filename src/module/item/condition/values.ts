@@ -18,6 +18,7 @@ const CONDITION_SLUGS = new Set([
     "fleeing",
     "friendly",
     "frightened",
+    "glitching",
     "grabbed",
     "helpful",
     "hidden",
@@ -38,10 +39,12 @@ const CONDITION_SLUGS = new Set([
     "slowed",
     "stunned",
     "stupefied",
+    "suppressed",
     "unconscious",
     "undetected",
     "unfriendly",
     "unnoticed",
+    "untethered",
     "wounded",
 ] as const);
 

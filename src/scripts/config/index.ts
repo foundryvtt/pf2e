@@ -131,6 +131,7 @@ const tokenHUDConditions = {
     fatigued: "PF2E.ConditionTypeFatigued",
     fleeing: "PF2E.ConditionTypeFleeing",
     frightened: "PF2E.ConditionTypeFrightened",
+    glitching: "PF2E.ConditionTypeGlitching",
     grabbed: "PF2E.ConditionTypeGrabbed",
     hidden: "PF2E.ConditionTypeHidden",
     immobilized: "PF2E.ConditionTypeImmobilized",
@@ -146,8 +147,10 @@ const tokenHUDConditions = {
     slowed: "PF2E.ConditionTypeSlowed",
     stunned: "PF2E.ConditionTypeStunned",
     stupefied: "PF2E.ConditionTypeStupefied",
+    suppressed: "PF2E.ConditionTypeSuppressed",
     unconscious: "PF2E.ConditionTypeUnconscious",
     undetected: "PF2E.ConditionTypeUndetected",
+    untethered: "PF2E.ConditionTypeUntethered",
     wounded: "PF2E.ConditionTypeWounded",
 };
 
