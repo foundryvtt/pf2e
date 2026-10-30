@@ -348,8 +348,9 @@ export abstract class CompendiumBrowserTab {
         if (
             !this.filterData ||
             !("checkboxes" in this.filterData || "traits" in this.filterData || "tags" in this.filterData)
-        )
+        ) {
             return;
+        }
 
         const present = new Set(this.indexData.flatMap((e) => [...(e.options ?? [])]));
 
