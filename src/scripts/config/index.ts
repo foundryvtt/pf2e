@@ -151,8 +151,15 @@ const tokenHUDConditions = {
     wounded: "PF2E.ConditionTypeWounded",
 };
 
-const conditionTypes: Record<ConditionSlug, string> = {
+const tokenHUDConditionsSF2E = {
     ...tokenHUDConditions,
+    glitching: "PF2E.ConditionTypeGlitching",
+    suppressed: "PF2E.ConditionTypeSuppressed",
+    untethered: "PF2E.ConditionTypeUntethered",
+};
+
+const conditionTypes: Record<ConditionSlug, string> = {
+    ...(SYSTEM_ID === "sf2e" ? tokenHUDConditionsSF2E : tokenHUDConditions),
     cursebound: "PF2E.ConditionTypeCursebound",
     friendly: "PF2E.ConditionTypeFriendly",
     helpful: "PF2E.ConditionTypeHelpful",
@@ -576,7 +583,7 @@ export const PF2ECONFIG = {
     statusEffects: {
         lastIconTheme: "default" as StatusEffectIconTheme,
         iconDir: `systems/${SYSTEM_ID}/icons/conditions/`,
-        conditions: tokenHUDConditions,
+        conditions: SYSTEM_ID === "sf2e" ? tokenHUDConditionsSF2E : tokenHUDConditions,
     },
 
     levels: {
