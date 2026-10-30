@@ -131,7 +131,6 @@ const tokenHUDConditions = {
     fatigued: "PF2E.ConditionTypeFatigued",
     fleeing: "PF2E.ConditionTypeFleeing",
     frightened: "PF2E.ConditionTypeFrightened",
-    glitching: "PF2E.ConditionTypeGlitching",
     grabbed: "PF2E.ConditionTypeGrabbed",
     hidden: "PF2E.ConditionTypeHidden",
     immobilized: "PF2E.ConditionTypeImmobilized",
@@ -147,15 +146,22 @@ const tokenHUDConditions = {
     slowed: "PF2E.ConditionTypeSlowed",
     stunned: "PF2E.ConditionTypeStunned",
     stupefied: "PF2E.ConditionTypeStupefied",
-    suppressed: "PF2E.ConditionTypeSuppressed",
     unconscious: "PF2E.ConditionTypeUnconscious",
     undetected: "PF2E.ConditionTypeUndetected",
-    untethered: "PF2E.ConditionTypeUntethered",
     wounded: "PF2E.ConditionTypeWounded",
 };
 
-const conditionTypes: Record<ConditionSlug, string> = {
+const tokenHUDConditionsSF2E = {
     ...tokenHUDConditions,
+    glitching: "PF2E.ConditionTypeGlitching",
+    suppressed: "PF2E.ConditionTypeSuppressed",
+    untethered: "PF2E.ConditionTypeUntethered",
+};
+
+const conditionTypes: Record<ConditionSlug, string> = {
+    ...(SYSTEM_ID === "sf2e"
+        ? tokenHUDConditionsSF2E
+        : tokenHUDConditions),
     cursebound: "PF2E.ConditionTypeCursebound",
     friendly: "PF2E.ConditionTypeFriendly",
     helpful: "PF2E.ConditionTypeHelpful",
@@ -579,7 +585,7 @@ export const PF2ECONFIG = {
     statusEffects: {
         lastIconTheme: "default" as StatusEffectIconTheme,
         iconDir: `systems/${SYSTEM_ID}/icons/conditions/`,
-        conditions: tokenHUDConditions,
+        conditions: (SYSTEM_ID === "sf2e" ? tokenHUDConditionsSF2E : tokenHUDConditions),
     },
 
     levels: {
