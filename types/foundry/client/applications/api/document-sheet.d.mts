@@ -49,7 +49,7 @@ export default abstract class DocumentSheetV2<
 
     protected override _headerControlButtons(): Generator<ApplicationHeaderControlsEntry>;
 
-    protected override _configureRenderOptions(options: DeepPartial<TRenderOptions>): TRenderOptions;
+    protected override _configureRenderOptions(options: DeepPartial<TRenderOptions>): void;
 
     protected override _prepareContext(options: TRenderOptions): Promise<DocumentSheetRenderContext>;
 
