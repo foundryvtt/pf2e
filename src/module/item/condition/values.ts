@@ -1,3 +1,9 @@
+const CONDITION_SLUGS_SF2E = new Set([
+    "glitching",
+    "suppressed",
+    "untethered",
+])
+
 const CONDITION_SLUGS = new Set([
     "blinded",
     "broken",
@@ -18,7 +24,6 @@ const CONDITION_SLUGS = new Set([
     "fleeing",
     "friendly",
     "frightened",
-    "glitching",
     "grabbed",
     "helpful",
     "hidden",
@@ -39,13 +44,12 @@ const CONDITION_SLUGS = new Set([
     "slowed",
     "stunned",
     "stupefied",
-    "suppressed",
     "unconscious",
     "undetected",
     "unfriendly",
     "unnoticed",
-    "untethered",
     "wounded",
+    ...(SYSTEM_ID === "sf2e" ? CONDITION_SLUGS_SF2E : new Set([]))
 ] as const);
 
 export { CONDITION_SLUGS };
