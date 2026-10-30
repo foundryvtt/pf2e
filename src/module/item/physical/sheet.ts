@@ -3,7 +3,7 @@ import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import type { AppV1RenderOptions } from "@client/appv1/api/application-v1.d.mts";
 import type { PhysicalItemPF2e } from "@item";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
-import { getAdjustment, isControlDown } from "@module/sheet/helpers.ts";
+import { getAdjustment } from "@module/sheet/helpers.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, localizer, sortStringRecord, tupleHasValue } from "@util";
 import * as R from "remeda";
@@ -177,9 +177,9 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
                 case "edit-subitem":
                     return subitem.sheet.render(true);
                 case "detach-subitem":
-                    return subitem.detach({ skipConfirm: isControlDown(event) });
+                    return subitem.detach({ skipConfirm: event.shiftKey });
                 case "delete-subitem": {
-                    return event.ctrlKey ? subitem.delete() : subitem.deleteDialog();
+                    return event.shiftKey ? subitem.delete() : subitem.deleteDialog();
                 }
                 default:
                     throw ErrorPF2e("Unexpected control options");

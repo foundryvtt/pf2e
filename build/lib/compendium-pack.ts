@@ -146,7 +146,7 @@ class CompendiumPack {
                         "static",
                         decodeURIComponent(imgPath).replace(`systems/${this.systemId}/`, ""),
                     );
-                    if (!isCoreIconPath && !fs.existsSync(repoImgPath)) {
+                    if (!isCoreIconPath && !CompendiumPack.#imageExists(repoImgPath)) {
                         throw PackError(`${documentName} (${this.id}) has an unknown image path: ${imgPath}`);
                     }
                     if (!(imgPath === "" || imgPath.match(/\.(?:svg|webp)$/))) {
@@ -208,6 +208,17 @@ class CompendiumPack {
     }
 
     #packsMetadata: PackMetadata[] | null = null;
+
+    #partialStats: DocumentStatsData | null = null;
+
+    static #existingImages = new Set<string>();
+
+    static #imageExists(imgPath: string): boolean {
+        if (CompendiumPack.#existingImages.has(imgPath)) return true;
+        const exists = fs.existsSync(imgPath);
+        if (exists) CompendiumPack.#existingImages.add(imgPath);
+        return exists;
+    }
 
     static get sf2eCompendiumRemap(): Record<string, string> {
         if (this.#sf2eCompendiumRemap) return this.#sf2eCompendiumRemap;
@@ -353,12 +364,14 @@ class CompendiumPack {
         }
 
         // Stamp actors and items with partial stats data so the server won't attempt to migrate
-        const systemJSON = JSON.parse(fs.readFileSync(`system.${this.systemId}.json`, { encoding: "utf-8" }));
-        const partialStats = {
-            coreVersion: systemJSON.compatibility.minimum,
-            systemId: this.systemId,
-            systemVersion: systemJSON.version,
-        } as DocumentStatsData;
+        const partialStats = (this.#partialStats ??= (() => {
+            const systemJSON = JSON.parse(fs.readFileSync(`system.${this.systemId}.json`, { encoding: "utf-8" }));
+            return {
+                coreVersion: systemJSON.compatibility.minimum,
+                systemId: this.systemId,
+                systemVersion: systemJSON.version,
+            } as DocumentStatsData;
+        })());
         docSource._stats = { ...partialStats };
 
         if (isActorSource(docSource)) {

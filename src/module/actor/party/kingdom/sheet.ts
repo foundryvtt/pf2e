@@ -575,7 +575,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const settlement = this.kingdom.settlements[id];
             if (!settlement) return;
             const result =
-                event?.ctrlKey ||
+                event?.shiftKey ||
                 (await foundry.applications.api.DialogV2.confirm({
                     window: { title: "PF2E.DeleteItemTitle", icon: "fa-solid fa-trash" },
                     content: `<p>${_loc("PF2E.DeleteQuestion", { name: `"${settlement.name}"` })}</p>`,
