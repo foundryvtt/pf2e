@@ -159,9 +159,7 @@ const tokenHUDConditionsSF2E = {
 };
 
 const conditionTypes: Record<ConditionSlug, string> = {
-    ...(SYSTEM_ID === "sf2e"
-        ? tokenHUDConditionsSF2E
-        : tokenHUDConditions),
+    ...(SYSTEM_ID === "sf2e" ? tokenHUDConditionsSF2E : tokenHUDConditions),
     cursebound: "PF2E.ConditionTypeCursebound",
     friendly: "PF2E.ConditionTypeFriendly",
     helpful: "PF2E.ConditionTypeHelpful",
@@ -585,7 +583,7 @@ export const PF2ECONFIG = {
     statusEffects: {
         lastIconTheme: "default" as StatusEffectIconTheme,
         iconDir: `systems/${SYSTEM_ID}/icons/conditions/`,
-        conditions: (SYSTEM_ID === "sf2e" ? tokenHUDConditionsSF2E : tokenHUDConditions),
+        conditions: SYSTEM_ID === "sf2e" ? tokenHUDConditionsSF2E : tokenHUDConditions,
     },
 
     levels: {
