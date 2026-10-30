@@ -190,6 +190,11 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                 options: {},
                 selected: [],
             },
+            tags: {
+                conjunction: "and",
+                options: [],
+                selected: [],
+            },
             traits: {
                 conjunction: "and",
                 options: [],
