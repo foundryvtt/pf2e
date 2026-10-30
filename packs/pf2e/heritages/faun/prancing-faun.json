@@ -1,0 +1,43 @@
+{
+    "_id": "YnOjIpJ5PE6E9Kut",
+    "folder": "iKTSsLvhOQjhObZ2",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Prancing Faun",
+    "system": {
+        "ancestry": {
+            "name": "Faun",
+            "slug": "faun",
+            "uuid": "Compendium.pf2e.ancestries.Item.qnKZt0oYS6nVYBfN"
+        },
+        "description": {
+            "value": "<p>Your powerful legs bound over long distances and heights, helping you dance with joy in meadows or forests. You gain a +2 circumstance bonus to Athletics checks to [[/act high-jump]] and [[/act long-jump]]. Increase the distance that you [[/act leap]] horizontally by 5 feet.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SkillVariant.HighJumpOrLongJump",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:high-jump",
+                            "action:long-jump"
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

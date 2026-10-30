@@ -1,0 +1,90 @@
+{
+    "_id": "LU4i3qXtyzeTGWZQ",
+    "folder": "swBqRqcxrbrK94y7",
+    "img": "icons/creatures/magical/spirit-fire-orange.webp",
+    "name": "Firefly Sprite",
+    "system": {
+        "ancestry": {
+            "name": "Sprite",
+            "slug": "sprite",
+            "uuid": "Compendium.pf2e.ancestries.Item.TRqoeYfGAFjQbviF"
+        },
+        "description": {
+            "value": "<p>You're a common sprite, especially attracted to magic and softly glowing with magical luminance. You naturally shed bright light in a 20-foot emanation (and dim light to the next 20 feet). This light has the light and primal traits. You can extinguish, rekindle, or change the color of this light using a single action, which has the concentrate trait.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Sprite.LuminousSprite.Light",
+                "option": "firefly-sprite-lit",
+                "suboptions": [
+                    {
+                        "label": "PF2E.Color.Blue",
+                        "value": "#0000FF"
+                    },
+                    {
+                        "label": "PF2E.Color.Cyan",
+                        "value": "#43D6D6"
+                    },
+                    {
+                        "label": "PF2E.Color.Green",
+                        "value": "#00FF00"
+                    },
+                    {
+                        "label": "PF2E.Color.Indigo",
+                        "value": "#4B0082"
+                    },
+                    {
+                        "label": "PF2E.Color.Magenta",
+                        "value": "#FF00FF"
+                    },
+                    {
+                        "label": "PF2E.Color.Orange",
+                        "value": "#FFA400"
+                    },
+                    {
+                        "label": "PF2E.Color.Red",
+                        "value": "#FF0000"
+                    },
+                    {
+                        "label": "PF2E.Color.Violet",
+                        "value": "#9400D3"
+                    },
+                    {
+                        "label": "PF2E.Color.White",
+                        "value": "#AAAAAA"
+                    },
+                    {
+                        "label": "PF2E.Color.Yellow",
+                        "value": "#FAFA00"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "firefly-sprite-lit"
+                ],
+                "value": {
+                    "alpha": 0.1,
+                    "bright": 20,
+                    "color": "{item|flags.system.rulesSelections.fireflySpriteLit}",
+                    "coloration": 101,
+                    "dim": 40,
+                    "luminosity": 0.15
+                }
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

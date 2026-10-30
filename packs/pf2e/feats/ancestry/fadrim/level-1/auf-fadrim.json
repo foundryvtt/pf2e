@@ -1,0 +1,82 @@
+{
+    "_id": "IfBhcpCX8WZSP1qP",
+    "folder": "On82RNLIepbonHtG",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Auf Fadrim",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You were taken by fey as a child and returned sometime later, obviously changed. It's unclear if you changed due to the journey or if you were outright replaced, which makes it difficult for creatures to discern your true nature. You gain a +2 circumstance bonus to Deception checks to [[/act impersonate options=impersonate-self]] a fey or a member of your ancestry in hopes of convincing others you lack any fey lineage. Instead of casting @UUID[Compendium.pf2e.spells-srd.Item.Light], you can cast @UUID[Compendium.pf2e.spells-srd.Item.Telekinetic Hand] as a primal innate spell at will.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:impersonate",
+                    "impersonate-self"
+                ],
+                "selector": [
+                    "deception"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:light",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:light",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:fadrim"
+            },
+            {
+                "key": "RollOption",
+                "option": "replaced-fadrim-spell"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fadrim",
+                "lineage"
+            ]
+        }
+    },
+    "type": "feat"
+}

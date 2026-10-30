@@ -1,0 +1,82 @@
+{
+    "_id": "GfxeOGzljLUZWOZh",
+    "folder": "MUvI79kti25rFEJ3",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Everflowing Revelry",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your indulgence in fine wines, food, and other pleasures hardened you against the worst indigestion and similar consequences. You can ingest elixirs and potions while sickened, and you gain a +2 circumstance bonus to saving throws against effects that inflict the sickened condition or to remove the sickened condition.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "itemType": "consumable",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "self:condition:sickened",
+                    {
+                        "or": [
+                            "item:tag:alchemical-food",
+                            "item:trait:elixir",
+                            "item:trait:ingested",
+                            "item:trait:potion"
+                        ]
+                    }
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Conditions.Sickened.AllowEatOrDrink"
+                    }
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "inflicts:sickened",
+                            "action:retch"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "faun"
+            ]
+        }
+    },
+    "type": "feat"
+}

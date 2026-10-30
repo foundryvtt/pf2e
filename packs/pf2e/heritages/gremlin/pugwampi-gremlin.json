@@ -1,0 +1,41 @@
+{
+    "_id": "EnpHV6C7agguyTRO",
+    "folder": "xryrrwbLvvgax1nu",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Pugwampi Gremlin",
+    "system": {
+        "ancestry": {
+            "name": "Gremlin",
+            "slug": "gremlin",
+            "uuid": "Compendium.pf2e.ancestries.Item.0oPpqBNToAOSSjK1"
+        },
+        "description": {
+            "value": "<p>You look a bit like if someone took a particularly grumpy-looking dog and made it wear some clothing, and like most pugwampis, you exist in a perpetual bad mood. Happily, the bad luck you exude ensures that you're never short of targets for your ill humor. You speak Kholo, and you gain the @UUID[Compendium.pf2e.actionspf2e.Item.Unluck] action.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.build.languages.granted",
+                "value": {
+                    "slug": "kholo",
+                    "source": "{item|name}"
+                }
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Unluck"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}
