@@ -444,21 +444,13 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         for (const link of htmlQueryAll(html, "[data-action=browse-feats]")) {
             const maxLevel = Number(link.dataset.level) || this.kingdom.level;
 
-            link.addEventListener("click", async () => {
-                const compendiumTab = game.pf2e.compendiumBrowser.tabs.campaignFeature;
-                const filter = await compendiumTab.getFilterData();
-
-                // Configure level filters
-                const levels = filter.level;
-                levels.to = Math.min(maxLevel, levels.max);
-                levels.isExpanded = levels.to !== levels.max;
-
-                // Set category
-                filter.checkboxes.category.options["kingdom-feat"].selected = true;
-                filter.checkboxes.category.selected.push("kingdom-feat");
-                filter.checkboxes.category.isExpanded = true;
-
-                compendiumTab.open({ filter });
+            link.addEventListener("click", () => {
+                game.pf2e.compendiumBrowser.openTab("campaignFeature", {
+                    filter: {
+                        checkboxes: { category: ["kingdom-feat"] },
+                        level: { to: maxLevel },
+                    },
+                });
             });
         }
 

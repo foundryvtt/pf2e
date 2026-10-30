@@ -11,7 +11,7 @@ import App from "./components/app.svelte";
 import { BrowserTab, BrowserTabs, ContentTabName, PackInfo, SourceInfo, TabData, TabName } from "./data.ts";
 import { PackLoader } from "./loader.ts";
 import { CompendiumBrowserSettingsApp } from "./settings.ts";
-import { BrowserFilter } from "./tabs/data.ts";
+import type { CompendiumBrowserFilter } from "./tabs/data.ts";
 import * as browserTabs from "./tabs/index.ts";
 
 class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
@@ -153,13 +153,10 @@ class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         if (this.activeTab.isGMOnly && !game.user.isGM) {
             throw ErrorPF2e("Tried to open GM-only browser tab!");
         }
-        if (options?.filter) {
-            if (!this.activeTab.isInitialized) {
-                throw ErrorPF2e("Tried to pass filter data to an uninitialized tab!");
-            }
-            this.activeTab.filterData = options.filter;
-        }
         await this.activeTab.init();
+        if (options?.filter) {
+            this.activeTab.filterData = this.activeTab.applyFilter(options.filter);
+        }
 
         if (!this.rendered) {
             await this.render({ force: true });
@@ -189,66 +186,38 @@ class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         categories?: ActionCategory[];
         traits?: AbilityTrait[];
     }): Promise<void> {
-        const actionTab = this.tabs.action;
-        const filter = await actionTab.getFilterData();
-        const types = filter.checkboxes.types;
-        const traits = filter.traits;
-
-        types.selected = [];
-        for (const type in types.options) {
-            if (options.types?.includes(type as ActionType)) {
-                types.options[type].selected = true;
-                types.selected.push(type);
-            }
-        }
-
-        const traitFilters = options.traits ?? [];
-        traits.selected = traitFilters.length
-            ? traits.options.filter((trait) => traitFilters.includes(trait.value))
-            : [];
-
-        if (options.categories?.length) {
-            const optionsToSwitch = R.pick(filter.checkboxes.category.options, options.categories);
-            Object.values(optionsToSwitch).forEach((o) => (o.selected = true));
-            filter.checkboxes.category.selected = Object.keys(optionsToSwitch);
-        }
-
-        actionTab.open({ filter });
+        return this.openTab("action", {
+            filter: {
+                checkboxes: {
+                    category: options.categories ?? [],
+                    types: options.types ?? [],
+                },
+                traits: { include: options.traits ?? [] },
+            },
+        });
     }
 
     async openSpellTab(entry: BaseSpellcastingEntry, maxRank = 10, category: string | null = null): Promise<void> {
-        const spellTab = this.tabs.spell;
-        const filter = await spellTab.getFilterData();
-        const traditions = filter.checkboxes.traditions;
+        const categories = R.unique(
+            [
+                category,
+                entry.category === "ritual" || entry.isFocusPool ? entry.category : null,
+                maxRank && ["prepared", "spontaneous", "innate"].includes(entry.category) && !category ? "spell" : null,
+            ].filter(R.isTruthy),
+        );
+        const ranks = maxRank ? Array.from(Array(maxRank).keys()).map((level) => String(level + 1)) : [];
+        const traditions =
+            entry.tradition && !entry.isFocusPool && entry.category !== "ritual" ? [entry.tradition] : [];
 
-        if (category && filter.checkboxes.category.options[category]) {
-            filter.checkboxes.category.options[category].selected = true;
-            filter.checkboxes.category.selected.push(category);
-        }
-
-        if (entry.category === "ritual" || entry.isFocusPool) {
-            filter.checkboxes.category.options[entry.category].selected = true;
-            filter.checkboxes.category.selected.push(entry.category);
-        }
-
-        if (maxRank) {
-            const ranks = Array.from(Array(maxRank).keys()).map((l) => String(l + 1));
-            for (const rank of ranks) {
-                filter.checkboxes.rank.options[rank].selected = true;
-                filter.checkboxes.rank.selected.push(rank);
-            }
-            if (["prepared", "spontaneous", "innate"].includes(entry.category) && !category) {
-                filter.checkboxes.category.options["spell"].selected = true;
-                filter.checkboxes.category.selected.push("spell");
-            }
-        }
-
-        if (entry.tradition && !entry.isFocusPool && entry.category !== "ritual") {
-            traditions.options[entry.tradition].selected = true;
-            traditions.selected.push(entry.tradition);
-        }
-
-        spellTab.open({ filter });
+        return this.openTab("spell", {
+            filter: {
+                checkboxes: {
+                    category: categories,
+                    rank: ranks,
+                    traditions,
+                },
+            },
+        });
     }
 
     initCompendiumList(): void {
@@ -348,8 +317,8 @@ interface CompendiumBrowserSources {
 }
 
 interface CompendiumBrowserOpenTabOptions {
-    /** Optional filter data for the opened tab */
-    filter?: BrowserFilter;
+    /** Declarative filters applied on top of the tab defaults */
+    filter?: CompendiumBrowserFilter;
     /** Hide the navigation element */
     hideNavigation?: boolean;
     /** Only show the given tabs in the navigation element. This will always include the openend tab */

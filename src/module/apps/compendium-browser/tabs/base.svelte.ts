@@ -10,8 +10,10 @@ import type {
     BrowserFilter,
     CheckboxData,
     CheckboxOptions,
+    CompendiumBrowserFilter,
     CompendiumBrowserIndexData,
     RangesInputData,
+    TraitData,
 } from "./data.ts";
 
 export abstract class CompendiumBrowserTab {
@@ -76,8 +78,8 @@ export abstract class CompendiumBrowserTab {
         // Load the index and populate filter data
         await this.loadData();
 
-        // Remove checkboxes for empty filters and traits with no associated entries
-        this.#pruneEmptyFilterOptions();
+        // Remove empty filter options and fill the tag list from the same index pass
+        this.#syncFilterOptions();
 
         // Initialize MiniSearch
         const wordSegmenter =
@@ -113,14 +115,79 @@ export abstract class CompendiumBrowserTab {
         this.isInitialized = true;
     }
 
-    /** Open this tab
-     * @param filter An optional initial filter for this tab
-     */
+    /** Open this tab, optionally with declarative filters already applied */
     async open(options?: CompendiumBrowserOpenTabOptions): Promise<void> {
-        if (options?.filter && !this.isInitialized) {
-            throw ErrorPF2e("Tried to pass filter data to an uninitialized tab!");
-        }
         return this.browser.openTab(this.tabName, options);
+    }
+
+    /** Clone the default filter and apply a declarative spec. The tab must already be initialized. */
+    applyFilter(spec: CompendiumBrowserFilter): BrowserFilter {
+        const filter = fu.deepClone(this.defaultFilterData);
+        if (!filter) {
+            throw ErrorPF2e(`Tab "${this.tabLabel}" is not initialized!`);
+        }
+
+        if ("checkboxes" in filter && spec.checkboxes) {
+            const checkboxes = filter.checkboxes as Record<string, CheckboxData>;
+            for (const [key, values] of R.entries(spec.checkboxes)) {
+                const checkbox = checkboxes[key];
+                if (checkbox) this.#selectCheckboxes(checkbox, values);
+            }
+        }
+
+        if ("level" in filter && spec.level) {
+            const level = filter.level;
+            if (spec.level.from !== undefined) {
+                level.from = Math.clamp(spec.level.from, level.min, level.max);
+                if (level.from > level.to) level.to = level.from;
+            }
+            if (spec.level.to !== undefined) {
+                level.to = Math.clamp(spec.level.to, level.min, level.max);
+                if (level.to < level.from) level.from = level.to;
+            }
+            level.changed = level.from !== level.min || level.to !== level.max;
+            level.isExpanded = level.changed;
+        }
+
+        if (spec.order?.by && spec.order.by in filter.order.options) {
+            filter.order.by = spec.order.by;
+            filter.order.type = filter.order.options[spec.order.by].type;
+        }
+        if (spec.order?.direction === "asc" || spec.order?.direction === "desc") {
+            filter.order.direction = spec.order.direction;
+        }
+
+        if ("ranges" in filter && spec.ranges) {
+            const ranges = filter.ranges as Record<string, RangesInputData>;
+            for (const [name, rangeSpec] of R.entries(spec.ranges)) {
+                const range = ranges[name];
+                if (!range) continue;
+                const defaultMin = range.values.min;
+                const defaultMax = range.values.max;
+                const lower = String(rangeSpec.min ?? range.defaultMin);
+                const upper = String(rangeSpec.max ?? range.defaultMax);
+                range.values = this.parseRangeFilterInput(name, lower, upper);
+                range.changed = range.values.min !== defaultMin || range.values.max !== defaultMax;
+                if (range.changed) range.isExpanded = true;
+            }
+        }
+
+        if (spec.search !== undefined) filter.search.text = spec.search;
+
+        if ("selects" in filter && spec.selects) {
+            const selects = filter.selects as Record<string, { options: Record<string, string>; selected: string }>;
+            for (const [key, value] of R.entries(spec.selects)) {
+                const select = selects[key];
+                if (!select || !(value in select.options)) continue;
+                select.selected = value;
+            }
+        }
+
+        if ("source" in filter && spec.source) this.#selectCheckboxes(filter.source, spec.source);
+        if (spec.tags) this.#selectMultiselect(filter.tags, spec.tags, true);
+        if (spec.traits) this.#selectMultiselect(filter.traits, spec.traits, false);
+
+        return filter;
     }
 
     /** Returns a clean copy of the filterData for this tab. Initializes the tab if necessary. */
@@ -199,14 +266,17 @@ export abstract class CompendiumBrowserTab {
             }
         }
 
-        const traits = this.filterData.traits;
-        if (traits.selected.length > 0) {
-            const include = traits.selected.filter((t) => !t.not).map((t) => `trait:${t.value}`);
+        for (const [prefix, data] of [
+            ["trait", this.filterData.traits],
+            ["tag", this.filterData.tags],
+        ] as const) {
+            if (data.selected.length === 0) continue;
+            const include = data.selected.filter((t) => !t.not).map((t) => `${prefix}:${t.value}`);
             if (include.length > 0) {
-                const includeStatement = { [traits.conjunction]: include } as PredicateStatement;
+                const includeStatement = { [data.conjunction]: include } as PredicateStatement;
                 statements.push(includeStatement);
             }
-            const exclude = traits.selected.filter((t) => t.not).map((t) => `trait:${t.value}`);
+            const exclude = data.selected.filter((t) => t.not).map((t) => `${prefix}:${t.value}`);
             if (exclude.length > 0) {
                 statements.push({ not: { or: exclude } });
             }
@@ -247,10 +317,49 @@ export abstract class CompendiumBrowserTab {
         };
     }
 
-    /** Removes checkboxes and traits that would provide empty list when toggled */
-    #pruneEmptyFilterOptions(): void {
-        if (!this.filterData || !("checkboxes" in this.filterData || "traits" in this.filterData)) return;
+    #selectCheckboxes(checkbox: CheckboxData, values: readonly string[]): void {
+        const selected = R.unique(values.filter((value) => value in checkbox.options));
+        for (const value of selected) {
+            checkbox.options[value].selected = true;
+        }
+        checkbox.selected = selected;
+        if (selected.length > 0) checkbox.isExpanded = true;
+    }
+
+    #selectMultiselect(
+        data: TraitData,
+        spec: NonNullable<CompendiumBrowserFilter["traits"]>,
+        keepUnknown: boolean,
+    ): void {
+        if (spec.conjunction) data.conjunction = spec.conjunction;
+        const select = (values: readonly string[] | undefined, not: boolean): TraitData["selected"] =>
+            (values ?? []).flatMap((value) => {
+                const existing = data.options.find((option) => option.value === value);
+                if (!existing && !keepUnknown) return [];
+                const option = existing ?? { label: value, value };
+                if (!existing) data.options.push(option);
+                return [{ label: option.label, value: option.value, not }];
+            });
+        data.selected = [...select(spec.include, false), ...select(spec.omit, true)];
+    }
+
+    /** Removes checkboxes and traits that would provide empty list when toggled, and fills tag options. */
+    #syncFilterOptions(): void {
+        if (
+            !this.filterData ||
+            !("checkboxes" in this.filterData || "traits" in this.filterData || "tags" in this.filterData)
+        )
+            return;
+
         const present = new Set(this.indexData.flatMap((e) => [...(e.options ?? [])]));
+
+        if ("tags" in this.filterData) {
+            const tagPrefix = "tag:";
+            this.filterData.tags.options = [...present]
+                .flatMap((option) => (option.startsWith(tagPrefix) ? [option.slice(tagPrefix.length)] : []))
+                .sort((slugA, slugB) => slugA.localeCompare(slugB, game.i18n.lang))
+                .map((value) => ({ label: value, value }));
+        }
 
         if ("checkboxes" in this.filterData) {
             const checkboxes: Record<string, CheckboxData> = this.filterData.checkboxes;
@@ -337,7 +446,7 @@ export abstract class CompendiumBrowserTab {
     /** Ensure all index fields are present in the index data */
     protected hasAllIndexFields(data: CompendiumIndexData, indexFields: string[]): boolean {
         for (const field of indexFields) {
-            if (fu.getProperty(data, field) === undefined && !/\.(?:source|publication)/.test(field)) {
+            if (fu.getProperty(data, field) === undefined && !/\.(?:source|publication|otherTags)/.test(field)) {
                 return false;
             }
         }

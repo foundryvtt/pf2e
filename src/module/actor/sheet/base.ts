@@ -964,36 +964,20 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         game.pf2e.compendiumBrowser.openActionTab({ types, traits, categories });
     }
 
-    async #onClickBrowseEquipment(element: HTMLElement): Promise<void> {
-        const checkboxesFilterCodes = (element.dataset.filter ?? "")
+    #onClickBrowseEquipment(element: HTMLElement): Promise<void> {
+        const itemTypes = (element.dataset.filter ?? "")
             .split(",")
             .map((s) => s.trim())
             .filter((s) => !!s);
-        const levelString = element.dataset.level;
-        const tab = game.pf2e.compendiumBrowser.tabs.equipment;
-        const filter = await tab.getFilterData();
-        const checkboxes = filter.checkboxes;
-
-        for (const itemType of checkboxesFilterCodes) {
-            const checkbox = checkboxes.itemTypes;
-            if (objectHasKey(checkbox.options, itemType)) {
-                checkbox.options[itemType].selected = true;
-                checkbox.selected.push(itemType);
-                checkbox.isExpanded = true;
-            }
-        }
-
-        if (levelString) {
-            const level = filter.level;
-            const newValue = Math.clamp(Number(levelString), level.min, level.max);
-            if (!Number.isNaN(newValue)) {
-                level.from = newValue;
-                level.to = newValue;
-            }
-            level.isExpanded = true;
-        }
-
-        tab.open({ filter });
+        const levelValue = Number(element.dataset.level);
+        const level =
+            element.dataset.level && !Number.isNaN(levelValue) ? { from: levelValue, to: levelValue } : undefined;
+        return game.pf2e.compendiumBrowser.openTab("equipment", {
+            filter: {
+                checkboxes: { itemTypes },
+                level,
+            },
+        });
     }
 
     protected override _canDragStart(selector: string): boolean {

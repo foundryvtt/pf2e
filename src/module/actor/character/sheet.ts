@@ -1312,7 +1312,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     }
 
     /** Contextually search the feats tab of the Compendium Browser */
-    async #onClickBrowseFeats(element: HTMLElement): Promise<void> {
+    #onClickBrowseFeats(element: HTMLElement): Promise<void> {
         // Get group and slot and then the relevant filter values
         // If this is for a not-feat-group, we create a custom filter
         const { featFilters, maxLevel } = ((): { featFilters: FeatBrowserFilterProps; maxLevel?: number } => {
@@ -1330,39 +1330,23 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             return { featFilters: slot?.filter ?? featGroup.filter, maxLevel: dataSetLevel || featGroup.level };
         })();
 
-        const featTab = game.pf2e.compendiumBrowser.tabs.feat;
-        const filter = await featTab.getFilterData();
-        filter.traits.conjunction = featFilters?.conjunction ?? "or";
-
-        // Assign levels
-        if (typeof maxLevel === "number") {
-            const level = filter.level;
-            level.to = Math.min(maxLevel, level.max);
-            level.isExpanded = level.to !== level.max;
-        }
-
-        // Assign categories
-        const category = filter.checkboxes.category;
-        for (const value of featFilters.categories ?? []) {
-            category.isExpanded = true;
-            category.options[value].selected = true;
-            category.selected.push(value);
-        }
-
-        // Assign traits
-        const traits = filter.traits;
-        const filterTraits = [
-            (featFilters?.traits ?? []).map((trait) => ({ trait, not: false })),
-            (featFilters?.omitTraits ?? []).map((trait) => ({ trait, not: true })),
-        ].flat();
-        for (const { trait, not } of filterTraits) {
-            const data = traits.options.find((t) => t.value === trait);
-            if (data) {
-                traits.selected.push({ ...fu.deepClone(data), not });
-            }
-        }
-
-        return featTab.open({ filter });
+        const conjunction = featFilters?.conjunction ?? "or";
+        return game.pf2e.compendiumBrowser.openTab("feat", {
+            filter: {
+                checkboxes: { category: featFilters?.categories ?? [] },
+                ...(typeof maxLevel === "number" ? { level: { to: maxLevel } } : {}),
+                tags: {
+                    conjunction,
+                    include: featFilters?.tags ?? [],
+                    omit: featFilters?.omitTags ?? [],
+                },
+                traits: {
+                    conjunction,
+                    include: featFilters?.traits ?? [],
+                    omit: featFilters?.omitTraits ?? [],
+                },
+            },
+        });
     }
 
     /** Handle changing of lore and spellcasting entry proficiency-rank via dropdown */
