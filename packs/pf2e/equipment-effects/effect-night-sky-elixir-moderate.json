@@ -1,0 +1,55 @@
+{
+    "_id": "bC4dE6fG8hI0jK3l",
+    "img": "icons/consumables/potions/potion-tube-corked-blue.webp",
+    "name": "Effect: Night Sky Elixir (Moderate)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Night Sky Elixir (Moderate)]</p>\n<p>You gain a +2 item bonus to saving throws against effects created by devils and divine spells cast by devils.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:trait:devil",
+                    {
+                        "or": [
+                            {
+                                "not": "item:type:spell"
+                            },
+                            "item:trait:divine"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
