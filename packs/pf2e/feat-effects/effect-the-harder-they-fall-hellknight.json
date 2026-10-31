@@ -1,0 +1,60 @@
+{
+    "_id": "pH6nQ2sT8vW4xY7a",
+    "img": "icons/skills/targeting/crosshair-pointed-orange.webp",
+    "name": "Effect: The Harder They Fall (Hellknight)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.The Harder They Fall (Hellknight)]</p>\n<p>You gain a +1 circumstance bonus to AC and saving throws against the marked Huge or larger creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "the-harder-they-fall-hellknight"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:mark:the-harder-they-fall-hellknight",
+                    {
+                        "gte": [
+                            "origin:size",
+                            4
+                        ]
+                    }
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
