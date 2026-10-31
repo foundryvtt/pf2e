@@ -1,7 +1,7 @@
 {
     "_id": "ESoFQI0V3h0oLowQ",
     "folder": "vHl8hDRb6hXd7O4r",
-    "img": "systems/pf2e/icons/equipment/consumables/ammunition/explosive-ammunition.webp",
+    "img": "icons/skills/ranged/arrow-barbed-flying-gray.webp",
     "name": "Escalation Ammunition",
     "system": {
         "baseItem": null,
@@ -11,7 +11,7 @@
         "containerId": null,
         "craftableAs": [],
         "description": {
-            "value": "<p><strong>Ammunition</strong> any</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> (manipulate)</p><hr /><p>Malevolent arcane energy leaks from within escalation ammunition, sizzling with barely restrained contempt. When activated escalation ammunition hits a target, the target must attempt a @Check[fortitude|dc:30|showDC:all] save. On a failure, the target rolls the next saving throw it attempts within the next minute against a spell or magical effect twice and takes the worse result.</p>"
+            "value": "<p><strong>Ammunition</strong> any</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> (manipulate)</p><hr /><p>Malevolent arcane energy leaks from within <em>escalation ammunition</em>, sizzling with barely restrained contempt. When activated <em>escalation ammunition</em> hits a target, the target must attempt a @Check[fortitude|dc:30|showDC:all] save. On a failure, the target rolls the next saving throw it attempts within the next minute against a spell or magical effect twice and takes the worse result.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Escalation Ammunition]</p>"
         },
         "hardness": 0,
         "hp": {
@@ -40,9 +40,11 @@
         "rules": [
             {
                 "key": "Note",
-                "selector": [
-                    "{item|_id}-attack"
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
                 ],
+                "selector": "{item|_id}-attack",
                 "text": "PF2E.AmmunitionNotes.EscalationAmmunition.Text",
                 "title": "PF2E.AmmunitionNotes.EscalationAmmunition.Title"
             }
