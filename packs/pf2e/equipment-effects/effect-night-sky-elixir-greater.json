@@ -1,0 +1,47 @@
+{
+    "_id": "cD5eF7gH9iJ1kL4m",
+    "img": "icons/consumables/potions/potion-tube-corked-blue.webp",
+    "name": "Effect: Night Sky Elixir (Greater)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Night Sky Elixir (Greater)]</p>\n<p>You gain a +3 item bonus to saving throws against effects created by devils.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 8
+        },
+        "level": {
+            "value": 15
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:trait:devil"
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

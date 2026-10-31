@@ -1,0 +1,78 @@
+{
+    "_id": "dE6fG8hI0jK2lM5n",
+    "img": "icons/commodities/materials/bowl-powder-yellow.webp",
+    "name": "Effect: Energy Ointment (Lesser)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Energy Ointment (Lesser)]</p>\n<p>You gain resistance 5 to the chosen energy type. The DC of the flat check to end persistent damage of that type is reduced by 2.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    }
+                ],
+                "flag": "energy",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EnergyType",
+                "rollOption": "energy-ointment"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.system.rulesSelections.energy}",
+                "value": 5
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "subtract",
+                "predicate": [
+                    "item:damage:type:{item|flags.system.rulesSelections.energy}"
+                ],
+                "property": "pd-recovery-dc",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
