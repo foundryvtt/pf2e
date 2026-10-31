@@ -25,6 +25,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
+                    "parent:origin:item:tag:technomancer-class",
                     "self:trait:minion",
                     "self:trait:tech"
                 ],
@@ -32,8 +33,25 @@
                     "attack",
                     "ac"
                 ],
+                "slug": "class-overclock-boost",
                 "type": "item",
                 "value": "ternary(gte(@item.origin.level, 15), 3, ternary(gte(@item.origin.level, 10), 2, 1))"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:trait:minion",
+                    "self:trait:tech",
+                    {
+                        "not": "parent:origin:item:tag:technomancer-class"
+                    }
+                ],
+                "selector": [
+                    "attack",
+                    "ac"
+                ],
+                "type": "item",
+                "value": 1
             }
         ],
         "start": {
