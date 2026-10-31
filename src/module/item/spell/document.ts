@@ -953,7 +953,12 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         context.extraRollOptions = R.unique(["action:cast-a-spell", ...(context.extraRollOptions ?? [])]);
 
-        return statistic.check.roll({
+        const extraDomains = [
+            this.isMelee ? "melee-attack-roll" : null,
+            this.isRanged ? "ranged-attack-roll" : null,
+        ].filter(R.isNonNullish);
+
+        return statistic.extend({ check: { domains: extraDomains } }).check.roll({
             ...eventToRollParams(event, { type: "check" }),
             ...context,
             action: "cast-a-spell",
