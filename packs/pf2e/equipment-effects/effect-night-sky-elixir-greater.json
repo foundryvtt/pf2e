@@ -4,7 +4,7 @@
     "name": "Effect: Night Sky Elixir (Greater)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Night Sky Elixir (Greater)]</p>\n<p>You gain a +3 item bonus to saving throws against effects created by devils.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Night Sky Elixir (Greater)]</p>\n<p>You gain a +3 item bonus to saving throws against effects created by devils and divine spells cast by devils.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -24,7 +24,15 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "origin:trait:devil"
+                    "origin:trait:devil",
+                    {
+                        "or": [
+                            {
+                                "not": "item:type:spell"
+                            },
+                            "item:trait:divine"
+                        ]
+                    }
                 ],
                 "selector": "saving-throw",
                 "type": "item",
