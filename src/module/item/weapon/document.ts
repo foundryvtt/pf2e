@@ -20,6 +20,7 @@ import {
 } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import type { RangeData } from "@item/types.ts";
+import type { RuleElementSource } from "@module/rules/index.ts";
 import type { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
 import { WEAPON_UPGRADES } from "@scripts/config/usage.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
@@ -548,8 +549,21 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     override prepareSiblingData(): void {
         super.prepareSiblingData();
 
-        // Set the default label to the ammunition item's name
-        const ammoRules = this.ammo?.system.rules.map((r) => ({ label: this.ammo?.name, ...fu.deepClone(r) })) ?? [];
+        const ammo = this.ammo;
+        if (!ammo) return;
+
+        // Alternate usages share this weapon's ID, so limit ammunition rules to usages with the ammunition loaded
+        const loaded = `item:ammo:id:${ammo.id}`;
+        const ammoRules = ammo.system.rules.map((r) => {
+            // Set the default label to the ammunition item's name
+            const rule: RuleElementSource & { definition?: JSONValue } = { label: ammo.name, ...fu.deepClone(r) };
+            if ("selector" in rule || "selectors" in rule) {
+                rule.predicate = [...(Array.isArray(rule.predicate) ? rule.predicate : []), loaded];
+            } else if (rule.key === "AdjustStrike") {
+                rule.definition = [...(Array.isArray(rule.definition) ? rule.definition : []), loaded];
+            }
+            return rule;
+        });
         this.system.rules.push(...ammoRules);
     }
 

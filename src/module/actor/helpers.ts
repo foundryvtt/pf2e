@@ -341,7 +341,6 @@ function getStrikeAttackDomains(
         weapon.group ? `${weapon.group}-group-attack-roll` : [],
         weapon.system.traits.otherTags.map((t) => `${t}-tag-attack-roll`),
         `${weapon.id}-attack`,
-        `${weapon.id}-${meleeOrRanged}-attack`,
         `${weaponSlug}-attack`,
         `${weaponSlug}-attack-roll`,
         `${unarmedOrWeapon}-attack-roll`,
