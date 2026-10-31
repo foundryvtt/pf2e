@@ -33,7 +33,22 @@
             "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "choices": {
+                    "config": "skills"
+                },
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.system.rulesSelections.skill}",
+                "type": "item",
+                "value": 2
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "rare",

@@ -33,7 +33,23 @@
             "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "definition": [
+                    "damage:category:physical",
+                    {
+                        "not": "item:magical"
+                    }
+                ],
+                "exceptions": [
+                    "silver"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.NonMagicalPhysical",
+                "type": "custom",
+                "value": 5
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "rare",
