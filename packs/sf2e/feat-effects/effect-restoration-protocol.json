@@ -1,0 +1,42 @@
+{
+    "_id": "Lb9PWI8S69OkXMaB",
+    "img": "icons/magic/air/wind-weather-snow-gusts.webp",
+    "name": "Effect: Restoration Protocol",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Restoration Protocol]</p>\n<p>You gain a number of temporary Hit Points equal to the origin's level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 12
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@item.origin.level"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
