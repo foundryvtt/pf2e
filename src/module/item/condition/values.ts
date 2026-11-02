@@ -1,4 +1,4 @@
-const CONDITION_SLUGS_SF2E = ["glitching", "suppressed", "untethered"] as const;
+const CONDITION_SLUGS_SF2E = new Set(["glitching", "suppressed", "untethered"]);
 
 const CONDITION_SLUGS = new Set([
     "blinded",

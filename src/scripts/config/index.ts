@@ -152,14 +152,17 @@ const tokenHUDConditions = {
 };
 
 const tokenHUDConditionsSF2E = {
-    ...tokenHUDConditions,
     glitching: "PF2E.ConditionTypeGlitching",
     suppressed: "PF2E.ConditionTypeSuppressed",
     untethered: "PF2E.ConditionTypeUntethered",
 };
 
+if (SYSTEM_ID === "sf2e") {
+    Object.assign(tokenHUDConditions, tokenHUDConditionsSF2E);
+}
+
 const conditionTypes: Record<ConditionSlug, string> = {
-    ...(SYSTEM_ID === "sf2e" ? tokenHUDConditionsSF2E : tokenHUDConditions),
+    ...tokenHUDConditions,
     cursebound: "PF2E.ConditionTypeCursebound",
     friendly: "PF2E.ConditionTypeFriendly",
     helpful: "PF2E.ConditionTypeHelpful",
@@ -583,7 +586,7 @@ export const PF2ECONFIG = {
     statusEffects: {
         lastIconTheme: "default" as StatusEffectIconTheme,
         iconDir: `systems/${SYSTEM_ID}/icons/conditions/`,
-        conditions: SYSTEM_ID === "sf2e" ? tokenHUDConditionsSF2E : tokenHUDConditions,
+        conditions: tokenHUDConditions,
     },
 
     levels: {
