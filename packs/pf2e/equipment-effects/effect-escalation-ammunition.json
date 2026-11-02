@@ -1,0 +1,52 @@
+{
+    "_id": "qMqygrD5lJyd5UYM",
+    "img": "icons/skills/ranged/arrow-barbed-flying-gray.webp",
+    "name": "Effect: Escalation Ammunition",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Escalation Ammunition]</p>\n<p>You roll the next saving throw you attempt against a spell or magical effect twice and takes the worse result.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 12
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:magical",
+                            "item:type:spell"
+                        ]
+                    }
+                ],
+                "removeAfterRoll": true,
+                "selector": "saving-throw"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
