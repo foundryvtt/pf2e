@@ -60,7 +60,7 @@ export class ActorSizePF2e {
         const spaces = ActorSizePF2e.#defaultSpaces[params.value] ?? ActorSizePF2e.#defaultSpaces.med;
         this.long = params.long ?? spaces.long;
         this.wide = params.wide ?? spaces.wide;
-        this.high = params.high ?? spaces.wide;
+        this.high = params.high ?? spaces.high;
     }
 
     /**
