@@ -1,0 +1,48 @@
+{
+    "_id": "rR4lN8pQ2vW6xY3a",
+    "img": "icons/skills/melee/strike-polearm-light-orange.webp",
+    "name": "Effect: Reckless Riding Lunge",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Reckless Riding Lunge]</p>\n<p>Your reach increases by 5 feet while you have the @UUID[Compendium.pf2e.other-effects.Item.Effect: Mounted] effect.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.reach.base",
+                "phase": "afterDerived",
+                "predicate": [
+                    "self:effect:mounted"
+                ],
+                "value": 5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
