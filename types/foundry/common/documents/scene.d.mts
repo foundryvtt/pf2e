@@ -3,6 +3,7 @@ import { GridType, ImageFilePath, VideoFilePath } from "@common/constants.mjs";
 import { Document, DocumentMetadata, EmbeddedCollection } from "../abstract/_module.mjs";
 import * as data from "../data/data.mjs";
 import * as fields from "../data/fields.mjs";
+import { GridlessGrid, HexagonalGrid, SquareGrid } from "../grid/_module.mjs";
 import * as documents from "./_module.mjs";
 
 /**
@@ -14,6 +15,9 @@ export default class BaseScene extends Document<null, SceneSchema> {
     static override get metadata(): SceneMetadata;
 
     static override defineSchema(): SceneSchema;
+
+    /** The default grid defined by the system. */
+    static get defaultGrid(): GridlessGrid | HexagonalGrid | SquareGrid;
 }
 
 export default interface BaseScene extends Document<null, SceneSchema>, fields.ModelPropsFromSchema<SceneSchema> {

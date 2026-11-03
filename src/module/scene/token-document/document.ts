@@ -287,11 +287,13 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         waypoints: fd.TokenMeasureMovementPathWaypoint[],
         options?: { cost?: fd.TokenMovementCostFunction },
     ): GridMeasurePathResult {
-        if (!canvas.grid.isSquare) return super.measureMovementPath(waypoints, options);
+        // Size overrides update tokens on unviewed scenes too, so the canvas grid may be absent or another scene's
+        const grid = this.parent?.grid ?? foundry.documents.BaseScene.defaultGrid;
+        if (!grid.isSquare) return super.measureMovementPath(waypoints, options);
         const normalized = this.isTiny
             ? waypoints.map((p) => ({
                   ...p,
-                  ...canvas.grid.getTopLeftPoint({ x: p.x ?? 0, y: p.y ?? 0 }),
+                  ...grid.getTopLeftPoint({ x: p.x ?? 0, y: p.y ?? 0 }),
                   width: 1,
                   height: 1,
               }))
