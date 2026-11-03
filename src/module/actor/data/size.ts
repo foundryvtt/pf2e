@@ -136,6 +136,7 @@ export class ActorSizePF2e {
         const newSpace = ActorSizePF2e.#defaultSpaces[this.value];
         this.long = newSpace.long;
         this.wide = newSpace.wide;
+        this.high = newSpace.high;
     }
 
     /**
@@ -149,6 +150,7 @@ export class ActorSizePF2e {
         const newSpace = ActorSizePF2e.#defaultSpaces[this.value];
         this.long = newSpace.long;
         this.wide = newSpace.wide;
+        this.high = newSpace.high;
     }
 
     toString(): string {
