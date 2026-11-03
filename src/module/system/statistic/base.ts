@@ -36,6 +36,11 @@ abstract class BaseStatistic<TActor extends ActorPF2e> {
         this.modifiers = new StatisticModifier("", modifiers).modifiers;
     }
 
+    /** Total of currently-enabled modifiers after stack resolution. Computed on read so subclasses may mutate `modifiers` after construction. */
+    get totalModifier(): number {
+        return R.sumBy(this.modifiers, (m) => (m.enabled ? m.modifier : 0));
+    }
+
     createRollOptions(domains = this.domains): Set<string> {
         return new Set(this.actor.getRollOptions(domains));
     }
