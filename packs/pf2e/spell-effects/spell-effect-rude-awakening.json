@@ -23,27 +23,21 @@
         },
         "rules": [
             {
-                "hideIfDisabled": true,
                 "key": "FlatModifier",
-                "selector": [
-                    "saving-throw"
-                ],
-                "slug": "rude-awakening-saves",
-                "type": "circumstance",
+                "selector": "saving-throw",
+                "slug": "rude-awakening-save",
+                "type": "status",
                 "value": 1
             },
             {
-                "hideIfDisabled": true,
-                "key": "FlatModifier",
+                "key": "AdjustModifier",
+                "mode": "add",
                 "predicate": [
                     "item:trait:emotion"
                 ],
-                "selector": [
-                    "saving-throw"
-                ],
-                "slug": "rude-awakening-emotion",
-                "type": "circumstance",
-                "value": 2
+                "selector": "saving-throw",
+                "slug": "rude-awakening-save",
+                "value": 1
             }
         ],
         "start": {
