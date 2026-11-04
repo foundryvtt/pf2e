@@ -1,0 +1,55 @@
+{
+    "_id": "OWKVwUYE8KvgL9Q6",
+    "img": "icons/environment/cosmos/astronomy-planetary-orbits.webp",
+    "name": "Effect: Knowledge from the Stars",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "labels": null,
+            "reevaluate": null,
+            "type": "formula",
+            "value": "1d20"
+        },
+        "description": {
+            "value": "<p>Roll a d20. You can use the result of the roll in place of making a check or saving throw.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "key": "SubstituteRoll",
+                "removeAfterRoll": "if-enabled",
+                "selectors": [
+                    "saving-throw",
+                    "skill-check"
+                ],
+                "slug": "devise-a-stratagem",
+                "value": "@item.badge.value"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

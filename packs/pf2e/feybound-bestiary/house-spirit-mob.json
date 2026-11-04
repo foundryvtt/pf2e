@@ -1,0 +1,360 @@
+{
+    "_id": "ZecMj0c4rsGE4Sgg",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "b7BYO6V8BFgr9aje",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Swarm Mind",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.SwarmMind]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "swarm-mind",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XpCSCNKmXlz1msik",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Shy",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A house sprit mob is naturally @UUID[Compendium.pf2e.conditionitems.Item.Invisible] while within sight of their bound area. The house spirit mob can become visible or even selectively visible—allowing only certain people to see them.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "shy",
+                        "toggleable": true
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "shy"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Invisible"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "z6nLWEvQlBBP8TFv",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Uncooperative Surroundings",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. The house spirit mob rallies household items to hamper their foes. Each enemy in the aura that fails an attack roll, Reflex saving throw, or Acrobatics or Athletics skill check becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round (@UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} and knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "level": 6,
+                        "radius": 30,
+                        "traits": [
+                            "aura",
+                            "primal"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YH4eaRqbm1LLfZW2",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swarming Blows",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each enemy in the mob's space takes @Damage[3d6[bludgeoning]] damage (@Check[reflex|dc:24|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YxyMlyLuaBIhe5Hu",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Tragic Accident",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Combining powers, the mob creates a horrific accident, dealing @Damage[5d10[untyped]|options:area-damage] damage in a @Template[type:burst|distance:10] or @Template[type:line|distance:20] within their bound area (@Check[reflex|dc:24|basic] save). The area becomes difficult terrain for 1 minute, and the damage is most often bludgeoning. The mob can't use Tragic Accident again for [[/gmr 1d4 #Recharge Tragic Accident]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zsryDJRvEHUIbXUw",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Household Lore",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 15
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "House Spirit Mob",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 3
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": 2
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 5
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 22
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 60,
+                "temp": 0,
+                "value": 60
+            },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 2
+                },
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 20
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 5
+                },
+                {
+                    "exceptions": [],
+                    "type": "cold-iron",
+                    "value": 5
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "fey"
+                ]
+            },
+            "level": {
+                "value": 6
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Even the smallest house spirits can band together against a threat to the home.</p><hr /><p>House spirits are a collection of fey who live among peasants and poor rural folk. They hide themselves from mortal eyes—hence why they're so commonly called \"spirits\"—but their presence is always felt. Given suitable respect, these house fey take a decidedly parental interest in the mortals they live with, doing all manner of work around the household. They cook, they clean, they sweep, they chop wood, they care for animals, they tend the stove. If disrespected, however, they becomes a veritable plague of ill will.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Feybound"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 15,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 17
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 12
+            },
+            "athletics": {
+                "base": 12
+            },
+            "crafting": {
+                "base": 15
+            },
+            "diplomacy": {
+                "base": 14
+            },
+            "medicine": {
+                "base": 13
+            },
+            "stealth": {
+                "base": 13,
+                "special": [
+                    {
+                        "base": 15,
+                        "label": "within their bound area",
+                        "predicate": [
+                            "bound-area"
+                        ]
+                    }
+                ]
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "fey",
+                "swarm"
+            ]
+        }
+    },
+    "type": "npc"
+}

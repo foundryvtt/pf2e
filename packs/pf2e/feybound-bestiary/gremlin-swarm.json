@@ -1,0 +1,318 @@
+{
+    "_id": "24AVYYqxzBre2kvt",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "S6GX5XjlpyjbrfRd",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Swarm Mind",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.SwarmMind]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "swarm-mind",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IylVtyEyflPxTQdO",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Absolute Nuisances",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>5 feet. The gremlin swarm constantly harasses nearby creatures to break their concentration, kicking shins and screaming in ears. A creature in the aura taking a concentrate action, must first succeed at a @Check[will|dc:18] save or lose the action. Creatures occupying the gremlin swarm's space take a –2 circumstance penalty to this save.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "level": 4,
+                        "traits": [
+                            "aura"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RYw8Qs4BtRnqqkA4",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Clever Little Monsters",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The gremlin swarm cooperates to harass a foe, attempting to [[/act disarm]], [[/act grapple]], [[/act shove]], or [[/act trip]] a creature that occupies the swarm's space. The swarm can use their Thievery ( [[/act disarm skill=thievery]], [[/act grapple skill=thievery]], [[/act shove skill=thievery]], or [[/act trip skill=thievery]]) modifier, rather than Athletics, for the skill check for this action.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3YRLfVtxiDjHia40",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Grem-a-pult",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The gremlin swarm hurls a hapless \"volunteer\" at the enemy. Each creature in a @Template[type:burst|distance:5] within 30 feet takes @Damage[3d6[bludgeoning]|options:area-damage] damage (@Check[reflex|dc:21|basic] save). A creature who critically fails the save is also @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round. The gremlin swarm then loses @Damage[1d4[healing]|options:area-damage] Hit Points as the gremlin scuttles back injured.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "C7yTnvQcAUM6hxfe",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swarming Blows",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each enemy in the mob's space takes @Damage[2d8[bludgeoning]] damage (@Check[reflex|dc:21|basic] save). A creature that fails this save is also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Gremlin Swarm",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 4
+            },
+            "con": {
+                "mod": 2
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": 2
+            },
+            "str": {
+                "mod": 1
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 19
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 60,
+                "temp": 0,
+                "value": 60
+            },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 2
+                },
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 20
+                    }
+                ],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 5
+                },
+                {
+                    "exceptions": [],
+                    "type": "cold-iron",
+                    "value": 5
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "fey",
+                    "sakvroth"
+                ]
+            },
+            "level": {
+                "value": 4
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Most gremlins are communal creatures, dwelling in gangs, mobs, and hives just out of mortal sight. These groups are often contentious, each gremlin believing they are taking advantage of the rest, yet they never live alone if they can help it.</p>\n<p>On occasion, an entire mass of gremlins can be roused to anger. Such a swarm is surprisingly coordinated and effective, driven not by any one gremlin's leadership but by their excellent instincts for causing trouble. Gremlin swarms cooperate easily to bring down much larger foes, trussing them up like a holiday goose or poking them with knives and claws until they stop twitching.</p><hr /><p>Like many fey, gremlins personify a natural force of the world: entropy. It's a fundamental truth that everything breaks, that every complex system, from a machine to a society, will inevitably grind itself down to nothing. Gremlins are happy to give those complex systems a friendly shove down the stairs.</p>\n<p>Nearly all gremlins live in the Universe, where they have fully acclimated to the plane. No one is quite certain why, but it seems likely that some long-forgotten gremlin managed to so irritate the Eldest to such a degree that their entire species was exiled—though it appears the Eldest missed a few, as some gremlins still lurk in the First World.</p>\n<p>Gremlins are usually found in an odd, parasitic relationship with mortal communities in the Universe. They don't need to eat or sleep, don't age or sicken, and never really die—but they do need to cause trouble. It's as essential to them as food and drink are to mortals, and nowhere do they get as many chances for chaos and confusion as in a mortal settlement. Gremlins thus become pests, living on the margins of society and bedeviling anyone and anything they can get their hands on.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Feybound"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "darkvision",
+            "mod": 11,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 8
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 12
+            },
+            "athletics": {
+                "base": 10
+            },
+            "stealth": {
+                "base": 12
+            },
+            "thievery": {
+                "base": 12
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "fey",
+                "swarm"
+            ]
+        }
+    },
+    "type": "npc"
+}
