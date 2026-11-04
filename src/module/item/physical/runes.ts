@@ -24,7 +24,10 @@ import * as R from "remeda";
 function getPropertyRuneSlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
     if (item.system.grade) return 0; // skip sf2e gear
 
-    const fromMaterial = item.system.material.type === "orichalcum" ? 1 : 0;
+    const djezetRunes =
+        item.isOfType("armor") && item.system.material.type === "djezet" && item.system.material.grade === "high";
+    const orichalcumRunes = item.system.material.type === "orichalcum";
+    const fromMaterial = orichalcumRunes || djezetRunes ? 1 : 0;
     const getABPPotency = item.isOfType("weapon") ? ABP.getAttackPotency : ABP.getDefensePotency;
 
     const fromPotency = ABP.isEnabled(item.actor)
