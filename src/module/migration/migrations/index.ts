@@ -118,3 +118,4 @@ export { Migration957SF2eAnachronismImages } from "./957-sf2e-anachronism-images
 export { Migration958GnollGrippliRemaster } from "./958-gnoll-grippli-remaster.ts";
 export { Migration959ChangeShapeLocalizationKeys } from "./959-changeshape-localization-keys.ts";
 export { Migration960NPCAttackLinkFromWeapon } from "./960-npc-attack-link-from-weapon.ts";
+export { Migration961RangedStrikeAttackRoll } from "./961-ranged-strike-attack-roll.ts";
