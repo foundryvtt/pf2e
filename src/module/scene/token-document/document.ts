@@ -378,7 +378,8 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             case "character":
             case "npc":
             case "familiar": {
-                if (!actor.inCombat) return "travel";
+                // Troop combatants have no token or actor, only the token's getter finds them
+                if (!actor.inCombat && !this.inCombat) return "travel";
                 if (!actor.isOfType("creature")) return "displace";
                 const speeds = actor.system.movement.speeds;
                 if (actor.hasCondition("prone")) return "crawl";
