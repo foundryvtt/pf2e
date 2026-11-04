@@ -9,6 +9,7 @@ import type {
     PHYSICAL_ITEM_TYPES,
     PRECIOUS_MATERIAL_GRADES,
     PRECIOUS_MATERIAL_TYPES,
+    WORN_SLOTS,
 } from "./values.ts";
 
 type BaseMaterialType = "bone" | "cloth" | "glass" | "leather" | "paper" | "rope" | "steel" | "stone" | "wood";
@@ -26,6 +27,8 @@ type PreciousMaterialGrade = SetElement<typeof PRECIOUS_MATERIAL_GRADES>;
 
 type Grade = keyof typeof CONFIG.PF2E.grades;
 
+type WornSlot = SetElement<typeof WORN_SLOTS>;
+
 interface StackDefinition {
     size: number;
     lightBulk: number;
@@ -41,4 +44,5 @@ export type {
     PreciousMaterialGrade,
     PreciousMaterialType,
     StackDefinition,
+    WornSlot,
 };
