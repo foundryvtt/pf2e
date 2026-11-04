@@ -45,7 +45,7 @@ const CONDITION_SLUGS = new Set([
     "unfriendly",
     "unnoticed",
     "wounded",
-    ...(SYSTEM_ID === "sf2e" ? CONDITION_SLUGS_SF2E : []),
+    ...CONDITION_SLUGS_SF2E,
 ] as const);
 
 export { CONDITION_SLUGS };
