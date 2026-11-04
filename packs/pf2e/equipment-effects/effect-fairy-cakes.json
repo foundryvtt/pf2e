@@ -1,0 +1,47 @@
+{
+    "_id": "MgukPiuNVMSLwZ0c",
+    "img": "icons/consumables/food/candy-bar.webp",
+    "name": "Effect: Fairy Cakes",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Fairy Cakes]</p>\n<p>You gain a +2 status bonus to Deception checks to Impersonate a creature other than yourself</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:impersonate"
+                ],
+                "selector": "deception",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
