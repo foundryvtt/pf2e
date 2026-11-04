@@ -1,0 +1,118 @@
+{
+    "_id": "tN7pQ3sW8vY2xK5b",
+    "img": "icons/magic/unholy/silhouette-light-fire-blue.webp",
+    "name": "Spell Effect: Tenebrous Freedom",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Tenebrous Freedom]</p>\n<p>You are enfeebled 2 and clumsy 2. If the spell is 8th rank or higher, you are enfeebled 3 and clumsy 3.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "lt": [
+                            "{item|level}",
+                            8
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "lt": [
+                            "{item|level}",
+                            8
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 3
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "gte": [
+                            "{item|level}",
+                            8
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 3
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "gte": [
+                            "{item|level}",
+                            8
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
