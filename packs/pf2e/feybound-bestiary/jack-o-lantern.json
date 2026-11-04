@@ -430,7 +430,7 @@
         {
             "_id": "4TYpMSgd0eLiLipZ",
             "img": "icons/sundries/lights/lantern-iron-lit-yellow.webp",
-            "name": "Lantern Staf",
+            "name": "Lantern Staff",
             "sort": 700000,
             "system": {
                 "ammo": null,
@@ -731,12 +731,11 @@
             "_id": "EvCPpqanBJgsX06d",
             "flags": {
                 "pf2e": {
-                    "linkedWeapon": "4TYpMSgd0eLiLipZ",
-                    "syncWeaponFeatures": false
+                    "linkedWeapon": "4TYpMSgd0eLiLipZ"
                 }
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Lantern Staf",
+            "name": "Lantern Staff",
             "sort": 1200000,
             "system": {
                 "action": "strike",
@@ -766,7 +765,28 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": 8
+                    }
+                ],
                 "slug": "staff",
                 "subjectToMAP": true,
                 "traits": {
@@ -808,8 +828,8 @@
                     "title": ""
                 },
                 "range": {
-                    "increment": 60,
-                    "max": null
+                    "increment": null,
+                    "max": 60
                 },
                 "rules": [],
                 "slug": null,
