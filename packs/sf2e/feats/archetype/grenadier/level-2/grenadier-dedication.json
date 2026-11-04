@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You specialize in throwing highly explosive portable ordnances. You become trained with grenades. You gain the @UUID[Compendium.sf2e.actions.Item.Quick Toss] action.</p><hr /><p><strong>Special</strong> If you have the soldier archetype dedication feat, you can take this feat even if you haven't taken two additional soldier archetype feats. Soldier archetype feats count as grenadier archetype feats, and vice-versa, for purposes of completing the archetypes.</p>"
+            "value": "<p>You specialize in throwing highly explosive portable ordnances. You become trained with grenades. You gain the @UUID[Compendium.sf2e.actions.Item.Quick Toss] action.</p>\n<p>At 5th level, your proficiency rank with grenades increases to expert, and you gain access to the critical specialization effects of all grenades.</p><hr /><p><strong>Special</strong> If you have the @UUID[Compendium.sf2e.feats.Item.Soldier Dedication] feat, you can take this feat even if you haven't taken two additional soldier archetype feats. Soldier archetype feats count as grenadier archetype feats, and vice-versa, for purposes of completing the archetypes.</p>"
         },
         "level": {
             "value": 2
@@ -25,7 +25,50 @@
             "remaster": true,
             "title": "Starfinder Tech Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Quick Toss"
+            },
+            {
+                "definition": [
+                    "item:trait:grenade"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.Grenades",
+                "slug": "grenades",
+                "value": 1
+            },
+            {
+                "definition": [
+                    "item:trait:grenade"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.Grenades",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    }
+                ],
+                "slug": "grenades",
+                "value": 2
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    "item:trait:grenade"
+                ]
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

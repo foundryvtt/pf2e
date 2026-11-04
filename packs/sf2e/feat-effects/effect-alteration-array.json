@@ -1,0 +1,274 @@
+{
+    "_id": "nWTTqdpkA3GHbJE9",
+    "img": "icons/magic/acid/dissolve-arm-flesh.webp",
+    "name": "Effect: Alteration Array",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Alteration Array]</p>\n<p>You gain a nanite unarmed attack.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitPiercing",
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "value": "slashing"
+                    }
+                ],
+                "flag": "naniteDamageType",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType",
+                "rollOption": "nanite-damage-type"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitBackswing",
+                        "predicate": [
+                            "feat:enhanced-nanite-armaments"
+                        ],
+                        "value": "backswing"
+                    },
+                    {
+                        "label": "PF2E.TraitBoost1d8",
+                        "predicate": [
+                            "feat:enhanced-nanite-armaments"
+                        ],
+                        "value": "boost-1d8"
+                    },
+                    {
+                        "label": "PF2E.TraitDeadlyD8",
+                        "predicate": [
+                            "feat:enhanced-nanite-armaments"
+                        ],
+                        "value": "deadly-d8"
+                    },
+                    {
+                        "label": "PF2E.TraitFinesse",
+                        "value": "finesse"
+                    },
+                    {
+                        "label": "PF2E.TraitForceful",
+                        "value": "forceful"
+                    },
+                    {
+                        "label": "PF2E.TraitGrapple",
+                        "predicate": [
+                            "feat:enhanced-nanite-armaments"
+                        ],
+                        "value": "grapple"
+                    },
+                    {
+                        "label": "PF2E.TraitKickback",
+                        "predicate": [
+                            "feat:enhanced-nanite-armaments"
+                        ],
+                        "value": "kickback"
+                    },
+                    {
+                        "label": "PF2E.TraitRazing",
+                        "value": "razing"
+                    },
+                    {
+                        "label": "PF2E.TraitReach",
+                        "predicate": [
+                            "feat:enhanced-nanite-armaments"
+                        ],
+                        "value": "reach"
+                    },
+                    {
+                        "label": "PF2E.TraitShove",
+                        "value": "shove"
+                    },
+                    {
+                        "label": "PF2E.TraitTrip",
+                        "value": "trip"
+                    }
+                ],
+                "flag": "naniteTraitOne",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "feat:alteration-array"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Trait",
+                "rollOption": "nanite-trait-one"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitBackswing",
+                        "predicate": [
+                            "feat:enhanced-nanite-armaments",
+                            {
+                                "not": "nanite-trait-one:backswing"
+                            }
+                        ],
+                        "value": "backswing"
+                    },
+                    {
+                        "label": "PF2E.TraitFinesse",
+                        "predicate": [
+                            {
+                                "not": "nanite-trait-one:finesse"
+                            }
+                        ],
+                        "value": "finesse"
+                    },
+                    {
+                        "label": "PF2E.TraitForceful",
+                        "predicate": [
+                            {
+                                "not": "nanite-trait-one:forceful"
+                            }
+                        ],
+                        "value": "forceful"
+                    },
+                    {
+                        "label": "PF2E.TraitGrapple",
+                        "predicate": [
+                            "feat:enhanced-nanite-armaments",
+                            {
+                                "not": "nanite-trait-one:grapple"
+                            }
+                        ],
+                        "value": "grapple"
+                    },
+                    {
+                        "label": "PF2E.TraitKickback",
+                        "predicate": [
+                            "feat:enhanced-nanite-armaments",
+                            {
+                                "not": "nanite-trait-one:kickback"
+                            }
+                        ],
+                        "value": "kickback"
+                    },
+                    {
+                        "label": "PF2E.TraitRazing",
+                        "predicate": [
+                            {
+                                "not": "nanite-trait-one:razing"
+                            }
+                        ],
+                        "value": "razing"
+                    },
+                    {
+                        "label": "PF2E.TraitShove",
+                        "predicate": [
+                            {
+                                "not": "nanite-trait-one:shove"
+                            }
+                        ],
+                        "value": "shove"
+                    },
+                    {
+                        "label": "PF2E.TraitTrip",
+                        "predicate": [
+                            {
+                                "not": "nanite-trait-one:trip"
+                            }
+                        ],
+                        "value": "trip"
+                    }
+                ],
+                "flag": "naniteTraitTwo",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "feat:alteration-array",
+                    {
+                        "nor": [
+                            "nanite-trait-one:boost-1d8",
+                            "nanite-trait-one:deadly-d8",
+                            "nanite-trait-one:reach"
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Trait",
+                "rollOption": "nanite-trait-two"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "{item|flags.system.rulesSelections.naniteDamageType}",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.Nanocyte.AlterationArray.Label",
+                "range": null,
+                "slug": "nanites",
+                "traits": [
+                    "tech"
+                ]
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:id:{item|id}",
+                    "feat:alteration-array"
+                ],
+                "property": "traits",
+                "value": "{item|flags.system.rulesSelections.naniteTraitOne}"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "feat:alteration-array",
+                    {
+                        "nor": [
+                            "nanite-trait-one:boost-1d8",
+                            "nanite-trait-one:deadly-d8",
+                            "nanite-trait-one:reach"
+                        ]
+                    },
+                    "item:id:{item|id}"
+                ],
+                "property": "traits",
+                "value": "{item|flags.system.rulesSelections.naniteTraitTwo}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
