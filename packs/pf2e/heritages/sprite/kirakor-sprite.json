@@ -1,0 +1,65 @@
+{
+    "_id": "gfXSF1TafBAmZo2u",
+    "folder": "swBqRqcxrbrK94y7",
+    "img": "icons/creatures/claws/claw-curved-jagged-yellow.webp",
+    "name": "Kirakor Sprite",
+    "system": {
+        "ancestry": {
+            "name": "Sprite",
+            "slug": "sprite",
+            "uuid": "Compendium.pf2e.ancestries.Item.TRqoeYfGAFjQbviF"
+        },
+        "description": {
+            "value": "<p>You have the hindquarters of a cricket and shiny skin that appears chitinous, though it might be soft to the touch. You adore art and music. Your cricket legs grant you a +2 circumstance bonus to Athletics checks to [[/act high-jump]] or [[/act long-jump]]. You also gain @UUID[Compendium.pf2e.spells-srd.Item.Figment] as a primal innate cantrip, though you can use it only to create illusory sounds, not visions. A cantrip is heightened to a spell rank equal to half your level rounded up.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SkillVariant.HighJumpOrLongJump",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:high-jump",
+                            "action:long-jump"
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:figment",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:figment",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:sprite"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

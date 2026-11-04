@@ -1,0 +1,42 @@
+{
+    "_id": "h2VKMYAlUIFAAXVG",
+    "folder": "swBqRqcxrbrK94y7",
+    "img": "icons/creatures/mammals/bat-movement-flying-blue-purple.webp",
+    "name": "Nyktera Sprite",
+    "system": {
+        "ancestry": {
+            "name": "Sprite",
+            "slug": "sprite",
+            "uuid": "Compendium.pf2e.ancestries.Item.TRqoeYfGAFjQbviF"
+        },
+        "description": {
+            "value": "<p>You have bat-like features, an affinity for batkind, and hearing that's second to none. As long as you can hear normally, you can [[/act seek]] to sense undetected creatures in a @Template[type:cone|distance:60] instead of the GM choosing an area of 30 feet or less as normal. You also gain a +2 circumstance bonus to locate undetected creatures that you could hear within 30 feet with a Seek action.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:seek",
+                    "target:audible",
+                    "target:condition:undetected",
+                    "target:within-30"
+                ],
+                "selector": [
+                    "perception"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

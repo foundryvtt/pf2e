@@ -1,0 +1,69 @@
+{
+    "_id": "9YyVanrpH0yqAti8",
+    "folder": "8LH6Njp8t7CO6YvY",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Tricky Gremlin",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Hiding is second nature to a gremlin, and you're astonishingly good at it. Twice per day, you can cast @UUID[Compendium.pf2e.spells-srd.Item.Invisibility] as a 4th-rank occult innate spell targeting only yourself.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "any heritage except mitflit"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:invisibility",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellcasting:innate",
+                    "item:slug:invisibility"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:gremlin"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gremlin"
+            ]
+        }
+    },
+    "type": "feat"
+}

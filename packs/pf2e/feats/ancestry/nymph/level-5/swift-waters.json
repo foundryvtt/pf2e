@@ -1,0 +1,63 @@
+{
+    "_id": "nJN7s4uwRuttpp9Y",
+    "folder": "Mdiy4ndOHwV10cf2",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Swift Waters",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Water is your home, and you move naturally there. If you have the naiad heritage, you gain a swim Speed of 15 feet. If you have the oceanid heritage, your swim Speed increases to equal your land Speed or 25 feet, whichever is greater.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "naiad or oceanid nymph heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "heritage:oceanid-nymph"
+                ],
+                "selector": "swim",
+                "value": "max(25,@actor.system.movement.speeds.land.value)"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "heritage:naid-nymph"
+                ],
+                "selector": "swim",
+                "value": 15
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "nymph"
+            ]
+        }
+    },
+    "type": "feat"
+}

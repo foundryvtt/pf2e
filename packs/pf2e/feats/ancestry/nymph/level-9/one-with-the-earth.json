@@ -1,0 +1,102 @@
+{
+    "_id": "6fzu6RGxBfrLfFfh",
+    "folder": "yza4m4lXNeOrb5qn",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "One With the Earth",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>If you have the dryad heritage, you can cast @UUID[Compendium.pf2e.spells-srd.Item.One with Plants] as a 2nd-rank primal innate spell twice per day. If you have the lampad heritage, you can instead cast @UUID[Compendium.pf2e.spells-srd.Item.One with Stone] as a 3rd-rank primal innate spell once per day.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "dryad or lampad"
+                },
+                {
+                    "value": "nymph heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellcasting:innate",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:slug:speak-with-plants",
+                                    "heritage:dryad"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:one-with-stone",
+                                    "heritage:lampad"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellcasting:innate",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:slug:speak-with-plants",
+                                    "heritage:dryad"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:one-with-stone",
+                                    "heritage:lampad"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:nymph"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "nymph"
+            ]
+        }
+    },
+    "type": "feat"
+}

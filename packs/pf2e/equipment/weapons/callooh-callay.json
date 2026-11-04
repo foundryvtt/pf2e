@@ -1,0 +1,111 @@
+{
+    "_id": "2b4MFhD8vggCnq0V",
+    "folder": "LhbcyA3vzLRmxPa8",
+    "img": "icons/weapons/swords/sword-guard-blue.webp",
+    "name": "Callooh Callay",
+    "system": {
+        "ammo": null,
+        "baseItem": "longsword",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 1
+        },
+        "category": "martial",
+        "containerId": null,
+        "damage": {
+            "damageType": "slashing",
+            "dice": 1,
+            "die": "d8"
+        },
+        "description": {
+            "value": "<p>Long ago, a fairy tickled a vorpal dragon under the chin and pulled this <em>+3 major striking vorpal longsword</em> from the dragon's chin blade, then used it to slay a jabberwock. Strikes with this sword deal an additional 2d6 persistent bleed damage to the Tane and linnorms.</p>\n<p>The DC of the <em>vorpal</em> rune's Snicker-Snack activation is @Check[fortitude|dc:40|traits:death,incapacitation], and if you decapitate a creature with this ability, this sword automatically counteracts any ability or effect that would normally occur when the creature dies or is reduced to 0 Hit Points (such as a linnorm's death curse).</p><hr /><p><strong>Activate—One, Two!</strong> <span class=\"action-glyph\">2</span></p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> Make two Strikes against the same target with <em>Callooh Callay</em>. If both Strikes hit, you can use your reaction to activate the <em>vorpal</em> rune's Snicker-Snack activation, even if you don't meet the trigger.</p><hr /><p><strong>Activate—Rest Thee by the Tumtum</strong> <span class=\"action-glyph\">1</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per 10 minutes</p>\n<p><strong>Effect</strong> You stand in uffish thought. You attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] about a single creature you can see. If your check succeeds, you can Strike that creature with <em>Callooh Callay</em> or Stride toward that creature.</p><hr /><p><strong>Destruction</strong> If <em>Callooh Callay</em> is swallowed by a jabberwock or other Tane and isn't removed for 1 year (by, for instance, killing the creature), the sword dissolves.</p>"
+        },
+        "expend": null,
+        "grade": null,
+        "group": "sword",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 21
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {}
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": null
+        },
+        "rules": [
+            {
+                "damageType": "bleed",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:trait:linnorm",
+                            "target:trait:tane"
+                        ]
+                    }
+                ],
+                "selector": "{item|id}-damage"
+            }
+        ],
+        "runes": {
+            "potency": 3,
+            "property": [
+                "vorpal"
+            ],
+            "striking": 3
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 3,
+                "property": [
+                    "vorpal"
+                ],
+                "striking": 3
+            }
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "artifact",
+                "magical",
+                "versatile-p"
+            ]
+        },
+        "usage": {
+            "canBeAmmo": false,
+            "value": "held-in-one-hand"
+        }
+    },
+    "type": "weapon"
+}

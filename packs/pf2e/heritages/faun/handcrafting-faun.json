@@ -1,0 +1,45 @@
+{
+    "_id": "YxhwFO8hrPeci5JO",
+    "folder": "iKTSsLvhOQjhObZ2",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Handcrafting Faun",
+    "system": {
+        "ancestry": {
+            "name": "Faun",
+            "slug": "faun",
+            "uuid": "Compendium.pf2e.ancestries.Item.qnKZt0oYS6nVYBfN"
+        },
+        "description": {
+            "value": "<p>Creation is its own form of performance, and you know it better than most. Your best work always happens when you have an audience. If at least one creature watches you while you Craft or Repair, you gain a +1 circumstance bonus to your Crafting check, and if you roll a critical failure, you get a failure instead. Your watcher can attempt their own downtime or exploration activities while observing you but must remain in the same location as you for the duration of your activity.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "being-watched",
+                    {
+                        "or": [
+                            "action:craft",
+                            "action:repair"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "crafting"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

@@ -1,0 +1,65 @@
+{
+    "_id": "abHpI2VizkrmUJwG",
+    "folder": "XdzxJe2bkqBSK8Lt",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Call the Mob!",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>There's only one thing worse than a gremlin, and that's a lot of gremlins. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Mad Monkeys] once per day as a primal innate spell, except that it summons a mob of gremlins rather than monkeys (they act identically to monkeys, however).</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:mad-monkeys",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellcasting:innate",
+                    "item:slug:mad-monkeys"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:gremlin"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gremlin"
+            ]
+        }
+    },
+    "type": "feat"
+}

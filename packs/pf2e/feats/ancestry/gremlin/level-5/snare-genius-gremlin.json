@@ -1,0 +1,60 @@
+{
+    "_id": "3N8lLZutnPZfPTbV",
+    "folder": "DhLe6YQYtEVDTDJy",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Snare Genius (Gremlin)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Plenty of gremlins are good at setting traps. You, however, are exceptionally good at it. If a snare normally takes 1 minute to Craft, you can Craft it with 3 Interact actions instead. Each day during your daily preparations, you can prepare three snares from formulas you know for quick deployment (increasing to four snares if you're a master in Crafting and five if you're legendary). Snares prepared in this way don't cost you any resources to Craft.</p>\n<p>When a creature critically fails its saving throw against and takes damage from the initial effect of a snare you Crafted and deployed, that creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of its next turn.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "jinkin gremlin heritage"
+                },
+                {
+                    "value": "expert in Crafting"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "craftableItems": [
+                    "item:trait:snare"
+                ],
+                "isDailyPrep": true,
+                "key": "CraftingAbility",
+                "maxItemLevel": "ternary(gte(@actor.skills.crafting.rank,4),5,ternary(gte(@actor.skills.crafting.rank,3),4,3))",
+                "maxSlots": 2,
+                "slug": "talisman-dabbler"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gremlin"
+            ]
+        }
+    },
+    "type": "feat"
+}
