@@ -1595,6 +1595,11 @@
         },
         {
             "_id": "uo0E9r6SvOozRsyw",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "nt6pBO2vxqW1QkKM"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Light Hammer",
             "sort": 2400000,
@@ -1628,7 +1633,7 @@
                 "traits": {
                     "value": [
                         "agile",
-                        "thrown-20"
+                        "magical"
                     ]
                 }
             },
@@ -1636,6 +1641,11 @@
         },
         {
             "_id": "sWCXaYTh85pV5ORu",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "nt6pBO2vxqW1QkKM"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Light Hammer",
             "sort": 2500000,
@@ -1669,6 +1679,7 @@
                 "traits": {
                     "value": [
                         "agile",
+                        "magical",
                         "thrown-20"
                     ]
                 }
@@ -1704,6 +1715,9 @@
                         "key": "DamageDice",
                         "predicate": [
                             {
+                                "not": "item:category:unarmed"
+                            },
+                            {
                                 "or": [
                                     "target:condition:fatigued",
                                     "target:condition:stupefied",
@@ -1711,7 +1725,7 @@
                                 ]
                             }
                         ],
-                        "selector": "damage"
+                        "selector": "strike-damage"
                     }
                 ],
                 "slug": null,
