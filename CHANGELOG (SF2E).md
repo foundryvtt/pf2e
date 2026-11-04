@@ -1,3 +1,50 @@
+## 1.7.0
+
+### System Improvements
+
+- (Chromatic Penguin) Keep ammunition rules off alternate weapon usages
+- (Dantar) Display confirmation dialog when clicking to remove rule elements
+- (Dantar) Inherit runes and materials from linked weapons for NPC attacks
+- (Dantar) Make Shift a default confirmation skip button
+- (In3luki) Add `defense` filter to Compendium Browser spell tab
+- (stwlam) Add support for applying elite/weak adjustments to non-persisted NPCs
+
+### Bugfixes
+
+- (Cerapter) Fix ammunition crafted with `CraftingAbility.craft()` not getting the infused trait
+- (Chromatic Penguin) Allow 8-digit organized play numbers and brush up level bump toggle styling
+- (Chromatic Penguin) Default troop movement to Stride when combat starts
+- (Chromatic Penguin) Fix hotbar macros for roll option toggles with suboptions
+- (Chromatic Penguin) Fix NPC class DC for critical specialization saves
+- (Chromatic Penguin) Fix token resize errors when no scene is viewed
+- (Chromatic Penguin) Hide parties and party members a user does not have permission to see in the directory
+- (Chromatic Penguin) Place templates exclusively on the currently viewed scene level
+- (Chromatic Penguin) Prevent V1 sheet styles from leaking into V2 sheets
+- (Chromatic Penguin) Refrain from resolving ignored RollOptions
+- (Dantar) Make lore proficiencies adjust to sheet width
+- (stwlam) Fix handling of `syncWeaponFeatures` flag when regenerating NPC attacks
+
+### Data Updates
+
+- (Ikaguia) Add automation for Exceptional Reach, Long Reach, Stretching Reach, and Whirling Swipe
+- (kromko) Fix minor formatting issues and inline links in technomancer feats
+- (kromko) Improve formatting of tables in Improving Equipment journal page
+- (Longstrider) Add "One regional language" to ancestries
+- (Longstrider) Add spellshape feats to technomancer Programming Languages
+- (Longstrider) Automate technomancer basics and brush up feat descriptions
+- (Longstrider) Brush up grenadier, junkomancer, mechanic, and nanocyte archetypes
+- (Longstrider) Fix Magefoil Grenades' and Szynegation Grenades' groups and base items
+- (nobbyfix) Fix Nanite Snipe's traits, damage type, and description
+- (steve148) Fix Null Space Chamber's price and Server of the Streamer's skill name
+- (Tikael) Fix description of SF2e android Constructed feature
+- (Tikael) Make Glitching, Suppressed, and Untethered condition items
+
+### Under the Hood
+
+- (Chromatic Penguin) Add AppV2 actor base sheet
+- (Dantar) Make land speed nullable
+- (stwlam) Divert system token management to upstream API
+
 ## 1.6.1
 
 ### Bugfixes

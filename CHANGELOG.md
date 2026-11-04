@@ -1,3 +1,78 @@
+## 8.7.0
+
+### Highlights
+
+- (Ambrose, Tikael) Add Pathfinder Feybound content
+- (Rigo) Add Vaultlines content
+
+### System Improvements
+
+- (Chromatic Penguin) Keep ammunition rules off alternate weapon usages
+- (Dantar) Display confirmation dialog when clicking to remove rule elements
+- (Dantar) Inherit runes and materials from linked weapons for NPC attacks
+- (Dantar) Make Shift a default confirmation skip button
+- (In3luki) Add `defense` filter to Compendium Browser spell tab
+- (stwlam) Add support for applying elite/weak adjustments to non-persisted NPCs
+
+### Bugfixes
+
+- (Cerapter) Fix ammunition crafted with `CraftingAbility.craft()` not getting the infused trait
+- (Chromatic Penguin) Allow 8-digit organized play numbers and brush up level bump toggle styling
+- (Chromatic Penguin) Default troop movement to Stride when combat starts
+- (Chromatic Penguin) Fix hotbar macros for roll option toggles with suboptions
+- (Chromatic Penguin) Fix NPC class DC for critical specialization saves
+- (Chromatic Penguin) Fix token resize errors when no scene is viewed
+- (Chromatic Penguin) Hide parties and party members a user does not have permission to see in the directory
+- (Chromatic Penguin) Place templates exclusively on the currently viewed scene level
+- (Chromatic Penguin) Prevent V1 sheet styles from leaking into V2 sheets
+- (Chromatic Penguin) Refrain from resolving ignored RollOptions
+- (Dantar) Make lore proficiencies adjust to sheet width
+- (stwlam) Fix handling of `syncWeaponFeatures` flag when regenerating NPC attacks
+
+### Data Updates
+
+- (Ambrose) Add automation to Lethal Finisher
+- (Ambrose) Add effects to Ashes of the War God
+- (Ambrose) Add Fetters from Pathfinder NPC Core
+- (Ambrose) Add variants to Ring of Fire
+- (Ambrose) Correct automation on Silver Spear's damage against fiends
+- (Ambrose) Remove inline damage from Phantasmagoria
+- (Dantar) Automate Mark of the Torrent, Night Sky Elixir, Pit's Protection, Reckless Riding Lunge, Tenebrous Freedom, and Unholy Skill
+- (Dantar) Fix reach for some tiny monsters
+- (Dantar) Fix tactician requirement for The Bigger They Are
+- (Dantar) Remove old name of Choke-arm mutagen
+- (Dantar) Update Crown of Witchcraft's bonuses
+- (Dire Weasel) Add automation and journal link to Infernal Pactbreaker Dedication
+- (Dire Weasel) Add automation for Clinging Remnants, Sedacthy Warband's Frenzied Feast, and Virtuous Defender's Shield Ally
+- (Dire Weasel) Add counteract to Eclipse Burst
+- (Dire Weasel) Add effects for several items, spells, and abilities
+- (Dire Weasel) Add emanation to Repulsion and save to Sanctuary
+- (Dire Weasel) Add inline action to Read the Air and inline damage to Mercenary Band
+- (Dire Weasel) Avoid emitting success notes for greater runes that only mention bypassing resistances
+- (Dire Weasel) Brush up Eternal Hero, Heroic Scion Dedication, Immortal Ichor, Sublime Breath, Thresholder Disciple, Timelessness, and Venom Mage
+- (Dire Weasel) Brush up NPC rune automation and clean up NPC Strikes to handle automatic runes and materials
+- (Dire Weasel) Fix automation for Brimstone Blessing, Distortion Lens, Rude Awakening, Silverscrap Bombs, and Urdun Gravelhands' Break Bottle
+- (Dire Weasel) Fix some NPC Strike and ability links
+- (Dire Weasel) Restrict Inextinguishable Aura effect to persistent fire damage
+- (Dire Weasel) Update Rhoka Sword description to remaster
+- (kromko) Add missing compendium sources to embedded physical items
+- (kromko) Fix minor formatting issues and some inline links
+- (kromko) Update Wand of Fey Flames effect and some effects' publication
+- (nobbyfix) Brush up Thrune Contracts
+- (nobbyfix) Update publication source for Fey Magic feat
+- (rectulo) Fix precision damage in Martial Mayhem Mutagen (Major)
+- (rectulo) Fix typos, formatting, and links in several descriptions
+- (Rigo) Add spell effect for Tiny Wings
+- (SpartanCPA) Brush up Fungal Abomination
+- (TroelsL) Remove duplicate Four-Armed actions from two Shobhad NPCs
+- (YellowAfterlife) Fix Drainberry Bush's reach
+
+### Under the Hood
+
+- (Chromatic Penguin) Add AppV2 actor base sheet
+- (Dantar) Make land speed nullable
+- (stwlam) Divert system token management to upstream API
+
 ## 8.6.1
 
 ### Bugfixes
