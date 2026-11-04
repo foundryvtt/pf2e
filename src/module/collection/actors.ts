@@ -26,10 +26,14 @@ export class ActorsPF2e<TActor extends ActorPF2e<null>> extends fd.collections.A
         }
     }
 
-    /** Overrwriten to omit actors in parties, which are rendered separately */
+    /** Overrwriten to omit actors in visible parties, which are rendered separately */
     override _getVisibleTreeContents(): TActor[] {
         return super
             ._getVisibleTreeContents()
-            .filter((a) => (a.isOfType("creature") && !a.parties.size) || !a.isOfType("party", "creature"));
+            .filter(
+                (a) =>
+                    (a.isOfType("creature") && !a.parties.values().some((p) => p.visible)) ||
+                    !a.isOfType("party", "creature"),
+            );
     }
 }
