@@ -129,14 +129,31 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Amondi Flies once, moving through a target creature's space; this movement doesn't trigger reactions. As she moves through the target's space, she makes a ghostly weapon Strike against the target. If she hits, she deals an additional @Damage[3d6[persistent,bleed]] damage, and the creature struck becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} from the pain of the bloody wound.</p>"
+                    "value": "<p>Amondi Flies once, moving through a target creature's space; this movement doesn't trigger reactions. As she moves through the target's space, she makes a ghostly weapon Strike against the target. If she hits, she deals an additional 3d6 persistent bleed damage, and the creature struck becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} from the pain of the bloody wound.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "amondis-cruel-shiv",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "amondis-cruel-shiv"
+                        ],
+                        "selector": "ghostly-weapon-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [

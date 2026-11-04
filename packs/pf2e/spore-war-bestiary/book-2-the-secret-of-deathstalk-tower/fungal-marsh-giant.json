@@ -643,14 +643,31 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The fungal marsh giant makes a melee Strike with its scythe. If it hits, it twists and yanks the scythe to knock the target @UUID[Compendium.pf2e.conditionitems.Item.Prone] and create an awful wound, dealing @Damage[2d6[persistent,bleed]] damage to the creature.</p>"
+                    "value": "<p>The fungal marsh giant makes a melee Strike with its scythe. If it hits, it twists and yanks the scythe to knock the target @UUID[Compendium.pf2e.conditionitems.Item.Prone] and create an awful wound, dealing 2d6 persistent bleed damage to the creature.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "twist-the-hook",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "twist-the-hook"
+                        ],
+                        "selector": "scythe-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
