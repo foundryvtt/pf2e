@@ -1655,10 +1655,6 @@
                     "value": 36
                 },
                 "damageRolls": {
-                    "DYzz2bBJPnHDcyAJ": {
-                        "damage": "1d4",
-                        "damageType": "spirit"
-                    },
                     "s6H4oUlVQ3QvLN3D": {
                         "damage": "3d12+19",
                         "damageType": "slashing"
@@ -1673,21 +1669,7 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "add",
-                        "predicate": [
-                            "target:trait:unholy",
-                            "dice:damage:type:spirit"
-                        ],
-                        "property": "dice-number",
-                        "selectors": [
-                            "greatsword-damage"
-                        ],
-                        "value": 1
-                    }
-                ],
+                "rules": [],
                 "slug": "greatsword",
                 "traits": {
                     "value": [
@@ -1886,14 +1868,26 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any weapon gains the effect of a holy property rune while the angel wields it.</p>"
+                    "value": "<p>Any weapon gains the effect of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Holy]</em> property rune while the angel wields it.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "holy"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [

@@ -1,3 +1,5 @@
+import { ActorSheetPF2eV2 } from "@actor/sheet/v2/base.svelte.ts";
+
 export const DropCanvasData = {
     listen: (): void => {
         Hooks.on("dropCanvasData", (_canvas, data, event) => {
@@ -16,7 +18,10 @@ export const DropCanvasData = {
                     shiftKey: event.shiftKey,
                     dataTransfer,
                 });
-                dropTarget.actor.sheet._onDrop(newEvent);
+                const sheet = dropTarget.actor.sheet;
+                // @todo Call handleDrop directly once all actor sheets are AppV2
+                if (sheet instanceof ActorSheetPF2eV2) sheet.handleDrop({ ...data }, newEvent);
+                else sheet._onDrop(newEvent);
                 return false; // Prevent modules from doing anything further
             }
 

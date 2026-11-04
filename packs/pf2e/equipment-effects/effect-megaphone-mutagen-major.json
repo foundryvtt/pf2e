@@ -1,0 +1,92 @@
+{
+    "_id": "JcZfYBZM6YCVp4bM",
+    "img": "icons/consumables/drinks/drink-orange.webp",
+    "name": "Effect: Megaphone Mutagen (Major)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Megaphone Mutagen (Major)]</p>\n<p><strong>Benefit</strong> You gain a +4 item bonus to skill checks you make as part of auditory actions, except Deception and Diplomacy checks. The range of your actions and spells with the auditory trait increases by 40 feet.</p>\n<p><strong>Drawback</strong> You take a –2 penalty to Fortitude saves, as well as Deception, Diplomacy, and Stealth checks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 17
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:auditory",
+                    {
+                        "nor": [
+                            "check:statistic:deception",
+                            "check:statistic:diplomacy"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "type": "item",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "deception",
+                    "diplomacy",
+                    "fortitude",
+                    "stealth"
+                ],
+                "slug": "megaphone-mutagen-penalty",
+                "value": -2
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:auditory"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.Mutagens.MegaphoneMutagen.RangeNote.Major"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:auditory"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.Mutagens.MegaphoneMutagen.RangeNote.Major"
+                    }
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

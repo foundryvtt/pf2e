@@ -1,0 +1,104 @@
+{
+    "_id": "pvfpdv42TPuYX6DH",
+    "img": "icons/consumables/potions/bottle-bulb-corked-purple.webp",
+    "name": "Effect: Martial Mayhem Mutagen (Greater)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Martial Mayhem Mutagen (Greater)]</p>\n<p><strong>Benefit</strong> You gain a +3 item bonus to skill checks to Disarm, Grapple, Reposition, Shove, and Trip, and your melee Strikes deal 1d6 additional precision damage to off-guard creatures. When you succeed at a melee attack roll, the target is off-guard to your next attack roll against it before the start of your next turn.</p>\n<p><strong>Drawback</strong> You take a –2 penalty to Will saves, Intelligence-based skill checks, and skill checks to Sense Motive. When you fail at a melee attack roll, you are clumsy 1 until the end of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 11
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:disarm",
+                            "action:grapple",
+                            "action:reposition",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "slug": "martial-mayhem-mutagen-skill",
+                "type": "item",
+                "value": 3
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "int-skill-check",
+                    "will"
+                ],
+                "slug": "martial-mayhem-mutagen-int-will",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:sense-motive"
+                ],
+                "selector": "check",
+                "slug": "martial-mayhem-mutagen-sense-motive",
+                "value": -2
+            },
+            {
+                "category": "precision",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:condition:off-guard"
+                ],
+                "selector": "melee-strike-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "selector": "melee-attack-roll",
+                "text": "PF2E.Mutagens.MartialMayhemMutagen.SuccessNote",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalFailure",
+                    "failure"
+                ],
+                "selector": "melee-attack-roll",
+                "text": "PF2E.Mutagens.MartialMayhemMutagen.FailureNote",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

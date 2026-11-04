@@ -85,7 +85,7 @@ export interface ApplicationFormConfiguration {
     closeOnSubmit: boolean;
 }
 
-interface ApplicationTabsConfiguration {
+export interface ApplicationTabsConfiguration {
     /** An array of tab configuration data */
     tabs: { id: string; icon?: string; label?: string; tooltip?: string }[];
     /** The tab in this group that will be active on first render */
@@ -133,6 +133,11 @@ export interface ApplicationRenderOptions {
     window: ApplicationWindowRenderOptions;
     /** Is this render the first one for the application? This property is populated automatically. */
     isFirstRender: boolean;
+    /**
+     * A tab to activate. Either the tab's ID for applications with only one tab group, or an object of tab groups to
+     * tab IDs.
+     */
+    tab?: string | Record<string, string>;
 }
 
 export interface ApplicationWindowRenderOptions {

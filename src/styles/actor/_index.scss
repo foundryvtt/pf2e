@@ -1,6 +1,6 @@
 @import "iwr-editor";
 
-.actor.sheet section.window-content {
+.app.actor.sheet section.window-content {
     font-family: var(--sans-serif);
     overflow: hidden;
     padding: 0;
@@ -103,13 +103,19 @@
 
     .size-select {
         background-color: var(--color-bg-size);
-        border: 2px solid var(--color-border-trait);
         color: var(--color-text-trait);
+
+        &:not(.tag) {
+            border: 2px solid var(--color-border-trait);
+        }
     }
 
     .rarity-select {
-        border: 2px solid var(--color-border-trait);
         color: var(--color-text-trait);
+
+        &:not(.tag) {
+            border: 2px solid var(--color-border-trait);
+        }
 
         &.common {
             background-color: var(--color-rarity-common);
@@ -444,7 +450,7 @@
 
 @import "vehicle";
 
-.actor.sheet.attack-popout section.window-content {
+.app.actor.sheet.attack-popout section.window-content {
     background-image: url("/assets/sheet/background.webp");
     background-position: 75% 10%;
 
