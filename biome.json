@@ -1,0 +1,42 @@
+{
+    "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+    "vcs": {
+        "enabled": true,
+        "clientKind": "git",
+        "useIgnoreFile": true
+    },
+    "files": {
+        "includes": [
+            "**/*.json",
+            "!!**/dist",
+            "!!static/lib"
+        ],
+        "maxSize": 2097152
+    },
+    "formatter": {
+        "enabled": true,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineWidth": 120
+    },
+    "json": {
+        "formatter": {
+            "expand": "always"
+        }
+    },
+    "assist": {
+        "enabled": false
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "preset": "recommended",
+            "suspicious": {
+                "noEmptyObjectKeys": "error"
+            },
+            "nursery": {
+                "noJsonUnsafeValues": "error"
+            }
+        }
+    }
+}

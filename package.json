@@ -18,11 +18,11 @@
         "pretest": "pnpm lint",
         "test": "vitest run",
         "migrate": "tsx ./build/run-migration.ts",
-        "lint": "pnpm run --no-bail \"/^lint:(?:oxlint|eslint|prettier)$/\"",
+        "lint": "pnpm run --no-bail \"/^lint:(?:oxlint|biome|prettier)$/\"",
         "lint:oxlint": "oxlint",
-        "lint:eslint": "eslint --cache",
+        "lint:biome": "biome check",
         "lint:prettier": "prettier --experimental-cli --check --cache src/styles \"src/**/*.svelte\" \"**/*.{ts,mts}\"",
-        "lint:fix": "oxlint --fix && eslint --cache --fix && prettier --experimental-cli --write --cache src/styles \"src/**/*.svelte\" \"**/*.{ts,mts}\""
+        "lint:fix": "oxlint --fix && biome check --write && prettier --experimental-cli --write --cache src/styles \"src/**/*.svelte\" \"**/*.{ts,mts}\""
     },
     "author": "The (P|S)F2E System Developers",
     "license": "Apache-2.0",
@@ -35,7 +35,7 @@
     },
     "packageManager": "pnpm@12.15.0",
     "devDependencies": {
-        "@eslint/json": "^2.1.1",
+        "@biomejs/biome": "^2.6.2",
         "@oxlint/plugins": "1.89.0",
         "@pixi/basis": "7.4.3",
         "@pixi/graphics-smooth": "1.1.1",
@@ -56,7 +56,6 @@
         "@types/yargs": "^17.0.35",
         "abstract-level": "^3.1.1",
         "classic-level": "^3.0.0",
-        "eslint": "^10.12.0",
         "fs-extra": "^11.4.1",
         "glob": "^13.0.6",
         "gsap": "3.11.5",
