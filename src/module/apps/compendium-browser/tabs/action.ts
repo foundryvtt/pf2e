@@ -30,6 +30,7 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
             "system.actionType.value",
             "system.category",
             "system.traits.value",
+            "system.traits.otherTags",
             "system.actionType.value",
             "system.publication",
             "system.source",
@@ -58,6 +59,7 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
                 const options: string[] = [
                     `action-type:${system.actionType.value}`,
                     ...system.traits.value.map((t: string) => `trait:${t.replace(/^hb_/, "")}`),
+                    ...(system.traits.otherTags ?? []).map((tag: string) => `tag:${tag}`),
                     `type:${actionData.type}`,
                     `category:${system.category}`,
                     this.preparePublicationSource(pubSource, publications),
@@ -108,6 +110,11 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
                 isExpanded: false,
                 label: "PF2E.CompendiumBrowser.Filter.Source",
                 options: {},
+                selected: [],
+            },
+            tags: {
+                conjunction: "and",
+                options: [],
                 selected: [],
             },
             traits: {

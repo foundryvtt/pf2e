@@ -77,6 +77,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                 const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
                 const options: string[] = [
                     ...system.traits.value.map((t: string) => `trait:${t.replace(/^hb_/, "")}`),
+                    ...(system.traits.otherTags ?? []).map((tag: string) => `tag:${tag}`),
                     ...system.traits.traditions.map((t: string) => `tradition:${t}`),
                     ...categories.map((c) => `category:${c}`),
                     `rank:${system.level.value}`,
@@ -215,6 +216,11 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                 isExpanded: false,
                 label: "PF2E.CompendiumBrowser.Filter.Source",
                 options: {},
+                selected: [],
+            },
+            tags: {
+                conjunction: "and",
+                options: [],
                 selected: [],
             },
             traits: {
