@@ -121,6 +121,7 @@ interface EquipmentFilters extends BaseFilterData {
         armorTypes: CheckboxData;
         itemTypes: CheckboxData;
         rarity: CheckboxData;
+        usageTypes: CheckboxData;
         weaponTypes: CheckboxData;
     };
     ranges: {
