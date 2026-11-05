@@ -19,8 +19,15 @@ const ROOT_DIR = import.meta.dirname;
 const [SYSTEM_ID, systemJSON] =
     process.env.SYSTEM_ID === "sf2e" ? (["sf2e", sf2eManifest] as const) : (["pf2e", pf2eManifest] as const);
 const CONDITION_SOURCES = ((): ConditionSource[] => {
-    const output = execSync(`pnpm build:conditions --system=${SYSTEM_ID}`, { encoding: "utf-8" });
-    return JSON.parse(output.slice(output.indexOf("[")));
+    const build = (systemId: "pf2e" | "sf2e"): ConditionSource[] => {
+        const output = execSync(`pnpm build:conditions --system=${systemId}`, { encoding: "utf-8" });
+        return JSON.parse(output.slice(output.indexOf("[")));
+    };
+    const sources = build(SYSTEM_ID);
+    if (SYSTEM_ID === "sf2e") return sources;
+    // SF2e-only conditions can reach pf2e worlds through sf2e-anachronism
+    const slugs = new Set(sources.map((s) => s.system.slug));
+    return [...sources, ...build("sf2e").filter((s) => !slugs.has(s.system.slug))];
 })();
 const EN_JSON = JSON.parse(fs.readFileSync("./static/lang/en.json", { encoding: "utf-8" }));
 

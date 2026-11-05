@@ -155,14 +155,21 @@ const conditionTypes: Record<ConditionSlug, string> = {
     ...tokenHUDConditions,
     cursebound: "PF2E.ConditionTypeCursebound",
     friendly: "PF2E.ConditionTypeFriendly",
+    glitching: "PF2E.ConditionTypeGlitching",
     helpful: "PF2E.ConditionTypeHelpful",
     hostile: "PF2E.ConditionTypeHostile",
     indifferent: "PF2E.ConditionTypeIndifferent",
     malevolence: "PF2E.ConditionTypeMalevolence",
     observed: "PF2E.ConditionTypeObserved",
+    suppressed: "PF2E.ConditionTypeSuppressed",
     unfriendly: "PF2E.ConditionTypeUnfriendly",
     unnoticed: "PF2E.ConditionTypeUnnoticed",
+    untethered: "PF2E.ConditionTypeUntethered",
 };
+
+if (SYSTEM_ID === "sf2e") {
+    Object.assign(tokenHUDConditions, R.pick(conditionTypes, ["glitching", "suppressed", "untethered"]));
+}
 
 const armorCategories: Record<ArmorCategory, string> = {
     unarmored: "PF2E.ArmorTypeUnarmored",
