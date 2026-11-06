@@ -543,11 +543,38 @@
                 },
                 "rules": [
                     {
+                        "adjustment": {
+                            "success": "to-critical-success"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "check:total:natural:19",
+                            {
+                                "gte": [
+                                    "check:total:delta",
+                                    0
+                                ]
+                            }
+                        ],
+                        "selector": "strike-attack-roll"
+                    },
+                    {
                         "key": "Note",
-                        "selector": "attack",
-                        "text": "PF2E.AttackEffects.IncreasedCriticalChance",
+                        "predicate": [
+                            "check:total:natural:19",
+                            {
+                                "not": {
+                                    "gte": [
+                                        "check:total",
+                                        "check:total:delta"
+                                    ]
+                                }
+                            }
+                        ],
+                        "selector": "strike-attack-roll",
+                        "text": "{item|description}",
                         "title": "{item|name}",
-                        "visibility": "gm"
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,

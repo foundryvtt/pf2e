@@ -379,37 +379,7 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [
-                    {
-                        "adjustment": {
-                            "success": "one-degree-better"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "predicate": [
-                            "check:total:natural:19",
-                            {
-                                "or": [
-                                    "item:damage:type:slashing",
-                                    "item:damage:type:piercing"
-                                ]
-                            }
-                        ],
-                        "selector": "{item|_id}-attack"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            "check:total:natural:19"
-                        ],
-                        "selector": "{item|_id}-attack",
-                        "text": "PF2E.AttackEffects.IncreasedCriticalChance",
-                        "title": "PF2E.WeaponPropertyRune.keen.Name",
-                        "visibility": "gm"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "subjectToMAP": true,
                 "traits": {
@@ -458,37 +428,7 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [
-                    {
-                        "adjustment": {
-                            "success": "one-degree-better"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "predicate": [
-                            "check:total:natural:19",
-                            {
-                                "or": [
-                                    "item:damage:type:slashing",
-                                    "item:damage:type:piercing"
-                                ]
-                            }
-                        ],
-                        "selector": "{item|_id}-attack"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            "check:total:natural:19"
-                        ],
-                        "selector": "{item|_id}-attack",
-                        "text": "PF2E.AttackEffects.IncreasedCriticalChance",
-                        "title": "PF2E.WeaponPropertyRune.keen.Name",
-                        "visibility": "gm"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "subjectToMAP": true,
                 "traits": {
@@ -580,37 +520,7 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [
-                    {
-                        "adjustment": {
-                            "success": "one-degree-better"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "predicate": [
-                            "check:total:natural:19",
-                            {
-                                "or": [
-                                    "item:damage:type:slashing",
-                                    "item:damage:type:piercing"
-                                ]
-                            }
-                        ],
-                        "selector": "{item|_id}-attack"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            "check:total:natural:19"
-                        ],
-                        "selector": "{item|_id}-attack",
-                        "text": "PF2E.AttackEffects.IncreasedCriticalChance",
-                        "title": "PF2E.WeaponPropertyRune.keen.Name",
-                        "visibility": "gm"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "subjectToMAP": true,
                 "traits": {
@@ -869,7 +779,26 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:damage:type:slashing"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "keen"
+                    },
+                    {
+                        "definition": [
+                            "item:base:hatchet"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "returning"
+                    }
+                ],
                 "slug": "head-hunter",
                 "traits": {
                     "value": []
