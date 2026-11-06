@@ -13,12 +13,19 @@ import { ConditionSource, EffectSource, ItemSourcePF2e, PhysicalItemSource } fro
 import type { PickableThing } from "@module/apps/pick-a-thing-prompt/app.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { BaseDamageData } from "@system/damage/index.ts";
+import type { DamageIRBypassData } from "@system/damage/types.ts";
 import { RollTwiceOption } from "@system/rolls.ts";
 import { DataUnionField, RecordField, StrictNumberField, StrictStringField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
 import { DamageAlteration } from "./rule-element/damage-alteration/alteration.ts";
 import { RuleElement, RuleElementSource } from "./rule-element/index.ts";
-import { DamageDiceSynthetics, RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics.ts";
+import {
+    DamageDiceSynthetics,
+    DeferredDamageBypass,
+    RollSubstitution,
+    RollTwiceSynthetic,
+    RuleElementSynthetics,
+} from "./synthetics.ts";
 
 /** Extracts a list of all cloned modifiers across all given keys in a single list. */
 function extractModifiers(
@@ -64,6 +71,27 @@ function extractNotes(rollNotes: Record<string, RollNotePF2e[]>, selectors: stri
 
 function extractDamageDice(synthetics: DamageDiceSynthetics, options: DeferredDamageDiceOptions): DamageDicePF2e[] {
     return options.selectors.flatMap((s) => synthetics[s] ?? []).flatMap((d) => d(options) ?? []);
+}
+
+/** Extracts and combines all immunity and resistance bypasses applicable to the given domains */
+function extractDamageBypasses(
+    synthetics: Record<string, DeferredDamageBypass[]>,
+    domains: string[],
+    options: DeferredValueParams = {},
+): DamageIRBypassData {
+    const combined: DamageIRBypassData = {
+        immunity: { ignore: [], downgrade: [], redirect: [] },
+        resistance: { ignore: [], redirect: [] },
+    };
+    for (const bypass of R.unique(domains).flatMap((s) => synthetics[s] ?? [])) {
+        const { immunity, resistance } = bypass(options);
+        combined.immunity.ignore.push(...immunity.ignore);
+        combined.immunity.downgrade.push(...immunity.downgrade);
+        combined.immunity.redirect.push(...immunity.redirect);
+        combined.resistance.ignore.push(...resistance.ignore);
+        combined.resistance.redirect.push(...resistance.redirect);
+    }
+    return combined;
 }
 
 function processDamageCategoryStacking(
@@ -368,6 +396,7 @@ export {
     createBatchRuleElementUpdate,
     createPreselectChoicesField,
     extractDamageAlterations,
+    extractDamageBypasses,
     extractDamageDice,
     extractEphemeralEffects,
     extractModifierAdjustments,

@@ -3,7 +3,8 @@ import { Immunity, Resistance, Weakness } from "@actor/data/iwr.ts";
 import { ResistanceType } from "@actor/types.ts";
 import type { Rolled } from "@client/dice/_module.d.mts";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
-import { tupleHasValue } from "@util";
+import type { IWRException } from "@module/rules/rule-element/iwr/base.ts";
+import { objectHasKey, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { DamageCategorization } from "./helpers.ts";
 import { DamageInstance, DamageRoll } from "./roll.ts";
@@ -26,15 +27,60 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
         };
     }
 
-    const { immunities, weaknesses, resistances } = actor.attributes;
+    const { weaknesses } = actor.attributes;
+
+    // Combine the bypasses of the damage roll with those of the target, such as from an ephemeral effect
+    const rollBypass = roll.options.bypass;
+    const targetOptions = [...rollOptions, ...actor.getRollOptions(["damage-received"])];
+    const targetBypasses = (actor.synthetics.damageBypasses["damage-received"] ?? []).map((b) =>
+        b({ test: targetOptions }),
+    );
+    const ignoredImmunities = [
+        rollBypass?.immunity.ignore ?? [],
+        ...targetBypasses.map((b) => b.immunity.ignore),
+    ].flat();
+    const downgradedImmunities = [
+        rollBypass?.immunity.downgrade ?? [],
+        ...targetBypasses.map((b) => b.immunity.downgrade),
+    ].flat();
+
+    // Immunities that are ignored don't apply. Those downgraded apply only as resistances of a given value
+    const bypassedImmunities = actor.attributes.immunities.filter(
+        (i) => ignoredImmunities.includes(i.type) || downgradedImmunities.some((d) => d.type === i.type),
+    );
+    const immunities = actor.attributes.immunities.filter((i) => !bypassedImmunities.includes(i));
+    const downgradedResistances = actor.attributes.immunities.flatMap((immunity): Resistance[] => {
+        const downgrade = downgradedImmunities.find((d) => d.type === immunity.type);
+        if (
+            !downgrade ||
+            ignoredImmunities.includes(immunity.type) ||
+            !objectHasKey(CONFIG.PF2E.resistanceTypes, immunity.type)
+        ) {
+            return [];
+        }
+        return [
+            new Resistance({
+                type: immunity.type,
+                value: downgrade.resistance,
+                exceptions: immunity.exceptions.filter(
+                    (e) => typeof e !== "string" || objectHasKey(CONFIG.PF2E.resistanceTypes, e),
+                ) as IWRException<ResistanceType>[],
+                definition: immunity.definition,
+                source: immunity.source,
+            }),
+        ];
+    });
+    const resistances = [...actor.attributes.resistances, ...downgradedResistances];
 
     const instances = roll.instances as Rolled<DamageInstance>[];
     const persistent: Rolled<DamageInstance>[] = []; // Persistent damage instances filtered for immunities
-    const ignoredResistances =
-        roll.options.bypass?.resistance.ignore.map((ir) => new Resistance({ type: ir.type, value: ir.max })) ?? [];
+    // An unlimited maximum (`Infinity`) becomes `null` when a roll is serialized to JSON
+    const ignoredResistances = [rollBypass?.resistance.ignore ?? [], ...targetBypasses.map((b) => b.resistance.ignore)]
+        .flat()
+        .map((ir) => new Resistance({ type: ir.type, value: typeof ir.max === "number" ? ir.max : Infinity }));
     const irRedirects = {
-        immunities: roll.options.bypass?.immunity.redirect ?? [],
-        resistances: roll.options.bypass?.resistance.redirect ?? [],
+        immunities: rollBypass?.immunity.redirect ?? [],
+        resistances: rollBypass?.resistance.redirect ?? [],
     };
 
     // Don't include persistent damage on initial application
@@ -73,6 +119,18 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             }
 
             const instanceApplications: IWRApplication[] = [];
+
+            // Log any immunity that would have applied to this instance had it not been ignored or downgraded
+            for (const immunity of bypassedImmunities.filter((i) => i.test(formalDescription))) {
+                const ignored = ignoredImmunities.includes(immunity.type);
+                instanceApplications.push({
+                    category: "immunity",
+                    type: immunity.typeLabel,
+                    adjustment: 0,
+                    bypass: ignored ? "ignored" : "downgraded",
+                    resistance: downgradedImmunities.find((d) => d.type === immunity.type)?.resistance,
+                });
+            }
 
             let redirectedFromImmunity: DamageType | null = null;
             for (const immunity of applicableImmunities) {
@@ -165,6 +223,21 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             const afterWeaknesses = afterImmunities + (highestWeakness?.value ?? 0);
 
             // Step 4: Resistances
+            // Ignoring a type of resistance reduces matching resistances by up to the highest ignored amount, and
+            // ignores them entirely if that amount covers the whole resistance.
+            const matchingIgnored = ignoredResistances.filter((ir) => ir.test(formalDescription));
+            const applyIgnoredAmount = (
+                resistance: Resistance,
+                value: number,
+            ): { value: number; ignored: boolean; bypassed: number } => {
+                const ignoredAmount = matchingIgnored
+                    .filter((ir) => isCoveredBy(ir.type, resistance.type))
+                    .reduce((highest, ir) => Math.max(highest, ir.value), 0);
+                return ignoredAmount > 0 && ignoredAmount < value
+                    ? { value: value - ignoredAmount, ignored: false, bypassed: ignoredAmount }
+                    : { value, ignored: ignoredAmount > 0, bypassed: 0 };
+            };
+
             const workingResistanceData = resistances.map(
                 (r) =>
                     new WorkingResistanceData(r, {
@@ -173,8 +246,10 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
                             !applicableImmunities.some(
                                 (i) => i.type === r.type && i.exceptions.every((e) => tupleHasValue(r.exceptions, e)),
                             ),
-                        value: r.getDoubledValue(formalDescription),
-                        ignored: ignoredResistances.some((ir) => ir.test(formalDescription)),
+                        // A resistance that replaced an immunity can't itself be ignored
+                        ...(downgradedResistances.includes(r)
+                            ? { value: r.getDoubledValue(formalDescription), ignored: false, bypassed: 0 }
+                            : applyIgnoredAmount(r, r.getDoubledValue(formalDescription))),
                     }),
             );
             const applicableResistances = workingResistanceData.filter((r) => r.applicable);
@@ -184,8 +259,10 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
                 if (maxResistable > 0) {
                     applicableResistances.push(
                         new WorkingResistanceData(criticalResistance, {
-                            value: Math.min(criticalResistance.getDoubledValue(formalDescription), maxResistable),
-                            ignored: ignoredResistances.some((ir) => ir.test(formalDescription)),
+                            ...applyIgnoredAmount(
+                                criticalResistance,
+                                Math.min(criticalResistance.getDoubledValue(formalDescription), maxResistable),
+                            ),
                         }),
                     );
                 }
@@ -240,6 +317,9 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
                     adjustment: -1 * Math.min(afterWeaknesses, finalResistance.value),
                     ignored: false,
                 };
+                if (finalResistance instanceof WorkingResistanceData && finalResistance.bypassed > 0) {
+                    application.bypassed = finalResistance.bypassed;
+                }
                 if (resistanceRedirect) {
                     application.adjustment = -1 * Math.min(afterWeaknesses, resistanceRedirect.resistance?.value ?? 0);
                     if (resistanceRedirect.redirect.to !== redirectedFromImmunity) {
@@ -254,7 +334,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
                 // The target's resistance was ignored: log it but don't decrease damage
                 instanceApplications.push({
                     category: "resistance",
-                    type: ignoredResistances.find((ir) => ir.test(formalDescription))?.typeLabel ?? "???",
+                    type: highestIgnored.label,
                     adjustment: 0,
                     ignored: true,
                 });
@@ -290,6 +370,16 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
     return { finalDamage, applications, persistent };
 }
 
+/** Whether a resistance falls within a type of resistance being ignored, such as "physical" for "slashing" */
+function isCoveredBy(ignored: ResistanceType, resistance: ResistanceType): boolean {
+    if (ignored === resistance || ignored === "all-damage") return true;
+    return (
+        (ignored === "physical" || ignored === "energy") &&
+        objectHasKey(CONFIG.PF2E.damageTypes, resistance) &&
+        DamageCategorization.fromDamageType(resistance) === ignored
+    );
+}
+
 /** A helper class for keeping track of working data alongside a resistance */
 class WorkingResistanceData {
     /** The source resistance */
@@ -304,11 +394,18 @@ class WorkingResistanceData {
     /** Whether the resistance has been ignored */
     ignored: boolean;
 
-    constructor(resistance: Resistance, options: { applicable?: boolean; value: number; ignored?: boolean }) {
+    /** The amount by which the resistance was reduced, if it was only partially ignored */
+    bypassed: number;
+
+    constructor(
+        resistance: Resistance,
+        options: { applicable?: boolean; value: number; ignored?: boolean; bypassed?: number },
+    ) {
         this.resistance = resistance;
         this.applicable = options.applicable ?? true;
         this.value = options.value;
         this.ignored = options.ignored ?? false;
+        this.bypassed = options.bypassed ?? 0;
     }
 
     get type(): ResistanceType {
@@ -401,6 +498,10 @@ interface ImmunityApplication {
     type: string;
     adjustment: number;
     redirect?: string;
+    /** Whether the immunity was ignored or treated as a resistance instead */
+    bypass?: "ignored" | "downgraded";
+    /** The resistance an immunity was treated as having, if downgraded */
+    resistance?: number;
 }
 
 interface WeaknessApplication {
@@ -414,6 +515,8 @@ interface ResistanceApplication {
     type: string;
     adjustment: number;
     ignored: boolean;
+    /** The amount of the resistance that was bypassed, if it was only partially ignored */
+    bypassed?: number;
     redirect?: string;
 }
 
