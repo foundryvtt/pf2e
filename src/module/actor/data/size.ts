@@ -3,6 +3,7 @@ import { Size, SIZES, ZeroToFive } from "@module/data.ts";
 interface SizeDimensions {
     long: number;
     wide: number;
+    high: number;
 }
 
 export class ActorSizePF2e {
@@ -25,12 +26,12 @@ export class ActorSizePF2e {
 
     /** The default space (in a Pathfinder 2e rules context) of each size */
     static #defaultSpaces: Record<Size, SizeDimensions> = {
-        tiny: { long: 2.5, wide: 2.5 },
-        sm: { long: 5, wide: 5 },
-        med: { long: 5, wide: 5 },
-        lg: { long: 10, wide: 10 },
-        huge: { long: 15, wide: 15 },
-        grg: { long: 20, wide: 20 },
+        tiny: { long: 2.5, wide: 2.5, high: 2.5 },
+        sm: { long: 5, wide: 5, high: 5 },
+        med: { long: 5, wide: 5, high: 5 },
+        lg: { long: 10, wide: 10, high: 10 },
+        huge: { long: 15, wide: 15, high: 15 },
+        grg: { long: 20, wide: 20, high: 20 },
     };
 
     /** A ranked ordering of sizes */
@@ -59,7 +60,7 @@ export class ActorSizePF2e {
         const spaces = ActorSizePF2e.#defaultSpaces[params.value] ?? ActorSizePF2e.#defaultSpaces.med;
         this.long = params.long ?? spaces.long;
         this.wide = params.wide ?? spaces.wide;
-        this.high = params.high ?? this.wide;
+        this.high = params.high ?? spaces.high;
     }
 
     /**
@@ -135,6 +136,7 @@ export class ActorSizePF2e {
         const newSpace = ActorSizePF2e.#defaultSpaces[this.value];
         this.long = newSpace.long;
         this.wide = newSpace.wide;
+        this.high = newSpace.high;
     }
 
     /**
@@ -148,6 +150,7 @@ export class ActorSizePF2e {
         const newSpace = ActorSizePF2e.#defaultSpaces[this.value];
         this.long = newSpace.long;
         this.wide = newSpace.wide;
+        this.high = newSpace.high;
     }
 
     toString(): string {
