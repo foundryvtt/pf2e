@@ -1,0 +1,47 @@
+{
+    "_id": "lDoUNdsKbHFrjbiR",
+    "img": "icons/consumables/food/preserves-jam-jelly-jar-brown-red.webp",
+    "name": "Effect: Fey Feast Penalty",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Fairy Pie (Apple)], @UUID[Compendium.pf2e.equipment-srd.Item.Fairy Pie (Blackbird)], @UUID[Compendium.pf2e.equipment-srd.Item.Fairy Pie (Meat)], @UUID[Compendium.pf2e.equipment-srd.Item.Filling Porridge (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Filling Porridge (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Filling Porridge (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Sparkling Pomegranate]</p>\n<p>You take a –1 item penalty to saves against spells and effects from fey creatures.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 24
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:trait:fey"
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": -1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
