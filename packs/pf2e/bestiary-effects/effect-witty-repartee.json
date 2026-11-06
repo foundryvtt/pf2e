@@ -1,0 +1,63 @@
+{
+    "_id": "ZPbG3y9LTCI9srmk",
+    "img": "icons/skills/social/peace-luck-insult.webp",
+    "name": "Effect: Witty Repartee",
+    "system": {
+        "description": {
+            "value": "<p>You gain either a +1 status bonus or –1 status penalty to the next attack roll or skill check you make.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusOne",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.NegativeOne",
+                        "value": -1
+                    }
+                ],
+                "flag": "wittyRepartee",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.BonusOrPenalty"
+            },
+            {
+                "key": "FlatModifier",
+                "removeAfterRoll": "if-enabled",
+                "selector": [
+                    "attack-roll",
+                    "skill-check"
+                ],
+                "type": "status",
+                "value": "@item.flags.system.rulesSelections.wittyRepartee"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
