@@ -334,7 +334,7 @@ function getKingdomCHGData(): KingdomCHGData {
                 name: localize("Government.republic.Name"),
                 description: localize("Government.republic.Description"),
                 img: "icons/environment/settlement/gazebo.webp",
-                boosts: ["stability", "economy", "free"],
+                boosts: ["stability", "loyalty", "free"],
                 skills: ["engineering", "politics"],
                 feat: "Compendium.pf2e.kingmaker-features.Item.BChcBEZpcqMnLISC", // Pull Together
             },
