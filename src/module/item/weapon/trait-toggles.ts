@@ -5,6 +5,7 @@ import type { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
 import { nextDamageDieSize } from "@system/damage/helpers.ts";
 import type { DamageType } from "@system/damage/types.ts";
 import { objectHasKey, tupleHasValue } from "@util";
+import type { CombinationWeaponMode } from "./data.ts";
 import { upgradeWeaponTrait } from "./helpers.ts";
 
 /** A helper class to handle toggleable weapon traits */
@@ -18,6 +19,17 @@ class WeaponTraitToggles {
 
     get actor(): ActorPF2e | null {
         return this.parent.actor;
+    }
+
+    get combination(): { options: CombinationWeaponMode[]; selected: CombinationWeaponMode } | null {
+        const weapon = this.parent;
+        const item = weapon.realItem?.isOfType("weapon") ? weapon.realItem : weapon;
+        if (!item.system.traits.value.includes("combination")) return null;
+
+        const options = ["melee", "ranged"] as const;
+        const sourceSelection = item._source.system.traits.toggles?.combination?.selected ?? "ranged";
+        const selected = tupleHasValue(options, sourceSelection) ? sourceSelection : "ranged";
+        return { options: [...options], selected };
     }
 
     get doubleBarrel(): { selected: boolean } {
@@ -93,7 +105,7 @@ class WeaponTraitToggles {
     }
 
     /**
-     * Update a modular or versatile weapon to change its damage type
+     * Update a toggleable weapon trait
      * @returns A promise indicating whether an update was made
      */
     async update(options: ToggleWeaponTraitParams): Promise<boolean> {
@@ -127,7 +139,7 @@ class WeaponTraitToggles {
         const weapon = this.parent;
         const item = weapon.realItem;
         const trait = options.trait;
-        if (item?.isOfType("weapon") && item === weapon) {
+        if (item?.isOfType("weapon") && (item === weapon || trait === "combination")) {
             const property = trait === "double-barrel" ? "doubleBarrel" : trait;
             return { document: item, path: `system.traits.toggles.${property}.selected` };
         }
@@ -137,7 +149,7 @@ class WeaponTraitToggles {
         if (trait === "versatile" && item?.isOfType("shield")) {
             return { document: item, path: "system.traits.integrated.versatile.selected" };
         }
-        if (options.trait === "double-barrel") return null;
+        if (trait === "double-barrel" || trait === "combination") return null;
         if (weapon.rule) return { rule: weapon.rule, options };
         if (weapon.slug === "basic-unarmed" && weapon.actor) {
             return { document: weapon.actor, path: `flags.${SYSTEM_ID}.basicUnarmedToggles.${trait}` };
@@ -155,9 +167,14 @@ interface ToggleDoubleBarrelParams {
     selected: boolean;
 }
 
+interface ToggleCombinationParams {
+    trait: "combination";
+    selected: CombinationWeaponMode;
+}
+
 type ToggleModularVersatileParams =
     { trait: "modular"; selected: number | null } | { trait: "versatile"; selected: DamageType | null };
 
-type ToggleWeaponTraitParams = ToggleDoubleBarrelParams | ToggleModularVersatileParams;
+type ToggleWeaponTraitParams = ToggleCombinationParams | ToggleDoubleBarrelParams | ToggleModularVersatileParams;
 
 export { WeaponTraitToggles };
