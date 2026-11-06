@@ -716,7 +716,7 @@ export const PF2ECONFIG = {
         bomb: "PF2E.WeaponDescriptionBomb",
     },
 
-    usages: USAGES,
+    usages: R.mapValues(USAGES, (u) => u.label),
 
     magicTraditions,
     deityDomains,
