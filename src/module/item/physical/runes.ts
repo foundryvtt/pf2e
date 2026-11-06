@@ -90,13 +90,13 @@ function getRuneValuationData(item: PhysicalItemPF2e): RuneData[] {
     ).filter(R.isTruthy);
 }
 
-function getPropertyRuneDegreeAdjustments(item: WeaponPF2e): DegreeOfSuccessAdjustment[] {
-    return R.unique(
-        [
-            item.system.runes.property.map((p) => WEAPON_PROPERTY_RUNES[p].attack?.dosAdjustments),
-            item.system.runes.effects.map((p) => WEAPON_PROPERTY_RUNES[p].attack?.dosAdjustments),
-        ].flat(2),
-    ).filter(R.isTruthy);
+function getPropertyRuneDegreeAdjustments(item: WeaponPF2e | MeleePF2e): DegreeOfSuccessAdjustment[] {
+    const property = item.system.runes.property.map((p) => WEAPON_PROPERTY_RUNES[p].attack?.dosAdjustments);
+    const effects =
+        "effects" in item.system.runes
+            ? item.system.runes.effects.map((p) => WEAPON_PROPERTY_RUNES[p].attack?.dosAdjustments)
+            : [];
+    return R.unique([property, effects].flat(2)).filter(R.isTruthy);
 }
 
 function getPropertyRuneDamage(
