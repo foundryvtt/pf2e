@@ -659,42 +659,11 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [
-                    {
-                        "adjustment": {
-                            "success": "one-degree-better"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "predicate": [
-                            "check:total:natural:19",
-                            {
-                                "or": [
-                                    "item:damage:type:slashing",
-                                    "item:damage:type:piercing"
-                                ]
-                            }
-                        ],
-                        "selector": "{item|_id}-attack"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "predicate": [
-                            "check:total:natural:19"
-                        ],
-                        "selector": "{item|_id}-attack",
-                        "text": "PF2E.AttackEffects.IncreasedCriticalChance",
-                        "title": "PF2E.WeaponPropertyRune.keen.Name",
-                        "visibility": "gm"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "agile",
                         "deadly-3d10",
                         "magical",
                         "reach-10",
@@ -1095,6 +1064,25 @@
                     "title": ""
                 },
                 "rules": [
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:base:scythe"
+                        ],
+                        "property": "traits",
+                        "value": "agile"
+                    },
+                    {
+                        "definition": [
+                            "item:base:scythe"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "keen"
+                    },
                     {
                         "key": "Note",
                         "selector": "scythe-damage",
