@@ -89,7 +89,7 @@ export class ActiveEffectPF2e<TParent extends ActorPF2e | ItemPF2e | null> exten
                 break;
             case "texture.scaleX":
             case "texture.scaleY": {
-                if (!targetDoc.autoscale) return {};
+                if (change.phase === "initial" && !targetDoc.autoscale) return {};
                 const mirror = Math.sign(Number(fu.getProperty(targetDoc._source, change.key)));
                 change = { ...change, value: mirror * Number(change.value) };
                 break;
