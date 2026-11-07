@@ -12,6 +12,7 @@ import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { ConditionSource, EffectSource, ItemSourcePF2e, PhysicalItemSource } from "@item/base/data/index.ts";
 import type { PickableThing } from "@module/apps/pick-a-thing-prompt/app.ts";
 import { RollNotePF2e } from "@module/notes.ts";
+import type { TokenDocumentPF2e } from "@scene";
 import { BaseDamageData } from "@system/damage/index.ts";
 import { RollTwiceOption } from "@system/rolls.ts";
 import { DataUnionField, RecordField, StrictNumberField, StrictStringField } from "@system/schema-data-fields.ts";
@@ -158,10 +159,11 @@ function extractRollSubstitutions(
 
 async function processPreUpdateActorHooks(
     changed: Record<string, unknown>,
-    { pack }: { pack: string | null },
+    { parent = null, pack = null }: { parent?: TokenDocumentPF2e | null; pack?: string | null },
 ): Promise<void> {
     const actorId = String(changed._id);
-    const actor = pack ? await game.packs.get(pack)?.getDocument(actorId) : game.actors.get(actorId);
+    // Unlinked token actors aren't in game.actors
+    const actor = parent?.actor ?? (pack ? await game.packs.get(pack)?.getDocument(actorId) : game.actors.get(actorId));
     if (!(actor instanceof ActorPF2e)) return;
 
     // Run preUpdateActor rule element callbacks

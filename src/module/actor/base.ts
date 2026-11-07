@@ -698,7 +698,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         // Process rule element hooks for each actor update
         for (const changed of updates) {
-            await processPreUpdateActorHooks(changed, { pack: operation.pack ?? null });
+            await processPreUpdateActorHooks(changed, operation);
         }
 
         return super.updateDocuments(updates, operation);
