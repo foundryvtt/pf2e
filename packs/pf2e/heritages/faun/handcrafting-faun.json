@@ -19,6 +19,12 @@
         },
         "rules": [
             {
+                "key": "RollOption",
+                "label": "Being watched",
+                "option": "being-watched",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
                     "being-watched",
@@ -34,6 +40,22 @@
                 ],
                 "type": "circumstance",
                 "value": 1
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "being-watched",
+                    {
+                        "or": [
+                            "action:craft",
+                            "action:repair"
+                        ]
+                    }
+                ],
+                "selector": "crafting"
             }
         ],
         "traits": {
