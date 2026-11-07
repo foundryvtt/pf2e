@@ -42,7 +42,8 @@
                     "value": [
                         "deadly-d8",
                         "magical",
-                        "reach-10"
+                        "reach-10",
+                        "unarmed"
                     ]
                 }
             },
@@ -62,7 +63,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A remacera is permanently affected by their own curse of renewal. When a remacera dies, after 1 minute, their new body appears [[/r 1d20]] miles from where they died. They can also choose to retain their current form.</p>"
+                    "value": "<p>A remacera is permanently affected by their own curse of renewal. When a remacera dies, after 1 minute, their new body appears [[/gmr 1d20 #miles]] miles from where they died. They can also choose to retain their current form.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -123,7 +124,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>hen a creature the remacera reduced to 0 Hit Points dies, the remacera gains 10 temporary Hit Points that last for 1 minute and is @UUID[Compendium.pf2e.conditionitems.Item.Quickened] for as long as they have these temporary Hit Points. They can use the extra action only to Stride or Strike.</p>"
+                    "value": "<p>When a creature the remacera reduced to 0 Hit Points dies, the remacera gains 10 temporary Hit Points that last for 1 minute and is @UUID[Compendium.pf2e.conditionitems.Item.Quickened] for as long as they have these temporary Hit Points. They can use the extra action only to Stride or Strike.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Murderous Rhapsody]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -152,7 +153,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The remacera spawns tiny, larval remaceras within a creature they can see within 100 feet. That creature must attempt a @Check[fortitude|dc:24] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round as some larvae spawn on its skin before harmlessly falling off.</p>\n<p><strong>Failure</strong> As success, and the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} as several larvae burrow out of its skin.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3} and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] while it remains sickened.</p>"
+                    "value": "<p>The remacera spawns tiny, larval remaceras within a creature they can see within 100 feet. That creature must attempt a @Check[fortitude|dc:24|options:inflicts:clumsy,inflicts:sickened,inflicts:off-guard] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round as some larvae spawn on its skin before harmlessly falling off.</p>\n<p><strong>Failure</strong> As success, and the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} as several larvae burrow out of its skin.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3} and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] while it remains sickened.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -185,7 +186,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The remacera has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] in their jaws</p><hr /><p><strong>Effect</strong> The creature takes @Damage[(2d10+8)[sonic]] damage with a @Check[fortitude|dc:24|basic] save. A creature that fails is also @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round (1 minute on a critical failure).</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The remacera has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] in their jaws</p><hr /><p><strong>Effect</strong> The creature takes @Damage[(2d10+8)[sonic]] damage with a @Check[fortitude|dc:24|basic|options:inflicts:stupefied] save. A creature that fails is also @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round (1 minute on a critical failure).</p>"
                 },
                 "frequency": {
                     "max": 1,
