@@ -327,7 +327,32 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "key-weakness",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "key-weakness",
+                            "item:type:spell",
+                            {
+                                "or": [
+                                    "item:trait:arcane",
+                                    "item:trait:occult"
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "type": "status",
+                        "value": -2
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
