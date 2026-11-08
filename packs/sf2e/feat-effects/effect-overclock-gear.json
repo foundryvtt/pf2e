@@ -71,6 +71,28 @@
                 "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Overclock Boost (Reduce Cover)"
             },
             {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.technomancerDPS.coverReduction",
+                "predicate": [
+                    "class:technomancer",
+                    "feature:dps"
+                ],
+                "value": "ternary(gte(@actor.level, 12), 4, 2)"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.technomancerDPS.coverReduction",
+                "predicate": [
+                    "feature:dps",
+                    {
+                        "not": "class:technomancer"
+                    }
+                ],
+                "value": 2
+            },
+            {
                 "choices": {
                     "ownedItems": true,
                     "predicate": [
