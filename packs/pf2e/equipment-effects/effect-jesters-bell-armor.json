@@ -1,0 +1,118 @@
+{
+    "_id": "bR4nQ8sL0mT6vY2c",
+    "img": "icons/sundries/gaming/game-magic-eight-ball.webp",
+    "name": "Effect: Jester's Bell - Armor",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Jester's Bell], @UUID[Compendium.pf2e.equipment-srd.Item.Jester's Bell (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Jester's Bell (Major)]</p>\n<p>You gain resistance to mental damage and a +1 item bonus to saving throws against mental effects.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:jesters-bell",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Jester's Bell"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:jesters-bell-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Jester's Bell (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:jesters-bell-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Jester's Bell (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "jesters-bell"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "jesters-bell:jesters-bell"
+                ],
+                "type": "mental",
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "jesters-bell:jesters-bell-greater"
+                ],
+                "type": "mental",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "jesters-bell:jesters-bell-major"
+                ],
+                "type": "mental",
+                "value": 10
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:mental"
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

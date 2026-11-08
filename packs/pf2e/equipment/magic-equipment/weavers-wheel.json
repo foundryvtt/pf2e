@@ -12,10 +12,10 @@
         "description": {
             "value": "<p>Usually made of hardwood such as oak or ash, a weaver's wheel is a finely crafted spinning wheel. This device spins thread until its supply runs out. Should the bobbin of the spinning wheel fill, however, the wheel will cease to function until the bobbin is replaced. In addition to mundane thread, more mystical materials can be spun as well. The wheel has 20 Hit Points (BT 10) and a Hardness of 5. Particularly harsh materials, such as basilisk sinew or copper, can swiftly wear the wheel down, causing @Damage[1d6[bludgeoning]] damage (ignoring Hardness) to the wheel for every bobbin used. Using a weaver's wheel to assist with the Craft downtime activity grants a +1 item bonus to Crafting checks associated with weaving and clothing fabrication.</p>"
         },
-        "hardness": 0,
+        "hardness": 5,
         "hp": {
-            "max": 0,
-            "value": 0
+            "max": 20,
+            "value": 20
         },
         "level": {
             "value": 4
@@ -35,7 +35,22 @@
             "title": "Pathfinder Feybound"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:craft:clothing",
+                            "action:craft:weaving"
+                        ]
+                    }
+                ],
+                "selector": "crafting",
+                "type": "item",
+                "value": 1
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "uncommon",
