@@ -30,6 +30,14 @@ class CheckRoll extends Roll {
         return this.options.isReroll ?? false;
     }
 
+    /** The natural d20 result, or the substituted value if a SubstituteRoll replaced it */
+    get naturalResult(): number | null {
+        const term = this.isDeterministic
+            ? this.terms.find((t) => t instanceof dice.terms.NumericTerm)
+            : this.dice.find((d) => d instanceof dice.terms.Die && d.faces === 20);
+        return term?.total ?? null;
+    }
+
     get isRerollable(): boolean {
         return !this.isReroll && !this.dice.some((d) => d.modifiers.includes("kh") || d.modifiers.includes("kl"));
     }

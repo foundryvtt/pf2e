@@ -29,7 +29,142 @@
             "remaster": true,
             "title": "Pathfinder Impossible Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Arcana",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:arcana:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": {
+                            "rank": 2,
+                            "skill": "arcana"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Arcana",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:arcana:rank",
+                                    0
+                                ]
+                            }
+                        ],
+                        "value": {
+                            "rank": 1,
+                            "skill": "arcana"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Nature",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:nature:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": {
+                            "rank": 2,
+                            "skill": "nature"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Nature",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:nature:rank",
+                                    0
+                                ]
+                            }
+                        ],
+                        "value": {
+                            "rank": 1,
+                            "skill": "nature"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Occultism",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:occultism:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": {
+                            "rank": 2,
+                            "skill": "occultism"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Occultism",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:occultism:rank",
+                                    0
+                                ]
+                            }
+                        ],
+                        "value": {
+                            "rank": 1,
+                            "skill": "occultism"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Religion",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:religion:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": {
+                            "rank": 2,
+                            "skill": "religion"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Religion",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:religion:rank",
+                                    0
+                                ]
+                            }
+                        ],
+                        "value": {
+                            "rank": 1,
+                            "skill": "religion"
+                        }
+                    }
+                ],
+                "flag": "hedgeMage",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.system.rulesSelections.hedgeMage.skill}.rank",
+                "value": "{item|flags.system.rulesSelections.hedgeMage.rank}"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {
                 "spellcasting": {
