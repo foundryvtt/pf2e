@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You understand some of the wild hunt's techniques and can use them to form a primal bond with a trusted ally, much as members of the hunt do. You speak and understand Fey, gain darkvision, and gain the @UUID[Compendium.pf2e.feats-srd.Item.Additional Lore] feat for Hunting Lore.</p>\n<p>In addition, during your daily preparations, you can choose an ally as your hunting partner. They remain so until you choose a new hunting partner. You gain a wild link aura in a @Template[type:emanation|distance:60] that has the aura and primal traits. While your hunting partner is in the emanation of your wild link aura, they can speak and understand Fey and gain darkvision.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.ziik8rCyfxaYwFbz]{Wild Hunter}</p>"
+            "value": "<p>You understand some of the wild hunt's techniques and can use them to form a primal bond with a trusted ally, much as members of the hunt do. You speak and understand Fey, gain darkvision, and gain the @UUID[Compendium.pf2e.feats-srd.Item.Additional Lore] feat for Hunting Lore.</p>\n<p>In addition, during your daily preparations, you can choose an ally as your hunting partner. They remain so until you choose a new hunting partner. You gain a wild link aura in a @Template[type:emanation|distance:60] that has the aura and primal traits. While your hunting partner is in the emanation of your wild link aura, they can speak and understand Fey and gain darkvision.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Hunting Partner]</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.ziik8rCyfxaYwFbz]{Wild Hunter}</p>"
         },
         "level": {
             "value": 8
@@ -46,6 +46,27 @@
                     "label": "PF2E.SpecificLore.Hunting",
                     "rank": "match(when(gte(@actor.level, 15), 4), when(gte(@actor.level, 7), 3),when(gte(@actor.level, 3), 2),1)"
                 }
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "events": [
+                            "enter"
+                        ],
+                        "includesSelf": false,
+                        "predicate": [
+                            "target:effect:hunting-partner"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Wild Link"
+                    }
+                ],
+                "key": "Aura",
+                "radius": 60,
+                "slug": "wild-link",
+                "traits": [
+                    "primal"
+                ]
             }
         ],
         "subfeatures": {
