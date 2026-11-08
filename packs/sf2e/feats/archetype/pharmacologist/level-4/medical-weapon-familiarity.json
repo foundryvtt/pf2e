@@ -29,7 +29,71 @@
             "remaster": true,
             "title": "Starfinder Tech Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": [
+                    "item:category:martial",
+                    {
+                        "or": [
+                            "item:trait:injection",
+                            "item:category:knife"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialInjectionWeaponsAndKnives",
+                "sameAs": "simple",
+                "slug": "martial-medical-weapons"
+            },
+            {
+                "definition": [
+                    "item:category:martial",
+                    {
+                        "or": [
+                            "item:trait:injection",
+                            "item:group:knife"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedInjectionWeaponsAndKnives",
+                "sameAs": "martial",
+                "slug": "advanced-medical-weapons"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:category:simple",
+                    "item:equipped",
+                    {
+                        "or": [
+                            "item:group:knife",
+                            "item:trait:injection"
+                        ]
+                    }
+                ],
+                "property": "damage-dice-faces"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:group:knife",
+                            "item:trait:injection"
+                        ]
+                    },
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    }
+                ]
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
