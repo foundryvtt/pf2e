@@ -1,0 +1,63 @@
+{
+    "_id": "invgMel0dy5ftSpd",
+    "img": "icons/skills/movement/figure-running-gray.webp",
+    "name": "Effect: Invigorating Melody",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Invigorating Melody]</p>\n<p>You gain a +5-foot status bonus to your Speeds until the end of the origin's next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "includesSelf": false,
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Invigorating Melody"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
+                "radius": 60,
+                "slug": "invigorating-melody"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "type": "status",
+                "value": 5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "aura",
+                "emotion",
+                "mental"
+            ]
+        }
+    },
+    "type": "effect"
+}
