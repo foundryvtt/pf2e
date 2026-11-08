@@ -854,6 +854,18 @@ export const PF2ECONFIG = {
 
     skills: Object.freeze(skills),
 
+    virtuosicPerformerSpecialties: {
+        acting: "PF2E.SpecificRule.VirtuosicPerformer.Acting",
+        comedy: "PF2E.SpecificRule.VirtuosicPerformer.Comedy",
+        dance: "PF2E.SpecificRule.VirtuosicPerformer.Dance",
+        keyboards: "PF2E.SpecificRule.VirtuosicPerformer.Keyboards",
+        oratory: "PF2E.SpecificRule.VirtuosicPerformer.Oratory",
+        percussion: "PF2E.SpecificRule.VirtuosicPerformer.Percussion",
+        singing: "PF2E.SpecificRule.VirtuosicPerformer.Singing",
+        strings: "PF2E.SpecificRule.VirtuosicPerformer.Strings",
+        winds: "PF2E.SpecificRule.VirtuosicPerformer.Winds",
+    },
+
     featCategories,
 
     actionTypes: {
