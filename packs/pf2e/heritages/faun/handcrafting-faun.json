@@ -19,9 +19,14 @@
         },
         "rules": [
             {
+                "key": "RollOption",
+                "option": "handcrafting-faun",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
-                    "being-watched",
+                    "handcrafting-faun",
                     {
                         "or": [
                             "action:craft",
@@ -34,6 +39,22 @@
                 ],
                 "type": "circumstance",
                 "value": 1
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "handcrafting-faun",
+                    {
+                        "or": [
+                            "action:craft",
+                            "action:repair"
+                        ]
+                    }
+                ],
+                "selector": "crafting"
             }
         ],
         "traits": {

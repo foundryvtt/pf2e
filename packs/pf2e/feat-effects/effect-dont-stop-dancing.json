@@ -1,0 +1,47 @@
+{
+    "_id": "dNst0pDnc8aK3mQx",
+    "img": "icons/skills/movement/figure-running-gray.webp",
+    "name": "Effect: Don't Stop Dancing",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Don't Stop Dancing]</p>\n<p>You ignore difficult terrain.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.movement.terrain.difficult.ignored",
+                "value": {
+                    "environment": "all",
+                    "feature": "all"
+                }
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
