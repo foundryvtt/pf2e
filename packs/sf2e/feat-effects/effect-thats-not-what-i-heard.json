@@ -1,0 +1,94 @@
+{
+    "_id": "IlVz4LajxYcjwBIV",
+    "img": "icons/tools/fishing/hook-barbed-steel-grey.webp",
+    "name": "Effect: That's Not What I Heard",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.That's Not What I Heard]</p>\n<p>You either take a status pentalty to Will saves and Diplomacy checks or a circumstance pentalty to Deception, Diplomacy and Society checks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": "critical-success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "not-what-i-heard"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "not-what-i-heard:critical-success"
+                ],
+                "selector": [
+                    "will",
+                    "diplomacy"
+                ],
+                "type": "status",
+                "value": -3
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "not-what-i-heard:success"
+                ],
+                "selector": [
+                    "will",
+                    "diplomacy"
+                ],
+                "type": "status",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "not-what-i-heard:critical-failure"
+                ],
+                "selector": [
+                    "diplomacy",
+                    "deception",
+                    "society"
+                ],
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
