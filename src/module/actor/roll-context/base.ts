@@ -219,7 +219,7 @@ abstract class RollContext<
         const distanceOption = Number.isInteger(distance) ? `${opposingRole}:distance:${distance}` : null;
 
         // Extract origin and target marks
-        const markOptions = (() => {
+        const { markOptions, ephemeralMarkOptions } = (() => {
             const originActor = unresolved.origin?.actor;
             const originUuid = unresolved.origin?.token?.uuid;
             const targetActor = unresolved.target?.actor;
@@ -227,10 +227,16 @@ abstract class RollContext<
             const originMark = originUuid ? (targetActor?.synthetics.tokenMarks.get(originUuid) ?? []) : [];
             const targetMark = targetUuid ? (originActor?.synthetics.tokenMarks.get(targetUuid) ?? []) : [];
             const [originPrefix, targetPrefix] = which === "target" ? ["origin", "self"] : ["self", "target"];
-            return [
-                ...originMark.map((mark) => `${originPrefix}:mark:${mark}`),
-                ...targetMark.map((mark) => `${targetPrefix}:mark:${mark}`),
-            ];
+            return {
+                markOptions: [
+                    ...originMark.map((mark) => `${originPrefix}:mark:${mark}`),
+                    ...targetMark.map((mark) => `${targetPrefix}:mark:${mark}`),
+                ],
+                ephemeralMarkOptions: [
+                    ...originMark.map((mark) => `origin:mark:${mark}`),
+                    ...targetMark.map((mark) => `target:mark:${mark}`),
+                ],
+            };
         })();
 
         // Get ephemeral effects from the target that affect this actor while attacking
@@ -240,7 +246,7 @@ abstract class RollContext<
             target: unresolved.target?.actor ?? null,
             item,
             domains: this.domains,
-            options: [...this.rollOptions, itemOptions, markOptions, distanceOption ?? []].flat(),
+            options: [...this.rollOptions, itemOptions, ephemeralMarkOptions, distanceOption ?? []].flat(),
         });
 
         // Add an epehemeral effect from flanking
