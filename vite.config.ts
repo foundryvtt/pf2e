@@ -57,28 +57,27 @@ function getUuidRedirects({ systemId }: { systemId: SystemId }): Record<Compendi
 }
 
 /** Map PF2e pack names to their SF2e counterpart and the IDs of the documents in it, including PF2e duplicates */
-function getCrossSystemDuplicates(): { pf2eName: string; sf2eName: string;  packType: string; ids: Set<string> }[] {
+function getCrossSystemDuplicates(): { pf2eName: string; sf2eName: string; packType: string; ids: Set<string> }[] {
     const readIds = (paths: string[]) => paths.map((p): string => JSON.parse(fs.readFileSync(p, "utf-8"))._id);
     const globJSON = (dirPath: string) =>
         globSync(path.resolve(dirPath, "**/*.json"), { windowsPathsNoEscape: true, ignore: "**/_folders.json" });
 
     return pf2eManifest.packs.flatMap((pf2ePack) => {
-            const sf2ePack = sf2eManifest.packs.find((p) => p.path === pf2ePack.path);
-            if (!sf2ePack) return [];
-            const dirName = path.basename(sf2ePack.path);
-            const ids = readIds(globJSON(path.resolve(ROOT_DIR, "packs/sf2e", dirName)));
-            const duplicateSlugs = new Set(
-                duplicates
-                    .flatMap((g) => (g.entries as Record<string, string[] | undefined>)[dirName] ?? [])
-                    .map((n) => sluggify(n)),
-            );
-            if (duplicateSlugs.size > 0) {
-                const pf2ePaths = globJSON(path.resolve(ROOT_DIR, "packs/pf2e", dirName));
-                ids.push(...readIds(pf2ePaths.filter((p) => duplicateSlugs.has(path.basename(p, ".json")))));
-            }
-            return { pf2eName:pf2ePack.name, sf2eName: sf2ePack.name, packType:pf2ePack.type, ids: new Set(ids) };
+        const sf2ePack = sf2eManifest.packs.find((p) => p.path === pf2ePack.path);
+        if (!sf2ePack) return [];
+        const dirName = path.basename(sf2ePack.path);
+        const ids = readIds(globJSON(path.resolve(ROOT_DIR, "packs/sf2e", dirName)));
+        const duplicateSlugs = new Set(
+            duplicates
+                .flatMap((g) => (g.entries as Record<string, string[] | undefined>)[dirName] ?? [])
+                .map((n) => sluggify(n)),
+        );
+        if (duplicateSlugs.size > 0) {
+            const pf2ePaths = globJSON(path.resolve(ROOT_DIR, "packs/pf2e", dirName));
+            ids.push(...readIds(pf2ePaths.filter((p) => duplicateSlugs.has(path.basename(p, ".json")))));
         }
-    );
+        return { pf2eName: pf2ePack.name, sf2eName: sf2ePack.name, packType: pf2ePack.type, ids: new Set(ids) };
+    });
 }
 
 const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
@@ -117,11 +116,16 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             preprocess: command === "serve" ? [vitePreprocess(), hmrPreprocess] : vitePreprocess(),
         }),
     ];
-    const crossSystemRedirects = Object.fromEntries(getCrossSystemDuplicates().flatMap(({pf2eName, sf2eName, packType, ids}) => {
-        const otherSystem = SYSTEM_ID === "sf2e" ? "pf2e" : "sf2e";
-        const [thisPack, otherPack] = SYSTEM_ID === "sf2e" ? [sf2eName, pf2eName] : [pf2eName, sf2eName];
-            return Array.from(ids).map(id => [`Compendium.${otherSystem}.${otherPack}.${packType}.${id}`,`Compendium.${SYSTEM_ID}.${thisPack}.${packType}.${id}` ])
-    }))
+    const crossSystemRedirects = Object.fromEntries(
+        getCrossSystemDuplicates().flatMap(({ pf2eName, sf2eName, packType, ids }) => {
+            const otherSystem = SYSTEM_ID === "sf2e" ? "pf2e" : "sf2e";
+            const [thisPack, otherPack] = SYSTEM_ID === "sf2e" ? [sf2eName, pf2eName] : [pf2eName, sf2eName];
+            return Array.from(ids).map((id) => [
+                `Compendium.${otherSystem}.${otherPack}.${packType}.${id}`,
+                `Compendium.${SYSTEM_ID}.${thisPack}.${packType}.${id}`,
+            ]);
+        }),
+    );
     if (buildMode === "production") {
         plugins.push(
             // Handle minification after build to allow for tree-shaking and whitespace minification
