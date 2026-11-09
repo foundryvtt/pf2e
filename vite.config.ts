@@ -57,13 +57,12 @@ function getUuidRedirects({ systemId }: { systemId: SystemId }): Record<Compendi
 }
 
 /** Map PF2e pack names to their SF2e counterpart and the IDs of the documents in it, including PF2e duplicates */
-function getSF2ePacks(): Record<string, { name: string; ids: Set<string> } | undefined> {
+function getCrossSystemDuplicates(): { pf2eName: string; sf2eName: string;  packType: string; ids: Set<string> }[] {
     const readIds = (paths: string[]) => paths.map((p): string => JSON.parse(fs.readFileSync(p, "utf-8"))._id);
     const globJSON = (dirPath: string) =>
         globSync(path.resolve(dirPath, "**/*.json"), { windowsPathsNoEscape: true, ignore: "**/_folders.json" });
 
-    return Object.fromEntries(
-        pf2eManifest.packs.flatMap((pf2ePack) => {
+    return pf2eManifest.packs.flatMap((pf2ePack) => {
             const sf2ePack = sf2eManifest.packs.find((p) => p.path === pf2ePack.path);
             if (!sf2ePack) return [];
             const dirName = path.basename(sf2ePack.path);
@@ -77,8 +76,8 @@ function getSF2ePacks(): Record<string, { name: string; ids: Set<string> } | und
                 const pf2ePaths = globJSON(path.resolve(ROOT_DIR, "packs/pf2e", dirName));
                 ids.push(...readIds(pf2ePaths.filter((p) => duplicateSlugs.has(path.basename(p, ".json")))));
             }
-            return [[pf2ePack.name, { name: sf2ePack.name, ids: new Set(ids) }]];
-        }),
+            return { pf2eName:pf2ePack.name, sf2eName: sf2ePack.name, packType:pf2ePack.type, ids: new Set(ids) };
+        }
     );
 }
 
@@ -118,17 +117,11 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             preprocess: command === "serve" ? [vitePreprocess(), hmrPreprocess] : vitePreprocess(),
         }),
     ];
-    const packUUIDPattern = /Compendium\.pf2e\.[^\]]+/g;
-    const sf2ePacks = SYSTEM_ID === "sf2e" ? getSF2ePacks() : {};
-    // UUIDs of PF2e-only content are left alone for PF2e Anachronism to redirect
-    const adjustUUIDForSF2e = (s: string): string =>
-        s.replace(packUUIDPattern, (uuid) => {
-            const [, , pf2ePackName, , id] = uuid.split(".");
-            const sf2ePack = sf2ePacks[pf2ePackName];
-            return sf2ePack?.ids.has(id)
-                ? uuid.replace(`Compendium.pf2e.${pf2ePackName}.`, `Compendium.sf2e.${sf2ePack.name}.`)
-                : uuid;
-        });
+    const crossSystemRedirects = Object.fromEntries(getCrossSystemDuplicates().flatMap(({pf2eName, sf2eName, packType, ids}) => {
+        const otherSystem = SYSTEM_ID === "sf2e" ? "pf2e" : "sf2e";
+        const [thisPack, otherPack] = SYSTEM_ID === "sf2e" ? [sf2eName, pf2eName] : [pf2eName, sf2eName];
+            return Array.from(ids).map(id => [`Compendium.${otherSystem}.${otherPack}.${packType}.${id}`,`Compendium.${SYSTEM_ID}.${thisPack}.${packType}.${id}` ])
+    }))
     if (buildMode === "production") {
         plugins.push(
             // Handle minification after build to allow for tree-shaking and whitespace minification
@@ -147,23 +140,6 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                                   mangle: { keepNames: true },
                               })
                             : code;
-                    },
-                },
-            },
-            // Replace pf2e UUIDs with sf2e ones
-            {
-                name: "transformLangFile",
-                renderStart: {
-                    order: "post",
-                    handler: async (outputOptions) => {
-                        if (SYSTEM_ID === "pf2e") return;
-                        const langDir = path.join(outputOptions.dir ?? "", "lang");
-                        const langFilenames = fs.readdirSync(langDir);
-                        for (const filename of langFilenames) {
-                            const filePath = path.join(langDir, filename);
-                            const content = fs.readFileSync(filePath, { encoding: "utf-8" });
-                            fs.writeFileSync(filePath, adjustUUIDForSF2e(content));
-                        }
                     },
                 },
             },
@@ -215,8 +191,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                         const basePath = context.file.slice(context.file.indexOf("lang/"));
                         console.debug(`Updating lang file at ${basePath}`);
                         const content = fs.readFileSync(context.file, { encoding: "utf-8" });
-                        const adjusted = SYSTEM_ID === "sf2e" ? adjustUUIDForSF2e(content) : content;
-                        fs.writeFileSync(path.join(outDir, basePath), adjusted);
+                        fs.writeFileSync(path.join(outDir, basePath), content);
                         context.server.ws.send({
                             type: "custom",
                             event: "lang-update",
@@ -285,7 +260,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             CONDITION_SOURCES: JSON.stringify(CONDITION_SOURCES),
             EN_JSON: JSON.stringify(EN_JSON),
             ROLL_PARSER: JSON.stringify(ROLL_PARSER),
-            UUID_REDIRECTS: JSON.stringify(getUuidRedirects({ systemId: SYSTEM_ID })),
+            UUID_REDIRECTS: JSON.stringify({ ...getUuidRedirects({ systemId: SYSTEM_ID }), ...crossSystemRedirects }),
             fa: "foundry.applications",
             fav1: "foundry.appv1",
             fc: "foundry.canvas",
