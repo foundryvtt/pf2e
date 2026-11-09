@@ -649,6 +649,105 @@ class Check {
     }
 
     /**
+     * Re-roll the check again as a blind roll replacing the original - not a 'reroll' so no fortunre / misfortune relevant
+     * This is for when the GM says 'oh, that was supposed to be a secret check' (IE: Recall Knowledge or Stealth checks)
+     * @param message - The roll message that was supposed to have been secret
+     */
+    static async repeatAsBlindFromMessage(message: ChatMessagePF2e): Promise<void> {
+        if (!(message.isAuthor || game.user.isGM)) {
+            ui.notifications.error("PF2E.RerollMenu.ErrorCantDelete", { localize: true });
+            return;
+        }
+        const actor = message.actor;
+        if (!actor) {
+            ui.notifications.error("PF2E.RerollMenu.ErrorNoActor", { localize: true });
+            return;
+        }
+
+        const systemFlags = fu.deepClone(message.flags[SYSTEM_ID]);
+        const context = systemFlags.context;
+        if (!isCheckContextFlag(context)) {
+            return;
+        }
+
+        context.skipDialog = true;
+        context.messageMode = "blind";
+
+        const oldRoll = message.rolls.at(0);
+        if (!(oldRoll instanceof CheckRoll)) throw ErrorPF2e("Unexpected error retrieving prior roll");
+
+        const newRoll = await oldRoll.clone().evaluate({ allowInteractive: false });
+
+        const degree = ((): DegreeOfSuccess | null => {
+            const dc = context.dc as Maybe<CheckDC>;
+            if (!dc) return null;
+            if (["ac", "armor"].includes(dc.slug || "")) {
+                let target = null;
+                if (context.target?.actor) target = fromUuidSync(context.target.actor);
+
+                let targetActor = null;
+                if (target instanceof ActorPF2e) targetActor = target;
+                else if (target instanceof TokenDocumentPF2e) targetActor = target.actor;
+
+                dc.statistic = targetActor?.armorClass;
+            }
+            return new DegreeOfSuccess(newRoll, dc, context.dosAdjustments);
+
+        })();
+
+        if (degree) {
+            newRoll.options.degreeOfSuccess = degree.value;
+            context.outcome = DEGREE_OF_SUCCESS_STRINGS[degree.value];
+        }
+
+        const parsedFlavor = document.createElement("div");
+        parsedFlavor.innerHTML = message.flavor ?? "";
+        const targeting = actor.uuid === context.origin?.actor;
+        const self = targeting ? context.origin : context.target;
+        const opposer = context.target?.actor === actor.uuid ? context.origin : context.target;
+        const targetFlavor = await this.#createResultFlavor({ degree, self, opposer, targeting });
+        if (targetFlavor) htmlQuery(parsedFlavor, ".target-dc-result")?.replaceWith(targetFlavor);
+        htmlQuery(parsedFlavor, "ul.notes")?.remove();
+        const notesEl = RollNotePF2e.notesToHTML(
+            (context.notes ?? [])
+                .map((n) => new RollNotePF2e(n))
+                .filter((note) => {
+                    if (!context.dc || note.outcome.length === 0) return true;
+                    const outcome = context.outcome ?? context.unadjustedOutcome;
+                    return !!(outcome && note.outcome.includes(outcome));
+                }),
+        );
+        if (notesEl) parsedFlavor.append(notesEl);
+
+        const initiativeRoll = !!message.flags.core?.initiativeRoll;
+        if (initiativeRoll) {
+            const combatant = message.token?.combatant;
+            await combatant?.parent.setInitiative(combatant.id, newRoll.total);
+        }
+
+        // Remove the accidentally public roll before posting its blind replacement
+        await message.delete({ render: false });
+        const newMessage = (await newRoll.toMessage(
+            {
+                flavor: parsedFlavor.innerHTML,
+                speaker: message.speaker,
+                flags: { core: { initiativeRoll }, [SYSTEM_ID]: systemFlags },
+            },
+            { messageMode: "blind" },
+        )) as ChatMessagePF2e;
+
+        if (systemFlags.treatWoundsMacroFlag) {
+            treatWoundsMacroCallback({
+                actor,
+                bonus: systemFlags.treatWoundsMacroFlag.bonus,
+                message: newMessage,
+                originalMessageId: message.id,
+                outcome: context.outcome,
+            });
+        }
+    }
+
+    /**
      * Renders the reroll, highlighting the old result if it was a critical success or failure
      * @param roll  The roll that is to be rerendered
      * @param isOld This is the old roll render, so remove damage or other buttons
