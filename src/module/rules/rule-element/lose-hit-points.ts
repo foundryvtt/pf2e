@@ -18,14 +18,14 @@ class LoseHitPointsRuleElement extends RuleElement<LoseHitPointsRuleSchema> {
     }
 
     override onCreate(actorUpdates: Record<string, unknown>): void {
-        if (this.ignored) return;
+        if (this.ignored || !this.test()) return;
         const value = Math.trunc(Math.abs(Number(this.resolveValue(this.value)) || 0));
         const currentHP = this.actor._source.system.attributes.hp.value;
         actorUpdates["system.attributes.hp.value"] = Math.max(currentHP - value, 0);
     }
 
     override beforePrepareData(): void {
-        if (this.ignored) return;
+        if (this.ignored || !this.test()) return;
 
         const { actor } = this;
         if (!this.recoverable) {
@@ -34,8 +34,35 @@ class LoseHitPointsRuleElement extends RuleElement<LoseHitPointsRuleSchema> {
         }
     }
 
+    /**
+     * If the lost hitpoints are unrecoverable and this rules element was disabled by its
+     * predicate but then becomes reenabled, the actor's current hp might be greater than
+     * its effective max hp.  The max hp isn't available during the earlier stages, so
+     * here we check for this and set the hp to the effective max if it is over.
+     */
+    override afterPrepareData(): void {
+        if (this.ignored || !this.test()) return;
+
+        const { actor } = this;
+        if (!this.recoverable) {
+            const maxHP = actor.hitPoints.max;
+            const unrecoverableHP = actor.system.attributes.hp.unrecoverable;
+            const effectiveMaxHP = maxHP - unrecoverableHP;
+            const currentHP = actor.system.attributes.hp.value;
+            if (currentHP > effectiveMaxHP) {
+                this.actor.update(
+                    { "system.attributes.hp.value": effectiveMaxHP },
+                    /* We want the change to be visible on the character sheet right away
+                       so the HP doesn't jump unexpectedly at some later point.
+                    */
+                    { render: true },
+                );
+            }
+        }
+    }
+
     override async preUpdate(changes: DeepPartial<ItemSourcePF2e>): Promise<void> {
-        if (!this.reevaluateOnUpdate || this.ignored) return;
+        if (!this.reevaluateOnUpdate || this.ignored || !this.test()) return;
         const previousValue = Math.trunc(Math.abs(Number(this.resolveValue(this.value)) || 0));
         const newItem = this.item.clone(changes);
         const rule = newItem.system.rules.find((r): r is LoseHitPointsSource => r.key === this.key);
