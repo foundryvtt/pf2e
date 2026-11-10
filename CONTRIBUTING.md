@@ -28,7 +28,7 @@ The project uses vite to bundle the ES module and compile the SASS files needed 
 
 ## How to Help
 
-As a project, we are currently using the `v14-dev` branch for development and release. If you want to contribute code and/or content changes you can start by making making your own fork of this project. You can then push changes to a branch on your fork and open a pull request for your branch to our development branch. After being reviewed it may be pulled into our development branch by one of this project's maintainers.
+As a project, we use the repository's default branch (currently `v14-dev`) for both development and releases. If you want to contribute code and/or content changes, you can start by making your own fork of this project. You can then push changes to a branch on your fork and open a pull request for your branch to our development branch. After being reviewed it may be pulled into our development branch by one of this project's maintainers.
 
 ### Compendium Content
 
