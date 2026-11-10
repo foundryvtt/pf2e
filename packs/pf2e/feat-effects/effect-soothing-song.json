@@ -4,7 +4,7 @@
     "name": "Effect: Soothing Song",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Soothing Song]</p>\n<p>The @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] condition is suppressed, and you gain a +1 status bonus to Will saves.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Soothing Song]</p>\n<p>The fatigued condition is suppressed for you, and you gain a +1 status bonus to Will saves.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -34,7 +34,12 @@
                     "self:signature:{item|origin.signature}"
                 ],
                 "radius": 30,
-                "slug": "soothing-song"
+                "slug": "soothing-song",
+                "traits": [
+                    "auditory",
+                    "emotion",
+                    "mental"
+                ]
             },
             {
                 "key": "AdjustModifier",
@@ -60,11 +65,7 @@
         },
         "traits": {
             "rarity": "common",
-            "value": [
-                "aura",
-                "emotion",
-                "mental"
-            ]
+            "value": []
         }
     },
     "type": "effect"
