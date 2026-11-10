@@ -1,0 +1,71 @@
+{
+    "_id": "s0othSongAura9fx",
+    "img": "icons/skills/trades/music-singing-voice-blue.webp",
+    "name": "Effect: Soothing Song",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Soothing Song]</p>\n<p>The @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] condition is suppressed, and you gain a +1 status bonus to Will saves.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "includesSelf": false,
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Soothing Song"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
+                "radius": 30,
+                "slug": "soothing-song"
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "penalty:slug:fatigued"
+                ],
+                "selector": "all",
+                "suppress": true
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "will",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "aura",
+                "emotion",
+                "mental"
+            ]
+        }
+    },
+    "type": "effect"
+}
