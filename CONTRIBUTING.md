@@ -16,10 +16,9 @@ This project uses vite to bundle the ES module and compile the SASS files needed
 
 - Clone the repository into a local folder (e.g. `git clone https://github.com/foundryvtt/pf2e.git`) and navigate to the created folder.
 
-- Install dependencies with `pnpm install`. This only need to be done once as pnpm installs dependency changes automatically whenever one of the scripts is run.
+- Install dependencies with `pnpm install`. This only needs to be done once as pnpm installs dependency changes automatically whenever one of the scripts is run.
 
-- Link builds to your local FoundryVTT data folder. This can be done manually or by running `pnpm run link` and following the instructions (`pnpm link` without `run` is a built-in pnpm command).
-
+- Link the builds in the folder (`dist`) to your local FoundryVTT data folder with symbolic links. This can be done manually or by running `pnpm run link` and following the instructions (`pnpm link` without `run` is a built-in pnpm command).
 
 #### Systems
 
@@ -29,12 +28,11 @@ This project uses vite to bundle the ES module and compile the SASS files needed
 
 #### Anachronism Modules
 
-- Run `pnpm run build:anachronism` to perform a one-off build of both anachronism modules. Adding `--module=pf2e-anachronism` or `--module=sf2e-anachronism` will perform a one-off build of only the first specific anachronism module.
+- Run `pnpm run build:anachronism` to perform a one-off build of both anachronism modules. Adding `--module=pf2e-anachronism` or `--module=sf2e-anachronism` will perform a one-off build of only that anachronism module.
 
 ### Updating Compendia
 
 - To update a compedium first edit the item directly in the built world's compendium (rather than editing the json files directly). Then run `pnpm run extractPacks all` for pf2e or `pnpm run extractPacks all --system=sf2e` for sf2e. You can also specify the pack folder name instead of `all`.
-
 
 ## How to Help
 
