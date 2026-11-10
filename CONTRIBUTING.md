@@ -48,7 +48,7 @@ As new OGL and/or ORC content is released by Paizo, we would like to incorporate
 
 ### Pull Requests
 
-Pull requests ("PRs") can be made by anyone. PR titles should be in imperative mood and state clearly and concisely what is being changed. A PR descriptions is often needed to expand on any details. For new contributors, continuous integration ("CI") actions must be manually triggered by the system maintainers. For existing collaborators and contributors, CI actions will automatically trigger.
+Pull requests ("PRs") can be made by anyone. PR titles should be in imperative mood and state clearly and concisely what is being changed. A PR descriptions is often needed to expand on any details. For new contributors, continuous integration ("CI") actions must be manually triggered by the system maintainers. For contributors who have had a PR merged, CI actions will trigger automatically
 
 Unsolicited new features are generally not accepted. If you would like to contribute one, we suggest you first find or open an issue detailing the feature gap. From there, we can discuss solutions you have in mind and—if we prefer to go a different direction—possibly save you some headache and wasted effort.
 
