@@ -45,7 +45,11 @@ import { WeaponPF2e } from "@item";
 import type { AbilityTrait } from "@item/ability/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ActionCost } from "@item/base/data/index.ts";
-import { getPropertyRuneAttackNotes, getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
+import {
+    getPropertyRuneAttackNotes,
+    getPropertyRuneDegreeAdjustments,
+    getPropertyRuneStrikeAdjustments,
+} from "@item/physical/runes.ts";
 import type { EffectAreaShape, ItemType } from "@item/types.ts";
 import type { WeaponRuneSource, WeaponSource } from "@item/weapon/data.ts";
 import { processTwoHandTrait } from "@item/weapon/helpers.ts";
