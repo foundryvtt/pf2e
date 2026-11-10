@@ -1,14 +1,33 @@
 {
     "$schema": "./node_modules/oxlint/configuration_schema.json",
-    "categories": { "correctness": "off" },
-    "options": { "typeAware": true },
-    "jsPlugins": ["./build/lib/oxlint-plugin.ts"],
-    "ignorePatterns": ["dist/**/*", "packs/**/*", "static/lib/**/*", "*.mjs"],
+    "categories": {
+        "correctness": "off"
+    },
+    "options": {
+        "typeAware": true
+    },
+    "jsPlugins": [
+        "./build/lib/oxlint-plugin.ts"
+    ],
+    "ignorePatterns": [
+        "dist/**/*",
+        "packs/**/*",
+        "static/lib/**/*",
+        "*.mjs"
+    ],
     "overrides": [
         {
-            "files": ["**/*.ts", "**/*.mts"],
-            "plugins": ["typescript"],
-            "env": { "es2024": true, "browser": true },
+            "files": [
+                "**/*.ts",
+                "**/*.mts"
+            ],
+            "plugins": [
+                "typescript"
+            ],
+            "env": {
+                "es2024": true,
+                "browser": true
+            },
             "rules": {
                 "for-direction": "error",
                 "no-async-promise-executor": "error",
@@ -38,7 +57,12 @@
                 "no-prototype-builtins": "error",
                 "no-regex-spaces": "error",
                 "no-self-assign": "error",
-                "no-shadow-restricted-names": ["error", { "reportGlobalThis": false }],
+                "no-shadow-restricted-names": [
+                    "error",
+                    {
+                        "reportGlobalThis": false
+                    }
+                ],
                 "no-sparse-arrays": "error",
                 "no-unassigned-vars": "error",
                 "no-unexpected-multiline": "error",
@@ -57,10 +81,24 @@
                 "prefer-const": "error",
                 "prefer-rest-params": "error",
                 "prefer-spread": "error",
-                "curly": ["error", "multi-line", "consistent"],
+                "curly": [
+                    "error",
+                    "multi-line",
+                    "consistent"
+                ],
                 "eqeqeq": "error",
-                "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
-                "no-unused-expressions": ["error", { "allowShortCircuit": true }],
+                "no-plusplus": [
+                    "error",
+                    {
+                        "allowForLoopAfterthoughts": true
+                    }
+                ],
+                "no-unused-expressions": [
+                    "error",
+                    {
+                        "allowShortCircuit": true
+                    }
+                ],
                 "no-unused-vars": [
                     "error",
                     {
@@ -71,16 +109,36 @@
                 ],
                 "no-var": "error",
                 "pf2e/no-dom-instanceof": "error",
-                "typescript/array-type": ["error", { "default": "array" }],
+                "typescript/array-type": [
+                    "error",
+                    {
+                        "default": "array"
+                    }
+                ],
                 "typescript/await-thenable": "error",
                 "typescript/ban-ts-comment": "error",
-                "typescript/explicit-module-boundary-types": ["error", { "allowHigherOrderFunctions": true }],
+                "typescript/explicit-module-boundary-types": [
+                    "error",
+                    {
+                        "allowHigherOrderFunctions": true
+                    }
+                ],
                 "typescript/no-duplicate-enum-values": "error",
-                "typescript/no-empty-object-type": ["error", { "allowInterfaces": "with-single-extends" }],
+                "typescript/no-empty-object-type": [
+                    "error",
+                    {
+                        "allowInterfaces": "with-single-extends"
+                    }
+                ],
                 "typescript/no-explicit-any": "error",
                 "typescript/no-extra-non-null-assertion": "error",
                 "typescript/no-misused-new": "error",
-                "typescript/no-namespace": ["error", { "allowDeclarations": true }],
+                "typescript/no-namespace": [
+                    "error",
+                    {
+                        "allowDeclarations": true
+                    }
+                ],
                 "typescript/no-non-null-asserted-optional-chain": "error",
                 "typescript/no-require-imports": "error",
                 "typescript/no-this-alias": "error",
@@ -92,7 +150,9 @@
             }
         },
         {
-            "files": ["types/foundry/**/*.mts"],
+            "files": [
+                "types/foundry/**/*.mts"
+            ],
             "rules": {
                 "typescript/no-explicit-any": "off",
                 "typescript/no-unsafe-function-type": "off"
