@@ -18,7 +18,7 @@ This project uses vite to bundle the ES module and compile the SASS files needed
 
 - Install dependencies with `pnpm install`. This only needs to be done once as pnpm installs dependency changes automatically whenever one of the scripts is run.
 
-- Link the builds in the folder (`dist`) to your local FoundryVTT data folder with symbolic links. This can be done manually or by running `pnpm run link` and following the instructions (`pnpm link` without `run` is a built-in pnpm command).
+- Run `pnpm run link` and enter the path to your Foundry data folder when prompted (`pnpm link` without `run` is a built-in pnpm command). This symlinks each build in `dist` into your Foundry data: systems into `Data/systems` and anachronism modules into `Data/modules`. You can also create these symlinks manually.
 
 #### Systems
 
@@ -32,7 +32,7 @@ This project uses vite to bundle the ES module and compile the SASS files needed
 
 ### Updating Compendia
 
-- To update a compedium first edit the item directly in the built world's compendium (rather than editing the json files directly). Then run `pnpm run extractPacks all` for pf2e or `pnpm run extractPacks all --system=sf2e` for sf2e. You can also specify the pack folder name instead of `all`.
+- To update a compendium first edit the item directly in the built world's compendium (rather than editing the json files directly). Then run `pnpm run extractPacks all` for pf2e or `pnpm run extractPacks all --system=sf2e` for sf2e. You can also specify the pack folder name instead of `all`.
 
 ## How to Help
 
