@@ -372,7 +372,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         this.#activateInventoryDragDrop(inventoryPanel);
 
         // Allow use of search inputs when sheet is not editable
-        if (!this.isEditable && this.actor.testUserPermission(game.user, "OBSERVER")) {
+        if (!this.isEditable) {
             for (const input of html.querySelectorAll<HTMLInputElement>("input[type=search]")) {
                 input.disabled = false;
             }
