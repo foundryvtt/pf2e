@@ -51,8 +51,9 @@
         if (
             !(event.target && fu.isElementInstanceOf(event.target, HTMLButtonElement)) ||
             !event.target.classList.contains("name")
-        )
+        ) {
             return;
+        }
         event.preventDefault();
         const names = Array.from(event.currentTarget.querySelectorAll<HTMLButtonElement>("button.name"));
         names[names.indexOf(event.target) + (event.key === "ArrowDown" ? 1 : -1)]?.focus();
@@ -83,8 +84,9 @@
                 // Prepared counts compare numerically, and slotless rows sort last
                 if (sort.column === "prepared") {
                     const [ca, cb] = [a.slots?.preparedCount, b.slots?.preparedCount];
-                    if (ca === undefined || cb === undefined)
+                    if (ca === undefined || cb === undefined) {
                         return Number(ca === undefined) - Number(cb === undefined);
+                    }
                     return direction * (ca - cb);
                 }
                 const [va, vb] = [value(a), value(b)];
