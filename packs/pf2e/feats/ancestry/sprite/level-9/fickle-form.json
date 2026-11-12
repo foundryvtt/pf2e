@@ -25,7 +25,59 @@
             "remaster": true,
             "title": "Pathfinder Feybound"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "fickle-form",
+                "suboptions": [
+                    {
+                        "label": "PF2E.ActorSizeSmall",
+                        "predicate": [
+                            {
+                                "not": "self:heritage:pixie-sprite"
+                            }
+                        ],
+                        "value": "small"
+                    },
+                    {
+                        "label": "PF2E.ActorSizeTiny",
+                        "predicate": [
+                            "self:heritage:pixie-sprite"
+                        ],
+                        "value": "tiny"
+                    },
+                    {
+                        "label": "PF2E.ActorSizeMedium",
+                        "predicate": [
+                            "self:heritage:pixie-sprite"
+                        ],
+                        "value": "medium"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "fickle-form:small"
+                ],
+                "value": "small"
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "fickle-form:tiny"
+                ],
+                "value": "tiny"
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "fickle-form:medium"
+                ],
+                "value": "medium"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

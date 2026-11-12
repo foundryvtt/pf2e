@@ -12,7 +12,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>Your broad repertoire of instruments and performances allows you to showcase many different styles, provided you have time to rehearse beforehand. As part of your daily preparations, you can select a second specialty from @UUID[Compendium.pf2e.feats-srd.Item.Virtuosic Performer]. You gain the benefits of Virtuosic Performer for the selected specialty until you select a different specialty.</p>\n<p>Additionally, whenever you @UUID[Compendium.pf2e.actionspf2e.Item.Perform] with the bonus from Virtuosic Performer, you gain temporary Hit Points equal to half your level that last for 1 round.</p>"
+            "value": "<p>Your broad repertoire of instruments and performances allows you to showcase many different styles, provided you have time to rehearse beforehand. As part of your daily preparations, you can select a second specialty from @UUID[Compendium.pf2e.feats-srd.Item.Virtuosic Performer]. You gain the benefits of Virtuosic Performer for the selected specialty until you select a different specialty.</p>\n<p>Additionally, whenever you @UUID[Compendium.pf2e.actionspf2e.Item.Perform] with the bonus from Virtuosic Performer, you gain temporary Hit Points equal to half your level that last for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Adaptable Performer]</p>"
         },
         "level": {
             "value": 9
@@ -32,7 +32,120 @@
             "remaster": true,
             "title": "Pathfinder Feybound"
         },
-        "rules": [],
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "adaptable-performer",
+                "suboptions": [
+                  {
+                    "label": "PF2E.SpecificRule.VirtuosicPerformer.Acting",
+                    "value": "acting",
+                    "predicate": [
+                      {
+                        "not": "virtuosic-performer:acting"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "PF2E.SpecificRule.VirtuosicPerformer.Comedy",
+                    "value": "comedy",
+                    "predicate": [
+                      {
+                        "not": "virtuosic-performer:comedy"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "PF2E.SpecificRule.VirtuosicPerformer.Dance",
+                    "value": "dance",
+                    "predicate": [
+                      {
+                        "not": "virtuosic-performer:dance"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "PF2E.SpecificRule.VirtuosicPerformer.Keyboards",
+                    "value": "keyboards",
+                    "predicate": [
+                      {
+                        "not": "virtuosic-performer:keyboards"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "PF2E.SpecificRule.VirtuosicPerformer.Oratory",
+                    "value": "oratory",
+                    "predicate": [
+                      {
+                        "not": "virtuosic-performer:oratory"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "PF2E.SpecificRule.VirtuosicPerformer.Percussion",
+                    "value": "percussion",
+                    "predicate": [
+                      {
+                        "not": "virtuosic-performer:percussion"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "PF2E.SpecificRule.VirtuosicPerformer.Singing",
+                    "value": "singing",
+                    "predicate": [
+                      {
+                        "not": "virtuosic-performer:singing"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "PF2E.SpecificRule.VirtuosicPerformer.Strings",
+                    "value": "strings",
+                    "predicate": [
+                      {
+                        "not": "virtuosic-performer:strings"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "PF2E.SpecificRule.VirtuosicPerformer.Winds",
+                    "value": "winds",
+                    "predicate": [
+                      {
+                        "not": "virtuosic-performer:winds"
+                      }
+                    ]
+                  }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:perform:{item|flags.system.rulesSelections.adaptablePerformer}"
+                ],
+                "selector": "performance",
+                "type": "circumstance",
+                "value": "ternary(gte(@actor.system.skills.performance.rank,3),2,1)"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:perform:{item|flags.system.rulesSelections.adaptablePerformer}",
+                            "action:perform:{actor|flags.pf2e.performanceType}"
+                        ]
+                    }
+                ],
+                "selector": "performance",
+                "text": "PF2E.SpecificRule.Faun.AdaptablePerformer.Note",
+                "title": "{item|name}"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
