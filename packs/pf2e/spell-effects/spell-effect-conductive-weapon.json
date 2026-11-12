@@ -51,35 +51,21 @@
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
-                "predicate": [
-                    {
-                        "not": "target:metal"
-                    }
-                ],
                 "property": "property-runes",
                 "value": "shock"
             },
             {
-                "damageType": "electricity",
-                "diceNumber": 1,
-                "dieSize": "d12",
-                "key": "DamageDice",
+                "key": "DamageAlteration",
+                "mode": "upgrade",
                 "predicate": [
                     "target:metal"
                 ],
-                "selector": "{item|flags.system.rulesSelections.weapon}-damage"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
+                "property": "dice-faces",
+                "selectors": [
+                    "strike-damage"
                 ],
-                "predicate": [
-                    "target:metal"
-                ],
-                "selector": "{item|flags.system.rulesSelections.weapon}-damage",
-                "text": "PF2E.WeaponPropertyRune.shock.Note.criticalSuccess",
-                "title": "PF2E.WeaponPropertyRune.shock.Name"
+                "slug": "shock",
+                "value": 12
             }
         ],
         "start": {
