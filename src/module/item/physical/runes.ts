@@ -14,7 +14,7 @@ import { ArmorPropertyRuneType, ResilientRuneType } from "@item/armor/types.ts";
 import { SpellTrait } from "@item/spell/types.ts";
 import { StrikingRuneType, WeaponPropertyRuneType, WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { OneToFour, Rarity, ZeroToFour, ZeroToSix } from "@module/data.ts";
-import { RollNoteSource } from "@module/notes.ts";
+import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 import { StrikeAdjustment } from "@module/rules/synthetics.ts";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import { Predicate } from "@system/predication.ts";
@@ -97,6 +97,15 @@ function getPropertyRuneDegreeAdjustments(item: WeaponPF2e | MeleePF2e): DegreeO
             ? item.system.runes.effects.map((p) => WEAPON_PROPERTY_RUNES[p].attack?.dosAdjustments)
             : [];
     return R.unique([property, effects].flat(2)).filter(R.isTruthy);
+}
+
+function getPropertyRuneAttackNotes(item: WeaponPF2e | MeleePF2e): RollNotePF2e[] {
+    const property = item.system.runes.property;
+    const effects = "effects" in item.system.runes ? item.system.runes.effects : [];
+    return [...property, ...effects].flatMap((r) => {
+        const data = WEAPON_PROPERTY_RUNES[r].attack?.notes ?? [];
+        return data.map((d) => new RollNotePF2e({ selector: "strike-attack-roll", ...d }));
+    });
 }
 
 function getPropertyRuneDamage(
@@ -2250,7 +2259,11 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     returning: {
         attack: {
             notes: [
-                { title: "PF2E.WeaponPropertyRune.returning.Name", text: "PF2E.WeaponPropertyRune.returning.Note" },
+                {
+                    title: "PF2E.WeaponPropertyRune.returning.Name",
+                    text: "PF2E.WeaponPropertyRune.returning.Note",
+                    predicate: ["item:thrown"],
+                },
             ],
         },
         level: 3,
@@ -2454,6 +2467,16 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         rarity: "rare",
         slug: "vorpal",
         traits: ["magical"],
+        attack: {
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    predicate: ["check:total:natural:20", "item:melee", "item:damage:type:slashing"],
+                    title: "PF2E.WeaponPropertyRune.vorpal.Name",
+                    text: "PF2E.WeaponPropertyRune.vorpal.Note.criticalSuccess",
+                },
+            ],
+        },
     },
     wounding: {
         damage: {
@@ -2476,6 +2499,7 @@ const RUNE_DATA = {
 
 export {
     RUNE_DATA,
+    getPropertyRuneAttackNotes,
     getPropertyRuneDamage,
     getPropertyRuneDegreeAdjustments,
     getPropertyRuneModifierAdjustments,
