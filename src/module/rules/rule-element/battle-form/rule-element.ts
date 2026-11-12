@@ -1,9 +1,9 @@
 import type { ActorType, CharacterPF2e } from "@actor";
-import type { MovementType } from "@actor/types.ts";
 import { CharacterAttack } from "@actor/character/data.ts";
 import { SENSE_TYPES } from "@actor/creature/values.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { DamageDicePF2e, Modifier } from "@actor/modifiers.ts";
+import type { MovementType } from "@actor/types.ts";
 import { MOVEMENT_TYPES } from "@actor/values.ts";
 import { WeaponPF2e } from "@item";
 import { RollNotePF2e } from "@module/notes.ts";
@@ -158,13 +158,13 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
             const synthetics = (this.actor.synthetics.modifierAdjustments["all-speeds"] ??= []);
             synthetics.push({ slug: "armor-speed-penalty", test: () => true, suppress: true });
         }
+        this.#prepareSize();
     }
 
     override afterPrepareData(): void {
         if (this.ignored) return;
 
         this.#prepareAC();
-        this.#prepareSize();
         this.#prepareSkills();
         this.#prepareSpeeds();
         this.#prepareStrikes();
@@ -255,8 +255,10 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
     /** Adjust the character's size category */
     #prepareSize(): void {
         if (!this.overrides.size) return;
+        this.actor.flags[SYSTEM_ID].polymorphed = false;
         const ruleData = { key: "CreatureSize", label: this.label, value: this.overrides.size };
         new CreatureSizeRuleElement(ruleData, { parent: this.item }).beforePrepareData();
+        this.actor.flags[SYSTEM_ID].polymorphed = true;
     }
 
     #prepareSkills(): void {
