@@ -1,0 +1,91 @@
+{
+    "_id": "Lfk95KGs2y1CxZSg",
+    "img": "icons/tools/laboratory/bowl-liquid-orange.webp",
+    "name": "Effect: Oil of Skating",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Oil of Skating]</p>\n<p>You gain a +10-foot status bonus to your Speed, which doubles if you move on a downhill surface. You lose this bonus if moving on difficult terrain, greater difficult terrain, or uneven ground. Also, you treat the results of any Acrobatics checks made to Balance as one degree worse.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Treasure Vault (Remastered)"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "oil-of-skating",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SkillVariant.NormalSurface",
+                        "value": "normal"
+                    },
+                    {
+                        "label": "PF2E.SkillVariant.DownhillSurface",
+                        "value": "downhill"
+                    },
+                    {
+                        "label": "PF2E.SkillVariant.DifficultTerrainOrUnevenSurface",
+                        "value": "uneven"
+                    }
+                ],
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "oil-of-skating:uneven"
+                    }
+                ],
+                "selector": "land-speed",
+                "slug": "oil-of-skating-bonus",
+                "type": "status",
+                "value": 10
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    "oil-of-skating:downhill"
+                ],
+                "selector": "land-speed",
+                "slug": "oil-of-skating-bonus",
+                "value": 2
+            },
+            {
+                "adjustment": {
+                    "all": "one-degree-worse"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:balance"
+                ],
+                "selector": "acrobatics"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
