@@ -215,6 +215,9 @@ function getWeaponAuxiliaryActions(weapon: WeaponPF2e<CharacterPF2e>): WeaponAux
     const isRealItem = actor.items.has(weapon.id);
     const traitsArray = weapon.system.traits.value;
 
+    if (weapon.system.traits.toggles.combination) {
+        auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "combination" }));
+    }
     if (weapon.system.traits.toggles.modular) {
         auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "modular" }));
     }
@@ -320,7 +323,8 @@ function getAttackAmmo(
     const selected = ammo ? { id: ammo.id, compatible: ammo.isAmmoFor(weapon) } : null;
     const loaded = getLoadedAmmo(weapon);
     const capacity = weapon.system.ammo?.capacity ?? 0;
-    const magsDepleted = loaded.every((a) => a.isOfType("ammo") && a.isMagazine && a.system.uses.value === 0);
+    const magsDepleted =
+        loaded.length > 0 && loaded.every((a) => a.isOfType("ammo") && a.isMagazine && a.system.uses.value === 0);
     const remaining = magsDepleted ? 1 : Math.max(0, capacity - R.sumBy(loaded, (l) => l.quantity));
 
     // Get reload glyph. Repeating weapons always take 3 actions total
