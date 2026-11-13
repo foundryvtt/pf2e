@@ -178,10 +178,6 @@
                     "26irefzj0o9fxuoefpva": {
                         "damage": "1d6+8",
                         "damageType": "slashing"
-                    },
-                    "xhffiszstnp4260rciau": {
-                        "damage": "1d6",
-                        "damageType": "mental"
                     }
                 },
                 "description": {
@@ -193,7 +189,15 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "itemId": "{item|id}",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "base-weapon-thrown"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -274,10 +278,6 @@
                     "gnun21varsanv9662ple": {
                         "damage": "1d6+8",
                         "damageType": "slashing"
-                    },
-                    "y6je2oxewh3g2l31iria": {
-                        "damage": "1d6",
-                        "damageType": "mental"
                     }
                 },
                 "description": {
@@ -324,7 +324,17 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "war-leader",
+                        "traits": [
+                            "emotion",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -490,7 +500,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A thrown weapon gains the effects of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Returning]</em> rune when a mulventok throws it. Thrown weapons the mulventok uses deal an additional @Damage[1d6[mental]] damage, whether used in melee or thrown.</p>"
+                    "value": "<p>A thrown weapon gains the effects of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Returning]</em> rune when a mulventok throws it. Thrown weapons the mulventok uses deal an additional 1d6 mental damage, whether used in melee or thrown.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -499,14 +509,28 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "predicate": [
-                            "thrown-20"
+                        "definition": [
+                            "item:thrown"
                         ],
-                        "selector": "tamchal-chakram-attack",
-                        "text": "PF2E.WeaponPropertyRune.returning.Note",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "returning"
+                    },
+                    {
+                        "damageType": "mental",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:tag:base-weapon-thrown",
+                                    "item:thrown"
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage"
                     }
                 ],
                 "slug": null,
