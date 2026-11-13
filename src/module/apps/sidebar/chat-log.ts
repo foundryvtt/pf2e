@@ -478,6 +478,11 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
             );
         };
 
+        const canRepeatAsBlind: ContextMenuCondition = (li) => {
+            const message = game.messages.get(li.dataset.messageId, { strict: true });
+            return message.isRerollable && !message.blind;
+        };
+
         const canShowRollDetails: ContextMenuCondition = (li) => {
             const message = game.messages.get(li.dataset.messageId, { strict: true });
             return game.user.isGM && !!message.flags[SYSTEM_ID].context;
@@ -582,6 +587,15 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 onClick: (_e: PointerEvent, li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
                     Check.rerollFromMessage(message, { keep: "higher" });
+                },
+            },
+            {
+                label: "PF2E.RerollMenu.RepeatBlind",
+                icon: "fa-solid fa-eye-slash",
+                visible: canRepeatAsBlind,
+                onClick: (_e: PointerEvent, li: HTMLElement): void => {
+                    const message = game.messages.get(li.dataset.messageId, { strict: true });
+                    Check.repeatAsBlindFromMessage(message);
                 },
             },
         );
