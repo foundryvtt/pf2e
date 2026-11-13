@@ -642,14 +642,17 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
             // Set default token dimensions for familiars and vehicles
             const dimensionMap: { [K in ActorType]?: number } = { familiar: 0.5, vehicle: 2 };
-            merged.prototypeToken.height ??= dimensionMap[source.type] ?? 1;
-            merged.prototypeToken.width ??= merged.prototypeToken.height;
+            const dimension = dimensionMap[source.type] ?? 1;
+            merged.prototypeToken.height ??= dimension;
+            merged.prototypeToken.width ??= dimension;
+            merged.prototypeToken.depth ??= dimension;
 
             const sourceSize = source.system?.traits?.size?.value;
             if (linkToActorSize && sourceSize) {
-                const { width, height } = new ActorSizePF2e({ value: sourceSize }).tokenDimensions;
+                const { width, height, depth } = new ActorSizePF2e({ value: sourceSize }).tokenDimensions;
                 merged.prototypeToken.width = width;
                 merged.prototypeToken.height = height;
+                merged.prototypeToken.depth = depth;
             }
 
             switch (merged.type) {
@@ -968,6 +971,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             const tokenDimensions = this.system.traits.size.tokenDimensions;
             prototypeToken.width = tokenDimensions.width;
             prototypeToken.height = tokenDimensions.height;
+            prototypeToken.depth = tokenDimensions.depth;
         }
         TokenDocumentPF2e.prepareScale(prototypeToken);
     }

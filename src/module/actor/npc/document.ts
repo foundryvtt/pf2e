@@ -591,6 +591,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             const prototypeToken = (changes.prototypeToken ??= {});
             prototypeToken.width = newSize.wide / 5;
             prototypeToken.height = newSize.long / 5;
+            prototypeToken.depth = newSize.high / 5;
         }
     }
 }
