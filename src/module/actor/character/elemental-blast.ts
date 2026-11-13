@@ -13,6 +13,7 @@ import type { WeaponDamage } from "@item/weapon/data.ts";
 import type { WeaponTrait } from "@item/weapon/types.ts";
 import type { OneToTwo } from "@module/data.ts";
 import {
+    extractDamageBypasses,
     extractDamageDice,
     extractModifierAdjustments,
     extractModifiers,
@@ -492,6 +493,10 @@ class ElementalBlast {
             dice: damageSynthetics.dice,
             modifiers,
             base: [baseDamage],
+            bypass: extractDamageBypasses(context.origin.actor.synthetics.damageBypasses, domains, {
+                test: context.options,
+                resolvables: { blast: item, target: context.target?.actor ?? null },
+            }),
         };
 
         const damageContext: DamageDamageContext = {
@@ -515,7 +520,7 @@ class ElementalBlast {
             formulaData,
             outcome === "success" ? DEGREE_OF_SUCCESS.SUCCESS : DEGREE_OF_SUCCESS.CRITICAL_SUCCESS,
         );
-        const roll = new DamageRoll(damageData.formula);
+        const roll = new DamageRoll(damageData.formula, {}, { bypass: formulaData.bypass });
 
         if (params.getFormula) return roll.formula;
 

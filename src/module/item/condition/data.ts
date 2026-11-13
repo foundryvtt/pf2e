@@ -3,6 +3,7 @@ import type { AbstractEffectSchema, DurationData } from "@item/abstract-effect/d
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import { ItemSystemModel } from "@item/base/data/model.ts";
 import type { BaseItemSourcePF2e, ItemSystemSource } from "@item/base/data/system.ts";
+import type { ImmunityType, ResistanceType } from "@actor/types.ts";
 import type { ItemType } from "@item/types.ts";
 import type { DamageType } from "@system/damage/index.ts";
 import type { DamageRoll } from "@system/damage/roll.ts";
@@ -62,6 +63,21 @@ class ConditionSystemData extends ItemSystemModel<ConditionPF2e, ConditionSystem
                     }),
                     dc: new fields.NumberField({ required: true, nullable: false, initial: 15 }),
                     criticalHit: new fields.BooleanField({ required: true, nullable: false, initial: false }),
+                    ignoredResistances: new fields.ArrayField(
+                        new fields.SchemaField({
+                            type: new fields.StringField({ required: true, nullable: false, blank: false }),
+                            max: new fields.NumberField({ required: true, nullable: true, initial: null }),
+                        }),
+                    ),
+                    ignoredImmunities: new fields.ArrayField(
+                        new fields.StringField({ required: true, nullable: false, blank: false }),
+                    ),
+                    downgradedImmunities: new fields.ArrayField(
+                        new fields.SchemaField({
+                            type: new fields.StringField({ required: true, nullable: false, blank: false }),
+                            resistance: new fields.NumberField({ required: true, nullable: false, initial: 1 }),
+                        }),
+                    ),
                 },
                 { required: true, nullable: true, initial: null },
             ),
@@ -152,6 +168,23 @@ type PersistentDamageValueSchema = {
     dc: fields.NumberField<number, number, true, false, true>;
     /** Whether this damage was multiplied due to a critical hit */
     criticalHit: fields.BooleanField<boolean, boolean, true, false, true>;
+    /** Resistances the originating damage ignored, to be ignored again by each roll of this persistent damage */
+    ignoredResistances: fields.ArrayField<
+        fields.SchemaField<{
+            type: fields.StringField<ResistanceType, ResistanceType, true, false, false>;
+            /** The most resistance ignored: `null` is unlimited, since `Infinity` can't be stored */
+            max: fields.NumberField<number, number, true, true, true>;
+        }>
+    >;
+    /** Immunities the originating damage ignored */
+    ignoredImmunities: fields.ArrayField<fields.StringField<ImmunityType, ImmunityType, true, false, false>>;
+    /** Immunities the originating damage treated as resistances instead */
+    downgradedImmunities: fields.ArrayField<
+        fields.SchemaField<{
+            type: fields.StringField<ImmunityType, ImmunityType, true, false, false>;
+            resistance: fields.NumberField<number, number, true, false, true>;
+        }>
+    >;
 };
 
 interface PersistentDamageData extends SourceFromSchema<PersistentDamageValueSchema> {

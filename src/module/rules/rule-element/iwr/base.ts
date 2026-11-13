@@ -157,7 +157,7 @@ type IWRExceptionField<TType extends string = string> = DataUnionField<
 
 type IWRException<TType extends IWRType = IWRType> = TType | { definition: Predicate; label: string };
 
-type IWRChangeMode = Extract<AELikeChangeMode, "add" | "remove">;
+type IWRChangeMode = Extract<AELikeChangeMode, "add" | "remove" | "subtract">;
 
 interface IWRRuleElementSource extends RuleElementSource {
     mode?: unknown;

@@ -81,7 +81,7 @@ interface DamageIRBypassData {
 
 interface DowngradedImmunity {
     type: ImmunityType;
-    resistence: number;
+    resistance: number;
 }
 
 /** A resistance type to ignore up to a maximum (possibly `Infinity`) */
@@ -170,6 +170,8 @@ export type {
     DamageTemplate,
     DamageType,
     DamageTypeRenderData,
+    DowngradedImmunity,
+    IgnoredResistance,
     ImmunityRedirect,
     MaterialDamageEffect,
     ResistanceRedirect,
