@@ -57,6 +57,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
                 const pubSource = String(details.publication?.title ?? details.source?.value ?? "").trim();
                 const options: string[] = [
                     ...system.traits.value.map((t: string) => `trait:${t.replace(/^hb_/, "")}`),
+                    ...(system.traits.otherTags ?? []).map((tag: string) => `tag:${tag}`),
                     `level:${system.details.level.value}`,
                     `rarity:${system.traits.rarity}`,
                     `size:${system.traits.size.value}`,
@@ -112,6 +113,11 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
                 isExpanded: false,
                 label: "PF2E.CompendiumBrowser.Filter.Source",
                 options: {},
+                selected: [],
+            },
+            tags: {
+                conjunction: "and",
+                options: [],
                 selected: [],
             },
             traits: {
