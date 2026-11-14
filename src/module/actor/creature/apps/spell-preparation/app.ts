@@ -22,6 +22,8 @@ class SpellPreparationApp extends SvelteApplicationMixin<
 >(fa.api.ApplicationV2) {
     static override DEFAULT_OPTIONS: DeepPartial<SpellPreparationConfiguration> = {
         id: "{id}",
+        // A form, so core ignores keybindings while a button is focused
+        tag: "form",
         classes: ["spell-preparation"],
         position: { width: 515, height: 600 },
         window: { icon: "fa-solid fa-book-open-reader", contentClasses: ["standard-form", "compact"], resizable: true },

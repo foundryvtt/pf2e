@@ -10,11 +10,22 @@
     }
 
     const { search, label, resultsLabel }: SearchInputProps = $props();
+    // An id for the browser's form field check. `form=""` keeps it out of a host form, so a read-only sheet
+    // leaves it usable
+    const uid = $props.id();
 </script>
 
 <div class="search">
     <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-    <input type="search" spellcheck="false" bind:value={search.query} placeholder={label} aria-label={label} />
+    <input
+        type="search"
+        id="{uid}-search"
+        spellcheck="false"
+        bind:value={search.query}
+        placeholder={label}
+        aria-label={label}
+        form=""
+    />
 </div>
 <p class="search-results" role="status">
     {#if search.active}
