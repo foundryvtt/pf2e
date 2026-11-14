@@ -499,7 +499,7 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.7tKkkF8eZ4iCLJtp"
             },
             "img": "icons/weapons/swords/sword-guard-purple.webp",
-            "name": "Shortsword",
+            "name": "Hunting Sword",
             "sort": 900000,
             "system": {
                 "ammo": null,
@@ -872,14 +872,37 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>30 feet. Those who meet the gaze of a wild hunt huntsmaster are overwhelmed by the pressure of the hunt's legacy. A creature that ends its turn in the emanation must succeed at a @Check[will|dc:37] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure) until it leaves. The wild hunt huntsmaster can deactivate or activate this aura with a single action, which has the concentrate trait.</p>"
+                    "value": "<p>30 feet. Those who meet the gaze of a wild hunt huntsmaster are overwhelmed by the pressure of the hunt's legacy. A creature that ends its turn in the emanation must succeed at a @Check[will|dc:37|options:area-effect,inflicts:slowed] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure) until it leaves. The wild hunt huntsmaster can deactivate or activate this aura with a single action, which has the concentrate trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "wild-gaze",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "wild-gaze"
+                        ],
+                        "radius": 30,
+                        "slug": "wild-gaze",
+                        "traits": [
+                            "emotion",
+                            "fear",
+                            "incapacitation",
+                            "mental",
+                            "primal",
+                            "visual"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
