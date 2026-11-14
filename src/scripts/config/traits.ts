@@ -1185,6 +1185,7 @@ const equipmentTraits = {
     tattoo: "PF2E.TraitTattoo",
     tech: "PF2E.TraitTech",
     teleportation: "PF2E.TraitTeleportation",
+    "true-name": "PF2E.TraitTrueName",
     virtual: "PF2E.TraitVirtual",
     visual: "PF2E.TraitVisual",
     wand: "PF2E.TraitWand",
