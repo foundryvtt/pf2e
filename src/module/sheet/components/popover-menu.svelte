@@ -34,6 +34,15 @@
         // The menu's own window and document, which differ from the globals in a detached window
         const doc = menu.ownerDocument;
         const win = doc.defaultView ?? window;
+        // Unfolds from its trigger with core's context menu timing. The parent wraps the trigger, so a menu centered
+        // above the parent's center has flipped upward.
+        if (!win.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            const { top, height } = menu.getBoundingClientRect();
+            const parent = menu.parentElement?.getBoundingClientRect();
+            const originY = parent ? parent.top + parent.height / 2 : top;
+            const from = top + height / 2 < originY ? "inset(100% 0 0 0)" : "inset(0 0 100% 0)";
+            menu.animate({ clipPath: [from, "inset(0)"] }, { duration: 200, easing: "ease" });
+        }
         menu.querySelector("button")?.focus();
 
         // Activate on pointerup, since no click event arrives if a re-render replaces the item
@@ -70,6 +79,11 @@
         const onDismissKeydown = (event: KeyboardEvent) => {
             if (event.key === "Escape") onClose(true);
         };
+        // Scrolling would carry the anchor away, so it closes the menu
+        const onScroll = (event: Event) => {
+            if (event.target && fu.isElementInstanceOf(event.target, Node) && menu.contains(event.target)) return;
+            onClose(false);
+        };
         // Tab closes the menu and refocuses the trigger, letting the default tab move on from there.
         // No stopPropagation, since data-keyboard-focus already opts out of core keybindings.
         const onMenuKeydown = (event: KeyboardEvent) => {
@@ -82,19 +96,32 @@
             // Focus outside the items (index -1) enters at the first or last item
             buttons.at(index === -1 ? (step === 1 ? 0 : -1) : (index + step) % buttons.length)?.focus();
         };
+        // Pointer moves focus so the mouse and arrow keys share one current item.
+        // On move, not enter: a menu opening under a still pointer keeps its first item focused.
+        const onPointerMove = (event: PointerEvent) => {
+            const item =
+                event.target && fu.isElementInstanceOf(event.target, HTMLElement)
+                    ? event.target.closest<HTMLElement>("button[data-menu-id]")
+                    : null;
+            if (item && item !== doc.activeElement) item.focus({ preventScroll: true });
+        };
         menu.addEventListener("pointerup", onActivate);
         menu.addEventListener("click", onActivate);
         menu.addEventListener("keydown", onMenuKeydown);
+        menu.addEventListener("pointermove", onPointerMove);
         win.addEventListener("pointerup", onWindowPointerup);
         win.addEventListener("pointerdown", onDismissPointerdown);
         win.addEventListener("keydown", onDismissKeydown);
+        win.addEventListener("scroll", onScroll, { capture: true, passive: true });
         return () => {
             menu.removeEventListener("pointerup", onActivate);
             menu.removeEventListener("click", onActivate);
             menu.removeEventListener("keydown", onMenuKeydown);
+            menu.removeEventListener("pointermove", onPointerMove);
             win.removeEventListener("pointerup", onWindowPointerup);
             win.removeEventListener("pointerdown", onDismissPointerdown);
             win.removeEventListener("keydown", onDismissKeydown);
+            win.removeEventListener("scroll", onScroll, { capture: true });
         };
     };
 </script>
@@ -112,9 +139,10 @@
 <style>
     /* Anchored below the trigger, flipping above when out of room */
     .popover-menu {
+        backdrop-filter: blur(4px);
         background: var(--background);
         border: 1px solid var(--table-header-border-color);
-        border-radius: 3px;
+        border-radius: 4px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
         flex-direction: column;
         inset: unset;
@@ -122,7 +150,8 @@
         inset-inline-end: anchor(end);
         margin: 0;
         min-width: max-content;
-        padding: var(--space-2);
+        padding-block: var(--space-2) 0;
+        padding-inline: 0;
         position: fixed;
         position-anchor: --pf2e-popover-menu;
         position-try-fallbacks: flip-block;
@@ -135,8 +164,8 @@
             border-block-end: 1px solid var(--table-header-border-color);
             color: var(--color-text-secondary, inherit);
             font-size: var(--font-size-12);
-            margin-block-end: var(--space-2);
-            padding: var(--space-2) var(--space-4);
+            /* Bottom padding, not a margin, so the first item meets the divider */
+            padding: var(--space-2) var(--space-6) var(--space-4);
             white-space: nowrap;
         }
 
@@ -144,15 +173,25 @@
         button {
             background: none;
             border: none;
+            border-radius: 0;
             height: auto;
             justify-content: start;
             min-height: 0;
-            padding: var(--space-2) var(--space-4);
+            padding: var(--space-2) var(--space-6);
+            transition: none;
 
-            &:hover,
-            &:focus {
-                background: var(--table-row-color-highlight);
+            /* Hover focuses the item, so :focus is the only highlight.
+               Core's button hover colors stand in for the focus ring */
+            &:hover {
+                background: none;
                 color: inherit;
+            }
+
+            &:focus {
+                background: var(--button-hover-background-color);
+                box-shadow: none;
+                color: var(--button-hover-text-color);
+                outline: none;
             }
         }
     }
