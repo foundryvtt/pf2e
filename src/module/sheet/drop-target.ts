@@ -15,6 +15,20 @@ interface DropTargetOptions {
     disabled?: boolean;
 }
 
+const handled = new WeakSet<Event>();
+
+/**
+ * Mark a drop as handled without stopping it. Sortable on AppV1 sheets listens for drop on the document, and without
+ * it would re-sort an item that is being moved to another sheet.
+ */
+function markDropHandled(event: Event): void {
+    handled.add(event);
+}
+
+function isDropHandled(event: Event): boolean {
+    return handled.has(event);
+}
+
 /**
  * Create an attachment that makes an element a drop target. The element has `data-drop-hover` while a drag is over it
  * and not over a nested drop target. Core already cancels `dragover` document-wide, so drops need no handler for it.
@@ -50,11 +64,12 @@ function dropTarget({ onDrop, accept, disabled = false }: DropTargetOptions): At
         const onDropEvent = (event: DragEvent): void => {
             depth = 0;
             setHover(false);
+            if (isDropHandled(event)) return;
             const parsed = fa.ux.TextEditor.implementation.getDragEventData(event);
             const data: DropData = R.isPlainObject(parsed) ? parsed : {};
             if (accept && !accept(data)) return;
             event.preventDefault();
-            event.stopPropagation();
+            markDropHandled(event);
             onDrop(data, event);
         };
 
@@ -70,5 +85,5 @@ function dropTarget({ onDrop, accept, disabled = false }: DropTargetOptions): At
     };
 }
 
-export { dropTarget };
+export { dropTarget, isDropHandled, markDropHandled };
 export type { DropData, DropTargetOptions };
