@@ -58,6 +58,39 @@
                     "firearm-weapon-group-damage",
                     "crossbow-weapon-group-damage"
                 ]
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "siegebreaker-damage",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:group:firearm",
+                                    {
+                                        "or": [
+                                            "item:trait:scatter",
+                                            "item:trait:kickback"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:group:crossbow",
+                                    "item:usage:hands:2"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": [
+                    "firearm-weapon-group-damage",
+                    "crossbow-weapon-group-damage"
+                ],
+                "text": "PF2E.SpecificRule.Gunslinger.Siegebreaker.DamageNote",
+                "title": "{item|name}"
             }
         ],
         "traits": {
