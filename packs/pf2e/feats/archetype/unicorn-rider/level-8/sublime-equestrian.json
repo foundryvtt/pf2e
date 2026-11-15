@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>While you're @UUID[Compendium.pf2e.other-effects.Item.Effect: Mounted]{mounted} upon your unicorn, all allies in a @Template[type:emanation|distance:10] around your unicorn gain a +1 status bonus to saving throws against diseases and poisons and reduce the DC of the flat check to recover from persistent damage to 13 (or to 8 with an assisted recovery). Any @UUID[Compendium.pf2e.conditionitems.Item.Frightened] ally that ends its turn in the aura reduces its frightened condition by 2 instead of 1.</p>"
+            "value": "<p>While you're @UUID[Compendium.pf2e.other-effects.Item.Effect: Mounted]{mounted} upon your unicorn, all allies in a @Template[emanation|distance:10] around your unicorn gain a +1 status bonus to saving throws against diseases and poisons and reduce the DC of the flat check to recover from persistent damage to 13 (or to 8 with an assisted recovery). Any @UUID[Compendium.pf2e.conditionitems.Item.Frightened] ally that ends its turn in the aura reduces its frightened condition by 2 instead of 1.</p>"
         },
         "level": {
             "value": 8
@@ -37,7 +37,7 @@
                         "events": [
                             "enter"
                         ],
-                        "includesSelf": true,
+                        "includesSelf": false,
                         "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Sublime Equestrian"
                     }
                 ],
@@ -46,7 +46,10 @@
                     "self:effect:mounted"
                 ],
                 "radius": 10,
-                "slug": "sublime-equestrian"
+                "slug": "sublime-equestrian",
+                "traits": [
+                    "primal"
+                ]
             }
         ],
         "subfeatures": {
