@@ -1,0 +1,65 @@
+{
+    "_id": "1JeF84j0rJydHlLv",
+    "folder": "rwCmN7h3FIKUC2kt",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Enhanced Olfactory System",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your olfactory system has been enhanced with a more powerful and precise sense of smell. You gain imprecise scent with a range of 30 feet. This means you can use your sense of smell to determine a creature's location. The GM will usually double the range if you're downwind from the creature or halve the range if you're upwind.</p>\n<p>In addition, you gain a +2 circumstance bonus to Perception checks to [[/act seek]] a creature or object within the range of your scent.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:seek",
+                    "enhanced-olfactory-system"
+                ],
+                "selector": [
+                    "perception"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {
+                "scent": {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "special": {
+                        "ancestry": false,
+                        "llv": false,
+                        "second": false
+                    }
+                }
+            },
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "cyborg"
+            ]
+        }
+    },
+    "type": "feat"
+}

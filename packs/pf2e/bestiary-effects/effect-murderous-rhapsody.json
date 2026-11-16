@@ -1,0 +1,53 @@
+{
+    "_id": "nPpoBcXXcT1SA4L9",
+    "img": "icons/environment/creatures/bug-caterpillar-curled-green.webp",
+    "name": "Effect: Murderous Rhapsody",
+    "system": {
+        "description": {
+            "value": "<p>You gain 10 temporary Hit Points and are quickened for as long as you have these temporary Hit Points.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": 10
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "cascade"
+                },
+                "predicate": [
+                    "hp-temp:source:effect-murderous-rhapsody"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

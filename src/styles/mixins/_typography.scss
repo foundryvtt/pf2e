@@ -21,7 +21,9 @@
     --radius: 3px;
 
     // Redeclared so that popout journals pages match embedded journal pages and item summaries
-    :is(h1, h2, h3, h4, h5, h6):not(:first-child) {
+    // Also adds the same margin for embedded feats
+    :is(h1, h2, h3, h4, h5, h6):not(:first-child),
+    document-embed:not(:first-child) > .embed.heading {
         margin-top: 1em;
     }
 
@@ -180,5 +182,18 @@
         font-family: var(--journal-cursive);
         font-size: 2em;
         line-height: 1.2;
+    }
+
+    .embed {
+        &.heading {
+            align-items: baseline;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &.publication {
+            font-style: italic;
+            text-align: right;
+        }
     }
 }

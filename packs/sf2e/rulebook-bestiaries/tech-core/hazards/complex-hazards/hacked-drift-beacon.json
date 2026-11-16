@@ -1,0 +1,115 @@
+{
+    "_id": "T2xb9NaE2RbisYry",
+    "folder": "Xw6klgOmofb4g4Ck",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "1tKRt8KmvJgMXFgy",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Spam Storm",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A starship moves within 1 zone of the hazard or uses any scanners station action targeting the hazard's zone</p><hr /><p><strong>Effect</strong> The trap launches a targeted ad enticing viewers to spend credits on a product or service. All creatures that can see, hear, or sense the ad (including through starship sensors) must attempt a @Check[will|dc:17] save. The trap rolls initiative.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.sf2e.conditions.Item.Dazzled].</p>\n<p><strong>Failure</strong> The creature is dazzled and @UUID[Compendium.sf2e.conditions.Item.Fascinated] until the hazard is disabled.</p>\n<p><strong>Critical Failure</strong> The creature is dazzled and fascinated, and it can't take any actions except to access the nearest computer or comm unit and make purchases as directed by the ad; these effects last until the hazard is disabled.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "incapacitation",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Hacked Drift Beacon",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 16
+            },
+            "emitsSound": "encounter",
+            "hardness": 5,
+            "hp": {
+                "details": "",
+                "max": 24,
+                "temp": 0,
+                "value": 24
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "object-immunities"
+                },
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 7
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A hijacked Drift beacon broadcasts obnoxious ads or some other repetitive message.</p>",
+            "disable": "<p>@Check[computers|dc:20] (trained) to repair the Drift beacon's code, @Check[crafting|dc:22] (trained) to disassemble the trap, or @Check[religion|dc:23] (trained) to consecrate it for Triune</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Tech Core"
+            },
+            "reset": "<p>The trap deactivates and resets after 1 minute.</p>",
+            "routine": "<p>(1 action) The hazard plays a new ad, forcing all creatures that can sense it to attempt a new save against Spam Storm.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 4
+            },
+            "reflex": {
+                "value": 11
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "tech",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

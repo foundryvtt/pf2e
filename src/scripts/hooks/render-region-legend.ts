@@ -13,7 +13,10 @@ export const RenderRegionLegend = {
                 );
                 const tempElem = document.createElement("div");
                 tempElem.innerHTML = markup;
-                return tempElem.firstElementChild instanceof HTMLTemplateElement ? tempElem.firstElementChild : null;
+                return !!tempElem.firstElementChild &&
+                    fu.isElementInstanceOf(tempElem.firstElementChild, HTMLTemplateElement)
+                    ? tempElem.firstElementChild
+                    : null;
             })();
             htmlQuery(html, "div.region-filters")?.before(...(template?.content.children ?? []));
         });

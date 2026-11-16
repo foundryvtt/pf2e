@@ -13,7 +13,7 @@ import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { TokenDocumentPF2e, type ScenePF2e } from "@scene";
-import { treatWoundsMacroCallback } from "@scripts/macros/treat-wounds.ts";
+import { treatWoundsMacroCallback } from "@system/action-macros/medicine/treat-wounds-callback.ts";
 import { StatisticDifficultyClass } from "@system/statistic/index.ts";
 import {
     ErrorPF2e,
@@ -179,9 +179,7 @@ class Check {
         const roll = await new CheckRoll(`${dice}${totalModifierPart}`, {}, options).evaluate({ allowInteractive });
 
         // Collect the check specific options. These only exist for DoS Adjustments and notes
-        const naturalTotal = roll.dice
-            .map((d) => d.results.find((r) => r.active && !r.discarded)?.result ?? null)
-            .find(R.isTruthy);
+        const naturalTotal = roll.naturalResult;
         const postRollOptions = [
             `check:total:${roll.total}`,
             `check:total:natural:${naturalTotal}`,
@@ -203,7 +201,12 @@ class Check {
 
             return (
                 context.dosAdjustments
-                    ?.filter((a) => a.predicate?.test(temporaryRollOptions) ?? true)
+                    ?.filter(
+                        (a) =>
+                            a.predicate?.test(
+                                a.options ? new Set([...postRollOptions, ...a.options]) : temporaryRollOptions,
+                            ) ?? true,
+                    )
                     .reduce((record, data) => {
                         for (const outcome of ["all", ...DEGREE_OF_SUCCESS_STRINGS] as const) {
                             if (data.adjustments[outcome]) {

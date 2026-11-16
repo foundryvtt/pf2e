@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import type { DexterityModifierCapData } from "@actor/character/types.ts";
-import type { LabeledSpeed, SenseData } from "@actor/creature/data.ts";
+import type { SenseData } from "@actor/creature/data.ts";
 import type {
     DamageDicePF2e,
     DeferredDamageDiceOptions,
@@ -9,11 +9,10 @@ import type {
     Modifier,
     ModifierAdjustment,
 } from "@actor/modifiers.ts";
+import type { RollRole } from "@actor/roll-context/types.ts";
 import type { MovementType } from "@actor/types.ts";
 import type { TokenAnimationOptions } from "@client/_module.d.mts";
 import type { TokenDocumentUUID } from "@client/documents/_module.d.mts";
-import type { ImageFilePath, VideoFilePath } from "@common/constants.d.mts";
-import type { TokenSource } from "@common/documents/token.d.mts";
 import type { ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import type { AbilityTrait } from "@item/ability/index.ts";
 import type { ConditionSource, EffectSource } from "@item/base/data/index.ts";
@@ -39,6 +38,7 @@ interface RuleElementSynthetics {
     damageAlterations: Record<string, DamageAlteration[]>;
     damageDice: DamageDiceSynthetics;
     degreeOfSuccessAdjustments: Record<string, DegreeOfSuccessAdjustment[]>;
+    opposingDegreeOfSuccessAdjustments: Record<RollRole, Record<string, DegreeOfSuccessAdjustment[]>>;
     dexterityModifierCaps: DexterityModifierCapData[];
     itemAlterations: ItemAlterationRuleElement[];
     ephemeralEffects: Record<
@@ -47,7 +47,7 @@ interface RuleElementSynthetics {
     >;
     modifierAdjustments: ModifierAdjustmentSynthetics;
     modifiers: ModifierSynthetics;
-    movementTypes: { [K in MovementType]?: DeferredMovementType[] };
+    movementTypes: { [K in MovementType]?: MovementTypeSynthetic[] };
     multipleAttackPenalties: Record<string, MAPSynthetic[]>;
     resources: Record<string, SpecialResourceRuleElement>;
     rollNotes: Record<string, RollNotePF2e[]>;
@@ -61,18 +61,7 @@ interface RuleElementSynthetics {
     toggles: Record<string, Record<string, RollOptionToggle>>;
     tokenEffectIcons: ActiveEffectPF2e<ItemPF2e>[];
     tokenMarks: Map<TokenDocumentUUID, string[]>;
-    tokenOverrides: DeepPartial<Pick<TokenSource, "light" | "name">> & {
-        alpha?: number | null;
-        texture?:
-            | { src: ImageFilePath | VideoFilePath; tint?: Color | null }
-            | { src: ImageFilePath | VideoFilePath; tint?: Color | null; scaleX: number; scaleY: number };
-        ring?: {
-            subject: TokenDocument["ring"]["subject"];
-            colors: TokenDocument["ring"]["colors"];
-            effects: TokenDocument["ring"]["effects"];
-        };
-        animation?: TokenAnimationOptions;
-    };
+    tokenOverrides: { animation?: TokenAnimationOptions };
     weaponPotency: Record<string, PotencySynthetic[]>;
 }
 
@@ -91,13 +80,20 @@ type DeferredMovementType = DeferredValue<BaseSpeedSynthetic | null>;
 type DeferredEphemeralEffect = DeferredPromise<EffectSource | ConditionSource | null>;
 type DeferredStrike = (runes?: WeaponRuneSource) => WeaponPF2e<ActorPF2e> | null;
 
-interface BaseSpeedSynthetic extends Omit<LabeledSpeed, "label" | "type"> {
+interface MovementTypeSynthetic {
+    dependsOn: MovementType[];
+    deferred: DeferredMovementType;
+    test: (options?: { test?: string[] | Set<string> }) => boolean;
+}
+
+interface BaseSpeedSynthetic {
     type: MovementType;
-    /**
-     * Whether this speed is derived from a creature's land speed:
-     * used as a cue to prevent double-application of modifiers
-     */
-    derivedFromLand: boolean;
+    value: number;
+    source: string | null;
+    force: boolean;
+    /** Raw BaseSpeed value; used to classify equal / scaled / independent after the parent exists */
+    formula: string | number;
+    dependsOn: MovementType[];
 }
 
 interface MAPSynthetic {
@@ -174,6 +170,7 @@ export type {
     MAPSynthetic,
     ModifierAdjustmentSynthetics,
     ModifierSynthetics,
+    MovementTypeSynthetic,
     PotencySynthetic,
     RollOptionToggle,
     RollSubstitution,

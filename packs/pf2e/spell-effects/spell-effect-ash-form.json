@@ -4,7 +4,7 @@
     "name": "Spell Effect: Ash Form",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Ash Form]</p>\n<p>You gain fast healing 3, resistance to piercing and slashing damage, and immunity to bleed and precision damage.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Ash Form]</p>\n<p>You gain fast healing 3, resistance to piercing and slashing damage, and immunity to bleed, falling damage, and precision damage.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,9 +16,9 @@
             "value": 6
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder #185: A Taste of Ashes"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
         },
         "rules": [
             {
@@ -39,6 +39,14 @@
                     "bleed",
                     "precision"
                 ]
+            },
+            {
+                "definition": [
+                    "fall-damage"
+                ],
+                "key": "Immunity",
+                "label": "PF2E.IWR.Custom.FallDamage",
+                "type": "custom"
             }
         ],
         "start": {

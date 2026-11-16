@@ -12,7 +12,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You adapt to new hierarchies with ease and find reassurance in a reliable command structure. When using the @UUID[Compendium.sf2e.actions.Item.Follow the Expert] activity in exploration mode, you gain a +3 circumstance bonus if the ally you're following is an expert and a +4 circumstance bonus if your ally is a master. In addition, if you roll a success on your saving throw against a mental effect that would make you controlled, you get a critical success instead.</p>"
+            "value": "<p>You adapt to new hierarchies with ease and find reassurance in a reliable command structure. When using the @UUID[Compendium.sf2e.actions.Item.Follow the Expert] activity in exploration mode, you gain a +3 circumstance bonus if the ally you're following is an expert and a +4 circumstance bonus if your ally is a master. In addition, if you roll a success on your saving throw against a mental effect that would make you @UUID[Compendium.sf2e.conditions.Item.Controlled], you get a critical success instead.</p>"
         },
         "level": {
             "value": 5
@@ -39,7 +39,8 @@
                 },
                 "key": "AdjustDegreeOfSuccess",
                 "predicate": [
-                    "inflicts:controlled"
+                    "inflicts:controlled",
+                    "item:trait:mental"
                 ],
                 "selector": "saving-throw"
             }

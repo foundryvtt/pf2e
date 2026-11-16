@@ -3,11 +3,19 @@
 /* (margin, padding, gap, etc.)              */
 /* ----------------------------------------- */
 
+// Registered so the url resolves against this stylesheet rather than wherever the var is used
+@property --parchment-texture {
+    syntax: "<url>";
+    inherits: true;
+    initial-value: url("");
+}
+
 :root {
     --space-1: 0.0625rem;
     --space-neg-1: -0.0625rem;
     --space-2: 0.125rem;
     --space-3: 0.1875rem;
+    --spacer-3: 0.1875rem;
     --space-4: 0.25rem;
     --space-5: 0.3125rem;
     --space-6: 0.375rem;
@@ -20,8 +28,12 @@
     --space-13: 0.8125rem;
     --space-14: 0.875rem;
     --space-15: 0.9375rem;
-    --space-17: var(--font-size-17);
-    --space-21: var(--font-size-21);
+    --space-17: 1.0625rem;
+    --space-21: 1.3125rem;
+    --spacer-20: 1.25rem;
+    --spacer-24: 1.5rem;
+    --spacer-28: 1.75rem;
+    --spacer-32: 2rem;
 
     // Core's parchment texture, resolved from this stylesheet
     --parchment-texture: url("../../../ui/parchment.jpg");

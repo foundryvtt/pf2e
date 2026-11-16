@@ -495,10 +495,6 @@
                     "fluspgWAKhEtbKP7": {
                         "damage": "2d10+13",
                         "damageType": "slashing"
-                    },
-                    "nchuSOFnYEgO3AIj": {
-                        "damage": "1d4",
-                        "damageType": "void"
                     }
                 },
                 "description": {
@@ -510,29 +506,7 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [
-                    {
-                        "category": "persistent",
-                        "critical": true,
-                        "damageType": "void",
-                        "diceNumber": 2,
-                        "dieSize": "d4",
-                        "key": "DamageDice",
-                        "label": "PF2E.WeaponPropertyRune.decaying.Name",
-                        "selector": "{item|_id}-damage"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": [
-                            "{item|_id}-damage"
-                        ],
-                        "text": "PF2E.WeaponPropertyRune.decaying.Note.criticalSuccess",
-                        "title": "PF2E.WeaponPropertyRune.decaying.Name"
-                    }
-                ],
+                "rules": [],
                 "slug": "scythe",
                 "subjectToMAP": true,
                 "traits": {
@@ -722,7 +696,24 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "starvation"
+                        ],
+                        "key": "Immunity",
+                        "label": "PF2E.IWR.Custom.Starvation",
+                        "type": "custom"
+                    },
+                    {
+                        "definition": [
+                            "thirst"
+                        ],
+                        "key": "Immunity",
+                        "label": "PF2E.IWR.Custom.Thirst",
+                        "type": "custom"
+                    }
+                ],
                 "slug": "dooming-touch",
                 "traits": {
                     "value": [
@@ -842,19 +833,15 @@
             "immunities": [
                 {
                     "exceptions": [],
-                    "type": "death-effects"
-                },
-                {
-                    "exceptions": [],
                     "type": "aging"
                 },
                 {
                     "exceptions": [],
-                    "type": "starvation"
+                    "type": "bleed"
                 },
                 {
                     "exceptions": [],
-                    "type": "thirst"
+                    "type": "death-effects"
                 }
             ],
             "resistances": [

@@ -1,9 +1,5 @@
 import yargs, { Argv } from "yargs";
 
-declare namespace globalThis {
-    let SYSTEM_ID: string;
-}
-
 const argv = yargs(process.argv.slice(2)) as Argv<{ system: SystemId; json: boolean }>;
 const args = argv
     .command("$0 [system]", "Build a system's (es)modules", () => {
@@ -18,4 +14,4 @@ const args = argv
     .version(false)
     .parseSync();
 
-globalThis.SYSTEM_ID = args.system;
+Object.assign(globalThis, { SYSTEM_ID: args.system });

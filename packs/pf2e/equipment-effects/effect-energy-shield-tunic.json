@@ -4,7 +4,7 @@
     "name": "Effect: Energy Shield Tunic",
     "system": {
         "description": {
-            "value": "<p>During your daily preparations, you choose one of the following energy types: acid, cold, electricity, fire, or sonic. You gain resistance 10 to the chosen energy type until your next daily preparations. The tunic changes color and gains thematic embroidery to reflect the energy type you've chosen.</p><ul><li><p><strong>Acid</strong> The tunic turns brown and has acid splashes embroidered in bright green thread.</p></li><li><p><strong>Cold</strong> The tunic turns sky blue and has snowflakes embroidered in silver thread.</p></li><li><p><strong>Electricity</strong> The tunic turns dark gray and has lightning bolts embroidered in light blue thread.</p></li><li><p><strong>Fire</strong> The tunic turns orange and has balls of fire embroidered in red and yellow threads.</p></li><li><p><strong>Sonic</strong> The tunic turns white and has musical notes embroidered in golden thread.</p></li></ul>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Energy Shield Tunic], or @UUID[Compendium.pf2e.equipment-srd.Item.Energy Shield Tunic (Greater)]</p>\n<p>You gain resistance to the chosen energy type.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,6 +22,40 @@
             "title": "Pathfinder Impossible Magic"
         },
         "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:energy-shield-tunic",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Energy Shield Tunic"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:energy-shield-tunic-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Energy Shield Tunic (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "energy-shield-tunic"
+            },
             {
                 "choices": [
                     {
@@ -51,8 +85,19 @@
             },
             {
                 "key": "Resistance",
+                "predicate": [
+                    "energy-shield-tunic:energy-shield-tunic"
+                ],
                 "type": "{item|flags.system.rulesSelections.resistance}",
                 "value": 10
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "energy-shield-tunic:energy-shield-tunic-greater"
+                ],
+                "type": "{item|flags.system.rulesSelections.resistance}",
+                "value": 15
             }
         ],
         "start": {

@@ -4,7 +4,7 @@
     "name": "Effect: Peace in Dreams Tea",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Peace in Dreams Tea]</p>\n<p>You gain a +1 item bonus to all saving throws against mental effects.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Peace in Dreams Tea]</p>\n<p>You gain a +1 item bonus to all saving throws against mental effects. If consumed during a tea ceremony, the item bonus increases to +2 as long as you're asleep.</p>\n<p><em>Note: Adjust duration if consumed during a tea ceremony.</em></p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -13,7 +13,7 @@
             "value": 1
         },
         "level": {
-            "value": 9
+            "value": 6
         },
         "publication": {
             "license": "ORC",
@@ -22,14 +22,49 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Actions.OneAction",
+                        "value": "one-action"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.TeaCeremony.Label",
+                        "value": "tea-ceremony"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "peace-in-dreams-tea"
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
-                    "mental"
+                    "item:trait:mental"
                 ],
                 "selector": "saving-throw",
-                "slug": "sweetest-solstace-fear",
+                "slug": "peace-in-dreams-tea-bonus",
                 "type": "item",
                 "value": 1
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Asleep.Label",
+                "option": "asleep",
+                "predicate": [
+                    "peace-in-dreams-tea:tea-ceremony"
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "asleep",
+                    "peace-in-dreams-tea:tea-ceremony"
+                ],
+                "selector": "saving-throw",
+                "slug": "peace-in-dreams-tea-bonus",
+                "value": 2
             }
         ],
         "start": {

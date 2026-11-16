@@ -41,7 +41,7 @@ type WithRank = { icon?: string; hover?: string; rank: ZeroToFour };
 type NPCSkillSheetData = NPCSkillData & WithAdjustments & WithRank;
 
 interface NPCSystemSheetData extends NPCSystemData {
-    perception: NPCPerceptionData & WithAdjustments & WithRank;
+    perception: NPCPerceptionData & WithAdjustments;
     attributes: NPCAttributes & {
         ac: ArmorClassTraceData & WithAdjustments;
     };
@@ -91,6 +91,7 @@ interface NPCSheetData extends CreatureSheetData<NPCPF2e> {
     weakState: "active" | "inactive";
     notAdjusted: boolean;
     hasShield?: boolean;
+    canRaiseShield?: boolean;
     hasHardness?: boolean;
     configLootableNpc?: boolean;
     traitTagifyData: TagifyEntry[];

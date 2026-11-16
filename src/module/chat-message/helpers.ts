@@ -4,7 +4,7 @@ import type { ChatMessageMode } from "@client/config.d.mts";
 import type { AbilityItemPF2e, FeatPF2e, ItemPF2e } from "@item";
 import { extractEphemeralEffects } from "@module/rules/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { ErrorPF2e, getActionGlyph, htmlQuery, htmlQueryAll, tupleHasValue } from "@util";
+import { ErrorPF2e, getActionGlyph, htmlQuery, tupleHasValue } from "@util";
 import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
 import { ChatContextFlag, ChatMessageFlagsPF2e, CheckContextChatFlag } from "./data.ts";
@@ -175,7 +175,7 @@ async function shiftAdjustDamage(message: ChatMessagePF2e, multiplier: number, r
         ok: {
             callback: (_event, button) => {
                 const input = button.form?.elements.namedItem("adjustment");
-                const value = input instanceof HTMLInputElement ? Number(input.value) || 0 : 0;
+                const value = input && fu.isElementInstanceOf(input, HTMLInputElement) ? Number(input.value) || 0 : 0;
                 // In case of healing, multiplier will have negative sign. The user will expect that positive
                 // modifier would increase healing value, while negative would decrease.
                 return value * Math.sign(multiplier);
@@ -189,10 +189,15 @@ async function shiftAdjustDamage(message: ChatMessagePF2e, multiplier: number, r
     }
 }
 
+/** The rendered chat log and its popout, which may be in a detached window */
+function getChatLogElements(): HTMLElement[] {
+    return [ui.chat.element, ui.chat.popout?.element].filter(R.isTruthy);
+}
+
 /** Toggle off the Shield Block button on a damage chat message */
 function toggleOffShieldBlock(messageId: string): void {
     const selector = `li.chat-message[data-message-id="${messageId}"] button[data-action=shieldBlock]`;
-    for (const chatLogDOM of htmlQueryAll(document.body, "#chat, #chat-popout")) {
+    for (const chatLogDOM of getChatLogElements()) {
         htmlQuery(chatLogDOM, selector)?.classList.remove("shield-activated");
     }
     CONFIG.PF2E.chatDamageButtonShieldToggle = false;
@@ -206,7 +211,7 @@ function toggleClearEffectAreaButton(message: ChatMessagePF2e | null): void {
     if (!message || !canvas.ready) return;
 
     const selector = `li[data-message-id="${message.id}"] button[data-action=spell-template-clear]`;
-    for (const chatLogDOM of htmlQueryAll(document.body, "#chat, #chat-popout")) {
+    for (const chatLogDOM of getChatLogElements()) {
         const clearTemplatesButton = htmlQuery(chatLogDOM, selector);
         if (!clearTemplatesButton) continue;
         const hasEffectAreas = !!canvas.scene?.regions.some(

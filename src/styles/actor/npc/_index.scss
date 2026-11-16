@@ -1,6 +1,6 @@
 @import "recall-knowledge";
 
-.actor.npc.sheet form {
+.app.actor.npc.sheet form {
     --font-primary: var(--sans-serif);
     --faded-border-color: #7a7971;
     --color-pf-inventory-header-bg: var(--primary-background);
@@ -66,7 +66,7 @@
         margin: 10px 6px 10px 0;
     }
 
-    select {
+    select:not(.tag) {
         background: none;
     }
 
@@ -347,6 +347,9 @@
 
         option {
             color: var(--text-light);
+        }
+
+        &:not(.rarity) option {
             background-color: var(--alt);
         }
     }

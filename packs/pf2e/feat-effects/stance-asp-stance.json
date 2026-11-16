@@ -1,0 +1,55 @@
+{
+    "_id": "aTtkicrvI11XaWOz",
+    "img": "icons/creatures/reptiles/snake-poised-white.webp",
+    "name": "Stance: Asp Stance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Asp Stance]</p>\n<p>Your unarmed Strikes deal piercing damage, and you gain poison resistance equal to half your level.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "The Dead God's Hand"
+        },
+        "rules": [
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:trait:unarmed"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "value": "piercing"
+            },
+            {
+                "key": "Resistance",
+                "type": "poison",
+                "value": "@actor.level"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -8,6 +8,7 @@ import { PhysicalItemPF2e, type ItemPF2e } from "@item";
 import { isSpellConsumableUUID } from "@item/consumable/spell-consumables.ts";
 import { placeRegionFromItem } from "@item/helpers.ts";
 import { Coins } from "@item/physical/helpers.ts";
+import { CAST_A_SPELL_OPTION } from "@item/spell/values.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { effectTraits } from "@scripts/config/traits.ts";
 import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair.ts";
@@ -143,13 +144,18 @@ class ChatCards {
                     return;
                 }
                 case "spell-variant": {
+                    const actualCast = !!message.flags[SYSTEM_ID].origin?.rollOptions?.includes(CAST_A_SPELL_OPTION);
                     const castRank = Number(htmlQuery(html, "div.chat-card")?.dataset.castRank) || 1;
                     const overlayIds = button.dataset.overlayIds?.split(",").map((id) => id.trim());
                     if (overlayIds) {
                         const variantSpell = spell?.loadVariant({ overlayIds, castRank });
                         if (variantSpell) {
                             const data = { castRank };
-                            const variantMessage = await variantSpell.toMessage(null, { data, create: false });
+                            const variantMessage = await variantSpell.toMessage(null, {
+                                actualCast,
+                                data,
+                                create: false,
+                            });
                             if (variantMessage) {
                                 const whisper = message._source.whisper;
                                 const changes = variantMessage.clone({ whisper }).toObject();
@@ -158,7 +164,7 @@ class ChatCards {
                         }
                     } else if (spell) {
                         const originalSpell = spell.loadBaseVariant();
-                        const restoredMessage = await originalSpell.toMessage(null, { create: false });
+                        const restoredMessage = await originalSpell.toMessage(null, { actualCast, create: false });
                         if (restoredMessage) {
                             const whisper = message._source.whisper;
                             const changes = restoredMessage.clone({ whisper }).toObject();

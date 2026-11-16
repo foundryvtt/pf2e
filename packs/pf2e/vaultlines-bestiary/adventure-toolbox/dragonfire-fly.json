@@ -1,0 +1,567 @@
+{
+    "_id": "asZ1RV9vO5HrVwH9",
+    "folder": "UfY2GK0vNyWi13Q6",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "f3S2NwS0QdnoEbNf",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Mandibles",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 34
+                },
+                "damageRolls": {
+                    "iADpERzVbHEGmWZf": {
+                        "damage": "4d8+13",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "IjVZfsHqAEqk45GT",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Eye Beam",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 34
+                },
+                "damageRolls": {
+                    "RV5zp13lfhDvXUQU": {
+                        "damage": "3d8+13",
+                        "damageType": "untyped"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": null,
+                    "max": 60
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "hRBq5vmXzDKPVi8A",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "i8dZjb5pFGRrZsaX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Barrel Roll",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> While Flying, the dragonfire fly is hit by a ranged Strike that deals physical damage</p><hr /><p><strong>Effect</strong> The fly spins in flight, deflecting some of the force of the attack. The fly gains resistance 15 to physical damage from the triggering attack.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "barrel-roll",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "barrel-roll"
+                        ],
+                        "type": "physical",
+                        "value": 15
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yPK80D4ILDtdCSAz",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Fire Wings",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When the fly is first encountered, the fly's wings burn with red flame. When the fly takes acid, cold, electricity, fire, sonic, or void damage, the fly's wing flame color changes depending on the type of damage dealt. If an attack or effect deals more than one of these damage types, the fly chooses which damage type affects their fire wings color. The fly gains resistance 15 to the damage type associated with its new fire wings color, and its eye beam ranged Strike deals that damage type. After 1 minute, the fly's fire wings revert to red flame. The damage type, fire color, and other effects of each fire wings color are:</p>\n<p><strong>Acid:</strong> Green fire. A creature that starts their turn in the fly's firelight aura takes @Damage[3d6[persistent,acid]] damage.</p>\n<p><strong>Cold:</strong> White fire. A creature that starts their turn in the fly's firelight aura takes a –15-foot status penalty to its Speeds for 1 round.</p>\n<p><strong>Electricity:</strong> Yellow fire. A creature that starts their turn in the fly's firelight aura is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round.</p>\n<p><strong>Fire:</strong> Red fire. A creature that starts their turn in the fly's firelight aura takes @Damage[6d6[fire]] damage with a @Check[reflex|dc:32|basic] save.</p>\n<p><strong>Sonic:</strong> Purple fire. The fly emits a loud buzz. A creature is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] while in the fly's firelight aura.</p>\n<p><strong>Void:</strong> Black fire. The fly becomes @UUID[Compendium.pf2e.conditionitems.Item.Concealed] and loses its firelight aura until its Fire Wings change to a different color.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "fire-wings",
+                        "selection": "fire",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitAcid",
+                                "value": "acid"
+                            },
+                            {
+                                "label": "PF2E.TraitCold",
+                                "value": "cold"
+                            },
+                            {
+                                "label": "PF2E.TraitElectricity",
+                                "value": "electricity"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitSonic",
+                                "value": "sonic"
+                            },
+                            {
+                                "label": "PF2E.TraitVoid",
+                                "value": "void"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "type": "{item|flags.system.rulesSelections.fireWings}",
+                        "value": 15
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
+                        "selectors": [
+                            "eye-beam-damage"
+                        ],
+                        "slug": "base",
+                        "value": "{item|flags.system.rulesSelections.fireWings}"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PzbRWml1pY151w3l",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Firelight",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. The aura sheds dim light of the same color as the fly's current fire wings color.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            {
+                                "not": "fire-wings:void"
+                            }
+                        ],
+                        "radius": 30
+                    },
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "fire-wings:acid"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 3,
+                                "speed": 2,
+                                "type": "flame"
+                            },
+                            "bright": 0,
+                            "color": "#00ff40",
+                            "coloration": 101,
+                            "dim": 30
+                        }
+                    },
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "fire-wings:cold"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 3,
+                                "speed": 2,
+                                "type": "flame"
+                            },
+                            "bright": 0,
+                            "color": "#ebfeff",
+                            "coloration": 101,
+                            "dim": 30
+                        }
+                    },
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "fire-wings:electricity"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 3,
+                                "speed": 2,
+                                "type": "flame"
+                            },
+                            "bright": 0,
+                            "color": "#ffd91a",
+                            "coloration": 101,
+                            "dim": 30
+                        }
+                    },
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "fire-wings:fire"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 3,
+                                "speed": 2,
+                                "type": "flame"
+                            },
+                            "bright": 0,
+                            "color": "#ffa200",
+                            "coloration": 101,
+                            "dim": 30
+                        }
+                    },
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "fire-wings:sonic"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 3,
+                                "speed": 2,
+                                "type": "flame"
+                            },
+                            "bright": 0,
+                            "color": "#bb00ff",
+                            "coloration": 101,
+                            "dim": 30
+                        }
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "fire-wings:void"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "light"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9dsUUsPfwwoqXtzz",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Carry",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The fly can Fly at half Speed while it has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] in its mandibles, carrying that creature along with it.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wiVBrr8dtsElZ9vm",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Dragonfire Fly",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 1
+            },
+            "con": {
+                "mod": 7
+            },
+            "dex": {
+                "mod": 10
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 8
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 42
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 360,
+                "temp": 0,
+                "value": 360
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 25
+                    },
+                    {
+                        "type": "fly",
+                        "value": 100
+                    }
+                ],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 19
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>A dragonfire fly is an immense dragonfly with wings veined in delicate traceries of red fire. Its faceted eyes are huge gemstones that blaze with internal luminescence. While on the hunt, the dragonfire fly zips through subterranean labyrinths or clings silently to cavern walls, lancing prey with solid jets of flame cast from its eyes.</p>\n<p>Although dragonfire flies most often use fire to catch their food, they adapt readily to their enemies' weapons and defenses. When magic harms a dragonfire fly, the fly's eyes and the flames across its wings change color, burning with white frost, yellow electricity, or whatever other energy it was exposed to. This same energy burns in the dragonfire fly's eye rays.</p><h2>Opal Eyes</h2><p>If a dragonfire fly’s eyes resemble gems, it’s because they are! Both of a dragonfire fly’s multifaceted eyes are immense, translucent opals as large as a human head. The gems change hue when the fly’s flame takes on a new color, and they retain this color when the dragonfire fly dies. Each of the fly’s eyes is worth at least 10,000 gold—if a buyer for such a large single stone can be found.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 35,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "tremorsense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 32
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 35
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 31
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 35,
+                "special": [
+                    {
+                        "base": 37,
+                        "label": "to Maneuver in Flight",
+                        "predicate": [
+                            "action:maneuver-in-flight"
+                        ]
+                    }
+                ]
+            },
+            "athletics": {
+                "base": 33
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "elemental",
+                "fire"
+            ]
+        }
+    },
+    "type": "npc"
+}

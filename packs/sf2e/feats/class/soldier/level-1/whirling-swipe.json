@@ -25,7 +25,62 @@
             "remaster": true,
             "title": "Starfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "whirling-swipe",
+                "toggleable": true
+            },
+            {
+                "key": "RollOption",
+                "label": "SF2E.SpecificRule.Soldier.WhirlingSwipe.DCUpgradeLabel",
+                "option": "whirling-swipe-dc-upgrade",
+                "predicate": [
+                    "whirling-swipe"
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "whirling-swipe",
+                    "item:usage:hands:2",
+                    "item:melee",
+                    "item:equipped",
+                    "item:trait:reach"
+                ],
+                "property": "traits",
+                "value": "area-burst-10"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "whirling-swipe",
+                    "item:usage:hands:2",
+                    "item:melee",
+                    "item:equipped",
+                    {
+                        "not": "item:trait:reach"
+                    }
+                ],
+                "property": "traits",
+                "value": "area-burst-5"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "whirling-swipe-dc-upgrade"
+                ],
+                "selector": [
+                    "area-fire-dc"
+                ],
+                "value": 1
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

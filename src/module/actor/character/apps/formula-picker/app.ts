@@ -7,8 +7,8 @@ import type { AbilityItemPF2e, FeatPF2e, PhysicalItemPF2e } from "@item";
 import type { TraitChatData } from "@item/base/data/index.ts";
 import type { ItemType } from "@item/types.ts";
 import { Rarity } from "@module/data.ts";
+import { TextSearch } from "@module/sheet/components/text-search.svelte.ts";
 import { SvelteApplicationMixin, type SvelteApplicationRenderContext } from "@module/sheet/mixin.svelte.ts";
-import MiniSearch from "minisearch";
 import * as R from "remeda";
 import Root from "./app.svelte";
 
@@ -44,12 +44,7 @@ class FormulaPicker extends SvelteApplicationMixin<
 
     #resolve?: (value: PhysicalItemPF2e | null) => void;
 
-    #searchEngine = new MiniSearch<Pick<PhysicalItemPF2e, "id" | "name">>({
-        fields: ["name"],
-        idField: "id",
-        processTerm: (t) => (t.length > 1 ? t.toLocaleLowerCase(game.i18n.lang) : null),
-        searchOptions: { combineWith: "AND", prefix: true },
-    });
+    #search = new TextSearch<FormulaSearchDoc>({ fields: ["name"] });
 
     selection: PhysicalItemPF2e | null = null;
 
@@ -88,8 +83,7 @@ class FormulaPicker extends SvelteApplicationMixin<
         const formulas = await ability.getValidFormulas();
         const sheetData = await ability.getSheetData();
         const resource = sheetData.resource;
-        this.#searchEngine.removeAll();
-        this.#searchEngine.addAll(formulas.map((f) => R.pick(f.item, ["id", "name"])));
+        this.#search.index(formulas.map((f) => R.pick(f.item, ["id", "name"])));
 
         const prompt =
             mode === "prepare"
@@ -123,7 +117,7 @@ class FormulaPicker extends SvelteApplicationMixin<
                     ability.unprepareFormula(uuid);
                 }
             },
-            searchEngine: this.#searchEngine,
+            search: this.#search,
             state: {
                 name: this.options.item?.name ?? ability.label,
                 resource,
@@ -174,9 +168,11 @@ interface FormulaPickerContext extends SvelteApplicationRenderContext {
     mode: "craft" | "prepare";
     onSelect: (uuid: ItemUUID) => void;
     onDeselect: (uuid: ItemUUID) => void;
-    searchEngine: MiniSearch<Pick<PhysicalItemPF2e, "id" | "name">>;
+    search: TextSearch<FormulaSearchDoc>;
     state: FormulaPickerState;
 }
+
+type FormulaSearchDoc = Pick<PhysicalItemPF2e, "id" | "name">;
 
 interface FormulaSection {
     level: number;

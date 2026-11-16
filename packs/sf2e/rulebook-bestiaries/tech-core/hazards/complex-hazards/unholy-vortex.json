@@ -1,0 +1,174 @@
+{
+    "_id": "WrxTAvO8sot7x98D",
+    "folder": "Xw6klgOmofb4g4Ck",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "ohV2SjkOYJcDKDON",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Cosmic Insignificance",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Creatures and starships must attempt a @Check[will|dc:44] save when they first observe the hazard within their sensor range. On a success, a creature or starship is @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 1}. On a failure, the creature or starship is @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 3} and overwhelmed with existential ennui (@UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 4} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "object-immunities"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "q8u33KzDyv39k1QI",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Inescapable Void",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A starship moves within 10 zones of the hazard</p><hr /><p><strong>Effect</strong> The triggering starship is pulled 1 zone toward the hazard and is trapped in the hazard's orbit. While trapped, the starship can't Change Heading or take any actions to move any number of zones except toward the hazard until someone disables it each round. The hazard Spawns Undead, then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Vv0IIonU9qrMjJAx",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Spawn Undead",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>This hazard summons a specific 17th-level undead creature on board a starship, within 10 zones. The creature is determined when the hazard is created. The creature rolls initiative and remains until defeated or recalled. The creature also disappears if someone disables the hazard. If the hazard already has an undead present, the hazard instead directs the creature to take its turn immediately after the hazard or recalls the undead. The summoned undead can use 3 actions each round and reactions, unlike most summoned creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Unholy Vortex",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(legendary)</p>",
+                "value": 39
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A supernatural black hole sucks all heat and light into its maw.</p>",
+            "disable": "<p>@Check[computers|dc:47] (expert; scanners), Nature (expert; magic conduit), or Physical Science Lore (trained; generator or scanners) to take protective measures, or @Check[piloting|dc:50] (expert; pilot's console) to avoid the gravitational pull; one success is required per round for the triggering starship to act normally.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 19
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Tech Core"
+            },
+            "reset": "<p>This hazard can't be permanently disabled, only escaped, and resets immediately.</p>",
+            "routine": "<p>(2 action actions) The hazard Spawns Undead, then pulls the starship 1 zone toward it and continues to trap the starship. The starship experiences additional effects depending on how close it is to the hazard. A starship's speed cannot be reduced below 1 from this hazard.</p><p><strong>Within 10 zones:</strong> The starship's Speed is reduced by 1 zone.</p><p><strong>Within 6 zones:</strong> The starship's Speed is reduced by 2 zones.</p><p><strong>Within 4 zones:</strong> The starship's Speed is reduced by 4 zones, and two random battle stations are malfunctioning.</p><p><strong>Within 2 zones:</strong> The starship's Speed is reduced to 1 zone, and all battle stations are malfunctioning.</p><p><strong>Event Horizon (Hazard's Zone)</strong> A starship in the hazard's zone is @UUID[Compendium.sf2e.conditions.Item.Immobilized] and can't take any actions to move any number of zones or Change Heading. Battle stations are malfunctioning. The starship takes @Damage[(4d10+20)[force]] damage each round (@Check[fortitude|dc:46|basic] save). If the starship is destroyed, all creatures and objects inside take damage instead.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "magical",
+                "starship"
+            ]
+        }
+    },
+    "type": "hazard"
+}

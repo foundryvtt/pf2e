@@ -1,12 +1,12 @@
 <script lang="ts">
     import SearchInput from "@module/sheet/components/spell-list/search-input.svelte";
     import SpellList from "@module/sheet/components/spell-list/spell-list.svelte";
+    import { dropTarget } from "@module/sheet/drop-target.ts";
     import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import type { SpellPreparationContext } from "./app.ts";
 
     const { search, actions, getState }: SpellPreparationContext & SvelteAppProps<SpellPreparationContext> = $props();
     const data = $derived(getState());
-    let dropDepth = $state(0);
 
     const filteredGroups = $derived(search.filter(data.groups));
     const resultCount = $derived(filteredGroups.reduce((n, g) => n + g.spells.length, 0));
@@ -35,18 +35,20 @@
 
 <section
     class="content"
-    class:drop-highlight={!!actions.handleDrop && dropDepth > 0}
     aria-label={data.name}
     data-tooltip-class="pf2e"
-    ondrop={(event) => {
-        dropDepth = 0;
-        actions.handleDrop?.(event, null);
-    }}
-    ondragover={(event) => event.preventDefault()}
-    ondragenter={() => (dropDepth += 1)}
-    ondragleave={() => (dropDepth -= 1)}
+    {@attach dropTarget({
+        onDrop: (_data, event) => actions.handleDrop?.(event, null),
+        disabled: !actions.handleDrop,
+    })}
 >
-    <SpellList groups={filteredGroups} columns={["defense", "range"]} actions={listActions} editable={data.editable} />
+    <SpellList
+        groups={filteredGroups}
+        columns={["defense", "range"]}
+        actions={listActions}
+        editable={data.editable}
+        reorderable={!search.active}
+    />
 </section>
 
 <style>
@@ -89,10 +91,5 @@
         padding-block: 0 var(--space-8);
         padding-inline: var(--space-8);
         scrollbar-gutter: stable;
-
-        /* Valid drop target, ringed like core's drop targets */
-        &.drop-highlight {
-            box-shadow: inset 0 0 0 2px var(--color-warm-2);
-        }
     }
 </style>

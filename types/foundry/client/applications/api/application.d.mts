@@ -395,6 +395,22 @@ export default abstract class ApplicationV2<
      */
     protected _onPosition(position: ApplicationPosition): void;
 
+    /**
+     * Actions performed after the Application has been re-attached to the main workspace.
+     * Registered child Applications are re-attached automatically after this method returns.
+     * @param from The Application's former host document. This document's window may have been closed.
+     * @param to   The main workspace document.
+     */
+    protected _onAttach(from: Document, to: Document): void;
+
+    /**
+     * Actions performed after the Application has been detached from the main workspace.
+     * Registered child Applications are moved into the same detached window automatically after this method returns.
+     * @param from The main workspace document.
+     * @param to   The Application's new host document.
+     */
+    protected _onDetach(from: Document, to: Document): void;
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */

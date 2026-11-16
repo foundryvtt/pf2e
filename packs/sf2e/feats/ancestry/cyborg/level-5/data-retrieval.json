@@ -1,0 +1,57 @@
+{
+    "_id": "yeHAlXRtNk2cCoHA",
+    "folder": "mKehfMPTbRauuAd6",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Data Retrieval",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can use your internal uplink to swiftly augment your own mind and memory by rapidly accessing databases. You gain the @UUID[Compendium.sf2e.feats.Item.Open-Source Research] skill feat. Your Open-Source Research has a frequency of once per 10 minutes, rather than once per hour.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Open-Source Research"
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "downgrade",
+                "predicate": [
+                    "item:slug:open-source-research"
+                ],
+                "property": "frequency-per",
+                "value": "PT10M"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "cyborg"
+            ]
+        }
+    },
+    "type": "feat"
+}

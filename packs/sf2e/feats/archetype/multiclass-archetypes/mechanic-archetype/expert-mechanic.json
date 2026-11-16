@@ -1,0 +1,74 @@
+{
+    "_id": "7JKZu3a3JiC0wBXF",
+    "folder": "WAMHsoIptAWrnWk3",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Expert Mechanic",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You become an expert in mechanic class DC, and in Computers or Crafting. If you're already an expert in those skills, you instead become an expert in another skill you're trained in.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Mechanic Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Computers",
+                        "value": "computers"
+                    },
+                    {
+                        "label": "PF2E.Skill.Crafting",
+                        "value": "crafting"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.system.rulesSelections.skill}.rank",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "mechanic": {
+                    "attribute": "int",
+                    "rank": 2
+                }
+            },
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

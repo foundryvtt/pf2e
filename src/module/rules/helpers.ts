@@ -7,13 +7,15 @@ import {
     ModifierAdjustment,
     StatisticModifier,
 } from "@actor/modifiers.ts";
+import type { RollRole } from "@actor/roll-context/types.ts";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { ConditionSource, EffectSource, ItemSourcePF2e, PhysicalItemSource } from "@item/base/data/index.ts";
 import type { PickableThing } from "@module/apps/pick-a-thing-prompt/app.ts";
 import { RollNotePF2e } from "@module/notes.ts";
+import type { TokenDocumentPF2e } from "@scene";
 import { BaseDamageData } from "@system/damage/index.ts";
-import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import { RollTwiceOption } from "@system/rolls.ts";
+import { DataUnionField, RecordField, StrictNumberField, StrictStringField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
 import { DamageAlteration } from "./rule-element/damage-alteration/alteration.ts";
 import { RuleElement, RuleElementSource } from "./rule-element/index.ts";
@@ -123,7 +125,7 @@ async function extractEphemeralEffects({
 }
 
 interface ExtractEphemeralEffectsParams {
-    affects: "target" | "origin";
+    affects: RollRole;
     origin: ActorPF2e | null;
     target: ActorPF2e | null;
     item: ItemPF2e | null;
@@ -155,23 +157,13 @@ function extractRollSubstitutions(
         .filter((s) => s.predicate?.test(rollOptions) ?? true);
 }
 
-function extractDegreeOfSuccessAdjustments(
-    synthetics: Pick<RuleElementSynthetics, "degreeOfSuccessAdjustments">,
-    selectors: string[],
-): DegreeOfSuccessAdjustment[] {
-    return selectors.reduce((adjustments: DegreeOfSuccessAdjustment[], selector) => {
-        const forSelector = synthetics.degreeOfSuccessAdjustments[selector] ?? [];
-        adjustments.push(...forSelector);
-        return adjustments;
-    }, []);
-}
-
 async function processPreUpdateActorHooks(
     changed: Record<string, unknown>,
-    { pack }: { pack: string | null },
+    { parent = null, pack = null }: { parent?: TokenDocumentPF2e | null; pack?: string | null },
 ): Promise<void> {
     const actorId = String(changed._id);
-    const actor = pack ? await game.packs.get(pack)?.getDocument(actorId) : game.actors.get(actorId);
+    // Unlinked token actors aren't in game.actors
+    const actor = parent?.actor ?? (pack ? await game.packs.get(pack)?.getDocument(actorId) : game.actors.get(actorId));
     if (!(actor instanceof ActorPF2e)) return;
 
     // Run preUpdateActor rule element callbacks
@@ -309,18 +301,88 @@ function processChoicesFromData(data: unknown): PickableThing<string>[] {
     return [];
 }
 
+/** Status/circumstance bonuses, non-ability penalties, and battle-form slugs apply on both sides of a fixed-vs-own comparison. */
+function isSharedStatisticModifier(modifier: Modifier): boolean {
+    if (modifier.slug === "battle-form") return true;
+    if (modifier.type === "ability") return false;
+    return ["status", "circumstance"].includes(modifier.type) || modifier.modifier < 0;
+}
+
+/** Whether a listed/fixed modifier should replace the actor's own statistic. */
+function useFixedStatisticModifier({
+    fixed,
+    own,
+    modifiers,
+    ownIfHigher,
+}: {
+    fixed: number;
+    own: number;
+    modifiers: readonly Modifier[];
+    ownIfHigher: boolean;
+}): boolean {
+    const shared = modifiers
+        .filter((m) => m.enabled && isSharedStatisticModifier(m))
+        .reduce((sum, m) => sum + m.modifier, 0);
+    return !ownIfHigher || fixed + shared >= own;
+}
+
+/** Disable ineligible statistic modifiers that do not apply on top of a fixed value. */
+function suppressUnsharedModifiers(statistic: { modifiers: readonly Modifier[] }): void {
+    for (const modifier of statistic.modifiers) {
+        if (isSharedStatisticModifier(modifier)) continue;
+        modifier.adjustments.push({ slug: null, test: () => true, suppress: true });
+        modifier.ignored = true;
+        modifier.enabled = false;
+    }
+    if (statistic instanceof StatisticModifier) {
+        statistic.calculateTotal();
+    }
+}
+
+function createPreselectChoicesField(): PreselectChoicesField {
+    return new RecordField(
+        new foundry.data.fields.StringField({ required: true, blank: false }),
+        new DataUnionField(
+            [
+                new StrictStringField<string, string, true, false, false>({ required: true, blank: false }),
+                new StrictNumberField<number, number, true, false, false>({ required: true, nullable: false }),
+            ],
+            { required: true, nullable: false, initial: undefined },
+        ),
+        { required: true, nullable: true, initial: null },
+    );
+}
+
+type PreselectChoicesField = RecordField<
+    foundry.data.fields.StringField<string, string, true, false, false>,
+    DataUnionField<
+        StrictStringField<string, string, true, false, false> | StrictNumberField<number, number, true, false, false>,
+        true,
+        false,
+        false
+    >,
+    true,
+    true,
+    true
+>;
+
 export {
     createBatchRuleElementUpdate,
+    createPreselectChoicesField,
     extractDamageAlterations,
     extractDamageDice,
-    extractDegreeOfSuccessAdjustments,
     extractEphemeralEffects,
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
     extractRollSubstitutions,
     extractRollTwice,
+    isSharedStatisticModifier,
     processChoicesFromData,
     processDamageCategoryStacking,
     processPreUpdateActorHooks,
+    suppressUnsharedModifiers,
+    useFixedStatisticModifier,
 };
+
+export type { PreselectChoicesField };

@@ -1,0 +1,57 @@
+{
+    "_id": "3ecQQrB0spzN1rGu",
+    "folder": "t0PJaZI2We08jinh",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Make a Tiny Target",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You pull your limbs and other vulnerable body parts in tight, hiding mostly inside your protective shell. You gain resistance to physical damage equal to half your level (rounded up) until the end of your next turn. However, with your limbs in your shell, it becomes difficult to move. You gain the @UUID[Compendium.sf2e.conditions.Item.Immobilized] condition until the end of your next turn.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Secrets of the Swarm Adventure Path"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "tiny-target",
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "tiny-target"
+                ],
+                "type": "physical",
+                "value": "ceil(@actor.level/2)"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "mecenaic"
+            ]
+        }
+    },
+    "type": "feat"
+}

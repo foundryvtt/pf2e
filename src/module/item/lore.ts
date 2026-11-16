@@ -1,7 +1,8 @@
 import type { ActorPF2e } from "@actor";
+import type { SkillData } from "@actor/creature/data.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
-import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, OtherTagsOnly } from "@item/base/data/system.ts";
-import { ZeroToFour } from "@module/data.ts";
+import type { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, OtherTagsOnly } from "@item/base/data/system.ts";
+import type { ZeroToFour } from "@module/data.ts";
 import { sluggify } from "@util";
 
 /** Sluggify a lore name or slug, appending `-lore` unless the word is already present */
@@ -13,6 +14,15 @@ function sluggifyLoreName(nameOrSlug: string): string {
 class LorePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     override get slug(): string {
         return sluggifyLoreName(super.slug ?? this.name);
+    }
+
+    override prepareActorData(this: LorePF2e<ActorPF2e>): void {
+        const actor = this.actor;
+        if (!actor.isOfType("creature")) return;
+        const skills: Record<string, Partial<SkillData> & { base?: number; rank?: number }> = actor.system.skills;
+        skills[this.slug] = { attribute: "int", label: this.name, itemId: this.id };
+        if (actor.isOfType("character")) skills[this.slug].rank = this.system.proficient.value;
+        else if (actor.isOfType("npc")) skills[this.slug].base = this.system.mod.value;
     }
 }
 

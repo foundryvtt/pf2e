@@ -1,0 +1,108 @@
+{
+    "_id": "t9joLNDIOljHzru9",
+    "folder": "E81v2BUiwEcPJzAf",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "tJbEUHYaDnuO3AHk",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Freezing Whirl",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature attempts to leave area <strong>F3</strong> while carrying anything edible, even a consumable such as an elixir or potion</p><hr /><p><strong>Effect</strong> An icy draft rises from the runes and whirls about the triggering creature. The creature takes @Damage[(6d12+35)[cold]] damage, with a @Check[fortitude|dc:37|basic|options:inflicts:slowed] save. On a failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute. On critical failure, the creature is instead @UUID[Compendium.pf2e.conditionitems.Item.Petrified] as they become encased in a layer of ice. A creature petrified in this way can be restored if exposed to a significant heat source (such as a campfire) for 10 minutes.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "cold",
+                        "incapacitation"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Freezing Runes",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 26,
+            "hp": {
+                "details": "",
+                "max": 104,
+                "temp": 0,
+                "value": 104
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 30
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Spirals of cold energy rise from the runes to strike those sneaking food out of the area.</p>",
+            "disable": "<p>@Check[arcana|dc:36] (expert) to deactivate the runes, @Check[thievery|dc:38] (master) to scratch out the runes, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (8th rank; counteract DC 34)</p>",
+            "isComplex": false,
+            "level": {
+                "value": 16
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            },
+            "reset": "<p>Unless disabled or destroyed, the hazard resets automatically after being triggered.</p>",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

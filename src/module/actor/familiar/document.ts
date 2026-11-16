@@ -12,7 +12,7 @@ import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import type { RuleElement } from "@module/rules/index.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { Predicate } from "@system/predication.ts";
-import { ArmorStatistic, HitPointsStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
+import { ArmorStatistic, HitPointsStatistic, Statistic } from "@system/statistic/index.ts";
 import * as R from "remeda";
 import type { FamiliarSource, FamiliarSystemData } from "./data.ts";
 
@@ -124,7 +124,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
                 slug: saveType,
                 label: _loc(CONFIG.PF2E.saves[saveType]),
                 domains: selectors,
-                modifiers: [new Modifier(`PF2E.MasterSavingThrow.${saveType}`, totalMod, "untyped")],
+                modifiers: [new Modifier(`PF2E.MasterSavingThrow.${saveType}`, totalMod)],
                 check: { type: "saving-throw" },
             });
             return [saveType, statistic];
@@ -132,8 +132,10 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         this.saves = new CreatureSaves(saves);
         system.saves = R.mapToObj(SAVE_TYPES, (t) => [t, this.saves[t].getTraceData()]);
 
-        // Attack
         const masterLevel = game.pf2e.settings.variants.pwol.enabled ? 0 : level;
+        this.preparePerception([new Modifier("PF2E.MasterLevel", masterLevel, "untyped"), attributeModifier]);
+
+        // Attack
         this.attackStatistic = new Statistic(this, {
             slug: "attack-roll",
             label: "PF2E.Familiar.AttackRoll",
@@ -141,18 +143,6 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             check: { type: "attack-roll" },
         });
         system.attack = this.attackStatistic.getTraceData();
-
-        // Perception
-        this.perception = new PerceptionStatistic(this, {
-            slug: "perception",
-            label: "PF2E.PerceptionLabel",
-            attribute: "wis",
-            domains: ["perception", "wis-based", "all"],
-            modifiers: [new Modifier("PF2E.MasterLevel", masterLevel, "untyped"), attributeModifier],
-            check: { type: "perception-check" },
-            senses: system.perception.senses,
-        });
-        system.perception = fu.mergeObject(this.perception.getTraceData(), { attribute: "wis" as const });
 
         // Skills
         this.skills = R.mapToObj(R.entries(CONFIG.PF2E.skills), ([skill, { label, attribute }]) => {
@@ -179,6 +169,11 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         });
 
         this.prepareMovementData();
+    }
+
+    protected override preparePerception(modifiers: Modifier[]): void {
+        super.preparePerception(modifiers);
+        this.system.perception = this.perception.getTraceData();
     }
 
     /* -------------------------------------------- */

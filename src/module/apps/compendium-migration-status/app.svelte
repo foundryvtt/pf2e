@@ -21,8 +21,8 @@
             isMigrating = false;
             // Disabling the button (and removing it on success) drops keyboard focus to the body
             await tick();
-            if (document.activeElement === document.body) {
-                statusEl?.querySelector<HTMLElement>("button, .updated")?.focus();
+            if (statusEl && statusEl.ownerDocument.activeElement === statusEl.ownerDocument.body) {
+                statusEl.querySelector<HTMLElement>("button, .updated")?.focus();
             }
         }
     }

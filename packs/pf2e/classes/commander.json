@@ -178,7 +178,18 @@
             "remaster": true,
             "title": "Pathfinder Battlecry!"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.warfare-lore",
+                "value": {
+                    "attribute": "int",
+                    "label": "PF2E.SpecificLore.Warfare",
+                    "rank": "match(when(gte(@actor.level, 15), 4), when(gte(@actor.level, 7), 3),when(gte(@actor.level, 3), 2),1)"
+                }
+            }
+        ],
         "savingThrows": {
             "fortitude": 1,
             "reflex": 2,

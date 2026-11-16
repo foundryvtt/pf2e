@@ -102,6 +102,7 @@
             "name": "+2 Greater Striking Greater Shock Handwraps of Mighty Blows",
             "sort": 200000,
             "system": {
+                "ammo": null,
                 "baseItem": null,
                 "bonus": {
                     "value": 1
@@ -129,6 +130,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "brawling",
                 "hardness": 0,
                 "hp": {
@@ -168,7 +170,7 @@
                 "size": "med",
                 "slug": "handwraps-of-mighty-blows",
                 "splashDamage": {
-                    "value": null
+                    "value": 0
                 },
                 "traits": {
                     "rarity": "common",
@@ -274,10 +276,6 @@
                     "xn7x2ryhb17m62u4onan": {
                         "damage": "3d6+14",
                         "damageType": "bludgeoning"
-                    },
-                    "o46o5eo76zmx1vh45kv6": {
-                        "damage": "1d6",
-                        "damageType": "electricity"
                     }
                 },
                 "description": {
@@ -295,11 +293,9 @@
                     "rarity": "common",
                     "value": [
                         "agile",
-                        "cold-iron",
                         "finesse",
                         "magical",
                         "nonlethal",
-                        "silver",
                         "unarmed"
                     ]
                 }
@@ -452,7 +448,35 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:slug:fist"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "cold-iron"
+                    },
+                    {
+                        "definition": [
+                            "item:slug:fist"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "silver"
+                    },
+                    {
+                        "definition": [
+                            "item:trait:unarmed"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greater-shock"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

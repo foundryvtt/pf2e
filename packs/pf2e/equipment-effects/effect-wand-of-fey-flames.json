@@ -4,7 +4,7 @@
     "name": "Effect: Wand of Fey Flames",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Wand of Fey Flames]</p>\n<p>You take a -2 status penalty to your Will saves against enchantment and illusions spells.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Wand of Fey Flames]</p>\n<p>You take a -2 status penalty to your Will saves against spells with the illusion or mental trait.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,18 +16,19 @@
             "value": 7
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens The Grand Bazaar"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "predicate": [
+                    "item:type:spell",
                     {
                         "or": [
-                            "enchantment",
-                            "illusion"
+                            "illusion",
+                            "mental"
                         ]
                     }
                 ],

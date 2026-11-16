@@ -210,7 +210,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             );
             const ancestryBoostsSelected =
                 (sheetData.ancestry?.system.alternateAncestryBoosts?.length === 2 || unfilledAncestryBoosts <= 0) &&
-                sheetData.ancestry?.system.voluntary?.boost !== null;
+                (!sheetData.ancestry?.system.voluntary.legacy || !!sheetData.ancestry.system.voluntary.boost);
             const backgroundBoostsSelected = Object.values(sheetData.background?.system.boosts ?? {}).every(
                 (b) => b.value.length === 0 || !!b.selected,
             );
@@ -430,14 +430,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 ...baseData,
                 img: ((): ImageFilePath => {
                     const actionIcon = getActionIcon(item.actionCost);
-                    if (!baseData.usable) return actionIcon;
-
                     const defaultIcon = ItemPF2e.getDefaultArtwork(item._source).img;
                     const commonFeatIcon = "icons/sundries/books/book-red-exclamation.webp";
                     const isDefaultImage = [actionIcon, defaultIcon, commonFeatIcon].includes(item.img);
-                    return !isDefaultImage && item.isOfType("action")
-                        ? item.img
-                        : (item.system.selfEffect?.img ?? actionIcon);
+                    if (item.isOfType("action") && !isDefaultImage) {
+                        return item.img;
+                    }
+                    return item.system.selfEffect?.img ?? (baseData.usable && !isDefaultImage ? item.img : actionIcon);
                 })(),
                 feat: item.isOfType("feat") ? item : null,
                 toggles: item.system.traits.toggles?.getSheetData() ?? [],
@@ -870,7 +869,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         // Toggle certain weapon traits: currently Double Barrel or Versatile
         handlers["toggle-weapon-trait"] = async (_, button) => {
-            if (!(button instanceof HTMLButtonElement)) return;
+            if (!fu.isElementInstanceOf(button, HTMLButtonElement)) return;
 
             const weapon = this.getAttackActionFromDOM(button)?.item;
             const trait = button.dataset.trait;
@@ -1141,8 +1140,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 name,
             })}</p>`;
             if (
-                event.ctrlKey ||
-                event.metaKey ||
+                event.shiftKey ||
                 (await foundry.applications.api.DialogV2.confirm({
                     window: { title: "PF2E.CraftingTab.RemoveFormulaDialogTitle", icon: "fa-solid fa-trash" },
                     content,
@@ -1169,7 +1167,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const question = _loc("PF2E.CraftingTab.UnprepareFormulaDialogQuestion", { name });
             const content = `<p class="hint">${question}</p>`;
             if (
-                event.ctrlKey ||
+                event.shiftKey ||
                 (await foundry.applications.api.DialogV2.confirm({
                     window: { title: "PF2E.CraftingTab.UnprepareFormulaDialogTitle" },
                     content,

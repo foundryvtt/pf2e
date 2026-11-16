@@ -1,0 +1,109 @@
+{
+    "_id": "qlsPMC8G5Wyf2f71",
+    "img": "icons/commodities/cloth/ribbon-bow-red.webp",
+    "name": "Effect: Merchant's Bludgeon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Fortune Cord]</p>\n<p>You transform the <em>fortune cord</em> into a <em>+2 striking nunchaku</em>. The type of coin loaded onto the cord determines the additional weapon property rune, as follows.</p><ul><li><p><strong>Copper</strong>: <em>corrosive</em></p></li><li><p><strong>Silver</strong>: <em>shock</em></p></li><li><p><strong>Gold</strong>: <em>flaming</em></p></li><li><p><strong>Platinum</strong>: <em>frost</em></p></li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 11
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Season of Ghosts Hardcover Compilation"
+        },
+        "rules": [
+            {
+                "flag": "merchantsBludgeonNunchaku",
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "granter": "cascade"
+                },
+                "track": true,
+                "uuid": "Compendium.pf2e.equipment-srd.Item.Nunchaku"
+            },
+            {
+                "itemId": "{actor|flags.system.trackedItems.merchantsBludgeonNunchaku}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "property": "runes-potency",
+                "value": 2
+            },
+            {
+                "itemId": "{actor|flags.system.trackedItems.merchantsBludgeonNunchaku}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "property": "runes-striking",
+                "value": 1
+            },
+            {
+                "definition": [
+                    "item:id:{actor|flags.system.trackedItems.merchantsBludgeonNunchaku}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "fortune-cord-damage:acid"
+                ],
+                "property": "property-runes",
+                "value": "corrosive"
+            },
+            {
+                "definition": [
+                    "item:id:{actor|flags.system.trackedItems.merchantsBludgeonNunchaku}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "fortune-cord-damage:electricity"
+                ],
+                "property": "property-runes",
+                "value": "shock"
+            },
+            {
+                "definition": [
+                    "item:id:{actor|flags.system.trackedItems.merchantsBludgeonNunchaku}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "fortune-cord-damage:fire"
+                ],
+                "property": "property-runes",
+                "value": "flaming"
+            },
+            {
+                "definition": [
+                    "item:id:{actor|flags.system.trackedItems.merchantsBludgeonNunchaku}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "fortune-cord-damage:cold"
+                ],
+                "property": "property-runes",
+                "value": "frost"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

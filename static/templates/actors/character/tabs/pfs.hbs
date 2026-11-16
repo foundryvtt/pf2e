@@ -1,19 +1,19 @@
 <section class="tab pfs major" data-group="primary" data-tab="pfs">
     <section class="organized-play">
-            <label class="player-number details-label" for="{{options.id}}-pfs-player-number">{{localize "PF2E.PFS.OrganizedPlayNumber"}}</label>
-            <label class="character-number details-label" for="{{options.id}}-pfs-character-number">{{localize "PF2E.PFS.CharacterNumber"}}</label>
+        <label class="player-number details-label" for="{{options.id}}-pfs-player-number">{{localize "PF2E.PFS.OrganizedPlayNumber"}}</label>
+        <label class="character-number details-label" for="{{options.id}}-pfs-character-number">{{localize "PF2E.PFS.CharacterNumber"}}</label>
 
-            <input type="number" class="player-number details-input" id="{{options.id}}-pfs-player-number" name="system.pfs.playerNumber" value="{{data.pfs.playerNumber}}" min="10000" max="99999" placeholder="10000" />
-            <span class="dash">&ndash;</span>
-            <input type="number" class="character-number details-input" id="{{options.id}}-pfs-character-number" name="system.pfs.characterNumber" value="{{data.pfs.characterNumber}}" min="2001" max="9999" placeholder="2001" />
+        <input type="number" class="player-number details-input" id="{{options.id}}-pfs-player-number" name="system.pfs.playerNumber" value="{{data.pfs.playerNumber}}" min="10000" max="99999999" placeholder="10000" />
+        <span class="dash">&ndash;</span>
+        <input type="number" class="character-number details-input" id="{{options.id}}-pfs-character-number" name="system.pfs.characterNumber" value="{{data.pfs.characterNumber}}" min="2001" max="9999" placeholder="2001" />
     </section>
     {{#unless (eq systemId "sf2e")}}
     <section class="level-bump">
-        <label class="details-label" for="{{options.id}}-pfs-level-bump">{{localize "PF2E.PFS.LevelBump"}}</label>
-        <div class="toggle{{#if data.pfs.levelBump}} enabled{{/if}}">
-            <input class="details-input" id="{{options.id}}-pfs-level-bump" name="system.pfs.levelBump" type="checkbox" {{checked data.pfs.levelBump}} />
-            <label for="{{options.id}}-pfs-level-bump"></label>
-        </div>
+        <label>
+            <span class="details-label">{{localize "PF2E.PFS.LevelBump"}}</span>
+            <input type="checkbox" class="sr-only" name="system.pfs.levelBump" role="switch" {{checked data.pfs.levelBump}} />
+            <span class="switch" aria-hidden="true"></span>
+        </label>
     </section>
     <section class="faction">
         <label class="details-label" for="{{options.id}}-pfs-current-faction">{{localize "PF2E.PFS.CurrentFaction"}}</label>
@@ -29,7 +29,6 @@
                 <input type="number" class="details-input small-input" id="{{@root.options.id}}-pfs-rep-{{faction}}" name="system.pfs.reputation.{{faction}}" value="{{rep}}" placeholder="0" />
             </div>
         {{/each}}
-        </div>
     </section>
     {{/unless}}
 

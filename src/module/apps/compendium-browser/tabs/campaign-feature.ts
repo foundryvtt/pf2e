@@ -74,7 +74,9 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
 
         // Filters
         this.filterData.checkboxes.category.options = this.generateCheckboxOptions(KINGMAKER_CATEGORIES);
-        this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits);
+        this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, {
+            sort: false,
+        });
         this.filterData.source.options = this.generateSourceCheckboxOptions(publications);
         this.filterData.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.kingmakerTraits);
 
@@ -112,7 +114,7 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
                 by: "level",
                 direction: "asc",
                 options: {
-                    name: { label: "Name", type: "alpha" },
+                    name: { label: "PF2E.NameLabel", type: "alpha" },
                     level: { label: "PF2E.LevelLabel", type: "numeric" },
                 },
                 type: "numeric",

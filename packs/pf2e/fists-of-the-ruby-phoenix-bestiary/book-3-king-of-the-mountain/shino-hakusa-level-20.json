@@ -9,9 +9,10 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FNDq4NFSN0g2HKWO"
             },
             "img": "icons/equipment/hand/gauntlet-simple-leather-brown-gold.webp",
-            "name": "Handwraps of Mighty Blows",
+            "name": "+3 Major Striking Greater Shock Handwraps of Mighty Blows",
             "sort": 100000,
             "system": {
+                "ammo": null,
                 "baseItem": null,
                 "bonus": {
                     "value": 1
@@ -72,9 +73,9 @@
                 "runes": {
                     "potency": 3,
                     "property": [
-                        "shock"
+                        "greaterShock"
                     ],
-                    "striking": 2
+                    "striking": 3
                 },
                 "size": "med",
                 "slug": "handwraps-of-mighty-blows",
@@ -497,7 +498,17 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:trait:unarmed"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greater-shock"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []

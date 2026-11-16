@@ -1,0 +1,68 @@
+{
+    "_id": "0b8l2a8FE7TasOiQ",
+    "img": "icons/magic/nature/wolf-paw-glow-small-green.webp",
+    "name": "Effect: Wild Stride",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Wild Stride]</p>\n<p>You gain a +5-foot circumstance bonus to your Speed if you have a free hand, or a +10-foot circumstance bonus if you have two hands free.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "gte": [
+                            "hands-free",
+                            1
+                        ]
+                    }
+                ],
+                "selector": "land-speed",
+                "slug": "wild-stride-bonus",
+                "type": "circumstance",
+                "value": 5
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "gte": [
+                            "hands-free",
+                            2
+                        ]
+                    }
+                ],
+                "selector": "land-speed",
+                "slug": "wild-stride-bonus",
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,249 @@
+{
+    "_id": "3bjr6TWs2xZhxcAR",
+    "folder": "OqzHev9DzL7M2kNK",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "kXasG6DaLFlqvLvL",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Massacre",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Eivess places the last of the eggs on the ground and calls for Yig to appear</p><hr /><p><strong>Effect</strong> The towering serpent rises over the hill and snatches Eivess in its jaws, swallowing him whole and sparking mass panic among his followers, with the effects of Devour Faithful. The haunt rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "s2KNjkqq0l0FFkmF",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "improved-grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 39
+                },
+                "damageRolls": {
+                    "i1XGlnmMavEXMW8O": {
+                        "damage": "4d10+20",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "magical",
+                        "reach-20"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "THkGpKLtKhtrpVXV",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 250000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RezOQIsrqQ01HLPJ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Devour Faithful",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The avatar of Yig seizes a nearby follower and gulps them down. The terrifying sight deals @Damage[(3d10+15)[mental]|options:area-damage] damage to all creatures within 30 feet (@Check[will|dc:30|basic|options:area-effect,inflicts:frightened] save). Any creature that takes this mental damage is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}, or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": "object-immunities"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ltjxgC7cqIcXken1",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swallow Whole",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Huge, @Damage[(3d10+15)[mental]], Rupture 40</p>\n<p>A swallowed creature hurtles through a terrifying vortex of indistinct shadows, surrounded by the distant wails of swallowed pilgrims. They can't reduce their @UUID[Compendium.pf2e.conditionitems.Item.Frightened] value below 1 until they [[/act escape]] or cut themselves free.</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "swallow-whole",
+                "traits": {
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Fate of Eivess",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 45
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "Yig HP",
+                "max": 300,
+                "temp": 0,
+                "value": 300
+            },
+            "immunities": [],
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "vitality"
+                    ],
+                    "type": "all-damage",
+                    "value": 10
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 37
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The restless spirits of the prophet Eivess and his followers force intruders to relive their deaths at the fangs of Yig's avatar.</p>",
+            "disable": "<p>@Check[society|dc:38] (master) or @Check[religion|dc:40] (master) to convince the spirits that their horror has been over for millennia, or @Check[occultism|dc:38] (master) or @Check[intimidation|dc:42] to recognize that this avatar exists only in the memories of the tormented spirits and command it to stand down; three total successes are required to disable the haunt</p>",
+            "isComplex": true,
+            "level": {
+                "value": 20
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            },
+            "reset": "",
+            "routine": "<p>(3 actions) The avatar uses its first action each round to Devour Faithful, then attempts to Strike and swallow a frightened creature within 20 feet. If no nearby creatures are frightened, the avatar continues using its actions to Devour Faithful until a frightened victim becomes available.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 28
+            },
+            "reflex": {
+                "value": 28
+            },
+            "will": {
+                "value": 37
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

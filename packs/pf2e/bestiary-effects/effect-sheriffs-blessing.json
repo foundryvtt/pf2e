@@ -1,0 +1,83 @@
+{
+    "_id": "dzBuNTGOChte8kWp",
+    "img": "icons/sundries/misc/badge-law-sheriff.webp",
+    "name": "Effect: Sheriff's Blessing",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 status bonus to all saving throws against fear effects. At rank 2, you treat any success on a saving throw against a fear effect as a critical success instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.One",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Two",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Three",
+                        "value": 3
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.NPCAbility.BastardhallPhantom.SupportRank.Prompt",
+                "rollOption": "sheriffs-blessing"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:fear"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:trait:fear",
+                    {
+                        "gte": [
+                            "sheriffs-blessing",
+                            2
+                        ]
+                    }
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

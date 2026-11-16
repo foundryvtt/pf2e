@@ -171,7 +171,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         event: PointerEvent,
         button: HTMLElement,
     ): Promise<void> {
-        if (!(button instanceof HTMLButtonElement)) return;
+        if (!fu.isElementInstanceOf(button, HTMLButtonElement)) return;
         button.disabled = true;
         const target = fromUuidSync(button.dataset.targets ?? "");
         const message = ChatLogPF2e.#messageFromEvent(event).message;

@@ -1,0 +1,51 @@
+{
+    "_id": "Z4CePgqCp9iQTlL9",
+    "folder": "bWE7CsRvRRceBbWy",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Dryad Nymph",
+    "system": {
+        "ancestry": {
+            "name": "Nymph",
+            "slug": "nymph",
+            "uuid": "Compendium.pf2e.ancestries.Item.0Ifanej7hXhwNDEg"
+        },
+        "description": {
+            "value": "<p>You were born with an affinity for trees, wooded places, and animals of the forest. Dryads being the most common type of nymph means they're also the most diverse in appearance and behavior. Before becoming an adventurer, you were bonded to a single, great tree that's the source of your bonded item. You gain the plant and wood traits. In addition, you gain a +1 circumstance bonus to saving throws against poisons and diseases.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "add": [
+                    "plant",
+                    "wood"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:disease",
+                            "item:trait:poison"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

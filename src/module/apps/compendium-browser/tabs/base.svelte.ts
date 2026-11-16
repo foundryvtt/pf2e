@@ -76,6 +76,9 @@ export abstract class CompendiumBrowserTab {
         // Load the index and populate filter data
         await this.loadData();
 
+        // Remove checkboxes for empty filters and traits with no associated entries
+        this.#pruneEmptyFilterOptions();
+
         // Initialize MiniSearch
         const wordSegmenter =
             "Segmenter" in Intl
@@ -157,7 +160,8 @@ export abstract class CompendiumBrowserTab {
             for (const [key, checkbox] of R.entries(checkboxes)) {
                 if (checkbox.selected.length === 0) continue;
                 const prefix = checkbox.optionPrefix ?? key;
-                statements.push({ or: checkbox.selected.map((s) => `${prefix}:${s}`) });
+                const substitutions = checkbox.toggle?.active ? checkbox.toggle.substitutions : {};
+                statements.push({ or: checkbox.selected.map((s) => `${prefix}:${substitutions[s] ?? s}`) });
             }
         }
 
@@ -241,6 +245,25 @@ export abstract class CompendiumBrowserTab {
             inputMin: lower,
             inputMax: upper,
         };
+    }
+
+    /** Removes checkboxes and traits that would provide empty list when toggled */
+    #pruneEmptyFilterOptions(): void {
+        if (!this.filterData || !("checkboxes" in this.filterData || "traits" in this.filterData)) return;
+        const present = new Set(this.indexData.flatMap((e) => [...(e.options ?? [])]));
+
+        if ("checkboxes" in this.filterData) {
+            const checkboxes: Record<string, CheckboxData> = this.filterData.checkboxes;
+            for (const [key, checkbox] of R.entries(checkboxes)) {
+                const prefix = checkbox.optionPrefix ?? key;
+                checkbox.options = R.pickBy(checkbox.options, (_v, k) => present.has(`${prefix}:${k}`));
+            }
+        }
+
+        if ("traits" in this.filterData) {
+            const traits = this.filterData.traits;
+            traits.options = traits.options.filter((t) => present.has(`trait:${t.value}`));
+        }
     }
 
     /** Generates a localized and sorted options from config data

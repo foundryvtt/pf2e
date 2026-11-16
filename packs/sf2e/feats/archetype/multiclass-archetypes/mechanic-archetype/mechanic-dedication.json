@@ -1,0 +1,74 @@
+{
+    "_id": "zSFQxqmf97ReeU2C",
+    "folder": "WAMHsoIptAWrnWk3",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Mechanic Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain the @UUID[Compendium.sf2e.class-features.Item.Custom Rig] and @UUID[Compendium.sf2e.class-features.Item.Exocortex] class features, but you can't @UUID[Compendium.sf2e.actions.Item.Modify] your exocortex, and you don't gain the unique mods granted by your exocortex. You become trained in Computers and Crafting. If you were already trained in Computers and Crafting, you instead become trained in an additional skill of your choice. You also become trained in mechanic class DC.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Intelligence +2"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.computers.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.crafting.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.class-features.Item.Custom Rig"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.class-features.Item.Exocortex"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "mechanic": {
+                    "attribute": "int",
+                    "rank": 1
+                }
+            },
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication",
+                "multiclass"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -35,7 +35,7 @@ class RollOptionRuleElement extends RuleElement<RollOptionSchema> {
             return;
         }
 
-        this.option = this.#resolveOption();
+        if (!this.ignored) this.option = this.#resolveOption();
 
         // If no suboption has been selected yet, set the first as selected
         // We need to consider removing this, but we are keeping it to exercise caution

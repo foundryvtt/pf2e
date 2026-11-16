@@ -31,6 +31,44 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
+                    "spellcasting:category:prepared",
+                    "spellcasting:tradition:arcane",
+                    {
+                        "or": [
+                            "item:slug:gecko-grip",
+                            {
+                                "and": [
+                                    "item:slug:haste",
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            11
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:fly",
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            13
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "other-tags",
+                "value": "studious-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
                     "item:tag:studious-spell"
                 ],
                 "priority": 130,

@@ -1,0 +1,73 @@
+{
+    "_id": "vLfN1EomD1AehEm6",
+    "folder": "WAMHsoIptAWrnWk3",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Modify",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain the @UUID[Compendium.sf2e.class-features.Item.Modify] class feature. In addition, you can @UUID[Compendium.sf2e.actions.Item.Modify] your exocortex (as noted in your @UUID[Compendium.sf2e.class-features.Item.Exocortex]} class feature), and you gain the unique mods granted by your exocortex.</p><hr /><p><strong>Special</strong> If you're at least 10th level, you can select this feat a second time to gain the @UUID[Compendium.sf2e.class-features.Item.Damage Customizations] class feature.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "maxTakable": 2,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Mechanic Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "count": true,
+                "key": "RollOption",
+                "option": "modify"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "modify:1"
+                ],
+                "uuid": "Compendium.sf2e.class-features.Item.Modify"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            10
+                        ]
+                    },
+                    "modify:2"
+                ],
+                "uuid": "Compendium.sf2e.class-features.Item.Damage Customizations"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

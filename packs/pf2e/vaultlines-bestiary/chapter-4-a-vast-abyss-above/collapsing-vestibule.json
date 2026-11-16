@@ -1,0 +1,96 @@
+{
+    "_id": "3Gq4rRkfErv3taEE",
+    "folder": "OgBMcgxLnp5vMVK9",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "VjvWs0JYuivhfBc2",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Rockfall",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters area <strong>E2</strong> or fails an Arcana or Nature check to disable the trap</p><hr /><p><strong>Effect</strong> The ceiling of the chamber partially collapses. Each creature in the area takes @Damage[(3d12+18)[bludgeoning]|options:area-damage] damage (@Check[reflex|dc:37|basic|options:area-effect,inflicts:prone,inflicts:restrained] save) from falling rubble. On a critical failure, the creature also falls @UUID[Compendium.pf2e.conditionitems.Item.Prone] and is @UUID[Compendium.pf2e.conditionitems.Item.Restrained] ([[/act escape dc=37]]) as it is pinned beneath a rock. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Collapsing Vestibule",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 32
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A weak point in the barrier between the Universe and the Plane of Earth compromises the stability of the entire chamber.</p>",
+            "disable": "<p>@Check[arcana|dc:36] or @Check[nature|dc:36] (expert) twice to seal the rift between planes, or @Check[stealth|dc:34] to pass through the chamber without triggering the trap</p>",
+            "isComplex": true,
+            "level": {
+                "value": 16
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            },
+            "reset": "<p>Once all creatures have left the area, the hazard deactivates and the stone maulers disappear, but the hazard resets after 1 minute.</p>",
+            "routine": "<p>(2 actions) The hazard uses each of its actions to summon an elite @UUID[Compendium.pf2e.pathfinder-monster-core.Actor.Stone Mauler]. Once the hazard has summoned a total of three stone maulers, it can’t summon another until the hazard resets. Alternatively, the hazard can use one of its actions to reassemble a mauler that has been reduced to 0 Hit Points. A reassembled stone mauler appears in the space it was destroyed with 100 Hit Points and is stunned 1. If the trap is disabled, any summoned stone maulers disappear as they return to the Plane of Earth.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

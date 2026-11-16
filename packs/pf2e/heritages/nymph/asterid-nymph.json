@@ -1,0 +1,90 @@
+{
+    "_id": "Yphe2BjIrucZcRFq",
+    "folder": "bWE7CsRvRRceBbWy",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Asterid Nymph",
+    "system": {
+        "ancestry": {
+            "name": "Nymph",
+            "slug": "nymph",
+            "uuid": "Compendium.pf2e.ancestries.Item.0Ifanej7hXhwNDEg"
+        },
+        "description": {
+            "value": "<p>You have a natural affinity for starry skies, nocturnal animals, and wide-open spaces. Your bonded item is a lens or telescope you can use to improve your view of the night sky. Your hair and skin emit a soft glow, providing dim light in a 10-foot radius. This non-magical light can be hidden by wearing a cloak or heavy clothing, or suppressed by magical darkness, but otherwise never goes out as long as you live.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Nymph.Asterid.Light",
+                "option": "asterid-nymph-lit",
+                "suboptions": [
+                    {
+                        "label": "PF2E.Color.Blue",
+                        "value": "#0000FF"
+                    },
+                    {
+                        "label": "PF2E.Color.Cyan",
+                        "value": "#43D6D6"
+                    },
+                    {
+                        "label": "PF2E.Color.Green",
+                        "value": "#00FF00"
+                    },
+                    {
+                        "label": "PF2E.Color.Indigo",
+                        "value": "#4B0082"
+                    },
+                    {
+                        "label": "PF2E.Color.Magenta",
+                        "value": "#FF00FF"
+                    },
+                    {
+                        "label": "PF2E.Color.Orange",
+                        "value": "#FFA400"
+                    },
+                    {
+                        "label": "PF2E.Color.Red",
+                        "value": "#FF0000"
+                    },
+                    {
+                        "label": "PF2E.Color.Violet",
+                        "value": "#9400D3"
+                    },
+                    {
+                        "label": "PF2E.Color.White",
+                        "value": "#AAAAAA"
+                    },
+                    {
+                        "label": "PF2E.Color.Yellow",
+                        "value": "#FAFA00"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "asterid-nymph-lit"
+                ],
+                "value": {
+                    "alpha": 0.1,
+                    "bright": 0,
+                    "color": "{item|flags.system.rulesSelections.luminousSpriteLit}",
+                    "coloration": 101,
+                    "dim": 10,
+                    "luminosity": 0.15
+                }
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

@@ -1,0 +1,74 @@
+{
+    "_id": "QPEP7wlxEQ5DEiwh",
+    "folder": "cJwrYc2qW5cQodQI",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "A Hardor in Motion",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>When you get your powerful legs moving, it's very difficult to stop you. Increase your land Speed by 5 feet. If you move at least 20 feet on your turn, you gain a +1 circumstance bonus to attempts to [[/act shove]] or [[/act tumble-through]] an opponent's square until the end of that turn. You can attempt to Shove a creature up to two sizes larger than you, or up to three sizes larger than you if you're legendary in Athletics.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Secrets of the Swarm Adventure Path"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "land-speed"
+                ],
+                "value": 5
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "a-hardor-in-motion",
+                "toggleable": "true"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "a-hardor-in-motion",
+                    {
+                        "or": [
+                            "action:shove",
+                            "action:tumble-through"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "athletics",
+                    "acrobatics"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "hardor"
+            ]
+        }
+    },
+    "type": "feat"
+}

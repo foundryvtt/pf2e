@@ -54,7 +54,7 @@ function tagify(
         delimiters = ",",
     }: TagifyOptions = {},
 ): Tagify<TagRecord> | null {
-    const input = element instanceof HTMLTagifyTagsElement ? element.input : element;
+    const input = element && fu.isElementInstanceOf(element, HTMLTagifyTagsElement) ? element.input : element;
     if (!input) return null;
 
     const whitelistTransformed = whitelist ? transformWhitelist(whitelist) : [];

@@ -1,0 +1,185 @@
+{
+    "_id": "NczW8KhcvDJsnWsG",
+    "folder": "FUHH9Of9ZX3Vb1zb",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "VMIQOfUpIZW5wIhC",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Come to Life",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature steps on, touches, or otherwise interacts with the carpet</p><hr /><p><strong>Effect</strong> The room's furnishings animate and begin flying about the chamber. Any creature in the area takes @Damage[2d12[bludgeoning],2d12[piercing],2d12[fire],2d12[slashing]|options:area-damage] damage, with a @Check[reflex|dc:40|basic|options:area-effect,inflicts:prone] save. On a critical failure, the creature is also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. The hazard rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dOpCnECNGn6P7CnC",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Animated Object",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 35
+                },
+                "damageRolls": {
+                    "lQ53qT2IlPTZQk8z": {
+                        "damage": "2d12+12",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "animated-object",
+                        "selection": "bludgeoning",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitBludgeoning",
+                                "value": "bludgeoning"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitPiercing",
+                                "value": "piercing"
+                            },
+                            {
+                                "label": "PF2E.TraitSlashing",
+                                "value": "slashing"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
+                        "selectors": [
+                            "{item|id}-damage"
+                        ],
+                        "value": "{item|flags.system.rulesSelections.animatedObject}"
+                    }
+                ],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Animated Parlor",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 39
+            },
+            "emitsSound": "encounter",
+            "hardness": 20,
+            "hp": {
+                "details": "",
+                "max": 110,
+                "temp": 0,
+                "value": 110
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                },
+                {
+                    "exceptions": [
+                        "spirit"
+                    ],
+                    "type": "object-immunities"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 35
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The items in the room, from the knick-knacks on the shelves to the logs burning in the fireplace, come to life and attack all creatures in the room.</p>",
+            "disable": "<p>@Check[deception|dc:44], @Check[diplomacy|dc:44], or @Check[intimidation|dc:44] (expert) to convince the items to stop attacking, @Check[occultism|dc:40] or @Check[religion|dc:40] (expert) to exorcise the soul fragments in the items; four total successes are required to disable the hazard</p>",
+            "isComplex": true,
+            "level": {
+                "value": 18
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            },
+            "reset": "<p>The hazard resets 1 hour after it has been disabled. If destroyed, the hazard doesn't reset until Zyphaniss refurnishes the room, a project that takes several weeks.</p>",
+            "routine": "<p>(4 actions) On each action, the hazard makes an animated object Strike against a different creature in the room. For each successful check made to disable the hazard, the haunt has 1 fewer action.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 28
+            },
+            "reflex": {
+                "value": 34
+            },
+            "will": {
+                "value": 28
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

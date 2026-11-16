@@ -1,0 +1,43 @@
+{
+    "_id": "H16ph8CHJG0fpyqA",
+    "folder": "dE9bkYrwpofv66o4",
+    "img": "icons/magic/death/hand-dirt-undead-zombie.webp",
+    "name": "Koblak Bugbear",
+    "system": {
+        "ancestry": {
+            "name": "Bugbear",
+            "slug": "bugbear",
+            "uuid": "Compendium.pf2e.ancestries.Item.GJL7lFWn1NibsHYg"
+        },
+        "description": {
+            "value": "<p>You were born dead, and somehow returned to life, which has left you teetering between life and undeath, and less able to feel or care. You gain void resistance equal to half your level (minimum 1). When you roll a success on a saving throw against an emotion effect, you get a critical success instead.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "void",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:trait:emotion"
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

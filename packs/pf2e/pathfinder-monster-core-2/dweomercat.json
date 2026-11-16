@@ -256,7 +256,7 @@
             },
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
-            "name": "Detect Magic",
+            "name": "Detect Magic (Constant)",
             "sort": 500000,
             "system": {
                 "area": {
@@ -270,7 +270,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies. You detect illusion magic only if that magic's effect has a lower rank than the rank of your <em>detect magic</em> spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an @UUID[Compendium.pf2e.equipment-srd.Item.Invisibility Potion]) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the rank or level of the most powerful magical effect the spell detects, as determined by the GM.</p>\n<p><strong>Heightened (4th)</strong> As 3rd rank, but you also pinpoint the source of the highest-rank magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies. You detect illusion magic only if that magic's effect has a lower rank than the rank of your <em>detect magic</em> spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an <em>invisibility potion</em>) typically are detected normally.</p><hr /><p><strong>Heightened (3rd)</strong> You learn the rank or level of the most powerful magical effect the spell detects, as determined by the GM.</p>\n<p><strong>Heightened (4th)</strong> As 3rd rank, but you also pinpoint the source of the highest-rank magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -350,7 +350,8 @@
                 "slug": null,
                 "traits": {
                     "value": [
-                        "magical"
+                        "magical",
+                        "unarmed"
                     ]
                 }
             },
@@ -388,17 +389,60 @@
                 "traits": {
                     "value": [
                         "agile",
-                        "magical"
+                        "magical",
+                        "unarmed"
                     ]
                 }
             },
             "type": "melee"
         },
         {
+            "_id": "tJ8hpE1t58t2jv30",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "VpjRI7sDOx15Rohe",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Alter Dweomer",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -408,7 +452,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The dweomercat is targeted by a spell or is within the area of a spell as it's cast</p><hr /><p><strong>Effect</strong> The dweomercat's runelike patterns start to glow as it gains an effect related to the tradition of the triggering spell. This effect occurs before the dweomercat is affected by the triggering spell. The effect lasts for 1 minute, until the dweomercat uses this ability again, or until the dweomercat Dismisses the effect, whichever comes first.</p><ul><li><strong>Arcane</strong> Magical feedback deals @Damage[4d6[force]] damage to the triggering spellcaster (@Check[reflex|dc:22|basic] save).</li><li><strong>Divine</strong> The dweomercat gains a +1 status bonus to all skill checks.</li><li><strong>Occult</strong> The dweomercat becomes @UUID[Compendium.pf2e.conditionitems.Item.Invisible]. This effect ends if the dweomercat uses a hostile action, in addition to the normal end conditions.</li><li><strong>Primal</strong> The dweomercat gains 10 temporary Hit Points.</li></ul>"
+                    "value": "<p><strong>Trigger</strong> The dweomercat is targeted by a spell or is within the area of a spell as it's cast</p><hr /><p><strong>Effect</strong> The dweomercat's runelike patterns start to glow as it gains an effect related to the tradition of the triggering spell. This effect occurs before the dweomercat is affected by the triggering spell. The effect lasts for 1 minute, until the dweomercat uses this ability again, or until the dweomercat Dismisses the effect, whichever comes first.</p><ul><li><p><strong>Arcane</strong> Magical feedback deals @Damage[4d6[force]] damage to the triggering spellcaster (@Check[reflex|dc:22|basic] save).</p></li><li><p><strong>Divine</strong> The dweomercat gains a +1 status bonus to all skill checks.</p></li><li><p><strong>Occult</strong> The dweomercat becomes @UUID[Compendium.pf2e.conditionitems.Item.Invisible]. This effect ends if the dweomercat uses a hostile action, in addition to the normal end conditions.</p></li><li><p><strong>Primal</strong> The dweomercat gains 10 temporary Hit Points.</p></li></ul><p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Alter Dweomer]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -429,7 +473,7 @@
             "_id": "GFaSV12TlCFoNMaa",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Dweomer Leap",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -461,7 +505,7 @@
             "_id": "WWnQJcwT9ReHnqje",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Pounce",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -493,7 +537,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -547,7 +591,7 @@
                 "value": 25
             },
             "allSaves": {
-                "value": ""
+                "value": "+1 status to all saves vs. magic"
             },
             "hp": {
                 "details": "",

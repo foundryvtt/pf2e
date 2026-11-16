@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>These elevated wooden sandals once belonged to a haughty kitsune named Kinburi. It was well known that her swiftness and grace were unmatched, and observers described her as seeming to glide above the earth with each step. She often challenged others to wager on her speed, but as people began to grow wise, she was forced to conceal her identity or promise to forfeit her sandals if she lost. These sandals give you a +1 item bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.High Jump] and @UUID[Compendium.pf2e.actionspf2e.Item.Long Jump]. In addition, when you use the @UUID[Compendium.pf2e.actionspf2e.Item.Leap] action, you can move 5 feet further if jumping horizontally or 3 feet higher if jumping vertically.</p>\n<p><strong>Activate—Light-Footed Bound</strong> <span class=\"action-glyph\">2</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> You loudly boast about your grace and agility, then take any combination of two High Jumps or Long Jumps. You don't need to Stride first, and between the two jumps, you need only to come into contact with a physical object before making the second jump; this object doesn't need to be one that can bear your weight, or even be attached to the ground—you can jump off of a floating feather or a thin branch or even off a paper wall as needed. The sandals' item bonus increases to +2 for these jumps.</p>"
+            "value": "<p>These elevated wooden sandals once belonged to a haughty kitsune named Kinburi. It was well known that her swiftness and grace were unmatched, and observers described her as seeming to glide above the earth with each step. She often challenged others to wager on her speed, but as people began to grow wise, she was forced to conceal her identity or promise to forfeit her sandals if she lost.</p>\n<p>These sandals give you a +1 item bonus to Athletics checks to [[/act high-jump]] and [[/act long-jump]]. In addition, when you use the [[/act leap]] action, you can move 5 feet further if jumping horizontally or 3 feet higher if jumping vertically.</p><hr /><p><strong>Activate—Light-Footed Bound</strong> <span class=\"action-glyph\">2</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Effect</strong> You loudly boast about your grace and agility, then take any combination of two High Jumps or Long Jumps. You don't need to Stride first, and between the two jumps, you need only to come into contact with a physical object before making the second jump; this object doesn't need to be one that can bear your weight, or even be attached to the ground—you can jump off of a floating feather or a thin branch or even off a paper wall as needed. The sandals' item bonus increases to +2 for these jumps.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -36,8 +36,10 @@
         "quantity": 1,
         "rules": [
             {
+                "domain": "skill-check",
                 "key": "RollOption",
-                "option": "sandals-of-bounding",
+                "label": "PF2E.SpecificRule.Equipment.KinburisSandalsOfBounding.LightFootedBoundLabel",
+                "option": "light-footed-bound",
                 "toggleable": true
             },
             {
@@ -58,6 +60,9 @@
             {
                 "key": "AdjustModifier",
                 "mode": "add",
+                "predicate": [
+                    "light-footed-bound"
+                ],
                 "selector": "athletics",
                 "slug": "kinburis-sandals-of-bounding",
                 "value": 1

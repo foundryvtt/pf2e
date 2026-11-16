@@ -108,7 +108,7 @@ async function onRepairChatCardEvent(
     const itemUuid = card.dataset.itemUuid;
     const item = await fromUuid(itemUuid ?? "");
     const button = event.currentTarget;
-    if (!(item instanceof PhysicalItemPF2e) || !(button instanceof HTMLElement)) {
+    if (!(item instanceof PhysicalItemPF2e) || !(button && fu.isElementInstanceOf(button, HTMLElement))) {
         return;
     }
 

@@ -200,7 +200,7 @@ export class VariantRulesSettings extends fa.api.HandlebarsApplicationMixin(fa.a
 
     protected override _onChangeForm(_formConfig: fa.ApplicationFormConfiguration, event: Event): void {
         const pwolCheckbox = this.form?.elements.namedItem(`${SYSTEM_ID}.proficiencyVariant`);
-        if (event.target === pwolCheckbox && pwolCheckbox instanceof HTMLInputElement) {
+        if (event.target === pwolCheckbox && pwolCheckbox && fu.isElementInstanceOf(pwolCheckbox, HTMLInputElement)) {
             this.form?.querySelectorAll<HTMLInputElement>("fieldset input[type=number]").forEach((input) => {
                 input.disabled = !pwolCheckbox.checked;
             });

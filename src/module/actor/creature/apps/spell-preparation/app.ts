@@ -22,6 +22,8 @@ class SpellPreparationApp extends SvelteApplicationMixin<
 >(fa.api.ApplicationV2) {
     static override DEFAULT_OPTIONS: DeepPartial<SpellPreparationConfiguration> = {
         id: "{id}",
+        // A form, so core ignores keybindings while a button is focused
+        tag: "form",
         classes: ["spell-preparation"],
         position: { width: 515, height: 600 },
         window: { icon: "fa-solid fa-book-open-reader", contentClasses: ["standard-form", "compact"], resizable: true },
@@ -182,7 +184,7 @@ class SpellPreparationApp extends SvelteApplicationMixin<
             actor: this.actor,
             search: this.#search,
             actions: {
-                sendToChat: (id, event) => this.#getSpell(id).toMessage(event instanceof PointerEvent ? event : null),
+                sendToChat: (id, event) => this.#getSpell(id).toMessage(event),
                 edit: (id) => this.#getSpell(id).sheet.render(true),
                 ...(editable ? mutations : {}),
             },
@@ -211,6 +213,7 @@ class SpellPreparationApp extends SvelteApplicationMixin<
     ): SpellRowData {
         return {
             ...R.pick(spell, ["id", "uuid", "img", "name"]),
+            castRank: spell.rank,
             updatedAt: spell._stats.modifiedTime ?? undefined,
             glyph: getActionGlyph(spell.system.time.value),
             defense: spell.defense?.label ?? null,

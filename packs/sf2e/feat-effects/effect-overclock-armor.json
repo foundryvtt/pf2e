@@ -1,0 +1,50 @@
+{
+    "_id": "71OPOpHcFFl7pTt4",
+    "img": "icons/magic/defensive/shield-hex-blue.webp",
+    "name": "Effect: Overclock Armor",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.actions.Item.Overclock Armor]</p>\n<p>You gain a +2 status bonus to AC, and you gain a number of temporary Hit Points equal to half your level rounded up.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "ac"
+                ],
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "TempHP",
+                "value": "ceil(@actor.level/2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

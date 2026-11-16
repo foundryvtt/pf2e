@@ -1,0 +1,82 @@
+{
+    "_id": "AC3IsJ74Xf2PiXjX",
+    "img": "icons/magic/fire/flame-burning-earth-yellow.webp",
+    "name": "Effect: Condemn Soul",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Condemn Soul]</p>\n<p><strong>Failure</strong> You gain weakness to fire and spirit damage equal to half the origin's level. Only the origin can trigger this weakness.</p>\n<p><strong>Critical Failure</strong> You gain weakness to fire and spirit damage equal to half the origin's level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "condemn-soul"
+            },
+            {
+                "definition": [
+                    "origin:signature:{item|origin.signature}",
+                    {
+                        "or": [
+                            "damage:type:fire",
+                            "damage:type:spirit"
+                        ]
+                    }
+                ],
+                "key": "Weakness",
+                "label": "{item|name}",
+                "predicate": [
+                    "condemn-soul:failure"
+                ],
+                "type": "custom",
+                "value": "floor(@item.origin.level/2)"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "condemn-soul:critical-failure"
+                ],
+                "type": [
+                    "fire",
+                    "spirit"
+                ],
+                "value": "floor(@item.origin.level/2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -2672,9 +2672,14 @@
                 },
                 "counteraction": false,
                 "damage": {},
-                "defense": null,
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
                 "description": {
-                    "value": "<p>You ward a creature with protective energy that deters attacks. Creatures attempting to attack the target must attempt a Will save each time. If the target uses a hostile action, the spell ends.</p>\n<hr />\n<p><strong>Critical Success</strong> <em>Sanctuary</em> ends.</p>\n<p><strong>Success</strong> The creature can attempt its attack and any other attacks against the target this turn.</p>\n<p><strong>Failure</strong> The creature can't attack the target and wastes the action. It can't attempt further attacks against the target this turn.</p>\n<p><strong>Critical Failure</strong> The creature wastes the action and can't attempt to attack the target for the rest of <em>sanctuary</em>'s duration.</p>"
+                    "value": "<p>You ward a creature with protective energy that deters attacks. Creatures attempting to attack the target must attempt a Will save each time. If the target uses a hostile action, the spell ends.</p><hr /><p><strong>Critical Success</strong> <em>Sanctuary</em> ends.</p>\n<p><strong>Success</strong> The creature can attempt its attack and any other attacks against the target this turn.</p>\n<p><strong>Failure</strong> The creature can't attack the target and wastes the action. It can't attempt further attacks against the target this turn.</p>\n<p><strong>Critical Failure</strong> The creature wastes the action and can't attempt to attack the target for the rest of <em>sanctuary</em>'s duration.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -3311,33 +3316,18 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon transforms into a being of pure light for 1 minute, shedding bright light in a @Template[type:emanation|distance:30]. While in their heavenly form, the dragon's melee Strikes deal an additional @Damage[1d6[fire]|options:area-damage] damage and @Damage[1d6[spirit]|options:area-damage] damage. Creatures with the unholy trait that can see the light must make a @Check[fortitude|dc:46] save or be @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round (blinded for 1 minute on a critical failure); they are then temporarily immune for 1 minute.</p>"
+                    "value": "<p>The dragon transforms into a being of pure light for 1 minute, shedding bright light in a @Template[type:emanation|distance:30]. While in their heavenly form, the dragon's melee Strikes deal an additional 1d6 fire damage and 1d6 spirit damage. Creatures with the unholy trait that can see the light must make a @Check[fortitude|dc:46|options:area-effect,inflicts:blinded] save or be @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round (blinded for 1 minute on a critical failure); they are then temporarily immune for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "key": "TokenLight",
-                        "predicate": [
-                            "luminous-form"
-                        ],
-                        "value": {
-                            "alpha": 0.3,
-                            "animation": {},
-                            "bright": 30,
-                            "color": "#f7eebf",
-                            "dim": 30
-                        }
-                    },
-                    {
-                        "key": "RollOption",
-                        "option": "luminous-form",
-                        "toggleable": true
-                    }
-                ],
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Luminous Form",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Luminous Form"
+                },
                 "slug": null,
                 "traits": {
                     "value": [

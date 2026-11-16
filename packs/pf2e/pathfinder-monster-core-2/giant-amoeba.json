@@ -14,7 +14,7 @@
                     ]
                 },
                 "bonus": {
-                    "value": 8
+                    "value": 9
                 },
                 "damageRolls": {
                     "fkf6jip9lg5j4ap5wlu9": {
@@ -84,7 +84,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>@Damage[1d4[bludgeoning],1d4[acid]]{1d4 bludgeoning plus 1d4 acid}, @Check[fortitude|dc:17|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>@Damage[1d4[bludgeoning],1d4[acid]], @Check[fortitude|dc:17|basic]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -113,7 +113,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The giant amoeba begins its turn with a target its size or smaller @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]</p>\n<hr />\n<p><strong>Effect</strong> The giant amoeba maintains the @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Grab] and extends pseudopods to surround the creature and pull it inside the amoeba's body. This thereafter has the same effect as if the amoeba had @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Engulf]{Engulfed} the creature (DC 17, @Damage[1d6[acid]] damage, [[/act escape dc=17]], Rupture 3).</p>"
+                    "value": "<p><strong>Requirements</strong> The giant amoeba begins its turn with a target its size or smaller @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]</p><hr /><p><strong>Effect</strong> The giant amoeba maintains the @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Grab] and extends pseudopods to surround the creature and pull it inside the amoeba's body. This thereafter has the same effect as if the amoeba had @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Engulf]{Engulfed} the creature (@Check[reflex|dc:17|options:damaging-effect,inflicts:grabbed,inflicts:slowed], @Damage[1d6[acid]] damage, [[/act escape dc=17]], Rupture 3).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -228,18 +228,27 @@
             },
             "immunities": [
                 {
+                    "exceptions": [],
                     "type": "acid"
                 },
                 {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
                     "type": "critical-hits"
                 },
                 {
+                    "exceptions": [],
                     "type": "precision"
                 },
                 {
+                    "exceptions": [],
                     "type": "unconscious"
                 },
                 {
+                    "exceptions": [],
                     "type": "visual"
                 }
             ],

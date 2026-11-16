@@ -82,6 +82,7 @@ export default interface BaseToken<TParent extends BaseScene | null = BaseScene 
     extends Document<TParent, TokenSchema>, fields.ModelPropsFromSchema<TokenSchema> {
     delta: BaseActorDelta<this> | null;
     light: data.LightData<this>;
+    get documentName(): TokenMetadata["name"];
 
     /**
      * Get the width and height of the Token in pixels.

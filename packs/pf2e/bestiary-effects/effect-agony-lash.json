@@ -1,0 +1,52 @@
+{
+    "_id": "ZvcWy54wZNOwCg5W",
+    "img": "icons/weapons/misc/whip-leather.webp",
+    "name": "Effect: Agony Lash",
+    "system": {
+        "badge": {
+            "labels": null,
+            "loop": false,
+            "max": null,
+            "min": null,
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>You take a –5-foot status penalty to your Speeds for each embedded tip.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Hellbreakers"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "type": "status",
+                "value": "-5*@item.badge.value"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

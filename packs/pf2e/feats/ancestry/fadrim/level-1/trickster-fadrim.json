@@ -1,0 +1,70 @@
+{
+    "_id": "b3IZNsY9nQR8u3Y5",
+    "folder": "On82RNLIepbonHtG",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Trickster Fadrim",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have a strong connection to deceptive fey, and you've learned to make the most of your skill for wiles. You can attempt to make a [[/act request skill=deception]] of a creature using Deception instead of Diplomacy. Instead of casting @UUID[Compendium.pf2e.spells-srd.Item.Light], you can cast @UUID[Compendium.pf2e.spells-srd.Item.Figment] as a primal innate spell at will.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:figment",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:light",
+                    "spellcasting:figment"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:fadrim"
+            },
+            {
+                "key": "RollOption",
+                "option": "replaced-fadrim-spell"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fadrim",
+                "lineage"
+            ]
+        }
+    },
+    "type": "feat"
+}

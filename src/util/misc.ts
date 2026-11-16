@@ -141,7 +141,7 @@ function parseHTML(unparsed: string): HTMLElement {
     const fragment = document.createElement("template");
     fragment.innerHTML = unparsed;
     const element = fragment.content.firstElementChild;
-    if (!(element instanceof HTMLElement)) throw ErrorPF2e("Unexpected error parsing HTML");
+    if (!(element && fu.isElementInstanceOf(element, HTMLElement))) throw ErrorPF2e("Unexpected error parsing HTML");
 
     return element;
 }

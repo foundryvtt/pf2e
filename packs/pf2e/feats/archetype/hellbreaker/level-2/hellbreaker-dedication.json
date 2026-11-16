@@ -41,6 +41,26 @@
                 ],
                 "text": "PF2E.SpecificRule.Hellbreaker.Dedication.InitiativeNote",
                 "title": "{item|name}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.devil-lore",
+                "value": {
+                    "attribute": "int",
+                    "label": "PF2E.SpecificLore.Devil",
+                    "rank": "match(when(gte(@actor.level, 15), 4), when(gte(@actor.level, 7), 3),when(gte(@actor.level, 3), 2),1)"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.hellknight-lore",
+                "value": {
+                    "attribute": "int",
+                    "label": "PF2E.SpecificLore.Hellknight",
+                    "rank": "match(when(gte(@actor.level, 15), 4), when(gte(@actor.level, 7), 3),when(gte(@actor.level, 3), 2),1)"
+                }
             }
         ],
         "subfeatures": {

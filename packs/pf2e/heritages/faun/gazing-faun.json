@@ -1,0 +1,52 @@
+{
+    "_id": "ZpnaQ27qdUgd2A9w",
+    "folder": "iKTSsLvhOQjhObZ2",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Gazing Faun",
+    "system": {
+        "ancestry": {
+            "name": "Faun",
+            "slug": "faun",
+            "uuid": "Compendium.pf2e.ancestries.Item.qnKZt0oYS6nVYBfN"
+        },
+        "description": {
+            "value": "<p>You watch reflections with care, such as those in placid rivers or in shop windows of a city. While doing so gives you an insight into those around you, it's through a mirror of the world, which regularly twists intentions in ways that you don't understand. However, you can often still gain a sense of what isn't normal. You gain a +2 circumstance bonus to checks to [[/act sense-motive]] or disbelieve visual illusions, and when you Avert your Gaze, you gain a +4 circumstance bonus instead of +2.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:sense-motive",
+                            "item:trait:illusion"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "perception",
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "selector": "saving-throw",
+                "slug": "avert-gaze",
+                "value": 4
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

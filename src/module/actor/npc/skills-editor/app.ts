@@ -63,8 +63,9 @@ class NPCSkillsEditor extends SvelteApplicationMixin<
             .map((s) => ({
                 slug: s.slug,
                 label: s.label,
-                // Null is meaningful: data prep falls back to the skill's attribute modifier
-                base: s.base ?? null,
+                // From source: null is meaningful and prep resolves it to the attribute modifier
+                base: this.#actor._source.system.skills[s.slug]?.base ?? null,
+                resolvedBase: s.base,
                 note: s.note ?? "",
                 // From source, not prepared data: rule elements can inject specials during prep,
                 // and editing those would bake them into source
@@ -223,6 +224,7 @@ interface NPCSkillsEditorState {
         slug: string;
         label: string;
         base: number | null;
+        resolvedBase: number;
         note: string;
         special: { label: string; base: number; predicate: string }[];
     }[];

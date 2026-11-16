@@ -72,8 +72,12 @@
 
             .name {
                 flex: 1;
-                line-height: 0.9em;
+                line-height: 0.9;
                 margin-right: var(--space-4);
+            }
+
+            .pf-rank {
+                flex-shrink: 0;
             }
 
             // Proficiencies added by the user
@@ -94,9 +98,15 @@
             }
         }
 
-        &.lores-list > li .item-controls {
-            font-size: var(--font-size-12);
-            margin-left: var(--space-8);
+        &.lores-list > li {
+            .name {
+                flex: 1;
+                padding-left: var(--spacer-3);
+            }
+            .item-controls {
+                font-size: var(--font-size-12);
+                margin-left: var(--spacer-8);
+            }
         }
 
         &.lores-list > li,

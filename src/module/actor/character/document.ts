@@ -28,7 +28,7 @@ import {
 } from "@actor/modifiers.ts";
 import { CheckContext } from "@actor/roll-context/check.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
-import type { AttributeString, SkillSlug } from "@actor/types.ts";
+import type { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES } from "@actor/values.ts";
 import type { Rolled } from "@client/dice/_module.d.mts";
 import type {
@@ -45,13 +45,16 @@ import { WeaponPF2e } from "@item";
 import type { AbilityTrait } from "@item/ability/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ActionCost } from "@item/base/data/index.ts";
-import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
+import {
+    getPropertyRuneAttackNotes,
+    getPropertyRuneDegreeAdjustments,
+    getPropertyRuneStrikeAdjustments,
+} from "@item/physical/runes.ts";
 import type { EffectAreaShape, ItemType } from "@item/types.ts";
 import type { WeaponRuneSource, WeaponSource } from "@item/weapon/data.ts";
 import { processTwoHandTrait } from "@item/weapon/helpers.ts";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import {
-    extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
@@ -65,9 +68,10 @@ import { DamageDamageContext, DamagePF2e, DamageType } from "@system/damage/inde
 import { DamageRoll } from "@system/damage/roll.ts";
 import { DAMAGE_TYPE_ICONS } from "@system/damage/values.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
+import { extractDegreeOfSuccessAdjustments } from "@system/degree-of-success.ts";
 import { Predicate } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
-import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
+import { ArmorStatistic, Statistic } from "@system/statistic/index.ts";
 import { createHTMLElement } from "@util";
 import { ErrorPF2e, getActionGlyph, setHasElement, signedInteger, sluggify } from "@util/misc.ts";
 import { traitSlugToObject } from "@util/tags.ts";
@@ -344,10 +348,15 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         attributes.classhp = 0;
 
         // Skills
-        system.skills = R.mapToObj(R.entries(CONFIG.PF2E.skills), ([key, { attribute }]) => {
-            const rank = Math.clamp(this._source.system.skills[key]?.rank || 0, 0, 4) as ZeroToFour;
-            return [key, { rank, attribute, armor: ["dex", "str"].includes(attribute) }];
-        });
+        system.skills = fu
+            .iterateEntries(CONFIG.PF2E.skills)
+            .reduce((skills: Record<string, Partial<CharacterSkillData>>, [slug, data]) => {
+                if (!data) return skills;
+                const rank = Math.clamp(this._source.system.skills[slug]?.rank || 0, 0, 4) as ZeroToFour;
+                const { label, attribute } = data;
+                skills[slug] = { label, rank, attribute, lore: false, itemId: null };
+                return skills;
+            }, {});
 
         // Familiar abilities
         attributes.familiarAbilities = { value: 0 };
@@ -573,26 +582,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         this.prepareFeats();
+        this.preparePerception();
         this.prepareSaves();
-        this.prepareMartialProficiencies();
-
-        // Perception
-        this.perception = new PerceptionStatistic(this, {
-            slug: "perception",
-            label: "PF2E.PerceptionLabel",
-            attribute: "wis",
-            rank: system.perception.rank,
-            domains: ["perception", "all"],
-            check: { type: "perception-check" },
-            senses: system.perception.senses,
-        });
-        system.perception = fu.mergeObject(this.perception.getTraceData(), {
-            attribute: this.perception.attribute ?? "wis",
-            rank: system.perception.rank,
-        });
-
-        // Skills
         this.prepareSkills();
+        this.prepareMartialProficiencies();
 
         // Class DC
         this.classDC = null;
@@ -639,6 +632,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (system.attributes.familiarAbilities.value > 0) {
             this.rollOptions.all["self:has-familiar"] = true;
         }
+    }
+
+    protected override preparePerception(): void {
+        super.preparePerception();
+        const rank = this.system.perception.rank;
+        this.system.perception = Object.assign(this.perception.getTraceData(), { rank });
     }
 
     private prepareBuildData(): void {
@@ -837,31 +836,32 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     }
 
     private prepareSkills() {
-        const { synthetics, system, wornArmor } = this;
-
-        this.skills = R.mapToObj(R.entries(CONFIG.PF2E.skills), ([skillSlug, { label, attribute }]) => {
-            const skill = system.skills[skillSlug];
-
-            const domains = [skillSlug, `${attribute}-based`, "skill-check", `${attribute}-skill-check`, "all"];
+        const { synthetics, wornArmor } = this;
+        this.skills = fu.iterateEntries(this.system.skills).reduce((skills: CharacterSkills<this>, [slug, skill]) => {
+            const { attribute, lore } = skill;
+            const domains = [slug, `${attribute}-based`, "skill-check", `${attribute}-skill-check`, "all"];
+            if (lore) domains.push("lore-skill-check");
             const modifiers: Modifier[] = [];
+            skill.rank = Math.clamp(Number(skill.rank) || 0, 0, 4) as ZeroToFour;
+            skill.armor = attribute === "dex" || attribute === "str";
 
             if (skill.armor && typeof wornArmor?.strength === "number" && wornArmor.checkPenalty < 0) {
-                const slug = "armor-check-penalty";
+                const armorPenaltySlug = "armor-check-penalty";
                 const armorCheckPenalty = new Modifier({
-                    slug,
+                    slug: armorPenaltySlug,
                     label: "PF2E.ArmorCheckPenalty",
                     modifier: wornArmor.checkPenalty,
                     type: "untyped",
-                    adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, domains, slug),
+                    adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, domains, armorPenaltySlug),
                 });
 
                 // Set requirements for ignoring the check penalty according to skill
                 armorCheckPenalty.predicate.push({ nor: ["attack", "armor:ignore-check-penalty"] });
-                if (["acrobatics", "athletics"].includes(skillSlug)) {
+                if (["acrobatics", "athletics"].includes(slug)) {
                     armorCheckPenalty.predicate.push({
                         nor: ["armor:strength-requirement-met", "armor:trait:flexible"],
                     });
-                } else if (skillSlug === "stealth" && wornArmor.traits.has("noisy")) {
+                } else if (slug === "stealth" && wornArmor.traits.has("noisy")) {
                     armorCheckPenalty.predicate.push({
                         nand: ["armor:strength-requirement-met", "armor:ignore-noisy-penalty"],
                     });
@@ -873,52 +873,20 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             }
 
             // Add a penalty for attempting to Force Open without a crowbar or similar tool
-            if (skillSlug === "athletics") modifiers.push(createForceOpenPenalty(this, domains));
+            if (slug === "athletics") modifiers.push(createForceOpenPenalty(this, domains));
 
-            const statistic = new Statistic(this, {
-                slug: skillSlug,
-                label,
-                rank: skill.rank,
-                attribute,
-                domains,
-                modifiers,
-                lore: false,
-                check: { type: "skill-check" },
-            }) as CharacterSkill<this>;
+            const check = { type: "skill-check" as const };
+            skills[slug] = new Statistic(
+                this,
+                Object.assign({ slug, domains, modifiers, check, lore }, R.omit(skill, ["dc"])),
+            ) as CharacterSkill<this>;
+            return skills;
+        }, {});
 
-            return [skillSlug, statistic];
-        });
-
-        // Assemble lore items, key'd by a normalized slug
-        const loreItems = R.mapToObj(this.itemTypes.lore, (loreItem) => [loreItem.slug, loreItem]);
-
-        // Add Lore skills to skill statistics
-        for (const [slug, loreItem] of Object.entries(loreItems)) {
-            const rank = loreItem.system.proficient.value;
-            this.skills[slug as SkillSlug] = new Statistic(this, {
-                slug,
-                label: loreItem.name,
-                rank,
-                attribute: "int",
-                domains: [slug, "skill-check", "lore-skill-check", "int-skill-check", "all"],
-                lore: true,
-                check: { type: "skill-check" },
-            }) as CharacterSkill<this>;
+        // Create trace skill data in system data
+        for (const [slug, statistic] of fu.iterateEntries(this.skills)) {
+            Object.assign(this.system.skills[slug], statistic.getTraceData());
         }
-
-        // Create trace skill data in system data and omit unprepared skills
-        this.system.skills = R.mapToObj(Object.entries(this.skills), ([key, statistic]) => {
-            const loreItem = statistic.lore ? loreItems[statistic.slug] : null;
-            const baseData = this.system.skills[key] ?? {};
-            const data: CharacterSkillData = fu.mergeObject(baseData, {
-                ...statistic.getTraceData(),
-                rank: statistic.rank,
-                armor: baseData.armor ?? false,
-                itemId: loreItem?.id ?? null,
-                lore: !!statistic.lore,
-            });
-            return [key, data];
-        });
     }
 
     override prepareMovementData(): void {
@@ -1048,7 +1016,15 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                               handsHeld: 0,
                           },
                           group: "brawling",
-                          traits: { value: ["agile", "finesse", "nonlethal", "unarmed"] },
+                          traits: {
+                              value: ["agile", "finesse", "nonlethal", "unarmed"],
+                              toggles: {
+                                  modular: { selected: this.flags[SYSTEM_ID].basicUnarmedToggles?.modular ?? null },
+                                  versatile: {
+                                      selected: this.flags[SYSTEM_ID].basicUnarmedToggles?.versatile ?? null,
+                                  },
+                              },
+                          },
                           usage: { value: "worngloves" },
                           runes: unarmedRunes,
                       },
@@ -1571,7 +1547,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
                 const dc = params.dc ?? context.dc;
 
-                const notes = extractNotes(context.origin.actor.synthetics.rollNotes, context.domains);
+                const notes = [
+                    getPropertyRuneAttackNotes(context.origin.item),
+                    extractNotes(context.origin.actor.synthetics.rollNotes, context.domains),
+                ].flat();
                 const rollTwice =
                     params.rollTwice ||
                     extractRollTwice(context.origin.actor.synthetics.rollTwice, context.domains, context.options);
@@ -1582,7 +1561,13 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 );
                 const dosAdjustments = [
                     getPropertyRuneDegreeAdjustments(context.origin.item),
-                    extractDegreeOfSuccessAdjustments(context.origin.actor.synthetics, context.domains),
+                    extractDegreeOfSuccessAdjustments({
+                        self: context.origin.actor,
+                        selfRole: "origin",
+                        opposer: context.target?.actor,
+                        domains: context.domains,
+                        options: context.options,
+                    }),
                 ].flat();
 
                 const title = _loc(
@@ -1953,7 +1938,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Constrain PFS player and character numbers
         for (const property of ["playerNumber", "characterNumber"] as const) {
             if (typeof changed.system.pfs?.[property] === "number") {
-                const [min, max] = property === "playerNumber" ? [1, 9_999_999] : [2001, 9999];
+                const [min, max] = property === "playerNumber" ? [1, 99_999_999] : [2001, 9999];
                 changed.system.pfs[property] = Math.clamp(changed.system.pfs[property] || 0, min, max);
             } else if (changed.system.pfs && changed.system.pfs[property] !== null) {
                 changed.system.pfs[property] = this.system.pfs[property] ?? null;

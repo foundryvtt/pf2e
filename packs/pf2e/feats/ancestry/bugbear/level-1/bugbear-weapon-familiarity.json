@@ -1,0 +1,90 @@
+{
+    "_id": "8LfVSVfvaFPAAzyy",
+    "folder": "ynzVk5CLDJ95KZQz",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Bugbear Weapon Familiarity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Like many of your kin, you prefer to use weapons that inspire fear or pain. You gain access to the capturing spetum. You have familiarity with the bastard sword, capturing spetum, falchion, scourge, scythe, and whip—for the purpose of proficiency, you treat any of these that are martial weapons as simple weapons and any that are advanced weapons as martial weapons.</p>\n<p>At 5th level, whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:base:bastard-sword",
+                            "item:base:falchion",
+                            "item:base:scourge",
+                            "item:base:scythe",
+                            "item:base:whip"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialBugbearWeapons",
+                "sameAs": "simple",
+                "slug": "martial-bugbear-weapons"
+            },
+            {
+                "definition": [
+                    "item:base:capturing-spetum"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedBugbearWeapons",
+                "sameAs": "martial",
+                "slug": "advanced-bugbear-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:base:bastard-sword",
+                            "item:base:capturing-spetum",
+                            "item:base:falchion",
+                            "item:base:scourge",
+                            "item:base:scythe",
+                            "item:base:whip"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "bugbear"
+            ]
+        }
+    },
+    "type": "feat"
+}

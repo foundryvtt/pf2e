@@ -56,6 +56,11 @@ class AttackTraitHelpers {
                         modifier: 1,
                         type: "circumstance",
                         predicate: new Predicate("sweep-bonus"),
+                        adjustments: extractModifierAdjustments(
+                            actor.synthetics.modifierAdjustments,
+                            domains,
+                            unannotatedTrait,
+                        ),
                     });
                 }
                 case "backswing": {
@@ -65,6 +70,11 @@ class AttackTraitHelpers {
                         modifier: 1,
                         type: "circumstance",
                         predicate: new Predicate("backswing-bonus"),
+                        adjustments: extractModifierAdjustments(
+                            actor.synthetics.modifierAdjustments,
+                            domains,
+                            unannotatedTrait,
+                        ),
                     });
                 }
                 default:

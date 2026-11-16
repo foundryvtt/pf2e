@@ -1,18 +1,253 @@
+## 1.7.0
+
+### System Improvements
+
+- (Chromatic Penguin) Keep ammunition rules off alternate weapon usages
+- (Dantar) Display confirmation dialog when clicking to remove rule elements
+- (Dantar) Inherit runes and materials from linked weapons for NPC attacks
+- (Dantar) Make Shift a default confirmation skip button
+- (In3luki) Add `defense` filter to Compendium Browser spell tab
+- (stwlam) Add support for applying elite/weak adjustments to non-persisted NPCs
+
+### Bugfixes
+
+- (Cerapter) Fix ammunition crafted with `CraftingAbility.craft()` not getting the infused trait
+- (Chromatic Penguin) Allow 8-digit organized play numbers and brush up level bump toggle styling
+- (Chromatic Penguin) Default troop movement to Stride when combat starts
+- (Chromatic Penguin) Fix hotbar macros for roll option toggles with suboptions
+- (Chromatic Penguin) Fix NPC class DC for critical specialization saves
+- (Chromatic Penguin) Fix token resize errors when no scene is viewed
+- (Chromatic Penguin) Hide parties and party members a user does not have permission to see in the directory
+- (Chromatic Penguin) Place templates exclusively on the currently viewed scene level
+- (Chromatic Penguin) Prevent V1 sheet styles from leaking into V2 sheets
+- (Chromatic Penguin) Refrain from resolving ignored RollOptions
+- (Dantar) Make lore proficiencies adjust to sheet width
+- (stwlam) Fix handling of `syncWeaponFeatures` flag when regenerating NPC attacks
+
+### Data Updates
+
+- (Ikaguia) Add automation for Exceptional Reach, Long Reach, Stretching Reach, and Whirling Swipe
+- (kromko) Fix minor formatting issues and inline links in technomancer feats
+- (kromko) Improve formatting of tables in Improving Equipment journal page
+- (Longstrider) Add "One regional language" to ancestries
+- (Longstrider) Add spellshape feats to technomancer Programming Languages
+- (Longstrider) Automate technomancer basics and brush up feat descriptions
+- (Longstrider) Brush up grenadier, junkomancer, mechanic, and nanocyte archetypes
+- (Longstrider) Fix Magefoil Grenades' and Szynegation Grenades' groups and base items
+- (nobbyfix) Fix Nanite Snipe's traits, damage type, and description
+- (steve148) Fix Null Space Chamber's price and Server of the Streamer's skill name
+- (Tikael) Fix description of SF2e android Constructed feature
+- (Tikael) Make Glitching, Suppressed, and Untethered condition items
+
+### Under the Hood
+
+- (Chromatic Penguin) Add AppV2 actor base sheet
+- (Dantar) Make land speed nullable
+- (stwlam) Divert system token management to upstream API
+
+## 1.6.1
+
+### Bugfixes
+
+- (Chromatic Penguin) Fix detached window handling across apps
+- (Chromatic Penguin) Fix missing spell level on spell prep links
+- (Chromatic Penguin) Fix modifier tooltip type options on Firefox and brush up value stepper
+- (Dantar) Fix familiar abilities formatting
+- (Dantar) Fix skill proficiency selector sizing on Firefox
+- (Dantar) Make Pick-a-thing's placeholder localizable
+- (Dantar) Prevent AE-likes pushing duplicate entries onto complex-object arrays
+
+### Data Updates
+
+- (Ambrose) Add Improvised Weapons entry and correct Improving Equipment section in GM screen
+- (Ambrose) Add missing Junk Grenade spell and localize Junk trait
+- (Ambrose) Correct Necrotic Infusion (Tactical)'s name
+- (Dantar) Fix grenade rarities
+- (kromko) Add missing localizations
+- (kromko) Add missing trait to mechanic class features and prerequisite to Quickened Nanites
+- (kromko) Correct corrosive grenade names
+- (kromko) Fix formatting and capitalization in some item and spell names and descriptions
+- (kromko) Update necrolung description and rules, and remove the superior version
+- (Longstrider) Brush up mechanic class features, actions, and feats
+- (nobbyfix) Add localization for Tech Core armor traits
+- (nobbyfix) Update publication source for various Starfinder items
+- (Tikael) Fix usage of Arcane Adapter and Impact Enhancer
+
+### Under the Hood
+
+- (Chromatic Penguin) Convert `AncestrySystemData` to `TypeDataModel`
+
+## 1.6.0
+
+### Highlights
+
+- (Ambrose, Mecha Maya, Rigo, Tikael) Add Tech Core content
+
+### System Improvements
+
+- (Chromatic Penguin) Add `affects` option to `AdjustDegreeOfSuccess`
+- (Chromatic Penguin) Add temporary HP roll options
+- (Chromatic Penguin) Use listed damage for PC Strike REs with a fixed attack modifier
+- (Dantar) Allow Strike RE for PCs to use own or fixed attack modifier
+- (Dantar) Brush up persistent damage chat card
+- (Dantar) Show travel speed breakdown tooltip
+- (Idle) Add `preselectChoices` to auras
+- (kromko) Apply derived feat traits in compendium browser filters
+- (kromko) Improve feat embed headings and support a generic feature level label
+- (stwlam) Make RE-created lore skills non-editable from PC and NPC sheets
+- (stwlam) Prepare base data of lore skills early enough for AE-likes
+- (Supe) Close tooltip when opening scene darkness slider
+
+### Bugfixes
+
+- (Ambrose) Fix localization for World Clock settings in Scene config
+- (Chromatic Penguin) Allow null NPC skill bases and show the resolved modifier as placeholder
+- (Chromatic Penguin) Always give magazine weapons a capacity of 1
+- (Chromatic Penguin) Brush up compendium browser accessibility and theming
+- (Chromatic Penguin) Fix class features without a source ID not being granted on level up
+- (Chromatic Penguin) Fix logo border and PF logo showing on SF limited character sheet
+- (Chromatic Penguin) Fix mirrored tokens ignoring scale in chat portraits
+- (Chromatic Penguin) Keep drag data for content links in detached and AppV2 windows
+- (HeliumAnt) Fix parchment backgrounds when served under a route prefix
+- (kromko) Strip special characters and lower diacritic marks in ABC Picker search
+- (stwlam) Check that token is on viewed level in `TokenPF2e#_isVisionSource`
+- (stwlam) Handle unquantified Reach trait when determining reach of NPC attacks
+- (stwlam) Honor `Scene#environment#darknessLock` in `ScenePF2e#darknessSyncedToTime`
+
+### Data Updates
+
+- (kromko) Change SF archetypes journal to use enhanced feat embeds
+- (kromko) Clean up some equipment effects
+- (kromko) Consolidate some lores
+- (kromko) Fix a few embedded item sources
+- (kromko) Fix some broken links
+- (kromko) Fix typo in Blinding Awe description
+- (kromko) Remove inline checks and links from trait descriptions
+- (Longstrider) Add Medicinal Trinket effect
+- (Longstrider) Add missing traits to Strength in Numbers
+- (Longstrider) Add Nightmare spell link to Desna entries
+- (Longstrider) Brush up brenneri, copaxi, fonqugon, formian, ijtikri, izalguun, madrosarai, maraquoi, moyishuu, and novian feats
+- (Longstrider) Brush up Secrets of the Swarm item descriptions
+- (steve148) Fix functionary's mask rarity
+- (theksi) Add actors and items from Starfinder Society scenarios 2-01 through 2-06
+- (Tikael) Clean up and localize background lore skills
+
+### Under the Hood
+
+- (stwlam) Consolidate perception preparation among creature actors
+
+## 1.5.1
+
+### System Improvements
+
+- (Chromatic Penguin) Add Raise a Shield button to NPC sheet when shield is held
+- (Chromatic Penguin) Convert `SpellcastingCreateAndEditDialog` to `ApplicationV2` and Svelte
+- (Chromatic Penguin) Convert Treat Wounds and Encouraging Words to `DialogV2` and action macros
+- (Dantar) Include Ancestry trait in feat filters
+- (kromko) Add header, traits, and publication options to feat embeds
+- (stwlam) Allow `RuleElement#resolveValue` to return `null` from string inputs
+- (stwlam) Make world clock's dawn and dusk times configurable
+- (stwlam) Re-render world clock and sync darkness on all scenes upon setting change
+- (stwlam) Set initial value of world clock's time convention according to locale
+
+### Bugfixes
+
+- (Chromatic Penguin) Apply inline check roll options to defense DCs
+- (Chromatic Penguin) Fix apply-once weaknesses triggering when persistent damage is first applied
+- (Chromatic Penguin) Fix TokenImage rule overrides on world load
+- (Chromatic Penguin) Fix versatile and modular toggles on basic unarmed strike
+- (Chromatic Penguin) Fix versatile toggle on combination weapons' melee usage
+- (Chromatic Penguin) Only count tokens inside an effect area's highlighted squares
+- (Dantar) Acquire modifier adjustments for Sweep and Backswing
+- (Dantar) Add label for `force` field of BaseSpeed rule element
+- (sgennaoui) Fix flanking for tiny creatures
+
+### Data Updates
+
+- (Ambrose) Add missing resistances and weaknesses to the Hardlight Scamp
+- (Dantar) Add speed bonus to Speed of Thought
+- (Dantar) Add universal Ancestry trait to feats
+- (Dantar) Make BattleForm remove unmentioned speeds (Errata)
+- (Longstrider) Add Starfinder Society notes to Galactic Adventures, Player Core, and Tales from the Vast items
+- (Longstrider) Fix +3 Weapon Potency Crystal item level
+- (Tikael) Fix action cost of Elemental Weapon
+- (Tikael) Fix damage of Wight Scientist's Needler Pistol
+- (Tikael) Fix errors in Close Quarters feature and Talphi ancestry
+
+### Under the Hood
+
+- (Chromatic Penguin) Adopt shared `TextSearch`/`SearchInput` in ABC picker, formula picker, roll inspector, and trade dialog
+
+## 1.5.0
+
+### Highlights
+
+- (SpartanCPA) Add Secrets of the Swarm content
+
+### System Improvements
+
+- (Chromatic Penguin) Convert `CreatureConfig`, `IdentifyItemPopup`, and several inline confirmation dialogs to `ApplicationV2`
+- (Dantar) Add `force` option to the `BaseSpeed` rule element
+- (FolkvangrForgent) Fit emanations created from region tools to hovered tokens
+- (Idle) Add roll option to differentiate actual casting from send-to-chat
+- (Idle) Allow inline template distance to use `resolve`
+- (kromko) Remove empty filters and traits not associated with any items in compendium browser
+- (oWave) Make `_validateType` throw errors instead of returning them
+- (sgennaoui) Expire the Greater Cover effect from tower shields
+- (steve148) Allow attaching upgrades with "installed-on" usage
+- (stwlam) Limit selection of "coin" category in treasure sheet to standard coin items
+- (stwlam) Pull recent core updates to token-appearance template to system copy
+- (stwlam) Refrain from showing default icons in item chat cards
+
+### Bugfixes
+
+- (Dantar) Keep selected key attribute when refreshing Class item
+- (Dantar) Prevent modifier duplication on derived speeds
+- (FolkvangrForgent) Add missing ellipse shape to footprint function
+- (Idle) Do not consume charges if a trick-magic-item check fails or is canceled
+- (Idle) Fix `TagSelectorBasic` not displaying current selections for `number` values
+- (kromko) Fix Compendium Browser sort by price
+- (kromko) Localize Compendium Browser option to sort by name
+- (Maksim) Fix Earn Income chat roll label localization
+- (neonyuzu) Cap character sheet HP input to max less unrecoverable
+- (stwlam) Revert "Always use action image for unusable actions in character sheet"
+
+### Data Updates
+
+- (Dantar) Add REs for feats deriving speeds not from land
+- (Dantar) Add REs for travel-speed bonuses
+- (Dire Weasel) Fix some terrain predicates
+- (kromko) Fix Light Armor Mastery embed in Envoy class journal
+- (kromko) Fix localization key for DoS upgrade against emotion effect
+- (kromko) Remove out of place controlled description from in front of Conditions page in SF GM Screen journal
+- (Longstrider) Brush up bantrid feat descriptions
+- (Longstrider) Make solarian potency crystal bonus apply to maneuvers
+- (Rigo) Update several TokenLight rule elements to use Adaptive Attenuation
+- (SpartanCPA) Correct typos in Starfinder Equipment compendia
+- (SpartanCPA) Localize increased degree of success for emotion effects
+- (SpartanCPA) Support flaming runes on NPC attacks
+- (theksi) Add SFS 2-01 actors
+- (Tikael) Add icons for Secrets of the Swarm ancestries
+
+### Under the Hood
+
+- (Idle) Bundle all operations into a single server query in the `applyActorGroupUpdate` helper
+
 ## 1.4.1
 
 ### System Improvements
 
-- (ChromaticPenguin) Convert XP macro to `ApplicationV2`
+- (Chromatic Penguin) Convert XP macro to `ApplicationV2`
 - (Dantar) Allow item alteration RE to add thrown trait
 - (stwlam) Remove system intervention in creating chat bubbles following changes in FVTT 14.366
 - (stwlam) Automatically swap out standardized ancestry traits with parent actors' ancestry traits
 
 ### Bugfixes
 
-- (ChromaticPenguin) Restore rules-accurate measured-template coverage
-- (ChromaticPenguin) Fix duplicate lore prevention in NPC skill editor
-- (ChromaticPenguin) Fix light mode parchment backgrounds
-- (ChromaticPenguin) Support choosing ancestry attribute boosts and flaws with multiple options
+- (Chromatic Penguin) Restore rules-accurate measured-template coverage
+- (Chromatic Penguin) Fix duplicate lore prevention in NPC skill editor
+- (Chromatic Penguin) Fix light mode parchment backgrounds
+- (Chromatic Penguin) Support choosing ancestry attribute boosts and flaws with multiple options
 - (Dantar) Apply materials from base damage to splash damage roll
 - (kromko) Localize takable-once option on feat details tab
 - (kromko) Prevent Actor sheet from erroring when IWR references a homebrew damage type that doesn't exist in the world

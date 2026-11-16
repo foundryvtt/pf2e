@@ -1,0 +1,78 @@
+{
+    "_id": "hYEmZFx4Yffz9AFK",
+    "img": "systems/pf2e/icons/equipment/consumables/fulus/fulu-fancy.webp",
+    "name": "Effect: Traveler's Fulu",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Traveler's Fulu]</p>\n<p>Your attempt to Sense Direction functions as if you have a compass, and you use the outcome one degree of success better than the result of your Survival check to Sense Direction, or by two degrees of success if you're a master in Survival.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "selector": "survival",
+                "slug": "no-compass",
+                "suppress": true
+            },
+            {
+                "adjustment": {
+                    "all": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:sense-direction",
+                    {
+                        "not": {
+                            "gte": [
+                                "skill:survival:rank",
+                                3
+                            ]
+                        }
+                    }
+                ],
+                "selector": "survival"
+            },
+            {
+                "adjustment": {
+                    "all": "two-degrees-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:sense-direction",
+                    {
+                        "gte": [
+                            "skill:survival:rank",
+                            3
+                        ]
+                    }
+                ],
+                "selector": "survival"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -26,7 +26,10 @@ abstract class ABCItemPF2e<TParent extends ActorPF2e | null> extends ItemPF2e<TP
         const packEntries = entries.filter((entry) => !!entry.uuid);
         if (packEntries.length === 0) return [];
 
-        const items = (await UUIDUtils.fromUUIDs(entries.map((e) => e.uuid))).map((i) => i.clone());
+        const items = (await UUIDUtils.fromUUIDs(entries.map((e) => e.uuid))).map((i) => {
+            const sourceKey = i.pack ? "compendiumSource" : "duplicateSource";
+            return i.clone({ [`_stats.${sourceKey}`]: i.uuid });
+        });
         const level = options.level ?? this.parent?.level;
 
         return items.flatMap((item): FeatPF2e<null> | never[] => {

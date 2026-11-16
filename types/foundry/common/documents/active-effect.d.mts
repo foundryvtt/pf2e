@@ -81,13 +81,6 @@ type ActiveEffectSchema = {
     _stats: fields.DocumentStatsField;
 };
 
-type EffectChangeSchema = {
-    type: fields.StringField<string, string, true, false, true>;
-    value: fields.AnyField;
-    phase: fields.StringField<string, string, true, false, true>;
-    priority: fields.NumberField;
-};
-
 type EffectStartSchema = {
     combat: fields.ForeignDocumentField<BaseCombat>;
     combatant: fields.ForeignDocumentField<string>;
@@ -98,7 +91,7 @@ type EffectStartSchema = {
 };
 
 export type EffectStartSource = fields.SourceFromSchema<EffectStartSchema>;
-interface EffectStartData extends fields.ModelPropsFromSchema<EffectStartSchema> {
+export interface EffectStartData extends fields.ModelPropsFromSchema<EffectStartSchema> {
     value: number;
 }
 
@@ -114,6 +107,12 @@ export type EffectDurationData = fields.ModelPropsFromSchema<EffectDurationSchem
 
 export type ActiveEffectSource = fields.SourceFromSchema<ActiveEffectSchema>;
 
-export type EffectChangeData = fields.SourceFromSchema<EffectChangeSchema>;
+export interface EffectChangeData {
+    type: string;
+    key?: string;
+    value?: unknown;
+    phase: string;
+    priority: number | null;
+}
 
 export {};

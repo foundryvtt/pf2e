@@ -1,4 +1,5 @@
 import { DeferredValueParams } from "@actor/modifiers.ts";
+import type { RollRole } from "@actor/roll-context/types.ts";
 import type Document from "@common/abstract/document.d.mts";
 import { ItemPF2e } from "@item";
 import { ConditionSource, EffectSource } from "@item/base/data/index.ts";
@@ -94,7 +95,7 @@ interface EphemeralEffectRuleElement
     extends RuleElement<EphemeralEffectSchema>, ModelPropsFromRESchema<EphemeralEffectSchema> {}
 
 type EphemeralEffectSchema = RuleElementSchema & {
-    affects: fields.StringField<"target" | "origin", "target" | "origin", true, false, true>;
+    affects: fields.StringField<RollRole, RollRole, true, false, true>;
     selectors: fields.ArrayField<fields.StringField<string, string, true, false, false>>;
     uuid: fields.StringField<string, string, true, false, false>;
     adjustName: fields.BooleanField<boolean, boolean, true, false, true>;

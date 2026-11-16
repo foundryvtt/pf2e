@@ -1,0 +1,176 @@
+{
+    "_id": "KeaTh28RoYhzBMP1",
+    "folder": "BZwd05FSnXZWYjAx",
+    "img": "systems/sf2e/icons/default-icons/vehicle.svg",
+    "items": [
+        {
+            "_id": "56QyNixIWiCV4swN",
+            "img": "systems/sf2e/icons/actions/ThreeActions.webp",
+            "name": "Artillery Battery",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> four times per day</p><hr /><p><strong>Effect</strong> The battleship unleashes a barrage from its artillery batteries, targeting a @Template[type:burst|distance:20] within 200 feet. Creatures and objects in the area take @Damage[4d8[fire]|options:area-damage] damage and @Damage[4d8[bludgeoning]|options:area-damage] damage (@Check[reflex|dc:32|basic] save). This ability can be used by crew or passengers, in addition to the pilot.</p>"
+                },
+                "frequency": {
+                    "max": 4,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YOBXvsNcirCPPgyC",
+            "img": "systems/sf2e/icons/actions/ThreeActions.webp",
+            "name": "EMP",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p><strong>Effect</strong> The battleship unleashes an electromagnetic pulse, disabling enemy ships. Creatures and objects in a @Template[type:emanation|distance:50] must attempt a @Check[fortitude|dc:32] saving throw.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target becomes @UUID[Compendium.sf2e.conditions.Item.Glitching]{Glitching 1} for 1 round.</p>\n<p><strong>Failure</strong> The target becomes @UUID[Compendium.sf2e.conditions.Item.Glitching]{Glitching 2} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target becomes @UUID[Compendium.sf2e.conditions.Item.Glitching]{Glitching 4} for 1 minute.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT10M"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "electricity",
+                        "tech"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZscmaRm6vYkDjO7i",
+            "img": "systems/sf2e/icons/actions/ThreeActions.webp",
+            "name": "Laser Sweep",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The battleship sweeps its massive laser across the battlefield, dealing @Damage[8d6[fire]|options:area-damage] damage to creatures and objects in a @Template[type:cone|distance:60] (@Check[reflex|dc:32|basic] save). This ability can be used by crew or passengers, in addition to the pilot.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire",
+                        "tech"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Apex Battleship",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 29
+            },
+            "collisionDC": {
+                "value": 31
+            },
+            "collisionDamage": {
+                "value": "8d10"
+            },
+            "emitsSound": "encounter",
+            "hardness": 20,
+            "hp": {
+                "details": "",
+                "max": 250,
+                "temp": 0,
+                "value": 250
+            },
+            "immunities": [],
+            "resistances": [],
+            "weaknesses": []
+        },
+        "details": {
+            "AC": 0,
+            "crew": "1 Pilot, 8 crew",
+            "description": "<p>This colossal ship is built for one purpose: war. It wears that purpose proudly, with its massive spinal laser cannon, reinforced batteries, and anti-artillery armor clearly displayed to make a bold statement on whichever sea it finds itself. The battleship's passenger quarters are typically filled with off-duty crew rather than civilians, allowing it to be active around the clock as its crew and pilot operate in shifts. Despite its size, the apex battleship is far from sluggish or clumsy, with massive turbine engines that allow it to keep pace with smaller craft in battle.</p>",
+            "level": {
+                "value": 13
+            },
+            "passengers": "32",
+            "pilotingCheck": "Piloting (DC 31) or Computers (DC 33)",
+            "price": 110000,
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Tech Core"
+            },
+            "space": {
+                "high": 25,
+                "long": 130,
+                "wide": 40
+            },
+            "speed": "swim 40 feet (motorized)"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 23
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "grg"
+            },
+            "value": [
+                "tech"
+            ]
+        }
+    },
+    "type": "vehicle"
+}

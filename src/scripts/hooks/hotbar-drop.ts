@@ -105,15 +105,14 @@ export class HotbarDrop {
         slot: number,
     ): Promise<void> {
         const name = _loc("PF2E.ToggleWithName", { property: data.label });
-        const escapedName = new Handlebars.SafeString(data.label);
         const { item, domain, option } = data;
         const command = `const item = fromUuidSync("${item.uuid}");
 if (!(item instanceof Item && item.isEmbedded && item.isOwner)) {
-ui.notifications.error("PF2E.MacroActionNoActorError", { localize: true });
+return ui.notifications.error("PF2E.MacroActionNoActorError", { localize: true });
 }
 const result = await item.actor.toggleRollOption("${domain}", "${option}", "${item.id}");
 const state = _loc(result ? "PF2E.Macro.OptionToggle.On" : "PF2E.Macro.OptionToggle.Off");
-const message = _loc("PF2E.Macro.OptionToggle.Notification", { toggle: "${escapedName}", state });
+const message = _loc("PF2E.Macro.OptionToggle.Notification", { toggle: ${JSON.stringify(data.label)}, state });
 if (typeof result === "boolean") {
 ui.notifications.info(message);
 }`;

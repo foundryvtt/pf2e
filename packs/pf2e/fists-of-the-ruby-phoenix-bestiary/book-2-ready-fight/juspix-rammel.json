@@ -233,7 +233,7 @@
                 "cost": {
                     "value": ""
                 },
-                "counteraction": false,
+                "counteraction": true,
                 "damage": {
                     "0": {
                         "applyMod": false,
@@ -263,13 +263,14 @@
                     }
                 },
                 "description": {
-                    "value": "<p>A globe of freezing darkness explodes in the area, dealing 8d10 cold damage to creatures in the area, plus 8d4 additional void damage to living creatures. Each creature in the area must attempt a Reflex save. If the globe overlaps with an area of magical light or affects a creature affected by magical light, eclipse burst attempts to counteract the light effect.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Blinded] by the darkness for an unlimited duration.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The cold damage increases by 1d10 and the void damage against the living increases by 1d4.</p>"
+                    "value": "<p>A globe of freezing darkness explodes in the area, dealing 8d10 cold damage to creatures in the area, plus an additional 8d4 void damage to living creatures. Each creature in the area must attempt a Reflex save.</p>\n<p>If the globe overlaps with an area of magical light or affects a creature affected by magical light, <em>eclipse burst</em> attempts to counteract the light effect.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Blinded] by the darkness for an unlimited duration.</p><hr /><p><strong>Heightened (+1)</strong> The cold damage increases by 1d10 and the void damage against the living increases by 1d4.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": ""
                 },
                 "heightening": {
+                    "area": 0,
                     "damage": {
                         "0": "1d10",
                         "v1pnjhfu6e9akqe0": "1d4"
@@ -284,9 +285,9 @@
                     "value": "EDwLmZrzV7UKSmVT"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "500 feet"
@@ -1251,7 +1252,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You summon an isolated blizzard of obscuring, scouring ice to follow your target. The target attempts a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes @Damage[1d6[cold]] damage, and the spell ends.</p>\n<p><strong>Failure</strong> The target takes @Damage[1d6[cold]] damage and @Damage[1d6[persistent,cold]] damage. (The persistent damage automatically ends when the spell ends.) It is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] to other creatures, and other creatures are concealed to it.</p>\n<p><strong>Critical Failure</strong> As failure, but both the cold damage and the persistent cold damage increase to [[/r 2d6]].</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The cold damage and persistent cold damage increase by 1 (2 on a critical failure).</p>"
+                    "value": "<p>Your patron's breath becomes a blizzard of obscuring, scouring ice that follows your target. The target attempts a Fortitude save.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes 1d6 cold damage, and the spell ends.</p>\n<p><strong>Failure</strong> The target takes 1d6 cold damage and 1d6 persistent cold damage. The persistent damage automatically ends when the spell ends. It is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] to other creatures, and other creatures are concealed to it.</p>\n<p><strong>Critical Failure</strong> As failure, but both the cold damage and the persistent cold damage are 2d6.</p><hr /><p><strong>Heightened (+1)</strong> The cold damage and persistent cold damage increase by 1 (2 on a critical failure).</p>"
                 },
                 "duration": {
                     "sustained": true,
@@ -1272,9 +1273,9 @@
                     "value": "TWHIXASInyOgYomw"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -1292,10 +1293,9 @@
                     "rarity": "uncommon",
                     "traditions": [],
                     "value": [
-                        "attack",
+                        "cold",
                         "focus",
                         "hex",
-                        "manipulate",
                         "witch"
                     ]
                 }
@@ -2584,7 +2584,7 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8mhSUxEvNuXDP8Ki"
             },
             "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.webp",
-            "name": "Bracers of Armor II",
+            "name": "Bands of Force (Greater)",
             "sort": 3500000,
             "system": {
                 "baseItem": null,
@@ -2593,7 +2593,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>These stiff leather armguards grant you a +2 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5. You can affix talismans to <em>bracers of armor</em> as though they were light armor.</p>"
+                    "value": "<p>Decorated with clear gemstones, these thick metal bands spread an inflexible layer of force over your body. The force grants you a +2 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5 as armor. You can affix talismans to the bands as though they were light armor.</p>\n<p><strong>Activate—Return Force</strong> <span class=\"action-glyph\">R</span> (force, manipulate)</p>\n<p><strong>Trigger</strong> A creature critically misses you with a melee Strike</p><hr /><p><strong>Effect</strong> You [[/act shove options=bands-of-force-greater]] the creature using the bands' Athletics modifier of +21.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -2613,46 +2613,68 @@
                 },
                 "price": {
                     "value": {
-                        "gp": 4000
+                        "gp": 4500
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
                 },
                 "quantity": 1,
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "selector": "ac",
-                        "slug": "bracers-of-armor",
-                        "type": "item",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "selector": "saving-throw",
-                        "slug": "bracers-of-armor",
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "slug": "bands-of-force",
                         "type": "item",
                         "value": 2
                     },
                     {
                         "key": "DexterityModifierCap",
                         "value": 5
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "bands-of-force-greater"
+                        ],
+                        "selector": [
+                            "athletics"
+                        ],
+                        "slug": "bands-of-force-greater",
+                        "value": 21
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": [
+                            "bands-of-force-greater",
+                            {
+                                "or": [
+                                    "bonus:type:proficiency",
+                                    "modifier:type:ability"
+                                ]
+                            }
+                        ],
+                        "selector": "athletics",
+                        "suppress": true
                     }
                 ],
                 "size": "med",
-                "slug": "bracers-of-armor-ii",
+                "slug": "bands-of-force-greater",
                 "traits": {
                     "rarity": "common",
                     "value": [
+                        "force",
                         "invested",
                         "magical"
                     ]
                 },
                 "usage": {
-                    "value": "wornbracers"
+                    "value": "wornarmbands"
                 }
             },
             "type": "equipment"

@@ -1,0 +1,77 @@
+{
+    "_id": "9f5lG32k5RKHtImU",
+    "img": "icons/magic/fire/flame-burning-eye.webp",
+    "name": "Spell Effect: Diabolical Mantle",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Diabolical Mantle]</p>\n<p>You gain greater darkvision, immunity to fire, resistance 5 to physical damage (except silver) and poison damage, and weakness 5 to holy. Damage you deal has the unholy trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "key": "Sense",
+                "selector": "greater-darkvision"
+            },
+            {
+                "key": "Immunity",
+                "type": "fire"
+            },
+            {
+                "exceptions": [
+                    "silver"
+                ],
+                "key": "Resistance",
+                "type": "physical",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "type": "poison",
+                "value": 5
+            },
+            {
+                "key": "Weakness",
+                "type": "holy",
+                "value": 5
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "unholy"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "unholy"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

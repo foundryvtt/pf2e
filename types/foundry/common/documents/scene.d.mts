@@ -3,6 +3,7 @@ import { GridType, ImageFilePath, VideoFilePath } from "@common/constants.mjs";
 import { Document, DocumentMetadata, EmbeddedCollection } from "../abstract/_module.mjs";
 import * as data from "../data/data.mjs";
 import * as fields from "../data/fields.mjs";
+import { GridlessGrid, HexagonalGrid, SquareGrid } from "../grid/_module.mjs";
 import * as documents from "./_module.mjs";
 
 /**
@@ -14,6 +15,9 @@ export default class BaseScene extends Document<null, SceneSchema> {
     static override get metadata(): SceneMetadata;
 
     static override defineSchema(): SceneSchema;
+
+    /** The default grid defined by the system. */
+    static get defaultGrid(): GridlessGrid | HexagonalGrid | SquareGrid;
 }
 
 export default interface BaseScene extends Document<null, SceneSchema>, fields.ModelPropsFromSchema<SceneSchema> {
@@ -186,22 +190,23 @@ type FogSchema = {
 
 type EnvironmentSchema = {
     darknessLevel: fields.AlphaField;
+    /** The darkness level lock state. */
     darknessLock: fields.BooleanField;
     /** Is a global source of illumination present which provides dim light to all areas of the Scene? */
-    globalLight: fields.SchemaField<{
-        enabled: fields.BooleanField;
-        alpha: data.LightDataSchema["alpha"];
-        bright: fields.BooleanField;
-        color: data.LightDataSchema["color"];
-        coloration: data.LightDataSchema["coloration"];
-        luminosity: data.LightDataSchema["luminosity"];
-        saturation: data.LightDataSchema["saturation"];
-        contrast: data.LightDataSchema["contrast"];
-        shadows: data.LightDataSchema["shadows"];
-        darkness: data.LightDataSchema["darkness"];
-    }>;
+    globalLight: fields.SchemaField<
+        {
+            enabled: fields.BooleanField;
+            bright: fields.BooleanField;
+        } & Pick<
+            data.LightDataSchema,
+            "alpha" | "color" | "coloration" | "contrast" | "luminosity" | "saturation" | "shadows" | "darkness"
+        >
+    >;
+    /** If cycling between base and dark is activated. */
     cycle: fields.BooleanField;
+    /** The base (darkness level 0) ambience lighting data. */
     base: fields.SchemaField<EnvironmentDataSchema>;
+    /** The dark (darkness level 1) ambience lighting data. */
     dark: fields.SchemaField<EnvironmentDataSchema>;
 };
 

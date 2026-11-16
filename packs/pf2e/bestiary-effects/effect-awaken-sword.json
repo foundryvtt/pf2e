@@ -1,0 +1,54 @@
+{
+    "_id": "8AwoyfFDqPqXkzYm",
+    "img": "icons/weapons/swords/greatsword-crossguard-flanged.webp",
+    "name": "Effect: Awaken Sword",
+    "system": {
+        "description": {
+            "value": "<p>The hunting sword Strike gains the reach trait and deals an additional 2d6 slashing damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:slug:shortsword"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "reach"
+            },
+            {
+                "damageType": "slashing",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "shortsword-base-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

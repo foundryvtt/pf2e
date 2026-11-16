@@ -1,3 +1,4 @@
+import { Level } from "@client/documents/_module.mjs";
 import { EdgeDirectionMode } from "@common/constants.mjs";
 import { PointEffectSource } from "../sources/point-effect-source.mjs";
 import { Ray } from "./_module.mjs";
@@ -16,6 +17,8 @@ export type PointSourcePolygonType = "light" | "darkness" | "sight" | "sound" | 
 export interface PointSourcePolygonConfig {
     /** The type of polygon being computed */
     type: PointSourcePolygonType;
+    /** The level whose edges constrain the polygon, defaulting to the viewed one */
+    level?: Level | null;
     /** The angle of emission, if limited */
     angle?: number;
     /** The desired density of padding rays, a number per PI */

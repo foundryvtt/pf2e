@@ -1,0 +1,63 @@
+{
+    "_id": "rjPSDCxSbWuQ6LaR",
+    "folder": "w0JyUUIvac6DLCdS",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Swamp Gas Form",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can cast @UUID[Compendium.pf2e.spells-srd.Item.Vapor Form] as an occult innate spell once per day, but you can target only yourself. While under the effects of <em>vapor form</em>, you increase the granted fly Speed to 20 feet. You also gain weakness to fire equal to your level, and upon taking fire damage, you deal an equal amount of fire damage (including damage from your weakness) to all creatures in a @Template[type:emanation|distance:10] around you.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "murd bugbear heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "self:effect:vapor-form"
+                ],
+                "selector": "fly",
+                "value": 20
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "self:effect:vapor-form"
+                ],
+                "type": "type",
+                "value": "@actor.level"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "bugbear"
+            ]
+        }
+    },
+    "type": "feat"
+}

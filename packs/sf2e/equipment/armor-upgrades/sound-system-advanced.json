@@ -1,0 +1,65 @@
+{
+    "_id": "geTkNArjKf0P3snc",
+    "folder": "cTmXSS0L1MClVGP3",
+    "img": "systems/sf2e/icons/spells/ghost-sound.webp",
+    "name": "Sound System (Advanced)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>This set of speakers can project your voice or audio from a connected device. You gain a +3 item bonus to Diplomacy, Intimidation, and Performance checks for auditory actions.</p><hr /><p><strong>Activate—Feedback</strong> <span class=\"action-glyph\">2</span> (auditory, manipulate)</p>\n<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> You initiate a powerful feedback loop that deals @Damage[10d6[sonic]|options:area-damage] damage to creatures in a @Template[type:emanation|distance:15] (@Check[reflex|dc:32|basic] save).</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 15
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "sp": 65000
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:auditory"
+                ],
+                "selector": [
+                    "diplomacy",
+                    "intimidation",
+                    "performance"
+                ],
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "tech"
+            ]
+        },
+        "usage": {
+            "value": "installed-in-armor"
+        }
+    },
+    "type": "equipment"
+}

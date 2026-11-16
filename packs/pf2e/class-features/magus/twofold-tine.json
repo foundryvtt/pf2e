@@ -35,9 +35,39 @@
                     "spellcasting:tradition:arcane",
                     {
                         "or": [
-                            "item:slug:blur",
-                            "item:slug:gravity-well",
-                            "item:slug:unfettered-movement"
+                            {
+                                "and": [
+                                    "item:slug:blur",
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            7
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:gravity-well",
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            11
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:unfettered-movement",
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            13
+                                        ]
+                                    }
+                                ]
+                            }
                         ]
                     }
                 ],

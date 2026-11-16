@@ -1,0 +1,453 @@
+{
+    "_id": "c7eIYYuSJBxPKPZX",
+    "folder": "UfY2GK0vNyWi13Q6",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "feaxCD9Ox06mRWFA",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Edge",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 31
+                },
+                "damageRolls": {
+                    "8WamzXAzuCVv3f39": {
+                        "damage": "3d6+17",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "kTckGLLVvFLz1XQq",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Facet Beam",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 31
+                },
+                "damageRolls": {
+                    "LI8T59VdjVkQUq86": {
+                        "damage": "3d10+17",
+                        "damageType": "force"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 30,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "agile",
+                        "force",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "8HEyNK4bkD6fElck",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Gemsense",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A corundumite can sense gems within 60 feet as if using the scent ability.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "B2S9qGpcPeBYvb1X",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Glow",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>20 feet. The aura sheds dim light.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 20,
+                        "traits": [
+                            "light"
+                        ]
+                    },
+                    {
+                        "key": "TokenLight",
+                        "value": {
+                            "alpha": 0.3,
+                            "animation": {
+                                "type": "pulse"
+                            },
+                            "bright": 0,
+                            "color": "#bae9fc",
+                            "coloration": 101,
+                            "dim": 20
+                        }
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "light"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Exsr3heysFPjGmna",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Cold Ray",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The corundumite fires a beam of freezing blue light in a @Template[type:line|distance:60]. Any creature in the area takes @Damage[6d10[cold]|options:area-damage] damage and must attempt a @Check[reflex|dc:38|options:area-effect,damaging-effect,inflicts:immobilized,inflicts:petrified] save. The corundumite can't use Cold Ray on its next turn.</p><hr /><p><strong>Critical Success</strong> No effect.</p>\n<p><strong>Success</strong> Half damage.</p>\n<p><strong>Failure</strong> Full damage and @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for 1 round.</p>\n<p><strong>Critical Failure</strong> Full damage and @UUID[Compendium.pf2e.conditionitems.Item.Petrified] for 1 round. While petrified, the creature is transformed into solid ice instead of stone and gains weakness 5 to fire.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "cold"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lo10mPjRXSZE9aD7",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Earth Glide",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The corundumite can Burrow through any earthen matter, including rock. When it does so, the corundumite moves at its full burrow Speed, leaving no tunnels or signs of its passing.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5kDUSM0d8MG3qXzO",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Fire Ray",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The corundumite fires a beam of blinding red light in a @Template[type:line|distance:60]. Any creature in the area takes deals @Damage[8d10[fire]|options:area-damage] damage and must attempt a @Check[reflex|dc:38|options:area-effect,damaging-effect,inflicts:dazzled,inflicts:blinded] DC save. The corundumite can't use Fire Ray on its next turn.</p><hr /><p><strong>Critical Success</strong> No effect.</p>\n<p><strong>Success</strong> Half damage.</p>\n<p><strong>Failure</strong> Full damage and @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Critical Failure</strong> Full damage and @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire",
+                        "light"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "m0Fw2cc3pJoEGi42",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Raking Shot",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The corundumite uses Cold Ray or Fire Ray and then Flies in a straight line in a direction perpendicular to its ray. During this movement, the ray moves with the corundumite. When the ray enters a creature's space, that creature is affected by the ray. The corundumite can't use Raking Shot again for [[/gmr 1d4 #Recharge Raking Shot]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Corundumite",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -1
+            },
+            "con": {
+                "mod": 9
+            },
+            "dex": {
+                "mod": 9
+            },
+            "int": {
+                "mod": -2
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 43
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 350,
+                "temp": 0,
+                "value": 350
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "sleep"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "cold",
+                    "value": 20
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 20
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "burrow",
+                        "value": 20
+                    },
+                    {
+                        "type": "fly",
+                        "value": 60
+                    }
+                ],
+                "value": 0
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "bludgeoning",
+                    "value": 20
+                },
+                {
+                    "exceptions": [],
+                    "type": "force",
+                    "value": 20
+                },
+                {
+                    "exceptions": [],
+                    "type": "sonic",
+                    "value": 20
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "petran"
+                ]
+            },
+            "level": {
+                "value": 18
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Corundumites are flying earth elementals that look like faceted red or blue gemstones. Drawn to veins rich with rubies, sapphires, and other precious stones, corundumites regard themselves as the guardians of the earth's riches, attacking those who mine or even examine the uncut gems in their domains. They can be hostile to travelers who have gemstones in their possession, but those who carry no such stones—or who surrender their gems as recompense for the slight—are usually allowed to pass unharmed. Why corundumites are so protective of the stones in their care remains unknown, though those who have spoken with the elementals report that they seem to regard the gems not as symbols of wealth, but rather as living, thinking beings.</p><h2>Gem Body</h2><p>When it dies, a corundumite transforms into an inert—and highly valuable—corundum gemstone such as a ruby or sapphire. An intact gemstone harvested from a dead corundumite can be worth as much as 2,000 gp, provided it's in good condition. Unfortunately, not every battle leaves behind a perfectly preserved gemstone. If the damage that reduced the corundumite to 0 Hit Points was bludgeoning, force, or sonic damage, the gem smashes into 2d6 fragments, each of which is worth only 100 gp.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "gemsense (imprecise) 60 feet",
+            "mod": 31,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 35
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 31
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 30
+            }
+        },
+        "skills": {},
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "tiny"
+            },
+            "value": [
+                "earth",
+                "elemental"
+            ]
+        }
+    },
+    "type": "npc"
+}

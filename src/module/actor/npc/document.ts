@@ -8,7 +8,7 @@ import { ActorSizePF2e } from "@actor/data/size.ts";
 import { attackFromMeleeItem, setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { Modifier, StatisticModifier } from "@actor/modifiers.ts";
-import type { MovementType } from "@actor/types.ts";
+import type { MovementType, SaveType, SkillSlug } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { UserAction } from "@common/constants.d.mts";
 import type { ItemPF2e, MeleePF2e } from "@item";
@@ -18,11 +18,11 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { CreatureIdentificationData, creatureIdentificationDCs } from "@module/recall-knowledge.ts";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene";
-import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
+import { ArmorStatistic, Statistic } from "@system/statistic/index.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { createHTMLElement, signedInteger, sluggify } from "@util";
 import * as R from "remeda";
-import type { NPCFlags, NPCSource, NPCSystemData } from "./data.ts";
+import type { NPCFlags, NPCSkillData, NPCSource, NPCSystemData } from "./data.ts";
 import { ResetBatch } from "./reset-batch.ts";
 import type { VariantCloneParams } from "./types.ts";
 
@@ -30,6 +30,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
     declare initiative: ActorInitiative;
     /** If this is a troop, contains the actors of the other troop segments in the current scene */
     declare otherSegments: NPCPF2e[] | null;
+    /** Level-based stand-in for effects that call for a class DC */
+    declare classDC: Statistic<this>;
 
     static #resetBatch = new ResetBatch();
 
@@ -84,6 +86,19 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         );
     }
 
+    /** Retrieve the level-based class DC */
+    override getStatistic(slug: SaveType | SkillSlug | "perception"): Statistic<this>;
+    override getStatistic(slug: string, options?: { item: ItemPF2e | null }): Statistic<this> | null;
+    override getStatistic(slug: string, options?: { item: ItemPF2e | null }): Statistic | null {
+        switch (slug) {
+            case "class":
+            case "class-dc":
+            case "classDC":
+                return this.classDC ?? null;
+        }
+        return super.getStatistic(slug, options);
+    }
+
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
@@ -126,12 +141,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         this.rollOptions.all[`self:level:${level.value}`] = true;
 
         attributes.spellDC = null;
-        attributes.classDC = ((): { value: number } => {
-            const pwol = game.pf2e.settings.variants.pwol.enabled;
-            const levelBasedDC = calculateDC(level.base, { pwol, rarity: this.rarity });
-            const adjusted = this.isElite ? levelBasedDC + 2 : this.isWeak ? levelBasedDC - 2 : levelBasedDC;
-            return { value: adjusted };
-        })();
+        // Elite/weak adjustments are applied when the class DC statistic is prepared
+        attributes.classDC = { value: calculateDC(level.base, { pwol: game.pf2e.settings.variants.pwol.enabled }) };
         attributes.classOrSpellDC = { value: attributes.classDC.value };
         this.system.spellcasting = fu.mergeObject({ rituals: { dc: 0 } }, this.system.spellcasting);
 
@@ -141,6 +152,14 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             value: resources.mythicPoints?.value ?? 3,
             max: this.system.traits.value.includes("mythic") ? 3 : 0,
         };
+
+        // Skills
+        const skills: Record<string, Partial<NPCSkillData>> = this.system.skills;
+        for (const [slug, config] of fu.iterateEntries(CONFIG.PF2E.skills)) {
+            if (!config) continue;
+            const skill = (skills[slug] ??= {});
+            Object.assign(skill, config);
+        }
 
         // Base movement data
         const speeds: Record<MovementType, { value: number; base: number } | null> = this.system.movement.speeds;
@@ -248,35 +267,26 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             attribute: armorStatistic.attribute ?? "dex",
         });
 
+        // Class DC
+        const classDomains = ["class", "all"];
+        this.classDC = new Statistic(this, {
+            slug: "class",
+            label: "TYPES.Item.class",
+            domains: classDomains,
+            modifiers: [
+                new Modifier({
+                    slug: "base",
+                    label: "PF2E.ModifierTitle",
+                    modifier: system.attributes.classDC.value - 10,
+                    adjustments: extractModifierAdjustments(modifierAdjustments, classDomains, "base"),
+                }),
+            ],
+        });
+        system.attributes.classDC.value = this.classDC.dc.value;
+        system.attributes.classOrSpellDC = { value: this.classDC.dc.value };
+
+        this.preparePerception();
         this.prepareSaves();
-
-        // Perception
-        {
-            const domains = ["perception", "wis-based", "all"];
-            this.perception = new PerceptionStatistic(this, {
-                slug: "perception",
-                label: "PF2E.PerceptionLabel",
-                attribute: "wis",
-                domains,
-                modifiers: [
-                    new Modifier({
-                        slug: "base",
-                        label: "PF2E.ModifierTitle",
-                        modifier: system.perception.mod,
-                        adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
-                    }),
-                ],
-                check: { type: "perception-check" },
-                senses: system.perception.senses,
-                vision: system.perception.vision,
-            });
-            system.perception = fu.mergeObject(this.perception.getTraceData(), {
-                attribute: this.perception.attribute ?? "wis",
-                details: system.perception.details,
-                mod: this.perception.mod,
-            });
-        }
-
         this.prepareSkills();
 
         // Process strikes
@@ -297,6 +307,21 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         // Initiative
         this.initiative = new ActorInitiative(this, R.pick(system.initiative, ["statistic", "tiebreakPriority"]));
         system.initiative = this.initiative.getTraceData();
+    }
+
+    protected override preparePerception(): void {
+        const modifierAdjustments = this.synthetics.modifierAdjustments;
+        const baseModifier = new Modifier({
+            slug: "base",
+            label: "PF2E.ModifierTitle",
+            modifier: this.system.perception.mod,
+            adjustments: extractModifierAdjustments(modifierAdjustments, ["perception", "wis-based", "all"], "base"),
+        });
+        super.preparePerception([baseModifier]);
+        this.system.perception = Object.assign(this.perception.getTraceData(), {
+            details: this.system.perception.details,
+            mod: this.perception.mod,
+        });
     }
 
     private prepareSaves(): void {
@@ -333,99 +358,65 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
     private prepareSkills() {
         const modifierAdjustments = this.synthetics.modifierAdjustments;
+        this.skills = fu
+            .iterateEntries(this.system.skills)
+            .reduce((statistics: Record<string, Statistic<this>>, [slug, skill]) => {
+                const attribute = skill.attribute;
+                const base = skill.base ?? this.system.abilities[attribute].mod;
+                const domains = [slug, `${attribute}-based`, "skill-check", `${attribute}-skill-check`, "all"];
+                if (skill.lore) domains.push("lore-skill-check");
 
-        this.skills = R.mapToObj(R.entries(CONFIG.PF2E.skills), ([skillSlug, { attribute, label }]) => {
-            const skill = this._source.system.skills[skillSlug];
-            const domains = [skillSlug, `${attribute}-based`, "skill-check", `${attribute}-skill-check`, "all"];
+                // Get predicated variants as modifiers that trigger when the predicate is met.
+                // This is only necessary if there are predicates. Direct clicking is handled separately.
+                const specialModifiers =
+                    skill.special
+                        ?.filter((v) => v.predicate?.length)
+                        .map(
+                            (special) =>
+                                new Modifier({
+                                    slug: "variant",
+                                    label: special.label,
+                                    modifier: special.base - base,
+                                    predicate: special.predicate,
+                                    hideIfDisabled: true,
+                                    domains,
+                                }),
+                        ) ?? [];
 
-            // Get predicated variants as modifiers that trigger when the predicate is met.
-            // This is only necessary if there are predicates. Direct clicking is handled separately.
-            const specialModifiers =
-                skill?.special
-                    ?.filter((v) => v.predicate?.length)
-                    .map(
-                        (special) =>
-                            new Modifier({
-                                slug: "variant",
-                                label: special.label,
-                                modifier: special.base - skill.base,
-                                predicate: special.predicate,
-                                hideIfDisabled: true,
-                                domains,
-                            }),
-                    ) ?? [];
+                statistics[slug] = new Statistic(this, {
+                    slug,
+                    label: skill.label,
+                    attribute,
+                    domains,
+                    modifiers: [
+                        new Modifier({
+                            slug: "base",
+                            label: "PF2E.ModifierTitle",
+                            modifier: base,
+                            adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
+                        }),
+                        ...specialModifiers,
+                    ],
+                    lore: skill.lore,
+                    proficient: !!skill.lore || slug in this._source.system.skills,
+                    check: { type: "skill-check" },
+                });
+                return statistics;
+            }, {});
 
-            const statistic = new Statistic(this, {
-                slug: skillSlug,
-                label,
-                attribute,
-                domains,
-                modifiers: [
-                    new Modifier({
-                        slug: "base",
-                        label: "PF2E.ModifierTitle",
-                        modifier: skill?.base ?? this.system.abilities[attribute].mod,
-                        adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
-                    }),
-                    ...specialModifiers,
-                ],
-                lore: false,
-                proficient: skillSlug in this._source.system.skills,
-                check: { type: "skill-check" },
-            });
-
-            return [skillSlug, statistic];
-        });
-
-        // Assemble lore items, key'd by a normalized slug
-        const loreItems = R.mapToObj(this.itemTypes.lore, (loreItem) => [loreItem.slug, loreItem]);
-
-        // Add Lore skills to skill statistics
-        for (const [slug, loreItem] of Object.entries(loreItems)) {
-            const domains = [slug, "skill-check", "lore-skill-check", "int-skill-check", "all"];
-            const statistic = new Statistic(this, {
-                slug,
-                label: loreItem.name,
-                attribute: "int",
-                domains,
-                modifiers: [
-                    new Modifier({
-                        slug: "base",
-                        label: "PF2E.ModifierTitle",
-                        modifier: loreItem.system.mod.value,
-                        adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
-                    }),
-                ],
-                lore: true,
-                proficient: true,
-                check: { type: "skill-check" },
-            });
-
-            this.skills[slug] = statistic;
-        }
-
-        // Create trace data in system data and omit unprepared skills
-        this.system.skills = R.mapToObj(Object.entries(this.skills), ([key, statistic]) => {
-            const loreItem = statistic.lore ? loreItems[statistic.slug] : null;
-            const baseData = this.system.skills[key] ?? { base: loreItem?.system.mod.value ?? 0 };
-            const data = fu.mergeObject(baseData, {
-                ...statistic.getTraceData(),
-                mod: statistic.check.mod,
-                itemId: loreItem?.id ?? null,
-                lore: !!statistic.lore,
-                visible: statistic.proficient,
-            });
+        // Create trace skill data in system data and omit unprepared skills
+        for (const [slug, statistic] of fu.iterateEntries(this.skills)) {
+            const skill = this.system.skills[slug];
+            skill.base ??= statistic.modifiers.find((m) => m.slug === "base" && m.enabled)?.value ?? 0;
+            Object.assign(skill, statistic.getTraceData(), { mod: statistic.check.mod, visible: statistic.proficient });
 
             // Recalculate displayed variant modifiers, accounting for already enabled ones
             const enabledVariantMod =
                 statistic.check.modifiers.find((m) => m.slug === "variant" && m.enabled)?.modifier ?? 0;
-            data.special ??= [];
-            for (const variant of data.special) {
-                variant.mod = variant.base + (statistic.check.mod - baseData.base - enabledVariantMod);
+            for (const variant of (skill.special ??= [])) {
+                variant.mod = variant.base + (statistic.check.mod - skill.base - enabledVariantMod);
             }
-
-            return [key, data];
-        });
+        }
     }
 
     async getAttackEffects(attack: MeleePF2e): Promise<RollNotePF2e[]> {
@@ -502,10 +493,12 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         const newHPAdjustment = getHpAdjustment(this.baseLevel, adjustment);
         const currentHP = this.system.attributes.hp.value;
         const newHP = currentHP - currentHPAdjustment + newHPAdjustment;
-        await this.update({
+        const changes = {
             "system.attributes.hp.value": Math.max(0, newHP),
             "system.attributes.adjustment": adjustment,
-        });
+        };
+        if (this.persisted) await this.update(changes);
+        else this.updateSource(changes);
     }
 
     /** Create a variant clone of this NPC, adjusting any of name, description, and images */
@@ -560,10 +553,10 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         }
 
         if (changed.system.skills) {
-            for (const skill of Object.values(changed.system.skills)) {
-                if (skill?.note === "") {
-                    fu.mergeObject(skill, { note: _del });
-                }
+            for (const skill of fu.iterateValues(changed.system.skills)) {
+                if (!skill || skill instanceof foundry.data.operators.DataFieldOperator) continue;
+                if (typeof skill.base === "number") skill.base = Math.trunc(Number(skill.base) || 0);
+                if (skill.note === "") Object.assign(skill, { note: _del });
             }
         }
     }

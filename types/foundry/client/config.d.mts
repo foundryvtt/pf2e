@@ -47,7 +47,11 @@ import type {
     PointVisionSource,
 } from "./canvas/sources/_module.mjs";
 import ClientDatabaseBackend from "./data/client-backend.mjs";
-import { TokenMovementCostAggregator } from "./documents/_types.mjs";
+import {
+    ActiveEffectChangeHandler,
+    ActiveEffectChangeRenderer,
+    TokenMovementCostAggregator,
+} from "./documents/_types.mjs";
 import WorldCollection from "./documents/abstract/world-collection.mjs";
 import * as collections from "./documents/collections/_module.mjs";
 
@@ -155,6 +159,13 @@ interface GridStyleConfig {
     label: string;
     shaderClass: typeof GridShader;
     shaderOptions: { style: number };
+}
+
+interface ActiveEffectChangeTypeConfig {
+    label: string;
+    defaultPriority: number;
+    handler?: ActiveEffectChangeHandler | null;
+    render?: ActiveEffectChangeRenderer | null;
 }
 
 export default interface Config<

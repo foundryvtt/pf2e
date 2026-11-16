@@ -214,7 +214,14 @@ export function getRoute(path: string, options?: { prefix?: string | null }): st
  * @param element The element to test.
  * @param tagOrClass The tag name or HTMLElement subclass to test.
  */
-export function isElementInstanceOf(element: HTMLElement, tagOrClass: string | Function): boolean;
+export function isElementInstanceOf<K extends keyof HTMLElementTagNameMap>(
+    element: object,
+    tagOrClass: K,
+): element is HTMLElementTagNameMap[K];
+export function isElementInstanceOf<T extends object>(
+    element: object,
+    tagOrClass: AbstractConstructorOf<T>,
+): element is T;
 
 /**
  * Determine whether a value is a plain object; that is, one with a constructor of Object of null.
@@ -299,7 +306,9 @@ export function objectEntries<K extends string, V>(obj: Record<K, V>): Generator
 /**
  * Stream object entries.
  */
-export function iterateEntries<T extends object>(obj: T): IteratorObject<[keyof T, T[keyof T]], void, unknown>;
+export function iterateEntries<T extends object>(
+    obj: T,
+): IteratorObject<[keyof T extends string ? keyof T : string, T[keyof T]], void, unknown>;
 
 /**
  * Object keys generator.

@@ -1,3 +1,5 @@
+import type { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.mjs";
+import { ErrorPF2e } from "@util";
 import type { UserSettingsPF2e } from "./data.ts";
 import type { UserPF2e } from "./document.ts";
 
@@ -7,18 +9,18 @@ class UserConfigPF2e extends fa.sheets.UserConfig<UserPF2e> {
 
     static override PARTS = {
         tabs: { template: "templates/generic/tab-navigation.hbs" },
-        main: { template: `systems/${SYSTEM_ID}/templates/user/sheet.hbs` },
-        // Add a new main part, which embeds the original form part
-        ...super.PARTS,
+        form: super.PARTS.form,
+        pf2e: { template: `systems/${SYSTEM_ID}/templates/user/tab.hbs` },
+        footer: super.PARTS.footer,
     };
 
     static override TABS: Record<string, fa.ApplicationTabsConfiguration> = {
         primary: {
             tabs: [
-                { id: "core", icon: "fa-solid fa-user", label: "PACKAGECONFIG.Core" },
+                { id: "form", icon: "fa-solid fa-user", label: "PACKAGECONFIG.Core" },
                 { id: "pf2e", icon: "action-glyph", label: "PF2E.SystemNameShort" },
             ],
-            initial: "core",
+            initial: "form",
         },
     };
 
@@ -44,6 +46,18 @@ class UserConfigPF2e extends fa.sheets.UserConfig<UserPF2e> {
             systemId: SYSTEM_ID,
             settings: this.document.flags[SYSTEM_ID].settings,
         });
+    }
+
+    /** Turn the core template part into a tab. */
+    protected override async _onRender(context: object, options: HandlebarsRenderOptions): Promise<void> {
+        if (!options.parts.includes("form")) return super._onRender(context, options);
+        const mainTab = this.element.querySelector<HTMLElement>("div[data-application-part=form]");
+        if (!mainTab) throw ErrorPF2e("Unexpected missing main tab");
+        mainTab.dataset.group = "primary";
+        mainTab.dataset.tab = "form";
+        mainTab.classList.add("tab");
+        mainTab.classList.toggle("active", this.tabGroups.primary === "form");
+        return super._onRender(context, options);
     }
 }
 

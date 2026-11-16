@@ -1,0 +1,64 @@
+{
+    "_id": "Yjet0FGAHPx7gjod",
+    "folder": "9wzJJRzMrF1oOCtk",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Hardening Necrosis",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> You would take a critical hit that deals physical damage.</p><hr /><p>Your partly undead flesh becomes resistant to the strongest physical attacks. You gain resistance 6 to the triggering damage; this resistance increases to 8 at 13th level, and to 10 at 17th level. However, you are @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round as your joints seize up and your hardened flesh makes it difficult to move.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "PT1H"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "koblak bugbear heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "hardening-necrosis",
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "hardening-necrosis"
+                ],
+                "type": "physical",
+                "value": "ternary(gte(@actor.level,17),10,ternary(gte(@actor.level,13),8,6))"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "bugbear"
+            ]
+        }
+    },
+    "type": "feat"
+}

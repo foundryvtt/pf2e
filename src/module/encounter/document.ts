@@ -222,7 +222,11 @@ class EncounterPF2e extends Combat {
     async resetActors(): Promise<void> {
         const actors: ActorPF2e[] = R.unique(
             this.combatants.contents
-                .flatMap((c) => [c.actor, c.actor?.isOfType("character") ? c.actor.familiar : null])
+                .flatMap((c) => [
+                    c.actor,
+                    ...c.tokens.map((t) => t.actor),
+                    c.actor?.isOfType("character") ? c.actor.familiar : null,
+                ])
                 .filter(R.isNonNull),
         );
         resetActors(actors, { sheets: false, tokens: true });

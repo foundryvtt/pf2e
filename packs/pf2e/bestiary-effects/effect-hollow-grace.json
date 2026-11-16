@@ -1,0 +1,79 @@
+{
+    "_id": "mxRn1WArOUWEOr0Q",
+    "img": "icons/magic/unholy/silhouette-light-fire-blue.webp",
+    "name": "Effect: Hollow Grace",
+    "system": {
+        "description": {
+            "value": "<p>Living creatures in the emanation take a –1 status penalty to saving throws against emotion and void effects. Undead creatures in the emanation gain a +1 status bonus to attack and damage rolls and gain resistance 5 to vitality damage.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:mode:living",
+                    {
+                        "or": [
+                            "item:trait:emotion",
+                            "item:trait:void"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "slug": "hollow-grace-living-penalty",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:mode:undead"
+                ],
+                "selector": [
+                    "attack-roll",
+                    "damage"
+                ],
+                "slug": "hollow-grace-undead-bonus",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:mode:undead"
+                ],
+                "type": "vitality",
+                "value": 5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

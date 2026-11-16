@@ -1,0 +1,76 @@
+{
+    "_id": "3tD1qyKmHH1XWK4G",
+    "folder": "ynzVk5CLDJ95KZQz",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Fiend Worshipper",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You seek greater power through unholy communion, amplifying your sadism into something supernaturally evil. You are sanctified as unholy. Your strikes against frightened creatures deal 1 additional mental damage with the unholy trait.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "You have a fiendish patron deity"
+                },
+                {
+                    "value": "you are not holy"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Cheliax, Infernal Inheritance"
+        },
+        "rules": [
+            {
+                "add": [
+                    "unholy"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "damageType": "mental",
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:condition:frightened"
+                ],
+                "selector": [
+                    "strike-damage"
+                ],
+                "value": 1
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "target:condition:frightened"
+                ],
+                "property": "traits",
+                "value": "unholy"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "bugbear"
+            ]
+        }
+    },
+    "type": "feat"
+}

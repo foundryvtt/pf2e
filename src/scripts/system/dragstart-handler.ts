@@ -7,10 +7,11 @@ import { htmlClosest } from "@util";
  * Extends all drag and drop events on entity links to contain PF2e specific information
  * such as condition value and spell level.
  */
-export function extendDragData(): void {
-    document.body.addEventListener("dragstart", (event): void => {
-        const { dataTransfer, target: targetElement } = event;
-        if (!(dataTransfer && targetElement instanceof HTMLAnchorElement)) return;
+export function extendDragData(windowDoc: Document = document): void {
+    windowDoc.body.addEventListener("dragstart", (event): void => {
+        const { dataTransfer } = event;
+        const targetElement = event.target;
+        if (!(dataTransfer && targetElement && fu.isElementInstanceOf(targetElement, HTMLAnchorElement))) return;
 
         // Pass along the persistent damage formula so the drop-canvas-data hook can handle it
         if (

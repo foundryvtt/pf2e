@@ -73,7 +73,7 @@ export default class Color extends Number {
      * Returns the color as a CSS string.
      * @returns The color as a CSS string
      */
-    toHTML(): string;
+    toHTML(): HexColorString;
 
     /**
      * Test whether this color equals some other color

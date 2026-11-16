@@ -1,0 +1,99 @@
+{
+    "_id": "D5l4klO1RXf1OcWb",
+    "folder": "E81v2BUiwEcPJzAf",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "yomL7Hq2R9qYZ67Q",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Illusory Vista",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature approaches within 10 feet of the crystal sphere or the sphere is removed from the pedestal</p><hr /><p><strong>Effect</strong> The chamber seems to fade away and is replaced by an image of the Storval Plateau at night. Each creature in the area must succeed at a @Check[will|dc:40] save or become convinced they've been transported to Golarion's surface. A creature can disbelieve the illusion by succeeding at a Perception check to [[/act seek dc=40]]. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "illusion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Memory of the Plateau",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 30
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>An illusion of the Storval Plateau fills creatures with a longing for the surface.</p>",
+            "disable": "<p>@Check[stealth|dc:36] (master) to approach the crystal sphere followed by @Check[thievery|dc:38] (master) to remove the sphere from the pedestal without triggering the hazard, or @Check[arcana|dc:36] or @Check[occultism|dc:36] (expert) twice to unweave the illusion, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (8th rank; counteract DC 34)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 16
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #225: Vaultlines"
+            },
+            "reset": "<p>The hazard deactivates automatically after 1 minute. The hazard reactivates after 1 hour unless the crystal is removed from the pedestal.</p>",
+            "routine": "<p>(1 action) The hazard fills the hearts of those affected by the illusion with a longing for the surface. Each creature in the area that hasn't disbelieved the illusion attempts a @Check[will|dc:38|options:area-effect,inflicts:stupefied,inflicts:slowed] save. This is an emotion and mental effect.</p><hr><p><strong>Critical Success</strong> The creature is unaffected.</p><p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round.</p><p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p><p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3} and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} for 1 round.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

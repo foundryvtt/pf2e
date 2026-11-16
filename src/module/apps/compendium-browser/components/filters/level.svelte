@@ -24,14 +24,24 @@
 
 <div class="levels-container" transition:slide>
     <div class="inputs">
-        <select name="from" value={level.from} onchange={onChangeLevel}>
-            {#each R.range(level.min, level.max + 1) as n}
+        <select
+            name="from"
+            value={level.from}
+            onchange={onChangeLevel}
+            aria-label={_loc("PF2E.CompendiumBrowser.Filter.Aria.LevelFrom")}
+        >
+            {#each R.range(level.min, level.max + 1) as n (n)}
                 <option value={n}>{n}</option>
             {/each}
         </select>
         -
-        <select name="to" value={level.to} onchange={onChangeLevel}>
-            {#each R.range(level.min, level.max + 1) as n}
+        <select
+            name="to"
+            value={level.to}
+            onchange={onChangeLevel}
+            aria-label={_loc("PF2E.CompendiumBrowser.Filter.Aria.LevelTo")}
+        >
+            {#each R.range(level.min, level.max + 1) as n (n)}
                 <option value={n}>{n}</option>
             {/each}
         </select>

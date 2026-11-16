@@ -35,9 +35,39 @@
                     "spellcasting:tradition:arcane",
                     {
                         "or": [
-                            "item:slug:entangling-flora",
-                            "item:slug:earthbind",
-                            "item:slug:seal-fate"
+                            {
+                                "and": [
+                                    "item:slug:entangling-flora",
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            7
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:earthbind",
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            11
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:seal-fate",
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            13
+                                        ]
+                                    }
+                                ]
+                            }
                         ]
                     }
                 ],

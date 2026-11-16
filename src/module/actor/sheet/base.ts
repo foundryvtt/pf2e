@@ -24,7 +24,6 @@ import {
     createSheetTags,
     eventToMessageMode,
     eventToRollParams,
-    isControlDown,
     maintainFocusInRender,
 } from "@module/sheet/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
@@ -45,13 +44,13 @@ import {
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import {
     ErrorPF2e,
-    SORTABLE_BASE_OPTIONS,
     htmlClosest,
     htmlQuery,
     htmlQueryAll,
     objectHasKey,
     setHasElement,
     signedInteger,
+    SORTABLE_BASE_OPTIONS,
     tupleHasValue,
 } from "@util";
 import { createSortable } from "@util/destroyables.ts";
@@ -373,7 +372,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         this.#activateInventoryDragDrop(inventoryPanel);
 
         // Allow use of search inputs when sheet is not editable
-        if (!this.isEditable && this.actor.testUserPermission(game.user, "OBSERVER")) {
+        if (!this.isEditable) {
             for (const input of html.querySelectorAll<HTMLInputElement>("input[type=search]")) {
                 input.disabled = false;
             }
@@ -383,8 +382,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         if (!this.isEditable) return;
 
         // Handlers for number inputs of properties subject to modification by AE-like rules elements
-        const manualPropertyInputs = htmlQueryAll<HTMLInputElement | HTMLSelectElement>(
-            html,
+        const manualPropertyInputs = html.querySelectorAll<HTMLInputElement | HTMLSelectElement>(
             "select[data-property],input[data-property]",
         );
         for (const input of manualPropertyInputs) {
@@ -396,7 +394,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             input.addEventListener("focus", () => {
                 const propertyPath = input.dataset.property ?? "";
                 input.name = propertyPath;
-                if (input instanceof HTMLInputElement) {
+                if (fu.isElementInstanceOf(input, HTMLInputElement)) {
                     const savedValue = fu.getProperty(this.actor._source, propertyPath);
                     const baseValue = isNullable && savedValue === null ? null : Math.trunc(Number(savedValue) || 0);
                     input.value = (baseValue ?? "").toString();
@@ -413,7 +411,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                 const currentValue = preparedValue === null && isNullable ? preparedValue : Number(preparedValue) || 0;
                 const baseValue = Math.trunc(Number(fu.getProperty(this.actor._source, propertyPath)) || 0);
                 const newValue = isNullable && input.value === "" ? null : Math.trunc(Number(input.value));
-                if (input instanceof HTMLInputElement) {
+                if (fu.isElementInstanceOf(input, HTMLInputElement)) {
                     if (input.type === "number" && input.dataset.dtype === "Number") {
                         input.type = "text";
                     }
@@ -431,8 +429,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         }
 
         // General handler for embedded item updates
-        const itemPropertyInputs = htmlQueryAll<HTMLInputElement | HTMLSelectElement>(
-            html,
+        const itemPropertyInputs = html.querySelectorAll<HTMLInputElement | HTMLSelectElement>(
             "input[data-item-id][data-item-property], select[data-item-id][data-item-property]",
         );
         for (const element of itemPropertyInputs) {
@@ -443,7 +440,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
 
                 const value = (() => {
                     const value =
-                        element instanceof HTMLInputElement && element.type === "checkbox"
+                        fu.isElementInstanceOf(element, HTMLInputElement) && element.type === "checkbox"
                             ? element.checked
                             : element.value;
                     if (typeof value === "boolean") return value;
@@ -462,7 +459,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         }
 
         // Set listener toggles and their suboptions
-        for (const togglesSection of htmlQueryAll(html, "ul[data-option-toggles]")) {
+        for (const togglesSection of html.querySelectorAll("ul[data-option-toggles]")) {
             togglesSection.addEventListener("change", (event) => {
                 const toggleRow = htmlClosest(event.target, "[data-item-id][data-domain][data-option]");
                 const checkbox = htmlQuery<HTMLInputElement>(toggleRow, "input[data-action=toggle-roll-option]");
@@ -544,16 +541,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         }
 
         // Select all text in an input field on focus
-        for (const inputElem of htmlQueryAll<HTMLInputElement>(html, "input[type=text], input[type=number]")) {
-            inputElem.addEventListener("focus", () => {
-                inputElem.select();
-            });
+        for (const input of html.querySelectorAll<HTMLInputElement>("input[type=text], input[type=number]")) {
+            input.addEventListener("focus", () => input.select());
         }
 
         // Inputs with the data-allow-delta attribute mostly emulate number type inputs, but allow +X and -X delta values
-        for (const deltaInput of htmlQueryAll<HTMLInputElement>(html, "input[data-allow-delta]")) {
+        for (const deltaInput of html.querySelectorAll<HTMLInputElement>("input[data-allow-delta]")) {
             deltaInput.dataset.numValue = deltaInput.value;
-
             const sendChangeEvent = fu.debounce((value: string) => {
                 deltaInput.value = value;
                 deltaInput.dispatchEvent(new Event("change", { bubbles: true }));
@@ -743,7 +737,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             },
             "detach-subitem": async (event) => {
                 const subitem = await inventoryItemFromDOM(event);
-                return subitem.detach({ skipConfirm: isControlDown(event) });
+                return subitem.detach({ skipConfirm: event.shiftKey });
             },
             "increase-credits": async (event) => {
                 const item = await inventoryItemFromDOM(event);
@@ -775,7 +769,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                     }
                 };
 
-                if (event.ctrlKey) return sellItem();
+                if (event.shiftKey) return sellItem();
 
                 const content = document.createElement("p");
                 content.textContent = _loc("PF2E.SellItemQuestion", { item: item.name });
@@ -901,7 +895,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
     async #onDropInventoryItem(event: Sortable.SortableEvent & { originalEvent?: DragEvent }): Promise<void> {
         if (!this.isEditable) return;
         const dropTarget = event.originalEvent?.target;
-        const droppedOnCanvas = !!dropTarget && dropTarget instanceof HTMLCanvasElement;
+        const droppedOnCanvas = !!dropTarget && fu.isElementInstanceOf(dropTarget, HTMLCanvasElement);
         const droppedOnOtherSheet = !droppedOnCanvas && htmlClosest(event.originalEvent?.target, "form") !== this.form;
         if (droppedOnOtherSheet) return;
 
@@ -960,7 +954,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
     }
 
     protected deleteItem<TItem extends ItemPF2e>(item: TItem, event?: PointerEvent): Promise<TItem | undefined> {
-        return event?.ctrlKey || event?.shiftKey ? item.delete() : item.deleteDialog();
+        return event?.shiftKey ? item.delete() : item.deleteDialog();
     }
 
     #onClickBrowseAbilities(anchor: HTMLElement): void {
@@ -1012,7 +1006,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
 
     /** Add support for dropping actions and toggles */
     protected override _onDragStart(event: DragEvent): void {
-        if (!(event.target instanceof HTMLElement) || !event.dataTransfer) {
+        if (!(event.target && fu.isElementInstanceOf(event.target, HTMLElement)) || !event.dataTransfer) {
             return;
         }
 
@@ -1070,7 +1064,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             }
 
             // ... a roll-option toggle?
-            const label = previewElement?.innerText.trim();
+            // Use the label span so suboption select text is excluded
+            const label = previewElement?.querySelector("label > span")?.textContent.trim();
             const rollOptionData = previewElement?.dataset ?? {};
             if (item && label && rollOptionData.domain && rollOptionData.option) {
                 return {

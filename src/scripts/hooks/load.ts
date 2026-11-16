@@ -11,6 +11,7 @@ import { VehicleSystemData } from "@actor/vehicle/data.ts";
 import { ItemProxyPF2e } from "@item";
 import { AbilitySystemData } from "@item/ability/index.ts";
 import { AfflictionSystemData } from "@item/affliction/data.ts";
+import { AncestrySystemData } from "@item/ancestry/data.ts";
 import { CampaignFeatureSystemData } from "@item/campaign-feature/data.ts";
 import { ClassSystemData } from "@item/class/data.ts";
 import { ConditionSystemData } from "@item/condition/data.ts";
@@ -46,6 +47,7 @@ import {
     EnvironmentFeatureBehaviorType,
     RegionBehaviorPF2e,
     RegionDocumentPF2e,
+    WallDocumentPF2e,
     ScenePF2e,
     TokenDocumentPF2e,
 } from "@scene/index.ts";
@@ -92,6 +94,7 @@ export class Load {
         CONFIG.Token.objectClass = TokenPF2e;
         CONFIG.Token.prototypeSheetClass = PrototypeTokenConfigPF2e;
         CONFIG.Token.rulerClass = TokenRulerPF2e;
+        CONFIG.Wall.documentClass = WallDocumentPF2e;
         Load.#configureMovement();
 
         CONFIG.User.documentClass = UserPF2e;
@@ -109,6 +112,7 @@ export class Load {
             CONFIG.Item.dataModels.affliction = AfflictionSystemData;
         }
         CONFIG.Item.dataModels.action = AbilitySystemData;
+        CONFIG.Item.dataModels.ancestry = AncestrySystemData;
         CONFIG.Item.dataModels.campaignFeature = CampaignFeatureSystemData;
         CONFIG.Item.dataModels.class = ClassSystemData;
         CONFIG.Item.dataModels.condition = ConditionSystemData;
@@ -192,7 +196,11 @@ export class Load {
         // Prevent buttons from retaining focus when clicked so that canvas hotkeys still work
         document.addEventListener("mouseup", (): void => {
             const element = document.activeElement;
-            if (element instanceof HTMLButtonElement && !element.classList.contains("pm-dropdown")) {
+            if (
+                !!element &&
+                fu.isElementInstanceOf(element, HTMLButtonElement) &&
+                !element.classList.contains("pm-dropdown")
+            ) {
                 element.blur();
             }
         });
@@ -209,14 +217,18 @@ export class Load {
         // Default action for creatures unless prone
         movementActions.walk.canSelect = (token) => {
             const actor = token.actor as ActorPF2e | null;
-            return !!actor?.isOfType("creature") && !actor.hasCondition("prone");
+            return !!actor?.isOfType("creature") && !actor.hasCondition("prone") && !!actor.system.movement.speeds.land;
         };
         movementActions.walk.img = null;
 
         // Default action for creatures when prone
         movementActions.crawl.canSelect = (token) => {
             const actor = token.actor as ActorPF2e | null;
-            return !!actor?.isOfType("creature") && actor.hasCondition("prone");
+            return (
+                !!actor?.isOfType("creature") &&
+                actor.hasCondition("prone") &&
+                !!actor.system.movement.speeds.land?.crawl
+            );
         };
 
         // Default action for vehicles

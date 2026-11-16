@@ -126,6 +126,7 @@ class DamageDiceRuleElement extends RuleElement<DamageDiceRuleSchema> {
                     enabled: testPassed,
                     hideIfDisabled: this.hideIfDisabled,
                     alterations,
+                    source: this.item.uuid,
                 });
             };
 

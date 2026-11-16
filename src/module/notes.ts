@@ -50,7 +50,11 @@ class RollNotePF2e {
         });
 
         // Remove wrapping elements, such as from item descriptions
-        if (element.childNodes.length === 1 && element.firstChild instanceof HTMLElement) {
+        if (
+            element.childNodes.length === 1 &&
+            !!element.firstChild &&
+            fu.isElementInstanceOf(element.firstChild, HTMLElement)
+        ) {
             element.innerHTML = element.firstChild.innerHTML;
         }
 

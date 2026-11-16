@@ -27,7 +27,7 @@
         } finally {
             isRemigrating = false;
             // The remigrate button usually disappears after a run, dropping keyboard focus
-            if (document.activeElement === document.body) okButton?.focus();
+            if (okButton && okButton.ownerDocument.activeElement === okButton.ownerDocument.body) okButton.focus();
         }
     }
 </script>

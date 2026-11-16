@@ -23,11 +23,34 @@
         "rules": [
             {
                 "key": "Resistance",
+                "type": "spells",
+                "value": "5*floor(@item.level / 3)"
+            },
+            {
+                "key": "Resistance",
                 "predicate": [
                     "self:effect:arcane-cascade"
                 ],
                 "type": "spells",
-                "value": "5*floor(@item.level / 3)"
+                "value": "5*floor(@item.level / 3) + 1"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "feature:weapon-specialization",
+                    "self:effect:arcane-cascade"
+                ],
+                "type": "spells",
+                "value": "5*floor(@item.level / 3) + 2"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "feature:greater-weapon-specialization",
+                    "self:effect:arcane-cascade"
+                ],
+                "type": "spells",
+                "value": "5*floor(@item.level / 3) + 3"
             }
         ],
         "start": {

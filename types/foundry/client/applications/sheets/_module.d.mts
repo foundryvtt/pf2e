@@ -1,3 +1,4 @@
+export { default as ActorSheetV2 } from "./actor-sheet.mjs";
 export { default as ItemSheetV2 } from "./item-sheet.mjs";
 export * as journal from "./journal/_module.mjs";
 export * from "./scene-config.mjs";

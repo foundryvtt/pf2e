@@ -1,0 +1,75 @@
+{
+    "_id": "24dplu1vRt57sLZp",
+    "folder": "dQNz4LKOv73OtqoO",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Fleshwarp Researcher",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "con",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>Though fleshwarping is more common in the Darklands than it is on the surface, the practice remains despised by many Darklands cultures. Sadly, the unwilling subjects of fleshwarping are often viewed with as much suspicion as the practitioners themselves. Fairly or not, you've been imprisoned either because of your obsession with fleshwarping or because you are a fleshwarp yourself.</p>\n<p>Choose two attribute boosts. One must be to <strong>Constitution</strong> or <strong>Wisdom</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Medicine skill and the Fleshwarping Lore skill. You gain a +1 circumstance bonus to Medicine checks made to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds] on any creature with the fleshwarp trait. This bonus increases to +2 if you become a master in Medicine and to +3 if you become legendary.</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Vautlines Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Vaultlines.Background.FleshwarpResearcher.ToggleLabel",
+                "option": "fleshwarp-researcher",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "fleshwarp-researcher",
+                    {
+                        "or": [
+                            "action:administer-first-aid",
+                            "action:treat-disease",
+                            "action:treat-poison",
+                            "action:treat-wounds"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "medicine"
+                ],
+                "type": "circumstance",
+                "value": "ternary(gte(@actor.system.skills.medicine.rank,4),3,ternary(gte(@actor.system.skills.medicine.rank,3),2,1))"
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Fleshwarping Lore"
+            ],
+            "value": [
+                "medicine"
+            ]
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": []
+        }
+    },
+    "type": "background"
+}

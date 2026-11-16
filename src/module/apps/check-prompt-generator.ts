@@ -242,7 +242,8 @@ class CheckPromptGenerator extends fa.api.HandlebarsApplicationMixin(fa.api.Appl
 
     #htmlQueryTags(selector: string): string[] {
         const tagsEl = this.element.querySelector(selector);
-        const tags: TagifyValue[] = tagsEl instanceof HTMLInputElement && tagsEl.value ? JSON.parse(tagsEl.value) : [];
+        const tags: TagifyValue[] =
+            tagsEl && fu.isElementInstanceOf(tagsEl, HTMLInputElement) && tagsEl.value ? JSON.parse(tagsEl.value) : [];
         return tags.map((t) => t.id || t.value);
     }
 

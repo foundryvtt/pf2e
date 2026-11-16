@@ -1,0 +1,65 @@
+{
+    "_id": "L5CFLpFYR5DfaZFG",
+    "folder": "Mdiy4ndOHwV10cf2",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Healing Flame",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You channel sunlight into life-giving flames. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Natural Medicine] skill feat. As long as you have access to fire, you gain the +2 circumstance bonus to your check to @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds] using Nature granted by the feat, and you restore an additional @Damage[(ternary(gte(@actor.skills.nature.rank,4),5,ternary(gte(@actor.skills.nature.rank,3),3,ternary(gte(@actor.skills.nature.rank,2),2,1)))d4)[healing]] Hit Points on a success. The additional healing increases to 2d4 if you're an expert in Nature, 3d4 if you're a master in Nature, and 5d4 if you're legendary in Nature.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "hesperid nymph heritage"
+                },
+                {
+                    "value": "trained in Nature"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Natural Medicine"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:treat-wounds",
+                    "healing-flame"
+                ],
+                "selector": "nature",
+                "slug": "healing-flame-bonus",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "nymph"
+            ]
+        }
+    },
+    "type": "feat"
+}

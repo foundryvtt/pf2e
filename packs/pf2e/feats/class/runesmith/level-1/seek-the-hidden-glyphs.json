@@ -25,7 +25,24 @@
             "remaster": true,
             "title": "Pathfinder Impossible Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "perception",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Runesmith.SeekTheHiddenGlyphs.SearchLabel",
+                "option": "seek-the-hidden-glyphs",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "seek-the-hidden-glyphs"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

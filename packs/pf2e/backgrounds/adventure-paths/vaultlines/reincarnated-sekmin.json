@@ -1,0 +1,73 @@
+{
+    "_id": "d7bIODWPoHianY9e",
+    "folder": "dQNz4LKOv73OtqoO",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Reincarnated Sekmin",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "int",
+                    "str"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>For whatever reason, the souls of deceased sekmins (or serpentfolk, as they're more commonly known) tend to enter the cycle of reincarnation more frequently than those of other ancestries. You've come to believe that your soul might be one of these, and that in a past life you weren't a member of your current ancestry, but a sekmin. Regardless of how you feel about this revelation, the suspicion that you might be a serpentfolk reborn in a different skin convinced your captors to lock you up and throw away the key.</p>\n<p>Choose two attribute boosts. One must be to <strong>Strength</strong> or <strong>Intelligence</strong>, and one is a free attribute boost.</p>\n<p>You're trained in your choice of the Arcana or Athletics skill, as well as the Sekmin Lore skill. Serpentfolk are a common creature to you; as a result, the DC of any skill check you make to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] about serpentfolk isn't increased because serpentfolk are uncommon. In addition, you gain the @UUID[Compendium.pf2e.actionspf2e.Item.Sibilant Whispers] action.</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Vautlines Player's Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Arcana",
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "PF2E.Skill.Athletics",
+                        "value": "athletics"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.system.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Sibilant Whispers"
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Sekmin Lore"
+            ],
+            "value": []
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": []
+        }
+    },
+    "type": "background"
+}

@@ -90,9 +90,39 @@
                     "spellcasting:tradition:arcane",
                     {
                         "or": [
-                            "item:slug:oaken-resilience",
-                            "item:slug:slow",
-                            "item:slug:flicker"
+                            {
+                                "and": [
+                                    "item:slug:oaken-resilience",
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            7
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:slow",
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            11
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:flicker",
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            13
+                                        ]
+                                    }
+                                ]
+                            }
                         ]
                     }
                 ],

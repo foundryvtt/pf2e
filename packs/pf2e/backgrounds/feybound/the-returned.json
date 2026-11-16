@@ -1,0 +1,91 @@
+{
+    "_id": "rpejfzTfVk2X0ods",
+    "folder": "wUxXhAJUnhdVqzH2",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "The Returned",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "dex"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You might have stumbled into the First World hundreds of years ago only to stumble out into a time where you no longer have any friends or family. You might have been taken by a capricious fey lord, served in a wandering fey carnival, or been part of a high lord's entourage. Now, you've returned, and the world you were born into no longer seems familiar. Some incorrectly call you changeling, and others might call you cursed. All you know is that your world is no longer as you remember it, and you'd give anything to go back to the way things were. You might be searching for long-lost family or their distant descendants. Or perhaps you wish to return to the land of Summer's Twilight, for vengeance or lost wonder; you're still not sure. You know the dangers of the First World as well as its beauty. You can sense thin places and know why it's wise to toss salt over your shoulder before beginning an uncertain journey.</p>\n<p>Choose two attribute boosts. One must be to <strong>Dexterity</strong> or <strong>Charisma</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the First World Lore skill and a skill of your choice. Your time in the First World has given you insight into magic and resistance to its lures. You have a +1 circumstance bonus to Perception checks to see through illusions; this increases to +2 if the illusion is created by a creature with the fey trait.</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "config": "skills",
+                    "predicate": [
+                        "skill:{choice|value}:rank:0"
+                    ]
+                },
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.system.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:illusion"
+                ],
+                "selector": [
+                    "perception"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "origin:trait:fey",
+                            "target:trait:fey"
+                        ]
+                    }
+                ],
+                "selector": "perception",
+                "slug": "the-returned",
+                "value": 2
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "First World Lore"
+            ],
+            "value": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "background"
+}

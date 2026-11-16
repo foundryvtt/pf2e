@@ -1,3 +1,5 @@
+const CONDITION_SLUGS_SF2E = ["glitching", "suppressed", "untethered"] as const;
+
 const CONDITION_SLUGS = new Set([
     "blinded",
     "broken",
@@ -43,6 +45,7 @@ const CONDITION_SLUGS = new Set([
     "unfriendly",
     "unnoticed",
     "wounded",
+    ...CONDITION_SLUGS_SF2E,
 ] as const);
 
 export { CONDITION_SLUGS };

@@ -642,14 +642,29 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When a grindylow successfully Grabs a creature larger than themself, they attach to that creature. The @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] creature is not @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], but if it moves, the grindylow moves with it.</p>\n<p>If the creature is Medium or smaller, it takes a –5-foot status penalty to its Speeds while the grindylow is attached. The grindylow is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] while attached to a creature.</p>"
+                    "value": "<p>When a grindylow successfully @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Grab]{Grabs} a creature larger than themself, they attach to that creature. The @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] creature is not @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], but if it moves, the grindylow moves with it.</p>\n<p>If the creature is Medium or smaller, it takes a –5-foot status penalty to its Speeds while the grindylow is attached. The grindylow is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] while attached to a creature.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Clinging Suckers]</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "action:grapple"
+                        ],
+                        "selector": "athletics",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -689,13 +704,62 @@
             "type": "action"
         },
         {
+            "_id": "RNCh4WD6szpn5Due",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A grindylow stalker deals 1d4 extra precision damage to creatures who are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "4PmFH52nJw8E0Xwl",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "action"

@@ -3,14 +3,21 @@ import type { ConsumableTrait } from "@item/consumable/types.ts";
 import type { EquipmentTrait } from "@item/equipment/types.ts";
 import type { ShieldTrait } from "@item/shield/types.ts";
 import type { WeaponTrait } from "@item/weapon/types.ts";
-import type { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_GRADES, PRECIOUS_MATERIAL_TYPES } from "./values.ts";
+import type {
+    COIN_DENOMINATIONS,
+    CURRENCY_DENOMINATIONS,
+    PHYSICAL_ITEM_TYPES,
+    PRECIOUS_MATERIAL_GRADES,
+    PRECIOUS_MATERIAL_TYPES,
+    WORN_SLOTS,
+} from "./values.ts";
 
 type BaseMaterialType = "bone" | "cloth" | "glass" | "leather" | "paper" | "rope" | "steel" | "stone" | "wood";
 type BaseMaterialThickness = "thin" | "standard" | "structure";
 type BaseMaterial = { type: BaseMaterialType; thickness: BaseMaterialThickness };
 
-type CoinDenomination = "pp" | "gp" | "sp" | "cp";
-type Currency = CoinDenomination | "credits" | "upb";
+type CoinDenomination = (typeof COIN_DENOMINATIONS)[number];
+type CurrencyDenomination = (typeof CURRENCY_DENOMINATIONS)[number];
 
 type PhysicalItemTrait = ArmorTrait | ConsumableTrait | EquipmentTrait | ShieldTrait | WeaponTrait;
 type PhysicalItemType = SetElement<typeof PHYSICAL_ITEM_TYPES>;
@@ -20,6 +27,8 @@ type PreciousMaterialGrade = SetElement<typeof PRECIOUS_MATERIAL_GRADES>;
 
 type Grade = keyof typeof CONFIG.PF2E.grades;
 
+type WornSlot = SetElement<typeof WORN_SLOTS>;
+
 interface StackDefinition {
     size: number;
     lightBulk: number;
@@ -28,11 +37,12 @@ interface StackDefinition {
 export type {
     BaseMaterial,
     CoinDenomination,
-    Currency,
+    CurrencyDenomination,
     Grade,
     PhysicalItemTrait,
     PhysicalItemType,
     PreciousMaterialGrade,
     PreciousMaterialType,
     StackDefinition,
+    WornSlot,
 };

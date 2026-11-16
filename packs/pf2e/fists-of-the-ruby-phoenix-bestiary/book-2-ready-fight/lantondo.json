@@ -1784,9 +1784,14 @@
                 },
                 "counteraction": false,
                 "damage": {},
-                "defense": null,
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
                 "description": {
-                    "value": "<p>You ward a creature with protective energy that deters enemy attacks. Creatures attempting to attack the target must attempt a Will save each time. If the target uses a hostile action, the spell ends.</p>\n<hr /><p><strong>Critical Success</strong> Sanctuary ends.</p>\n<p><strong>Success</strong> The creature can attempt its attack and any other attacks against the target this turn.</p>\n<p><strong>Failure</strong> The creature can't attack the target and wastes the action. It can't attempt further attacks against the target this turn.</p>\n<p><strong>Critical Failure</strong> The creature wastes the action and can't attempt to attack the target for the rest of sanctuary's duration.</p>"
+                    "value": "<p>You ward a creature with protective energy that deters attacks. Creatures attempting to attack the target must attempt a Will save each time. If the target uses a hostile action, the spell ends.</p><hr /><p><strong>Critical Success</strong> <em>Sanctuary</em> ends.</p>\n<p><strong>Success</strong> The creature can attempt its attack and any other attacks against the target this turn.</p>\n<p><strong>Failure</strong> The creature can't attack the target and wastes the action. It can't attempt further attacks against the target this turn.</p>\n<p><strong>Critical Failure</strong> The creature wastes the action and can't attempt to attack the target for the rest of <em>sanctuary</em>'s duration.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1800,9 +1805,9 @@
                     "value": "LBZtK1LB374osBxN"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "touch"
@@ -2047,7 +2052,7 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8mhSUxEvNuXDP8Ki"
             },
             "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.webp",
-            "name": "Bracers of Armor II",
+            "name": "Bands of Force (Greater)",
             "sort": 3100000,
             "system": {
                 "baseItem": null,
@@ -2056,7 +2061,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>These stiff leather armguards grant you a +2 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5. You can affix talismans to <em>bracers of armor</em> as though they were light armor.</p>"
+                    "value": "<p>Decorated with clear gemstones, these thick metal bands spread an inflexible layer of force over your body. The force grants you a +2 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5 as armor. You can affix talismans to the bands as though they were light armor.</p>\n<p><strong>Activate—Return Force</strong> <span class=\"action-glyph\">R</span> (force, manipulate)</p>\n<p><strong>Trigger</strong> A creature critically misses you with a melee Strike</p><hr /><p><strong>Effect</strong> You [[/act shove options=bands-of-force-greater]] the creature using the bands' Athletics modifier of +21.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -2077,44 +2082,68 @@
                 },
                 "price": {
                     "value": {
-                        "gp": 4000
+                        "gp": 4500
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
                 },
                 "quantity": 1,
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "selector": "ac",
-                        "type": "item",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "selector": "saving-throw",
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "slug": "bands-of-force",
                         "type": "item",
                         "value": 2
                     },
                     {
                         "key": "DexterityModifierCap",
                         "value": 5
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "bands-of-force-greater"
+                        ],
+                        "selector": [
+                            "athletics"
+                        ],
+                        "slug": "bands-of-force-greater",
+                        "value": 21
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": [
+                            "bands-of-force-greater",
+                            {
+                                "or": [
+                                    "bonus:type:proficiency",
+                                    "modifier:type:ability"
+                                ]
+                            }
+                        ],
+                        "selector": "athletics",
+                        "suppress": true
                     }
                 ],
                 "size": "med",
-                "slug": "bracers-of-armor-ii",
+                "slug": "bands-of-force-greater",
                 "traits": {
                     "rarity": "common",
                     "value": [
+                        "force",
                         "invested",
                         "magical"
                     ]
                 },
                 "usage": {
-                    "value": "wornbracers"
+                    "value": "wornarmbands"
                 }
             },
             "type": "equipment"

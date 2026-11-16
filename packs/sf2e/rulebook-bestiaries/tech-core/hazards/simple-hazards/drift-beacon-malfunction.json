@@ -1,0 +1,108 @@
+{
+    "_id": "Ff28vIs5fIVqefY2",
+    "folder": "WXKipnCCPj9jrktD",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "7NlXefjfn0RAVmrT",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Drift Crash",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A starship attempts to travel through the Drift using the malfunctioning Drift beacon</p><hr /><p><strong>Effect</strong> The triggering starship is sent to the wrong place by the Drift beacon and must attempt a @Check[will|dc:33] save.</p><hr /><p><strong>Critical Success</strong> The starship emerges near Absalom Station and is immune to the hazard for 1 day.</p>\n<p><strong>Success</strong> The starship is lost in the Drift. It emerges in a random location in Near Space.</p>\n<p><strong>Failure</strong> The starship is lost in the Drift. It emerges in a random location in the Vast.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "object-immunities"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Drift Beacon Malfunction",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master) or Scan for Magic</p>",
+                "value": 25
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The Drift inexplicably teleports a starship to the wrong destination.</p>",
+            "disable": "<p>@Check[drift-lore|dc:32] (expert; pilot's console, scanners) or Piloting (master; pilot's console) to navigate the Drift without triggering a malfunction, or @Check[religion|dc:34] (master; any battle station) to call on Triune for guidance</p>",
+            "isComplex": false,
+            "level": {
+                "value": 10
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Tech Core"
+            },
+            "reset": "<p>The hazard resets immediately.</p>",
+            "routine": "<p>@Check[drift-lore|dc:32] (expert; pilot's console, scanners) or @Check[piloting|dc:32] (master; pilot's console) to navigate the Drift without triggering a malfunction, or @Check[religion|dc:34] (master; any battle station) to call on Triune for guidance</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "starship",
+                "tech"
+            ]
+        }
+    },
+    "type": "hazard"
+}

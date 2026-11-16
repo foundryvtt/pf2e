@@ -8,8 +8,10 @@ import { CanvasAnimationEasingFunction } from "@client/canvas/animation/_types.m
 import { TerrainData } from "@client/data/terrain-data.mjs";
 import Roll from "@client/dice/roll.mjs";
 import { ElevatedPoint } from "@common/_types.mjs";
+import { DataSchema } from "@common/abstract/_module.mjs";
 import DataModel from "@common/abstract/data.mjs";
 import { RegionMovementSegmentType, TokenShapeType } from "@common/constants.mjs";
+import { DataField } from "@common/data/fields.mjs";
 import { TokenPosition } from "@common/documents/_types.mjs";
 import { EffectChangeData, EffectDurationData } from "@common/documents/active-effect.mjs";
 import { GridMeasurePathCostFunction3D, GridOffset3D } from "@common/grid/_types.mjs";
@@ -77,10 +79,41 @@ export type AdventurePostImportCallback = (
 export interface ActiveEffectChangeData<
     TEffect extends ActiveEffect<any> = ActiveEffect<any>,
 > extends EffectChangeData {
-    key?: string;
     effect?: TEffect;
     priority: number;
 }
+
+/**
+ * A function to render a stringified HTMLLIElement in the changes tab of {@link ActiveEffectConfig}
+ */
+type ActiveEffectChangeRenderer = (context: {
+    /** A copy of the change from the ActiveEffect's source array */
+    change: ActiveEffectChangeData;
+    /** The object's index in the changes Array */
+    index: number;
+    fields: DataSchema;
+    /** The change type's default priority */
+    defaultPriority: number;
+}) => Promise<string>;
+
+/**
+ * A function that applies the change to a document
+ */
+type ActiveEffectChangeHandler = (
+    /** The Document requesting the change application */
+    targetDoc: Actor | Item | TokenDocument,
+    /** The change data */
+    change: ActiveEffectChangeData,
+    /** Additional options to configure the change application. */
+    options?: {
+        /** The field. If not supplied, it will be retrieved from the supplied model. */
+        field?: DataField;
+        /** Data used to resolve "@" expressions */
+        replacementData?: Record<string, unknown>;
+        /** Modify the target Document with the updated value? */
+        modifyTarget?: boolean;
+    },
+) => Promise<Record<string, unknown> | void>;
 
 export interface ActiveEffectDuration extends EffectDurationData {
     /**

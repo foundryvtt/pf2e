@@ -73,6 +73,8 @@ class VisionDetectionMode extends fc.perception.DetectionModeDarkvision {
 }
 
 class HearingDetectionMode extends fc.perception.DetectionMode {
+    declare protected static _detectionFilter: fc.rendering.filters.OutlineOverlayFilter | undefined;
+
     constructor() {
         super({
             id: "hearing",
@@ -88,25 +90,22 @@ class HearingDetectionMode extends fc.perception.DetectionMode {
         return filter;
     }
 
-    protected override _canDetect(visionSource: PointVisionSourcePF2e, target: object | null): boolean {
+    protected override _canDetect(_visionSource: PointVisionSourcePF2e, target: object | null): boolean {
         // Not if the target isn't a token
         if (!(target instanceof TokenPF2e)) return false;
 
         // Not if the token is GM-hidden
         if (target.document.hidden) return false;
 
+        if (!canvas.scene?.rulesBasedVision) return true;
+
         // Not if the target doesn't emit sound
         if (!target.actor?.emitsSound) return false;
 
-        if (!game.pf2e.settings.rbv) return true;
-
         // Not if the target is unnoticed or undetected
-        if (target.actor?.hasCondition("undetected", "unnoticed")) {
-            return false;
-        }
+        if (target.actor?.hasCondition("undetected", "unnoticed")) return false;
 
-        // Only if the subject can hear
-        return !visionSource.object?.actor?.hasCondition("deafened");
+        return true;
     }
 
     /**
@@ -123,11 +122,6 @@ class HearingDetectionMode extends fc.perception.DetectionMode {
         const config = { type: "sound", edgeDirectionMode, useThreshold: true } as const;
         return !HearingDetectionMode._testCollision(visionSource, test, config);
     }
-}
-
-declare namespace HearingDetectionMode {
-    // eslint-disable-next-line no-var
-    var _detectionFilter: fc.rendering.filters.OutlineOverlayFilter | undefined;
 }
 
 type PointVisionSourcePF2e = fc.sources.PointVisionSource<TokenPF2e>;

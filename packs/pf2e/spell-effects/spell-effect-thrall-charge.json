@@ -1,0 +1,69 @@
+{
+    "_id": "Wd1fYphfUNpZlgcH",
+    "img": "icons/magic/death/undead-ghost-strike-white.webp",
+    "name": "Spell Effect: Thrall Charge",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Thrall Charge]</p>\n<p>Your Strike deals an additional 1d6 damage. If you are destroyed as part of this Strike, you add a status bonus to the Strike's damage equal to the spell's rank.</p><hr /><p><strong>Heightened (2nd)</strong> The additional damage increases to 2d6.</p>\n<p><strong>Heightened (6th)</strong> The additional damage increases to 3d6.</p>\n<p><strong>Heightened (10th)</strong> The additional damage increases to 4d6.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "diceNumber": "ternary(gte(@item.level, 10), 4,ternary(gte(@item.level, 6), 3, ternary(gte(@item.level, 2), 2, 1)))",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "strike-damage"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": "yes"
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": "no"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.SpellEffectThrallCharge.Prompt.DestroyThrall",
+                "rollOption": "thrall-charge:destroy-thrall"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "thrall-charge:destroy-thrall:yes"
+                ],
+                "selector": "strike-damage",
+                "type": "status",
+                "value": "@item.level"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

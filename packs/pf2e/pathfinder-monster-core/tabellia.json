@@ -1066,14 +1066,10 @@
                     "0": {
                         "damage": "2d8+14",
                         "damageType": "bludgeoning"
-                    },
-                    "1FqG37mRY7pFnm0f": {
-                        "damage": "1d4",
-                        "damageType": "spirit"
                     }
                 },
                 "description": {
-                    "value": "<p>(or 2d4 spirit vs. an unholy target)</p>"
+                    "value": ""
                 },
                 "publication": {
                     "license": "ORC",
@@ -1083,15 +1079,13 @@
                 "range": null,
                 "rules": [
                     {
-                        "damageType": "spirit",
-                        "diceNumber": 1,
-                        "dieSize": "d4",
-                        "key": "DamageDice",
-                        "label": "Vs. an Unholy Target",
-                        "predicate": [
-                            "target:trait:unholy"
+                        "definition": [
+                            "item:id:{item|_id}"
                         ],
-                        "selector": "{item|_id}-damage"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "holy"
                     }
                 ],
                 "slug": null,

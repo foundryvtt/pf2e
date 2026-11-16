@@ -2,18 +2,20 @@ import { ActorPF2e, type PartyPF2e } from "@actor";
 import type { HitPointsSummary } from "@actor/base.ts";
 import { CORE_RESOURCES } from "@actor/character/values.ts";
 import type { CreatureSource } from "@actor/data/index.ts";
+import { getTempHPSourceId } from "@actor/helpers.ts";
 import { Modifier, MODIFIER_TYPES, RawModifier } from "@actor/modifiers.ts";
 import { ActorSpellcasting } from "@actor/spellcasting.ts";
 import type { MovementType, SaveType, SkillSlug } from "@actor/types.ts";
-import { MOVEMENT_TYPES } from "@actor/values.ts";
+import { ATTRIBUTE_ABBREVIATIONS, MOVEMENT_TYPES } from "@actor/values.ts";
 import type { Rolled } from "@client/dice/_module.d.mts";
+import type { ActiveEffectChangeData } from "@client/documents/_types.d.mts";
 import type {
     DatabaseDeleteCallbackOptions,
     DatabaseDeleteOperation,
     DatabaseUpdateOperation,
 } from "@common/abstract/_types.d.mts";
 import { ArmorPF2e, ItemPF2e, PhysicalItemPF2e, ShieldPF2e, SpellcastingEntryPF2e } from "@item";
-import { ArmorSource } from "@item/base/data/index.ts";
+import type { ArmorSource } from "@item/base/data/index.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import type { EquippedData, ItemCarryType } from "@item/physical/data.ts";
 import { isEquipped } from "@item/physical/usage.ts";
@@ -34,7 +36,12 @@ import { CheckDC } from "@system/degree-of-success.ts";
 import { Predicate } from "@system/predication.ts";
 import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@system/statistic/index.ts";
 import { PerceptionStatistic } from "@system/statistic/perception.ts";
-import { SpeedStatistic } from "@system/statistic/speed.ts";
+import {
+    classifySpeedDeriveKind,
+    getDeriveParentType,
+    publishMovementSpeeds,
+    SpeedStatistic,
+} from "@system/statistic/speed.ts";
 import { ErrorPF2e, localizer, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { CreatureMovementData, CreatureResources, CreatureSystemData, VisionLevel, VisionLevels } from "./data.ts";
@@ -430,12 +437,60 @@ abstract class CreaturePF2e<
             domains: ["all", "spell-attack-dc"],
             check: { type: "attack-roll" },
         });
+
+        // Fill or prune incomplete base skill data
+        for (const [slug, skill] of fu.iterateEntries(this.system.skills)) {
+            if (!slug || slug !== sluggify(slug) || !(slug in CONFIG.PF2E.skills || skill.label)) {
+                delete this.system.skills[slug];
+                continue;
+            }
+            skill.attribute ??= "int";
+            if (!ATTRIBUTE_ABBREVIATIONS.has(skill.attribute)) delete this.system.skills[slug];
+            skill.lore = !(slug in CONFIG.PF2E.skills);
+            if (!skill.itemId || !this.items.get(skill.itemId)?.isOfType("lore")) skill.itemId = null;
+        }
     }
 
     protected override prepareDataFromItems(): void {
         this.spellcasting ??= new ActorSpellcasting(this);
         this.spellcasting.initialize([...this.itemTypes.spellcastingEntry, new RitualSpellcasting(this)]);
         super.prepareDataFromItems();
+    }
+
+    override applyActiveEffects(phase: string): void {
+        super.applyActiveEffects(phase);
+        if (phase !== "final") return;
+
+        // Prepare token AE changes from perception
+        const changes = (this.tokenActiveEffectChanges.initial ??= []);
+        const baseChange: ActiveEffectChangeData = { type: "override", priority: 50, phase: "initial" };
+        const { perception, hasDarkvision } = this;
+        const basicSight = { enabled: perception.hasVision, range: hasDarkvision ? null : 0 };
+        const lightPerception = { enabled: perception.hasVision, range: null };
+        const hearing = { enabled: !this.hasCondition("deafened"), range: null };
+        changes.push(
+            { ...baseChange, key: "detectionModes.basicSight", value: basicSight },
+            { ...baseChange, key: "detectionModes.lightPerception", value: lightPerception },
+            { ...baseChange, key: "detectionModes.hearing", value: hearing },
+            { ...baseChange, key: "sight.visionMode", value: hasDarkvision ? "darkvision" : "basic" },
+        );
+        if (hasDarkvision) {
+            changes.push({ ...baseChange, key: "sight.range", value: null });
+            if (this.flags[SYSTEM_ID].colorDarkvision) {
+                changes.push({ ...baseChange, key: "sight.saturation", value: 1 });
+            } else if (!game.user.settings.monochromeDarkvision) {
+                changes.push({ ...baseChange, key: "sight.saturation", value: 0 });
+            }
+        }
+        if (perception.senses.has("see-invisibility")) {
+            const value = { enabled: !this.hasCondition("blinded"), range: null };
+            changes.push({ ...baseChange, key: "detectionModes.seeInvisibility", value });
+        }
+        const tremorsense = perception.senses.get("tremorsense");
+        if (tremorsense) {
+            const value = { enabled: true, range: tremorsense.range };
+            changes.push({ ...baseChange, key: "detectionModes.feelTremor", value });
+        }
     }
 
     override prepareDerivedData(): void {
@@ -515,6 +570,11 @@ abstract class CreaturePF2e<
             const syntheticModifiers = (this.synthetics.modifiers[selector] ??= []);
             syntheticModifiers.push(...modifiers.map((m) => () => m));
         }
+    }
+
+    /** Prepare the perception Statistic, with overriding methods responsible for building trace data. */
+    protected preparePerception(modifiers: Modifier[] = []): void {
+        this.perception = new PerceptionStatistic(this, { modifiers });
     }
 
     /**
@@ -722,53 +782,135 @@ abstract class CreaturePF2e<
      * @param modifiers Modifiers in addition to those extracted
      */
     prepareMovementData(modifiers: Modifier[] = []): void {
+        type SpeedBaseCandidate = {
+            value: number;
+            source: string | null;
+            force: boolean;
+            formula: string | number;
+            dependsOn: MovementType[];
+        };
+
         const synthetics = this.synthetics.movementTypes;
         const baseSpeedOptions = this.getRollOptions();
+        const speedStats: { [K in MovementType]?: SpeedStatistic<this, K> | null } = {};
 
-        // Construct land-speed statistic first since others may derive from it
-        const baseSpeed = [
-            this.system.movement.speeds.land.base,
-            ...(synthetics.land?.flatMap((d) => d({ test: baseSpeedOptions })?.value ?? []) ?? []),
-        ].reduce((highest, v) => Math.max(highest, v), 0);
-        if (baseSpeed > 0) this.flags[SYSTEM_ID].rollOptions.all["speed:land"] = true;
-        const landSpeed = new SpeedStatistic(this, { type: "land", base: baseSpeed, modifiers });
-        this.system.movement.speeds.land = landSpeed.getTraceData();
+        const setSpeedStat = <K extends MovementType>(type: K, statistic: SpeedStatistic<this, K> | null): void => {
+            speedStats[type] = statistic as { [P in MovementType]?: SpeedStatistic<this, P> | null }[K];
+        };
 
-        const otherSpeeds = Object.fromEntries(
-            MOVEMENT_TYPES.filter((t) => t !== "land").map((type) => {
-                const fromSynthetics = R.filter(
-                    synthetics[type]?.map((d) => d({ test: baseSpeedOptions })) ?? [],
-                    R.isNonNull,
-                );
-                const systemDataSpeed = this.system.movement.speeds[type] ?? { value: -Infinity, source: null };
-                const syntheticSpeed = R.firstBy(fromSynthetics, [(s) => s.value ?? 0, "desc"]);
-                if (!syntheticSpeed && systemDataSpeed.value <= 0) return [type, null];
+        /** Capture ancestry / NPC bases before traces are overwritten */
+        const systemValues = R.mapToObj(MOVEMENT_TYPES, (type) => {
+            const data = this.system.movement.speeds[type];
+            return data && data.base > 0 ? [type, { value: data.base, source: data.source ?? null }] : [type, null];
+        });
 
-                this.flags[SYSTEM_ID].rollOptions.all[`speed:${type}`] = true;
-                const selected: { value: number; source?: string | null; derivedFromLand?: boolean } =
-                    syntheticSpeed && syntheticSpeed.value > systemDataSpeed.value ? syntheticSpeed : systemDataSpeed;
-                if (selected === syntheticSpeed && syntheticSpeed.derivedFromLand) {
-                    const domain = (this.flags[SYSTEM_ID].rollOptions[`${type}-speed`] ??= {});
-                    domain["derived-from-land"] = true;
-                }
-                const statistic = selected.derivedFromLand
-                    ? landSpeed.extend({ type, base: selected.value, source: selected.source })
-                    : new SpeedStatistic(this, {
-                          type,
-                          base: selected.value,
-                          modifiers: modifiers
-                              .filter((m) => ["all-speeds", `${type}-speed`].some((d) => m.domains.includes(d)))
-                              .map((m) => m.clone()),
-                          source: selected.source,
-                      });
-                return [type, statistic];
-            }),
-        ) as { [T in Exclude<MovementType, "land">]: SpeedStatistic<this, T> | null };
-        const travelSpeed = landSpeed.extend({ type: "travel" });
-        this.movement.speeds = { [landSpeed.type]: landSpeed, ...otherSpeeds, [travelSpeed.type]: travelSpeed };
-        this.system.movement.speeds = R.mapValues(this.movement.speeds, (s) =>
-            s?.type === "land" ? this.system.movement.speeds.land : (s?.getTraceData() ?? null),
-        ) as CreatureMovementData["speeds"];
+        const selectCandidate = (candidates: SpeedBaseCandidate[]): SpeedBaseCandidate | null => {
+            if (candidates.length === 0) return null;
+            const forced = candidates.filter((c) => c.force);
+            const pool = forced.length > 0 ? forced : candidates;
+            return R.firstBy(pool, [(s) => s.value, "desc"]) ?? null;
+        };
+
+        const extrasFor = (type: MovementType, kind: "equal" | "scaled" | "independent"): Modifier[] => {
+            if (kind === "scaled") {
+                return modifiers.filter((m) => m.domains.includes(`${type}-speed`)).map((m) => m.clone());
+            }
+            if (kind === "equal" || type === "land") return modifiers.map((m) => m.clone());
+            return modifiers
+                .filter((m) => ["all-speeds", `${type}-speed`].some((d) => m.domains.includes(d)))
+                .map((m) => m.clone());
+        };
+
+        const buildSpeedStatistic = <K extends MovementType>(
+            type: K,
+            selected: SpeedBaseCandidate,
+        ): SpeedStatistic<this, K> => {
+            const parentType = getDeriveParentType(selected.formula, selected.dependsOn);
+            const parent = parentType ? speedStats[parentType] : null;
+            const kind = parent
+                ? classifySpeedDeriveKind(selected.formula, selected.value, parent.value)
+                : "independent";
+            const extras = extrasFor(type, kind);
+            if (kind === "equal" && parent) {
+                const domain = (this.flags[SYSTEM_ID].rollOptions[`${type}-speed`] ??= {}) as Record<string, boolean>;
+                domain[`derived-from:${parent.type}`] = true;
+                return parent.derive(type, { mode: "equal", source: selected.source, modifiers: extras });
+            }
+            if (kind === "scaled" && parent) {
+                return parent.derive(type, {
+                    mode: "scaled",
+                    value: selected.value,
+                    source: selected.source,
+                    modifiers: extras,
+                });
+            }
+            return new SpeedStatistic(this, {
+                type,
+                base: selected.value,
+                modifiers: extras,
+                source: selected.source,
+            });
+        };
+
+        const prepareType = <K extends MovementType>(type: K): void => {
+            const fromSynthetics = R.filter(
+                (synthetics[type] ?? []).map((entry) => entry.deferred({ test: baseSpeedOptions })),
+                R.isNonNull,
+            );
+            const candidates: SpeedBaseCandidate[] = fromSynthetics.map((s) => ({
+                value: s.value,
+                source: s.source,
+                force: s.force,
+                formula: s.formula,
+                dependsOn: s.dependsOn,
+            }));
+            const fromSystem = systemValues[type];
+            if (fromSystem) {
+                candidates.push({
+                    value: fromSystem.value,
+                    source: fromSystem.source,
+                    force: false,
+                    formula: fromSystem.value,
+                    dependsOn: [],
+                });
+            }
+
+            const selected = selectCandidate(candidates);
+            // A base of 0 removes the speed. Leave a numeric stub so later formulas reading this speed resolve to 0.
+            if (!selected || selected.value <= 0) {
+                setSpeedStat(type, null);
+                this.system.movement.speeds[type] = { value: 0, base: 0 } as CreatureMovementData["speeds"][K];
+                return;
+            }
+
+            this.flags[SYSTEM_ID].rollOptions.all[`speed:${type}`] = true;
+            const statistic = buildSpeedStatistic(type, selected);
+            setSpeedStat(type, statistic);
+            this.system.movement.speeds[type] = statistic.getTraceData() as CreatureMovementData["speeds"][K];
+        };
+
+        const pending = new Set<MovementType>(MOVEMENT_TYPES);
+        // prepare movement types in order of dependencies (skip synthetics whose predicate fails)
+        for (const _Round of R.range(0, MOVEMENT_TYPES.length)) {
+            const ready = MOVEMENT_TYPES.filter(
+                (type) =>
+                    pending.has(type) &&
+                    (synthetics[type] ?? [])
+                        .filter((entry) => entry.test({ test: baseSpeedOptions }))
+                        .every((entry) => entry.dependsOn.every((dep) => !pending.has(dep))),
+            );
+            if (ready.length === 0) break;
+            for (const type of ready) {
+                prepareType(type);
+                pending.delete(type);
+            }
+        }
+        // prepare remaining movement types in case of circular dependencies
+        for (const type of pending) {
+            prepareType(type);
+        }
+
+        publishMovementSpeeds(this, speedStats, { modifiers });
     }
 
     /* -------------------------------------------- */
@@ -828,9 +970,21 @@ abstract class CreaturePF2e<
                 ? Math.max(0, changedHP.value)
                 : Math.clamp(changedHP.value, 0, Math.max(maxHP - currentHP.unrecoverable, 0));
         }
-        if (changed.system.attributes?.hp?.temp !== undefined) {
-            const inputValue = changed.system.attributes.hp.temp;
-            changed.system.attributes.hp.temp = Math.floor(Math.clamp(Number(inputValue) || 0, 0, 999));
+        const changedTempHP = changed.system.attributes?.hp;
+        if (changedTempHP?.temp !== undefined) {
+            changedTempHP.temp = Math.floor(Math.clamp(Number(changedTempHP.temp) || 0, 0, 999));
+            // A change not made by a TempHP rule element that zeroes or raises temp HP orphans the recorded source
+            const current = this._source.system.attributes.hp;
+            const setsSource = "tempSource" in changedTempHP;
+            if (
+                getTempHPSourceId(current) &&
+                !setsSource &&
+                (changedTempHP.temp === 0 || changedTempHP.temp > current.temp)
+            ) {
+                const changes: Record<string, unknown> = changedTempHP;
+                changes.tempSource = _del;
+                if ("tempsource" in current) changes.tempsource = _del;
+            }
         }
 
         // Clamp focus points

@@ -1,12 +1,17 @@
 import { ActorProxyPF2e, type ActorPF2e } from "@actor";
 import type { Rolled } from "@client/dice/_module.d.mts";
+import type { DatabaseWriteOperation } from "@common/abstract/_module.mjs";
 import type { HexColorString } from "@common/constants.d.mts";
 import type { ItemPF2e, MeleePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import type { AbilityTrait } from "@item/ability/types.ts";
 import { ActionCost } from "@item/base/data/system.ts";
 import { createEffectAreaLabel } from "@item/helpers.ts";
 import { NPC_ATTACK_ACTIONS } from "@item/melee/values.ts";
-import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
+import {
+    getPropertyRuneAttackNotes,
+    getPropertyRuneDegreeAdjustments,
+    getPropertyRuneStrikeAdjustments,
+} from "@item/physical/runes.ts";
 import { EffectAreaShape } from "@item/types.ts";
 import type { AreaAttackContextFlag } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
@@ -14,7 +19,6 @@ import type { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import {
-    extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
@@ -28,6 +32,7 @@ import { Check, CheckCheckContext, CheckRoll } from "@system/check/index.ts";
 import { DamageDamageContext, DamagePF2e } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
+import { extractDegreeOfSuccessAdjustments } from "@system/degree-of-success.ts";
 import type { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { Statistic } from "@system/statistic/statistic.ts";
 import { ErrorPF2e, getActionGlyph, signedInteger, sluggify } from "@util/misc.ts";
@@ -65,7 +70,7 @@ async function resetActors(actors?: Iterable<ActorPF2e>, options: ResetActorsRen
 
     if (options.tokens) {
         for (const token of R.unique(Array.from(actors).flatMap((a) => a.getActiveTokens(true, true)))) {
-            token.simulateUpdate();
+            token.checkAuras();
         }
     }
 }
@@ -157,13 +162,28 @@ function auraAffectsActor(data: AuraEffectData, origin: ActorPF2e, actor: ActorP
     );
 }
 
-/**  Set a roll option for HP remaining and percentage remaining */
+/**  Set roll options for HP remaining, percentage remaining, and temporary HP */
 function setHitPointsRollOptions(actor: ActorPF2e): void {
     const hp = actor.hitPoints;
     if (!hp) return;
-    actor.flags[SYSTEM_ID].rollOptions.all[`hp-remaining:${hp.value}`] = true;
+    const rollOptions = actor.flags[SYSTEM_ID].rollOptions.all;
+    rollOptions[`hp-remaining:${hp.value}`] = true;
     const percentRemaining = Math.floor((hp.value / hp.max) * 100);
-    actor.flags[SYSTEM_ID].rollOptions.all[`hp-percent:${percentRemaining}`] = true;
+    rollOptions[`hp-percent:${percentRemaining}`] = true;
+    rollOptions[`hp-temp:${hp.temp}`] = true;
+    // Only trust a recorded source while temp HP remain and the granting item is still present
+    const sourceId = actor.isOfType("creature") ? getTempHPSourceId(actor._source.system.attributes.hp) : null;
+    const source = hp.temp > 0 && sourceId ? actor.items.get(sourceId) : null;
+    if (source) rollOptions[`hp-temp:source:${source.slug ?? sluggify(source.name)}`] = true;
+}
+
+/**
+ * Get the id of the item that granted the current temporary HP
+ * @todo remove the lowercase fallback in v15
+ */
+function getTempHPSourceId(hp: { tempSource?: string }): string | null {
+    const id = hp.tempSource ?? (hp as { tempsource?: unknown }).tempsource;
+    return typeof id === "string" ? id : null;
 }
 
 /** Find the lowest multiple attack penalty for an attack with a given item */
@@ -583,7 +603,11 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             });
 
             const attackEffects = actor.isOfType("npc") ? await actor.getAttackEffects(item) : [];
-            const notes = [attackEffects, extractNotes(context.origin.actor.synthetics.rollNotes, domains)].flat();
+            const notes = [
+                attackEffects,
+                getPropertyRuneAttackNotes(item),
+                extractNotes(context.origin.actor.synthetics.rollNotes, domains),
+            ].flat();
             const rollTwice =
                 params.rollTwice ||
                 extractRollTwice(context.origin.actor.synthetics.rollTwice, domains, context.options);
@@ -592,7 +616,16 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 domains,
                 context.options,
             );
-            const dosAdjustments = extractDegreeOfSuccessAdjustments(context.origin.actor.synthetics, domains);
+            const dosAdjustments = [
+                getPropertyRuneDegreeAdjustments(item),
+                extractDegreeOfSuccessAdjustments({
+                    self: context.origin.actor,
+                    selfRole: "origin",
+                    opposer: context.target?.actor,
+                    domains,
+                    options: context.options,
+                }),
+            ].flat();
 
             const allModifiers = [map, params.modifiers, context.origin.modifiers].flat().filter(R.isTruthy);
             const check = new CheckModifier("strike", context.origin.statistic ?? strike, allModifiers);
@@ -1030,18 +1063,46 @@ async function applyActorGroupUpdate(
               ? "create"
               : "actorUpdate";
 
+    const operations: DatabaseWriteOperation[] = [];
+
     if (actorUpdates) {
-        await actor.update(actorUpdates, { render: lastRender === "actorUpdate" });
+        operations.push({
+            action: "update",
+            documentName: "Actor",
+            updates: [{ ...actorUpdates, _id: actor.id }],
+            parent: actor.parent,
+            render: lastRender === "actorUpdate",
+        });
     }
     if (itemCreates.length > 0) {
-        await actor.createEmbeddedDocuments("Item", itemCreates, { render: lastRender === "create", keepId });
+        operations.push({
+            action: "create",
+            data: itemCreates,
+            documentName: "Item",
+            keepId,
+            parent: actor,
+            render: lastRender === "create",
+        });
     }
     if (itemUpdates.length > 0) {
-        await actor.updateEmbeddedDocuments("Item", itemUpdates, { render: lastRender === "update" });
+        operations.push({
+            action: "update",
+            documentName: "Item",
+            updates: itemUpdates,
+            parent: actor,
+            render: lastRender === "update",
+        });
     }
     if (itemDeletes.length > 0) {
-        await actor.deleteEmbeddedDocuments("Item", itemDeletes, { render: lastRender === "delete" });
+        operations.push({
+            action: "delete",
+            documentName: "Item",
+            ids: itemDeletes,
+            parent: actor,
+            render: lastRender === "delete",
+        });
     }
+    await foundry.documents.modifyBatch(operations);
 }
 
 export {
@@ -1059,6 +1120,7 @@ export {
     getAttackDamageDomains,
     getRangeIncrement,
     getStrikeAttackDomains,
+    getTempHPSourceId,
     isOffGuardFromFlanking,
     isReallyPC,
     iterateAllItems,

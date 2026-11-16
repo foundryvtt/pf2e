@@ -1,0 +1,109 @@
+{
+    "_id": "ECKDKewe5C19190q",
+    "folder": "WXKipnCCPj9jrktD",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "41RbJ1UC2kxHl0wG",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Did You See That?",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A starship uses a station action granted by its scanners while the hazard is within the starship's sensor range</p><hr /><p><strong>Effect</strong> The scanners pick up a wriggling mass of tentacles shaped like a planet. All creatures on board the triggering starship take @Damage[(3d12+18)[mental]] damage (@Check[will|dc:38|basic] save). On a failure, the creature is @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 2}; on a critical failure, it's also @UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 2}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "object-immunities"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Ominous Planetoid",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert) or Scan for Magic</p>",
+                "value": 23
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>This planet looks like a wriggling mass of tentacles.</p>",
+            "disable": "<p>@Check[arcana|dc:36] (master; magic conduit), @Check[nature|dc:36] (master; magic conduit), @Check[occultism|dc:36] (master; magic conduit), or @Check[religion|dc:36] (master; magic conduit) to ward against the hazard</p>",
+            "isComplex": false,
+            "level": {
+                "value": 16
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Tech Core"
+            },
+            "reset": "<p>The hazard resets immediately, but it can't affect the same starship again for the next 24 hours. Disabling the hazard protects the starship that disabled it from being affected by it again, but doing so doesn't permanently destroy the planetoid.</p>",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "magical",
+                "starship"
+            ]
+        }
+    },
+    "type": "hazard"
+}

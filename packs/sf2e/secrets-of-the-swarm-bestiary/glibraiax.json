@@ -1005,7 +1005,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>A creature that critically fails is @UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 1} for 1 minute.</p>"
+                    "value": "<p>@Check[will|dc:30|basic]</p>\n<p>A creature that critically fails is @UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 1} for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1088,10 +1088,49 @@
             "type": "action"
         },
         {
+            "_id": "gWzN5BpBcdpeS6p4",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "JwmfdoLuhlCd86kJ",
             "img": "systems/sf2e/icons/actions/Passive.webp",
             "name": "Colony Mind",
-            "sort": 1700000,
+            "sort": 1800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1122,7 +1161,7 @@
             "_id": "PhEiGNltwgGMeoDV",
             "img": "systems/sf2e/icons/actions/Passive.webp",
             "name": "Scrambling Aura",
-            "sort": 1800000,
+            "sort": 1900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1158,9 +1197,6 @@
         }
     ],
     "name": "Glibraiax",
-    "prototypeToken": {
-        "name": "NPC"
-    },
     "system": {
         "abilities": {
             "cha": {
@@ -1188,14 +1224,28 @@
                 "value": 29
             },
             "allSaves": {
-                "value": ""
+                "value": "+1 status to all saves vs. magic"
             },
             "hp": {
                 "details": "",
                 "max": 240,
                 "temp": 0,
-                "value": 10
+                "value": 240
             },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "controlled"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "mental",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -1272,7 +1322,7 @@
         "traits": {
             "rarity": "rare",
             "size": {
-                "value": "med"
+                "value": "lg"
             },
             "value": [
                 "kucharn"

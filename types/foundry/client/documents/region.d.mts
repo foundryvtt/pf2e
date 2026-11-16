@@ -42,6 +42,15 @@ export default class RegionDocument<TParent extends Scene | null = Scene | null>
     get polygonTree(): RegionPolygonTree;
 
     /**
+     * Clear the polygon tree.
+     * @internal
+     */
+    _clearPolygonTree(): void;
+
+    /** Called when the polygon tree of the Region has changed. */
+    protected _onPolygonTreeChange(): void;
+
+    /**
      * Activate the Socket event listeners.
      * @param    socket    The active game socket
      * @internal
@@ -77,6 +86,9 @@ export default class RegionDocument<TParent extends Scene | null = Scene | null>
 }
 
 export default interface RegionDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseRegion<TParent> {
+    /** Prepared elevation: `bottom` and `top` are resolved from null to -Infinity and Infinity. */
+    elevation: { bottom: number; top: number; topInclusive: boolean };
+
     get object(): Region<this>;
 
     readonly behaviors: EmbeddedCollection<RegionBehavior<this>>;

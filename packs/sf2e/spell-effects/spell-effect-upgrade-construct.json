@@ -1,0 +1,55 @@
+{
+    "_id": "2scpka5RpCsYxXsx",
+    "img": "systems/sf2e/icons/abilities/green-upper-left-arrow.webp",
+    "name": "Spell Effect: Upgrade Construct",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Upgrade Construct]</p>\n<p>You gain a status bonus to AC, and your Strikes deal additional d4 damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "diceNumber": "floor(@item.level/3)+1",
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "self:trait:tech"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "ac"
+                ],
+                "type": "status",
+                "value": "floor(@item.level/3)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
