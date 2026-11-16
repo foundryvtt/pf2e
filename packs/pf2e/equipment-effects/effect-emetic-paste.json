@@ -1,0 +1,115 @@
+{
+    "_id": "QwFXy52Vjy8DuE4t",
+    "img": "icons/commodities/materials/bowl-liquid-white.webp",
+    "name": "Effect: Emetic Paste",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Emetic Paste (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Emetic Paste (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Emetic Paste (Greater)]</p>\n<p>You gain an item bonus to all saving throws to reduce the sickened condition.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Treasure Vault (Remastered)"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:emetic-paste-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Emetic Paste (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:emetic-paste-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Emetic Paste (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:emetic-paste-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Emetic Paste (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "emetic-paste"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:retch"
+                ],
+                "selector": "saving-throw",
+                "slug": "emetic-paste-bonus",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "emetic-paste:emetic-paste-moderate"
+                ],
+                "selector": "saving-throw",
+                "slug": "emetic-paste-bonus",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "emetic-paste:emetic-paste-greater"
+                ],
+                "selector": "saving-throw",
+                "slug": "emetic-paste-bonus",
+                "value": 4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
