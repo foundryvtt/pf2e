@@ -133,7 +133,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
         if (["scroll", "spell-gem", "wand"].includes(this.category) && this.system.spell) {
             if (actor.spellcasting?.canCastConsumable(this)) {
-                this.castEmbeddedSpell();
+                await this.castEmbeddedSpell();
             } else if (actor.itemTypes.feat.some((feat) => feat.slug === "trick-magic-item")) {
                 const consumed = await trickMagicItem(this);
                 if (!consumed) return;

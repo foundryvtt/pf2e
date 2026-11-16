@@ -254,7 +254,7 @@ export class InlineRollLinks {
                 if (Number.isInteger(dcValue)) {
                     return { label: pf2Label, value: dcValue + adjustment };
                 } else if (against) {
-                    const defenseStat = opposingActor?.getStatistic(against);
+                    const defenseStat = opposingActor?.getStatistic(against, { item });
                     if (!defenseStat) return null;
                     return {
                         slug: against,
