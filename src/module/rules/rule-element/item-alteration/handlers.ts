@@ -140,14 +140,14 @@ const ITEM_ALTERATION_HANDLERS = {
                         nullable: true,
                         choices: EFFECT_AREA_SHAPES,
                         initial: undefined,
-                    }),
+                    } as const),
                     size: new fields.NumberField({
                         required: false,
                         nullable: true,
                         initial: undefined,
-                    }),
+                    } as const),
                 },
-                { required: true, nullable: true, initial: null },
+                { required: true, nullable: true, initial: null } as const,
             ),
         },
         validateForItem: (_item, alteration): validation.DataModelValidationFailure | void => {
