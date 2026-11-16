@@ -1,0 +1,62 @@
+{
+    "_id": "QC0JcPLluy6mh3Cd",
+    "img": "icons/magic/nature/leaf-juggle-humanoid-green.webp",
+    "name": "Spell Effect: Commune with Corazal (Critical Failure)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Commune with Corazal]</p>\n<p>You are drained 2, and until the drained condition ends, you are also stupefied 1 and have the Dubious Knowledge skill feat.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #201: Pactbreaker"
+        },
+        "rules": [
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "cascade"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Drained"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Dubious Knowledge"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
