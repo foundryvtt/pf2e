@@ -3,52 +3,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "EhcLe86zdmbslOZG",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Wave",
-            "sort": 100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "push"
-                    ]
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d6+4",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": null,
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "w43ksSNtCpLwtJqW",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Ice Shard",
-            "sort": 200000,
+            "sort": 100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -95,7 +53,7 @@
             "_id": "U1W2qEPWeEon0DtN",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Recall Reflection",
-            "sort": 300000,
+            "sort": 200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -105,7 +63,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>A ledalusca can recall and replay any reflection ever cast on its surface, although it must still @UUID[Compendium.pf2e.actionspf2e.Item.Seek] to consciously notice fine or significant details.</p>"
+                    "value": "<p>A ledalusca can recall and replay any reflection ever cast on its surface, although it must still [[/act seek]] to consciously notice fine or significant details.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -128,7 +86,7 @@
             "_id": "2Qt36u2pXWig3wKR",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Shell Block",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -145,7 +103,28 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "disabledIf": [
+                            {
+                                "not": "freeze-shell"
+                            }
+                        ],
+                        "disabledValue": false,
+                        "key": "RollOption",
+                        "option": "shell-block",
+                        "priority": 51,
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "shell-block"
+                        ],
+                        "type": "all-damage",
+                        "value": 5
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -158,7 +137,7 @@
             "_id": "EkUXODIcewWOk6qH",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Freeze Shell",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -168,14 +147,112 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The ledalusca freezes their surface into a translucent, faintly colored ice sculpture matching the mirror image of a Medium creature or object they have seen before. While in this form, instead of a wave, they have the following Strike:</p>\n<p><strong>Melee</strong> <span class=\"action-glyph\">a</span> ice shell [[/r 1d20+10 #Ice Shell]]{+10}/[[/r 1d20+5 #Ice Shell]]{+5}/[[/r 1d20+0 #Ice Shell]]{+0}, <strong>Damage</strong> @Damage[1d4[cold]] damage</p>\n<p>The physical damage is a type that matches the new shape of the ledalusca's frozen shell. The ledalusca can revert to their liquid form by taking this action again.</p>"
+                    "value": "<p>The ledalusca freezes their surface into a translucent, faintly colored ice sculpture matching the mirror image of a Medium creature or object they have seen before. While in this form, instead of a wave, they have the following Strike:</p>\n<p><strong>Melee</strong> <span class=\"action-glyph\">1</span> ice shell +10, Damage 1d6+4 physical plus 1d4 cold</p>\n<p>The physical damage is a type that matches the new shape of the ledalusca's frozen shell. The ledalusca can revert to their liquid form by taking this action again.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "freeze-shell",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitBludgeoning",
+                                "value": "bludgeoning"
+                            },
+                            {
+                                "label": "PF2E.TraitPiercing",
+                                "value": "piercing"
+                            },
+                            {
+                                "label": "PF2E.TraitSlashing",
+                                "value": "slashing"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "attackModifier": 10,
+                        "category": "unarmed",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d6",
+                                "modifier": 4
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Wave",
+                        "predicate": [
+                            {
+                                "not": "freeze-shell"
+                            }
+                        ],
+                        "slug": "wave",
+                        "traits": [
+                            "unarmed"
+                        ]
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            {
+                                "not": "freeze-shell"
+                            }
+                        ],
+                        "selector": "{item|id}-attack",
+                        "text": "<p><strong><span class=\"action-glyph\">1</span> @Localize[PF2E.AttackEffectPush]</strong> (@Localize[PF2E.BattleForm.Attack.Wave])</p>@Localize[PF2E.NPC.Abilities.Glossary.Push]",
+                        "visibility": "owner"
+                    },
+                    {
+                        "attackModifier": 10,
+                        "category": "unarmed",
+                        "damage": {
+                            "base": {
+                                "damageType": "untyped",
+                                "dice": 1,
+                                "die": "d6",
+                                "modifier": 4
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.IceShell",
+                        "predicate": [
+                            "freeze-shell"
+                        ],
+                        "slug": "ice-shell",
+                        "traits": [
+                            "unarmed"
+                        ]
+                    },
+                    {
+                        "damageType": "cold",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "freeze-shell"
+                        ],
+                        "selector": "{item|id}-damage"
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "freeze-shell"
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "{item|id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": "{item|flags.system.rulesSelections.freezeShell}"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -191,7 +268,7 @@
             "_id": "oHw8udhGCS0SJgQT",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Hold Still",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -226,7 +303,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Push",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
