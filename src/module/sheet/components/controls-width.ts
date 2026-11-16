@@ -5,7 +5,7 @@ import { SvelteMap } from "svelte/reactivity";
 /** A registry of control-cell widths, from which the list sizes the shared controls column */
 type ControlsWidths = SvelteMap<symbol, number>;
 
-const CONTEXT_KEY = "pf2e:spell-list-controls-widths";
+const CONTEXT_KEY = "pf2e:controls-widths";
 
 /** Create the width registry and provide it to descendants (called by the list during init) */
 function provideControlsWidths(): ControlsWidths {

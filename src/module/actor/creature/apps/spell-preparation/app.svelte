@@ -42,7 +42,13 @@
         disabled: !actions.handleDrop,
     })}
 >
-    <SpellList groups={filteredGroups} columns={["defense", "range"]} actions={listActions} editable={data.editable} />
+    <SpellList
+        groups={filteredGroups}
+        columns={["defense", "range"]}
+        actions={listActions}
+        editable={data.editable}
+        reorderable={!search.active}
+    />
 </section>
 
 <style>
@@ -85,10 +91,5 @@
         padding-block: 0 var(--space-8);
         padding-inline: var(--space-8);
         scrollbar-gutter: stable;
-
-        /* Valid drop target, ringed like core's drop targets */
-        &:global([data-drop-hover]) {
-            box-shadow: inset 0 0 0 2px var(--color-warm-2);
-        }
     }
 </style>
