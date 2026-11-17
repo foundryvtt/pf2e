@@ -12,7 +12,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>Some pugwampis radiate a little bad luck wherever they go. You, on the other hand, radiate a lot of bad luck wherever you go. When you use @UUID[Compendium.pf2e.actionspf2e.Item.Unluck], you can decide whether to affect everyone in a @Template[type:emanation|distance:10] or in a @Template[type:emanation|distance:20].</p>"
+            "value": "<p>Some pugwampis radiate a little bad luck wherever they go. You, on the other hand, radiate a lot of bad luck wherever you go. When you use @UUID[Compendium.pf2e.actionspf2e.Item.Unluck], you can decide whether to affect everyone in a @Template[emanation|distance:10] or in a @Template[emanation|distance:20].</p>"
         },
         "level": {
             "value": 5
@@ -29,7 +29,22 @@
             "remaster": true,
             "title": "Pathfinder Feybound"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:unluck"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
