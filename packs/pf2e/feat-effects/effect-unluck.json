@@ -1,0 +1,44 @@
+{
+    "_id": "bC5B8nxWxYtBlWqv",
+    "img": "icons/magic/control/buff-luck-fortune-gold.webp",
+    "name": "Effect: Unluck",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Unluck]</p>\n<p>You must roll twice and take the worse result on the next check you attempt.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "removeAfterRoll": true,
+                "selector": "check"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
