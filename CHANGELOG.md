@@ -1,3 +1,66 @@
+## 8.7.1
+
+### System Improvements
+
+- (Chromatic Penguin) Add shared list components and port the spell list onto them
+- (Dire Weasel) Allow Keen runes to affect NPC Strikes
+- (Dire Weasel) Emit rune attack notes
+
+### Bugfixes
+
+- (Chromatic Penguin) Fix `reevaluateOnUpdate` grants on unlinked tokens
+- (Chromatic Penguin) Fix natural total roll options for substituted check rolls
+- (Chromatic Penguin) Fix Tab in spell preparation and polish the popover menu
+- (Chromatic Penguin) Fix TokenImage scale on tokens without autoscale
+- (Chromatic Penguin) Fix worn-or-held and misread worn usages
+- (Chromatic Penguin) Mark Svelte drops as handled instead of stopping them
+- (stwlam) Fix application of creature size in `BattleFormRuleElement`
+- (stwlam) Fix scrollability of `UserConfigPF2e`'s upstream content tab
+- (stwlam) Guard against non-GMs attempting to set initial world time
+- (Supe) Fix inventory search filter on limited merchants
+
+### Data Updates
+
+- (Ambrose) Add automation for Hedge Mage's skill progression and Hellknight Order Benefits, and add effect to Free the Bound
+- (Ambrose) Add Feybound archetype journal entries and Remaster journal changes
+- (Ambrose) Add missing labels to Gremlin, Nymph, and Sprite Lore feats
+- (Ambrose) Add missing Major variant for Disruption Ammo
+- (Ambrose) Add True Name trait to equipment
+- (Ambrose) Condense Animal Form spell effect
+- (Ambrose) Correct Street Preacher's attribute increases
+- (Ambrose) Correct typos in Whispers of the Dead Goddess spell
+- (Ambrose) Delete legacy actors and redirect to their Feybound reprints
+- (Dantar) Automate many Feybound feats, items, and spells
+- (Dantar) Clean up remaster names
+- (Dantar) Fix Blossoming Gore's scaling
+- (Dantar) Replace empty /act perform with Perform action
+- (Dire Weasel) Add automation for Chimera's Claw, Jin-Hae's Wind-Fire Chariot, Ledalusca's Freeze Shell and Shell Block, and Strength of Thousands aspects' Key Weakness
+- (Dire Weasel) Add damage to Kinetic Ram variant
+- (Dire Weasel) Add description alteration to Lasting Armament for Sanctify Armament
+- (Dire Weasel) Add effects for several consumables, items, and NPC abilities
+- (Dire Weasel) Add GM text to some keys
+- (Dire Weasel) Add some automation for keen runes on NPC Strikes
+- (Dire Weasel) Add spell link to Dread Blindfold
+- (Dire Weasel) Change action cost of To Battle to 1
+- (Dire Weasel) Clean up some Feybound NPCs
+- (Dire Weasel) Fix damage type of Siegebreaker and add defensive effect
+- (Dire Weasel) Fix some missing spell compendium sources
+- (Dire Weasel) Improve automation for Conductive Weapon and Mirror Image spell effects
+- (Dire Weasel) Link Murxie's rapier Strike to weapon and add rune automation to Green Knight's Gallant Axe
+- (Dire Weasel) Refresh Seoni's copies of Ancestral Memories
+- (Dire Weasel) Remove some redundant NPC attack rune notes
+- (kromko) Add missing localization strings
+- (kromko) Fix Gravebane Ammunition REs and One with the Earth prerequisite
+- (kromko) Standardize background description formatting
+- (Payden-Pringle) Fix skill modifier for Element Embodied effects
+- (rectulo) Fix descriptions for Chimera's Claw and Sparking Grimoire (Greater)
+- (Rigo) Add missing data for Thash
+- (Rigo) Add missing shivver variant to Vaultlines compendium
+- (Rigo) Add some missing actions to Echo of Phreygia
+- (Rigo) Correct name of Thirsty Sands hazard
+- (SpartanCPA) Add a prompt for Wizard School to Wizard Dedication
+- (stwlam) Fix ability boosts of Kingmaker's Republic government type
+
 ## 8.7.0
 
 ### Highlights
