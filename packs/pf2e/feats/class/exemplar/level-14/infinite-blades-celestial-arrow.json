@@ -72,9 +72,11 @@
                     "heaven-rains-an-ending",
                     "item:tag:physical-ikon:{item|flags.system.rulesSelections.ikon}"
                 ],
+                "priority": 100,
                 "property": "damage-type",
                 "selectors": [
-                    "ranged-strike-damage"
+                    "ranged-strike-damage",
+                    "strike-damage"
                 ],
                 "value": "spirit"
             },
@@ -85,9 +87,11 @@
                     "heaven-rains-an-ending",
                     "item:tag:physical-ikon:{item|flags.system.rulesSelections.ikon}"
                 ],
+                "priority": 101,
                 "property": "tags",
                 "selectors": [
-                    "ranged-strike-damage"
+                    "ranged-strike-damage",
+                    "strike-damage"
                 ],
                 "value": "exemplar"
             },
@@ -102,12 +106,16 @@
                 "value": -2
             },
             {
-                "key": "RollOption",
-                "option": "exemplar-spirit-damage",
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
                 "predicate": [
-                    "heaven-rains-an-ending"
+                    "heaven-rains-an-ending",
+                    "item:tag:physical-ikon:{item|flags.system.rulesSelections.ikon}"
                 ],
-                "priority": 51
+                "priority": 130,
+                "property": "other-tags",
+                "value": "exemplar-spirit-damage"
             }
         ],
         "traits": {
