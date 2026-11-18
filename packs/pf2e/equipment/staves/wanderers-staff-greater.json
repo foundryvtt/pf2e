@@ -55,7 +55,23 @@
         "reload": {
             "value": null
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "terrain:wilderness",
+                    {
+                        "or": [
+                            "action:sense-direction",
+                            "action:subsist"
+                        ]
+                    }
+                ],
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "runes": {
             "potency": 0,
             "property": [],
