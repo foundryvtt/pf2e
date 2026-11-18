@@ -87,7 +87,40 @@ interface BaseFilterData {
     search: {
         text: string;
     };
+    tags: TraitData;
     traits: TraitData;
+}
+
+/** Declarative multiselect applied on top of a tab's default traits or tags filter. */
+interface CompendiumBrowserMultiselectFilter {
+    conjunction?: "and" | "or";
+    include?: readonly string[];
+    omit?: readonly string[];
+}
+
+/** Declarative filters applied on top of a tab's default filter state. */
+interface CompendiumBrowserFilter {
+    checkboxes?: Record<string, readonly string[]>;
+    level?: {
+        from?: number;
+        to?: number;
+    };
+    order?: {
+        by?: string;
+        direction?: SortDirection;
+    };
+    ranges?: Record<
+        string,
+        {
+            max?: number | string;
+            min?: number | string;
+        }
+    >;
+    search?: string;
+    selects?: Record<string, string>;
+    source?: readonly string[];
+    tags?: CompendiumBrowserMultiselectFilter;
+    traits?: CompendiumBrowserMultiselectFilter;
 }
 
 interface ActionFilters extends BaseFilterData {
@@ -192,6 +225,7 @@ export type {
     CheckboxOption,
     CheckboxOptions,
     CheckboxToggle,
+    CompendiumBrowserFilter,
     CompendiumBrowserIndexData,
     EquipmentFilters,
     FeatFilters,

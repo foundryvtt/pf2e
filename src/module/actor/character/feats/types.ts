@@ -41,9 +41,11 @@ interface FeatGroupData {
 /** Compendium browser filter properties when using the browse features. These do not perform validation */
 interface FeatBrowserFilterProps {
     categories?: FeatOrFeatureCategory[];
-    traits?: string[];
-    omitTraits?: string[];
     conjunction?: "or" | "and";
+    omitTags?: string[];
+    omitTraits?: string[];
+    tags?: string[];
+    traits?: string[];
 }
 
 /** Data used to describe a feat slot when creating a new feat group */

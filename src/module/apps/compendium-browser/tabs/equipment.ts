@@ -90,6 +90,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
                     const options: string[] = [
                         ...traits.map((t) => `trait:${t.replace(/^hb_/, "")}`),
+                        ...(system.traits.otherTags ?? []).map((tag: string) => `tag:${tag}`),
                         `price:${coinValue}`,
                         `level:${itemData.system.level?.value ?? 0}`,
                         `type:category:${itemData.system.category ?? "none"}`,
@@ -204,6 +205,11 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     optionPrefix: "type",
                     selected: [],
                 },
+            },
+            tags: {
+                conjunction: "and",
+                options: [],
+                selected: [],
             },
             traits: {
                 conjunction: "and",
