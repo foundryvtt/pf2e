@@ -1,7 +1,11 @@
 <li class="strike{{#if action.ready}} ready{{/if}}" {{#unless action.visible}}hidden{{/unless}} data-strike data-action-index="{{index}}">
-    <div class="item-image variant-strike framed{{#if action.ready}} ready{{/if}}" data-action="strike-attack" data-variant-index="0">
+    <div class="item-image variant-strike framed{{#if action.ready}} ready{{/if}}"
+        {{#if (or action.canAttack action.altUsages.length)}}data-action="strike-attack" data-variant-index="0"{{/if}}
+        {{#if (or (eq action.item.system.traits.toggles.combination.selected "melee") (not action.canAttack))}}
+            {{#if action.altUsages.length}}data-alt-usage="0"{{/if}}
+        {{/if}}>
         <img src="{{action.item.img}}" />
-        <i class="fa-solid fa-dice-d20" inert></i>
+        {{#if (or action.canAttack action.altUsages.length)}}<i class="fa-solid fa-dice-d20" inert></i>{{/if}}
     </div>
     <section>
         {{#unless omitName}}
@@ -33,8 +37,8 @@
                              data-tooltip aria-label="{{localize "PF2E.Actions.AutoFire.Title"}}" />
                     {{else if usage.item.isRanged}}
                         <i class="alt-usage-icon fa-regular fa-bullseye-arrow" inert
-                           data-tooltip aria-label="{{localize "PF2E.Item.Weapon.MeleeUsage.Label"}}"></i>
-                    {{else}}
+                           data-tooltip aria-label="{{localize "PF2E.Item.Weapon.RangedUsage.Label"}}"></i>
+                    {{else if (and (eq usage.item.altUsageType "melee") ../action.canAttack)}}
                         <img class="alt-usage-icon" src="{{resolvePath "icons/mdi/sword.svg"}}"
                              data-tooltip aria-label="{{localize "PF2E.Item.Weapon.MeleeUsage.Label"}}" />
                     {{/if}}
@@ -42,62 +46,64 @@
                 </div>
             {{/each}}
 
-            {{#if action.ammunition.requiresReload}}
-                <div class="ammo">
-                    {{#each action.ammunition.loaded as |ammo|}}
-                        <div class="loaded {{#if (eq ammo.id ../action.ammunition.selected.id)}}selected{{/if}}"
-                             data-item-id="{{ammo.id}}">
-                            <button type="button" class="inline-control" data-action="select-ammo"
-                                    {{#if (eq ammo.id ../action.ammunition.selected.id)}}inert{{/if}}>
-                                <img src="{{ammo.img}}" />
-                                <span class="name">{{ammo.name}}</span>
-                            </button>
-                            {{#if ammo.isTemporary}}
-                                <i
-                                    class="fa-solid fa-stopwatch"
-                                    data-tooltip aria-label="{{localize "PF2E.TemporaryItemToolTip"}}"
-                                    data-tooltip-direction="RIGHT"
-                                ></i>
-                            {{/if}}
-                            <span class="magazine">
-                                <i class="icon"></i>
-                                <input
-                                    type="text"
-                                    id="{{@root.options.id}}-loaded-{{ammo.id}}-quantity"
-                                    data-action="change-ammo-quantity"
-                                    data-allow-delta
-                                    value="{{ammo.quantity}}"
-                                    data-min="0"
-                                    data-max="{{ammo.max}}"
-                                    data-refocus="{{../action.item.id}}-{{ammo.id}}"
-                                />
-                            </span>
-                            <button type="button" class="use-action unload" data-action="unload">
-                                <i class="fa-solid fa-eject" inert></i>
-                            </button>
-                        </div>
-                    {{/each}}
-                    {{#if action.ammunition.remaining}}
-                        <div class="empty plain">
-                            <a class="name" data-action="reload" data-anchor-id="{{@root.options.id}}-{{action.item.uuid}}-reload">
-                                <span>{{localize "PF2E.Actions.Interact.Reload.Title"}} <span class="action-glyph">{{action.ammunition.reloadGlyph}}</span></span>
-                            </a>
-                            <span class="remaining">
-                                {{#if (gt action.ammunition.capacity 1)}}
-                                    {{localize "PF2E.Actor.Character.EmptyMultipleLabel" value=action.ammunition.remaining}}
-                                {{else}}
-                                    {{localize "PF2E.Actor.Character.EmptyLabel"}}
+            {{#if action.canAttack}}
+                {{#if action.ammunition.requiresReload}}
+                    <div class="ammo">
+                        {{#each action.ammunition.loaded as |ammo|}}
+                            <div class="loaded {{#if (eq ammo.id ../action.ammunition.selected.id)}}selected{{/if}}"
+                                 data-item-id="{{ammo.id}}">
+                                <button type="button" class="inline-control" data-action="select-ammo"
+                                        {{#if (eq ammo.id ../action.ammunition.selected.id)}}inert{{/if}}>
+                                    <img src="{{ammo.img}}" />
+                                    <span class="name">{{ammo.name}}</span>
+                                </button>
+                                {{#if ammo.isTemporary}}
+                                    <i
+                                        class="fa-solid fa-stopwatch"
+                                        data-tooltip aria-label="{{localize "PF2E.TemporaryItemToolTip"}}"
+                                        data-tooltip-direction="RIGHT"
+                                    ></i>
                                 {{/if}}
-                            </span>
-                        </div>
-                    {{/if}}
-                </div>
-            {{else if action.ammunition}}
-                <div class="ammo auxiliary-actions">
-                    <select data-action="link-ammo">
-                        {{selectOptions action.ammunition.compatible selected=action.ammunition.selected.id valueAttr="id" blank="PF2E.NoAmmoLabel" localize=true}}
-                    </select>
-                </div>
+                                <span class="magazine">
+                                    <i class="icon"></i>
+                                    <input
+                                        type="text"
+                                        id="{{@root.options.id}}-loaded-{{ammo.id}}-quantity"
+                                        data-action="change-ammo-quantity"
+                                        data-allow-delta
+                                        value="{{ammo.quantity}}"
+                                        data-min="0"
+                                        data-max="{{ammo.max}}"
+                                        data-refocus="{{../action.item.id}}-{{ammo.id}}"
+                                    />
+                                </span>
+                                <button type="button" class="use-action unload" data-action="unload">
+                                    <i class="fa-solid fa-eject" inert></i>
+                                </button>
+                            </div>
+                        {{/each}}
+                        {{#if (and action.ammunition.remaining (ne action.item.system.traits.toggles.combination.selected "melee"))}}
+                            <div class="empty plain">
+                                <a class="name" data-action="reload" data-anchor-id="{{@root.options.id}}-{{action.item.uuid}}-reload">
+                                    <span>{{localize "PF2E.Actions.Interact.Reload.Title"}} <span class="action-glyph">{{action.ammunition.reloadGlyph}}</span></span>
+                                </a>
+                                <span class="remaining">
+                                    {{#if (gt action.ammunition.capacity 1)}}
+                                        {{localize "PF2E.Actor.Character.EmptyMultipleLabel" value=action.ammunition.remaining}}
+                                    {{else}}
+                                        {{localize "PF2E.Actor.Character.EmptyLabel"}}
+                                    {{/if}}
+                                </span>
+                            </div>
+                        {{/if}}
+                    </div>
+                {{else if action.ammunition}}
+                    <div class="ammo auxiliary-actions">
+                        <select data-action="link-ammo">
+                            {{selectOptions action.ammunition.compatible selected=action.ammunition.selected.id valueAttr="id" blank="PF2E.NoAmmoLabel" localize=true}}
+                        </select>
+                    </div>
+                {{/if}}
             {{/if}}
         {{/if}}
 
