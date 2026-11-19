@@ -11,7 +11,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>This eerie, blackened steel shield (Hardness 6, HP 36, BT 18) seems to actively reject light that touches it. You gain a +1 circumstance bonus to Stealth checks to [[/act hide]] while this shield is raised.</p>\n<p><strong>Activate—Shadow Slip</strong> <span class=\"action-glyph\">f</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You would take damage while this shield is raised</p><hr /><p><strong>Effect</strong> Shadows swallow you. You become @UUID[Compendium.pf2e.conditionitems.Item.Concealed] until the end of your next turn.</p>"
+            "value": "<p>This eerie, blackened steel shield (Hardness 6, HP 36, BT 18) seems to actively reject light that touches it. You gain a +1 circumstance bonus to Stealth checks to [[/act hide]] while this shield is raised.</p><hr /><p><strong>Activate—Shadow Slip</strong> <span class=\"action-glyph\">f</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You would take damage while this shield is raised</p>\n<p><strong>Effect</strong> Shadows swallow you. You become @UUID[Compendium.pf2e.conditionitems.Item.Concealed] until the end of your next turn.</p>"
         },
         "grade": null,
         "hardness": 6,
@@ -37,7 +37,18 @@
             "title": "Pathfinder Impossible Magic"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:hide",
+                    "self:shield:raised"
+                ],
+                "selector": "stealth",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "runes": {
             "reinforcing": 0
         },
