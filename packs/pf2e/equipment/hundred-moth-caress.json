@@ -54,7 +54,56 @@
         "reload": {
             "value": null
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:hundred-moth-caress"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.PallidHealing.Text",
+                        "title": "PF2E.SpecificRule.Spellshape.PallidHealing.Title"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "selection": "hundred-moth-caress",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Spellshape.PallidHealing.Option",
+                        "value": "hundred-moth-caress"
+                    }
+                ],
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "RollOption",
+                "toggleable": true,
+                "label": "PF2E.SpecificRule.Spellshape.PallidHealing.Option",
+                "option": "hundred-moth-caress",
+                "value": false
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "hundred-moth-caress"
+                ],
+                "text": "<b>@Localize[PF2E.SpecificRule.Spellshape.PallidHealing.Title]</b> @Localize[PF2E.SpecificRule.Spellshape.PallidHealing.Text]",
+                "selector": [
+                    "hundred-moth-caress-attack"
+                ]
+            }
+        ],
         "runes": {
             "potency": 1,
             "property": [],
