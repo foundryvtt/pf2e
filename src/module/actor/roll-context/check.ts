@@ -38,7 +38,7 @@ class CheckContext<
             const { domains, against } = this;
             if (!against) return null;
             const scope = domains.includes("attack") ? "attack" : "check";
-            const statistic = opposingActor?.getStatistic(against.replace(/-dc$/, ""))?.dc;
+            const statistic = opposingActor?.getStatistic(against.replace(/-dc$/, ""), { item: this.item })?.dc;
             return statistic ? { scope, statistic, slug: against, value: statistic.value } : null;
         })();
 
