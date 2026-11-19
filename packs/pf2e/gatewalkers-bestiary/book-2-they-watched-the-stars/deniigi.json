@@ -556,14 +556,38 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>While using Survival to Subsist in arctic environments, if Deniigi rolls a failure or a critical failure, she gets a success instead. If Deniigi rolls a success, she can provide food for 4 additional creatures that eat about as much as a human, or 8 creatures on a critical success.</p>"
+                    "value": "<p>While using Survival to [[/act subsist skill=survival options=terrain:arctic]] in arctic environments, if Deniigi rolls a failure or a critical failure, she gets a success instead. If Deniigi rolls a success, she can provide food for 4 additional creatures that eat about as much as a human, or 8 creatures on a critical success.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "adjustment": {
+                            "criticalFailure": "to-success",
+                            "failure": "to-success"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "action:subsist",
+                            "terrain:arctic"
+                        ],
+                        "selector": "survival"
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "action:subsist",
+                            "terrain:arctic"
+                        ],
+                        "selector": "survival",
+                        "text": "PF2E.SpecificRule.Feat.Forager.Note",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
