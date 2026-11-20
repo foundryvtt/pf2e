@@ -52,7 +52,7 @@
                 "mode": "add",
                 "predicate": [
                     {
-                        "not": "energized-spark"
+                        "not": "energized-spark-damage"
                     },
                     "item:tag:exemplar-spirit-damage"
                 ],
@@ -66,7 +66,7 @@
                 "mode": "add",
                 "predicate": [
                     {
-                        "not": "energized-spark"
+                        "not": "energized-spark-damage"
                     },
                     "item:tag:exemplar-spirit-damage"
                 ],
@@ -75,18 +75,28 @@
                 "value": "sanctified"
             },
             {
+                "definition": [
+                    "item:tag:exemplar-spirit-damage"
+                ],
                 "key": "AdjustStrike",
                 "mode": "add",
                 "predicate": [
                     {
-                        "not": "energized-spark"
-                    },
-                    {
-                        "or": [
-                            "feature:spirit-striking",
-                            "exemplar-spirit-damage"
-                        ]
+                        "not": "energized-spark-damage"
                     }
+                ],
+                "priority": 150,
+                "property": "traits",
+                "value": "{item|flags.system.rulesSelections.sanctification}"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "energized-spark-damage"
+                    },
+                    "feature:spirit-striking"
                 ],
                 "priority": 150,
                 "property": "traits",
