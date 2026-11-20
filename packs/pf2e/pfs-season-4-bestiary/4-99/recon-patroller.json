@@ -527,7 +527,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>While using Survival to @UUID[Compendium.pf2e.actionspf2e.Item.Subsist], if the recon patroller rolls a failure or a critical failure, they get a success instead. If the recon patroller rolls a success, they can provide food for 4 additional creatures that eat about as much as a human, or 8 creatures on a critical success.</p>"
+                    "value": "<p>While using Survival to [[/act subsist skill=survival]], if the recon patroller rolls a failure or a critical failure, they get a success instead. If the recon patroller rolls a success, they can provide food for 4 additional creatures that eat about as much as a human, or 8 creatures on a critical success.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -537,14 +537,24 @@
                 "rules": [
                     {
                         "adjustment": {
-                            "failure": "one-degree-better"
+                            "criticalFailure": "to-success",
+                            "failure": "to-success"
                         },
                         "key": "AdjustDegreeOfSuccess",
                         "predicate": [
                             "action:subsist"
                         ],
+                        "selector": "survival"
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "action:subsist"
+                        ],
                         "selector": "survival",
-                        "type": "skill"
+                        "text": "PF2E.SpecificRule.Feat.Forager.Note",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
