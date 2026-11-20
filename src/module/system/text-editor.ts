@@ -9,6 +9,7 @@ import { AbilityTrait } from "@item/ability/types.ts";
 import { EFFECT_AREA_SHAPES } from "@item/values.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import {
+    extractDamageBypasses,
     extractDamageDice,
     extractModifierAdjustments,
     extractModifiers,
@@ -987,6 +988,9 @@ async function augmentInlineDamageRoll(
             modifiers,
             dice,
             kinds: new Set(kinds),
+            bypass: actor
+                ? extractDamageBypasses(actor.synthetics.damageBypasses, domains, { test: rollOptions })
+                : undefined,
         };
 
         const isAttack = !!traits?.includes("attack");
@@ -1018,7 +1022,7 @@ async function augmentInlineDamageRoll(
         if (!formula || formula === "{}") return null;
 
         const showBreakdown = game.pf2e.settings.metagame.breakdowns || (actor?.hasPlayerOwner ?? true);
-        const roll = new DamageRoll(formula, {}, { showBreakdown });
+        const roll = new DamageRoll(formula, {}, { showBreakdown, bypass: formulaData.bypass });
 
         const template: SimpleDamageTemplate = {
             name: name ?? item?.name ?? actor?.name ?? "",

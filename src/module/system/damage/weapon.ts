@@ -9,6 +9,7 @@ import type { ZeroToFour } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import {
     extractDamageAlterations,
+    extractDamageBypasses,
     extractDamageDice,
     extractModifierAdjustments,
     extractModifiers,
@@ -209,13 +210,16 @@ class WeaponDamagePF2e {
         modifiers.push(...runeDamage.filter((d): d is Modifier => "modifier" in d));
         const propertyRuneAdjustments = getPropertyRuneModifierAdjustments(propertyRunes);
 
-        const irBypassData: DamageIRBypassData = {
-            immunity: { ignore: [], downgrade: [], redirect: [] },
-            resistance: {
-                ignore: propertyRunes.flatMap((r) => RUNE_DATA.weapon.property[r].damage?.ignoredResistances ?? []),
-                redirect: [],
-            },
-        };
+        const irBypassData: DamageIRBypassData = extractDamageBypasses(actor.synthetics.damageBypasses, domains, {
+            test: options,
+            resolvables: { weapon },
+        });
+        irBypassData.resistance.ignore.push(
+            ...propertyRunes.flatMap((r) => RUNE_DATA.weapon.property[r].damage?.ignoredResistances ?? []),
+        );
+        irBypassData.immunity.ignore.push(
+            ...propertyRunes.flatMap((r) => RUNE_DATA.weapon.property[r].damage?.ignoredImmunities ?? []),
+        );
 
         // Backstabber trait
         if (weaponTraits.some((t) => t === "backstabber") && options.has("target:condition:off-guard")) {
