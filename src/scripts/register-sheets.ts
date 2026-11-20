@@ -5,6 +5,7 @@ import { HazardSheetPF2e } from "@actor/hazard/sheet.ts";
 import { LootSheetPF2e } from "@actor/loot/sheet.ts";
 import { NPCSheetPF2e, SimpleNPCSheet } from "@actor/npc/sheet.ts";
 import { PartySheetPF2e } from "@actor/party/sheet.ts";
+import { VehicleSheetV2 } from "@actor/vehicle/sheet-v2/sheet.ts";
 import { VehicleSheetPF2e } from "@actor/vehicle/sheet.ts";
 import { AbilitySheetPF2e } from "@item/ability/sheet.ts";
 import { AfflictionSheetPF2e } from "@item/affliction/sheet.ts";
@@ -96,6 +97,11 @@ export function registerSheets(): void {
         types: ["vehicle"],
         label: _loc(sheetLabel, { type: localizeType("vehicle") }),
         makeDefault: true,
+    });
+    fd.collections.Actors.registerSheet("pf2e", VehicleSheetV2, {
+        types: ["vehicle"],
+        label: _loc("PF2E.SheetLabelV2", { type: localizeType("vehicle") }),
+        makeDefault: false,
     });
 
     // Party
