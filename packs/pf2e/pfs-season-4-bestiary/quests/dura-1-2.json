@@ -66,7 +66,12 @@
                 "reload": {
                     "value": null
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "aldori-dueling-sword"
+                    }
+                ],
                 "runes": {
                     "potency": 0,
                     "property": [],
@@ -250,14 +255,38 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Dura critically succeeds at a Strike or @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] with her Aldori dueling sword.</p>\n<p><strong>Effect</strong> Dura attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] the target of her Strike or Disarm. This Demoralize attempt does not have the auditory trait, nor does Dura take a penalty to the check if the target doesn't understand her language.</p>"
+                    "value": "<p><strong>Trigger</strong> Dura critically succeeds at a Strike or [[/act disarm]] with her Aldori dueling sword.</p>\n<p><strong>Effect</strong> Dura attempts to [[/act demoralize]] the target of her Strike or Disarm. This Demoralize attempt does not have the auditory trait, nor does Dura take a penalty to the check if the target doesn't understand her language.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "aldori-dueling-sword-attack",
+                        "text": "{item|description}",
+                        "title": "{item|name} <span class=\"action-glyph\">F</span>",
+                        "visibility": "owner"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "action:disarm"
+                        ],
+                        "selector": "skill-check",
+                        "text": "{item|description}",
+                        "title": "{item|name} <span class=\"action-glyph\">F</span>",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []

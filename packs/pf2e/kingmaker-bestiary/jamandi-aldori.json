@@ -65,7 +65,12 @@
                 "reload": {
                     "value": null
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "aldori-dueling-sword"
+                    }
+                ],
                 "runes": {
                     "potency": 2,
                     "property": [],
@@ -362,7 +367,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Jamandi is benefiting from Aldori Parry</p>\n<p><strong>Trigger</strong> An opponent within Jamandi's reach critically fails a Strike against her</p>\n<p><strong>Effect</strong> Jamandi ripostes with her sword and makes a melee Strike or uses a @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] action against the triggering opponent.</p>"
+                    "value": "<p><strong>Requirements</strong> Jamandi is benefiting from Aldori Parry</p>\n<p><strong>Trigger</strong> An opponent within Jamandi's reach critically fails a Strike against her</p>\n<p><strong>Effect</strong> Jamandi ripostes with her sword and makes a melee Strike or uses a [[/act disarm]] action against the triggering opponent.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -422,14 +427,38 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Jamandi critically succeeds at a Strike or @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] with her sword</p>\n<p><strong>Effect</strong> Jamandi attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] the creature she struck or disarmed; this Demoralize attempt does not have the auditory trait, nor does she take a penalty to the check if the target doesn't understand her language.</p>"
+                    "value": "<p><strong>Trigger</strong> Jamandi critically succeeds at a Strike or [[/act disarm]] with her sword</p>\n<p><strong>Effect</strong> Jamandi attempts to [[/act demoralize]] the creature she struck or disarmed; this Demoralize attempt does not have the auditory trait, nor does she take a penalty to the check if the target doesn't understand her language.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "aldori-dueling-sword-attack",
+                        "text": "{item|description}",
+                        "title": "{item|name} <span class=\"action-glyph\">F</span>",
+                        "visibility": "owner"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "action:disarm"
+                        ],
+                        "selector": "skill-check",
+                        "text": "{item|description}",
+                        "title": "{item|name} <span class=\"action-glyph\">F</span>",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
