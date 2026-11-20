@@ -1,0 +1,131 @@
+{
+    "_id": "0VaOlxW1dtOiGY9F",
+    "img": "icons/skills/social/intimidation-impressing.webp",
+    "name": "Effect: Triumphant Roar",
+    "system": {
+        "description": {
+            "value": "<p>For each success, you gain 4 temporary Hit Points (8 on a critical success).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Kingmaker"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Zero",
+                        "value": 0
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.One",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Two",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Three",
+                        "value": 3
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Four",
+                        "value": 4
+                    }
+                ],
+                "flag": "successCount",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.CountOfSuccesses",
+                "rollOption": "triumphant-roar-success"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Zero",
+                        "value": 0
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.One",
+                        "predicate": [
+                            {
+                                "lt": [
+                                    "triumphant-roar-success",
+                                    4
+                                ]
+                            }
+                        ],
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Two",
+                        "predicate": [
+                            {
+                                "lt": [
+                                    "triumphant-roar-success",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Three",
+                        "predicate": [
+                            {
+                                "lt": [
+                                    "triumphant-roar-success",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": 3
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Four",
+                        "predicate": [
+                            {
+                                "lt": [
+                                    "triumphant-roar-success",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": 4
+                    }
+                ],
+                "flag": "criticalCount",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.CountOfCriticalSuccesses"
+            },
+            {
+                "key": "TempHP",
+                "value": "(@item.flags.system.rulesSelections.successCount*4)+(@item.flags.system.rulesSelections.criticalCount*8)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
