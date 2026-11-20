@@ -322,7 +322,9 @@ export class InlineRollLinks {
         }
         const { actor: actorFromHTML, item, message } = resolveActorAndItemFromHTML(link);
         const actor = actorFromHTML ?? game.user.character;
-        const area = { type: dataset.type, value: Number(dataset.distance) || 5 };
+        // Links enriched before this was read carry a placeholder width of 1
+        const width = Math.max(Number(dataset.width) || 5, 5);
+        const area = { type: dataset.type, value: Number(dataset.distance) || 5, width };
         const shape = shapeDataFromEffectArea(area, actor);
         if (!shape) return;
         const data: DeepPartial<fd.RegionSource> = {
