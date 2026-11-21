@@ -222,7 +222,8 @@ class ChatMessagePF2e extends ChatMessage<UserPF2e | null> {
             const [imageUrl, scale] = (() => {
                 const tokenImage = token.texture.src;
                 const hasTokenImage = tokenImage && fh.media.ImageHelper.hasImageExtension(tokenImage);
-                if (!hasTokenImage || isDefaultTokenImage(token)) {
+                const isWildcard = "randomImg" in token && token.randomImg;
+                if (!hasTokenImage || isWildcard || isDefaultTokenImage(token)) {
                     return [actor.img, 1];
                 }
 
