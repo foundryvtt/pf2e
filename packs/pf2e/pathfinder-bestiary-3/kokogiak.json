@@ -102,7 +102,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>Kokogiaks can mimic the sounds of a person in distress by attempting a Deception check to @UUID[Compendium.pf2e.actionspf2e.Item.Lie]. The kokogiak has a +4 circumstance bonus to this check.</p>"
+                    "value": "<p>Kokogiaks can mimic the sounds of a person in distress by attempting a Deception check to [[/act lie options=voice-imitation]]. The kokogiak has a +4 circumstance bonus to this check.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -111,16 +111,10 @@
                 },
                 "rules": [
                     {
-                        "domain": "skill-check",
-                        "key": "RollOption",
-                        "option": "voice-imitation",
-                        "toggleable": true
-                    },
-                    {
                         "key": "FlatModifier",
                         "predicate": [
-                            "voice-imitation",
-                            "action:lie"
+                            "action:lie",
+                            "voice-imitation"
                         ],
                         "selector": "deception",
                         "type": "circumstance",

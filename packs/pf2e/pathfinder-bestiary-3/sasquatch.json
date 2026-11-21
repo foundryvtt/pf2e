@@ -154,14 +154,25 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The sasquatch is in forest terrain and rolls Stealth for Initiative</p>\n<hr />\n<p><strong>Effect</strong> The sasquatch Strides up to half their Speed, after which they attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] a single creature within 15 feet.</p>"
+                    "value": "<p><strong>Trigger</strong> The sasquatch is in forest terrain and rolls Stealth for Initiative</p>\n<hr />\n<p><strong>Effect</strong> The sasquatch Strides up to half their Speed, after which they attempt to [[/act demoralize]] a single creature within 15 feet.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "check:statistic:base:stealth"
+                        ],
+                        "selector": "initiative",
+                        "text": "{item|description}",
+                        "title": "{item|name} <span class=\"action-glyph\">F</span>",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -198,7 +209,7 @@
                             "criticalSuccess"
                         ],
                         "selector": "fist-attack",
-                        "text": "PF2E.AttackEffects.KnockProne",
+                        "text": "{item|description}",
                         "title": "{item|name}",
                         "visibility": "owner"
                     }
@@ -285,7 +296,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The sasquatch doesn't take a penalty to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] a creature that doesn't understand their language.</p>"
+                    "value": "<p>The sasquatch doesn't take a penalty to [[/act demoralize]] a creature that doesn't understand their language.</p>"
                 },
                 "publication": {
                     "license": "OGL",
