@@ -471,14 +471,29 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>When the Norgorberite spy successfully @UUID[Compendium.pf2e.actionspf2e.Item.Feint]{Feints} a creature, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the spy's ranged attacks as well as melee attacks.</p>"
+                    "value": "<p>When the Norgorberite spy successfully [[/act feint]]{Feints} a creature, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the spy's ranged attacks as well as melee attacks.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "action:feint"
+                        ],
+                        "selector": "skill-check",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

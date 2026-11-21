@@ -106,7 +106,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>A hantu denai that succeeds at a Deception check to @UUID[Compendium.pf2e.actionspf2e.Item.Lie] can mimic the sounds of any animal native to its environment. It adds a +4 circumstance bonus to this check.</p>"
+                    "value": "<p>A hantu denai that succeeds at a Deception check to [[/act lie options=sound-imitation]] can mimic the sounds of any animal native to its environment. It adds a +4 circumstance bonus to this check.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -117,17 +117,12 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
+                            "action:lie",
                             "sound-imitation"
                         ],
                         "selector": "deception",
                         "type": "circumstance",
                         "value": 4
-                    },
-                    {
-                        "domain": "skill-check",
-                        "key": "RollOption",
-                        "option": "sound-imitation",
-                        "toggleable": true
                     }
                 ],
                 "slug": null,

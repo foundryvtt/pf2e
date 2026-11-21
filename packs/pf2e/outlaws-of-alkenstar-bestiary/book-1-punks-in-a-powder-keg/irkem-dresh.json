@@ -492,7 +492,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature uses a mental effect against Dresh and fails or critically fails</p>\n<hr />\n<p><strong>Effect</strong> Dresh @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize]{Demoralizes} that creature; when she does, Demoralize loses the auditory trait and gains the visual trait and she doesn't take a penalty if the creature doesn't understand her language.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature uses a mental effect against Dresh and fails or critically fails</p>\n<hr />\n<p><strong>Effect</strong> Dresh [[/act demoralize]]{Demoralizes} that creature; when she does, Demoralize loses the auditory trait and gains the visual trait and she doesn't take a penalty if the creature doesn't understand her language.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -522,7 +522,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Dresh can use the promise of wealth to distract her foes. When she succeeds or critically succeeds on a Deception check to @UUID[Compendium.pf2e.actionspf2e.Item.Feint] against a target within 30 feet, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against her ranged attacks as well as her melee Strikes.</p>"
+                    "value": "<p>Dresh can use the promise of wealth to distract her foes. When she succeeds or critically succeeds on a Deception check to [[/act feint]] against a target within 30 feet, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against her ranged attacks as well as her melee Strikes.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -532,12 +532,17 @@
                 "rules": [
                     {
                         "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
                         "predicate": [
                             "action:feint"
                         ],
                         "selector": "deception",
                         "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
@@ -562,7 +567,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> Dresh throws [[/r 2d6 #Silver pieces]] silver pieces into the air, potentially distracting her target. Dresh makes a Deception check to @UUID[Compendium.pf2e.actionspf2e.Item.Feint] against a creature within 30 feet that can see her and which she can see. If her flintlock pistol is loaded, Dresh then makes a ranged flintlock pistol Strike against that target.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> Dresh throws [[/r 2d6 #Silver pieces]] silver pieces into the air, potentially distracting her target. Dresh makes a Deception check to [[/act feint]] against a creature within 30 feet that can see her and which she can see. If her flintlock pistol is loaded, Dresh then makes a ranged flintlock pistol Strike against that target.</p>"
                 },
                 "frequency": {
                     "max": 1,

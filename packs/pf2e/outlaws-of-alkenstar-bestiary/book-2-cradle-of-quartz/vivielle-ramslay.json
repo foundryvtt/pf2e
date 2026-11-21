@@ -1498,26 +1498,41 @@
         },
         {
             "_id": "v3VQfpzwMQ3vAQCU",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Scoundrel's Feint",
             "sort": 2500000,
             "system": {
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 1
+                    "value": null
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When the mastermind successfully @UUID[Compendium.pf2e.actionspf2e.Item.Feint]{Feints}, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the mastermind's melee attacks until the end of the mastermind's next turn. On a critical success, the target is off-guard against all melee attacks for that time, not just the mastermind's.</p>"
+                    "value": "<p>When the mastermind successfully [[/act feint]]{Feints}, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the mastermind's melee attacks until the end of the mastermind's next turn. On a critical success, the target is off-guard against all melee attacks for that time, not just the mastermind's.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "action:feint"
+                        ],
+                        "selector": "skill-check",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

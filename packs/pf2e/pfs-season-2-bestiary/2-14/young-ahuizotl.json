@@ -145,7 +145,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>An ahuizotl can mimic the sounds of a person in distress by attempting a Deception check to @UUID[Compendium.pf2e.actionspf2e.Item.Lie]. The ahuizotl has a +4 circumstance bonus to this check.</p>"
+                    "value": "<p>An ahuizotl can mimic the sounds of a person in distress by attempting a Deception check to [[/act lie options=voice-imitation]]. The ahuizotl has a +4 circumstance bonus to this check.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -154,10 +154,14 @@
                 },
                 "rules": [
                     {
-                        "domain": "deception",
-                        "key": "RollOption",
-                        "option": "voice-imitation",
-                        "toggleable": true
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:lie",
+                            "voice-imitation"
+                        ],
+                        "selector": "deception",
+                        "type": "circumstance",
+                        "value": 4
                     }
                 ],
                 "slug": null,
@@ -334,11 +338,7 @@
                 "special": [
                     {
                         "base": 16,
-                        "label": "when using Voice Imitation",
-                        "predicate": [
-                            "action:lie",
-                            "voice-imitation"
-                        ]
+                        "label": "when using Voice Imitation"
                     }
                 ]
             },

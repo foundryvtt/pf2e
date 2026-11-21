@@ -569,14 +569,29 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Lelzeshin takes advantage of the numerous mirrors in the room to befuddle his opponents, making his movements harder to track. If he succeeds at a @Check[deception] check to @UUID[Compendium.pf2e.actionspf2e.Item.Feint] against a target who can see him, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against melee attacks that he makes against them until the end of his next turn.</p>"
+                    "value": "<p>Lelzeshin takes advantage of the numerous mirrors in the room to befuddle his opponents, making his movements harder to track. If he succeeds at a Deception check to [[/act feint]] against a target who can see him, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against melee attacks that he makes against them until the end of his next turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "action:feint"
+                        ],
+                        "selector": "deception",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
