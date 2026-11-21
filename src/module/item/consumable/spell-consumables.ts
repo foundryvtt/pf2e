@@ -55,7 +55,8 @@ async function createConsumableFromSpell(
 
     consumableSource.system.description.value = (() => {
         const paragraphElement = document.createElement("p");
-        paragraphElement.append(spell.sourceId ? `@UUID[${spell.sourceId}]{${spell.name}}` : spell.description);
+        const linkUuid = spell.parent ? spell.sourceId : spell.uuid;
+        paragraphElement.append(linkUuid ? `@UUID[${linkUuid}]{${spell.name}}` : spell.description);
 
         const containerElement = document.createElement("div");
         const hrElement = document.createElement("hr");
