@@ -167,10 +167,6 @@ const conditionTypes: Record<ConditionSlug, string> = {
     untethered: "PF2E.ConditionTypeUntethered",
 };
 
-if (SYSTEM_ID === "sf2e") {
-    Object.assign(tokenHUDConditions, R.pick(conditionTypes, ["glitching", "suppressed", "untethered"]));
-}
-
 const armorCategories: Record<ArmorCategory, string> = {
     unarmored: "PF2E.ArmorTypeUnarmored",
     light: "PF2E.ArmorTypeLight",

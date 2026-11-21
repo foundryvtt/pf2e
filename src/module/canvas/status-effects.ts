@@ -3,7 +3,7 @@ import { resetActors } from "@actor/helpers.ts";
 import type { PlaceableHUDContext } from "@client/applications/hud/placeable-hud.d.mts";
 import { PersistentDamageEditor } from "@item/condition/persistent-damage-editor.ts";
 import { ConditionSlug } from "@item/condition/types.ts";
-import { CONDITION_SLUGS } from "@item/condition/values.ts";
+import { CONDITION_SLUGS, CONDITION_SLUGS_SF2E } from "@item/condition/values.ts";
 import type { TokenPF2e } from "@module/canvas/token/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import type { EncounterPF2e } from "@module/encounter/index.ts";
@@ -35,6 +35,12 @@ export class StatusEffects {
         CONFIG.controlIcons.defeated = game.settings.get(SYSTEM_ID, "deathIcon");
         CONFIG.PF2E.statusEffects.lastIconTheme = iconTheme;
         CONFIG.PF2E.statusEffects.iconDir = this.#ICON_THEME_DIRS[iconTheme];
+        if (SYSTEM_ID === "sf2e" || game.modules.get("sf2e-anachronism")?.active) {
+            Object.assign(
+                CONFIG.PF2E.statusEffects.conditions,
+                R.pick(CONFIG.PF2E.conditionTypes, CONDITION_SLUGS_SF2E),
+            );
+        }
         this.#updateStatusIcons();
     }
 
