@@ -7,8 +7,7 @@
     import { signedInteger } from "@util";
     import type { SpellcastingEntryDialogContext, SpellcastingDraft } from "./app.ts";
 
-    const { foundryApp, getState }: SpellcastingEntryDialogContext & SvelteAppProps<SpellcastingEntryDialogContext> =
-        $props();
+    const { foundryApp, getState }: SvelteAppProps<SpellcastingEntryDialogContext> = $props();
     const data = $derived(getState());
 
     const uid = $derived(foundryApp.id);

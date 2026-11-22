@@ -5,7 +5,7 @@
     import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import type { SpellPreparationContext } from "./app.ts";
 
-    const { search, actions, getState }: SpellPreparationContext & SvelteAppProps<SpellPreparationContext> = $props();
+    const { search, actions, getState }: SvelteAppProps<SpellPreparationContext> = $props();
     const data = $derived(getState());
 
     const filteredGroups = $derived(search.filter(data.groups));

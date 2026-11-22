@@ -7,15 +7,8 @@
     import SearchInput from "@module/sheet/components/search-input.svelte";
     import { sendItemToChat } from "@module/sheet/helpers.ts";
 
-    const {
-        actor,
-        ability,
-        mode,
-        search,
-        onSelect,
-        onDeselect,
-        getState,
-    }: FormulaPickerContext & SvelteAppProps<FormulaPickerContext> = $props();
+    const { actor, ability, mode, search, onSelect, onDeselect, getState }: SvelteAppProps<FormulaPickerContext> =
+        $props();
     const data = $derived(getState());
     const openStates: Record<string, boolean> = $state({});
 

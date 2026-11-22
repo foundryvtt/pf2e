@@ -5,7 +5,7 @@
     import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import type { ABCPickerContext } from "./app.ts";
 
-    const { actor, foundryApp, search, getState }: ABCPickerContext & SvelteAppProps<ABCPickerContext> = $props();
+    const { actor, foundryApp, search, getState }: SvelteAppProps<ABCPickerContext> = $props();
     const data = $derived(getState());
     const filteredItems = $derived.by(() => {
         const matches = search.matches;

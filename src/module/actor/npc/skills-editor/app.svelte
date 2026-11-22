@@ -5,7 +5,7 @@
     import type { Attachment } from "svelte/attachments";
     import type { NPCSkillsEditorContext } from "./app.ts";
 
-    const { foundryApp, getState }: NPCSkillsEditorContext & SvelteAppProps<NPCSkillsEditorContext> = $props();
+    const { foundryApp, getState }: SvelteAppProps<NPCSkillsEditorContext> = $props();
     const data = $derived(getState());
 
     // Namespaces element ids so editors opened for different NPCs don't collide
