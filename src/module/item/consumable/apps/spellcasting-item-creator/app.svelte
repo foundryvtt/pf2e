@@ -7,8 +7,7 @@
     import type { CreateSpellConsumableContext } from "./app.ts";
     const localize = localizer("PF2E.SpellcastingItemCreator");
 
-    const { foundryApp, getState }: CreateSpellConsumableContext & SvelteAppProps<CreateSpellConsumableContext> =
-        $props();
+    const { foundryApp, getState }: SvelteAppProps<CreateSpellConsumableContext> = $props();
     const data = $derived(getState());
     const { name, isCantrip, minimumRank, initialMystified } = $derived(data);
     let type = $state();

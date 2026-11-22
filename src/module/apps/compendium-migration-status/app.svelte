@@ -4,11 +4,7 @@
     import UnmigratedList from "../migration-summary/unmigrated-list.svelte";
     import type { CompendiumMigrationStatusContext } from "./app.ts";
 
-    const {
-        foundryApp,
-        getState,
-        migrate,
-    }: CompendiumMigrationStatusContext & SvelteAppProps<CompendiumMigrationStatusContext> = $props();
+    const { foundryApp, getState, migrate }: SvelteAppProps<CompendiumMigrationStatusContext> = $props();
     const data = $derived(getState());
     let isMigrating = $state(false);
     let statusEl = $state<HTMLElement>();

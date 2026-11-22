@@ -9,7 +9,7 @@
     import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import { AttributeBuilder, type AttributeBuilderContext, type AttributeBuilderState } from "./app.ts";
 
-    const { foundryApp, getState }: AttributeBuilderContext & SvelteAppProps<AttributeBuilderContext> = $props();
+    const { foundryApp, getState }: SvelteAppProps<AttributeBuilderContext> = $props();
     const data = $derived(getState());
 
     const attributeList = [...ATTRIBUTE_ABBREVIATIONS] as const;

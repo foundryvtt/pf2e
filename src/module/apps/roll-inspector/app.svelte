@@ -8,7 +8,7 @@
     import { getDamageDiceOverrideLabel, getDamageDiceValueLabel } from "@system/damage/helpers.ts";
 
     const localize = game.i18n.localize.bind(game.i18n);
-    const { search, getState }: RollInspectorContext & SvelteAppProps<RollInspectorContext> = $props();
+    const { search, getState }: SvelteAppProps<RollInspectorContext> = $props();
     const data = $derived(getState());
 
     const context = $derived(data.context);

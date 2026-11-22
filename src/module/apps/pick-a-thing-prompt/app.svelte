@@ -8,12 +8,7 @@
     import { sluggify } from "@util/misc.ts";
     import * as R from "remeda";
 
-    const {
-        getState,
-        updateSelection,
-        resolve,
-        testAllowedDrop,
-    }: PickAThingRenderContext & SvelteAppProps<PickAThingRenderContext> = $props();
+    const { getState, updateSelection, resolve, testAllowedDrop }: SvelteAppProps<PickAThingRenderContext> = $props();
     const data = $derived(getState());
     const { containsItems, selectMenu, allowNoSelection, includeDropZone } = $derived(data);
     let droppedOption: PickableThing | null = $state(null);

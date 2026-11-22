@@ -4,7 +4,7 @@
     import type { ReloadWeaponContext } from "./app.ts";
     import ItemSummary from "@module/sheet/components/item-summary.svelte";
     import HeavyBullets from "../../../../../../static/assets/icons/heavy-bullets.svg?raw";
-    const { foundryApp, getState }: ReloadWeaponContext & SvelteAppProps<ReloadWeaponContext> = $props();
+    const { foundryApp, getState }: SvelteAppProps<ReloadWeaponContext> = $props();
     const data = $derived(getState());
     const openStates: Record<string, boolean> = $state({});
 </script>

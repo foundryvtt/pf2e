@@ -5,7 +5,7 @@
     import type { SelectItemRenderContext } from "./select-item.ts";
     import { sluggify } from "@util";
 
-    const { resolve, getState }: SelectItemRenderContext & SvelteAppProps<SelectItemRenderContext> = $props();
+    const { resolve, getState }: SvelteAppProps<SelectItemRenderContext> = $props();
     const data = $derived(getState());
 
     let selection: PhysicalItemPF2e | null = $state(null);
