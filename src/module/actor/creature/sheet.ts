@@ -501,8 +501,16 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         game.pf2e.compendiumBrowser.openSpellTab(entry, maxRank, category);
     }
 
-    /** Redirect an update to shield HP to the actual item */
+    /** Redirect an update to shield HP to the actual item, and collapse duplicate focus pool inputs */
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        for (const path of ["system.resources.focus.value", "system.resources.focus.max"]) {
+            const values = formData[path];
+            if (Array.isArray(values)) {
+                const current = fu.getProperty(this.actor, path);
+                formData[path] = values.find((v) => v !== current) ?? values[0];
+            }
+        }
+
         const heldShield = this.actor.heldShield;
         if (heldShield && typeof formData["system.attributes.shield.hp.value"] === "number") {
             await heldShield.update({
