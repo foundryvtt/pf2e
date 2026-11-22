@@ -132,7 +132,7 @@ const ITEM_ALTERATION_HANDLERS = {
     area: new ItemAlterationHandler({
         fields: {
             itemType: new fields.StringField({ required: true, choices: ["spell"] }),
-            mode: new fields.StringField({ required: true, choices: ["override", "remove"] }),
+            mode: new fields.StringField({ required: true, choices: ["override"] }),
             value: new fields.SchemaField(
                 {
                     type: new fields.StringField({
@@ -151,25 +151,16 @@ const ITEM_ALTERATION_HANDLERS = {
             ),
         },
         validateForItem: (_item, alteration): validation.DataModelValidationFailure | void => {
-            if (
-                alteration.mode === "override" &&
-                !(R.isPlainObject(alteration.value) && ("type" in alteration.value || "size" in alteration.value))
-            ) {
-                return new validation.DataModelValidationFailure(
-                    `value: must be provided and contain type or size if mode is "override"`,
-                );
+            if (!(R.isPlainObject(alteration.value) && ("type" in alteration.value || "size" in alteration.value))) {
+                return new validation.DataModelValidationFailure(`value: must be provided and contain type or size`);
             }
         },
         handle: function (data: AlterationApplicationData) {
             if (!this.isValid(data)) return;
-            if (data.alteration.mode === "override") {
-                const newType = data.alteration.value?.type ?? data.item.system.area?.type ?? "burst";
-                const newSize = data.alteration.value?.size ?? data.item.system.area?.value ?? 5;
-                const nearestFive = Math.floor(newSize / 5) * 5;
-                data.item.system.area = { type: newType, value: Math.max(nearestFive, 5) };
-            } else {
-                data.item.system.area = null;
-            }
+            const newType = data.alteration.value?.type ?? data.item.system.area?.type ?? "burst";
+            const newSize = data.alteration.value?.size ?? data.item.system.area?.value ?? 5;
+            const nearestFive = Math.floor(newSize / 5) * 5;
+            data.item.system.area = { type: newType, value: Math.max(nearestFive, 5) };
         },
     }),
     "area-size": new ItemAlterationHandler({
