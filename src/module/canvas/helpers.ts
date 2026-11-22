@@ -169,7 +169,7 @@ function squareAtPoint(point: Point): PIXI.Rectangle {
 }
 
 function shapeDataFromEffectArea(
-    area: { type: EffectAreaShape; value: number },
+    area: { type: EffectAreaShape; value: number; width?: number },
     actor: Maybe<ActorPF2e>,
 ): DeepPartial<SpecificShapeSource> | null {
     const distance = (area.value / 5) * canvas.grid.size;
@@ -192,7 +192,7 @@ function shapeDataFromEffectArea(
             return { type: "emanation", radius: distance, base, x, y };
         }
         case "line":
-            return { type: "line", length: distance, width: canvas.dimensions.size, x, y };
+            return { type: "line", length: distance, width: ((area.width ?? 5) / 5) * canvas.grid.size, x, y };
         case "ring": {
             const width = Math.floor(canvas.dimensions.size * 0.5);
             return { type: "ring", radius: distance, innerWidth: width, outerWidth: width, x, y };

@@ -60,8 +60,10 @@ function areaCoverage(shape: CircleShapeData | ConeShapeData | LineShapeData): A
             const dx = destination.x - origin.x;
             const dy = destination.y - origin.y;
             const projection = dx * along.x + dy * along.y;
-            const offset = dx * perpendicular.x + dy * perpendicular.y;
-            return projection >= 0 && projection <= line.length && Math.abs(offset) <= halfWidth;
+            // Squares sitting right on the edge of the line only count on one side
+            // Add a tiny offset to stop a floating point error from flipping it off the left side
+            const offset = dx * perpendicular.x + dy * perpendicular.y + 0.001;
+            return projection >= 0 && projection <= line.length && offset > -halfWidth && offset <= halfWidth;
         },
     };
 }

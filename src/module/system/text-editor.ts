@@ -354,7 +354,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
             classes: ["effect-area"],
             dataset: { distance, effectArea: "", ...R.pick(params, ["type", "traits", "itemUuid"]) },
         });
-        if (params.type === "line") html.dataset.width = params.width || "1";
+        if (params.type === "line") html.dataset.width = params.width || "5";
         return html;
     }
 
