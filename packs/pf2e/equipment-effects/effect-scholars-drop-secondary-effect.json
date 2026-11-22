@@ -1,0 +1,47 @@
+{
+    "_id": "QQjLBkPKINkRt44V",
+    "img": "icons/consumables/drinks/wine-amphora-clay-red.webp",
+    "name": "Effect: Scholar's Drop (Secondary Effect)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Scholar's Drop]</p>\n<p>You ignore the effects of the fatigued condition.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Treasure Vault (Remastered)"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "selectors": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "slug": "fatigued",
+                "suppress": true
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

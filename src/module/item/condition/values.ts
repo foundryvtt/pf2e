@@ -48,4 +48,4 @@ const CONDITION_SLUGS = new Set([
     ...CONDITION_SLUGS_SF2E,
 ] as const);
 
-export { CONDITION_SLUGS };
+export { CONDITION_SLUGS, CONDITION_SLUGS_SF2E };

@@ -374,6 +374,7 @@ const APPLY_ONCE_WEAKNESSES: Set<WeaknessType> = new Set([
     "air",
     "arrow-vulnerability",
     "axe-vulnerability",
+    "critical-hits",
     "earth",
     "ghost-touch",
     "holy",

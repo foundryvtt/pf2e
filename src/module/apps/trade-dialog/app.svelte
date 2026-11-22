@@ -9,7 +9,7 @@
         search,
         localize,
         getState,
-    }: TradeDialogRenderContext & SvelteAppProps<TradeDialogRenderContext> = $props();
+    }: SvelteAppProps<TradeDialogRenderContext> = $props();
     const data = $derived(getState());
     const selfActor = $derived(data.selfActor);
     const traderActor = $derived(data.traderActor);

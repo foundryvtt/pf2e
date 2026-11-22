@@ -330,7 +330,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                     ws: true,
                 },
             },
-            watch: { ignored: ["dist", "packs", "tests"].map((d) => path.resolve(ROOT_DIR, d, "**")) },
+            watch: { ignored: ["dist", "packs", "packs-temp", "tests"].map((d) => path.resolve(ROOT_DIR, d, "**")) },
         },
         plugins,
         css: {

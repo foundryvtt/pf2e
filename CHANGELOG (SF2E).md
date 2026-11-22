@@ -1,3 +1,35 @@
+## 1.7.1
+
+### System Improvements
+
+- (Chromatic Penguin) Add shared list components and port the spell list onto them
+- (Dire Weasel) Allow Keen runes to affect NPC Strikes
+- (Dire Weasel) Emit rune attack notes
+
+### Bugfixes
+
+- (Chromatic Penguin) Fix `reevaluateOnUpdate` grants on unlinked tokens
+- (Chromatic Penguin) Fix natural total roll options for substituted check rolls
+- (Chromatic Penguin) Fix Tab in spell preparation and polish the popover menu
+- (Chromatic Penguin) Fix TokenImage scale on tokens without autoscale
+- (Chromatic Penguin) Fix worn-or-held and misread worn usages
+- (Chromatic Penguin) Mark Svelte drops as handled instead of stopping them
+- (stwlam) Fix application of creature size in `BattleFormRuleElement`
+- (stwlam) Fix scrollability of `UserConfigPF2e`'s upstream content tab
+- (stwlam) Guard against non-GMs attempting to set initial world time
+- (Supe) Fix inventory search filter on limited merchants
+
+### Data Updates
+
+- (Ambrose) Condense Animal Form spell effect
+- (Dantar) Replace empty /act perform with Perform action
+- (kromko) Add missing localization strings
+- (kromko) Add missing SF embedded physical item and spell compendium sources
+- (kromko) Add missing text to lashunta ancestry journal page
+- (kromko) Standardize background description formatting
+- (Longstrider) Automate technomancer archetype
+- (Longstrider) Brush up pharmacologist, shield ace, and vehicle pilot archetypes
+
 ## 1.7.0
 
 ### System Improvements

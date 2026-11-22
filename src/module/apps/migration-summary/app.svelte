@@ -3,12 +3,7 @@
     import type { MigrationSummaryContext } from "./app.ts";
     import UnmigratedList from "./unmigrated-list.svelte";
 
-    const {
-        foundryApp,
-        getState,
-        remigrate,
-        downloadReport,
-    }: MigrationSummaryContext & SvelteAppProps<MigrationSummaryContext> = $props();
+    const { foundryApp, getState, remigrate, downloadReport }: SvelteAppProps<MigrationSummaryContext> = $props();
     const data = $derived(getState());
     let isRemigrating = $state(false);
     let okButton = $state<HTMLButtonElement>();

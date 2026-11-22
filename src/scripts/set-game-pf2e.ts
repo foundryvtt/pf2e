@@ -9,7 +9,6 @@ import { EffectsPanel } from "@module/apps/effects-panel.ts";
 import { WorldClock } from "@module/apps/world-clock/index.ts";
 import { StatusEffects } from "@module/canvas/status-effects.ts";
 import { RuleElement, RuleElements } from "@module/rules/index.ts";
-import { DicePF2e } from "@scripts/dice.ts";
 import {
     calculateXP,
     editPersistent,
@@ -75,7 +74,6 @@ export const SetGamePF2e = {
             CheckModifier,
             Coins: Coins,
             ConditionManager,
-            Dice: DicePF2e,
             ElementalBlast,
             Modifier: Modifier,
             ModifierType: MODIFIER_TYPE,
