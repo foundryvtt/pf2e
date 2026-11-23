@@ -2,7 +2,7 @@
 
 ## Welcome All
 
-If you would like to contribute to the project then I welcome all support. If you are (or would like to be) a developer, then hit us up on Discord (https://discord.gg/pf2e) and we can help get you up and running. Pull requests are welcome, and there are plenty of issues logged if you want to sink your teeth into something.
+If you would like to contribute to the project, we welcome all support. If you are (or would like to be) a developer, hit us up on Discord (https://discord.gg/pf2e) and we can help get you up and running. Pull requests are welcome, and there are plenty of issues logged if you want to sink your teeth into something.
 
 ## Development
 
@@ -12,19 +12,19 @@ If you would like to contribute to the project then I welcome all support. If yo
 
 ### Building
 
-This project uses vite to bundle the ES module and compile the SASS files needed for a build and can create a local distribution for your own Foundry server. If you want to give it a go yourself follow these steps:
+This project uses Vite to bundle the ES modules and compile the Sass files needed for a build, and it can create a local distribution for your own Foundry server. Follow these steps to build it yourself:
 
 - Clone the repository into a local folder (e.g. `git clone https://github.com/foundryvtt/pf2e.git`) and navigate to the created folder.
 
 - Install dependencies with `pnpm install`. This only needs to be done once as pnpm installs dependency changes automatically whenever one of the scripts is run.
 
-- Run `pnpm run link` and enter the path to your Foundry data folder when prompted (`pnpm link` without `run` is a built-in pnpm command). This symlinks each build in `dist` into your Foundry data: systems into `Data/systems` and anachronism modules into `Data/modules`. You can also create these symlinks manually.
+- Run `pnpm run link` and enter the path to your Foundry data folder when prompted (note that `pnpm link` without `run` is a different built-in pnpm command). This symlinks each build in `dist` into your Foundry data folder: systems into `Data/systems` and anachronism modules into `Data/modules`. You can also create these symlinks manually.
 
 #### Systems
 
 - Run `pnpm run build` for pf2e or `pnpm run build --system=sf2e` for sf2e to perform a one-off build.
 
-- Run `pnpm run hot` for pf2e or `pnpm run hot --system=sf2e` for sf2e while Foundry is running to start a development server to have any coding changes be reflected automatically (Vite Hot Module Replacement). Open http://localhost:30001 instead of Foundry's usual address. This requires that you build the system first, since `hot` doesn't build packs or copy static files.
+- Run `pnpm run hot` for pf2e or `pnpm run hot --system=sf2e` for sf2e while Foundry is running to start a development server that reflects code changes automatically (Vite Hot Module Replacement). Open http://localhost:30001 instead of Foundry's usual address. Please note you must build the system first, since `hot` doesn't build packs or copy static files.
 
 #### Anachronism Modules
 
@@ -32,17 +32,17 @@ This project uses vite to bundle the ES module and compile the SASS files needed
 
 ### Updating Compendia
 
-- To update a compendium first edit the item directly in the built world's compendium (rather than editing the json files directly). Then run `pnpm run extractPacks all` for pf2e or `pnpm run extractPacks all --system=sf2e` for sf2e. You can also specify the pack folder name instead of `all`.
+- To update a compendium, first edit the item directly in a built world's compendium (rather than editing the JSON files directly). Then run `pnpm run extractPacks all` for pf2e or `pnpm run extractPacks all --system=sf2e` for sf2e. You can also specify the pack folder name instead of `all`.
 
 ## How to Help
 
-As a project, we use the repository's default branch (currently `v14-dev`) for both development and releases. If you want to contribute code and/or content changes, you can start by making your own fork of this project. You can then push changes to a branch on your fork and open a pull request for your branch to our development branch. After being reviewed it may be pulled into our development branch by one of this project's maintainers.
+As a project, we use the repository's default branch (currently `v14-dev`) for both development and releases. If you want to contribute code and/or content changes, you can start by making your own fork of this project. You can then push changes to a branch on your fork and open a pull request for your branch to our development branch. After being reviewed, it may be pulled into our development branch by one of this project's maintainers.
 
 ### Compendium Content
 
-As new OGL and/or ORC content is released by Paizo, we would like to incorporate it as soon as we are permitted (usually on a street release date). If you would like to contribute such content, please keep in mind the following guidelines:
+As new OGL and/or ORC content is released by Paizo, we would like to incorporate it as soon as we are permitted (usually on the official release date). If you would like to contribute such content, please keep in mind the following guidelines:
 
-- Name the entities (be they physical items, abilities, or other discrete game features) exactly as they are in the source material, with one exception: square brackets (`[` and `]`) should replaced with another set of characters, like parentheses, or simply omitted.
+- Name the entities (be they physical items, abilities, or other discrete game features) exactly as they are in the source material, with one exception: square brackets (`[` and `]`) should be replaced with another set of characters, like parentheses, or simply omitted.
 - Any embedded links to other entities should be of the form `@Compendium[pf2e.pack-name.Entity Name]`. For ease of maintenance, the linked entities should be referenced by _name_ rather than by ID.
 - Do not submit new graphics (especially copyrighted graphics) without first receiving clearance from the copyright holders, if applicable, as well as this repository's maintainers.
 
@@ -56,4 +56,4 @@ A PR may not contain any AI-written changes. PRs noticed as having any AI-writte
 
 #### Style
 
-We have integrated [Prettier](https://prettier.io/) into this project to enforce a consistent coding—even if it's not one everybody likes. CI will block merges of any PR that fails the test suite, which includes style linting, or the type check. To check locally, run `pnpm lint` and `pnpm check`. To manually fix style issues, you can call `pnpm lint:fix` from the project environment.
+We have integrated [Prettier](https://prettier.io/) into this project to enforce a consistent coding style, even if it's not one everybody likes. CI will block merges of any PR that fails the test suite, which includes style linting, or the type check. To check locally, run `pnpm lint` and `pnpm check`. To manually fix style issues, you can call `pnpm lint:fix` from the project environment.
