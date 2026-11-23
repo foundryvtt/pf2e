@@ -446,7 +446,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>While using Survival to @UUID[Compendium.pf2e.actionspf2e.Item.Subsist], if the elven tracker rolls a failure or a critical failure, they get a success instead. If the elven tracker rolls a success, they can provide food for 16 additional creatures that</p>"
+                    "value": "<p>While using Survival to [[/act subsist skill=survival]], if the elven tracker rolls a failure or a critical failure, they get a success instead. If the elven tracker rolls a success, they can provide food for 16 additional creatures that</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -455,13 +455,25 @@
                 },
                 "rules": [
                     {
+                        "adjustment": {
+                            "criticalFailure": "to-success",
+                            "failure": "to-success"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "action:subsist"
+                        ],
+                        "selector": "survival"
+                    },
+                    {
                         "key": "Note",
                         "predicate": [
                             "action:subsist"
                         ],
                         "selector": "survival",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "text": "PF2E.SpecificRule.Feat.Forager.Note",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
