@@ -1795,14 +1795,60 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The seilenos is holding a musical instrument</p><hr /><p><strong>Effect</strong> The seilenos prances about while playing a melody infused with enchanting primal magic. The seilenos Casts charm, fear, sleep, or suggestion, expending the spell normally. A spell cast this way gains the auditory trait and targets all creatures in a @Template[type:emanation|distance:60] instead of its usual targets. A creature that succeeds at its Will save against any spell cast this way becomes temporarily immune to all spells cast with Strum the Lyre for 1 minute.</p>"
+                    "value": "<p><strong>Requirements</strong> The seilenos is holding a musical instrument</p><hr /><p><strong>Effect</strong> The seilenos prances about while playing a melody infused with enchanting primal magic. The seilenos Casts @UUID[Compendium.pf2e.spells-srd.Item.Charm], @UUID[Compendium.pf2e.spells-srd.Item.Fear], @UUID[Compendium.pf2e.spells-srd.Item.Sleep], or @UUID[Compendium.pf2e.spells-srd.Item.Suggestion], expending the spell normally. A spell cast this way gains the auditory trait and targets all creatures in a @Template[emanation|distance:60] instead of its usual targets. A creature that succeeds at its Will save against any spell cast this way becomes temporarily immune to all spells cast with Strum the Lyre for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "strum-the-lyre",
+                        "placement": "spellcasting",
+                        "toggleable": true
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "strum-the-lyre",
+                            {
+                                "or": [
+                                    "item:slug:charm",
+                                    "item:slug:fear",
+                                    "item:slug:sleep",
+                                    "item:slug:suggestion"
+                                ]
+                            }
+                        ],
+                        "property": "traits",
+                        "value": "auditory"
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "strum-the-lyre",
+                            {
+                                "or": [
+                                    "item:slug:charm",
+                                    "item:slug:fear",
+                                    "item:slug:sleep",
+                                    "item:slug:suggestion"
+                                ]
+                            }
+                        ],
+                        "property": "area",
+                        "value": {
+                            "size": 60,
+                            "type": "emanation"
+                        }
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
