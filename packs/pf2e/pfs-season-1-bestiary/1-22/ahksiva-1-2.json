@@ -1156,7 +1156,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A green hag who succeeds at a Deception check to Lie can mimic the sounds of any animal found near her lair. She has a +4 circumstance bonus to this check.</p>"
+                    "value": "<p>A green hag who succeeds at a Deception check to [[/act lie options=sound-imitation]] can mimic the sounds of any animal found near her lair. She has a +4 circumstance bonus to this check.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1165,14 +1165,9 @@
                 },
                 "rules": [
                     {
-                        "domain": "deception",
-                        "key": "RollOption",
-                        "option": "sound-imitation",
-                        "toggleable": true
-                    },
-                    {
                         "key": "FlatModifier",
                         "predicate": [
+                            "action:lie",
                             "sound-imitation"
                         ],
                         "selector": "deception",

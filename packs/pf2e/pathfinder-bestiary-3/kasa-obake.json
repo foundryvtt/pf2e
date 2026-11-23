@@ -90,14 +90,30 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>If a kasa-obake successfully @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize]{Demoralizes} a creature and they were @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to the creature before the attempt to Demoralize, the creature must succeed at a @Check[will|dc:21] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned] for 1 round.</p>"
+                    "value": "<p>If a kasa-obake successfully [[/act demoralize]]{Demoralizes} a creature and they were @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to the creature before the attempt to Demoralize, the creature must succeed at a @Check[will|dc:21|options:inflicts:stunned] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned] for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "action:demoralize",
+                            "self:condition:hidden"
+                        ],
+                        "selector": "skill-check",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

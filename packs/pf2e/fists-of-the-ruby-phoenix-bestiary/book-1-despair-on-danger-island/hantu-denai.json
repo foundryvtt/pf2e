@@ -106,7 +106,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>A hantu denai that succeeds at a Deception check to @UUID[Compendium.pf2e.actionspf2e.Item.Lie] can mimic the sounds of any animal native to its environment. It adds a +4 circumstance bonus to this check.</p>"
+                    "value": "<p>A hantu denai that succeeds at a Deception check to [[/act lie options=sound-imitation]] can mimic the sounds of any animal native to its environment. It adds a +4 circumstance bonus to this check.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -117,17 +117,12 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
+                            "action:lie",
                             "sound-imitation"
                         ],
                         "selector": "deception",
                         "type": "circumstance",
                         "value": 4
-                    },
-                    {
-                        "domain": "skill-check",
-                        "key": "RollOption",
-                        "option": "sound-imitation",
-                        "toggleable": true
                     }
                 ],
                 "slug": null,
@@ -207,7 +202,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The hantu denai unleashes a loud animal cry to scare off nearby creatures. Each creature in a @Template[emanation|distance:120] must attempt a @Check[will|dc:27] save and is then immune to the hantu denai's Terrifying Cry for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round and @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is fleeing for 1 round and @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}.</p>"
+                    "value": "<p>The hantu denai unleashes a loud animal cry to scare off nearby creatures. Each creature in a @Template[emanation|distance:120] must attempt a @Check[will|dc:27|options:area-effect,inflicts:frightened,inflicts:fleeing] save and is then immune to the hantu denai's Terrifying Cry for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round and @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is fleeing for 1 round and @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
