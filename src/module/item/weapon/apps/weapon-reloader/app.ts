@@ -188,7 +188,10 @@ class WeaponReloader extends SvelteApplicationMixin<
         document.addEventListener("keydown", this.#closeListener, { signal });
 
         this.#hook = Hooks.on("renderCreatureSheetPF2e", (app) => {
-            if (String((app as CreatureSheetPF2e<CreaturePF2e>).appId) === this.#anchorAppId) this.setPosition();
+            // Wait for the sheet to restore its scroll positions
+            if (String((app as CreatureSheetPF2e<CreaturePF2e>).appId) === this.#anchorAppId) {
+                queueMicrotask(() => this.setPosition());
+            }
         });
     }
 
