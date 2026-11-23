@@ -576,7 +576,9 @@
                 "rules": [],
                 "slug": "",
                 "traits": {
-                    "value": []
+                    "value": [
+                        "unarmed"
+                    ]
                 }
             },
             "type": "melee"
@@ -615,7 +617,8 @@
                 "slug": "",
                 "traits": {
                     "value": [
-                        "reach-10"
+                        "reach-10",
+                        "unarmed"
                     ]
                 }
             },
@@ -737,10 +740,10 @@
             "sort": 1500000,
             "system": {
                 "actionType": {
-                    "value": "action"
+                    "value": "reaction"
                 },
                 "actions": {
-                    "value": 1
+                    "value": null
                 },
                 "category": "defensive",
                 "description": {
@@ -775,7 +778,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The suvarden creates a web spun from the threads of fate in a @Template[burst|distance:10] within 30 feet. The squares filled with the web are difficult terrain. Each square can be cleared of the web by a single attack or effect that deals at least 5 slashing damage or 1 fire damage. A square has AC 5, and it automatically fails its saving throws. Each time a creature in the web begins to use a move action or enters the web during a move action, it must attempt a @Check[will|dc:42] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and doesn't need to attempt further saving throws against the web.</p>\n<p><strong>Success</strong> The creature is momentarily baffled by glimpses of possible futures and is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round.</p>\n<p><strong>Failure</strong> Possibilities spun throughout the web overwhelm the creature. It becomes @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round.</p>\n<p><strong>Critical Failure</strong> As failure, but the duration is 1 minute and the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} while it's confused.</p>"
+                    "value": "<p>The suvarden creates a web spun from the threads of fate in a @Template[burst|distance:10] within 30 feet. The squares filled with the web are difficult terrain. Each square can be cleared of the web by a single attack or effect that deals at least 5 slashing damage or 1 fire damage. A square has AC 5, and it automatically fails its saving throws. Each time a creature in the web begins to use a move action or enters the web during a move action, it must attempt a @Check[will|dc:42|options:area-effect,inflicts:off-guard,inflicts:confused,inflicts:sickened] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and doesn't need to attempt further saving throws against the web.</p>\n<p><strong>Success</strong> The creature is momentarily baffled by glimpses of possible futures and is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round.</p>\n<p><strong>Failure</strong> Possibilities spun throughout the web overwhelm the creature. It becomes @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round.</p>\n<p><strong>Critical Failure</strong> As failure, but the duration is 1 minute and the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} while it's confused.</p>"
                 },
                 "publication": {
                     "license": "OGL",
