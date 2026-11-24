@@ -1,0 +1,62 @@
+{
+    "_id": "g6RKyz0OLjC09AP0",
+    "img": "icons/containers/barrels/barrel-simple-apple-tan.webp",
+    "name": "Effect: Master of the Bath",
+    "system": {
+        "description": {
+            "value": "<p>You receive a +2 status bonus or a –2 status penalty to Fortitude saves against disease.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 7
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusTwo",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.NegativeTwo",
+                        "value": -2
+                    }
+                ],
+                "flag": "masterOfTheBath",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.BonusOrPenalty"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:disease"
+                ],
+                "selector": "fortitude",
+                "type": "status",
+                "value": "@item.flags.system.rulesSelections.masterOfTheBath"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
