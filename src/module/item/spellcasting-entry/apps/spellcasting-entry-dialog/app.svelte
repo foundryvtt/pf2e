@@ -241,7 +241,7 @@
         display: grid;
         grid-template-columns: max-content 1fr;
         align-items: center;
-        gap: var(--space-8) var(--space-15);
+        gap: var(--spacer-8) var(--spacer-15);
 
         .form-group {
             display: contents;

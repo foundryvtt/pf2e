@@ -278,9 +278,9 @@
     }
 
     .panel {
-        --scroll-margin: var(--space-8);
+        --scroll-margin: var(--spacer-8);
         flex: 1 0 calc(50% - var(--scroll-margin));
-        gap: var(--space-8);
+        gap: var(--spacer-8);
         height: 100%;
         min-width: 0;
 
@@ -288,8 +288,8 @@
             align-items: center;
             border-bottom: 1px solid var(--color-border);
             flex-wrap: nowrap;
-            gap: var(--space-12);
-            height: calc(4rem + var(--space-4));
+            gap: var(--spacer-12);
+            height: calc(4rem + var(--spacer-4));
             justify-content: space-between;
             padding: 0 var(--scroll-margin);
 
@@ -382,9 +382,9 @@
         border: solid transparent;
         border-width: 1px 1px 0;
         flex: 0 0 2rem;
-        gap: var(--space-8);
+        gap: var(--spacer-8);
         margin-bottom: 0;
-        padding: var(--space-4) var(--space-8) var(--space-4) var(--space-4);
+        padding: var(--spacer-4) var(--spacer-8) var(--spacer-4) var(--spacer-4);
 
         &:last-child {
             border-bottom-width: 1px;

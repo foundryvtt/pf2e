@@ -112,7 +112,7 @@
 
         background: rgba(0, 0, 0, 0.1);
         border: 1px solid var(--button-color);
-        border-radius: var(--space-4);
+        border-radius: var(--spacer-4);
         color: var(--button-color);
         font-size: var(--font-size-12);
         outline: none;
@@ -145,7 +145,7 @@
 
         &:hover:not(:disabled),
         &:focus:not(:disabled) {
-            box-shadow: 0 0 var(--space-5) var(--button-color);
+            box-shadow: 0 0 var(--spacer-5) var(--button-color);
             cursor: pointer;
         }
 
@@ -165,7 +165,7 @@
         &.key {
             > i {
                 font-size: 0.7em;
-                left: var(--space-5);
+                left: var(--spacer-5);
                 position: absolute;
                 top: 50%;
                 transform: translateY(-50%);

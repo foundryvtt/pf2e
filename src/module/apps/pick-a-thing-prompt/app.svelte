@@ -152,13 +152,13 @@
         .contents {
             display: flex;
             flex-direction: column;
-            gap: var(--space-8);
+            gap: var(--spacer-8);
         }
 
         .choice {
             align-items: center;
             display: flex;
-            gap: var(--space-8);
+            gap: var(--spacer-8);
             width: 100%;
         }
 
@@ -166,7 +166,7 @@
             align-items: center;
             display: flex;
             flex-direction: column;
-            gap: var(--space-8);
+            gap: var(--spacer-8);
 
             .select-button {
                 display: flex;
@@ -197,7 +197,7 @@
             cursor: default;
             display: flex;
             line-height: 1.75rem;
-            padding: var(--space-1) var(--space-6);
+            padding: var(--spacer-1) var(--spacer-6);
 
             i {
                 align-items: center;

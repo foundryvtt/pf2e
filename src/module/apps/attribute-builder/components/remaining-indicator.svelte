@@ -19,7 +19,7 @@
     .remaining {
         grid-area: remaining;
         display: flex;
-        margin-right: var(--space-10);
+        margin-right: var(--spacer-10);
         width: var(--font-size-20);
         height: var(--font-size-20);
         border-radius: 50%;
@@ -34,10 +34,10 @@
 
     @keyframes glow {
         from {
-            box-shadow: 0 0 var(--space-1) var(--space-1) var(--color-shadow-highlight);
+            box-shadow: 0 0 var(--spacer-1) var(--spacer-1) var(--color-shadow-highlight);
         }
         to {
-            box-shadow: 0 0 var(--space-3) var(--space-3) var(--color-shadow-highlight);
+            box-shadow: 0 0 var(--spacer-3) var(--spacer-3) var(--color-shadow-highlight);
         }
     }
 </style>

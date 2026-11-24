@@ -48,13 +48,13 @@
 
 <style>
     .filter-container {
-        margin: var(--space-8) var(--space-2);
+        margin: var(--spacer-8) var(--spacer-2);
         position: relative;
 
         button.clear-filter {
             line-height: 1.5;
             position: absolute;
-            right: var(--space-10);
+            right: var(--spacer-10);
             top: calc(1.25em * 1.25 / 2);
             width: auto;
             translate: 0 -50%;
@@ -68,8 +68,8 @@
     fieldset {
         border: 2px groove var(--color-fieldset-border);
         margin: 0;
-        border-radius: var(--space-5);
-        padding: var(--space-6);
+        border-radius: var(--spacer-5);
+        padding: var(--spacer-6);
 
         legend {
             display: flex;
@@ -83,7 +83,7 @@
                 background: unset;
                 display: flex;
                 font-size: inherit;
-                padding: 0 var(--space-2);
+                padding: 0 var(--spacer-2);
                 width: fit-content;
 
                 i {

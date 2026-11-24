@@ -124,7 +124,7 @@
         flex: 0 0 100%;
         line-height: normal;
         overflow: hidden;
-        padding: var(--space-4);
+        padding: var(--spacer-4);
         white-space: unset;
 
         .gm-notes {
@@ -137,36 +137,36 @@
 
         :global {
             > * + * {
-                margin-block-start: var(--space-6);
+                margin-block-start: var(--spacer-6);
             }
 
             > .tags {
                 margin-block-end: 0;
-                margin-inline: calc(-1 * var(--space-2)) 0;
+                margin-inline: calc(-1 * var(--spacer-2)) 0;
                 padding: 0;
 
                 &.has-properties {
-                    row-gap: var(--space-3);
+                    row-gap: var(--spacer-3);
                 }
 
                 /* Outlined property tags (e.g. "Martial Weapon") sit apart from each other and from the traits, at
                    the traits' height */
                 .tag.property {
                     align-self: stretch;
-                    margin-inline-start: var(--space-2);
+                    margin-inline-start: var(--spacer-2);
                     border-width: 1px;
                     height: auto;
                     min-height: var(--spacer-20);
                 }
 
                 .tag:not(.property) + .tag.property {
-                    margin-inline-start: var(--space-4);
+                    margin-inline-start: var(--spacer-4);
                 }
             }
 
             .description {
                 p {
-                    margin-block: var(--space-6);
+                    margin-block: var(--spacer-6);
                 }
 
                 > :first-child {
@@ -181,7 +181,7 @@
                     background-color: var(--color-border);
                     background-image: none;
                     margin: unset;
-                    height: var(--space-1);
+                    height: var(--spacer-1);
                 }
             }
         }

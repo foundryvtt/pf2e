@@ -69,8 +69,8 @@
 
 <style>
     .choices {
-        gap: var(--space-8);
-        padding: var(--space-8);
+        gap: var(--spacer-8);
+        padding: var(--spacer-8);
         &.empty {
             align-items: center;
             display: flex;
@@ -85,7 +85,7 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        gap: var(--space-8);
+        gap: var(--spacer-8);
         width: 100%;
 
         :global(svg.heavy-bullets) {
@@ -126,7 +126,7 @@
             .uses,
             .quantity {
                 color: var(--color-text-tertiary);
-                margin-left: var(--space-4);
+                margin-left: var(--spacer-4);
             }
 
             :global {
@@ -134,7 +134,7 @@
                     padding: 0;
                     margin: 0;
                     .tag {
-                        height: var(--space-17);
+                        height: var(--spacer-17);
                         line-height: 95%;
                     }
                 }

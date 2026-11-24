@@ -123,8 +123,8 @@
 <style>
     /* The li and row are ListRow's, so the spell list's look is keyed by this row's class */
     :global(li.spell-row) {
-        --list-row-padding-block: var(--space-4);
-        --list-row-padding-inline: var(--space-8);
+        --list-row-padding-block: var(--spacer-4);
+        --list-row-padding-inline: var(--spacer-8);
 
         :global(.row-image) {
             aspect-ratio: 1;
@@ -168,7 +168,7 @@
 
         align-items: center;
         display: flex;
-        gap: var(--space-2);
+        gap: var(--spacer-2);
         justify-self: end;
 
         input[type="checkbox"] {

@@ -315,7 +315,7 @@
 
 <style>
     fieldset + fieldset {
-        margin-block-start: var(--space-8);
+        margin-block-start: var(--spacer-8);
     }
 
     input[aria-invalid="true"] {
@@ -332,12 +332,12 @@
 
     .skills-list {
         display: grid;
-        gap: var(--space-4) var(--space-10);
+        gap: var(--spacer-4) var(--spacer-10);
         grid-template-columns: 6rem 1fr 4.5rem auto;
 
         hr {
             grid-column: 1 / -1;
-            margin-block: var(--space-4);
+            margin-block: var(--spacer-4);
 
             /* When the add-row is absent (e.g. all skills trained), drop the trailing rule. */
             &:last-child {
@@ -347,9 +347,9 @@
 
         > div {
             align-items: center;
-            padding-block: var(--space-2);
-            padding-inline: var(--space-4);
-            row-gap: var(--space-4);
+            padding-block: var(--spacer-2);
+            padding-inline: var(--spacer-4);
+            row-gap: var(--spacer-4);
 
             &.skill {
                 label.name {
@@ -361,7 +361,7 @@
                     background-color: var(--table-header-bg-color);
                     font-weight: bold;
                     letter-spacing: 0.04em;
-                    padding-block: var(--space-4);
+                    padding-block: var(--spacer-4);
                 }
 
                 :global(button.inline-control.icon) {
@@ -374,7 +374,7 @@
                 }
 
                 .specials {
-                    row-gap: var(--space-6);
+                    row-gap: var(--spacer-6);
 
                     .special-row {
                         align-items: center;
@@ -395,7 +395,7 @@
 
                 .item-controls {
                     display: flex;
-                    gap: var(--space-2);
+                    gap: var(--spacer-2);
                 }
             }
 
@@ -404,7 +404,7 @@
                 grid-column: 1 / -1;
                 display: flex;
                 flex-wrap: wrap;
-                gap: var(--space-4) var(--space-10);
+                gap: var(--spacer-4) var(--spacer-10);
 
                 > .name {
                     flex: 1 1 0;
@@ -415,7 +415,7 @@
                 color: var(--color-level-error);
                 flex: 1 1 100%;
                 font-size: var(--font-size-12);
-                margin-block: var(--space-4) 0;
+                margin-block: var(--spacer-4) 0;
 
                 &:empty {
                     display: none;

@@ -5,11 +5,11 @@
                 > section {
                     display: flex;
                     flex-direction: column;
-                    gap: var(--space-4);
-                    margin: var(--space-12) 0;
+                    gap: var(--spacer-4);
+                    margin: var(--spacer-12) 0;
 
                     &:first-child {
-                        margin-top: var(--space-4);
+                        margin-top: var(--spacer-4);
                     }
 
                     &.organized-play {
@@ -39,7 +39,7 @@
                         align-items: center;
                         cursor: pointer;
                         display: flex;
-                        gap: var(--space-8);
+                        gap: var(--spacer-8);
                         width: fit-content;
 
                         .switch {
@@ -56,7 +56,7 @@
                             display: flex;
                             height: var(--font-size-16);
                             justify-content: center;
-                            padding: 0 var(--space-4) 0 calc(var(--font-size-14) + var(--space-4));
+                            padding: 0 var(--spacer-4) 0 calc(var(--font-size-14) + var(--spacer-4));
                             position: relative;
                             width: var(--font-size-48);
 
@@ -71,9 +71,9 @@
                                 box-shadow: 0 1px 3px var(--color-cool-5-50);
                                 content: "";
                                 height: var(--font-size-14);
-                                left: var(--space-1);
+                                left: var(--spacer-1);
                                 position: absolute;
-                                top: var(--space-1);
+                                top: var(--spacer-1);
                                 transition: translate 0.1s ease-out;
                                 width: var(--font-size-14);
                             }
@@ -81,14 +81,14 @@
 
                         input:checked + .switch {
                             background: var(--secondary);
-                            padding: 0 calc(var(--font-size-14) + var(--space-4)) 0 var(--space-4);
+                            padding: 0 calc(var(--font-size-14) + var(--spacer-4)) 0 var(--spacer-4);
 
                             &::after {
                                 content: "ON";
                             }
 
                             &::before {
-                                translate: calc(var(--font-size-48) - var(--font-size-14) - 2 * var(--space-1));
+                                translate: calc(var(--font-size-48) - var(--font-size-14) - 2 * var(--spacer-1));
                             }
                         }
 
@@ -104,17 +104,17 @@
 
                     &.reputations {
                         font-family: var(--serif);
-                        gap: var(--space-3);
+                        gap: var(--spacer-3);
 
                         .reputation {
                             align-items: center;
                             display: flex;
-                            gap: var(--space-3);
+                            gap: var(--spacer-3);
                             justify-content: space-between;
                             width: 12em;
 
                             input {
-                                padding: 0 var(--space-4);
+                                padding: 0 var(--spacer-4);
                                 text-align: right;
                                 width: 3em;
                             }

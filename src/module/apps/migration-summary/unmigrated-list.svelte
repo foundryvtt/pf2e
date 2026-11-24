@@ -55,8 +55,8 @@
             font-weight: bold;
             letter-spacing: 0.05em;
             line-height: 1.75;
-            margin: var(--space-12) 0 0;
-            padding: 0 var(--space-8);
+            margin: var(--spacer-12) 0 0;
+            padding: 0 var(--spacer-8);
 
             &:first-child {
                 margin-top: 0;
@@ -94,10 +94,10 @@
             cursor: pointer;
             transition: none;
             display: flex;
-            gap: var(--space-4);
+            gap: var(--spacer-4);
             width: 100%;
             height: auto;
-            padding: 0 var(--space-12);
+            padding: 0 var(--spacer-12);
             text-align: left;
 
             .name {

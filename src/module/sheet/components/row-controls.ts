@@ -14,7 +14,7 @@ const SMALL_CONTROL_SIZE = "var(--spacer-20)";
 
 /** CSS width of a controls column holding at most `count` buttons, so lists size it without measuring */
 function rowControlsWidth(count: number): string {
-    return count > 0 ? `calc(${count} * ${SMALL_CONTROL_SIZE} + ${count - 1} * var(--space-2))` : "0px";
+    return count > 0 ? `calc(${count} * ${SMALL_CONTROL_SIZE} + ${count - 1} * var(--spacer-2))` : "0px";
 }
 
 export { SMALL_CONTROL_SIZE, rowControlsWidth };

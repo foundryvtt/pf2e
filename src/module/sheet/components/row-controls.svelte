@@ -26,7 +26,7 @@
 <style>
     .item-controls {
         display: flex;
-        gap: var(--space-2);
+        gap: var(--spacer-2);
         justify-self: end;
     }
 </style>

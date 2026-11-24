@@ -152,14 +152,14 @@
         align-items: center;
         anchor-scope: --pf2e-popover-menu;
         display: flex;
-        gap: var(--space-2);
+        gap: var(--spacer-2);
         position: relative;
 
         button {
             font-size: var(--font-size-10);
             height: auto;
             min-height: 0;
-            padding: var(--space-2);
+            padding: var(--spacer-2);
 
             &.unavailable {
                 --button-hover-background-color: transparent;

@@ -77,7 +77,7 @@
     .label-cell {
         align-items: baseline;
         display: flex;
-        gap: var(--space-4);
+        gap: var(--spacer-4);
 
         /* The heading is semantic only: no box, and no heading font inherited into the button */
         h3 {
@@ -100,7 +100,7 @@
         --pf2e-inline-button-size: var(--spacer-20);
 
         display: flex;
-        gap: var(--space-2);
+        gap: var(--spacer-2);
         justify-self: end;
     }
 

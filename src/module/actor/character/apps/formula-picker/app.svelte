@@ -125,10 +125,10 @@
 <style>
     .sheet-header {
         flex-direction: column;
-        margin: var(--space-8);
+        margin: var(--spacer-8);
         margin-bottom: 0;
         :global(.search) {
-            margin-top: var(--space-2);
+            margin-top: var(--spacer-2);
         }
     }
 
@@ -139,16 +139,16 @@
         width: 100%;
         flex: 1;
         overflow-y: scroll;
-        padding: var(--space-8) 0;
+        padding: var(--spacer-8) 0;
         padding-top: 0;
 
         header {
             border-bottom: 1px solid var(--color-border);
-            margin-top: var(--space-10);
-            margin-bottom: var(--space-2);
+            margin-top: var(--spacer-10);
+            margin-bottom: var(--spacer-2);
             font-weight: 500;
             font-size: var(--font-size-16);
-            padding: 0 var(--space-8);
+            padding: 0 var(--spacer-8);
         }
 
         ol {
@@ -167,7 +167,7 @@
         flex-direction: row;
         flex-wrap: wrap;
         width: 100%;
-        padding: var(--space-4) var(--space-8);
+        padding: var(--spacer-4) var(--spacer-8);
         margin: 0;
 
         &.faded {
@@ -182,8 +182,8 @@
 
         > :global(.item-image) {
             --image-size: 2.125rem;
-            margin-right: var(--space-4);
-            margin-top: var(--space-1); /* align with name */
+            margin-right: var(--spacer-4);
+            margin-top: var(--spacer-1); /* align with name */
         }
 
         > .name {
@@ -202,7 +202,7 @@
                 }
                 .tag {
                     /** Roboto has some inherit padding that makes sizing this small cause misalignment w/o line-height */
-                    height: var(--space-17);
+                    height: var(--spacer-17);
                     line-height: 95%;
                 }
             }
@@ -212,7 +212,7 @@
             --input-height: 1.375rem;
 
             display: flex;
-            margin-top: var(--space-6);
+            margin-top: var(--spacer-6);
             button {
                 width: 1.375rem;
                 i {
@@ -236,7 +236,7 @@
         > button.select {
             --button-size: 1.75rem;
             width: 1.75rem;
-            margin-top: var(--space-4);
+            margin-top: var(--spacer-4);
             transition: all 0.25s ease-in-out;
 
             i {

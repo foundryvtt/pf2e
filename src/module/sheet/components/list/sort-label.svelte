@@ -38,11 +38,11 @@
         align-items: center;
         display: inline-flex;
         font: inherit;
-        gap: var(--space-2);
+        gap: var(--spacer-2);
         height: auto;
         min-height: 0;
         padding: 0;
-        padding-inline: var(--space-4) var(--space-1);
+        padding-inline: var(--spacer-4) var(--spacer-1);
 
         /* A faded glyph marks a sortable but unsorted column */
         .sortable-hint {

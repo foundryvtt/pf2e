@@ -37,7 +37,7 @@
     .search {
         align-items: center;
         display: flex;
-        gap: var(--space-8);
+        gap: var(--spacer-8);
 
         > i {
             color: var(--color-text-secondary, inherit);

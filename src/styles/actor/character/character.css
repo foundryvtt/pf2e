@@ -7,7 +7,7 @@
                 select {
                     background-color: var(--color-pf-alternate);
                     border: 1px solid rgb(37.5538730344%, 31.2948941953%, 25.6618132401%);
-                    width: calc(100% - var(--space-6));
+                    width: calc(100% - var(--spacer-6));
 
                     &:disabled {
                         cursor: initial;
@@ -17,7 +17,7 @@
                 .subsection {
                     display: flex;
                     flex-flow: column nowrap;
-                    gap: var(--space-8);
+                    gap: var(--spacer-8);
                     margin: 0;
 
                     > * {
@@ -36,7 +36,7 @@
                     grid:
                         "img details" auto
                         / 7.5rem minmax(0, 1fr);
-                    margin-top: var(--space-4);
+                    margin-top: var(--spacer-4);
 
                     .image-container {
                         display: flex;
@@ -61,15 +61,15 @@
                     .abcd {
                         display: grid;
                         flex: 1;
-                        grid-row-gap: var(--space-8);
+                        grid-row-gap: var(--spacer-8);
                         grid-template-columns: repeat(2, 50%);
                         justify-content: start;
-                        padding-left: var(--space-12);
+                        padding-left: var(--spacer-12);
 
                         .detail {
                             display: flex;
                             flex-wrap: wrap;
-                            gap: var(--space-2);
+                            gap: var(--spacer-2);
 
                             .details-label {
                                 flex-basis: 100%;
@@ -98,16 +98,16 @@
 
                         .traits {
                             grid-column: span 2;
-                            margin: calc(-1 * var(--space-4)) 0 0 calc(-1 * var(--space-2));
+                            margin: calc(-1 * var(--spacer-4)) 0 0 calc(-1 * var(--spacer-2));
                         }
 
                         .deity.selected {
                             min-width: max-content;
 
                             h3 {
-                                border-radius: 0 var(--space-12) var(--space-12) 0;
+                                border-radius: 0 var(--spacer-12) var(--spacer-12) 0;
                                 flex-basis: auto;
-                                gap: var(--space-4);
+                                gap: var(--spacer-4);
 
                                 span.value {
                                     text-overflow: unset;
@@ -115,7 +115,7 @@
 
                                 .emblem {
                                     flex: 0 0 1.75rem;
-                                    margin: 0 calc(-1 * var(--space-3)) 0 var(--space-4);
+                                    margin: 0 calc(-1 * var(--spacer-3)) 0 var(--spacer-4);
                                     position: relative;
 
                                     img {
@@ -123,9 +123,9 @@
                                         box-shadow: var(--pf-shadow-frame-brown);
                                         border-radius: 50%;
                                         height: 1.75rem;
-                                        left: calc(-1 * var(--space-4));
+                                        left: calc(-1 * var(--spacer-4));
                                         position: absolute;
-                                        top: calc(-1 * var(--space-14));
+                                        top: calc(-1 * var(--spacer-14));
                                         width: 1.75rem;
                                     }
                                 }
@@ -135,7 +135,7 @@
 
                     hr {
                         grid-column: span 2;
-                        margin: var(--space-10) var(--space-6) var(--space-2) 0;
+                        margin: var(--spacer-10) var(--spacer-6) var(--spacer-2) 0;
                     }
 
                     .detail-item-control {
@@ -184,7 +184,7 @@
 
                 .subsection.languages {
                     ul {
-                        gap: var(--space-4);
+                        gap: var(--spacer-4);
                         margin: 0;
 
                         > li.over-limit {
@@ -229,7 +229,7 @@
                             display: flex;
                             font: 500 var(--font-size-18) / 1 var(--serif);
                             gap: 0.25ch;
-                            padding: var(--space-4) var(--space-4) 0;
+                            padding: var(--spacer-4) var(--spacer-4) 0;
                             position: relative;
 
                             i {
@@ -262,7 +262,7 @@
 
                 .subsection.attributes ul {
                     align-items: center;
-                    column-gap: var(--space-10);
+                    column-gap: var(--spacer-10);
                     display: grid;
                     grid: 1fr 1fr / repeat(6, 1fr);
                     list-style: none;
@@ -292,17 +292,17 @@
 
                         i.key,
                         i.apex {
-                            bottom: var(--space-4);
+                            bottom: var(--spacer-4);
                             position: absolute;
                             font-size: var(--font-size-12);
                         }
 
                         i.key {
-                            left: var(--space-2);
+                            left: var(--spacer-2);
                         }
 
                         i.apex {
-                            right: var(--space-2);
+                            right: var(--spacer-2);
 
                             &.unselected:not(:hover) {
                                 opacity: 0.75;
@@ -322,14 +322,14 @@
                         height: 2.875rem;
                         justify-content: center;
                         margin: 0;
-                        padding-right: var(--space-4);
+                        padding-right: var(--spacer-4);
                     }
 
                     .label {
                         color: var(--text-dark);
                         margin: 0;
                         opacity: 0.4;
-                        padding: var(--space-2);
+                        padding: var(--spacer-2);
                         text-align: center;
                     }
                 }

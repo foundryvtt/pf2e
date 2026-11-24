@@ -80,12 +80,12 @@
         label {
             display: flex;
             align-items: center;
-            gap: var(--space-4);
+            gap: var(--spacer-4);
         }
 
         label.filter-toggle {
-            margin-left: var(--space-2);
-            margin-bottom: var(--space-2);
+            margin-left: var(--spacer-2);
+            margin-bottom: var(--spacer-2);
             cursor: pointer;
 
             i {

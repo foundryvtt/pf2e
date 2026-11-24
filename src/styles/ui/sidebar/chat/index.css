@@ -15,7 +15,7 @@
         grid-template:
             "img name details" 1.375rem
             "img user details" 1.125rem
-            "gap gap gap" var(--space-4)
+            "gap gap gap" var(--spacer-4)
             "whisper whisper whisper" min-content
             "flavor flavor flavor" 1fr
             / 2.75rem 1fr min-content;
@@ -81,18 +81,18 @@
         .modifiers:has(.tag[data-visibility="gm"]) {
             /* Enlarge gap and bottom margin by a pixel due to `[data-visibility]` elements having outlines instead of */
             /* borders */
-            gap: var(--space-3);
-            margin-bottom: var(--space-3);
+            gap: var(--spacer-3);
+            margin-bottom: var(--spacer-3);
         }
 
         ul.notes {
             display: flex;
             flex-direction: column;
             font-family: var(--sans-serif);
-            gap: var(--space-4);
+            gap: var(--spacer-4);
             list-style: none;
             margin: 0;
-            padding: var(--space-4) 0;
+            padding: var(--spacer-4) 0;
 
             li {
                 display: block;
@@ -134,13 +134,13 @@
 
         > .description p,
         > .chat-card .card-content p {
-            margin: var(--space-4) 0;
+            margin: var(--spacer-4) 0;
             min-height: unset;
         }
 
         > .description p.item-block-line,
         > .chat-card .card-content p.item-block-line {
-            --wrap-indent: var(--space-14);
+            --wrap-indent: var(--spacer-14);
             line-height: 1.25rem;
             margin: 0;
             padding: 0 0 0 var(--wrap-indent);
@@ -154,7 +154,7 @@
 
         > .description p.item-block-line:first-child,
         > .chat-card .card-content p.item-block-line:first-child {
-            margin-top: var(--space-1);
+            margin-top: var(--spacer-1);
         }
 
         .addendum {
@@ -166,11 +166,11 @@
             background: rgba(68, 55, 48, 0.1);
             border-radius: 2px;
             color: var(--color-pf-alternate-darker);
-            padding: var(--space-4);
+            padding: var(--spacer-4);
 
             h4 {
                 font-weight: 600;
-                margin: 0 0 var(--space-4) 0;
+                margin: 0 0 var(--spacer-4) 0;
                 text-align: center;
             }
         }
@@ -182,7 +182,7 @@
             }
 
             &.expanded .dice-tooltip[data-visibility="gm"] .wrapper {
-                padding: var(--space-2) var(--space-3) 0;
+                padding: var(--spacer-2) var(--spacer-3) 0;
             }
             &:not(.expanded) .dice-tooltip {
                 background: transparent;

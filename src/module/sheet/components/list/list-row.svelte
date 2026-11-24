@@ -213,7 +213,7 @@
         /* What lists tune through the --list-row-* properties, resolved once with the defaults */
         --_image-size: var(--list-row-image-size, var(--spacer-24));
         --_padding-block: var(--list-row-padding-block, 1px);
-        --_padding-inline: var(--list-row-padding-inline, var(--space-4));
+        --_padding-inline: var(--list-row-padding-inline, var(--spacer-4));
         position: relative;
         margin: 0;
         list-style: none;
@@ -277,14 +277,14 @@
         > :global(.item-summary) {
             margin-inline-start: var(--depth);
             border-block: 1px solid var(--table-header-border-color);
-            padding: var(--space-8);
+            padding: var(--spacer-8);
             background: var(--table-background-color);
         }
 
         /* Lists without stripes box the summary so it reads as the row's: a card set a little below the row, with
            more room before the next row */
         &.summary-card > :global(.item-summary) {
-            margin: var(--space-4) var(--_padding-inline) var(--space-8) calc(var(--_padding-inline) + var(--depth));
+            margin: var(--spacer-4) var(--_padding-inline) var(--spacer-8) calc(var(--_padding-inline) + var(--depth));
             border: 1px solid var(--table-header-border-color);
             border-radius: 4px;
         }
@@ -345,7 +345,7 @@
         display: grid;
         grid-template-columns: var(--list-columns, minmax(0, 1fr) auto);
         align-items: center;
-        gap: var(--space-4);
+        gap: var(--spacer-4);
         padding-block: var(--_padding-block);
         padding-inline: var(--_padding-inline);
         /* A list can move the start edge alone, to sit its images against a frame */
@@ -360,7 +360,7 @@
     .name {
         display: flex;
         align-items: center;
-        gap: var(--space-8);
+        gap: var(--spacer-8);
         min-width: 0;
         padding-inline-start: var(--depth);
 
@@ -395,9 +395,9 @@
         flex-wrap: wrap;
         align-items: baseline;
         align-content: center;
-        gap: 0 var(--space-4);
+        gap: 0 var(--spacer-4);
         min-width: 0;
-        padding-block: var(--space-2);
+        padding-block: var(--spacer-2);
         padding-inline: 0;
         text-align: start;
 

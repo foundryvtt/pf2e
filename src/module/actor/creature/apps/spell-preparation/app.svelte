@@ -54,20 +54,20 @@
 <style>
     .sheet-header {
         flex-direction: column;
-        gap: var(--space-4);
-        margin: var(--space-8);
+        gap: var(--spacer-4);
+        margin: var(--spacer-8);
         margin-block-end: 0;
 
         h1 {
             align-items: baseline;
             border: none;
-            column-gap: var(--space-8);
+            column-gap: var(--spacer-8);
             display: flex;
             flex-wrap: wrap;
             font-size: var(--font-size-28);
             justify-content: space-between;
             margin: 0;
-            margin-block-end: var(--space-2);
+            margin-block-end: var(--spacer-2);
 
             .flexible-available {
                 font-weight: normal;
@@ -76,7 +76,7 @@
         }
 
         > :global(.search) {
-            margin-block-start: var(--space-2);
+            margin-block-start: var(--spacer-2);
         }
     }
 
@@ -88,8 +88,8 @@
            would follow a moved row and visibly jump */
         overflow-anchor: none;
         overflow-y: auto;
-        padding-block: 0 var(--space-8);
-        padding-inline: var(--space-8);
+        padding-block: 0 var(--spacer-8);
+        padding-inline: var(--spacer-8);
         scrollbar-gutter: stable;
     }
 </style>

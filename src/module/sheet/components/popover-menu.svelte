@@ -181,7 +181,7 @@
         inset-inline-end: anchor(end);
         margin: 0;
         min-width: max-content;
-        padding-block: var(--space-2) 0;
+        padding-block: var(--spacer-2) 0;
         padding-inline: 0;
         position: fixed;
         position-anchor: --pf2e-popover-menu;
@@ -202,7 +202,7 @@
             color: var(--color-text-secondary, inherit);
             font-size: var(--font-size-12);
             /* Bottom padding, not a margin, so the first item meets the divider */
-            padding: var(--space-2) var(--space-6) var(--space-4);
+            padding: var(--spacer-2) var(--spacer-6) var(--spacer-4);
             white-space: nowrap;
         }
 
@@ -214,7 +214,7 @@
             height: auto;
             justify-content: start;
             min-height: 0;
-            padding: var(--space-2) var(--space-6);
+            padding: var(--spacer-2) var(--spacer-6);
             transition: none;
 
             /* Hover focuses the item, so :focus is the only highlight.

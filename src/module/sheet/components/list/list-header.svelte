@@ -25,11 +25,11 @@
         font-family: var(--list-header-font-family, inherit);
         font-size: var(--font-size-12);
         font-weight: var(--list-header-font-weight, normal);
-        gap: var(--space-4);
+        gap: var(--spacer-4);
         grid-template-columns: var(--list-columns, 1fr);
         line-height: var(--list-header-line-height, normal);
-        padding-block: var(--list-header-padding-block, var(--space-2));
-        padding-inline: var(--list-header-padding-inline, var(--space-4));
+        padding-block: var(--list-header-padding-block, var(--spacer-2));
+        padding-inline: var(--list-header-padding-inline, var(--spacer-4));
 
         /* The header color may be see-through, which tints the window background (a color in dark, an image in
            light) and rows scrolling under it stay hidden */
