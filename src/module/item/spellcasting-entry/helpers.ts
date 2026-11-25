@@ -15,11 +15,18 @@ function createCounteractStatistic<TActor extends ActorPF2e>(ability: Spellcasti
         ? ability.statistic.check.modifiers.find((m) => m.type === "untyped" && m.slug === "base")?.clone()
         : null;
 
+    // Keep Trick Magic Item's level-as-proficiency bonus instead of defaulting to trained
+    const levelProficiency =
+        ability.statistic.rank === 0
+            ? ability.statistic.modifiers.find((m) => m.type === "proficiency" && m.modifier > 0)?.clone()
+            : null;
+
     return new Statistic(actor, {
         slug: "counteract",
         label: "PF2E.Item.Spell.Counteract.Label",
         attribute: ability.statistic.attribute,
-        rank: ability.statistic.rank || 1,
+        rank: levelProficiency ? 0 : ability.statistic.rank || 1,
+        modifiers: [levelProficiency].filter(R.isTruthy),
         check: { type: "check", modifiers: [baseModifier].filter(R.isTruthy) },
     });
 }
