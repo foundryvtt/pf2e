@@ -120,6 +120,7 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
             const spaceUpdates = {
                 wide: changed.system?.details?.space?.wide ?? currentSpace.wide,
                 long: changed.system?.details?.space?.long ?? currentSpace.long,
+                high: changed.system?.details?.space?.high ?? currentSpace.high,
             };
             const sizeCategory = changed.system?.traits?.size?.value ?? this.size;
             const size = new ActorSizePF2e({ value: sizeCategory, ...spaceUpdates });
