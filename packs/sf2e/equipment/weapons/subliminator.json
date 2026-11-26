@@ -23,7 +23,7 @@
             "die": "d8"
         },
         "description": {
-            "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>This sublimation-based long-range weapon uses gas to create large spikes of ice mid-flight. If you're trained with the weapon, it deals modular damage and gains the modular (C, area [burst 10 feet], delayed, and unwieldy or P) trait and expends 8 charges to Area Fire.</p>"
+            "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>This sublimation-based long-range weapon uses gas to create large spikes of ice mid-flight. If you're trained with the weapon, it deals modular damage and gains the modular (C, area [burst 10 feet], delayed, and unwieldy or P) trait and expends 8 charges to @UUID[Compendium.sf2e.actions.Item.Area Fire].</p>"
         },
         "expend": 2,
         "grade": "advanced",
@@ -55,7 +55,23 @@
         "reload": {
             "value": "1"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "backswing"
+            }
+        ],
         "runes": {
             "potency": 0,
             "property": [],
