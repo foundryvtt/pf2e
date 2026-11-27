@@ -34,12 +34,7 @@ import type { Size } from "@module/data.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { RollNotePF2e } from "@module/notes.ts";
-import {
-    extractDamageDice,
-    extractModifiers,
-    extractNotes,
-    processPreUpdateActorHooks,
-} from "@module/rules/helpers.ts";
+import { extractNotes, processPreUpdateActorHooks } from "@module/rules/helpers.ts";
 import type { RuleElementSynthetics } from "@module/rules/index.ts";
 import type { RuleElement } from "@module/rules/rule-element/base.ts";
 import type { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data.ts";
@@ -48,7 +43,7 @@ import type { RollOptionRuleElement } from "@module/rules/rule-element/roll-opti
 import type { UserPF2e } from "@module/user/document.ts";
 import type { ScenePF2e } from "@scene/document.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
-import { IWRApplicationData, applyIWR } from "@system/damage/iwr.ts";
+import { calculateAppliedDamage } from "@system/damage/applied-damage.ts";
 import type { DamageType } from "@system/damage/types.ts";
 import type {
     ArmorStatistic,
@@ -57,7 +52,7 @@ import type {
     StatisticDifficultyClass,
 } from "@system/statistic/index.ts";
 import { TextEditorPF2e, type RollDataPF2e } from "@system/text-editor.ts";
-import { ErrorPF2e, objectHasKey, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
+import { ErrorPF2e, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import { Duration } from "luxon";
 import * as R from "remeda";
 import { v5 as UUIDv5 } from "uuid";
@@ -81,7 +76,6 @@ import {
 import type { ActorInitiative } from "./initiative.ts";
 import { ActorInventory, AddItemParam } from "./inventory/index.ts";
 import { ItemTransfer } from "./item-transfer.ts";
-import { applyStackingRules } from "./modifiers.ts";
 import type { ActorSheetPF2e } from "./sheet/base.ts";
 import type { ActorSpellcasting } from "./spellcasting.ts";
 import type { ActorRechargeData, ActorType, EmbeddedItemInstances } from "./types.ts";
@@ -1085,78 +1079,37 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         outcome = null,
         final = false,
     }: ApplyDamageParams): Promise<this> {
-        const { hitPoints, heldShield } = this;
+        const damageResult = await calculateAppliedDamage(this, {
+            damage,
+            token,
+            item,
+            rollOptions,
+            skipIWR,
+            shieldBlockRequest,
+            breakdown,
+            outcome,
+            final,
+        });
+        if (!damageResult) return this;
+
+        const { hitPoints } = this;
         if (!hitPoints) return this;
 
-        if (final) {
-            shieldBlockRequest = false;
-            skipIWR = true;
-        }
-
-        // Round damage and healing (negative values) toward zero
-        const result: IWRApplicationData =
-            typeof damage === "number"
-                ? { finalDamage: Math.trunc(damage), applications: [], persistent: [] }
-                : skipIWR
-                  ? { finalDamage: damage.total, applications: [], persistent: [] }
-                  : applyIWR(this, damage, rollOptions);
-
-        // Extract Target-specific healing adjustments (unless final)
-        // Currently only healing modifiers are implemented
-        const domain = result.finalDamage < 0 ? "healing-received" : "damage-received";
-        const isDamage = domain === "damage-received";
+        const {
+            finalDamage,
+            damageAbsorbedByShield,
+            shieldDamage,
+            damageAbsorbedByActor,
+            reachedThreshold,
+            newThreshold,
+            instantDeath,
+            isDamage,
+            blockingShield,
+        } = damageResult;
         const isHealing = !isDamage;
-        const { modifiers, damageDice } = (() => {
-            if (final || isDamage) {
-                return { modifiers: [], damageDice: [] };
-            }
-
-            const critical = outcome === "criticalSuccess";
-            const resolvables = ((): Record<string, unknown> => {
-                if (item?.isOfType("spell")) return { spell: item };
-                if (item?.isOfType("weapon")) return { weapon: item };
-                return {};
-            })();
-
-            const damageDice = extractDamageDice(this.synthetics.damageDice, {
-                selectors: [domain],
-                resolvables,
-                test: rollOptions,
-            }).filter((d) => (d.critical === null || d.critical === critical) && d.predicate.test(rollOptions));
-            const modifiers = extractModifiers(this.synthetics, [domain], { resolvables }).filter(
-                (m) => (m.critical === null || m.critical === critical) && m.predicate.test(rollOptions),
-            );
-            return { modifiers, damageDice };
-        })();
-
-        // Roll any dice damage adjustments and produce a total result
-        const diceAdjustment = (
-            await Promise.all(
-                damageDice.map(async (dice) => {
-                    const formula = `${dice.diceNumber}${dice.dieSize}[${dice.label}]`;
-                    const roll = await new Roll(formula).evaluate();
-                    roll._formula = `${dice.diceNumber}${dice.dieSize}`; // remove the label from the main formula
-                    await roll.toMessage({
-                        flags: { [SYSTEM_ID]: { suppressDamageButtons: true } },
-                        flavor: dice.label,
-                        speaker: ChatMessage.getSpeaker({ token }),
-                    });
-                    return roll.total;
-                }),
-            )
-        ).reduce((previous, current) => previous + current, 0);
-
-        // Apply stacking rules just in case even though the context of previously applied modifiers has been lost
-        const modifierAdjustment = applyStackingRules(modifiers ?? []);
-        // Damage should never go negative, nor healing positive
-        const clamp = isDamage ? Math.max : Math.min;
-        // Compute result after adjustments (but before hardness) and add to breakdown
-        const finalDamage = clamp(0, result.finalDamage - (diceAdjustment + modifierAdjustment));
-
-        breakdown.push(
-            ...damageDice.map((dice) => `${dice.label} ${dice.diceNumber}${dice.dieSize}`),
-            ...modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${signedInteger(m.modifier)}`),
-        );
+        const domain = isDamage ? "damage-received" : "healing-received";
+        const locPrefix = "PF2E.Actor.ApplyDamage";
+        const actorShield = isDamage && this.isOfType("character", "npc") ? this.attributes.shield : null;
 
         // Extract notes based on whether it is healing or damage
         const hasDamageOrHealing = finalDamage !== 0;
@@ -1169,92 +1122,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             : [];
         notes.push(...extractedNotes);
 
-        // Calculate damage to hit points and shield
-        const locPrefix = "PF2E.Actor.ApplyDamage";
-        const actorShield = isDamage && this.isOfType("character", "npc") ? this.attributes.shield : null;
-        const shieldBlock =
-            actorShield && shieldBlockRequest
-                ? ((): boolean => {
-                      if (actorShield.broken) {
-                          ui.notifications.warn("PF2E.Actions.RaiseAShield.ShieldIsBroken", {
-                              format: { actor: token.name, shield: actorShield.name },
-                          });
-                          return false;
-                      }
-                      if (actorShield.destroyed) {
-                          ui.notifications.warn("PF2E.Actions.RaiseAShield.ShieldIsDestroyed", {
-                              format: { actor: token.name, shield: actorShield.name },
-                          });
-                          return false;
-                      }
-                      if (!actorShield.raised) {
-                          ui.notifications.warn(`${locPrefix}.ShieldNotRaised`, { format: { actor: token.name } });
-                          return false;
-                      }
-                      return true;
-                  })()
-                : false;
-
-        const shieldHardness = shieldBlock ? (actorShield?.hardness ?? 0) : 0;
-        const damageAbsorbedByShield = finalDamage > 0 ? Math.min(shieldHardness, finalDamage) : 0;
-        // The blocking shield may not be the held shield, such as in when the Shield spell is in play
-        const blockingShield = heldShield?.id === actorShield?.itemId ? heldShield : null;
-        const currentShieldHP = blockingShield ? blockingShield._source.system.hp.value : (actorShield?.hp.value ?? 0);
-        const shieldDamage = shieldBlock
-            ? Math.min(currentShieldHP, Math.abs(finalDamage) - damageAbsorbedByShield)
-            : 0;
-
-        // Reduce damage by actor hardness
-        const baseActorHardness = this.hardness;
-        const effectiveActorHardness = ((): number => {
-            if (final) return 0;
-
-            // "[Adamantine weapons] treat any object they hit as if it had half as much Hardness as usual, unless the
-            // object's Hardness is greater than that of the adamantine weapon."
-            const damageHasAdamantine = typeof damage === "number" ? false : damage.materials.has("adamantine");
-            const materialGrade =
-                item?.isOfType("weapon") && item.system.material.type === "adamantine"
-                    ? (item.system.material.grade ?? "standard")
-                    : "standard";
-            // Hardness values for thin adamantine items (inclusive of weapons):
-            const itemHardness = {
-                low: 0, // low-grade adamantine doesn't exist
-                standard: 10,
-                high: 13,
-            }[materialGrade];
-            return damageHasAdamantine && itemHardness >= baseActorHardness
-                ? Math.floor(baseActorHardness / 2)
-                : baseActorHardness;
-        })();
-
-        // Include actor-hardness absorption in list of damage modifications
-        const damageAbsorbedByActor =
-            finalDamage > 0 ? Math.min(finalDamage - damageAbsorbedByShield, effectiveActorHardness) : 0;
-        if (damageAbsorbedByActor > 0) {
-            const typeLabel =
-                effectiveActorHardness === baseActorHardness
-                    ? "PF2E.Damage.Hardness.Full"
-                    : "PF2E.Damage.Hardness.Half";
-            result.applications.push({
-                category: "reduction",
-                type: _loc(typeLabel),
-                adjustment: -1 * damageAbsorbedByActor,
-            });
-        }
-
-        const damageResult = this.calculateHealthDelta({
-            hp: hitPoints,
-            sp: this.isOfType("character") ? this.attributes.hp.sp : null,
-            delta: finalDamage - damageAbsorbedByShield - damageAbsorbedByActor,
-        });
-
-        // Test troop thresholds. If reached, print a message with remaining thresholds later
-        const thresholds = this.isOfType("npc") ? this.system.attributes.hp.thresholds : null;
-        const currentThreshold = thresholds?.findLast((t) => t.hp >= hitPoints.value);
-        const newThreshold = thresholds?.findLast((t) => t.hp >= damageResult.updates["system.attributes.hp.value"]);
-        const reachedThreshold =
-            newThreshold && currentThreshold && currentThreshold.segments !== newThreshold.segments;
-
         // Save the pre-update state to calculate undo values
         const preUpdateSource = this.toObject();
 
@@ -1265,23 +1132,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 { render: damageResult.totalApplied === 0 },
             );
         }
-
-        const staminaMax = this.isOfType("character") ? (this.attributes.hp.sp?.max ?? 0) : 0;
-        const instantDeath = ((): string | null => {
-            if (damageResult.totalApplied <= 0 || damageResult.updates["system.attributes.hp.value"] !== 0) {
-                return null;
-            }
-            return rollOptions.has("item:trait:death") &&
-                !this.attributes.immunities.some((i) => i.type === "death-effects")
-                ? "death-effect"
-                : rollOptions.has("item:type:spell") && rollOptions.has("item:slug:disintegrate")
-                  ? "fine-powder"
-                  : this.isOfType("npc") && this.modeOfBeing === "undead"
-                    ? "destroyed"
-                    : damageResult.totalApplied >= (hitPoints.max + staminaMax) * 2
-                      ? "massive-damage"
-                      : null;
-        })();
 
         // This gets a special visual effect
         const finePowder = instantDeath === "fine-powder";
@@ -1308,7 +1158,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         // Apply persistent damage as conditions
         const persistentDamage = hitPoints.max
-            ? result.persistent.map((instance) => {
+            ? damageResult.persistent.map((instance) => {
                   const condition = game.pf2e.ConditionManager.getCondition("persistent-damage").toObject();
                   condition.system.persistent = {
                       formula: instance.head.expression,
@@ -1330,7 +1180,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         ) as ConditionPF2e<this>[];
 
         const persistentDamages = game.i18n.getListFormatter({ style: "long", type: "conjunction" }).format(
-            result.persistent.map((instance) => {
+            damageResult.persistent.map((instance) => {
                 const formula = instance.head.expression;
                 const damageType = _loc(CONFIG.PF2E.damageRollFlavors[instance.type]);
                 return instance.type === "bleed"
@@ -1402,7 +1252,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     ? []
                     : persistentCreated.map((p) => p.system.persistent?.damage.formula).filter(R.isDefined),
                 iwr: {
-                    applications: result.applications,
+                    applications: damageResult.applications,
                     visibility: this.hasPlayerOwner ? "all" : "gm",
                 },
                 canUndoDamage,
@@ -1672,43 +1522,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 "system.equipped.inSlot": false,
             });
         }
-    }
-
-    /** Determine actor updates for applying damage/healing across temporary hit points, stamina, and then hit points */
-    private calculateHealthDelta(args: {
-        hp: { max: number; value: number; temp: number };
-        sp?: Maybe<{ max: number; value: number }>;
-        delta: number;
-    }) {
-        const updates: Record<string, number> = {};
-        const { hp, sp, delta } = args;
-        if (hp.max === 0) return { updates, totalApplied: 0 };
-
-        const appliedToTemp = ((): number => {
-            if (!hp.temp || delta <= 0) return 0;
-            const applied = Math.min(hp.temp, delta);
-            updates["system.attributes.hp.temp"] = Math.max(hp.temp - applied, 0);
-
-            return applied;
-        })();
-
-        const appliedToSP = ((): number => {
-            const staminaEnabled = !!sp && game.pf2e.settings.variants.stamina;
-            if (!staminaEnabled || delta <= 0) return 0;
-            const remaining = delta - appliedToTemp;
-            const applied = Math.min(sp.value, remaining);
-            updates["system.attributes.hp.sp.value"] = Math.max(sp.value - applied, 0);
-            return applied;
-        })();
-
-        const appliedToHP = ((): number => {
-            const remaining = delta - appliedToTemp - appliedToSP;
-            updates["system.attributes.hp.value"] = Math.clamp(hp.value - remaining, 0, hp.max);
-            return remaining;
-        })();
-        const totalApplied = appliedToTemp + appliedToSP + appliedToHP;
-
-        return { updates, totalApplied };
     }
 
     /**
