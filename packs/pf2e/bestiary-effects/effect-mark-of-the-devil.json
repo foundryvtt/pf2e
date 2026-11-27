@@ -1,0 +1,52 @@
+{
+    "_id": "zvgVV728UhD58Vsi",
+    "img": "icons/creatures/unholy/demon-fanged-horned-yellow.webp",
+    "name": "Effect: Mark of the Devil",
+    "system": {
+        "description": {
+            "value": "<p>You gain weakness 10 to unholy damage and take a –2 circumstance penalty to Charisma-based skill checks against followers of Asmodeus.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 15
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #223: Hell's Destiny"
+        },
+        "rules": [
+            {
+                "key": "Weakness",
+                "type": "unholy",
+                "value": 10
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:deity:slug:asmodeus"
+                ],
+                "selector": "cha-skill-check",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
