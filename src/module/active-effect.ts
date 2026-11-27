@@ -57,15 +57,6 @@ export class ActiveEffectPF2e<TParent extends ActorPF2e | ItemPF2e | null> exten
         if (targetDoc.documentName !== "Token") return super.applyChange(targetDoc, change, options);
         // Modify or hold back token changes
         switch (change.key) {
-            case "detectionModes.basicSight":
-            case "detectionModes.lightPerception": {
-                // Upstream does not handle changing null to Infinity outside of normal data preparation.
-                if (Number(game.release.version) >= 14.37 || !R.isPlainObject(change.value)) break;
-                const range = Number(change.value.range ?? Infinity);
-                const value = { enabled: change.value.enabled, range };
-                if (options?.modifyTarget) fu.setProperty(targetDoc, change.key, value);
-                return { [change.key]: value };
-            }
             case "detectionModes.hearing": {
                 if (!R.isPlainObject(change.value)) break;
                 const range = Number(targetDoc.parent?.flags[SYSTEM_ID]?.hearingRange ?? Infinity);
@@ -76,12 +67,6 @@ export class ActiveEffectPF2e<TParent extends ActorPF2e | ItemPF2e | null> exten
             case "disposition":
                 if (targetDoc._source.disposition === CONST.TOKEN_DISPOSITIONS.SECRET) return {};
                 break;
-            case "sight.range": {
-                if (Number(game.release.version) >= 14.37) break;
-                const value = Number(change.value ?? Infinity);
-                if (options?.modifyTarget) targetDoc.sight.range = value;
-                return { [change.key]: value };
-            }
             case "width":
             case "height":
             case "depth":
