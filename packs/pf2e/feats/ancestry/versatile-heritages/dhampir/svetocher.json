@@ -34,19 +34,38 @@
                 "value": 1
             },
             {
-                "key": "AdjustModifier",
-                "mode": "add",
-                "selector": "fortitude",
-                "slug": "drained",
-                "value": 1
+                "key": "RollOption",
+                "option": "svetocher"
+            },
+            {
+                "key": "RollOption",
+                "option": "drained-hp-effective-minus-one"
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "self:condition:drained"
+                    "self:condition:drained",
+                    {
+                        "not": "sanguine-tenacity"
+                    }
                 ],
                 "selector": "hp",
                 "value": "@actor.level"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "self:condition:drained",
+                    {
+                        "not": "sanguine-tenacity"
+                    }
+                ],
+                "selectors": [
+                    "fortitude"
+                ],
+                "slug": "drained",
+                "value": 1
             }
         ],
         "traits": {

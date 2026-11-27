@@ -31,6 +31,22 @@
         },
         "rules": [
             {
+                "key": "RollOption",
+                "option": "sanguine-tenacity"
+            },
+            {
+                "key": "RollOption",
+                "option": "drained-hp-effective-minus-one"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:condition:drained"
+                ],
+                "selector": "hp",
+                "value": "@actor.level"
+            },
+            {
                 "key": "Resistance",
                 "type": "bleed",
                 "value": 5
@@ -62,14 +78,6 @@
                     "str-damage"
                 ],
                 "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "self:condition:drained"
-                ],
-                "selector": "hp",
-                "value": "@actor.level"
             }
         ],
         "traits": {
