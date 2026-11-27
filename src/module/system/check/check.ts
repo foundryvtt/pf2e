@@ -222,6 +222,8 @@ class Check {
             context.outcome = DEGREE_OF_SUCCESS_STRINGS[degree.value];
             context.unadjustedOutcome = DEGREE_OF_SUCCESS_STRINGS[degree.unadjusted];
             roll.options.degreeOfSuccess = degree.value;
+            // For notes that care about the rolled outcome rather than the adjusted one
+            postRollOptions.push(`check:outcome:unadjusted:${sluggify(context.unadjustedOutcome)}`);
         }
 
         const notes =
