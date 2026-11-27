@@ -39,9 +39,9 @@
                 ],
                 "isDailyPrep": true,
                 "key": "CraftingAbility",
-                "maxItemLevel": "ternary(gte(@actor.skills.crafting.rank,4),5,ternary(gte(@actor.skills.crafting.rank,3),4,3))",
-                "maxSlots": 2,
-                "slug": "talisman-dabbler"
+                "maxSlots": "1 + @actor.system.skills.crafting.rank",
+                "priority": 60,
+                "slug": "snare-genius-gremlin"
             }
         ],
         "subfeatures": {
