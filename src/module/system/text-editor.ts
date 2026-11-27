@@ -873,7 +873,7 @@ function getCheckDC({
             ...params.traits.map((t) => `item:trait:${t}`),
             ...params.extraRollOptions,
         ]);
-        const statistic = actor.getStatistic(params.against)?.clone({ rollOptions });
+        const statistic = actor.getStatistic(params.against, { item: item ?? null })?.clone({ rollOptions });
         return String(statistic?.dc.value ?? 0);
     }
 

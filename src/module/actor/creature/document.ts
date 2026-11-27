@@ -232,19 +232,21 @@ abstract class CreaturePF2e<
                 return this.perception;
             case "spell":
             case "spell-attack":
+            case "spell-dc": {
+                // A spell uses the entry it is in, with its own roll options
+                const ownEntry =
+                    item?.isOfType("spell") && item.actor?.uuid === this.uuid
+                        ? this.spellcasting.get(item.system.location.value ?? "")
+                        : null;
+                if (ownEntry?.statistic) return ownEntry.statistic.withRollOptions({ item });
+                const statistics = this.spellcasting.contents.flatMap((sc) => sc.statistic ?? []);
                 return (
-                    this.spellcasting.contents
-                        .flatMap((sc) => sc.statistic ?? [])
-                        .sort((a, b) => b.mod - a.mod)
-                        .shift() ?? null
+                    (slug === "spell-dc"
+                        ? statistics.sort((a, b) => b.dc.value - a.dc.value)
+                        : statistics.sort((a, b) => b.mod - a.mod)
+                    ).shift() ?? null
                 );
-            case "spell-dc":
-                return (
-                    this.spellcasting.contents
-                        .flatMap((sc) => sc.statistic ?? [])
-                        .sort((a, b) => b.dc.value - a.dc.value)
-                        .shift() ?? null
-                );
+            }
             case "counteract":
                 if (
                     item?.isOfType("spell") &&
