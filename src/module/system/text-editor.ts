@@ -1,10 +1,9 @@
-import type { ActorPF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { Modifier } from "@actor/modifiers.ts";
 import type { RollRole } from "@actor/roll-context/types.ts";
-import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { EnrichmentOptions } from "@client/applications/ux/text-editor.d.mts";
-import { ItemPF2e, ItemSheetPF2e } from "@item";
+import { ItemPF2e } from "@item";
 import { AbilityTrait } from "@item/ability/types.ts";
 import { EFFECT_AREA_SHAPES } from "@item/values.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
@@ -15,6 +14,7 @@ import {
     processDamageCategoryStacking,
 } from "@module/rules/helpers.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
+import { resolveSheetDocument } from "@scripts/helpers.ts";
 import { USER_VISIBILITIES, UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import {
     createHTMLElement,
@@ -108,21 +108,23 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
         }
 
         // Get the speaker and roll data from the clicked sheet or chat message
-        const sheetElem = htmlClosest(anchor, ".sheet");
         const messageElem = htmlClosest(anchor, "li.chat-message");
-        const app = ui.windows[Number(sheetElem?.dataset.appid)];
         const message = game.messages.get(messageElem?.dataset.messageId ?? "");
 
         const [actor, rollData] = ((): [ActorPF2e | null, Record<string, unknown>] => {
             if (message?.speakerActor) {
                 return [message.speakerActor, message.getRollData()];
             }
-            if (app instanceof ActorSheetPF2e) {
+            const sheetDocument = resolveSheetDocument(anchor);
+            if (sheetDocument instanceof ActorPF2e) {
                 const itemId = anchor.dataset.itemId;
-                return [app.actor, app.actor.items.get(itemId)?.getRollData() ?? app.actor.getRollData()];
+                return [
+                    sheetDocument,
+                    sheetDocument.items.get(itemId ?? "")?.getRollData() ?? sheetDocument.getRollData(),
+                ];
             }
-            if (app instanceof ItemSheetPF2e) {
-                return [app.actor, app.item.getRollData()];
+            if (sheetDocument instanceof ItemPF2e) {
+                return [sheetDocument.actor, sheetDocument.getRollData()];
             }
 
             // Retrieve item/actor from anywhere via UUID
