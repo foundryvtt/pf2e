@@ -55,7 +55,25 @@
         "reload": {
             "value": "1"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "item:id:{item|id}",
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            1
+                        ]
+                    }
+                ],
+                "selector": [
+                    "area-fire-damage"
+                ],
+                "text": "PF2E.SpecificRule.Equipment.BallLightningCannon.TrainedAreaFireDamage",
+                "title": "PF2E.Weapon.Base.ball-lightning-cannon"
+            }
+        ],
         "runes": {
             "potency": 0,
             "property": [],

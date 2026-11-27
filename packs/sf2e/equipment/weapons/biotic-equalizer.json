@@ -56,7 +56,24 @@
         "reload": {
             "value": "1"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            1
+                        ]
+                    }
+                ],
+                "selector": [
+                    "{item|id}-attack"
+                ],
+                "text": "PF2E.SpecificRule.Equipment.BioticEqualizer.TrainedStrike",
+                "title": "PF2E.Weapon.Base.biotic-equalizer"
+            }
+        ],
         "runes": {
             "potency": 0,
             "property": [],

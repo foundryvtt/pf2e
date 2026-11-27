@@ -52,7 +52,41 @@
         "reload": {
             "value": null
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            1
+                        ]
+                    }
+                ],
+                "selector": [
+                    "{item|_id}-attack"
+                ],
+                "text": "PF2E.SpecificRule.Equipment.Electroflail.TrainedCriticalHit",
+                "title": "PF2E.Weapon.Base.electroflail"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:trip"
+                ],
+                "selector": [
+                    "athletics"
+                ],
+                "text": "PF2E.SpecificRule.Equipment.Electroflail.TrainedCriticalTrip",
+                "title": "PF2E.SpecificRule.Equipment.Electroflail"
+            }
+        ],
         "runes": {
             "potency": 0,
             "property": [],

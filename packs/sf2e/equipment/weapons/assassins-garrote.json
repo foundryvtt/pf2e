@@ -52,7 +52,40 @@
         "reload": {
             "value": null
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:grapple"
+                ],
+                "selector": [
+                    "athletics"
+                ],
+                "text": "PF2E.SpecificRule.Equipment.AssassinsGarrote.TrainedGrapple",
+                "title": "PF2E.Weapon.Base.assassins-garrote"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "target:condition:grabbed",
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            1
+                        ]
+                    }
+                ],
+                "selector": [
+                    "{item|_id}-damage"
+                ],
+                "text": "PF2E.SpecificRule.Equipment.AssassinsGarrote.TrainedDamage",
+                "title": "PF2E.Weapon.Base.assassins-garrote"
+            }
+        ],
         "runes": {
             "potency": 0,
             "property": [],
