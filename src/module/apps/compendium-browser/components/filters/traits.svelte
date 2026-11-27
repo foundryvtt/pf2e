@@ -8,9 +8,10 @@
     type TraitOption = TraitData["options"][number];
 
     interface Props {
+        name?: string;
         traits: TraitData;
     }
-    const { traits = $bindable() }: Props = $props();
+    const { name = "filter-conjunction", traits = $bindable() }: Props = $props();
     const exclude = new SvelteSet<string>();
 
     function onChangeConjunction(event: Event & { currentTarget: HTMLInputElement }): void {
@@ -58,23 +59,11 @@
 />
 <div class="filter-conjunction">
     <label class="checkbox">
-        <input
-            type="radio"
-            name="filter-conjunction"
-            value="and"
-            checked={traits.conjunction === "and"}
-            onchange={onChangeConjunction}
-        />
+        <input type="radio" {name} value="and" checked={traits.conjunction === "and"} onchange={onChangeConjunction} />
         {_loc("PF2E.CompendiumBrowser.Filter.Conjunction.AndLabel")}
     </label>
     <label class="checkbox">
-        <input
-            type="radio"
-            name="filter-conjunction"
-            value="or"
-            checked={traits.conjunction === "or"}
-            onchange={onChangeConjunction}
-        />
+        <input type="radio" {name} value="or" checked={traits.conjunction === "or"} onchange={onChangeConjunction} />
         {_loc("PF2E.CompendiumBrowser.Filter.Conjunction.OrLabel")}
     </label>
 </div>

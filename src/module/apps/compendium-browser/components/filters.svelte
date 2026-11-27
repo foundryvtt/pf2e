@@ -108,6 +108,11 @@
     <FilterContainer label="PF2E.Traits">
         <Traits bind:traits={filter.traits} />
     </FilterContainer>
+    {#if filter.tags.options.length > 0}
+        <FilterContainer label="PF2E.Item.OtherTags.Label">
+            <Traits bind:traits={filter.tags} name="filter-tag-conjunction" />
+        </FilterContainer>
+    {/if}
     {#each Object.entries(filter.checkboxes) as [key, checkbox] (key)}
         {#if !R.isEmpty(checkbox.options)}
             <FilterContainer
