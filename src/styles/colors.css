@@ -1,0 +1,457 @@
+/* ----------------------------------------- */
+/* CSS Custom Properties                     */
+/* ----------------------------------------- */
+
+body,
+.app,
+.themed.theme-light {
+    --color-text-tertiary: var(--color-dark-4);
+
+    /* Global */
+    --color-pf-primary: #5e0000;
+    --color-pf-primary-dark: rgb(26.862745098%, 0%, 0%);
+    --color-pf-primary-darker: #2b0000;
+    --color-pf-primary-light: rgb(46.862745098%, 0%, 0%);
+    --color-pf-primary-lighter: #910000;
+    --color-pf-alternate: #786452;
+    --color-pf-alternate-dark: #443730;
+    --color-pf-alternate-darker: rgb(14.9425287356%, 12.0858688303%, 10.5476673428%);
+    --color-pf-alternate-light: rgb(58.9400116482%, 49.1166763735%, 40.2756746263%);
+    --color-pf-secondary: #171f69;
+    --color-pf-secondary-dark: rgb(5.4258578431%, 7.3131127451%, 24.7702205882%);
+    --color-pf-secondary-light: rgb(12.6133578431%, 17.0006127451%, 57.5827205882%);
+    --color-pf-secondary-lighter: rgb(16.2071078431%, 21.8443627451%, 73.9889705882%);
+    --color-pf-tertiary: #e9d7a1;
+    --color-pf-tertiary-dark: rgb(87.5794455713%, 77.4171737661%, 46.9303583502%);
+    --color-pf-tertiary-darker: rgb(83.7863421231%, 70.5206220419%, 30.7234617985%);
+    --color-pf-tertiary-light: rgb(95.1656524679%, 91.2102772143%, 79.3441514537%);
+    --primary: var(--color-pf-primary);
+    --secondary: var(--color-pf-secondary);
+    --tertiary: var(--color-pf-tertiary);
+    --tag-color: var(--color-pf-alternate-dark);
+
+    --alt: var(--color-pf-alternate);
+    --alt-dark: var(--color-pf-alternate-dark);
+    --bg: #f8f4f1;
+    --bg-dark: rgb(90.5882352941%, 85.2100840336%, 81.1764705882%);
+    --sub: #605856;
+    --color-disabled: var(--color-text-subtle);
+
+    /* Inline links and user visibility */
+    --visibility-gm-bg: #e8e8ef;
+    --visibility-owner-bg: #ddebe1;
+    --color-blind-roll-background: #f5eaf5;
+    --color-blind-roll-border: #720073;
+    --color-whisper-roll-background: #e8e8ef;
+    --color-whisper-roll-border: #545469;
+
+    /* Lighter / Darker */
+    --primary-dark: var(--color-pf-primary-dark);
+    --primary-darker: var(--color-pf-primary-darker);
+    --tertiary-dark: var(--color-pf-tertiary-dark);
+    --tertiary-light: var(--color-pf-tertiary-light);
+
+    /* Text */
+    --text-dark: var(--color-cool-4);
+    --text-light: var(--color-light-1);
+    --text-light-disabled: #a6a092;
+    --color-text-dark-input: #333;
+    --color-text-dark-improved: light-dark(#006644, #66cc99);
+
+    /* Degrees of success */
+    --color-pf-text-critical-success: rgb(0, 128, 0);
+    --color-pf-text-success: rgb(0, 0, 255);
+    --color-pf-text-failure: rgb(255, 69, 0);
+    --color-pf-text-critical-failure: rgb(255, 0, 0);
+
+    /* Borders */
+    --color-border-divider: #baa991;
+    --color-border-dark-input: #d3ccbc;
+    --color-border-medium: gray;
+    --color-border-book: #7a7971;
+
+    /* Inventory headers boxes */
+    --color-pf-inventory-header-text: var(--color-light-1);
+    --color-pf-inventory-header-bg: var(--color-pf-alternate);
+
+    /* Sidebar */
+    --sidebar-label: var(--tertiary-dark);
+    --sidebar-title: var(--tertiary);
+
+    /** Traits */
+    --color-bg-size: #3a7b59;
+    --color-bg-trait: #5e0000;
+    --color-border-trait: #d8c384;
+    --color-text-trait: white;
+
+    /* Rarity */
+    --color-rarity-common: #323232;
+    --color-rarity-uncommon: #98513d;
+    --color-rarity-rare: #002664;
+    --color-rarity-unique: #54166e;
+
+    /** Proficiency ranks */
+    --color-proficiency-untrained: #424242;
+    --color-proficiency-trained: #171f69;
+    --color-proficiency-expert: #3c005e;
+    --color-proficiency-master: #664400;
+    --color-proficiency-legendary: #5e0000;
+
+    /* Health Bars */
+    --color-pf-health-bg: #5e0000;
+    --color-pf-health-temp-bg: #171f69;
+
+    /** Encumbrance */
+    --color-pf-bulk-normal: var(--color-pf-secondary);
+    --color-pf-bulk-encumbered: var(--color-level-warning-bg);
+    --color-pf-bulk-exceeded: var(--color-level-error-bg);
+
+    /* Value adjustments (e.g. weak/elite) */
+    --color-pf-text-adjusted-higher: #009988;
+    --color-pf-text-adjusted-lower: #cc3311;
+}
+
+/* Fix core style bug */
+body textarea,
+.app textarea,
+.themed.theme-light textarea {
+    font-family: var(--font-body);
+}
+
+body textarea:read-only,
+.app textarea:read-only,
+.themed.theme-light textarea:read-only {
+    color: var(--color-text-secondary);
+}
+
+body textarea::placeholder,
+.app textarea::placeholder,
+.themed.theme-light textarea::placeholder {
+    color: var(--color-dark-4);
+}
+
+/* Damage colors */
+body .damage,
+.app .damage,
+.themed.theme-light .damage {
+    --color-bg-acid: rgba(0, 115, 0, 0.125);
+    --color-bg-bleed: rgba(153, 0, 26, 0.125);
+    --color-bg-chaotic: rgba(166, 0, 166, 0.125);
+    --color-bg-cold: rgba(47, 47, 166, 0.125);
+    --color-bg-electricity: rgba(184, 134, 11, 0.125);
+    --color-bg-evil: rgba(75, 0, 130, 0.125);
+    --color-bg-fire: rgba(166, 47, 0, 0.125);
+    --color-bg-force: rgba(99, 0, 170, 0.125);
+    --color-bg-good: rgba(157, 115, 10, 0.125);
+    --color-bg-lawful: rgba(64, 38, 0, 0.125);
+    --color-bg-mental: rgba(25, 25, 112, 0.125);
+    --color-bg-physical: rgba(60, 60, 60, 0.125);
+    --color-bg-poison: rgba(91, 115, 50, 0.125);
+    --color-bg-sonic: rgba(0, 139, 139, 0.125);
+    --color-bg-spirit: rgba(90, 85, 133, 0.125);
+    --color-bg-vitality: rgba(255, 255, 224, 0.125);
+    --color-bg-void: rgba(0, 0, 31, 0.125);
+
+    --color-border-acid: #007300;
+    --color-border-bleed: #99001a;
+    --color-border-chaotic: #a600a6;
+    --color-border-cold: #2f2fa6;
+    --color-border-electricity: darkgoldenrod;
+    --color-border-evil: indigo;
+    --color-border-fire: #a62f00;
+    --color-border-force: #6300aa;
+    --color-border-good: #9d730a;
+    --color-border-lawful: #402600;
+    --color-border-mental: midnightblue;
+    --color-border-physical: #3c3c3c;
+    --color-border-poison: #5b7332;
+    --color-border-sonic: darkcyan;
+    --color-border-spirit: #5a5585;
+    --color-border-vitality: #ffffe0;
+    --color-border-void: #00001f;
+
+    --color-text-acid: rgb(0%, 20.0980392157%, 0%);
+    --color-text-bleed: rgb(35%, 0%, 5.9477124183%);
+    --color-text-chaotic: rgb(40.0980392157%, 0%, 40.0980392157%);
+    --color-text-cold: rgb(12.9149406241%, 12.9149406241%, 45.6144711406%);
+    --color-text-electricity: rgb(48.5671191554%, 35.3695324284%, 2.9034690799%);
+    --color-text-evil: rgb(14.9886877828%, 0%, 25.9803921569%);
+    --color-text-fire: rgb(40.0980392157%, 11.353059296%, 0%);
+    --color-text-force: rgb(24.2647058824%, 0%, 41.6666666667%);
+    --color-text-good: rgb(38.065633439%, 27.8824703534%, 2.4245626394%);
+    --color-text-lawful: rgb(0.0980392157%, 0.0582107843%, 0%);
+    --color-text-mental: rgb(5.241877773%, 5.241877773%, 23.4836124231%);
+    --color-text-physical: rgb(11.0294117647%, 11.0294117647%, 11.0294117647%);
+    --color-text-poison: rgb(21.8983957219%, 27.6737967914%, 12.0320855615%);
+    --color-text-sonic: rgb(0%, 29.5098039216%, 29.5098039216%);
+    --color-text-spirit: rgb(24.9730167296%, 23.5856269113%, 36.9045691671%);
+    --color-text-vitality: rgb(100%, 100%, 62.8431372549%);
+    --color-text-void: hsl(240, 100%, -6.4215686275%);
+}
+
+body .damage.color.acid,
+.app .damage.color.acid,
+.themed.theme-light .damage.color.acid {
+    background-color: var(--color-bg-acid);
+    border-color: var(--color-border-acid);
+    color: var(--color-text-acid);
+}
+
+body .damage.color.acid i[class^="fa-"],
+.app .damage.color.acid i[class^="fa-"],
+.themed.theme-light .damage.color.acid i[class^="fa-"] {
+    color: var(--color-border-acid);
+}
+
+body .damage.color.bleed,
+.app .damage.color.bleed,
+.themed.theme-light .damage.color.bleed {
+    background-color: var(--color-bg-bleed);
+    border-color: var(--color-border-bleed);
+    color: var(--color-text-bleed);
+}
+
+body .damage.color.bleed i[class^="fa-"],
+.app .damage.color.bleed i[class^="fa-"],
+.themed.theme-light .damage.color.bleed i[class^="fa-"] {
+    color: var(--color-border-bleed);
+}
+
+body .damage.color.bludgeoning,
+body .damage.color.piercing,
+body .damage.color.slashing,
+.app .damage.color.bludgeoning,
+.app .damage.color.piercing,
+.app .damage.color.slashing,
+.themed.theme-light .damage.color.bludgeoning,
+.themed.theme-light .damage.color.piercing,
+.themed.theme-light .damage.color.slashing {
+    background-color: var(--color-bg-physical);
+    border-color: var(--color-border-physical);
+    color: var(--color-text-physical);
+}
+
+body .damage.color.bludgeoning i[class^="fa-"],
+body .damage.color.piercing i[class^="fa-"],
+body .damage.color.slashing i[class^="fa-"],
+.app .damage.color.bludgeoning i[class^="fa-"],
+.app .damage.color.piercing i[class^="fa-"],
+.app .damage.color.slashing i[class^="fa-"],
+.themed.theme-light .damage.color.bludgeoning i[class^="fa-"],
+.themed.theme-light .damage.color.piercing i[class^="fa-"],
+.themed.theme-light .damage.color.slashing i[class^="fa-"] {
+    color: var(--color-border-physical);
+}
+
+body .damage.color.chaotic,
+.app .damage.color.chaotic,
+.themed.theme-light .damage.color.chaotic {
+    background-color: var(--color-bg-chaotic);
+    border-color: var(--color-border-chaotic);
+    color: var(--color-text-chaotic);
+}
+
+body .damage.color.chaotic i[class^="fa-"],
+.app .damage.color.chaotic i[class^="fa-"],
+.themed.theme-light .damage.color.chaotic i[class^="fa-"] {
+    color: var(--color-border-chaotic);
+}
+
+body .damage.color.cold,
+.app .damage.color.cold,
+.themed.theme-light .damage.color.cold {
+    background-color: var(--color-bg-cold);
+    border-color: var(--color-border-cold);
+    color: var(--color-text-cold);
+}
+
+body .damage.color.cold i[class^="fa-"],
+.app .damage.color.cold i[class^="fa-"],
+.themed.theme-light .damage.color.cold i[class^="fa-"] {
+    color: var(--color-border-cold);
+}
+
+body .damage.color.electricity,
+.app .damage.color.electricity,
+.themed.theme-light .damage.color.electricity {
+    background-color: var(--color-bg-electricity);
+    border-color: var(--color-border-electricity);
+    color: var(--color-text-electricity);
+}
+
+body .damage.color.electricity i[class^="fa-"],
+.app .damage.color.electricity i[class^="fa-"],
+.themed.theme-light .damage.color.electricity i[class^="fa-"] {
+    color: var(--color-border-electricity);
+}
+
+body .damage.color.evil,
+.app .damage.color.evil,
+.themed.theme-light .damage.color.evil {
+    background-color: var(--color-bg-evil);
+    border-color: var(--color-border-evil);
+    color: var(--color-text-evil);
+}
+
+body .damage.color.evil i[class^="fa-"],
+.app .damage.color.evil i[class^="fa-"],
+.themed.theme-light .damage.color.evil i[class^="fa-"] {
+    color: var(--color-border-evil);
+}
+
+body .damage.color.fire,
+.app .damage.color.fire,
+.themed.theme-light .damage.color.fire {
+    background-color: var(--color-bg-fire);
+    border-color: var(--color-border-fire);
+    color: var(--color-text-fire);
+}
+
+body .damage.color.fire i[class^="fa-"],
+.app .damage.color.fire i[class^="fa-"],
+.themed.theme-light .damage.color.fire i[class^="fa-"] {
+    color: var(--color-border-fire);
+}
+
+body .damage.color.force,
+.app .damage.color.force,
+.themed.theme-light .damage.color.force {
+    background-color: var(--color-bg-force);
+    border-color: var(--color-border-force);
+    color: var(--color-text-force);
+}
+
+body .damage.color.force i[class^="fa-"],
+.app .damage.color.force i[class^="fa-"],
+.themed.theme-light .damage.color.force i[class^="fa-"] {
+    color: var(--color-border-force);
+}
+
+body .damage.color.good,
+.app .damage.color.good,
+.themed.theme-light .damage.color.good {
+    background-color: var(--color-bg-good);
+    border-color: var(--color-border-good);
+    color: var(--color-text-good);
+}
+
+body .damage.color.good i[class^="fa-"],
+.app .damage.color.good i[class^="fa-"],
+.themed.theme-light .damage.color.good i[class^="fa-"] {
+    color: var(--color-border-good);
+}
+
+body .damage.color.lawful,
+.app .damage.color.lawful,
+.themed.theme-light .damage.color.lawful {
+    background-color: var(--color-bg-lawful);
+    border-color: var(--color-border-lawful);
+    color: var(--color-text-lawful);
+}
+
+body .damage.color.lawful i[class^="fa-"],
+.app .damage.color.lawful i[class^="fa-"],
+.themed.theme-light .damage.color.lawful i[class^="fa-"] {
+    color: var(--color-border-lawful);
+}
+
+body .damage.color.mental,
+.app .damage.color.mental,
+.themed.theme-light .damage.color.mental {
+    background-color: var(--color-bg-mental);
+    border-color: var(--color-border-mental);
+    color: var(--color-text-mental);
+}
+
+body .damage.color.mental i[class^="fa-"],
+.app .damage.color.mental i[class^="fa-"],
+.themed.theme-light .damage.color.mental i[class^="fa-"] {
+    color: var(--color-border-mental);
+}
+
+body .damage.color.poison,
+.app .damage.color.poison,
+.themed.theme-light .damage.color.poison {
+    background-color: var(--color-bg-poison);
+    border-color: var(--color-border-poison);
+    color: var(--color-text-poison);
+}
+
+body .damage.color.poison i[class^="fa-"],
+.app .damage.color.poison i[class^="fa-"],
+.themed.theme-light .damage.color.poison i[class^="fa-"] {
+    color: var(--color-border-poison);
+}
+
+body .damage.color.sonic,
+.app .damage.color.sonic,
+.themed.theme-light .damage.color.sonic {
+    border-color: var(--color-border-sonic);
+    background-color: var(--color-bg-sonic);
+    color: var(--color-text-sonic);
+}
+
+body .damage.color.sonic i[class^="fa-"],
+.app .damage.color.sonic i[class^="fa-"],
+.themed.theme-light .damage.color.sonic i[class^="fa-"] {
+    color: var(--color-border-sonic);
+}
+
+body .damage.color.spirit,
+.app .damage.color.spirit,
+.themed.theme-light .damage.color.spirit {
+    border-color: var(--color-border-spirit);
+    background-color: var(--color-bg-spirit);
+    color: var(--color-text-spirit);
+}
+
+body .damage.color.spirit i[class^="fa-"],
+.app .damage.color.spirit i[class^="fa-"],
+.themed.theme-light .damage.color.spirit i[class^="fa-"] {
+    color: var(--color-border-spirit);
+}
+
+body .damage.color.vitality,
+.app .damage.color.vitality,
+.themed.theme-light .damage.color.vitality {
+    background-color: var(--color-bg-physical); /* Improve contrast with bright color */
+    border-color: var(--color-border-vitality);
+    color: var(--color-text-vitality);
+    text-shadow: 1px 1px var(--color-shadow-dark);
+}
+
+body .damage.color.vitality i[class^="fa-"],
+.app .damage.color.vitality i[class^="fa-"],
+.themed.theme-light .damage.color.vitality i[class^="fa-"] {
+    color: var(--color-border-vitality);
+}
+
+body .damage.color.void,
+.app .damage.color.void,
+.themed.theme-light .damage.color.void {
+    background-color: var(--color-bg-void);
+    border-color: var(--color-border-void);
+    color: var(--color-text-void);
+}
+
+body .damage.color.void i[class^="fa-"],
+.app .damage.color.void i[class^="fa-"],
+.themed.theme-light .damage.color.void i[class^="fa-"] {
+    color: var(--color-border-void);
+}
+
+body.theme-dark .application:not(.themed),
+.themed.theme-dark {
+    --color-text-tertiary: var(--color-light-4);
+    --visibility-gm-bg: var(--color-cool-4);
+    --color-blind-roll-background: #2b122be6;
+    --color-whisper-roll-background: #12122be6;
+    --tag-color: var(--color-light-4);
+}
+
+/* Core's light-theme row highlight is near-black, so use a tint darker than the 10% row stripes */
+body.theme-light,
+.themed.theme-light,
+.app.theme-light .standard-form {
+    --table-row-color-highlight: color-mix(in srgb, var(--color-dark-1) 25%, transparent);
+}

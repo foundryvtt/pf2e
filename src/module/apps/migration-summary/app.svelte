@@ -119,7 +119,7 @@
     </footer>
 </div>
 
-<style lang="scss">
+<style>
     /* Use the app font so heading size/level stay independent of core's per-level fonts. */
     h2 {
         font-family: inherit;
@@ -147,16 +147,16 @@
     }
 
     section.unmigrated {
-        margin-bottom: var(--space-8);
+        margin-bottom: var(--spacer-8);
 
         h3 {
             font-family: inherit;
             font-size: var(--font-size-16);
-            margin: 0 0 var(--space-4);
+            margin: 0 0 var(--spacer-4);
         }
 
         p.hint {
-            margin: 0 0 var(--space-6);
+            margin: 0 0 var(--spacer-6);
         }
     }
 </style>

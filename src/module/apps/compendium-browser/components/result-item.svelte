@@ -178,7 +178,7 @@
     {/if}
 </li>
 
-<style lang="scss">
+<style>
     li {
         display: flex;
         flex-direction: row;

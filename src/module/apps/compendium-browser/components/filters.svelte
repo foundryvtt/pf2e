@@ -159,10 +159,10 @@
     {/if}
 </div>
 
-<style lang="scss">
+<style>
     .control-area {
         overflow-y: auto;
-        padding-right: var(--space-4);
+        padding-right: var(--spacer-4);
         scrollbar-gutter: stable;
     }
 
@@ -170,7 +170,7 @@
         border: 2px groove var(--color-fieldset-border);
         border-radius: 5px;
         margin-top: 5px;
-        padding: var(--space-6);
+        padding: var(--spacer-6);
         position: relative;
 
         .order-by-select {

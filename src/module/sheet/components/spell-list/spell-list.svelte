@@ -111,7 +111,7 @@
     // Content stops shrinking at the sum of the xs columns' minimums, and a too-small container clips or scrolls
     const minWidth = $derived.by(() => {
         const tracks = nameWidth + R.sumBy(xs, (c) => columnWidths[c]);
-        return `calc(${tracks}rem + ${controlsWidth}px + ${xs.length + 1} * var(--space-4) + 2 * var(--space-8))`;
+        return `calc(${tracks}rem + ${controlsWidth}px + ${xs.length + 1} * var(--spacer-4) + 2 * var(--spacer-8))`;
     });
 </script>
 
@@ -147,7 +147,7 @@
         container: spell-list / inline-size;
         display: flex;
         flex-direction: column;
-        gap: var(--space-8);
+        gap: var(--spacer-8);
     }
 
     /* Header template and type for the shared ListHeader */
@@ -156,8 +156,8 @@
         --list-header-font-family: var(--sans-serif);
         --list-header-font-weight: 500;
         --list-header-line-height: 1.75;
-        --list-header-padding-block: var(--space-4);
-        --list-header-padding-inline: var(--space-8);
+        --list-header-padding-block: var(--spacer-4);
+        --list-header-padding-inline: var(--spacer-8);
     }
 
     @container spell-list (width < 24rem) {
@@ -181,8 +181,8 @@
         .empty {
             color: var(--color-text-secondary, inherit);
             font-style: italic;
-            padding-block: var(--space-4);
-            padding-inline: var(--space-8);
+            padding-block: var(--spacer-4);
+            padding-inline: var(--spacer-8);
         }
     }
 </style>

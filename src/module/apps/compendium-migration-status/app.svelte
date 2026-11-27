@@ -90,11 +90,11 @@
     </div>
 </div>
 
-<style lang="scss">
+<style>
     .container {
         display: flex;
         flex-direction: column;
-        gap: var(--space-8);
+        gap: var(--spacer-8);
         max-width: 20rem;
     }
 
@@ -113,7 +113,7 @@
     section.failures h2 {
         font-family: inherit;
         font-size: var(--font-size-16);
-        margin: 0 0 var(--space-4);
+        margin: 0 0 var(--spacer-4);
     }
 
     .status {
@@ -127,9 +127,9 @@
             align-items: center;
             border: 1px dashed var(--alt);
             display: flex;
-            gap: var(--space-4);
+            gap: var(--spacer-4);
             justify-content: center;
-            padding: var(--space-4);
+            padding: var(--spacer-4);
         }
     }
 </style>

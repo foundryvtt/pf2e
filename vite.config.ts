@@ -105,17 +105,50 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
               })()
             : { foundryPort: 30000, serverPort: 30001 };
 
-    // Add system layer to svelte CSS in HMR
-    const hmrPreprocess = {
-        name: "svelte-hmr-layer",
-        style: ({ content }: { content: string }) => ({ code: `@layer system { ${content} }` }),
+    // sf2e styling is appended to the main stylesheet only. Svelte components are system-agnostic and theme
+    // themselves through CSS custom properties.
+    const stylesDir = path.resolve(ROOT_DIR, "src/styles").split(path.sep).join("/");
+    const sf2eStyles: Vite.Plugin = {
+        name: "sf2e-styles",
+        enforce: "pre",
+        transform: (code, id) => {
+            if (SYSTEM_ID !== "sf2e") return;
+            if (id === `${stylesDir}/main.css`) return `${code}\n@import "./sf2e/index.css" layer(base);`;
+            if (id === `${stylesDir}/vite-hmr.css`) return `${code}\n@import "./sf2e/index.css" layer(system.base);`;
+            return;
+        },
+    };
+
+    // Sub-layers of `system` are declared in styles/layers.css. Foundry imports the built stylesheet into `system`;
+    // the dev server serves styles itself, so they name `system` explicitly there.
+    const systemLayer = command === "serve" ? "system." : "";
+    const componentLayer = {
+        name: "svelte-component-layer",
+        // Third-party components are layered with the other vendor CSS
+        style: ({ content, filename }: { content: string; filename?: string }) =>
+            filename?.includes("node_modules") ? undefined : { code: `@layer ${systemLayer}components { ${content} }` },
+    };
+    // Third-party CSS keeps its place at the start of the base rules. It can end up ahead of layers.css in the
+    // bundle, so it repeats the layer order to keep its own layer from being declared first.
+    const layerOrder = fs
+        .readFileSync(path.resolve(ROOT_DIR, "src/styles/layers.css"), "utf-8")
+        .match(/@layer [^;]+;/)?.[0];
+    const vendorLayer: Vite.Plugin = {
+        name: "vendor-layer",
+        transform: (code, id) => {
+            if (!/node_modules\/.+\.css$/.test(id)) return;
+            const layered = `${layerOrder}\n@layer base { ${code} }`;
+            return command === "serve" ? `@layer system { ${layered} }` : layered;
+        },
     };
 
     const plugins = [
+        sf2eStyles,
+        vendorLayer,
         // CI type-checks in its own job with svelte-check, which also covers .ts files
         checker({ typescript: true, enableBuild: !process.env.CI }),
         sveltePlugin({
-            preprocess: command === "serve" ? [vitePreprocess(), hmrPreprocess] : vitePreprocess(),
+            preprocess: [vitePreprocess(), componentLayer],
         }),
     ];
     const packUUIDPattern = /Compendium\.pf2e\.[^\]]+/g;
@@ -244,8 +277,8 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             apply: "serve",
             transform: (code, id) => {
                 if (id === mainCss) {
-                    return code.replace("styles/main.scss", "styles/vite-hmr.scss");
-                } else if (/node_modules\/.+\.css$/.test(id)) {
+                    return code.replace("styles/main.css", "styles/vite-hmr.css");
+                } else if (id === `${stylesDir}/layers.css`) {
                     return `@layer system { ${code} }`;
                 }
                 return;
@@ -333,21 +366,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             watch: { ignored: ["dist", "packs", "packs-temp", "tests"].map((d) => path.resolve(ROOT_DIR, d, "**")) },
         },
         plugins,
-        css: {
-            devSourcemap: buildMode === "development",
-            preprocessorOptions: {
-                scss: {
-                    additionalData: (source: string, filename: string) => {
-                        // `sf2e/index` is system-specific styling, layered into the main stylesheet
-                        // entry only. Svelte components are system-agnostic and theme themselves
-                        // through CSS custom properties, so they never need it (and their <style> is
-                        // scoped, which would rewrite its selectors anyway).
-                        if (SYSTEM_ID !== "sf2e" || filename?.includes(".svelte")) return source;
-                        return `${source}\n@import "sf2e/index";`;
-                    },
-                },
-            },
-        },
+        css: { devSourcemap: buildMode === "development" },
     };
 });
 

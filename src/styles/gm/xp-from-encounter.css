@@ -1,0 +1,66 @@
+#xp-from-encounter {
+    .window-content {
+        gap: var(--spacer-8);
+
+        h2 {
+            font-family: inherit;
+            font-size: var(--font-size-16);
+            margin: var(--spacer-4) 0 0;
+        }
+
+        /* same presentation as the encounter tracker's metrics strip, in two balanced rows */
+        .metrics {
+            color: var(--color-text-tertiary);
+            display: flex;
+            flex-direction: column;
+            font-size: var(--font-size-14);
+            gap: var(--spacer-4);
+            padding: var(--spacer-4) 0;
+
+            .row {
+                display: flex;
+                flex-wrap: wrap;
+                gap: var(--spacer-4) 1rem;
+                justify-content: center;
+            }
+
+            .threat .value {
+                /* Same colors as the encounter tracker. The crisp shadow keeps them legible on light backgrounds */
+                text-shadow: 1px 1px 1px var(--color-shadow-dark);
+
+                &.trivial {
+                    color: aqua;
+                }
+
+                &.low {
+                    color: lime;
+                }
+
+                &.moderate {
+                    color: yellow;
+                }
+
+                &.severe {
+                    color: orange;
+                }
+
+                &.extreme {
+                    color: red;
+                }
+            }
+
+            .award .value {
+                color: var(--color-text-primary);
+            }
+        }
+
+        table {
+            margin: 0;
+        }
+
+        hr {
+            margin: var(--spacer-4) 0 0;
+            width: 100%;
+        }
+    }
+}

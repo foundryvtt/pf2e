@@ -179,7 +179,7 @@
         .type {
             align-items: baseline;
             display: flex;
-            gap: var(--space-4);
+            gap: var(--spacer-4);
             .value {
                 color: var(--color-text-secondary);
             }
@@ -187,7 +187,7 @@
 
         .tags.domains {
             justify-items: end;
-            margin-top: var(--space-4);
+            margin-top: var(--spacer-4);
 
             .tag {
                 font-size: var(--font-size-12);
@@ -206,7 +206,7 @@
 
         > header {
             font-size: var(--font-size-18);
-            margin-bottom: var(--space-2);
+            margin-bottom: var(--spacer-2);
         }
 
         > ul {
@@ -223,7 +223,7 @@
 
     .roll-options {
         > :global(.search-results) {
-            margin-bottom: var(--space-4);
+            margin-bottom: var(--spacer-4);
         }
 
         > ul {
@@ -234,7 +234,7 @@
                 line-height: 1.65em;
                 margin: 0;
                 overflow-x: hidden;
-                padding-left: var(--space-4);
+                padding-left: var(--spacer-4);
                 text-overflow: ellipsis;
                 user-select: text;
             }
@@ -250,7 +250,7 @@
         ul {
             li {
                 display: block;
-                padding: var(--space-4);
+                padding: var(--spacer-4);
                 margin: 0;
 
                 &.disabled {
@@ -262,12 +262,12 @@
                     align-items: baseline;
                     display: flex;
                     font-size: var(--font-size-16);
-                    gap: var(--space-4);
+                    gap: var(--spacer-4);
                     margin-bottom: 0.25em;
 
                     .options-note {
                         margin-left: auto;
-                        padding-left: var(--space-4);
+                        padding-left: var(--spacer-4);
                     }
                 }
 

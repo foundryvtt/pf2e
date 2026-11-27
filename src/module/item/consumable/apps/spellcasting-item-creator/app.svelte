@@ -77,7 +77,7 @@
     {_loc("PF2E.CreateItemTitle")}
 </button>
 
-<style lang="scss">
+<style>
     .item-info {
         --button-size: var(--font-size-24);
         border: 1px solid var(--sub);

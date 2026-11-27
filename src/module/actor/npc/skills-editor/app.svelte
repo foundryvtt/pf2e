@@ -122,13 +122,13 @@
     <fieldset>
         <legend>{_loc("PF2E.SkillsLabel")}</legend>
         <div class="skills-list">
-            <div class="skill header">
+            <div class="skill header subgrid-row">
                 <div class="name">{_loc("PF2E.SkillLabel")}</div>
                 <div>{_loc("PF2E.Actor.NPC.SkillsEditor.Note")}</div>
                 <div>{_loc("PF2E.ModifierTitle")}</div>
             </div>
             {#each data.trainedSkills as skill (skill.slug)}
-                <div class="skill">
+                <div class="skill subgrid-row">
                     <label class="name" for="{uid}-skill-{skill.slug}-modifier">{skill.label}</label>
                     <input
                         type="text"
@@ -154,8 +154,8 @@
                         onclick={() => handleRemoveSkill(skill.slug)}
                     />
                     {#if skill.special.length > 0}
-                        <div class="specials">
-                            <div class="special-row header">
+                        <div class="specials subgrid-row">
+                            <div class="special-row header subgrid-row">
                                 <span>{_loc("PF2E.Actor.NPC.SkillsEditor.Special")}</span>
                                 <span>{_loc("PF2E.Actor.NPC.SkillsEditor.Predicate")}</span>
                                 <span>{_loc("PF2E.ModifierTitle")}</span>
@@ -167,7 +167,7 @@
                                 />
                             </div>
                             {#each skill.special as special, idx (idx)}
-                                <div class="special-row">
+                                <div class="special-row subgrid-row">
                                     <input
                                         type="text"
                                         id="{uid}-skill-{skill.slug}-special-{idx}-label"
@@ -249,13 +249,13 @@
     <fieldset>
         <legend>{_loc("PF2E.LoreSkillsHeader")}</legend>
         <div class="skills-list">
-            <div class="skill header lore">
+            <div class="skill header lore subgrid-row">
                 <div class="name">{_loc("PF2E.Lore")}</div>
                 <div class="modifier-header">{_loc("PF2E.ModifierTitle")}</div>
             </div>
 
             {#each data.loreSkills as skill (skill.itemId)}
-                <div class="skill lore">
+                <div class="skill lore subgrid-row">
                     <label class="name" for="{uid}-lore-{skill.itemId}-modifier">{skill.label}</label>
                     <input
                         class="modifier"
@@ -313,15 +313,9 @@
     </fieldset>
 </form>
 
-<style lang="scss">
-    @mixin subgrid-row {
-        display: grid;
-        grid-column: 1 / -1;
-        grid-template-columns: subgrid;
-    }
-
+<style>
     fieldset + fieldset {
-        margin-block-start: var(--space-8);
+        margin-block-start: var(--spacer-8);
     }
 
     input[aria-invalid="true"] {
@@ -329,14 +323,21 @@
         outline: 1px solid var(--color-level-error);
     }
 
+    /* A row spanning its grid parent and sharing the parent's columns */
+    .subgrid-row {
+        display: grid;
+        grid-column: 1 / -1;
+        grid-template-columns: subgrid;
+    }
+
     .skills-list {
         display: grid;
-        gap: var(--space-4) var(--space-10);
+        gap: var(--spacer-4) var(--spacer-10);
         grid-template-columns: 6rem 1fr 4.5rem auto;
 
         hr {
             grid-column: 1 / -1;
-            margin-block: var(--space-4);
+            margin-block: var(--spacer-4);
 
             /* When the add-row is absent (e.g. all skills trained), drop the trailing rule. */
             &:last-child {
@@ -345,11 +346,10 @@
         }
 
         > div {
-            @include subgrid-row;
             align-items: center;
-            padding-block: var(--space-2);
-            padding-inline: var(--space-4);
-            row-gap: var(--space-4);
+            padding-block: var(--spacer-2);
+            padding-inline: var(--spacer-4);
+            row-gap: var(--spacer-4);
 
             &.skill {
                 label.name {
@@ -361,7 +361,7 @@
                     background-color: var(--table-header-bg-color);
                     font-weight: bold;
                     letter-spacing: 0.04em;
-                    padding-block: var(--space-4);
+                    padding-block: var(--spacer-4);
                 }
 
                 :global(button.inline-control.icon) {
@@ -374,11 +374,9 @@
                 }
 
                 .specials {
-                    @include subgrid-row;
-                    row-gap: var(--space-6);
+                    row-gap: var(--spacer-6);
 
                     .special-row {
-                        @include subgrid-row;
                         align-items: center;
 
                         &.header {
@@ -397,15 +395,16 @@
 
                 .item-controls {
                     display: flex;
-                    gap: var(--space-2);
+                    gap: var(--spacer-2);
                 }
             }
 
             &.skill-selector,
             &.lore-skill-creator {
+                grid-column: 1 / -1;
                 display: flex;
                 flex-wrap: wrap;
-                gap: var(--space-4) var(--space-10);
+                gap: var(--spacer-4) var(--spacer-10);
 
                 > .name {
                     flex: 1 1 0;
@@ -416,7 +415,7 @@
                 color: var(--color-level-error);
                 flex: 1 1 100%;
                 font-size: var(--font-size-12);
-                margin-block: var(--space-4) 0;
+                margin-block: var(--spacer-4) 0;
 
                 &:empty {
                     display: none;

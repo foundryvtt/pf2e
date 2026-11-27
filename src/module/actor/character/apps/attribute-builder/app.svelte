@@ -696,7 +696,7 @@
     </div>
 </form>
 
-<style lang="scss">
+<style>
     form {
         position: relative;
     }
@@ -711,7 +711,7 @@
         font: 400 var(--font-size-10) var(--font-primary);
         text-transform: uppercase;
         color: var(--color-text-secondary);
-        margin: 0 0 var(--space-8);
+        margin: 0 0 var(--spacer-8);
     }
 
     .attribute-rows {
@@ -732,7 +732,7 @@
 
             &,
             + hr {
-                filter: blur(var(--space-1));
+                filter: blur(var(--spacer-1));
             }
         }
 
@@ -753,9 +753,9 @@
 
     header.row {
         align-items: normal;
-        padding-top: var(--space-10);
+        padding-top: var(--spacer-10);
         border-bottom: 1px solid var(--table-header-border-color);
-        margin-bottom: var(--space-21);
+        margin-bottom: var(--spacer-21);
 
         .row-column {
             display: block;
@@ -768,7 +768,7 @@
 
     /* Reserve space for both flaw and boost buttons to prevent layout shift */
     .double-row:has(.attributes) {
-        min-height: calc(var(--font-size-48) + var(--space-4));
+        min-height: calc(var(--font-size-48) + var(--spacer-4));
     }
 
     .background-stripes {
@@ -787,14 +787,14 @@
     }
 
     .voluntary-flaw-row {
-        margin: var(--space-8) 0;
+        margin: var(--spacer-8) 0;
     }
 
     /* Add spacing between level boost rows */
     section.row[data-level] + section.row[data-level],
     section.row[data-section="apex"],
     section.summary-row {
-        margin-top: var(--space-4);
+        margin-top: var(--spacer-4);
     }
 
     .row-heading {
@@ -820,7 +820,7 @@
 
         .label {
             grid-area: description;
-            margin-right: var(--space-10);
+            margin-right: var(--spacer-10);
             overflow: hidden;
             white-space: nowrap;
         }
@@ -845,7 +845,7 @@
         .has-tooltip,
         &.has-tooltip .description {
             text-decoration: underline dotted;
-            text-underline-offset: var(--space-2);
+            text-underline-offset: var(--spacer-2);
             cursor: help;
         }
 
@@ -853,11 +853,11 @@
             align-items: center;
             display: flex;
             font-size: var(--font-size-12);
-            gap: var(--space-2);
+            gap: var(--spacer-2);
             color: var(--color-text-secondary);
 
             > i {
-                margin-left: var(--space-2);
+                margin-left: var(--spacer-2);
             }
 
             input[type="checkbox"] {
@@ -872,7 +872,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: var(--space-4);
+        gap: var(--spacer-4);
         text-align: center;
     }
 
@@ -885,10 +885,10 @@
 
         .hint-container {
             background: var(--table-row-color-even);
-            padding: var(--space-12);
-            margin-right: var(--space-10);
+            padding: var(--spacer-12);
+            margin-right: var(--spacer-10);
             border: 1px solid var(--color-form-hint);
-            border-radius: var(--space-3);
+            border-radius: var(--spacer-3);
 
             h3 {
                 font-variant: small-caps;
@@ -903,15 +903,15 @@
                 font-size: var(--font-size-12);
                 font-family: var(--font-primary);
                 font-weight: 500;
-                margin-bottom: var(--space-3);
+                margin-bottom: var(--spacer-3);
                 color: var(--color-text-secondary);
             }
 
             label {
                 display: flex;
                 align-items: center;
-                gap: var(--space-4);
-                margin-top: var(--space-10);
+                gap: var(--spacer-4);
+                margin-top: var(--spacer-10);
                 white-space: nowrap;
             }
 
@@ -923,11 +923,11 @@
 
         .attributes {
             grid-template-rows: auto min-content;
-            grid-row-gap: var(--space-10);
+            grid-row-gap: var(--spacer-10);
         }
 
         .row-column {
-            padding-top: var(--space-10);
+            padding-top: var(--spacer-10);
         }
 
         .value {
@@ -942,7 +942,7 @@
             border-bottom: 1px solid var(--color-border);
             border-radius: 0;
             background-color: transparent;
-            margin: 0 var(--space-10) var(--space-10);
+            margin: 0 var(--spacer-10) var(--spacer-10);
             color: var(--color-text-primary);
             text-align: center;
 
@@ -959,13 +959,13 @@
             grid-row: 2;
             grid-column: 1 / 7;
             margin-left: auto;
-            padding: var(--space-17) var(--space-15);
+            padding: var(--spacer-17) var(--spacer-15);
         }
     }
 
     hr {
         position: relative;
-        margin: var(--space-8) 0;
+        margin: var(--spacer-8) 0;
         z-index: -1;
     }
 </style>
