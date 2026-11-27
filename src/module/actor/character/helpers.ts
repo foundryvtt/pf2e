@@ -215,6 +215,9 @@ function getWeaponAuxiliaryActions(weapon: WeaponPF2e<CharacterPF2e>): WeaponAux
     const isRealItem = actor.items.has(weapon.id);
     const traitsArray = weapon.system.traits.value;
 
+    if (weapon.system.traits.toggles.combination) {
+        auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "combination" }));
+    }
     if (weapon.system.traits.toggles.modular) {
         auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "modular" }));
     }
