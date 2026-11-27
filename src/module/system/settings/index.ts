@@ -297,6 +297,19 @@ export function registerSettings(): void {
         }),
     });
 
+    // Per-user toggle for collapsing the spell slot rank headers on the PC spellcasting tab
+    game.settings.register(SYSTEM_ID, "spellcasting.hideSlotHeaders", {
+        name: "Hide Spell Slot Headers",
+        scope: "client",
+        config: false,
+        type: new fields.BooleanField(),
+        onChange: () => {
+            for (const sheet of Object.values(ui.windows).filter((w) => w instanceof ActorSheetPF2e)) {
+                sheet.render();
+            }
+        },
+    });
+
     registerTrackingSettings();
 
     if (BUILD_MODE === "production") {
