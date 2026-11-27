@@ -107,7 +107,7 @@ class ABCPicker extends SvelteApplicationMixin<
                     (p) =>
                         p.documentName === "Item" &&
                         p.testUserPermission(game.user, "LIMITED") &&
-                        !p.metadata.flags.pf2e?.skipABC,
+                        !p.metadata.flags[SYSTEM_ID]?.skipABC,
                 )
                 .flatMap((p) => p.index.filter((e) => e.type === itemType).map((e) => e.uuid as CompendiumItemUUID)),
         );
