@@ -40,8 +40,8 @@ for (const packageId of ["pf2e", "sf2e", "pf2e-anachronism", "sf2e-anachronism"]
             })
         ).value;
         if (!proceed) {
-            console.log("Aborting.");
-            process.exit();
+            console.log("Skipping.");
+            continue;
         }
     }
 
@@ -55,7 +55,7 @@ for (const packageId of ["pf2e", "sf2e", "pf2e-anachronism", "sf2e-anachronism"]
     } catch (error) {
         if (error instanceof Error) {
             console.error(`An error was encountered trying to create a symlink: ${error.message}`);
-            process.exit(1);
+            continue;
         }
     }
 
