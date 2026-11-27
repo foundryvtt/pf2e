@@ -1001,7 +1001,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Paskis can observe the creature she intends to mark</p><hr /><p><strong>Effect</strong> Paskis designates a single creature as her mark. This lasts until the mark dies or she uses Mark for Death again. She gains a +2 circumstance bonus to Perception checks to [[/act seek]] the mark and on Deception checks to [[/act feint]] against the mark. In addition, her sneak attacks against her mark deal an additional 2 precision damage.</p>"
+                    "value": "<p><strong>Requirements</strong> Paskis can observe the creature she intends to mark</p><hr /><p><strong>Effect</strong> Paskis designates a single creature as her mark. This lasts until the mark dies or she uses Mark for Death again. She gains a +2 circumstance bonus to Perception checks to [[/act seek options=target:mark:mark-for-death]] the mark and on Deception checks to [[/act feint]] against the mark. In addition, her sneak attacks against her mark deal an additional 2 precision damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1010,25 +1010,23 @@
                 },
                 "rules": [
                     {
-                        "key": "RollOption",
-                        "option": "mark-for-death",
-                        "toggleable": true
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:seek",
+                            "self:effect:mark-for-death",
+                            "target:mark:mark-for-death"
+                        ],
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "mark-for-death",
-                            {
-                                "or": [
-                                    "action:seek",
-                                    "action:feint"
-                                ]
-                            }
+                            "action:feint",
+                            "target:mark:mark-for-death"
                         ],
-                        "selector": [
-                            "perception",
-                            "deception"
-                        ],
+                        "selector": "deception",
                         "type": "circumstance",
                         "value": 2
                     },
@@ -1036,13 +1034,17 @@
                         "damageCategory": "precision",
                         "key": "FlatModifier",
                         "predicate": [
-                            "mark-for-death",
+                            "target:mark:mark-for-death",
                             "target:condition:off-guard"
                         ],
                         "selector": "strike-damage",
                         "value": 2
                     }
                 ],
+                "selfEffect": {
+                    "name": "Effect: Mark for Death",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Mark for Death"
+                },
                 "slug": null,
                 "traits": {
                     "value": []

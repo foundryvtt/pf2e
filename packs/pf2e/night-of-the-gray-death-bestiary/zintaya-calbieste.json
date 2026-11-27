@@ -643,7 +643,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The Gray Gardener assassin designates a single creature they can see and hear as their mark. This effect lasts until the mark dies or the assassin uses Mark for Death again. The assassin gains a +2 circumstance bonus to Perception checks to [[/act seek]] the mark and on Deception checks to [[/act feint]] against the mark. The assassin's melee and ranged Strikes gain the deadly d8 weapon traits when attacking the mark.</p>"
+                    "value": "<p>The Gray Gardener assassin designates a single creature they can see and hear as their mark. This effect lasts until the mark dies or the assassin uses Mark for Death again. The assassin gains a +2 circumstance bonus to Perception checks to [[/act seek options=target:mark:mark-for-death]] the mark and on Deception checks to [[/act feint]] against the mark. The assassin's melee and ranged Strikes gain the deadly d8 weapon traits when attacking the mark.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -652,15 +652,11 @@
                 },
                 "rules": [
                     {
-                        "key": "RollOption",
-                        "option": "mark-for-death",
-                        "toggleable": true
-                    },
-                    {
                         "key": "FlatModifier",
                         "predicate": [
                             "action:seek",
-                            "mark-for-death"
+                            "self:effect:mark-for-death",
+                            "target:mark:mark-for-death"
                         ],
                         "selector": "perception",
                         "type": "circumstance",
@@ -670,7 +666,7 @@
                         "key": "FlatModifier",
                         "predicate": [
                             "action:feint",
-                            "mark-for-death"
+                            "target:mark:mark-for-death"
                         ],
                         "selector": "deception",
                         "type": "circumstance",
@@ -681,12 +677,16 @@
                         "key": "ItemAlteration",
                         "mode": "add",
                         "predicate": [
-                            "mark-for-death"
+                            "target:mark:mark-for-death"
                         ],
                         "property": "traits",
                         "value": "deadly-d8"
                     }
                 ],
+                "selfEffect": {
+                    "name": "Effect: Mark for Death",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Mark for Death"
+                },
                 "slug": null,
                 "traits": {
                     "rarity": "common",
