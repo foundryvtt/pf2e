@@ -163,7 +163,7 @@ export class MigrationRunner extends MigrationRunnerBase {
     }
 
     async #migrateItem(migrations: MigrationBase[], item: ItemPF2e): Promise<ItemSourcePF2e | null> {
-        const baseItem = this.#removeSpecialKeys(item.toObject());
+        const baseItem = this.#removeSpecialKeys(fu.deepClone(item._migrationSource) ?? item.toObject());
 
         try {
             return await this.getUpdatedItem(baseItem, migrations);
@@ -182,7 +182,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         options: { pack?: Maybe<string> } = {},
     ): Promise<ActorSourcePF2e | null> {
         const pack = options.pack;
-        const baseActor = this.#removeSpecialKeys(actor.toObject());
+        const baseActor = this.#removeSpecialKeys(fu.deepClone(actor._migrationSource) ?? actor.toObject());
 
         const updatedActor = await (async () => {
             try {
