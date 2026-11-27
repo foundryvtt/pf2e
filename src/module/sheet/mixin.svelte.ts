@@ -9,19 +9,20 @@ interface SvelteApplicationRenderContext extends fa.ApplicationRenderContext {
      */
     state?: object;
     /** This application instance */
-    foundryApp?: SvelteApplication;
+    foundryApp?: fa.api.ApplicationV2;
 }
 
 /**
- * Mixin-injected props. Combine with the context type at the call site:
- *   const { ... }: MyContext & SvelteAppProps<MyContext> = $props();
- * Don't inline the intersection into this type. That triggers a recursive type cycle
- * through `foundryApp: MyApp` for every app.
+ * The root component's props: the render context, with `state` swapped for a getter.
+ *   const { ... }: SvelteAppProps<MyContext> = $props();
  */
-interface SvelteAppProps<TContext extends SvelteApplicationRenderContext = SvelteApplicationRenderContext> {
+type SvelteAppProps<TContext extends SvelteApplicationRenderContext = SvelteApplicationRenderContext> = Omit<
+    TContext,
+    "state"
+> & {
     /** Returns the current state object. Call inside a $derived to track replacement. */
-    getState: () => TContext["state"];
-}
+    getState: () => Readonly<NonNullable<TContext["state"]>>;
+};
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function SvelteApplicationMixin<
@@ -34,8 +35,8 @@ function SvelteApplicationMixin<
             classes: ["pf2e"],
         };
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        protected abstract root: svelte.Component<any>;
+        /** The root component. `never` props let any component be assigned here, whatever props it declares */
+        protected abstract root: svelte.Component<never>;
 
         /**
          * Reactive slot for the render-derived state object. $state.raw means the
@@ -75,13 +76,15 @@ function SvelteApplicationMixin<
         ): void {
             // Wholesale-replace the state object. Components read it via the
             // getState prop inside a $derived so they pick up the new value.
-            this.$state = result.state ?? {};
+            const { state, ...context } = result;
+            this.$state = state ?? {};
             if (options.isFirstRender) {
-                this.#mount = svelte.mount(this.root, {
-                    target: content,
-                    props: { ...result, getState: (): object => this.$state },
-                });
+                // Props are only passed once, so `state` itself is left out
+                const props = { ...context, getState: (): object => this.$state };
+                this.#mount = svelte.mount(this.root, { target: content, props: props as never });
             }
+            // Ensure the DOM is settled before _onRender overrides run
+            svelte.flushSync();
         }
 
         protected override _onClose(options: fa.ApplicationClosingOptions): void {
@@ -92,8 +95,6 @@ function SvelteApplicationMixin<
 
     return SvelteApplication;
 }
-
-type SvelteApplication = InstanceType<ReturnType<typeof SvelteApplicationMixin>>;
 
 export { SvelteApplicationMixin };
 export type { SvelteAppProps, SvelteApplicationRenderContext };

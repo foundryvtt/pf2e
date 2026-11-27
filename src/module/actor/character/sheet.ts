@@ -1140,8 +1140,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 name,
             })}</p>`;
             if (
-                event.ctrlKey ||
-                event.metaKey ||
+                event.shiftKey ||
                 (await foundry.applications.api.DialogV2.confirm({
                     window: { title: "PF2E.CraftingTab.RemoveFormulaDialogTitle", icon: "fa-solid fa-trash" },
                     content,
@@ -1168,7 +1167,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const question = _loc("PF2E.CraftingTab.UnprepareFormulaDialogQuestion", { name });
             const content = `<p class="hint">${question}</p>`;
             if (
-                event.ctrlKey ||
+                event.shiftKey ||
                 (await foundry.applications.api.DialogV2.confirm({
                     window: { title: "PF2E.CraftingTab.UnprepareFormulaDialogTitle" },
                     content,

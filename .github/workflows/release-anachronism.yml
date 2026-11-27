@@ -15,32 +15,15 @@ jobs:
   release:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [24.x]
-
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: pnpm/setup@v3
         with:
-          node-version: ${{ matrix.node-version }}
-
-      - uses: pnpm/action-setup@v4
-
-      - name: Cache NPM Deps
-        id: cache-npm
-        uses: actions/cache@v3
-        with:
-          path: node_modules/
-          key: npm-${{ hashFiles('package-lock.json') }}
-
-      - name: Install NPM Deps
-        if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
-        run: npm ci
+          cache: true
 
       - name: Build
-        run: 'pnpm run build:anachronism --module=${{ inputs.module }}'
+        run: 'pnpm build:anachronism --module=${{ inputs.module }}'
 
       - name: Update Manifest
         run: |

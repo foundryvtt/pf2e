@@ -569,6 +569,11 @@
         },
         {
             "_id": "AOYPBGh4NWH4zzn8",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "QWs9iDWcW20h70wy"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Guisarme",
             "sort": 900000,
@@ -613,6 +618,11 @@
         },
         {
             "_id": "JITCxHxQZAseZdc7",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "xxiJZRbDFaCtnr3P"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Light Hammer",
             "sort": 1000000,
@@ -766,8 +776,14 @@
                 },
                 "rules": [
                     {
+                        "key": "RollOption",
+                        "option": "tight-formation",
+                        "toggleable": true
+                    },
+                    {
                         "key": "FlatModifier",
                         "predicate": [
+                            "tight-formation",
                             {
                                 "or": [
                                     "action:shove",
@@ -777,8 +793,8 @@
                             }
                         ],
                         "selector": [
-                            "fortitude",
-                            "reflex"
+                            "fortitude-dc",
+                            "reflex-dc"
                         ],
                         "type": "circumstance",
                         "value": 2

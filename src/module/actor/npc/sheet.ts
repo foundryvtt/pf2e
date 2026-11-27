@@ -6,16 +6,15 @@ import { NPCSkillsEditor } from "@actor/npc/skills-editor/app.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { createAbilityViewData } from "@actor/sheet/helpers.ts";
 import { RecallKnowledgePopup } from "@actor/sheet/popups/recall-knowledge-popup.ts";
-import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES } from "@actor/values.ts";
+import { SAVE_TYPES } from "@actor/values.ts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
 import type { MeleePF2e } from "@item/melee/index.ts";
 import { createNPCAttackTraitsAndTags, createTagifyTraits, eventToRollParams } from "@module/sheet/helpers.ts";
 import type { UserPF2e } from "@module/user/document.ts";
-import { DicePF2e } from "@scripts/dice.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import type { StatisticRollParameters } from "@system/statistic/index.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
-import { htmlClosest, htmlQuery, htmlQueryAll, localizeList, setHasElement, sortLabeledRecord } from "@util";
+import { htmlClosest, htmlQuery, htmlQueryAll, localizeList, sortLabeledRecord } from "@util";
 import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
 import { NPCConfig } from "./config.ts";
@@ -268,14 +267,16 @@ class NPCSheetPF2e extends AbstractNPCSheet {
 
         // Speed
         const speeds = sheetData.data.movement.speeds;
+        const land = speeds.land;
+        const sourceLand = sourceAttributes.speed.value;
         const noLandTravel = R.omit(speeds, ["land", "travel"]);
         sheetData.speeds = {
             land: {
-                label: speeds.land.label,
-                value: speeds.land.value,
+                label: land?.label ?? "",
+                value: land?.value ?? 0,
                 details: sourceAttributes.speed.details,
-                adjustedHigher: speeds.land.value > sourceAttributes.speed.value,
-                adjustedLower: sourceAttributes.speed.value < speeds.land.value,
+                adjustedHigher: land ? land.value > sourceLand : false,
+                adjustedLower: land ? land.value < sourceLand : sourceLand > 0,
             },
             ...R.mapValues(noLandTravel, (speed, type) => {
                 if (!speed) return null;
@@ -413,18 +414,6 @@ class NPCSheetPF2e extends AbstractNPCSheet {
             const existing = foundry.applications.instances.get("recall-knowledge-breakdown");
             const popup = existing instanceof RecallKnowledgePopup ? existing : new RecallKnowledgePopup({ actor });
             return popup.render({ force: true, actor });
-        };
-
-        handlers["roll-attribute"] = (event, anchor) => {
-            const attribute = anchor?.parentElement?.dataset.attribute;
-            if (!setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute)) return;
-            const modifier = this.actor.system.abilities[attribute].mod;
-            const parts = ["@modifier"];
-            const title = _loc(`PF2E.AbilityCheck.${attribute}`);
-            const data = { modifier };
-            const speaker = ChatMessage.getSpeaker({ token: this.token, actor: this.actor });
-
-            return DicePF2e.d20Roll({ event, parts, data, title, speaker });
         };
 
         if (this.isEditable) {

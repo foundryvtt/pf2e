@@ -12,7 +12,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You can fling a portion of your magic at foes. You gain a ranged unarmed attack in the sling weapon group with a maximum range of 20 feet that deals 1d4 damage. (No ability modifier is added to the damage roll.) The damage type and name of the unarmed attack depends on your heritage, described below; most sprite heritages not presented in this book also use luminous spark. Like other unarmed attacks, you can improve this attack with @UUID[Compendium.pf2e.equipment-srd.Item.Handwraps of Mighty Blows].</p><hr /><p><strong>Draxie</strong> euphoric spark (mental)</p>\n<p><strong>Firefly Sprite</strong> luminous spark (fire)</p>\n<p><strong>Grig</strong> dissonant note (sonic)</p>\n<p><strong>Melixie</strong> sting shot (poison)</p>\n<p><strong>Nyktera</strong> ultrasonic pulse (sonic)</p>\n<p><strong>Pixie</strong> pixie dust (mental)</p>\n<p><strong>Dijiang</strong> primordial pulse (spirit)</p>\n<p><strong>Gandharva</strong> celestial song (sonic)</p>\n<p><strong>Kanchil</strong> puzzling bolt (mental)</p>\n<p><strong>Leungli</strong> surging splash (bludgeoning)</p>"
+            "value": "<p>You can fling a portion of your magic at foes. You gain a ranged unarmed attack in the sling weapon group with a maximum range of 20 feet that deals 1d4 damage. The damage type and name of the unarmed attack depend on your heritage, described below; most sprite heritages not presented in this book also use luminous spark.</p><ul><li><p><strong>Dijiang</strong> primordial pulse (spirit)</p></li><li><p><strong>Draxie</strong> euphoric spark (mental)</p></li><li><p><strong>Firefly or Murxie</strong> luminous spark (fire)</p></li><li><p><strong>Gandharva</strong> celestial song (sonic)</p></li><li><p><strong>Kanchil</strong> puzzling bolt (mental)</p></li><li><p><strong>Kaztili</strong> cruel word (sonic)</p></li><li><p><strong>Kirakor</strong> sour note (sonic)</p></li><li><p><strong>Leungli</strong> surging splash (mental)</p></li><li><p><strong>Melixie</strong> sting shot (poison)</p></li><li><p><strong>Nyktera</strong> ultrasonic pulse (sonic)</p></li><li><p><strong>Pixie</strong> pixie dust (mental)</p></li><li><p><strong>Veredram</strong> thorny barb (piercing)</p>\n</li></ul>"
         },
         "level": {
             "value": 1
@@ -21,233 +21,147 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens Ancestry Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
         },
         "rules": [
             {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "mental",
-                        "dice": 1,
-                        "die": "d4"
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            "self:heritage:dijiang"
+                        ],
+                        "value": {
+                            "damageType": "spirit",
+                            "strikeLabel": "Dijiang"
+                        }
+                    },
+                    {
+                        "predicate": [
+                            "self:heritage:draxie-sprite"
+                        ],
+                        "value": {
+                            "damageType": "mental",
+                            "strikeLabel": "Draxie"
+                        }
+                    },
+                    {
+                        "predicate": [
+                            "self:heritage:firefly-sprite"
+                        ],
+                        "value": {
+                            "damageType": "fire",
+                            "strikeLabel": "Firefly"
+                        }
+                    },
+                    {
+                        "predicate": [
+                            "self:heritage:murxie-sprite"
+                        ],
+                        "value": {
+                            "damageType": "fire",
+                            "strikeLabel": "Murxie"
+                        }
+                    },
+                    {
+                        "predicate": [
+                            "self:heritage:gandharva"
+                        ],
+                        "value": {
+                            "damageType": "sonic",
+                            "strikeLabel": "Gandharva"
+                        }
+                    },
+                    {
+                        "predicate": [
+                            "self:heritage:kanchil"
+                        ],
+                        "value": {
+                            "damageType": "mental",
+                            "strikeLabel": "Kanchil"
+                        }
+                    },
+                    {
+                        "predicate": [
+                            "self:heritage:kaztili-sprite"
+                        ],
+                        "value": {
+                            "damageType": "sonic",
+                            "strikeLabel": "Kaztili"
+                        }
+                    },
+                    {
+                        "predicate": [
+                            "self:heritage:kirakor-sprite"
+                        ],
+                        "value": {
+                            "damageType": "sonic",
+                            "strikeLabel": "Kirakor"
+                        }
+                    },
+                    {
+                        "predicate": [
+                            "self:heritage:leungli"
+                        ],
+                        "value": {
+                            "damageType": "bludgeoning",
+                            "strikeLabel": "Leungli"
+                        }
+                    },
+                    {
+                        "predicate": [
+                            "self:heritage:melixie-sprite"
+                        ],
+                        "value": {
+                            "damageType": "poison",
+                            "strikeLabel": "Melixie"
+                        }
+                    },
+                    {
+                        "predicate": [
+                            "self:heritage:nyktera-sprite"
+                        ],
+                        "value": {
+                            "damageType": "sonic",
+                            "strikeLabel": "Nyktera"
+                        }
+                    },
+                    {
+                        "predicate": [
+                            "self:heritage:pixie-sprite"
+                        ],
+                        "value": {
+                            "damageType": "mental",
+                            "strikeLabel": "Pixie"
+                        }
+                    },
+                    {
+                        "predicate": [
+                            "self:heritage:veredram-sprite"
+                        ],
+                        "value": {
+                            "damageType": "piercing",
+                            "strikeLabel": "Veredram"
+                        }
                     }
-                },
-                "group": "sling",
-                "key": "Strike",
-                "label": "PF2E.SpecificRule.Sprite.SpritesSpark.Draxie",
-                "predicate": [
-                    "self:heritage:draxie"
                 ],
-                "range": {
-                    "max": 20
-                },
-                "slug": "sprites-spark",
-                "traits": [
-                    "unarmed"
-                ]
+                "flag": "spriteSpark",
+                "key": "ChoiceSet"
             },
             {
                 "category": "unarmed",
                 "damage": {
                     "base": {
-                        "damageType": "fire",
+                        "damageType": "{item|flags.system.rulesSelections.spriteSpark.damageType}",
                         "dice": 1,
                         "die": "d4"
                     }
                 },
                 "group": "sling",
                 "key": "Strike",
-                "label": "PF2E.SpecificRule.Sprite.SpritesSpark.LuminousSprite",
-                "predicate": [
-                    "self:heritage:luminous-sprite"
-                ],
-                "range": {
-                    "max": 20
-                },
-                "slug": "sprites-spark",
-                "traits": [
-                    "unarmed"
-                ]
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "sonic",
-                        "dice": 1,
-                        "die": "d4"
-                    }
-                },
-                "group": "sling",
-                "key": "Strike",
-                "label": "PF2E.SpecificRule.Sprite.SpritesSpark.Grig",
-                "predicate": [
-                    "self:heritage:grig"
-                ],
-                "range": {
-                    "max": 20
-                },
-                "slug": "sprites-spark",
-                "traits": [
-                    "unarmed"
-                ]
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "poison",
-                        "dice": 1,
-                        "die": "d4"
-                    }
-                },
-                "group": "sling",
-                "key": "Strike",
-                "label": "PF2E.SpecificRule.Sprite.SpritesSpark.Melixie",
-                "predicate": [
-                    "self:heritage:melixie"
-                ],
-                "range": {
-                    "max": 20
-                },
-                "slug": "sprites-spark",
-                "traits": [
-                    "unarmed"
-                ]
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "sonic",
-                        "dice": 1,
-                        "die": "d4"
-                    }
-                },
-                "group": "sling",
-                "key": "Strike",
-                "label": "PF2E.SpecificRule.Sprite.SpritesSpark.Nyktera",
-                "predicate": [
-                    "self:heritage:nyktera"
-                ],
-                "range": {
-                    "max": 20
-                },
-                "slug": "sprites-spark",
-                "traits": [
-                    "unarmed"
-                ]
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "mental",
-                        "dice": 1,
-                        "die": "d4"
-                    }
-                },
-                "group": "sling",
-                "key": "Strike",
-                "label": "PF2E.SpecificRule.Sprite.SpritesSpark.Pixie",
-                "predicate": [
-                    "self:heritage:pixie"
-                ],
-                "range": {
-                    "max": 20
-                },
-                "slug": "sprites-spark",
-                "traits": [
-                    "unarmed"
-                ]
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "spirit",
-                        "dice": 1,
-                        "die": "d4"
-                    }
-                },
-                "group": "sling",
-                "key": "Strike",
-                "label": "PF2E.SpecificRule.Sprite.SpritesSpark.Dijiang",
-                "predicate": [
-                    "self:heritage:dijiang"
-                ],
-                "range": {
-                    "max": 20
-                },
-                "slug": "sprites-spark",
-                "traits": [
-                    "unarmed"
-                ]
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "sonic",
-                        "dice": 1,
-                        "die": "d4"
-                    }
-                },
-                "group": "sling",
-                "key": "Strike",
-                "label": "PF2E.SpecificRule.Sprite.SpritesSpark.Gandharva",
-                "predicate": [
-                    "self:heritage:gandharva"
-                ],
-                "range": {
-                    "max": 20
-                },
-                "slug": "sprites-spark",
-                "traits": [
-                    "unarmed"
-                ]
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "mental",
-                        "dice": 1,
-                        "die": "d4"
-                    }
-                },
-                "group": "sling",
-                "key": "Strike",
-                "label": "PF2E.SpecificRule.Sprite.SpritesSpark.Kanchil",
-                "predicate": [
-                    "self:heritage:kanchil"
-                ],
-                "range": {
-                    "max": 20
-                },
-                "slug": "sprites-spark",
-                "traits": [
-                    "unarmed"
-                ]
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "bludgeoning",
-                        "dice": 1,
-                        "die": "d4"
-                    }
-                },
-                "group": "sling",
-                "key": "Strike",
-                "label": "PF2E.SpecificRule.Sprite.SpritesSpark.Leungli",
-                "predicate": [
-                    "self:heritage:leungli"
-                ],
+                "label": "PF2E.SpecificRule.Sprite.SpritesSpark.{item|flags.system.rulesSelections.spriteSpark.strikeLabel}",
                 "range": {
                     "max": 20
                 },

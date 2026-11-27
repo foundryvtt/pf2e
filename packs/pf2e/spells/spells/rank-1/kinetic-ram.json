@@ -17,7 +17,7 @@
             }
         },
         "description": {
-            "value": "<p>Gathering kinetic energy, you either focus it in a straight line or disperse it as an encircling ripple. Any creature targeted by this spell must succeed at a Fortitude saving throw or be pushed 10 feet away from you (or 20 feet on a critical failure).</p>\n<p>The spell's area or range and how many creatures it affects is based on how many actions you spend when Casting the Spell.</p><hr /><p><span class=\"action-glyph\">1</span> The spell targets one creature within 15 feet.</p>\n<p><span class=\"action-glyph\">2</span> The spell targets one creature within 30 feet. The distance the target is pushed if it fails is doubled, and on a critical failure, the target is also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] and takes @Damage[1d6[bludgeoning]] damage.</p>\n<p><span class=\"action-glyph\">3</span> The spell targets all creatures in a @Template[emanation|distance:5].</p>"
+            "value": "<p>Gathering kinetic energy, you either focus it in a straight line or disperse it as an encircling ripple. Any creature targeted by this spell must succeed at a Fortitude saving throw or be pushed 10 feet away from you (or 20 feet on a critical failure).</p>\n<p>The spell's area or range and how many creatures it affects is based on how many actions you spend when Casting the Spell.</p><hr /><p><span class=\"action-glyph\">1</span> The spell targets one creature within 15 feet.</p>\n<p><span class=\"action-glyph\">2</span> The spell targets one creature within 30 feet. The distance the target is pushed if it fails is doubled, and on a critical failure, the target is also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] and takes 1d6 bludgeoning damage.</p>\n<p><span class=\"action-glyph\">3</span> The spell targets all creatures in a 5-foot emanation.</p>"
         },
         "duration": {
             "sustained": false,
@@ -28,12 +28,23 @@
         },
         "overlays": {
             "1wl9k6lqynkjha9q": {
-                "_id": "1wl9k6lqynkjha9q",
                 "overlayType": "override",
                 "sort": 2,
                 "system": {
+                    "damage": {
+                        "9VRIeNUo3voae7tM": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "1d6",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "bludgeoning"
+                        }
+                    },
                     "range": {
-                        "value": "30"
+                        "value": "30 feet"
                     },
                     "target": {
                         "value": "1 creature"
@@ -44,12 +55,12 @@
                 }
             },
             "juu7b3p8ujr36quq": {
-                "_id": "juu7b3p8ujr36quq",
                 "overlayType": "override",
                 "sort": 3,
                 "system": {
                     "area": {
                         "areaType": "emanation",
+                        "type": "emanation",
                         "value": "5"
                     },
                     "range": {
@@ -64,12 +75,11 @@
                 }
             },
             "rc0m5cmiwmosbhg4": {
-                "_id": "rc0m5cmiwmosbhg4",
                 "overlayType": "override",
                 "sort": 1,
                 "system": {
                     "range": {
-                        "value": "15"
+                        "value": "15 feet"
                     },
                     "target": {
                         "value": "1 creature"

@@ -1,0 +1,487 @@
+{
+    "_id": "7e4o1BIC0ghLnSvJ",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "BuTeVhvRTvnD22Rz",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Talon",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "knockdown"
+                    ]
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "Xphcw09cmWNTYvZI": {
+                        "damage": "3d10+17",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "agile",
+                        "reach-20"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "pZrAgPsEox1kS3PV",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Beak",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "5d5qovOEonm3p8By": {
+                        "damage": "3d8+17",
+                        "damageType": "piercing"
+                    },
+                    "bepjZVt86786uZZW": {
+                        "category": "persistent",
+                        "damage": "1d12",
+                        "damageType": "bleed"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "reach-15"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "97HYh0wjWKQB0JPq",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Planar Acclimation",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The jubjub bird always treats the plane it's on as its home plane.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BiZxvQzlUTTpbifu",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Adaptive Defense",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The jubjub bird is damaged by an attack that deals cold, electricity, fire, or sonic damage</p><hr /><p><strong>Effect</strong> The jubjub bird takes damage as normal, then gains resistance 20 to the triggering damage type for 1 round. If the triggering attack dealt more than one of the listed damage types, the jubjub bird gains resistance 20 to each of them.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Adaptive Defense",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Adaptive Defense"
+                },
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3ZL3sRrQ2THkwjfw",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Perpetual Passion",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Jubjub birds grow more frenzied and dangerous as their situation becomes more desperate. The first time the bird's Hit Points are reduced below half of its maximum HP (170 HP), it gains a +1 circumstance bonus to its AC and attack rolls. The first time its Hit Points are reduced below a quarter of its maximum HP (85 HP), the bonus increases to +2, and its Strikes deal an additional 2d6 bludgeoning damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "hp-remaining",
+                                    170
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "ac",
+                            "attack-roll"
+                        ],
+                        "slug": "perpetual-passion-bonus",
+                        "type": "circumstance",
+                        "value": 1
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "upgrade",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "hp-remaining",
+                                    85
+                                ]
+                            }
+                        ],
+                        "selectors": [
+                            "ac",
+                            "attack-roll"
+                        ],
+                        "slug": "perpetual-passion-bonus",
+                        "value": 2
+                    },
+                    {
+                        "damageType": "bludgeoning",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "hp-remaining",
+                                    85
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ckrJUpyIZZoNombz",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Scream Shrill and High",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The jubjub bird rends the sky with a shrill note like a pencil on a slate. Non-Tane creatures within 120 feet must attempt a @Check[will|dc:40] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is startled by the cry and becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and is momentarily frozen with fear, becoming @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and is immobilized for as long as it remains frightened.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JvUmBIjSBxO4bbLS",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Sprint",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The jubjub bird Strides three times in a straight line.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DqoSWuq7JUnayqPF",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Sudden Charge",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The jubjub bird Strides twice. If it ends its movement within melee reach of at least one creature, it can make a melee Strike against that creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hu5WyfpOEVnI1B7A",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Knockdown",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Knockdown]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "knockdown",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Jubjub Bird",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 5
+            },
+            "con": {
+                "mod": 6
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 9
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 36
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 340,
+                "temp": 0,
+                "value": 340
+            },
+            "immunities": [
+                {
+                    "type": "acid"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 20
+                    }
+                ],
+                "value": 50
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 15
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>A jubjub bird resembles a giant dodo with long, muscular legs and wings capable of brief, if awkward, flight. When attacked with magic, their brilliant plumage, normally purple, shifts randomly in hue and pattern with each spell that hits home.</p>\n<p>Jubjub birds belong to the Tane, a group of powerful creatures brought into existence as living weapons by the Eldest. Jubjubs have the dubious reputation of being the least powerful and intelligent of the Tane, though they're still formidable enough that few who underestimate them live long enough to regret the mistake.</p>\n<p>Though these birds are sometimes kept as guardians or mounts, the Eldest generally create them for a singular purpose: to be hunted. Just threatening enough to provide a sporting challenge for the high fey lords, once they've been brought down, they make a delicious prize. Their cooked meat is famously exquisite, especially fermented for a few months in mahogany or ivory jars. Mortals who participate in such hunts, however, should take care if they're offered a portion of the prize—certain fey enjoy adding unusual seasonings, including, but not limited to, sawdust, glue, and locusts.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Feybound"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 24,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 29
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 23
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 20
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 30
+            },
+            "athletics": {
+                "base": 32
+            },
+            "intimidation": {
+                "base": 28
+            },
+            "nature": {
+                "base": 30
+            },
+            "survival": {
+                "base": 32
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "huge"
+            },
+            "value": [
+                "beast",
+                "tane"
+            ]
+        }
+    },
+    "type": "npc"
+}

@@ -1,0 +1,44 @@
+{
+    "_id": "AWvUlEidhb4B7Elb",
+    "folder": "iKTSsLvhOQjhObZ2",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Dreaming Faun",
+    "system": {
+        "ancestry": {
+            "name": "Faun",
+            "slug": "faun",
+            "uuid": "Compendium.pf2e.ancestries.Item.qnKZt0oYS6nVYBfN"
+        },
+        "description": {
+            "value": "<p>You're most at home in wistful environs and dreamy landscapes, where sleeping through the afternoon is a regular routine. If possible, you convince others to share that dream with you. When you rest for 8 or more hours, you recover additional Hit Points equal to your level. You gain a +2 circumstance bonus to saving throws against sleep and effects that cause dreams or nightmares (such as the @UUID[Compendium.pf2e.spells-srd.Item.Nightmare] spell).</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:nightmare",
+                            "item:trait:sleep"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

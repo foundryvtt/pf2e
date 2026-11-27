@@ -1,0 +1,60 @@
+{
+    "_id": "3X6nt9H1f2JgJ4t7",
+    "img": "icons/skills/wounds/blood-drip-droplet-red.webp",
+    "name": "Effect: Blood Rage",
+    "system": {
+        "description": {
+            "value": "<p>You gain 20 temporary Hit Points and a +1 status bonus to melee attack rolls but take a –2 penalty to your AC.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": 20
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "melee-attack-roll"
+                ],
+                "slug": "blood-rage-melee-bonus",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "ac"
+                ],
+                "slug": "blood-rage-ac-penalty",
+                "type": "status",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

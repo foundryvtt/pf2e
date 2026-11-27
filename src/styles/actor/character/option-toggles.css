@@ -1,0 +1,47 @@
+.app.actor.sheet.character section.window-content .crb-style {
+    .sheet-body .sheet-content {
+        & > .tab.active {
+            ul.option-toggles {
+                border-image-repeat: repeat;
+                border-image-slice: 11;
+                border-image-source: url("/assets/sheet/frame-elegant.svg");
+                border-image-width: 14px;
+                border-style: double;
+                display: flex;
+                flex-flow: column wrap;
+                font-family: var(--body-serif);
+                gap: var(--spacer-1);
+                list-style: none;
+                margin-bottom: var(--spacer-8);
+                padding: var(--spacer-8) 1rem;
+
+                > li {
+                    align-items: center;
+                    display: flex;
+                    height: 1.5rem;
+                    width: 100%;
+
+                    label {
+                        align-items: center;
+                        display: flex;
+                        gap: var(--spacer-4);
+
+                        input[type="checkbox"] {
+                            height: 1.125rem;
+                            margin: 0;
+                            padding: 0;
+                        }
+
+                        .unchecked-disabled {
+                            color: var(--color-text-dark-inactive);
+                        }
+
+                        select {
+                            margin-left: 0.25em;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

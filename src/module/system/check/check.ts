@@ -179,9 +179,7 @@ class Check {
         const roll = await new CheckRoll(`${dice}${totalModifierPart}`, {}, options).evaluate({ allowInteractive });
 
         // Collect the check specific options. These only exist for DoS Adjustments and notes
-        const naturalTotal = roll.dice
-            .map((d) => d.results.find((r) => r.active && !r.discarded)?.result ?? null)
-            .find(R.isTruthy);
+        const naturalTotal = roll.naturalResult;
         const postRollOptions = [
             `check:total:${roll.total}`,
             `check:total:natural:${naturalTotal}`,
@@ -224,6 +222,8 @@ class Check {
             context.outcome = DEGREE_OF_SUCCESS_STRINGS[degree.value];
             context.unadjustedOutcome = DEGREE_OF_SUCCESS_STRINGS[degree.unadjusted];
             roll.options.degreeOfSuccess = degree.value;
+            // For notes that care about the rolled outcome rather than the adjusted one
+            postRollOptions.push(`check:outcome:unadjusted:${sluggify(context.unadjustedOutcome)}`);
         }
 
         const notes =

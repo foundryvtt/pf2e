@@ -22,7 +22,7 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
 
         // Save world creation date/time if null
         const setting = game.pf2e.settings.worldClock;
-        if (!setting.worldCreatedOn) {
+        if (!setting.worldCreatedOn && game.user.isGM) {
             game.settings.set(SYSTEM_ID, "worldClock", { ...setting, worldCreatedOn: DateTime.utc().toISO() });
         }
     }

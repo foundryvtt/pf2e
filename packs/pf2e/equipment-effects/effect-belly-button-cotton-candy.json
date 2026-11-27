@@ -1,0 +1,57 @@
+{
+    "_id": "gUgNoa6d1Ia8oAcO",
+    "img": "icons/magic/air/wind-vortex-swirl-blue-purple.webp",
+    "name": "Effect: Belly Button Cotton Candy",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Belly Button Cotton Candy]</p>\n<p>You gain resistance 5 to physical damage and weakness 15 to fire and water, and you take a –15-foot circumstance penalty to your Speeds (to a minimum Speed of 5 feet).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "physical",
+                "value": 5
+            },
+            {
+                "key": "Weakness",
+                "type": [
+                    "fire",
+                    "water"
+                ],
+                "value": 15
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "type": "circumstance",
+                "value": -15
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

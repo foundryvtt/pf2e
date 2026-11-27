@@ -143,14 +143,25 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>Irahkatu can mimic the sounds of a person in distress by attempting a Deception check to @UUID[Compendium.pf2e.actionspf2e.Item.Lie]. Irahkatu has a +4 circumstance bonus to this check.</p>"
+                    "value": "<p>Irahkatu can mimic the sounds of a person in distress by attempting a Deception check to [[/act lie options=voice-imitation]]. Irahkatu has a +4 circumstance bonus to this check.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:lie",
+                            "voice-imitation"
+                        ],
+                        "selector": "deception",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -355,10 +366,7 @@
                 "special": [
                     {
                         "base": 27,
-                        "label": "when using Voice Imitation",
-                        "predicate": [
-                            "voice-imitation"
-                        ]
+                        "label": "when using Voice Imitation"
                     }
                 ]
             },

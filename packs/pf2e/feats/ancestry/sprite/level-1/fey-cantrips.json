@@ -12,7 +12,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You've learned the cantrips sprites have used since time immemorial. You gain @UUID[Compendium.pf2e.spells-srd.Item.Light] and @UUID[Compendium.pf2e.spells-srd.Item.Ghost Sound] as primal innate cantrips. If you have the grig heritage, you also gain @UUID[Compendium.pf2e.spells-srd.Item.Detect Magic], and if you have the draxie heritage, you gain @UUID[Compendium.pf2e.spells-srd.Item.Prestidigitation].</p>"
+            "value": "<p>You've learned the cantrips sprites have used since time immemorial. You gain @UUID[Compendium.pf2e.spells-srd.Item.Figment] and @UUID[Compendium.pf2e.spells-srd.Item.Light] as primal innate cantrips. If you have the kirakor sprite heritage, you also gain @UUID[Compendium.pf2e.spells-srd.Item.Detect Magic] and can use figment to create sounds or visions. If you have the draxie sprite heritage, you also gain @UUID[Compendium.pf2e.spells-srd.Item.Prestidigitation]. A cantrip is heightened to a spell rank equal to half your level rounded up.</p>"
         },
         "level": {
             "value": 1
@@ -21,9 +21,9 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens Ancestry Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
         },
         "rules": [
             {
@@ -33,11 +33,11 @@
                 "predicate": [
                     {
                         "or": [
-                            "item:slug:ghost-sound",
+                            "item:slug:figment",
                             "item:slug:light",
                             {
                                 "and": [
-                                    "self:heritage:grig",
+                                    "self:heritage:kirakor",
                                     "item:slug:detect-magic"
                                 ]
                             },
@@ -61,11 +61,11 @@
                 "predicate": [
                     {
                         "or": [
-                            "item:slug:ghost-sound",
+                            "item:slug:figment",
                             "item:slug:light",
                             {
                                 "and": [
-                                    "self:heritage:grig",
+                                    "self:heritage:kirakor",
                                     "item:slug:detect-magic"
                                 ]
                             },

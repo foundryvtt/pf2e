@@ -1,0 +1,70 @@
+{
+    "_id": "pst4AuNz54K9f6mJ",
+    "folder": "khXMNyAoAoZ70PpT",
+    "img": "systems/pf2e/icons/ancestries/fadrim.webp",
+    "name": "Fadrim",
+    "system": {
+        "ancestry": null,
+        "description": {
+            "value": "<p>You're someone with a connection to the powers of the First World, granting you otherworldly features and abilities. You gain the fadrim trait. You gain a weakness to cold iron equal to half your level (minimum 1). You can cast @UUID[Compendium.pf2e.spells-srd.Item.Light] as a primal innate spell at will, though this spell might change if you select a lineage feat. A cantrip is heightened to half your level rounded up. You also gain low-light vision, or you gain darkvision if your ancestry already has low-light vision. You can select from fadrim feats and feats from your ancestry whenever you gain an ancestry feat.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "key": "Weakness",
+                "type": "cold-iron",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "Sense",
+                "selector": "low-light-vision"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "self:low-light-vision:from-ancestry"
+                ],
+                "selector": "darkvision"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:light",
+                    "spellcasting:innate",
+                    {
+                        "not": "replaced-fadrim-spell"
+                    }
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:light",
+                    "spellcasting:innate",
+                    {
+                        "not": "replaced-fadrim-spell"
+                    }
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:fadrim"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "fadrim"
+            ]
+        }
+    },
+    "type": "heritage"
+}

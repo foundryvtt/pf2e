@@ -1,0 +1,438 @@
+{
+    "_id": "CHLE0BV8wQJY4ksk",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "MnSUoytut0GW0m5T",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "nxn8gg1guzr52l5nzfhc": {
+                        "damage": "2d10+13",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": "jaws",
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "magical",
+                        "reach-10",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ie4gmd2VHGos4LQH",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Hoof",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "uz9u9q9bu7y9lde66kh7": {
+                        "damage": "2d8+13",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "2UvLaKfleJXr0wRK",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Gracious Guest",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The mari lwyd will not pass through a closed threshold without first receiving permission to do so, though they can compel permission using Pwnco.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SDgyxBou81j2AyWb",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mostly Harmless",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The mari lwyd is out to enjoy the season but becomes dangerous if provoked. Their attacks lose the nonlethal trait against creatures that have damaged them and objects.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "mostly-harmless",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "mostly-harmless"
+                        ],
+                        "property": "traits",
+                        "value": "nonlethal"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "c1mLmIbHNfpm9K9q",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Persistent Wassailing",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The mari lwyd is immune to any effect that would prevent them from singing or prevent others from hearing their song.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "definition": [
+                            "persistent-wassailing"
+                        ],
+                        "key": "Immunity",
+                        "label": "PF2E.IWR.Custom.PersistentWassailing",
+                        "type": "custom"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nulw9MDaM1d9W6gK",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Festive Rampage",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The mari lwyd gained permission to enter a structure</p><hr /><p><strong>Effect</strong> The mari lwyd Strides or Swims to enter the structure and goes on a celebratory rampage, smashing furniture and dishware. They then gain resistance 10 to all damage (except cold iron), and their attacks ignore 10 Hardness of any objects they encounter. The effect lasts until the mari lwyd leaves the structure, damages a living creature, or is offered food and drink.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Festive Rampage",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Festive Rampage"
+                },
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EU7G7i1V5h8n4wvv",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Joyous Procession",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The mari lwyd Strides, compelling nearby creatures to join their celebration. Each creature in a @Template[type:emanation|distance:10] at the start of the Stride must succeed at a @Check[will|dc:30] save or use its first action on its next turn to Stride directly toward the mari lwyd.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PctW8ZqA48LzgEpa",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Pwnco",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The mari lwyd begins a rhyming contest, requesting entrance to a structure from creatures within. Before the start of the mari lwyd's next turn, at least one occupant can spend 2 actions to [[/act perform dc=33]] a song of their own; the DC is equal to the mari lwyd's Performance DC. If multiple occupants attempt the check, the group takes the highest result. If no occupant spends actions to respond, the group critically fails. Determine the results at the start of the mari lwyd's turn.</p><hr /><p><strong>Critical Success</strong> The respondents win the Pwnco, and the mari lwyd can't enter the structure for 1 month.</p>\n<p><strong>Success</strong> The response is good, and the Pwnco continues. The mari lwyd must use Pwnco again on their next turn, taking a circumstance penalty to their Performance DC equal to double the number of times they have used Pwnco to attempt to enter the structure today.</p>\n<p><strong>Failure</strong> The respondents lose. The door unlocks and opens, and any nonmagical barriers move out of the way. If the door is magically sealed, the mari lwyd attempts to counteract the effect (counteract rank 6, counteract modifier [[/r 1d20+22 #Counteract]]{+22}).</p>\n<p><strong>Critical Failure</strong> As failure, but the mari lwyd gets a result one degree of success better than they roll for any attempts to counteract magical barriers.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Mari Lwyd",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 6
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": 4
+            },
+            "str": {
+                "mod": 7
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 30
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 200,
+                "temp": 0,
+                "value": 200
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": 30
+                    }
+                ],
+                "value": 50
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "cold-iron",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "fey"
+                ]
+            },
+            "level": {
+                "value": 11
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Winter celebrants beware! A song at the door may herald the arrival of a mari lwyd, a shrouded creature with a grinning, horse-like skull. Despite their macabre visage, these fey singers mean no harm, wishing only to join in with seasonal festivities and partake in hospitality. They're especially partial to alcohol and cheese but can be appeased with other treats if the household has none.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Feybound"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 21,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 120,
+                    "type": "lifesense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 24
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 18
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 23
+            },
+            "diplomacy": {
+                "base": 19
+            },
+            "intimidation": {
+                "base": 21
+            },
+            "performance": {
+                "base": 23
+            },
+            "society": {
+                "base": 19
+            },
+            "thievery": {
+                "base": 21
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "fey"
+            ]
+        }
+    },
+    "type": "npc"
+}

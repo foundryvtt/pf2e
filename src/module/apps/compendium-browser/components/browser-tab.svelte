@@ -64,7 +64,7 @@
     </ul>
 </div>
 
-<style lang="scss">
+<style>
     .browser-tab {
         display: grid;
         grid-template-columns: 19em auto;

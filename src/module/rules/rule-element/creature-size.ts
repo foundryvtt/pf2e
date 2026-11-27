@@ -59,6 +59,13 @@ class CreatureSizeRuleElement extends RuleElement<CreatureSizeRuleSchema> {
 
     static #decrementMap = { tiny: "tiny", sm: "tiny", med: "sm", lg: "med", huge: "lg", grg: "huge" } as const;
 
+    /** Fail if under a polymorph effect by referencing a flag currently only set by BattleForm rule elements. */
+    protected override test(rollOptions?: string[] | Set<string>): boolean {
+        const itemTraits = this.item.system.traits.value;
+        if (this.actor.flags[SYSTEM_ID].polymorphed && itemTraits?.includes("polymorph")) return false;
+        return super.test(rollOptions);
+    }
+
     #incrementSize(size: Size, amount: number): Size {
         if (amount === 0) return size;
         return this.#incrementSize(CreatureSizeRuleElement.#incrementMap[size], amount - 1);

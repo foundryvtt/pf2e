@@ -3,6 +3,7 @@ import { createProficiencyModifier } from "@actor/modifiers.ts";
 import { AttributeString, SkillSlug } from "@actor/types.ts";
 import { SpellPF2e } from "@item";
 import { MagicTradition } from "@item/spell/types.ts";
+import { ZeroToFour } from "@module/data.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e } from "@util/misc.ts";
@@ -77,12 +78,17 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
         ];
         const saveSelectors = [`${tradition}-spell-dc`, "spell-dc"];
 
+        // Casters use their own spellcasting proficiency, others fall back on the skill
         const skillRank = actor.skills[skill].rank;
-        const trickRank = skillRank === 4 ? 2 : skillRank === 3 ? 1 : 0;
+        const trickRank = Math.max(
+            actor.spellcasting.base.rank ?? 0,
+            skillRank === 4 ? 2 : skillRank === 3 ? 1 : 0,
+        ) as ZeroToFour;
         const levelProficiencyBonus =
             trickRank === 0 && !game.pf2e.settings.variants.pwol.enabled
                 ? createProficiencyModifier({ actor, rank: 0, domains, addLevel: true })
                 : null;
+        if (levelProficiencyBonus) levelProficiencyBonus.label = this.name;
 
         this.statistic = new Statistic(actor, {
             slug: `trick-${tradition}`,

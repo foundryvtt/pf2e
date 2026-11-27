@@ -155,13 +155,16 @@ const conditionTypes: Record<ConditionSlug, string> = {
     ...tokenHUDConditions,
     cursebound: "PF2E.ConditionTypeCursebound",
     friendly: "PF2E.ConditionTypeFriendly",
+    glitching: "PF2E.ConditionTypeGlitching",
     helpful: "PF2E.ConditionTypeHelpful",
     hostile: "PF2E.ConditionTypeHostile",
     indifferent: "PF2E.ConditionTypeIndifferent",
     malevolence: "PF2E.ConditionTypeMalevolence",
     observed: "PF2E.ConditionTypeObserved",
+    suppressed: "PF2E.ConditionTypeSuppressed",
     unfriendly: "PF2E.ConditionTypeUnfriendly",
     unnoticed: "PF2E.ConditionTypeUnnoticed",
+    untethered: "PF2E.ConditionTypeUntethered",
 };
 
 const armorCategories: Record<ArmorCategory, string> = {
@@ -709,7 +712,7 @@ export const PF2ECONFIG = {
         bomb: "PF2E.WeaponDescriptionBomb",
     },
 
-    usages: USAGES,
+    usages: R.mapValues(USAGES, (u) => u.label),
 
     magicTraditions,
     deityDomains,

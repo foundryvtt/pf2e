@@ -1,7 +1,11 @@
 <script lang="ts">
     import * as R from "remeda";
     import type { Snippet } from "svelte";
-    import { provideControlsWidths } from "./controls-width.ts";
+    import { provideControlsWidths } from "../controls-width.ts";
+    import { gapToSibling } from "../list/drop-hit.ts";
+    import { ListDrop, provideListDrop } from "../list/drop.svelte.ts";
+    import { rowNameNav } from "../list/row-nav.ts";
+    import { compareSortValues, ListSort } from "../list/sort.svelte.ts";
     import GroupHeader from "./group-header.svelte";
     import SpellRow from "./spell-row.svelte";
     import type {
@@ -9,7 +13,6 @@
         SpellListColumn,
         SpellListGroupData,
         SpellListSortColumn,
-        SpellListSortState,
         SpellRowData,
     } from "./types.ts";
 
@@ -20,11 +23,13 @@
         actions: SpellListActions;
         /** Whether the current user can edit (gates edit/delete buttons and row dragging) */
         editable: boolean;
+        /** Rows can be reordered by drag. False while the groups are filtered, which hides rows' true neighbors. */
+        reorderable?: boolean;
         /** Extra controls appended to each row's control cell */
         extraControls?: Snippet<[SpellRowData]>;
     }
 
-    const { groups, columns, actions, editable, extraControls }: SpellListProps = $props();
+    const { groups, columns, actions, editable, reorderable = true, extraControls }: SpellListProps = $props();
     const uid = $props.id();
 
     const columnWidths: Record<SpellListColumn, number> = { defense: 6, range: 4, uses: 4 };
@@ -45,64 +50,68 @@
     const sm = $derived(columns.filter((c) => c !== "range"));
     const xs = $derived(columns.filter((c) => c !== "range" && c !== "defense"));
 
-    // Arrow keys walk the row names across all groups, as a faster alternative to Tab
-    const nameNav = (event: KeyboardEvent & { currentTarget: HTMLElement }): void => {
-        if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
-        if (
-            !(event.target && fu.isElementInstanceOf(event.target, HTMLButtonElement)) ||
-            !event.target.classList.contains("name")
-        )
-            return;
-        event.preventDefault();
-        const names = Array.from(event.currentTarget.querySelectorAll<HTMLButtonElement>("button.name"));
-        names[names.indexOf(event.target) + (event.key === "ArrowDown" ? 1 : -1)]?.focus();
-    };
-
-    // View-only sort within each group, cycled per column: ascending, descending, back to manual order.
-    // While active, reorder drops are suspended, since an insertion point means nothing in a sorted view.
-    let sortBy = $state<SpellListSortState | null>(null);
-    const cycleSort = (column: SpellListSortColumn): void => {
-        sortBy =
-            sortBy?.column !== column
-                ? { column, direction: "ascending" }
-                : sortBy.direction === "ascending"
-                  ? { column, direction: "descending" }
-                  : null;
-    };
-    // Numeric collation so "30 feet" sorts before "120 feet"
-    const collator = new Intl.Collator(game.i18n.lang, { numeric: true, sensitivity: "base" });
+    // View-only sort within each group. While active, reorder drops are suspended, since an insertion point
+    // means nothing in a sorted view.
+    const sort = new ListSort<SpellListSortColumn>();
+    const sortValue = (s: SpellRowData, column: SpellListSortColumn): string | number | null =>
+        column === "prepared"
+            ? (s.slots?.preparedCount ?? null)
+            : column === "name"
+              ? s.name
+              : column === "defense"
+                ? s.defense
+                : s.range;
     const sortedGroups = $derived.by(() => {
-        const sort = sortBy;
-        if (!sort) return groups;
-        const value = (s: SpellRowData): string =>
-            sort.column === "name" ? s.name : sort.column === "defense" ? (s.defense ?? "") : (s.range ?? "");
-        const direction = sort.direction === "ascending" ? 1 : -1;
+        const state = sort.state;
+        if (!state) return groups;
+        const { column, direction } = state;
         return groups.map((g) => ({
             ...g,
             spells: [...g.spells].sort((a, b) => {
-                // Prepared counts compare numerically, and slotless rows sort last
-                if (sort.column === "prepared") {
-                    const [ca, cb] = [a.slots?.preparedCount, b.slots?.preparedCount];
-                    if (ca === undefined || cb === undefined)
-                        return Number(ca === undefined) - Number(cb === undefined);
-                    return direction * (ca - cb);
-                }
-                const [va, vb] = [value(a), value(b)];
-                // Rows without a value in the column sort last in either direction
-                if (!va || !vb) return Number(!va) - Number(!vb);
+                const [va, vb] = [sortValue(a, column), sortValue(b, column)];
                 // Unit-less ranges (touch) sort before measured ones
-                if (sort.column === "range") {
-                    const [ma, mb] = [/^\d/.test(va), /^\d/.test(vb)];
-                    if (ma !== mb) return direction * (Number(ma) - Number(mb));
+                if (column === "range" && va && vb) {
+                    const [ma, mb] = [/^\d/.test(String(va)), /^\d/.test(String(vb))];
+                    if (ma !== mb) return (direction === "ascending" ? 1 : -1) * (Number(ma) - Number(mb));
                 }
-                return direction * collator.compare(va, vb);
+                return compareSortValues(va, vb, direction);
             }),
         }));
     });
+    // One drop target for the whole list. Without a place for the drop (sorted, filtered, off the rows), it is left
+    // for whatever drop target the list sits in.
+    const drop = new ListDrop(() => {
+        const handleDrop = actions.handleDrop;
+        const ids = new Map(sortedGroups.flatMap((g) => g.spells.map((s) => [s.uuid as string, s.id])));
+        return {
+            lists: sortedGroups.map((g) => ({
+                id: String(g.rank),
+                nodes: g.spells.map((s) => ({ key: s.uuid, children: null })),
+            })),
+            reorderable: reorderable && !sort.active,
+            rowSelector: "li.spell-row",
+            // A spell's rank is its own, so a listed spell only moves within its group
+            allows: (hit, drag, index) => {
+                if (hit.kind !== "gap") return false;
+                if (!drag || !index.has(drag.key)) return true;
+                return index.listOf(gapToSibling(hit.gap).key) === index.listOf(drag.key);
+            },
+            onDrop: handleDrop
+                ? (event, hit) => {
+                      if (hit.kind !== "gap") return;
+                      const { key, before } = gapToSibling(hit.gap);
+                      const id = ids.get(key);
+                      if (id) handleDrop(event, { id, before });
+                  }
+                : undefined,
+        };
+    });
+    provideListDrop(drop);
+
     // Content stops shrinking at the sum of the xs columns' minimums, and a too-small container clips or scrolls
     const minWidth = $derived.by(() => {
         const tracks = nameWidth + R.sumBy(xs, (c) => columnWidths[c]);
-        return `calc(${tracks}rem + ${controlsWidth}px + ${xs.length + 1} * var(--space-4) + 2 * var(--space-8))`;
+        return `calc(${tracks}rem + ${controlsWidth}px + ${xs.length + 1} * var(--spacer-4) + 2 * var(--spacer-8))`;
     });
 </script>
 
@@ -110,26 +119,19 @@
 <div
     class="spell-list-groups"
     role="presentation"
-    onkeydown={nameNav}
+    onkeydown={rowNameNav}
     style:--spell-row-columns={template(columns)}
     style:--spell-row-columns-sm={template(sm)}
     style:--spell-row-columns-xs={template(xs)}
     style:min-width={minWidth}
+    {@attach drop.zone}
 >
     {#each sortedGroups as group (group.rank)}
         <section class="spell-list-group" aria-labelledby="{uid}-group-{group.rank}">
-            <GroupHeader
-                {group}
-                {columns}
-                {actions}
-                {editable}
-                sort={sortBy}
-                onSort={cycleSort}
-                labelId="{uid}-group-{group.rank}"
-            />
+            <GroupHeader {group} {columns} {actions} {editable} {sort} labelId="{uid}-group-{group.rank}" />
             <ol class="spell-list">
                 {#each group.spells as spell (spell.id)}
-                    <SpellRow {spell} {columns} {actions} {editable} reorderable={sortBy === null} {extraControls} />
+                    <SpellRow {spell} {columns} {actions} {editable} {extraControls} />
                 {/each}
                 {#if group.spells.length === 0}
                     <li class="empty">{_loc("PF2E.Actor.Creature.SpellPreparation.EmptyGroup")}</li>
@@ -145,7 +147,29 @@
         container: spell-list / inline-size;
         display: flex;
         flex-direction: column;
-        gap: var(--space-8);
+        gap: var(--spacer-8);
+    }
+
+    /* Header template and type for the shared ListHeader */
+    .spell-list-group {
+        --list-columns: var(--spell-row-columns);
+        --list-header-font-family: var(--sans-serif);
+        --list-header-font-weight: 500;
+        --list-header-line-height: 1.75;
+        --list-header-padding-block: var(--spacer-4);
+        --list-header-padding-inline: var(--spacer-8);
+    }
+
+    @container spell-list (width < 24rem) {
+        .spell-list-group {
+            --list-columns: var(--spell-row-columns-sm, var(--spell-row-columns, 1fr));
+        }
+    }
+
+    @container spell-list (width < 19rem) {
+        .spell-list-group {
+            --list-columns: var(--spell-row-columns-xs, var(--spell-row-columns, 1fr));
+        }
     }
 
     /* Undo core's ul/ol margin, padding, and markers */
@@ -157,8 +181,8 @@
         .empty {
             color: var(--color-text-secondary, inherit);
             font-style: italic;
-            padding-block: var(--space-4);
-            padding-inline: var(--space-8);
+            padding-block: var(--spacer-4);
+            padding-inline: var(--spacer-8);
         }
     }
 </style>

@@ -15,4 +15,4 @@ const args = argv
     .version(false)
     .parseSync();
 process.env.SYSTEM_ID = args.system;
-execSync("npx vite serve", { encoding: "utf-8", stdio: "inherit" });
+execSync("pnpm exec vite serve", { encoding: "utf-8", stdio: "inherit" });

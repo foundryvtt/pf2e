@@ -42,7 +42,6 @@ import type { RuleElement, RuleElements } from "@module/rules/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import type { RegionBehaviorPF2e, RegionDocumentPF2e, ScenePF2e, TokenDocumentPF2e, WallDocumentPF2e } from "@scene";
 import type { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config/index.ts";
-import type { DicePF2e } from "@scripts/dice.ts";
 import type {
     calculateXP,
     editPersistent,
@@ -189,7 +188,6 @@ interface GamePF2e extends Game<
         CheckModifier: typeof CheckModifier;
         Coins: typeof Coins;
         ConditionManager: typeof ConditionManager;
-        Dice: typeof DicePF2e;
         ElementalBlast: typeof ElementalBlast;
         Modifier: typeof Modifier;
         ModifierType: { [K in Uppercase<ModifierType>]: Lowercase<K> };

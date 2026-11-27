@@ -504,14 +504,31 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The marsh giant makes a melee Strike with its gaff. If it hits, it twists and yanks the gaff to knock the target @UUID[Compendium.pf2e.conditionitems.Item.Prone] and create an awful wound, dealing @Damage[2d4[persistent,bleed]] damage to the creature.</p>"
+                    "value": "<p>The marsh giant makes a melee Strike with its gaff. If it hits, it twists and yanks the gaff to knock the target @UUID[Compendium.pf2e.conditionitems.Item.Prone] and create an awful wound, dealing 2d4 persistent bleed damage to the creature.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "twist-the-hook",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 2,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "twist-the-hook"
+                        ],
+                        "selector": "gaff-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []

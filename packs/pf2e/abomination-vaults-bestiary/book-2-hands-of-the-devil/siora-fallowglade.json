@@ -198,7 +198,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Siora can see the target she intends to mark</p>\n<hr />\n<p><strong>Effect</strong> Siora designates a single target as her mark. She gains a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] her target, and her spectral hand Strikes against her target gain the deadly d8 weapon trait.</p>"
+                    "value": "<p><strong>Requirements</strong> Siora can see the target she intends to mark</p>\n<hr />\n<p><strong>Effect</strong> Siora designates a single target as her mark. She gains a +2 circumstance bonus to Perception checks to [[/act seek options=target:mark:mark-for-death]] her target, and her spectral hand Strikes against her target gain the deadly d8 weapon trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -207,15 +207,11 @@
                 },
                 "rules": [
                     {
-                        "key": "RollOption",
-                        "option": "mark-for-death",
-                        "toggleable": true
-                    },
-                    {
                         "key": "FlatModifier",
                         "predicate": [
-                            "mark-for-death",
-                            "action:seek"
+                            "action:seek",
+                            "self:effect:mark-for-death",
+                            "target:mark:mark-for-death"
                         ],
                         "selector": "perception",
                         "type": "circumstance",
@@ -226,13 +222,17 @@
                         "key": "ItemAlteration",
                         "mode": "add",
                         "predicate": [
-                            "mark-for-death",
+                            "target:mark:mark-for-death",
                             "item:slug:shadow-hand"
                         ],
                         "property": "traits",
                         "value": "deadly-d8"
                     }
                 ],
+                "selfEffect": {
+                    "name": "Effect: Mark for Death",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Mark for Death"
+                },
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -285,7 +285,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The shadow can @UUID[Compendium.pf2e.actionspf2e.Item.Hide] or end its @UUID[Compendium.pf2e.actionspf2e.Item.Sneak] in a creature's or object's shadow.</p>"
+                    "value": "<p>The shadow can [[/act hide]] or end its [[/act sneak]] in a creature's or object's shadow.</p>"
                 },
                 "publication": {
                     "license": "OGL",

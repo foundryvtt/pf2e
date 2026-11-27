@@ -204,7 +204,7 @@
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+                    "title": "Pathfinder #224: Bastion of Blasphemies"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -246,11 +246,6 @@
                     "fOFAHsbLhPKtYmTl": {
                         "damage": "2d8+8",
                         "damageType": "slashing"
-                    },
-                    "yCC6Et1i3WCyXT2Z": {
-                        "category": "persistent",
-                        "damage": "1d6",
-                        "damageType": "bleed"
                     }
                 },
                 "description": {
@@ -262,7 +257,28 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.BastardSword",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": 12
+                    }
+                ],
                 "slug": "bastard-sword",
                 "subjectToMAP": true,
                 "traits": {
@@ -608,7 +624,26 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:damage:type:slashing"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "keen"
+                    },
+                    {
+                        "definition": [
+                            "item:base:hatchet"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "returning"
+                    }
+                ],
                 "slug": "head-hunter",
                 "traits": {
                     "value": []
@@ -778,7 +813,7 @@
             "publication": {
                 "license": "ORC",
                 "remaster": true,
-                "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+                "title": "Pathfinder #224: Bastion of Blasphemies"
             }
         },
         "initiative": {

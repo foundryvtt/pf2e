@@ -1,0 +1,121 @@
+{
+    "_id": "Qi5bQqrvsLg4mRwR",
+    "folder": "LhbcyA3vzLRmxPa8",
+    "img": "systems/pf2e/icons/equipment/weapons/leiomano.webp",
+    "name": "Blood Red Bludgeon (Greater)",
+    "system": {
+        "ammo": null,
+        "baseItem": "leiomano",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 1
+        },
+        "category": "martial",
+        "containerId": null,
+        "damage": {
+            "damageType": "bludgeoning",
+            "dice": 1,
+            "die": "d6"
+        },
+        "description": {
+            "value": "<p>This spiny tooth-covered club functions as a <em>+2 striking leiomano</em> that deals an additional 1d8 persistent bleed damage on a critical hit. Hunters favor this weapon when dealing with prey that tends to run and hide.</p>\n<p><strong>Activate—Tear Teeth</strong> <span class=\"action-glyph\">f</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You critically hit a creature that can bleed with the blood red bludgeon</p><hr /><p><strong>Effect</strong> You twist the weapon so that the serrated teeth break off. The bleed damage the creature takes is two dice instead of one, and until the bleeding ends, if the creature would become invisible, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Concealed] instead.</p>"
+        },
+        "expend": null,
+        "grade": null,
+        "group": "club",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 11
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 1250
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": null
+        },
+        "rules": [
+            {
+                "critical": true,
+                "damageType": "bleed",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "selector": "{item|id}-damage",
+                "slug": "blood-red-bleed"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.BloodRedBludgeon.TearTeethLabel",
+                "option": "tear-teeth",
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "tear-teeth"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "{item|id}-damage"
+                ],
+                "slug": "blood-red-bleed",
+                "value": 2
+            }
+        ],
+        "runes": {
+            "potency": 2,
+            "property": [],
+            "striking": 1
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 1,
+                "property": [],
+                "striking": 1
+            }
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "fatal-d10",
+                "magical",
+                "versatile-s"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        }
+    },
+    "type": "weapon"
+}

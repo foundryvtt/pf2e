@@ -1,0 +1,46 @@
+{
+    "_id": "e6Z1CbTHMfhZRlCx",
+    "img": "icons/magic/lightning/bolt-strike-hand-gray.webp",
+    "name": "Effect: Overclock Bot",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.actions.Item.Overclock Bot]</p>\n<p>If yo're a tech minion, you gain a number of temporary Hit Points equal to half the origin's level rounded up.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Tech Core"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "self:trait:minion",
+                    "self:trait:tech"
+                ],
+                "value": "ceil(@item.origin.level/2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

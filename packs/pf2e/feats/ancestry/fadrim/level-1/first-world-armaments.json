@@ -1,0 +1,164 @@
+{
+    "_id": "qkxXfUDn5MSQoibU",
+    "folder": "On82RNLIepbonHtG",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "First World Armaments",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The power of the First World has transformed a part of your body into a deadly weapon. Choose a claw, hoof, horn, or jaws unarmed attack, which is in the brawling weapon group and has the listed traits and damage.</p><ul><li><p><strong>Claw</strong> (agile, finesse, unarmed) 1d4 slashing</p></li><li><p><strong>Hoof</strong> (finesse, unarmed) 1d6 bludgeoning</p></li><li><p><strong>Horn</strong> (finesse, unarmed) 1d6 piercing</p></li><li><p><strong>Jaws</strong> (finesse, unarmed) 1d6 piercing</p></li></ul>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "value": "claw"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Hoof",
+                        "value": "hoof"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Horn",
+                        "value": "horn"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Jaws",
+                        "value": "jaws"
+                    }
+                ],
+                "flag": "firstWorldArmaments",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.UnarmedAttack",
+                "rollOption": "first-world-armaments"
+            },
+            {
+                "baseType": "claw",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/claw.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Claw",
+                "predicate": [
+                    "first-world-armaments:claw"
+                ],
+                "range": null,
+                "slug": "claw",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "baseType": "hoof",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/hoof.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Hoof",
+                "predicate": [
+                    "first-world-armaments:hoof"
+                ],
+                "range": null,
+                "slug": "hoof",
+                "traits": [
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "baseType": "horn",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/horn.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Horn",
+                "predicate": [
+                    "first-world-armaments:horn"
+                ],
+                "range": null,
+                "slug": "horn",
+                "traits": [
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "baseType": "jaws",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/jaws.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "predicate": [
+                    "first-world-armaments:jaws"
+                ],
+                "range": null,
+                "slug": "jaws",
+                "traits": [
+                    "finesse",
+                    "unarmed"
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fadrim"
+            ]
+        }
+    },
+    "type": "feat"
+}

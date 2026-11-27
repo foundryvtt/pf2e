@@ -1,7 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import type { RollRole } from "@actor/roll-context/types.ts";
 import type { Rolled } from "@client/dice/_module.d.mts";
-import type { Die, NumericTerm } from "@client/dice/terms/_module.d.mts";
 import type { ZeroToThree } from "@module/data.ts";
 import type { RuleElementSynthetics } from "@module/rules/synthetics.ts";
 import { sluggify } from "@util";
@@ -36,11 +35,7 @@ class DegreeOfSuccess {
         dosAdjustments: DegreeAdjustmentsRecord | null = null,
     ) {
         if (roll instanceof Roll) {
-            this.dieResult =
-                (roll.isDeterministic
-                    ? roll.terms.find((t): t is NumericTerm => t instanceof foundry.dice.terms.NumericTerm)
-                    : roll.dice.find((d): d is Die => d instanceof foundry.dice.terms.Die && d.faces === 20)
-                )?.total ?? 1;
+            this.dieResult = roll.naturalResult ?? 1;
             this.rollTotal = roll.total;
         } else {
             this.dieResult = roll.dieValue;

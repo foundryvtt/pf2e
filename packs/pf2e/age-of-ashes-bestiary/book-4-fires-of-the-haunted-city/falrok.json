@@ -389,14 +389,29 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When Falrok successfully @UUID[Compendium.pf2e.actionspf2e.Item.Feint]{Feints}, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against melee attacks he attempts against it until the end of his next turn. On a critical success, the target is off-guard against all melee attacks until the end of their next turn, not just Falrok's.</p>"
+                    "value": "<p>When Falrok successfully [[/act feint]]{Feints}, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against melee attacks he attempts against it until the end of his next turn. On a critical success, the target is off-guard against all melee attacks until the end of their next turn, not just Falrok's.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "action:feint"
+                        ],
+                        "selector": "skill-check",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

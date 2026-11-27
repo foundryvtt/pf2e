@@ -596,7 +596,7 @@
                 "cost": {
                     "value": ""
                 },
-                "counteraction": false,
+                "counteraction": true,
                 "damage": {
                     "0": {
                         "applyMod": false,
@@ -621,12 +621,12 @@
                 },
                 "defense": {
                     "save": {
-                        "basic": true,
+                        "basic": false,
                         "statistic": "reflex"
                     }
                 },
                 "description": {
-                    "value": "<p>A globe of freezing darkness explodes in the area, dealing 8d10 cold damage to creatures in the area, plus an additional 8d4 void damage to living creatures. Each creature in the area must attempt a Reflex save.</p>\n<p>If the globe overlaps with an area of magical light or affects a creature affected by magical light, eclipse burst attempts to counteract the light effect.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Blinded] by the darkness for an unlimited duration.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The cold damage increases by 1d10 and the void damage against the living increases by 1d4.</p>"
+                    "value": "<p>A globe of freezing darkness explodes in the area, dealing 8d10 cold damage to creatures in the area, plus an additional 8d4 void damage to living creatures. Each creature in the area must attempt a Reflex save.</p>\n<p>If the globe overlaps with an area of magical light or affects a creature affected by magical light, <em>eclipse burst</em> attempts to counteract the light effect.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Blinded] by the darkness for an unlimited duration.</p><hr /><p><strong>Heightened (+1)</strong> The cold damage increases by 1d10 and the void damage against the living increases by 1d4.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -933,7 +933,10 @@
             "name": "Repulsion",
             "sort": 1100000,
             "system": {
-                "area": null,
+                "area": {
+                    "type": "emanation",
+                    "value": 40
+                },
                 "cost": {
                     "value": ""
                 },
@@ -946,7 +949,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You manifest an aura that prevents creatures from approaching you. When casting the spell, you can make the area any radius you choose, up to 40 feet. A creature must attempt a Will save if it's within the area when you Cast the Spell or as soon as it enters the area while the spell is in effect. Once a creature has attempted the save, it uses the same result for that casting of <em>repulsion</em>. Any restrictions on a creature's movement apply only if it voluntarily moves toward you. For example, if you move closer to a creature, it doesn't then need to move away.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature's movement is not restricted.</p>\n<p><strong>Success</strong> The creature treats each square in the area as difficult terrain when moving closer to you.</p>\n<p><strong>Failure</strong> The creature can't move closer to you within the area.</p>"
+                    "value": "<p><strong>Area</strong> (continued) emanation up to 40 feet</p><hr /><p>You manifest an aura that prevents creatures from approaching you. When casting the spell, you can make the area any radius you choose, up to 40 feet. A creature must attempt a Will save if it's within the area when you Cast the Spell or as soon as it enters the area while the spell is in effect. Once a creature has attempted the save, it uses the same result for that casting of <em>repulsion</em>. Any restrictions on a creature's movement apply only if it voluntarily moves toward you; if you move closer to a creature, it doesn't then need to move away.</p><hr /><p><strong>Critical Success</strong> The creature's movement is not restricted.</p>\n<p><strong>Success</strong> The creature treats each square in the area as difficult terrain when moving closer to you.</p>\n<p><strong>Failure</strong> The creature can't move closer to you within the area.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -964,7 +967,7 @@
                     "title": "Pathfinder Player Core"
                 },
                 "range": {
-                    "value": "emanation up to 40-feet"
+                    "value": ""
                 },
                 "requirements": "",
                 "rules": [],
@@ -3222,26 +3225,7 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [
-                    {
-                        "definition": [
-                            "item:id:{item|id}"
-                        ],
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "property-runes",
-                        "value": "greater-flaming"
-                    },
-                    {
-                        "definition": [
-                            "item:id:{item|id}"
-                        ],
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "property-runes",
-                        "value": "unholy"
-                    }
-                ],
+                "rules": [],
                 "slug": "mace",
                 "subjectToMAP": true,
                 "traits": {
@@ -3513,7 +3497,7 @@
             "publication": {
                 "license": "ORC",
                 "remaster": true,
-                "title": "Pathfinder Adventure Path: Hell's Destiny"
+                "title": "Pathfinder #223: Hell's Destiny"
             }
         },
         "initiative": {

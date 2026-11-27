@@ -9,12 +9,6 @@ type SpellListColumn = "defense" | "range" | "uses";
  *  group header's usage indicator) */
 type SpellListSortColumn = "name" | "prepared" | SpellListColumn;
 
-/** A view-only sort applied within each group, cycled by clicking column headers */
-interface SpellListSortState {
-    column: SpellListSortColumn;
-    direction: "ascending" | "descending";
-}
-
 interface SpellRowData {
     id: string;
     uuid: ItemUUID;
@@ -82,15 +76,11 @@ interface SpellListActions {
     create?: (rank: ZeroToTen) => void;
     /** Open the compendium browser for the group (renders a search button in group headers when provided) */
     browse?: (rank: ZeroToTen) => void;
-    /** Handle a spell drop onto a row (with the insertion side) or the list root (null). Rows become drop targets when provided. */
+    /**
+     * Handle a dropped spell. `target` is the row it landed beside, above it when `before` is true, or null for
+     * a drop on the list as a whole. Without this the list takes no drops.
+     */
     handleDrop?: (event: DragEvent, target: { id: string; before: boolean } | null) => void;
 }
 
-export type {
-    SpellListActions,
-    SpellListColumn,
-    SpellListGroupData,
-    SpellListSortColumn,
-    SpellListSortState,
-    SpellRowData,
-};
+export type { SpellListActions, SpellListColumn, SpellListGroupData, SpellListSortColumn, SpellRowData };

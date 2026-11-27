@@ -1,0 +1,288 @@
+{
+    "_id": "N8ekzW9snBA2YAKv",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "TFv6rcyouMcUWGYM",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "i8zp1zddetrbg2vwkp6q": {
+                        "damage": "2d10+9",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "DtEZmNobgsVWzikz",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Dooming Bark",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Any creature within 200 feet of the cu sith that hears their Dooming Bark must attempt a @Check[will|dc:24|options:inflicts:doomed,inflicts:fleeing,inflicts:frightened] save. A creature in an area that the cu sith can't easily reach—such as a hidden burrow or enclosed building—gets a result one degree of success better than it rolled.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and immune to Dooming Bark for 24 hours.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}; if already frightened, the creature's frightened value increases by 1, and it becomes @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}.</p>\n<p><strong>Failure</strong> As success, but @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> As success, but @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "concentrate",
+                        "fear",
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8UWmcpWRaJbBvrgi",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Worry Prey",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The cu sith has a Large or smaller creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] in their jaws</p><hr /><p><strong>Effect</strong> The cu sith viciously shakes their prey. The cu sith makes a jaws Strike against the grabbed creature with a +2 circumstance bonus to the attack roll. If the cu sith hits, they deal jaws damage as normal, maintains their Grab, and attempts an Athletics check to [[/act disarm]] their target of anything it's holding; this attempt to Disarm neither applies nor counts toward the cu sith's multiple attack penalty. On a miss, the cu sith releases the creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "attack",
+                        "key": "RollOption",
+                        "option": "worry-prey",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "worry-prey"
+                        ],
+                        "selector": "jaws-attack",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1SlSXQvnIyNY6mQu",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Cu Sith",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 5
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -3
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 24
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 140,
+                "temp": 0,
+                "value": 140
+            },
+            "immunities": [
+                {
+                    "type": "fear-effects"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 40
+            },
+            "weaknesses": [
+                {
+                    "type": "cold-iron",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "(can't speak any language)",
+                "value": [
+                    "fey"
+                ]
+            },
+            "level": {
+                "value": 7
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Cu siths are hound-like doorkeepers of remote portals to other planes, particularly portals to the untamed realm of the First World. They're highly territorial and roam the highland moors they call home, constantly on the hunt for any creatures that might intrude. Those that bargain with them for safe passage to or from a portal find cu siths to be vigilant (if strict) escorts, keeping their charges safe from extraplanar threats while ensuring they never veer from the most direct path to their destination. Cu siths are highly proficient hunters that offer a single warning in the form of a terrifying bark. Creatures that refuse to flee upon hearing a cu sith's warning bark risk a quick and brutal death.</p>\n<p>Cu siths cut imposing figures; they stand as tall as bulls, covered in intertwining roots, plant matter, and shaggy green-and-white fur that terminates in a long, plaited tail. Their fur around their snouts and ears grows long and their eyes glow with a fiery green light.</p>\n<p>Some scholars believe that cat siths and cu siths are two sides of the same mysterious coin. While the feline fey proffers naught but misfortune, their canine counterparts will often provide protection to those in need of it. However, both creatures act on their own interests, not wholly understood by mortalkind. And both are the basis of folk stories told around stony hearths and campfires to warn the listeners of the dangers of the wilder spaces of the world. Though cat siths and cu siths have been seen among the highlands, they're almost never spotted together. Many believe this is because the two are eternal enemies, though none have been able to prove this conjecture.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Feybound"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 16,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 16
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 15
+            },
+            "athletics": {
+                "base": 17
+            },
+            "stealth": {
+                "base": 17
+            },
+            "survival": {
+                "base": 16
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "fey"
+            ]
+        }
+    },
+    "type": "npc"
+}

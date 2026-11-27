@@ -1122,6 +1122,11 @@
         },
         {
             "_id": "hT4tTJSS8Sm6qFZz",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "MHZhjQVPMeZJ1plm"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Shortbow",
             "sort": 1800000,
@@ -1251,7 +1256,53 @@
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "play-the-pipes",
+                        "placement": "spellcasting",
+                        "toggleable": true
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "play-the-pipes",
+                            {
+                                "or": [
+                                    "item:slug:charm",
+                                    "item:slug:fear",
+                                    "item:slug:sleep",
+                                    "item:slug:suggestion"
+                                ]
+                            }
+                        ],
+                        "property": "traits",
+                        "value": "auditory"
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "play-the-pipes",
+                            {
+                                "or": [
+                                    "item:slug:charm",
+                                    "item:slug:fear",
+                                    "item:slug:sleep",
+                                    "item:slug:suggestion"
+                                ]
+                            }
+                        ],
+                        "property": "area",
+                        "value": {
+                            "size": 60,
+                            "type": "emanation"
+                        }
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

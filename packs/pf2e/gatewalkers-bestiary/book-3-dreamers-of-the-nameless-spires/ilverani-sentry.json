@@ -507,14 +507,38 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>While using Survival to Subsist in arctic environments, if the Ilverani sentry rolls a failure or a critical failure, they get a success instead. If the sentry rolls a success, they can provide food for 4 additional creatures that eat about as much as a human, or 8 creatures on a critical success.</p>"
+                    "value": "<p>While using Survival to [[/act subsist skill=survival options=terrain:arctic]] in arctic environments, if the Ilverani sentry rolls a failure or a critical failure, they get a success instead. If the sentry rolls a success, they can provide food for 4 additional creatures that eat about as much as a human, or 8 creatures on a critical success.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "adjustment": {
+                            "criticalFailure": "to-success",
+                            "failure": "to-success"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "action:subsist",
+                            "terrain:arctic"
+                        ],
+                        "selector": "survival"
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "action:subsist",
+                            "terrain:arctic"
+                        ],
+                        "selector": "survival",
+                        "text": "PF2E.SpecificRule.Feat.Forager.Note",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []

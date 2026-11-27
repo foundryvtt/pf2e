@@ -7,7 +7,11 @@ import type { AbilityTrait } from "@item/ability/types.ts";
 import { ActionCost } from "@item/base/data/system.ts";
 import { createEffectAreaLabel } from "@item/helpers.ts";
 import { NPC_ATTACK_ACTIONS } from "@item/melee/values.ts";
-import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
+import {
+    getPropertyRuneAttackNotes,
+    getPropertyRuneDegreeAdjustments,
+    getPropertyRuneStrikeAdjustments,
+} from "@item/physical/runes.ts";
 import { EffectAreaShape } from "@item/types.ts";
 import type { AreaAttackContextFlag } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
@@ -599,7 +603,11 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             });
 
             const attackEffects = actor.isOfType("npc") ? await actor.getAttackEffects(item) : [];
-            const notes = [attackEffects, extractNotes(context.origin.actor.synthetics.rollNotes, domains)].flat();
+            const notes = [
+                attackEffects,
+                getPropertyRuneAttackNotes(item),
+                extractNotes(context.origin.actor.synthetics.rollNotes, domains),
+            ].flat();
             const rollTwice =
                 params.rollTwice ||
                 extractRollTwice(context.origin.actor.synthetics.rollTwice, domains, context.options);
@@ -608,13 +616,16 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 domains,
                 context.options,
             );
-            const dosAdjustments = extractDegreeOfSuccessAdjustments({
-                self: context.origin.actor,
-                selfRole: "origin",
-                opposer: context.target?.actor,
-                domains,
-                options: context.options,
-            });
+            const dosAdjustments = [
+                getPropertyRuneDegreeAdjustments(item),
+                extractDegreeOfSuccessAdjustments({
+                    self: context.origin.actor,
+                    selfRole: "origin",
+                    opposer: context.target?.actor,
+                    domains,
+                    options: context.options,
+                }),
+            ].flat();
 
             const allModifiers = [map, params.modifiers, context.origin.modifiers].flat().filter(R.isTruthy);
             const check = new CheckModifier("strike", context.origin.statistic ?? strike, allModifiers);

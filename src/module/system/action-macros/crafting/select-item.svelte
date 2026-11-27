@@ -5,7 +5,7 @@
     import type { SelectItemRenderContext } from "./select-item.ts";
     import { sluggify } from "@util";
 
-    const { resolve, getState }: SelectItemRenderContext & SvelteAppProps<SelectItemRenderContext> = $props();
+    const { resolve, getState }: SvelteAppProps<SelectItemRenderContext> = $props();
     const data = $derived(getState());
 
     let selection: PhysicalItemPF2e | null = $state(null);
@@ -63,17 +63,17 @@
     </section>
 </article>
 
-<style lang="scss">
+<style>
     article {
         display: flex;
         flex-direction: column;
-        gap: var(--space-8);
+        gap: var(--spacer-8);
     }
 
     .drop-item-zone {
         display: flex;
         align-items: center;
-        gap: var(--space-8);
+        gap: var(--spacer-8);
         margin: 0 2px 5px;
         min-height: 32px;
     }
@@ -85,7 +85,7 @@
 
     .button-panel {
         display: flex;
-        gap: var(--space-4);
+        gap: var(--spacer-4);
 
         button {
             flex: 1;

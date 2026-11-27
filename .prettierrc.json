@@ -1,18 +1,19 @@
 {
     "printWidth": 120,
     "tabWidth": 4,
+    "htmlWhitespaceSensitivity": "ignore",
     "plugins": [
-        "prettier-plugin-svelte"
+        "prettier-plugin-svelte",
+        "@prettier/plugin-oxc"
     ],
     "overrides": [
         {
             "files": [
-                "*.scss",
                 "*.css"
             ],
             "options": {
                 "requirePragma": false,
-                "parser": "scss"
+                "parser": "css"
             }
         },
         {
@@ -20,8 +21,7 @@
                 "*.svelte"
             ],
             "options": {
-                "parser": "svelte",
-                "htmlWhitespaceSensitivity": "ignore"
+                "parser": "svelte"
             }
         },
         {
@@ -36,8 +36,7 @@
             "files": "*.html",
             "options": {
                 "requirePragma": false,
-                "parser": "html",
-                "htmlWhitespaceSensitivity": "ignore"
+                "parser": "html"
             }
         }
     ]

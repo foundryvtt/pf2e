@@ -1,0 +1,56 @@
+{
+    "_id": "DdJv2GULeAcLqEny",
+    "img": "icons/tools/instruments/harp-lap-brown.webp",
+    "name": "Effect: Inspiring Appearance",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 circumstance bonus to Crafting and Performance checks and take a –1 circumstance penalty to Will saves against the origin.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "crafting",
+                    "performance"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:signature:{item|origin.signature}"
+                ],
+                "selector": "will",
+                "type": "circumstance",
+                "value": -1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

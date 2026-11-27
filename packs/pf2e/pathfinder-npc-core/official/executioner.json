@@ -383,6 +383,12 @@
                 },
                 "rules": [
                     {
+                        "disabledIf": [
+                            {
+                                "not": "self:effect:mark-for-death"
+                            }
+                        ],
+                        "disabledValue": false,
                         "key": "RollOption",
                         "label": "PF2E.NPCAbility.MarkForDeath.FirstAttack",
                         "option": "first-attack",
@@ -394,11 +400,16 @@
                         "dieSize": "d12",
                         "key": "DamageDice",
                         "predicate": [
+                            "target:mark:mark-for-death",
                             "first-attack"
                         ],
                         "selector": "strike-damage"
                     }
                 ],
+                "selfEffect": {
+                    "name": "Effect: Mark for Death",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Mark for Death"
+                },
                 "slug": null,
                 "traits": {
                     "value": [

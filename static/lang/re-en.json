@@ -15,6 +15,10 @@
                     "Text": "When activated disruption ammunition hits a target, it attempts to counteract one active spell effect that the target is Sustaining with a +20 counteract check modifier (counteract rank 6).",
                     "Title": "Disruption Ammunition (Greater)"
                 },
+                 "Major": {
+                    "Text": "When activated disruption ammunition hits a target, it attempts to counteract one active spell effect that the target is Sustaining with a +28 counteract check modifier (counteract rank 9).",
+                    "Title": "Disruption Ammunition (Major)"
+                },
                 "Normal": {
                     "Text": "When activated disruption ammunition hits a target, it attempts to counteract one active spell effect that the target is Sustaining with a +11 counteract check modifier (counteract rank 3).",
                     "Title": "Disruption Ammunition"
@@ -31,7 +35,7 @@
                 }
             },
             "EscalationAmmunition": {
-                "Text": "The target must attempt a @Check[fortitude|dc:30] save. On a failure, the target rolls the next saving throw it attempts within the next minute against a spell or magical effect twice and takes the worse result.",
+                "Text": "On a hit, the target must attempt a @Check[fortitude|dc:30|name:Escalation Ammunition] save. On a failure, the target rolls the next saving throw it attempts within the next minute against a spell or magical effect twice and takes the worse result. @UUID[Compendium.pf2e.equipment-effects.Item.qMqygrD5lJyd5UYM]{Effect: Escalation Ammunition}",
                 "Title": "Escalation Ammunition"
             },
             "ExsanguinatingAmmunition": {
@@ -58,11 +62,11 @@
             },
             "GravebaneAmmunition": {
                 "Greater": {
-                    "Text": "On a successful Strike, the attack deals an additional @Damage[1d10[vitality]] damage to creatures with void healing. If the target takes vitality damage, it must succeed at a @Check[fortitude|dc:19] save or become @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 1} (or @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 2} on a critical failure) until the start of your next turn.",
+                    "Text": "If the target takes vitality damage, it must succeed at a @Check[fortitude|dc:27|options:inflicts:enfeebled] save or become @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 1} (or @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 2} on a critical failure) until the start of your next turn.",
                     "Title": "Gravebane Ammunition (Greater)"
                 },
                 "Normal": {
-                    "Text": "On a successful Strike, the attack deals an additional @Damage[2d10[vitality]] damage to creatures with void healing. If the target takes vitality damage, it must succeed at a @Check[fortitude|dc:27] save or become @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 1} (or @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 2} on a critical failure) until the start of your next turn.",
+                    "Text": "If the target takes vitality damage, it must succeed at a @Check[fortitude|dc:19|options:inflicts:enfeebled] save or become @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 1} (or @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 2} on a critical failure) until the start of your next turn.",
                     "Title": "Gravebane Ammunition"
                 }
             },
@@ -202,6 +206,7 @@
                 "Horn": "Horn",
                 "Horns": "Horns",
                 "HurledDebris": "Hurled Debris",
+                "IceShell": "Ice Shell",
                 "Jaws": "Jaws",
                 "LavaFist": "Lava Fist",
                 "Leaf": "Leaf",
@@ -209,6 +214,7 @@
                 "Leg": "Leg",
                 "LightningLash": "Lightning Lash",
                 "LittleClaw": "Little Claw",
+                "LurkerClaw": "Lurker Claw",
                 "Mandibles": "Mandibles",
                 "MetalShard": "Metal Shard",
                 "Moonbeam": "Moonbeam",
@@ -216,6 +222,7 @@
                 "PhasicBlade": "Phasic Blade",
                 "PiercingHymn": "Piercing Hymn",
                 "Pincer": "Pincer",
+                "PricklyVine": "Prickly Vine",
                 "Pseudopod": "Pseudopod",
                 "Proboscis": "Proboscis",
                 "ProjectileVomit": "Projectile Vomit",
@@ -933,6 +940,7 @@
                 "AttacksDemons": "attacks by demons",
                 "AttacksFromSuppressed": "attacks from suppressed targets",
                 "AttacksWaterCreatures": "attacks by water creatures",
+                "AuditorySpellsActions": "spells and actions with the auditory trait",
                 "BludgeoningPiercingSlashing": "bludgeoning, piercing and slashing damage",
                 "BludgeoningPiercingSlashingFromFrightenedStrikes": "bludgeoning, piercing and slashing Strike damage from frightened creatures",
                 "Bronze": "bronze",
@@ -967,8 +975,10 @@
                 "PersistentAcid": "persistent acid",
                 "PersistentFire": "persistent fire",
                 "PersistentPoison": "persistent poison",
+                "PersistentWassailing": "persistent wassailing",
                 "PhysicalRangedAttacks": "physical ranged attacks",
                 "PhysicalWeaponsOnly": "physical (weapons only)",
+                "PositiveEmotions": "positive emotions",
                 "PrimalSpells": "primal spells",
                 "Radiation": "radiation",
                 "RadiationPoison": "radiation poison",
@@ -990,6 +1000,21 @@
         "Mutagens": {
             "BestialMutagen": {
                 "FeralPrompt": "Increase penalty to AC to increase damage dice size?"
+            },
+            "MartialMayhemMutagen": {
+                "Major": {
+                    "CriticalSuccessNote": "When you critically succeed at a melee attack roll, the target is also @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} until the beginning of your next turn."
+                },
+                "FailureNote": "When you fail at a melee attack roll, you are @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} until the end of your next turn.",
+                "SuccessNote": "When you succeed at a melee attack roll, the target is @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} to your next attack roll against it before the start of your next turn."
+            },
+            "MegaphoneMutagen": {
+                "RangeNote": {
+                    "Greater": "The range of your actions and spells with the auditory trait increases by 20 feet.",
+                    "Lesser": "The range of your actions and spells with the auditory trait increases by 10 feet.",
+                    "Major": "The range of your actions and spells with the auditory trait increases by 40 feet.",
+                    "Moderate": "The range of your actions and spells with the auditory trait increases by 15 feet."
+                }
             },
             "SanguineMutagen": {
                 "DamageNote": "Whenever you take piercing or slashing damage, you take @Damage[1d6[bleed]].",
@@ -1247,7 +1272,10 @@
                             "Raven": "Raven",
                             "Scorpion": "Scorpion",
                             "Shark": "Shark",
+                            "Snake": "Snake",
                             "Spider": "Spider",
+                            "Squirrel": "Squirrel",
+                            "SquirrelFlyingGiant": "Flying Giant Squirrel",
                             "Tiger": "Tiger",
                             "Toad": "Toad",
                             "Wolf": "Wolf",
@@ -1311,6 +1339,11 @@
                             "Small": "Small Wood Elemental"
                         }
                     },
+                    "Fey": {
+                        "Ujdavipr": {
+                            "Scout": "Scout"
+                        }
+                    },
                     "Genie": {
                         "Faydhaan": "Faydhaan",
                         "Ifrit": "Ifrit",
@@ -1368,6 +1401,7 @@
                         "Raktavarna": "Raktavarna"
                     },
                     "SeaSerpent": "Sea Serpent",
+                    "Selkie": "Selkie",
                     "Skeleton": "Skeleton",
                     "SublimeBreath": "Sublime Breath",
                     "Swarm": {
@@ -2344,6 +2378,7 @@
                     "Name": "Mythic Mobility"
                 },
                 "MythicPower": {
+                    "Addendum": "The creature has a pool of 3 Mythic Points, and can spend those Mythic Points to use this action.",
                     "Name": "Mythic Power"
                 },
                 "MythicResilience": {
@@ -2568,6 +2603,14 @@
                 "SingleAttackLabel": "Telekinetic Storm — Single Target",
                 "SingleTarget": "Single Target"
             },
+            "Poludnica": {
+                "NoondayDemon": {
+                    "CompleteDarkness": "In Complete Darkness"
+                },
+                "SunstrokeHaze": {
+                    "Zenith": "Sun is at its zenith"
+                }
+            },
             "Protean": {
                 "ProteanAnatomy": {
                     "Name": "Protean Anatomy"
@@ -2791,6 +2834,16 @@
                     "Name": "Tag Team"
                 }
             },
+            "SedacthyWarband": {
+                "FrenziedFeast": {
+                    "Label": "Frenzied Feast — Number of Enemies Damaged"
+                }
+            },
+            "Selkie": {
+                "SealskinCoat": {
+                    "RollOptionLabel": "Sealskin Coat is Destroyed"
+                }
+            },
             "Seugathi": {
                 "MindfogSuppression": "Suppress Mindfog Aura"
             },
@@ -2803,6 +2856,14 @@
                     "ResistanceToggle": "Equitable Defense — Critical Hit Resistance"
                 },
                 "LawbringerSpeedLabel": "Lawbringer — Moving Toward Target"
+            },
+            "Shivver": {
+                "Gibbering": {
+                    "Name": "Gibbering"
+                },
+                "Horned": {
+                    "Name": "Horned"
+                }
             },
             "ShockerLizard": {
                 "ShockingBurst": {
@@ -3265,6 +3326,11 @@
                 },
                 "Weakness": {
                     "Name": "Weakness"
+                }
+            },
+            "VatNeedler": {
+                "GenerateBomb": {
+                    "Note": "The target and and all creatures in the splash radius must roll a @Check[fortitude|dc:26|options:area-effect,inflicts:sickened] save or become @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 2} on a critical failure); creatures hit by only the splash receive a +2 circumstance bonus to their Fortitude saves."
                 }
             },
             "Visitant": {
@@ -4040,6 +4106,7 @@
             "Demoralize": "To Demoralize",
             "DemoralizeThreateningLunge": "To Demoralize with Threatening Lunge",
             "Deserts": "In Deserts",
+            "DifficultTerrainOrUnevenSurface": "Difficult Terrain or Uneven Surface",
             "DimLight": "In Dim Light",
             "DimLightOrDarkness": "In Dim Light or Darkness",
             "DisableADevice": "To Disable a Device",
@@ -4050,6 +4117,7 @@
             "DisarmStoneMetal": "To Disarm Stone or Metal Objects",
             "DiscernAndPredictWeather": "Discern Weather Patterns and Predict Upcoming Weather Conditions",
             "Diversion": "To Create a Diversion",
+            "DownhillSurface": "Downhill Surface",
             "Escape": "To Escape",
             "EscapeForceOpenOrLift": "To Escape, Force Open, or Lift Heavy Objects",
             "Feint": "To Feint",
@@ -4109,6 +4177,7 @@
             "Navigate": "To Navigate",
             "NearTheOcean": "Near The Ocean",
             "NighttimeWithMoonVisible": "Nighttime, with the Moon Visible",
+            "NormalSurface": "Normal Surface",
             "OceansForests": "In Oceans and Forests",
             "Orate": "To Orate",
             "Paint": "To Paint",
@@ -4252,6 +4321,7 @@
             "Firebrand": "Firebrand Lore",
             "Fireworks": "Fireworks Lore",
             "FirstOnes": "First Ones Lore",
+            "FirstWorld": "First World Lore",
             "Fleshforged": "Fleshforged Lore",
             "Fleshwarp": "Fleshwarp Lore",
             "Forest": "Forest Lore",
@@ -4690,7 +4760,8 @@
                     "LesserAugmentation": "Lesser Augmentation",
                     "MagicalResistance": "Magical Resistance",
                     "RainOfBolts": "Rain of Bolts",
-                    "ReinforcedChassis": "Reinforced Chassis"
+                    "ReinforcedChassis": "Reinforced Chassis",
+                    "ResilientChassis": "Resilient Chassis"
                 },
                 "Enhancement": {
                     "ArcaneLocomotionClimbSpeed": "Gain a climb speed",
@@ -4930,6 +5001,9 @@
             },
             "BloodlettingKukri": {
                 "Note": "If the target didn't already have persistent bleed damage when you scored the critical hit, you also gain [[/r 1d8]] temporary Hit Points."
+            },
+            "BloodRedBludgeon": {
+                "TearTeethLabel": "Tear Teeth"
             },
             "BodyParts": {
                 "Arms": "Arms",
@@ -6200,6 +6274,12 @@
                 "Fearcutter": {
                     "Note": "When you critically hit a creature with the unholy trait with <em>Fearcutter</em>, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Frightened 1}."
                 },
+                "Fetters": {
+                    "Note": "You must succeed at a @Check[flat|dc:11|name:Fetters|showDC:all] any time you use a manipulate action or else that action fails."
+                },
+                "FiendishTeleportation": {
+                    "RollOptionLabel": "Fiendish Teleportation — Defending against a reaction triggered by your movement"
+                },
                 "FightersFork": {
                     "FluidLengthLabel": "Fighter's Fork — Fluid Length"
                 },
@@ -6343,6 +6423,9 @@
                 "SpellguardShield": {
                     "RollOptionLabel": "Block spell that targets you"
                 },
+                "SpiderGun": {
+                    "CriticalSpecialization": "A <em>spider gun</em> does not add critical specialization effects."
+                },
                 "SplitheadBow": {
                     "HealingLabel": "Splithead Bow — Healing"
                 },
@@ -6369,6 +6452,13 @@
                 },
                 "UnholyWater": {
                     "Note": "Can damage only creatures with the holy trait."
+                },
+                "Variety": {
+                    "Greater": "Greater",
+                    "Lesser": "Lesser",
+                    "Major": "Major",
+                    "Moderate": "Moderate",
+                    "Normal": "Normal"
                 },
                 "WalkingCauldron": {
                     "ToggleLabel": "Walking Cauldron — Animated"
@@ -6580,7 +6670,7 @@
                         "Label": "Heaven Rains an Ending"
                     },
                     "Label": "Infinite Blades Celestial Arrow",
-                    "Note": "Whenever you successfully Strike an enemy with your weapon ikon, up to two enemies adjacent to the target take @Damage[@item.system.damage.dice@item.system.damage.die[spirit]|options:exemplar-spirit-damage] damage as they are struck by duplicated missiles."
+                    "Note": "Whenever you successfully Strike an enemy with your weapon ikon, up to two enemies adjacent to the target take @Damage[@item.system.damage.dice@item.system.damage.die[spirit]|options:damage:tag:exemplar] damage as they are struck by duplicated missiles."
                 },
                 "MatedBirdsInPairedFlight": {
                     "Pair": "Two separate ikons.",
@@ -6626,6 +6716,11 @@
             },
             "FanesFourberie": {
                 "Prompt": "Treat Cards as darts or daggers?"
+            },
+            "Faun": {
+                "AdaptablePerformer": {
+                    "Note": "You gain temporary Hit Points equal to half your level that last for 1 round. @UUID[Compendium.pf2e.feat-effects.Item.k3AdapPerfHp9mQx]{Effect: Adaptable Performer}"
+                }
             },
             "Feat": {
                 "BespellStrikes": {
@@ -7050,6 +7145,9 @@
                 "FleshWound": {
                     "ToggleLabel": "Flesh Wound — Reduce Strike damage"
                 },
+                "Siegebreaker": {
+                    "DamageNote": "This Strike ignores 10 points of the target's Hardness (if any), or of their shield's Hardness if the target uses Shield Block."
+                },
                 "SwordAndPistol": {
                     "MeleeNote": "When you make a successful melee Strike against an enemy with your one-handed melee weapon, the next ranged Strike you make against that enemy with a one-handed firearm or one-handed crossbow doesn't trigger reactions that would trigger on a ranged attack but not a melee attack, such as Reactive Strike. This benefit is lost if not used by the end of your next turn.",
                     "RangedNote": "When you make a successful ranged Strike against an enemy within your reach with your one-handed firearm or one-handed crossbow, that enemy is @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} against your next melee attack with a one-handed melee weapon. This benefit is lost if not used by the end of your next turn.",
@@ -7124,6 +7222,21 @@
                 }
             },
             "Hellknight": {
+                "Order": {
+                    "Chain": "Order of the Chain",
+                    "Gate": "Order of the Gate",
+                    "Glyph": "Order of the Glyph",
+                    "Godclaw": "Order of the Godclaw",
+                    "Nail": "Order of the Nail",
+                    "Pike": "Order of the Pike",
+                    "Pyre": "Order of the Pyre",
+                    "Rack": "Order of the Rack",
+                    "Scar": "Order of the Scar",
+                    "Scourge": "Order of the Scourge",
+                    "Torrent": "Order of the Torrent",
+                    "Wall": "Order of the Wall"
+                },
+                "Prompt": "Select a Hellknight Order.",
                 "RevealBeasts": {
                     "Note": "Whenever you critically succeed at a check to Recall Knowledge against an animal, beast, fungus, or plant, that creature becomes @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Frightened 1}."
                 }
@@ -7600,6 +7713,7 @@
                 "AdvancedAthamaruWeapons": "Advanced Athamaru Weapons",
                 "AdvancedAzarketiWeapons": "Advanced Azarketi Weapons",
                 "AdvancedBowsAndCrossbows": "Advanced Bows and Crossbows",
+                "AdvancedInjectionWeaponsAndKnives": "Advanced Injection Weapons & Knives",
                 "AdvancedBugbearWeapons": "Advanced Bugbear Weapons",
                 "AdvancedCatfolkWeapons": "Advanced Catfolk Weapons",
                 "AdvancedConrasuWeapons": "Advanced Conrasu Weapons",
@@ -7656,6 +7770,7 @@
                 "HandCrossbowGauntletBow": "Hand Crossbow & Gauntlet Bow",
                 "HellknightBreastplate": "Hellknight Breastplate",
                 "HellknightPlates": "Hellknight Half-Plate & Hellknight Plate",
+                "Grenades": "Grenades",
                 "MarineCombat": "Marine Combat",
                 "MartialAthamaruWeapons": "Martial Athamaru Weapons",
                 "MartialAzarketiWeapons": "Martial Azarketi Weapons",
@@ -7668,6 +7783,7 @@
                 "MartialDuskwalkerWeapons": "Martial Duskwalker Weapons",
                 "MartialDwarfWeapons": "Martial Dwarven Weapons",
                 "MartialElfWeapons": "Martial Elven Weapons",
+                "MartialFadrimWeapons": "Martial Fadrim Weapons",
                 "MartialFirearmsCrossbows": "Martial Firearms & Crossbows",
                 "MartialGeniekinWeapons": "Martial Geniekin Weapons",
                 "MartialGhoranWeapons": "Martial Ghoran Weapons",
@@ -7694,6 +7810,7 @@
                 },
                 "MartialHalflingWeapons": "Martial Halfling Weapons",
                 "MartialHobgoblinWeapons": "Martial Hobgoblin Weapons",
+                "MartialInjectionWeaponsAndKnives": "Martial Injection Weapons & Knives",
                 "MartialJotunbornWeapons": "Martial Jotunborn Weapons",
                 "MartialKholoWeapons": "Martial Kholo Weapons",
                 "MartialKoboldWeapons": "Martial Kobold Weapons",
@@ -7708,6 +7825,7 @@
                 "MartialStudentOfArchery": "Martial Student of Archery Weapon",
                 "MartialSurkiWeapons": "Martial Surki Weapons",
                 "MartialTalphiWeapons": "Martial Talphi Weapons",
+                "MartialTechWeapons": "Martial Tech Weapons",
                 "MartialTenguWeapons": "Martial Tengu Weapons",
                 "MartialTripkeeWeapons": "Martial Tripkee Weapons",
                 "MartialTwoHandedMeleeWeapons": "Martial Two-Handed Melee Weapons",
@@ -7934,6 +8052,11 @@
                 "Two": "Two",
                 "Zero": "Zero"
             },
+            "Nymph": {
+                "Asterid": {
+                    "Light": "Asterid Nymph Light"
+                }
+            },
             "Obcisidaemon": {
                 "ConsumeSoul": {
                     "EmpowerSpell": "Empower Spell",
@@ -8063,12 +8186,15 @@
                 "Attribute": "Select an attribute.",
                 "Benefit": "Select a benefit.",
                 "Bonus": "Select a bonus.",
+                "BonusOrPenalty": "Select a bonus or penalty.",
                 "Cantrip": "Select a cantrip.",
                 "CantripOrNonCantrip": "Select cantrip or non-cantrip spell.",
                 "ClassDCAbilityScore": "Select the class DC's key attribute.",
                 "ClassFeat": "Select a class feat.",
                 "Color": "Select a Color.",
                 "ConsciousMind": "Select a conscious mind.",
+                "CountOfCriticalSuccesses": "How many critical successes?",
+                "CountOfSuccesses": "How many successes?",
                 "CreatureSize": "Select a creature size.",
                 "DamageType": "Select a damage type.",
                 "Defense": "Select a defense.",
@@ -8915,6 +9041,19 @@
             "SpellEffectMindSwap": {
                 "RollOptionLabel": "Mind Swap — Impersonate the Other Target of Mind Swap"
             },
+            "SpellEffectMirrorImage": {
+                "DegreeOfSuccess": {
+                    "CriticalSuccess": "If an attack roll is a critical success and would hit one of the images, one of the images is destroyed and the attack roll becomes a success against the target.",
+                    "Failure": "If an attack roll fails to hit the target's AC but doesn't critically fail, it destroys an image but has no additional effect (even if the attack would normally have an effect on a failure).",
+                    "Success": "If an image is hit, it is destroyed."
+                },
+                "Images": {
+                    "One": "With one image remaining, there is a 1 in 2 chance of hitting the target (1–3 on [[/r 1d6 #Mirror Image]]).",
+                    "Three": "If all three images remain, there is a 1 in 4 chance of hitting the target (1 on [[/r 1d4 #Mirror Image]]).",
+                    "Two": "With two images remaining, there is a 1 in 3 chance of hitting the target (1–2 on [[/r 1d6 #Mirror Image]])."
+                },
+                "Title": "Mirror Image"
+            },
             "SpellEffectOverstuff": {
                 "Addendum": "If you spend an action to end this condition, you succeed automatically."
             },
@@ -9214,6 +9353,11 @@
                 "OverburdeningSpell": "If the next action you use is to Cast a Spell that targets a single creature, unless the target is unaffected by the spell, the target takes a –15-foot status penalty to its Speeds for 1 round (this penalty is doubled for climb, fly, and swim Speeds). @UUID[Compendium.pf2e.feat-effects.Item.RT4mBRa3UlnALH3O]{Effect: Overburdening Spell}",
                 "OverwhelmingBreath": "If you use your next action to Cast a Spell that has the monk trait and no duration, the spell and any Strikes you make as a result of casting it ignore an amount of the target's resistance to physical damage equal to your level.",
                 "OverwhelmingEnergy": "If the next action you use is to Cast a Spell, the spell ignores an amount of the target's resistance to acid, cold, electricity, fire, or sonic damage equal to your level. This applies to all damage the spell deals, including persistent damage and damage caused by an ongoing effect of the spell, such as the wall created by wall of fire. A creature's immunities are unaffected.",
+                "PallidHealing": {
+                    "Option": "Hundred-Moth Caress — Pallid Healing",
+                    "Title": "Pallid Healing",
+                    "Text": "You deal @Damage[1d10] void damage to yourself. This damage ignores all resistances and immunities, and you take it even if you would be healed by void effects. If your next action is to Strike with the scythe or to Cast a Spell with the disease or void trait, that Strike or spell deals additional void damage equal to the damage you took."
+                },
                 "PitchPerfectProjection": "If your next action this round is to Cast a Spell or use an action that creates an auditory effect with a range, increase that range by 30 feet.",
                 "PortentousSpell": "If the next action you use is to Cast a Spell, any creature that attempts to use a reaction triggered by your Cast a Spell activity takes a –2 circumstance penalty to attack rolls and skill checks rolled as part of the reaction. In addition, if the spell includes a spell attack or requires a saving throw, creatures you hit or that fail their saves are @UUID[Compendium.pf2e.conditionitems.Item.AdPVz7rbaVSRxHFg]{Fascinated} with you until the start of your next turn. @UUID[Compendium.pf2e.feat-effects.Item.klZVVIetJlR99cT6]{Effect: Portentous Spell}",
                 "PurifyingSpell": "If the next action you use is to cast _heal_ targeting a single living creature, you can attempt to counteract a disease or poison affecting the target, in addition to the other benefits of _heal_. If you do, _heal_ gains the water trait.",
@@ -9269,6 +9413,9 @@
                 "SpiritDamage": "Spirit Warrior — Deal spirit damage"
             },
             "Sprite": {
+                "DarklandsLight": {
+                    "Light": "Darklands Light"
+                },
                 "Dijiang": {
                     "Emotion": "When you roll a failure (though not a critical failure) on a saving throw against an emotion effect, you get a success instead."
                 },
@@ -9278,14 +9425,19 @@
                 "SpritesSpark": {
                     "Dijiang": "Primordial Pulse",
                     "Draxie": "Euphoric Spark",
+                    "Firefly": "Luminous Spark",
                     "Gandharva": "Celestial Song",
                     "Grig": "Dissonant Note",
                     "Kanchil": "Puzzling Bolt",
+                    "Kaztili": "Cruel Word",
+                    "Kirakor": "Sour Note",
                     "Leungli": "Surging Splash",
                     "LuminousSprite": "Luminous Spark",
                     "Melixie": "Sting Shot",
+                    "Murxie": "Luminous Spark",
                     "Nyktera": "Ultrasonic Pulse",
-                    "Pixie": "Pixie Dust"
+                    "Pixie": "Pixie Dust",
+                    "Veredram": "Thorny Barb"
                 }
             },
             "Staff": {
@@ -9441,6 +9593,7 @@
                     "Impaling": "Impaling",
                     "Label": "Finisher",
                     "Lethal": "Lethal",
+                    "LethalDamage": "Finisher — Lethal Finisher Damage",
                     "Mobile": "Mobile",
                     "Perfect": "Perfect",
                     "PreciseNote": "On a failure, you apply your @Damage[((@actor.flags.system.swashbuckler.preciseStrike)d6[precision])[@item.system.damage.damageType]]{full precise strike damage} instead of half.",
@@ -10671,6 +10824,11 @@
                         "Viral": "Viral Order"
                     },
                     "Prompt": "Select a Bond"
+                }
+            },
+            "Nanocyte": {
+                "AlterationArray": {
+                    "StrikeLabel": "Nanite"
                 }
             },
             "Nuar": {

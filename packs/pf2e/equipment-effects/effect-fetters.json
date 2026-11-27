@@ -1,0 +1,88 @@
+{
+    "_id": "sEjsoeHXBAsB9oZ7",
+    "img": "icons/sundries/survival/cuffs-shackles-tan.webp",
+    "name": "Effect: Fetters",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Fetters (Simple)], @UUID[Compendium.pf2e.equipment-srd.Item.Fetters (Average)], @UUID[Compendium.pf2e.equipment-srd.Item.Fetters (Good)], @UUID[Compendium.pf2e.equipment-srd.Item.Fetters (Superior)]</p>\n<p>You take a –20-foot circumstance penalty to your Speed and must succeed at a DC 11 flat check any time you use a manipulate action or else that action fails.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "land-speed"
+                ],
+                "type": "circumstance",
+                "value": -20
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:manipulate"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Equipment.Fetters.Note"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:manipulate"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Equipment.Fetters.Note"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:manipulate"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Equipment.Fetters.Note"
+                    }
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

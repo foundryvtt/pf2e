@@ -48,7 +48,7 @@
     <BrowserTab foundryApp={browser} {panelId} labelledBy={tabs.length > 1 ? tabId(browser.activeTabName) : null} />
 {/if}
 
-<style lang="scss">
+<style>
     :global {
         .compendium-browser {
             --input-text-color: var(--color-dark-2);

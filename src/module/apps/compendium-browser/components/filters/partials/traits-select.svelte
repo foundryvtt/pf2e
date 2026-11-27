@@ -47,7 +47,7 @@
     <SvelectePf2e {...props} {i18n} />
 </div>
 
-<style lang="scss">
+<style>
     .traits-select {
         display: flex;
         margin-bottom: 0.25em;
@@ -90,7 +90,7 @@
                 border-width: 0;
                 background-color: var(--sv-item-btn-bg);
                 border-radius: unset;
-                padding: 0 var(--space-1);
+                padding: 0 var(--spacer-1);
 
                 &:hover {
                     background-color: #c77777;

@@ -67,7 +67,7 @@ export class ActiveEffectPF2e<TParent extends ActorPF2e | ItemPF2e | null> exten
                 return { [change.key]: value };
             }
             case "detectionModes.hearing": {
-                if (Number(game.release.version) >= 14.37 || !R.isPlainObject(change.value)) break;
+                if (!R.isPlainObject(change.value)) break;
                 const range = Number(targetDoc.parent?.flags[SYSTEM_ID]?.hearingRange ?? Infinity);
                 const value = { enabled: !!change.value.enabled, range };
                 if (options?.modifyTarget) targetDoc.detectionModes.hearing = value;
@@ -89,7 +89,7 @@ export class ActiveEffectPF2e<TParent extends ActorPF2e | ItemPF2e | null> exten
                 break;
             case "texture.scaleX":
             case "texture.scaleY": {
-                if (!targetDoc.autoscale) return {};
+                if (change.phase === "initial" && !targetDoc.autoscale) return {};
                 const mirror = Math.sign(Number(fu.getProperty(targetDoc._source, change.key)));
                 change = { ...change, value: mirror * Number(change.value) };
                 break;

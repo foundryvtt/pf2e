@@ -51,7 +51,7 @@
                         "value": 5
                     },
                     "slot1": {
-                        "max": 3,
+                        "max": 4,
                         "prepared": [
                             {
                                 "id": "R48XMi2L5Inlde8c"
@@ -60,25 +60,25 @@
                                 "id": "nFgPSZnD1wU6WYHU"
                             }
                         ],
-                        "value": 3
+                        "value": 4
                     },
                     "slot2": {
-                        "max": 3,
+                        "max": 4,
                         "prepared": [
                             {
                                 "id": "sEwJ4uCeTArpbnjG"
                             }
                         ],
-                        "value": 3
+                        "value": 4
                     },
                     "slot3": {
-                        "max": 3,
+                        "max": 4,
                         "prepared": [
                             {
                                 "id": "rm6TYFZXvVS41lxD"
                             }
                         ],
-                        "value": 3
+                        "value": 4
                     },
                     "slot4": {
                         "max": 3,
@@ -102,8 +102,9 @@
                     "value": 17
                 },
                 "tradition": {
-                    "value": "divine"
-                }
+                    "value": "primal"
+                },
+                "traits": {}
             },
             "type": "spellcastingEntry"
         },
@@ -1663,11 +1664,11 @@
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
-            "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
+            "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Dagger",
             "sort": 2300000,
             "system": {
-                "baseItem": null,
+                "baseItem": "dagger",
                 "bonus": {
                     "value": 0
                 },
@@ -1712,14 +1713,14 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 3,
                 "range": null,
                 "reload": {
-                    "value": "-"
+                    "value": null
                 },
                 "rules": [],
                 "runes": {
@@ -1728,7 +1729,7 @@
                     "striking": 0
                 },
                 "size": "med",
-                "slug": null,
+                "slug": "dagger",
                 "splashDamage": {
                     "value": 0
                 },
@@ -1748,16 +1749,117 @@
             "type": "weapon"
         },
         {
+            "_id": "3Ly644C6wDLy5VfS",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.SeZfwtBYwmxKrphR"
+            },
+            "img": "systems/pf2e/icons/equipment/staves/poisoners-staff.webp",
+            "name": "Poisoner's Staff",
+            "sort": 2400000,
+            "system": {
+                "ammo": null,
+                "baseItem": "staff",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d4"
+                },
+                "description": {
+                    "value": "<p>This gnarled staff is covered with thorns and coated with a glistening lacquer that acts as a minor irritant. While holding the staff, you aren't affected by its coating or thorns, and you reduce the DC of your flat checks to overcome persistent poison damage from 15 to 13.</p>\n<hr />\n<p><strong>Activate</strong> @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell]</p>\n<hr />\n<p><strong>Effect</strong> You expend a number of charges from the staff to cast a spell from its list.</p>\n<hr />\n<ul>\n<li><strong>Cantrips</strong> @UUID[Compendium.pf2e.spells-srd.Item.Guidance]</li>\n<li><strong>1st</strong> @UUID[Compendium.pf2e.spells-srd.Item.Detect Poison], @UUID[Compendium.pf2e.spells-srd.Item.Spider Sting]</li>\n</ul>\n<hr />\n<p><strong>Craft Requirements</strong> Supply one casting of all listed levels of all listed spells.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "expend": null,
+                "grade": null,
+                "group": "club",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 4
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 90
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #160: Assault on Hunting Lodge Seven"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": null
+                },
+                "rules": [
+                    {
+                        "itemType": "condition",
+                        "key": "ItemAlteration",
+                        "mode": "downgrade",
+                        "predicate": [
+                            "item:damage:type:poison"
+                        ],
+                        "property": "pd-recovery-dc",
+                        "value": 13
+                    }
+                ],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "poisoners-staff",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "magical",
+                        "staff",
+                        "two-hand-d8"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
             "_id": "YG7KXH0qtjZddB2w",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
             },
             "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
             "name": "Studded Leather Armor",
-            "sort": 2400000,
+            "sort": 2500000,
             "system": {
                 "acBonus": 2,
-                "baseItem": null,
+                "baseItem": "studded-leather-armor",
                 "bulk": {
                     "value": 1
                 },
@@ -1792,9 +1894,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1804,7 +1906,7 @@
                     "resilient": 0
                 },
                 "size": "med",
-                "slug": null,
+                "slug": "studded-leather-armor",
                 "speedPenalty": 0,
                 "strength": 1,
                 "traits": {
@@ -1813,67 +1915,6 @@
                 }
             },
             "type": "armor"
-        },
-        {
-            "_id": "hHlYjJTlmZGddvQY",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.SeZfwtBYwmxKrphR"
-            },
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "Poisoner's Staff",
-            "sort": 2500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This gnarled staff is covered with thorns and coated with a glistening lacquer that acts as a minor irritant. While holding the staff, you aren't affected by its coating or thorns, and you reduce the DC of your flat checks to overcome persistent poison damage from 15 to 13.</p>\n<hr />\n<p><strong>Activate</strong> @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell]</p>\n<hr />\n<p><strong>Effect</strong> You expend a number of charges from the staff to cast a spell from its list.</p>\n<p><strong>Craft Requirements</strong> Supply one casting of all listed levels of all listed spells.</p>\n<hr />\n<ul>\n<li><strong>Cantrips</strong> @UUID[Compendium.pf2e.spells-srd.Item.Guidance]</li>\n<li><strong>1st</strong> @UUID[Compendium.pf2e.spells-srd.Item.Detect Poison], @UUID[Compendium.pf2e.spells-srd.Item.Spider Sting]</li>\n</ul>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 4
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 90
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "magical",
-                        "staff"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
         },
         {
             "_id": "EyiD5AxylSuM4vcO",
@@ -1926,6 +1967,11 @@
         },
         {
             "_id": "RywUmURTSevVYI7y",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "3Ly644C6wDLy5VfS"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Poisoner's Staff",
             "sort": 2700000,
@@ -2053,7 +2099,7 @@
                 "category": "defensive",
                 "deathNote": true,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The venom mage is reduced to 0 Hit Points</p>\n<hr />\n<p><strong>Effect</strong> The venom mage explodes into a cloud of poison within a @Template[burst|distance:20]. The venom mage then reforms at a point they choose within the burst, avoids being knocked out, and remains at 1 Hit Point. The venom mage's wounded value increases by 1 when they use this ability, and they can't use this ability when they're wounded 3 or more. Creatures other than the venom mage within the burst must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> No effect.</p>\n<p><strong>Success</strong> The creature is sickened 1.</p>\n<p><strong>Failure</strong> The creature is sickened 2 and cannot recover from the sickened condition while within 20 feet of the venom mage.</p>\n<p><strong>Critical Failure</strong> As failure, but sickened 4.</p>"
+                    "value": "<p><strong>Trigger</strong> The venom mage is reduced to 0 Hit Points</p><hr /><p><strong>Effect</strong> The venom mage explodes into a cloud of poison within a @Template[burst|distance:20]. The venom mage then reforms at a point they choose within the burst, avoids being knocked out, and remains at 1 Hit Point. The venom mage's @UUID[Compendium.pf2e.conditionitems.Item.Wounded] value increases by 1 when they use this ability, and they can't use this ability when they're wounded 3 or more. Creatures other than the venom mage within the burst must attempt a @Check[fortitude|dc:25|options:area-effect,inflicts:sickened] save.</p><hr /><p><strong>Critical Success</strong> No effect.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and cannot recover from the sickened condition while within 20 feet of the venom mage.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 4}.</p><hr /><p><em>Note: A DC was not provided for this ability by Paizo. The DC present here is a moderate DC for the creature level according to the Gamemastery Guide creature building Tables.</em></p>"
                 },
                 "publication": {
                     "license": "OGL",

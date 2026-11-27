@@ -2185,10 +2185,6 @@
                     "3MTzT5IYvPbosxsB": {
                         "damage": "2d10+13",
                         "damageType": "slashing"
-                    },
-                    "hesmgSFnkPG6xa36": {
-                        "damage": "1d6",
-                        "damageType": "bleed"
                     }
                 },
                 "description": {
@@ -2339,7 +2335,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A green hag who succeeds at a Deception check to Lie can mimic the sounds of any animal found near her lair. She has a +4 circumstance bonus to this check.</p>"
+                    "value": "<p>A green hag who succeeds at a Deception check to [[/act lie options=sound-imitation]] can mimic the sounds of any animal found near her lair. She has a +4 circumstance bonus to this check.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2348,14 +2344,9 @@
                 },
                 "rules": [
                     {
-                        "domain": "deception",
-                        "key": "RollOption",
-                        "option": "sound-imitation",
-                        "toggleable": true
-                    },
-                    {
                         "key": "FlatModifier",
                         "predicate": [
+                            "action:lie",
                             "sound-imitation"
                         ],
                         "selector": "deception",
@@ -2516,7 +2507,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> Tulvak uses Change Shape to assume her natural shape</p>\n<p><strong>Effect</strong> Tulvak's transformation into her true form is particularly revolting and can sicken those who aren't prepared for it. All creatures within 30 feet of Tulvak when she takes this reaction must attempt a @Check[will|dc:30] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure).</p>"
+                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> Tulvak uses Change Shape to assume her natural shape</p>\n<p><strong>Effect</strong> Tulvak's transformation into her true form is particularly revolting and can sicken those who aren't prepared for it. All creatures within @Template[emanation|distance:30]{30 feet} of Tulvak when she takes this reaction must attempt a @Check[will|dc:30|options:area-effect,inflicts:sickened] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure).</p>"
                 },
                 "frequency": {
                     "max": 1,

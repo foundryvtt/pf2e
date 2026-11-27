@@ -5,7 +5,7 @@
     import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import type { ABCPickerContext } from "./app.ts";
 
-    const { actor, foundryApp, search, getState }: ABCPickerContext & SvelteAppProps<ABCPickerContext> = $props();
+    const { actor, foundryApp, search, getState }: SvelteAppProps<ABCPickerContext> = $props();
     const data = $derived(getState());
     const filteredItems = $derived.by(() => {
         const matches = search.matches;
@@ -79,7 +79,7 @@
         /* Column so the results line sits under the input */
         display: flex;
         flex-flow: column nowrap;
-        padding: var(--space-8) var(--space-8) 0;
+        padding: var(--spacer-8) var(--spacer-8) 0;
 
         :global(input::placeholder) {
             color: var(--color-form-hint);
@@ -91,7 +91,7 @@
         flex-flow: column nowrap;
 
         > li {
-            column-gap: var(--space-8);
+            column-gap: var(--spacer-8);
             display: grid;
             grid-template:
                 "icon name buttons"
@@ -99,7 +99,7 @@
                 "icon source buttons" / 48px 3fr 1fr;
             align-items: center;
             border-top: 1px solid var(--color-border);
-            padding: var(--space-4);
+            padding: var(--spacer-4);
 
             &.no-rarity {
                 grid-template-areas:
@@ -118,7 +118,7 @@
                 align-self: end;
                 grid-area: name;
                 color: var(--color-text-primary);
-                padding-left: var(--space-1);
+                padding-left: var(--spacer-1);
             }
 
             .tags {
@@ -131,7 +131,7 @@
                 color: var(--color-form-hint);
                 font-size: var(--font-size-12);
                 grid-area: source;
-                padding-left: var(--space-1);
+                padding-left: var(--spacer-1);
                 &.publication {
                     font-style: italic;
                 }
@@ -147,7 +147,7 @@
                 display: flex;
                 flex-flow: row nowrap;
                 font-size: var(--font-size-12);
-                gap: var(--space-4);
+                gap: var(--spacer-4);
                 grid-area: buttons;
 
                 button.confirm {

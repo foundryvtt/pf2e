@@ -727,14 +727,29 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When Lanks successfully @UUID[Compendium.pf2e.actionspf2e.Item.Feint]{Feints}, his target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against his attacks until the end of his next turn. On a critical success, the target is off-guard against all attacks until the end of Lanks's next turn.</p>"
+                    "value": "<p>When Lanks successfully [[/act feint]]{Feints}, his target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against his attacks until the end of his next turn. On a critical success, the target is off-guard against all attacks until the end of Lanks's next turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "action:feint"
+                        ],
+                        "selector": "skill-check",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

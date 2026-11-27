@@ -387,11 +387,11 @@
                     "die": "d8"
                 },
                 "description": {
-                    "value": "<p>This <em>+1 warhammer</em> has three stylized chimera carved into its gold-plated head: a scowling horned dragon, a snorting goat with mighty horns, and a fearsome great cat with its jaws open in a terrifying scream. By activating Chimera's Visage, you can select which of its three heads functions as its primary head, which in turn determines the weapon's capabilities.</p>\n<p><strong>Activate—Chimera's Visage</strong> <span class=\"action-glyph\">1</span> (manipulate) You shift Chimera's Claw to change its primary head, allowing access to that head's weapon traits and secondary effect.</p>\n<p><strong>Horned Dragon Head</strong> The dragon head's horn deals piercing damage. In this mode, the warhammer has the sweep and versatile S weapon traits. Each time you damage a creature with this weapon, the dragon's flaring nostrils snort out a small cloud of cloying, acrid gas that deals an additional 2 persistent poison damage in addition to the weapon's normal damage.</p>\n<p><strong>Screaming Cat Head</strong> The screaming cat's brutal teeth deal slashing damage. In this mode, the warhammer has the backstabber and versatile B weapon traits. Tiny rubies inset into the eyes of the weapon's screaming cat face ignite as bright-red pinpoints, distracting foes with traces of crimson light as the weapon shifts and moves in combat. This grants you a +2 item bonus to [[/act feint]] against a target you damaged with Chimera's Claw in the previous round.</p>\n<p><strong>Snorting Goat Head</strong> The snorting goat's curled horns and heavy brow deal bludgeoning damage. In this mode, the warhammer has the shove and versatile P weapon traits. The goat head's long horns function as a levered crowbar.</p>"
+                    "value": "<p>This <em>+1 warhammer</em> has three stylized chimera carved into its gold-plated head: a scowling horned dragon, a snorting goat with mighty horns, and a fearsome great cat with its jaws open in a terrifying scream. By activating Chimera's Visage, you can select which of its three heads functions as its primary head, which in turn determines the weapon's capabilities.</p>\n<p><strong>Activate—Chimera's Visage</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<p>You shift <em>Chimera's Claw</em> to change its primary head, allowing access to that head's weapon traits and secondary effect.</p>\n<p><strong>Horned Dragon Head</strong> The dragon head's horn deals piercing damage. In this mode, the warhammer has the sweep and versatile S weapon traits. Each time you damage a creature with this weapon, the dragon's flaring nostrils snort out a small cloud of cloying, acrid gas that deals an additional 2 persistent poison damage in addition to the weapon's normal damage.</p>\n<p><strong>Screaming Cat Head</strong> The screaming cat's brutal teeth deal slashing damage. In this mode, the warhammer has the backstabber and versatile B weapon traits. Tiny rubies inset into the eyes of the weapon's screaming cat face ignite as bright-red pinpoints, distracting foes with traces of crimson light as the weapon shifts and moves in combat. This grants you a +2 item bonus to [[/act feint options=cat-head-damaged-previous-round]] against a target you damaged with <em>Chimera's Claw</em> in the previous round.</p>\n<p><strong>Snorting Goat Head</strong> The snorting goat's curled horns and heavy brow deal bludgeoning damage. In this mode, the warhammer has the shove and versatile P weapon traits. The goat head's long horns function as a @UUID[Compendium.pf2e.equipment-srd.Item.Crowbar (Levered)]{levered crowbar}.</p>"
                 },
                 "equipped": {
                     "carryType": "held",
-                    "handsHeld": 2,
+                    "handsHeld": 1,
                     "invested": null
                 },
                 "expend": null,
@@ -522,6 +522,38 @@
                         ],
                         "property": "traits",
                         "value": "versatile-p"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:feint",
+                            "chimeras-claw:cat-head",
+                            "cat-head-damaged-previous-round"
+                        ],
+                        "selector": "skill-check",
+                        "slug": "chimeras-claw-cat-head-feint",
+                        "type": "item",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:force-open",
+                            "chimeras-claw:goat-head"
+                        ],
+                        "selector": "athletics",
+                        "slug": "chimeras-claw-goat-head-force-open",
+                        "type": "item",
+                        "value": 1
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": [
+                            "chimeras-claw:goat-head"
+                        ],
+                        "selector": "athletics",
+                        "slug": "no-crowbar",
+                        "suppress": true
                     }
                 ],
                 "runes": {
@@ -576,8 +608,8 @@
                     "value": "<p>Like wooden shields, steel shields come in a variety of shapes and sizes. Though more expensive than wooden shields, they are much more durable.</p><table class=\"pf2e remaster\"><thead><tr><th>Hardness</th><th>HP</th><th>BT</th></tr></thead><tbody><tr><td>5</td><td>20</td><td>10</td></tr></tbody></table>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
+                    "carryType": "held",
+                    "handsHeld": 1
                 },
                 "grade": null,
                 "hardness": 5,
@@ -750,7 +782,7 @@
         {
             "_id": "taJIlg7lRqzYxMet",
             "img": "icons/sundries/misc/key-brass.webp",
-            "name": "Key to area A8",
+            "name": "Key",
             "sort": 1000000,
             "system": {
                 "baseItem": null,
@@ -759,6 +791,7 @@
                 },
                 "containerId": null,
                 "description": {
+                    "gm": "<p>Key to area <strong>A8</strong></p>",
                     "value": ""
                 },
                 "equipped": {
@@ -802,7 +835,7 @@
         {
             "_id": "E1tuJM80fp9iZ1HJ",
             "img": "icons/sundries/misc/key-copper.webp",
-            "name": "Key to area A17",
+            "name": "Key",
             "sort": 1100000,
             "system": {
                 "baseItem": null,
@@ -811,6 +844,7 @@
                 },
                 "containerId": null,
                 "description": {
+                    "gm": "<p>Key to area <strong>A17</strong></p>",
                     "value": ""
                 },
                 "equipped": {
@@ -915,7 +949,8 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>The missing piece of the drouge set found in area <strong>A18</strong></p>"
+                    "gm": "<p>The missing piece of the drouge set found in area <strong>A18</strong></p>",
+                    "value": ""
                 },
                 "equipped": {
                     "carryType": "worn",

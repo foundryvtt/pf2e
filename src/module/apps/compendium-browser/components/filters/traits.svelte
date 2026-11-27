@@ -114,11 +114,9 @@
     {/each}
 {/snippet}
 
-<style lang="scss">
-    :global(.sv-item--content) {
-        &.not {
-            text-decoration: line-through;
-        }
+<style>
+    :global(.sv-item--content).not {
+        text-decoration: line-through;
     }
 
     .sv-item--btn {

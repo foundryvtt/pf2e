@@ -54,6 +54,40 @@ const DENOMINATION_RATES = {
 
 const COIN_DENOMINATION_BY_VALUE = R.invert(R.pick(DENOMINATION_RATES, ["cp", "sp", "gp", "pp"]));
 
+/** Slots a worn item can occupy, each labeled by `PF2E.Item.Physical.Usage.WornSlot.<slot>` */
+const WORN_SLOTS = new Set([
+    "amulet",
+    "anklets",
+    "armbands",
+    "armor",
+    "backpack",
+    "barding",
+    "belt",
+    "beltpouch",
+    "bracelet",
+    "bracers",
+    "circlet",
+    "cloak",
+    "clothing",
+    "collar",
+    "crown",
+    "epaulet",
+    "eyeglasses",
+    "eyepiece",
+    "footwear",
+    "garment",
+    "gloves",
+    "headwear",
+    "horseshoes",
+    "mask",
+    "necklace",
+    "onbelt",
+    "ring",
+    "saddle",
+    "shoes",
+    "wrist",
+] as const);
+
 export {
     COIN_DENOMINATION_BY_VALUE,
     COIN_DENOMINATIONS,
@@ -62,4 +96,5 @@ export {
     PHYSICAL_ITEM_TYPES,
     PRECIOUS_MATERIAL_GRADES,
     PRECIOUS_MATERIAL_TYPES,
+    WORN_SLOTS,
 };

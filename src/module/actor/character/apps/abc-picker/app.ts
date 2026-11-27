@@ -103,14 +103,18 @@ class ABCPicker extends SvelteApplicationMixin<
         const worldItems = game.items.filter((i) => i.type === itemType && i.testUserPermission(game.user, "LIMITED"));
         const packItems = await UUIDUtils.fromUUIDs(
             game.packs
-                .filter((p) => p.documentName === "Item" && p.testUserPermission(game.user, "LIMITED"))
+                .filter(
+                    (p) =>
+                        p.documentName === "Item" &&
+                        p.testUserPermission(game.user, "LIMITED") &&
+                        !p.metadata.flags[SYSTEM_ID]?.skipABC,
+                )
                 .flatMap((p) => p.index.filter((e) => e.type === itemType).map((e) => e.uuid as CompendiumItemUUID)),
         );
 
         const items = [...worldItems, ...packItems]
             .filter((item): item is ABCItemPF2e<null> | HeritagePF2e<null> | DeityPF2e<null> => {
                 if (item.type !== itemType || item.parent) return false;
-                if (item.pack?.startsWith("pf2e-animal-companions.")) return false;
                 if (item.system.traits.value?.includes("eidolon")) return false;
                 if (item.isOfType("heritage")) {
                     const ancestrySlug = actor.ancestry ? (actor.ancestry.slug ?? sluggify(actor.ancestry.name)) : null;

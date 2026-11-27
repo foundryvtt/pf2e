@@ -1,0 +1,55 @@
+{
+    "_id": "su00wEWPfn3za0fw",
+    "img": "icons/commodities/bones/bones-lizard-grey.webp",
+    "name": "Effect: Bone Dance",
+    "system": {
+        "description": {
+            "value": "<p>You gain void healing and resistance 5 to all damage (except force, ghost touch, spirit, or vitality) against the triggering attack or spell.</p>"
+        },
+        "duration": {
+            "expiry": "round-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.hp.negativeHealing",
+                "value": true
+            },
+            {
+                "exceptions": [
+                    "force",
+                    "ghost-touch",
+                    "spirit",
+                    "vitality"
+                ],
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": 5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

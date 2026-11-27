@@ -424,16 +424,12 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 16
+                    "value": 15
                 },
                 "damageRolls": {
                     "XhGUOd8JdFllb7Kf": {
                         "damage": "1d6+12",
                         "damageType": "bludgeoning"
-                    },
-                    "mWizkKgRkUJceeeE": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -500,13 +496,17 @@
                     "remaster": false,
                     "title": ""
                 },
-                "range": null,
+                "range": {
+                    "increment": 20,
+                    "max": null
+                },
                 "rules": [],
                 "slug": "alchemists-fire-moderate",
                 "traits": {
                     "value": [
                         "bomb",
                         "consumable",
+                        "fire",
                         "splash"
                     ]
                 }
@@ -553,11 +553,15 @@
                     "remaster": false,
                     "title": ""
                 },
-                "range": null,
+                "range": {
+                    "increment": 20,
+                    "max": null
+                },
                 "rules": [],
                 "slug": "acid-flask-moderate",
                 "traits": {
                     "value": [
+                        "acid",
                         "bomb",
                         "consumable",
                         "splash"
@@ -580,14 +584,29 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any non-consumable weapon the cultist wields gains the effects of the flaming rune in addition to a +1 weapon rune.</p>"
+                    "value": "<p>Any non-consumable weapon the cultist wields gains the effects of the <em>flaming</em> rune in addition to a <em>+1</em> weapon rune.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            {
+                                "nor": [
+                                    "item:category:unarmed",
+                                    "item:trait:consumable"
+                                ]
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []

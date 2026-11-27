@@ -10,6 +10,7 @@ import Peggy from "peggy";
 import * as Vite from "vite";
 import checker from "vite-plugin-checker";
 import { viteStaticCopy } from "vite-plugin-static-copy";
+import duplicates from "./build/duplicates.json" with { type: "json" };
 import { sluggify } from "./src/util/misc.ts";
 import pf2eManifest from "./system.pf2e.json" with { type: "json" };
 import sf2eManifest from "./system.sf2e.json" with { type: "json" };
@@ -18,8 +19,15 @@ const ROOT_DIR = import.meta.dirname;
 const [SYSTEM_ID, systemJSON] =
     process.env.SYSTEM_ID === "sf2e" ? (["sf2e", sf2eManifest] as const) : (["pf2e", pf2eManifest] as const);
 const CONDITION_SOURCES = ((): ConditionSource[] => {
-    const output = execSync(`pnpm run build:conditions --system=${SYSTEM_ID}`, { encoding: "utf-8" });
-    return JSON.parse(output.slice(output.indexOf("[")));
+    const build = (systemId: "pf2e" | "sf2e"): ConditionSource[] => {
+        const output = execSync(`pnpm build:conditions --system=${systemId}`, { encoding: "utf-8" });
+        return JSON.parse(output.slice(output.indexOf("[")));
+    };
+    const sources = build(SYSTEM_ID);
+    if (SYSTEM_ID === "sf2e") return sources;
+    // SF2e-only conditions can reach pf2e worlds through sf2e-anachronism
+    const slugs = new Set(sources.map((s) => s.system.slug));
+    return [...sources, ...build("sf2e").filter((s) => !slugs.has(s.system.slug))];
 })();
 const EN_JSON = JSON.parse(fs.readFileSync("./static/lang/en.json", { encoding: "utf-8" }));
 
@@ -48,6 +56,32 @@ function getUuidRedirects({ systemId }: { systemId: SystemId }): Record<Compendi
     return redirectJSON;
 }
 
+/** Map PF2e pack names to their SF2e counterpart and the IDs of the documents in it, including PF2e duplicates */
+function getSF2ePacks(): Record<string, { name: string; ids: Set<string> } | undefined> {
+    const readIds = (paths: string[]) => paths.map((p): string => JSON.parse(fs.readFileSync(p, "utf-8"))._id);
+    const globJSON = (dirPath: string) =>
+        globSync(path.resolve(dirPath, "**/*.json"), { windowsPathsNoEscape: true, ignore: "**/_folders.json" });
+
+    return Object.fromEntries(
+        pf2eManifest.packs.flatMap((pf2ePack) => {
+            const sf2ePack = sf2eManifest.packs.find((p) => p.path === pf2ePack.path);
+            if (!sf2ePack) return [];
+            const dirName = path.basename(sf2ePack.path);
+            const ids = readIds(globJSON(path.resolve(ROOT_DIR, "packs/sf2e", dirName)));
+            const duplicateSlugs = new Set(
+                duplicates
+                    .flatMap((g) => (g.entries as Record<string, string[] | undefined>)[dirName] ?? [])
+                    .map((n) => sluggify(n)),
+            );
+            if (duplicateSlugs.size > 0) {
+                const pf2ePaths = globJSON(path.resolve(ROOT_DIR, "packs/pf2e", dirName));
+                ids.push(...readIds(pf2ePaths.filter((p) => duplicateSlugs.has(path.basename(p, ".json")))));
+            }
+            return [[pf2ePack.name, { name: sf2ePack.name, ids: new Set(ids) }]];
+        }),
+    );
+}
+
 const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     const buildMode = mode === "production" ? "production" : "development";
     const outDir = `dist/${SYSTEM_ID}`;
@@ -71,29 +105,63 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
               })()
             : { foundryPort: 30000, serverPort: 30001 };
 
-    // Add system layer to svelte CSS in HMR
-    const hmrPreprocess = {
-        name: "svelte-hmr-layer",
-        style: ({ content }: { content: string }) => ({ code: `@layer system { ${content} }` }),
+    // sf2e styling is appended to the main stylesheet only. Svelte components are system-agnostic and theme
+    // themselves through CSS custom properties.
+    const stylesDir = path.resolve(ROOT_DIR, "src/styles").split(path.sep).join("/");
+    const sf2eStyles: Vite.Plugin = {
+        name: "sf2e-styles",
+        enforce: "pre",
+        transform: (code, id) => {
+            if (SYSTEM_ID !== "sf2e") return;
+            if (id === `${stylesDir}/main.css`) return `${code}\n@import "./sf2e/index.css" layer(base);`;
+            if (id === `${stylesDir}/vite-hmr.css`) return `${code}\n@import "./sf2e/index.css" layer(system.base);`;
+            return;
+        },
+    };
+
+    // Sub-layers of `system` are declared in styles/layers.css. Foundry imports the built stylesheet into `system`;
+    // the dev server serves styles itself, so they name `system` explicitly there.
+    const systemLayer = command === "serve" ? "system." : "";
+    const componentLayer = {
+        name: "svelte-component-layer",
+        // Third-party components are layered with the other vendor CSS
+        style: ({ content, filename }: { content: string; filename?: string }) =>
+            filename?.includes("node_modules") ? undefined : { code: `@layer ${systemLayer}components { ${content} }` },
+    };
+    // Third-party CSS keeps its place at the start of the base rules. It can end up ahead of layers.css in the
+    // bundle, so it repeats the layer order to keep its own layer from being declared first.
+    const layerOrder = fs
+        .readFileSync(path.resolve(ROOT_DIR, "src/styles/layers.css"), "utf-8")
+        .match(/@layer [^;]+;/)?.[0];
+    const vendorLayer: Vite.Plugin = {
+        name: "vendor-layer",
+        transform: (code, id) => {
+            if (!/node_modules\/.+\.css$/.test(id)) return;
+            const layered = `${layerOrder}\n@layer base { ${code} }`;
+            return command === "serve" ? `@layer system { ${layered} }` : layered;
+        },
     };
 
     const plugins = [
-        checker({ typescript: true }),
+        sf2eStyles,
+        vendorLayer,
+        // CI type-checks in its own job with svelte-check, which also covers .ts files
+        checker({ typescript: true, enableBuild: !process.env.CI }),
         sveltePlugin({
-            preprocess: command === "serve" ? [vitePreprocess(), hmrPreprocess] : vitePreprocess(),
+            preprocess: [vitePreprocess(), componentLayer],
         }),
     ];
     const packUUIDPattern = /Compendium\.pf2e\.[^\]]+/g;
+    const sf2ePacks = SYSTEM_ID === "sf2e" ? getSF2ePacks() : {};
+    // UUIDs of PF2e-only content are left alone for PF2e Anachronism to redirect
     const adjustUUIDForSF2e = (s: string): string =>
-        s.replace(packUUIDPattern, (uuid) =>
-            uuid
-                .replace("Compendium.pf2e.", "Compendium.sf2e.")
-                .replace(".actionspf2e.", ".actions.")
-                .replace(".ancestryfeatures.", ".ancestry-features.")
-                .replace(".classfeatures.", ".class-features.")
-                .replace(".conditionitems.", ".conditions.")
-                .replace("-srd.", "."),
-        );
+        s.replace(packUUIDPattern, (uuid) => {
+            const [, , pf2ePackName, , id] = uuid.split(".");
+            const sf2ePack = sf2ePacks[pf2ePackName];
+            return sf2ePack?.ids.has(id)
+                ? uuid.replace(`Compendium.pf2e.${pf2ePackName}.`, `Compendium.sf2e.${sf2ePack.name}.`)
+                : uuid;
+        });
     if (buildMode === "production") {
         plugins.push(
             // Handle minification after build to allow for tree-shaking and whitespace minification
@@ -209,8 +277,8 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             apply: "serve",
             transform: (code, id) => {
                 if (id === mainCss) {
-                    return code.replace("styles/main.scss", "styles/vite-hmr.scss");
-                } else if (/node_modules\/.+\.css$/.test(id)) {
+                    return code.replace("styles/main.css", "styles/vite-hmr.css");
+                } else if (id === `${stylesDir}/layers.css`) {
                     return `@layer system { ${code} }`;
                 }
                 return;
@@ -259,6 +327,8 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             fu: "foundry.utils",
         },
         resolve: { tsconfigPaths: true },
+        // Pre-bundle dependencies before the first hot request since we don't have HTML for vite to scan
+        optimizeDeps: { entries: ["src/pf2e.ts"] },
         build: {
             outDir,
             emptyOutDir: false, // Fails if world is running due to compendium locks: handled with `npm run clean`
@@ -293,24 +363,10 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                     ws: true,
                 },
             },
-            watch: { ignored: ["dist", "packs", "tests"].map((d) => path.resolve(ROOT_DIR, d, "**")) },
+            watch: { ignored: ["dist", "packs", "packs-temp", "tests"].map((d) => path.resolve(ROOT_DIR, d, "**")) },
         },
         plugins,
-        css: {
-            devSourcemap: buildMode === "development",
-            preprocessorOptions: {
-                scss: {
-                    additionalData: (source: string, filename: string) => {
-                        // `sf2e/index` is system-specific styling, layered into the main stylesheet
-                        // entry only. Svelte components are system-agnostic and theme themselves
-                        // through CSS custom properties, so they never need it (and their <style> is
-                        // scoped, which would rewrite its selectors anyway).
-                        if (SYSTEM_ID !== "sf2e" || filename?.includes(".svelte")) return source;
-                        return `${source}\n@import "sf2e/index";`;
-                    },
-                },
-            },
-        },
+        css: { devSourcemap: buildMode === "development" },
     };
 });
 

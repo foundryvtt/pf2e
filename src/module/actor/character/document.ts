@@ -45,7 +45,11 @@ import { WeaponPF2e } from "@item";
 import type { AbilityTrait } from "@item/ability/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ActionCost } from "@item/base/data/index.ts";
-import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
+import {
+    getPropertyRuneAttackNotes,
+    getPropertyRuneDegreeAdjustments,
+    getPropertyRuneStrikeAdjustments,
+} from "@item/physical/runes.ts";
 import type { EffectAreaShape, ItemType } from "@item/types.ts";
 import type { WeaponRuneSource, WeaponSource } from "@item/weapon/data.ts";
 import { processTwoHandTrait } from "@item/weapon/helpers.ts";
@@ -1543,7 +1547,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
                 const dc = params.dc ?? context.dc;
 
-                const notes = extractNotes(context.origin.actor.synthetics.rollNotes, context.domains);
+                const notes = [
+                    getPropertyRuneAttackNotes(context.origin.item),
+                    extractNotes(context.origin.actor.synthetics.rollNotes, context.domains),
+                ].flat();
                 const rollTwice =
                     params.rollTwice ||
                     extractRollTwice(context.origin.actor.synthetics.rollTwice, context.domains, context.options);
@@ -1931,7 +1938,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Constrain PFS player and character numbers
         for (const property of ["playerNumber", "characterNumber"] as const) {
             if (typeof changed.system.pfs?.[property] === "number") {
-                const [min, max] = property === "playerNumber" ? [1, 9_999_999] : [2001, 9999];
+                const [min, max] = property === "playerNumber" ? [1, 99_999_999] : [2001, 9999];
                 changed.system.pfs[property] = Math.clamp(changed.system.pfs[property] || 0, min, max);
             } else if (changed.system.pfs && changed.system.pfs[property] !== null) {
                 changed.system.pfs[property] = this.system.pfs[property] ?? null;

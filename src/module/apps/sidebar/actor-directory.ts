@@ -52,12 +52,12 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
         const partContext = await super._preparePartContext(partId, context, options);
         if (partId !== "parties") return partContext;
 
-        const activeParty = game.actors.party;
+        const activeParty = game.actors.party?.visible ? game.actors.party : null;
         if (options.isFirstRender && activeParty && game.settings.get(SYSTEM_ID, "activePartyFolderState")) {
             this.#extraFolders[activeParty.id] = true;
         }
         const parties = R.sortBy(
-            this.collection.filter((a): a is PartyPF2e<null> => a.isOfType("party") && a !== activeParty),
+            this.collection.filter((a): a is PartyPF2e<null> => a.isOfType("party") && a.visible && a !== activeParty),
             (p) => p.sort,
         );
         return Object.assign(partContext, {
@@ -76,7 +76,7 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
 
         return {
             ...R.pick(party, ["id", "name", "img", "active"]),
-            members: party.members.filter((m) => game.actors.has(m.id)),
+            members: party.members.filter((m) => game.actors.has(m.id) && m.visible),
         };
     }
 

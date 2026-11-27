@@ -204,7 +204,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A little man in the woods can mimic the sounds of a person in distress by attempting a Deception check to Lie. The little man in the woods has a +4 circumstance bonus to this check.</p>"
+                    "value": "<p>A little man in the woods can mimic the sounds of a person in distress by attempting a Deception check to [[/act lie options=voice-imitation]]. The little man in the woods has a +4 circumstance bonus to this check.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -213,14 +213,9 @@
                 },
                 "rules": [
                     {
-                        "domain": "deception",
-                        "key": "RollOption",
-                        "option": "voice-imitation",
-                        "toggleable": true
-                    },
-                    {
                         "key": "FlatModifier",
                         "predicate": [
+                            "action:lie",
                             "voice-imitation"
                         ],
                         "selector": "deception",

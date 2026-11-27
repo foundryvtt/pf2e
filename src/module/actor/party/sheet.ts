@@ -329,7 +329,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
             if (game.user.isGM) {
                 htmlQuery(memberElem, "a[data-action=remove-member]")?.addEventListener("click", async (event) => {
-                    const confirmed = event.ctrlKey
+                    const confirmed = event.shiftKey
                         ? true
                         : await foundry.applications.api.DialogV2.confirm({
                               window: { title: "PF2E.Actor.Party.RemoveMember.Title" },

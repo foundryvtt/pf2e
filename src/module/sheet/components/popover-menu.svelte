@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { untrack } from "svelte";
     import type { Attachment } from "svelte/attachments";
 
     /**
@@ -13,28 +14,59 @@
         /** Menu heading, doubling as the accessible name */
         label: string;
         items: { id: string; label: string }[];
-        onSelect: (id: string) => void;
+        /** The activating event and item element, for actions that read modifiers or restore focus */
+        onSelect: (id: string, event: MouseEvent, item: HTMLElement) => void;
         /** `refocus` asks the owner to move focus back to the trigger */
         onClose: (refocus: boolean) => void;
         /** The trigger's wrapper: pointerdowns inside it are not dismissals */
         anchor?: HTMLElement | null;
+        /** Open at these viewport coordinates (a right-click) instead of under the anchor */
+        position?: { x: number; y: number } | null;
+        /** Opened while a mouse button is held. The first item is focused on release, since Chrome blurs it then. */
+        focusOnRelease?: boolean;
     }
 
-    const { label, items, onSelect, onClose, anchor = null }: PopoverMenuProps = $props();
+    const {
+        label,
+        items,
+        onSelect,
+        onClose,
+        anchor = null,
+        position = null,
+        focusOnRelease = false,
+    }: PopoverMenuProps = $props();
     const uid = $props.id();
 
     // `items` is recreated on every app re-render, so the attachment tracks the content instead
     // (a needless re-run would steal focus back to the first item)
     const identity = $derived([label, ...items.map((i) => i.id)].join("\0"));
 
-    // Re-runs on menu swaps via the `identity` read.
+    // Re-runs on menu swaps via the `identity` read, and on a new right-click via `position`.
     const setup: Attachment<HTMLElement> = (menu) => {
         void identity;
+        const at = position;
         if (!menu.matches(":popover-open")) menu.showPopover();
         // The menu's own window and document, which differ from the globals in a detached window
         const doc = menu.ownerDocument;
         const win = doc.defaultView ?? window;
-        menu.querySelector("button")?.focus();
+        // Like core's fixed context menus: at the pointer, kept in the viewport, opening upward when there's more room
+        if (at) {
+            const { width, height } = menu.getBoundingClientRect();
+            const { clientWidth, clientHeight } = doc.documentElement;
+            const below = clientHeight - at.y;
+            menu.style.left = `${Math.max(0, Math.min(at.x, clientWidth - width))}px`;
+            menu.style.top = `${below < height && at.y > below ? Math.max(0, at.y - height) : at.y}px`;
+        }
+        // Unfolds from its trigger with core's context menu timing. The parent wraps the trigger, so a menu centered
+        // above the parent's center has flipped upward.
+        if (!win.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            const { top, height } = menu.getBoundingClientRect();
+            const parent = menu.parentElement?.getBoundingClientRect();
+            const originY = at?.y ?? (parent ? parent.top + parent.height / 2 : top);
+            const from = top + height / 2 < originY ? "inset(100% 0 0 0)" : "inset(0 0 100% 0)";
+            menu.animate({ clipPath: [from, "inset(0)"] }, { duration: 200, easing: "ease" });
+        }
+        if (!untrack(() => focusOnRelease)) menu.querySelector("button")?.focus();
 
         // Activate on pointerup, since no click event arrives if a re-render replaces the item
         // mid-gesture. The click listener covers keyboard activation, which fires no pointerup.
@@ -45,12 +77,13 @@
                     ? event.target.closest("button[data-menu-id]")
                     : null;
             if (!(item && fu.isElementInstanceOf(item, HTMLElement)) || typeof item.dataset.menuId !== "string") return;
-            onSelect(item.dataset.menuId);
+            onSelect(item.dataset.menuId, event, item);
             onClose(true);
         };
         // The right-click release that opened the menu steals focus from the first item, so restore it
+        const waitForRelease = untrack(() => focusOnRelease);
         const onWindowPointerup = (event: PointerEvent) => {
-            if (event.button === 0) return;
+            if (event.button === 0 && !waitForRelease) return;
             setTimeout(() => {
                 if (menu.isConnected && !menu.contains(doc.activeElement)) {
                     menu.querySelector("button")?.focus();
@@ -70,6 +103,11 @@
         const onDismissKeydown = (event: KeyboardEvent) => {
             if (event.key === "Escape") onClose(true);
         };
+        // Scrolling would carry the anchor away (or past the pointer position), so it closes the menu
+        const onScroll = (event: Event) => {
+            if (event.target && fu.isElementInstanceOf(event.target, Node) && menu.contains(event.target)) return;
+            onClose(false);
+        };
         // Tab closes the menu and refocuses the trigger, letting the default tab move on from there.
         // No stopPropagation, since data-keyboard-focus already opts out of core keybindings.
         const onMenuKeydown = (event: KeyboardEvent) => {
@@ -82,24 +120,44 @@
             // Focus outside the items (index -1) enters at the first or last item
             buttons.at(index === -1 ? (step === 1 ? 0 : -1) : (index + step) % buttons.length)?.focus();
         };
+        // Pointer moves focus so the mouse and arrow keys share one current item.
+        // On move, not enter: a menu opening under a still pointer keeps its first item focused.
+        const onPointerMove = (event: PointerEvent) => {
+            const item =
+                event.target && fu.isElementInstanceOf(event.target, HTMLElement)
+                    ? event.target.closest<HTMLElement>("button[data-menu-id]")
+                    : null;
+            if (item && item !== doc.activeElement) item.focus({ preventScroll: true });
+        };
         menu.addEventListener("pointerup", onActivate);
         menu.addEventListener("click", onActivate);
         menu.addEventListener("keydown", onMenuKeydown);
+        menu.addEventListener("pointermove", onPointerMove);
         win.addEventListener("pointerup", onWindowPointerup);
         win.addEventListener("pointerdown", onDismissPointerdown);
         win.addEventListener("keydown", onDismissKeydown);
+        win.addEventListener("scroll", onScroll, { capture: true, passive: true });
         return () => {
             menu.removeEventListener("pointerup", onActivate);
             menu.removeEventListener("click", onActivate);
             menu.removeEventListener("keydown", onMenuKeydown);
+            menu.removeEventListener("pointermove", onPointerMove);
             win.removeEventListener("pointerup", onWindowPointerup);
             win.removeEventListener("pointerdown", onDismissPointerdown);
             win.removeEventListener("keydown", onDismissKeydown);
+            win.removeEventListener("scroll", onScroll, { capture: true });
         };
     };
 </script>
 
-<div class="popover-menu" popover="manual" role="menu" aria-labelledby="{uid}-label" {@attach setup}>
+<div
+    class="popover-menu"
+    class:at-pointer={!!position}
+    popover="manual"
+    role="menu"
+    aria-labelledby="{uid}-label"
+    {@attach setup}
+>
     <div class="menu-label" id="{uid}-label">{label}</div>
     {#each items as item (item.id)}
         <!-- data-keyboard-focus suppresses core keybindings (canvas pan) while an item is focused -->
@@ -112,9 +170,10 @@
 <style>
     /* Anchored below the trigger, flipping above when out of room */
     .popover-menu {
+        backdrop-filter: blur(4px);
         background: var(--background);
         border: 1px solid var(--table-header-border-color);
-        border-radius: 3px;
+        border-radius: 4px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
         flex-direction: column;
         inset: unset;
@@ -122,7 +181,8 @@
         inset-inline-end: anchor(end);
         margin: 0;
         min-width: max-content;
-        padding: var(--space-2);
+        padding-block: var(--spacer-2) 0;
+        padding-inline: 0;
         position: fixed;
         position-anchor: --pf2e-popover-menu;
         position-try-fallbacks: flip-block;
@@ -131,12 +191,18 @@
             display: flex;
         }
 
+        /* Placed by the attachment from the pointer coordinates */
+        &.at-pointer {
+            inset: unset;
+            position-anchor: none;
+        }
+
         .menu-label {
             border-block-end: 1px solid var(--table-header-border-color);
             color: var(--color-text-secondary, inherit);
             font-size: var(--font-size-12);
-            margin-block-end: var(--space-2);
-            padding: var(--space-2) var(--space-4);
+            /* Bottom padding, not a margin, so the first item meets the divider */
+            padding: var(--spacer-2) var(--spacer-6) var(--spacer-4);
             white-space: nowrap;
         }
 
@@ -144,15 +210,25 @@
         button {
             background: none;
             border: none;
+            border-radius: 0;
             height: auto;
             justify-content: start;
             min-height: 0;
-            padding: var(--space-2) var(--space-4);
+            padding: var(--spacer-2) var(--spacer-6);
+            transition: none;
 
-            &:hover,
-            &:focus {
-                background: var(--table-row-color-highlight);
+            /* Hover focuses the item, so :focus is the only highlight.
+               Core's button hover colors stand in for the focus ring */
+            &:hover {
+                background: none;
                 color: inherit;
+            }
+
+            &:focus {
+                background: var(--button-hover-background-color);
+                box-shadow: none;
+                color: var(--button-hover-text-color);
+                outline: none;
             }
         }
     }

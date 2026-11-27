@@ -1,0 +1,90 @@
+{
+    "_id": "O8ZMCPp7jgDCN71m",
+    "folder": "On82RNLIepbonHtG",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Knowledge of the Realm Before",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your connection to the First World has manifested in an innate understanding of the natural world and primal phenomena. Additionally, you have an uncanny knack for keeping out of sight. You gain the trained proficiency rank in Nature and Stealth. If you would automatically become trained in one of those skills (from your background or class, for example), you instead become trained in a skill of your choice.</p>\n<p>You also gain the @UUID[Compendium.pf2e.feats-srd.Item.Additional Lore] general feat for your choice of Fey Lore or First World Lore.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Feybound"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.nature.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.stealth.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Additional Lore"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificLore.Fey",
+                        "value": {
+                            "label": "PF2E.SpecificLore.Fey",
+                            "lore": "fey-lore"
+                        }
+                    },
+                    {
+                        "label": "PF2E.SpecificLore.FirstWorld",
+                        "value": {
+                            "label": "PF2E.SpecificLore.FirstWorld",
+                            "lore": "first-world-lore"
+                        }
+                    }
+                ],
+                "flag": "realmLore",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Lore"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.{item|flags.system.rulesSelections.realmLore.lore}",
+                "value": {
+                    "attribute": "int",
+                    "label": "{item|flags.system.rulesSelections.realmLore.label}",
+                    "rank": "match(when(gte(@actor.level, 15), 4), when(gte(@actor.level, 7), 3),when(gte(@actor.level, 3), 2),1)"
+                }
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fadrim"
+            ]
+        }
+    },
+    "type": "feat"
+}

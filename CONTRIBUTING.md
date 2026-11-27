@@ -2,51 +2,58 @@
 
 ## Welcome All
 
-If you would like to contribute to the project then I welcome all support. If you are (or would like to be) a developer, then hit us up on Discord (https://discord.gg/pf2e) and we can help get you up and running. Pull requests are welcome, and there are plenty of issues logged if you want to sink your teeth into something.
+If you would like to contribute to the project, we welcome all support. If you are (or would like to be) a developer, hit us up on Discord (https://discord.gg/pf2e) and we can help get you up and running. Pull requests are welcome, and there are plenty of issues logged if you want to sink your teeth into something.
 
 ## Development
 
 ### Prerequisites
 
-- Node.js 24.14 or newer.
-- pnpm, which is used to run the project's scripts. The version is pinned in the `packageManager` field of `package.json`. pnpm switches to the pinned version automatically, so you do not need to install a matching version by hand; the latest will do. See https://pnpm.io/installation for installation instructions. The standalone script is the recommended method.
+- pnpm. Install using the instructions for your operating system on https://pnpm.io/installation.
 
 ### Building
 
-The project uses vite to bundle the ES module and compile the SASS files needed for a build and can create a local distribution for your own Foundry server. If you want to give it a go yourself follow these steps:
+This project uses Vite to bundle the ES modules and compile the Sass files needed for a build, and it can create a local distribution for your own Foundry server. Follow these steps to build it yourself:
 
-- Clone the repo into a local folder in your dev environment `git clone https://github.com/foundryvtt/pf2e.git`
+- Clone the repository into a local folder (e.g. `git clone https://github.com/foundryvtt/pf2e.git`) and navigate to the created folder.
 
-- From within the clone's folder, Install dependencies with `npm ci`. The repo's lockfile is `package-lock.json`, so dependencies are installed with npm; pnpm is currently only used to run the scripts below.
+- Install dependencies with `pnpm install`. This only needs to be done once as pnpm installs dependency changes automatically whenever one of the scripts is run.
 
-- You'll now need to create a symbolic link between the build folder ("dist") and your Foundry data folder. This can be done manually or by running `npm run link` and following the instructions.
+- Run `pnpm run link` and enter the path to your Foundry data folder when prompted (note that `pnpm link` without `run` is a different built-in pnpm command). This symlinks each build in `dist` into your Foundry data folder: systems into `Data/systems` and anachronism modules into `Data/modules`. You can also create these symlinks manually.
 
-- Run `pnpm run build --system=pf2e` to perform a one-off build.
+#### Systems
 
-- Run `npm run watch` to have any coding changes you make in your dev environment trigger an automatic rebuild.
+- Run `pnpm run build` for pf2e or `pnpm run build --system=sf2e` for sf2e to perform a one-off build.
 
-- To update compendium datafiles, run `pnpm run extractPacks ${compendium db filename} --system=pf2e` after editing the item directly in the built world's compendium, rather than editing the json files directly.
+- Run `pnpm run hot` for pf2e or `pnpm run hot --system=sf2e` for sf2e while Foundry is running to start a development server that reflects code changes automatically (Vite Hot Module Replacement). Open http://localhost:30001 instead of Foundry's usual address. Please note you must build the system first, since `hot` doesn't build packs or copy static files.
+
+#### Anachronism Modules
+
+- Run `pnpm run build:anachronism` to perform a one-off build of both anachronism modules. Adding `--module=pf2e-anachronism` or `--module=sf2e-anachronism` will perform a one-off build of only that anachronism module.
+
+### Updating Compendia
+
+- To update a compendium, first edit the item directly in a built world's compendium (rather than editing the JSON files directly). Then run `pnpm run extractPacks all` for pf2e or `pnpm run extractPacks all --system=sf2e` for sf2e. You can also specify the pack folder name instead of `all`.
 
 ## How to Help
 
-As a project, we are using a modified gitlab flow, with a development branch (`master`) for development and a release branch (`release`) that mirrors the development branch at a certain point in its revision history. If you want to make improvements to the project, you can ask to be added to the project or make a fork of the project in GitHub. Then push your branch to GitHub and open a pull request for your branch to our development branch. After being reviewed it can be pulled into the project by one of the project maintainers.
+As a project, we use the repository's default branch (currently `v14-dev`) for both development and releases. If you want to contribute code and/or content changes, you can start by making your own fork of this project. You can then push changes to a branch on your fork and open a pull request for your branch to our development branch. After being reviewed, it may be pulled into our development branch by one of this project's maintainers.
 
 ### Compendium Content
 
-As new OGL and/or ORC content is released by Paizo, we would like to incorporate it as soon as we are permitted (usually on a street release date). If you would like to contribute such content, please keep in mind the following guidelines:
+As new OGL and/or ORC content is released by Paizo, we would like to incorporate it as soon as we are permitted (usually on the official release date). If you would like to contribute such content, please keep in mind the following guidelines:
 
-- Name the entities (be they physical items, abilities, or other discrete game features) exactly as they are in the source material, with one exception: square brackets (`[` and `]`) should replaced with another set of characters, like parentheses, or simply omitted.
+- Name the entities (be they physical items, abilities, or other discrete game features) exactly as they are in the source material, with one exception: square brackets (`[` and `]`) should be replaced with another set of characters, like parentheses, or simply omitted.
 - Any embedded links to other entities should be of the form `@Compendium[pf2e.pack-name.Entity Name]`. For ease of maintenance, the linked entities should be referenced by _name_ rather than by ID.
 - Do not submit new graphics (especially copyrighted graphics) without first receiving clearance from the copyright holders, if applicable, as well as this repository's maintainers.
 
 ### Pull Requests
 
-Pull requests ("PRs") can be made by anyone. PRs titles should be in imperative mood and state clearly and concisely what is being changed. A description is often needed to expand on any details. For new contributors, CI actions must be manually triggered by the system maintainers. It will automatically trigger for subsequent pull requests after a first one is merged into `master`.
+Pull requests ("PRs") can be made by anyone. PR titles should be in imperative mood and state clearly and concisely what is being changed. A PR description is often needed to expand on any details. For new contributors, continuous integration ("CI") actions must be manually triggered by the system maintainers. For contributors who have had a PR merged, CI actions will trigger automatically.
 
-Unsolicited new features are generally not accepted. If you'd like to contribute one, first find or open an issue detailing the feature gap. From there, we can discuss solutions you have in mind and--if we prefer to go a different direction--possibly save you some headache and wasted effort.
+Unsolicited new features are generally not accepted. If you would like to contribute one, first find or open an issue detailing the feature gap. From there, we can discuss solutions you have in mind and—if we prefer to go a different direction—possibly save you some headache and wasted effort.
 
-A pull request may not contain any AI-written changes. PRs noticed as having any AI-written changes will be summarily closed without merging.
+A PR may not contain any AI-written changes. PRs noticed as having any AI-written changes will be summarily closed without merging.
 
 #### Style
 
-We have integrated [Prettier](https://prettier.io/) into this project to enforce a consistent coding—even if it's not one everybody likes. Github CI will block merges of any PR that fails the test suite, which includes style linting. To manually fix style issues, you can call `npm run lint:fix` from the project environment.
+We have integrated [Prettier](https://prettier.io/) into this project to enforce a consistent coding style, even if it's not one everybody likes. CI will block merges of any PR that fails the test suite, which includes style linting, or the type check. To check locally, run `pnpm lint` and `pnpm check`. To manually fix style issues, you can call `pnpm lint:fix` from the project environment.

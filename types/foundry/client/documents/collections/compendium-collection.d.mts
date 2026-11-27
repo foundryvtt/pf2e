@@ -215,6 +215,7 @@ export default abstract class CompendiumCollection<
 export interface CompendiumMetadata<T extends CompendiumDocument = CompendiumDocument> {
     readonly type: T["documentName"];
     id: string;
+    flags: Record<string, Record<string, unknown> | undefined>;
     name: string;
     label: string;
     path: string;

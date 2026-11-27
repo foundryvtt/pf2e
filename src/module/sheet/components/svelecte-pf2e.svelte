@@ -29,7 +29,7 @@
     <Svelecte {...props} bind:value class={className} {positionResolver} {placeholder} />
 </div>
 
-<style lang="scss">
+<style>
     .svelecte-pf2e {
         anchor-scope: --svelecte-anchor;
         width: 100%;
@@ -70,11 +70,11 @@
                 user-select: unset;
                 font-size: unset;
                 transition: unset;
+            }
 
-                &:focus {
-                    box-shadow: none;
-                    outline: unset;
-                }
+            :global(.sv-input--text):focus {
+                box-shadow: none;
+                outline: unset;
             }
 
             :global(.sv_dropdown) {
