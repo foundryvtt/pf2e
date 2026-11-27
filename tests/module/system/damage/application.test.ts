@@ -13,8 +13,8 @@ import {
 
 describe("applied damage calculation", () => {
     describe("unaffected and immunities", () => {
-        test("damage type the target is unaffected by is removed before weaknesses", () => {
-            const damage = calculate({
+        test("damage type the target is unaffected by is removed before weaknesses", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("vitality", 10)],
                     weaknesses: [weakness("vitality", 5)],
@@ -28,8 +28,8 @@ describe("applied damage calculation", () => {
             expect(damage.totalApplied).toBe(0);
         });
 
-        test("full immunity skips weaknesses and drops persistent damage of that type", () => {
-            const damage = calculate({
+        test("full immunity skips weaknesses and drops persistent damage of that type", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("fire", 10), persistentInstance("fire", "1d6")],
                     immunities: [immunity("fire")],
@@ -47,8 +47,8 @@ describe("applied damage calculation", () => {
             expect(damage.updates["system.attributes.hp.value"]).toBe(30);
         });
 
-        test("immunity to one instance leaves the other instance's weakness in place", () => {
-            const damage = calculate({
+        test("immunity to one instance leaves the other instance's weakness in place", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 8), instance("fire", 6)],
                     immunities: [immunity("fire")],
@@ -67,9 +67,9 @@ describe("applied damage calculation", () => {
     });
 
     describe("persistent damage", () => {
-        test("persistent damage is kept even when resistance negates the rest of the instance type", () => {
+        test("persistent damage is kept even when resistance negates the rest of the instance type", async () => {
             const persistentFire = persistentInstance("fire", "1d6");
-            const damage = calculate({
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("fire", 5), persistentFire],
                     resistances: [resistance("fire", 10)],
@@ -83,8 +83,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(0);
         });
 
-        test("persistent-damage immunity drops only the persistent instance", () => {
-            const damage = calculate({
+        test("persistent-damage immunity drops only the persistent instance", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("fire", 5), persistentInstance("fire", "1d6")],
                     immunities: [immunity("persistent-damage")],
@@ -96,8 +96,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(5);
         });
 
-        test("evaluated persistent damage goes through IWR and is not recorded again", () => {
-            const damage = calculate({
+        test("evaluated persistent damage goes through IWR and is not recorded again", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("fire", 4, { persistent: true, evaluatePersistent: true })],
                     resistances: [resistance("fire", 2)],
@@ -113,8 +113,8 @@ describe("applied damage calculation", () => {
     });
 
     describe("weaknesses", () => {
-        test("only the highest matching weakness applies", () => {
-            const damage = calculate({
+        test("only the highest matching weakness applies", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 10)],
                     weaknesses: [weakness("slashing", 3), weakness("physical", 6)],
@@ -125,8 +125,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(16);
         });
 
-        test("precision and splash weaknesses compete with the main weakness instead of stacking", () => {
-            const damage = calculate({
+        test("precision and splash weaknesses compete with the main weakness instead of stacking", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 10, { precision: 4, splash: 2 })],
                     weaknesses: [weakness("slashing", 3), weakness("precision", 5), weakness("splash-damage", 2)],
@@ -137,8 +137,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(15);
         });
 
-        test("splash weakness needs splash damage", () => {
-            const damage = calculate({
+        test("splash weakness needs splash damage", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 10)],
                     weaknesses: [weakness("splash-damage", 5)],
@@ -149,8 +149,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(10);
         });
 
-        test("precision weakness needs precision damage", () => {
-            const damage = calculate({
+        test("precision weakness needs precision damage", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 10)],
                     weaknesses: [weakness("precision", 5)],
@@ -161,8 +161,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(10);
         });
 
-        test("precision weakness with a matching exception does not apply", () => {
-            const damage = calculate({
+        test("precision weakness with a matching exception does not apply", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 10, { precision: 4 })],
                     weaknesses: [
@@ -180,8 +180,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(10);
         });
 
-        test("apply-once weakness adds one row for the whole roll", () => {
-            const damage = calculate({
+        test("apply-once weakness adds one row for the whole roll", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("bludgeoning", 4), instance("cold", 3)],
                     weaknesses: [weakness("water", 5, { applyOnce: true })],
@@ -193,9 +193,9 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(12);
         });
 
-        test("apply-once weakness is not triggered by unevaluated persistent damage alone", () => {
+        test("apply-once weakness is not triggered by unevaluated persistent damage alone", async () => {
             const persistentFire = persistentInstance("fire", "1d6");
-            const damage = calculate({
+            const damage = await calculate({
                 result: iwr({
                     instances: [persistentFire],
                     weaknesses: [weakness("holy", 5, { applyOnce: true })],
@@ -208,8 +208,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(0);
         });
 
-        test("apply-once weakness is triggered by evaluated persistent damage", () => {
-            const damage = calculate({
+        test("apply-once weakness is triggered by evaluated persistent damage", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("fire", 4, { persistent: true, evaluatePersistent: true })],
                     weaknesses: [weakness("holy", 5, { applyOnce: true })],
@@ -223,8 +223,8 @@ describe("applied damage calculation", () => {
     });
 
     describe("critical hits", () => {
-        test("critical-hits immunity undoes the doubling without being a full immunity", () => {
-            const damage = calculate({
+        test("critical-hits immunity undoes the doubling without being a full immunity", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 20, { critImmuneTotal: 10 })],
                     roll: { options: { degreeOfSuccess: DEGREE_OF_SUCCESS.CRITICAL_SUCCESS } },
@@ -241,8 +241,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(15);
         });
 
-        test("critical-hits immunity with a matching exception removes nothing", () => {
-            const damage = calculate({
+        test("critical-hits immunity with a matching exception removes nothing", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 20, { critImmuneTotal: 10 })],
                     roll: { options: { degreeOfSuccess: DEGREE_OF_SUCCESS.CRITICAL_SUCCESS } },
@@ -261,8 +261,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(20);
         });
 
-        test("on a normal success, critical-hits immunity and resistance do nothing", () => {
-            const damage = calculate({
+        test("on a normal success, critical-hits immunity and resistance do nothing", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 10)],
                     roll: { options: { degreeOfSuccess: DEGREE_OF_SUCCESS.SUCCESS } },
@@ -276,8 +276,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(10);
         });
 
-        test("precision immunity removes all precision damage when critical-hits immunity does not apply", () => {
-            const damage = calculate({
+        test("precision immunity removes all precision damage when critical-hits immunity does not apply", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 20, { critImmuneTotal: 10, precision: 6 })],
                     roll: { options: { degreeOfSuccess: DEGREE_OF_SUCCESS.CRITICAL_SUCCESS } },
@@ -290,8 +290,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(14);
         });
 
-        test("precision immunity removes half the precision damage after critical-hits immunity", () => {
-            const damage = calculate({
+        test("precision immunity removes half the precision damage after critical-hits immunity", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 20, { critImmuneTotal: 10, precision: 6 })],
                     roll: { options: { degreeOfSuccess: DEGREE_OF_SUCCESS.CRITICAL_SUCCESS } },
@@ -307,8 +307,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(7);
         });
 
-        test("critical-hits resistance reduces a critical hit", () => {
-            const damage = calculate({
+        test("critical-hits resistance reduces a critical hit", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 20, { critImmuneTotal: 10 })],
                     roll: { options: { degreeOfSuccess: DEGREE_OF_SUCCESS.CRITICAL_SUCCESS } },
@@ -323,8 +323,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(15);
         });
 
-        test.fails("critical-hits resistance is capped at the doubled part", () => {
-            const damage = calculate({
+        test.fails("critical-hits resistance is capped at the doubled part", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 20, { critImmuneTotal: 10 })],
                     roll: { options: { degreeOfSuccess: DEGREE_OF_SUCCESS.CRITICAL_SUCCESS } },
@@ -341,8 +341,8 @@ describe("applied damage calculation", () => {
     });
 
     describe("resistances", () => {
-        test("only the highest matching resistance applies", () => {
-            const damage = calculate({
+        test("only the highest matching resistance applies", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 10)],
                     resistances: [resistance("slashing", 3), resistance("physical", 6)],
@@ -355,8 +355,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(4);
         });
 
-        test("resistance is capped at remaining damage after weaknesses", () => {
-            const damage = calculate({
+        test("resistance is capped at remaining damage after weaknesses", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 4)],
                     weaknesses: [weakness("slashing", 2)],
@@ -371,8 +371,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(0);
         });
 
-        test("doubled-against uses getDoubledValue", () => {
-            const damage = calculate({
+        test("doubled-against uses getDoubledValue", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("fire", 12)],
                     resistances: [resistance("fire", 5, { getDoubledValue: () => 10 })],
@@ -385,8 +385,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(2);
         });
 
-        test("all-damage resistance applies to each instance", () => {
-            const damage = calculate({
+        test("all-damage resistance applies to each instance", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 8), instance("fire", 6)],
                     resistances: [resistance("all-damage", 5)],
@@ -400,8 +400,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(4);
         });
 
-        test("physical resistance applies to bleed", () => {
-            const damage = calculate({
+        test("physical resistance applies to bleed", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("bleed", 8)],
                     resistances: [resistance("physical", 5)],
@@ -414,8 +414,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(3);
         });
 
-        test("precision resistance is capped at the precision amount", () => {
-            const damage = calculate({
+        test("precision resistance is capped at the precision amount", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 10, { precision: 4 })],
                     resistances: [resistance("precision", 10)],
@@ -428,8 +428,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(6);
         });
 
-        test("precision resistance is skipped when precision immunity applies", () => {
-            const damage = calculate({
+        test("precision resistance is skipped when precision immunity applies", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 10, { precision: 4 })],
                     immunities: [immunity("precision")],
@@ -441,8 +441,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(6);
         });
 
-        test("precision resistance with a matching exception does not apply", () => {
-            const damage = calculate({
+        test("precision resistance with a matching exception does not apply", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 10, { precision: 4 })],
                     resistances: [
@@ -460,9 +460,9 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(10);
         });
 
-        test("ignored resistance is logged and does not reduce damage", () => {
+        test("ignored resistance is logged and does not reduce damage", async () => {
             const ignored = resistance("fire", 5);
-            const damage = calculate({
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("fire", 10)],
                     resistances: [ignored],
@@ -476,9 +476,9 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(10);
         });
 
-        test("ignoring a resistance on one instance does not ignore another instance", () => {
+        test("ignoring a resistance on one instance does not ignore another instance", async () => {
             const ignored = resistance("fire", 10);
-            const damage = calculate({
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("fire", 12), instance("slashing", 8)],
                     resistances: [ignored, resistance("slashing", 3)],
@@ -493,8 +493,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(17);
         });
 
-        test("roll options can make a resistance apply", () => {
-            const damage = calculate({
+        test("roll options can make a resistance apply", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 10)],
                     resistances: [resistance("holy", 5)],
@@ -508,8 +508,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(5);
         });
 
-        test("material on the instance can make a resistance apply", () => {
-            const damage = calculate({
+        test("material on the instance can make a resistance apply", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 10, { materials: ["silver"] })],
                     resistances: [resistance("silver", 5)],
@@ -524,8 +524,8 @@ describe("applied damage calculation", () => {
     });
 
     describe("concussive and redirects", () => {
-        test("piercing resistance is skipped when there is no bludgeoning resistance", () => {
-            const damage = calculate({
+        test("piercing resistance is skipped when there is no bludgeoning resistance", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("piercing", 10)],
                     resistances: [resistance("piercing", 5)],
@@ -545,8 +545,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(10);
         });
 
-        test("redirects to a lower bludgeoning resistance", () => {
-            const damage = calculate({
+        test("redirects to a lower bludgeoning resistance", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("piercing", 10)],
                     resistances: [resistance("piercing", 5), resistance("bludgeoning", 3)],
@@ -566,8 +566,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(7);
         });
 
-        test("does not redirect to a higher bludgeoning resistance", () => {
-            const damage = calculate({
+        test("does not redirect to a higher bludgeoning resistance", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("piercing", 10)],
                     resistances: [resistance("piercing", 5), resistance("bludgeoning", 10)],
@@ -581,8 +581,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(5);
         });
 
-        test("does not redirect physical resistance", () => {
-            const damage = calculate({
+        test("does not redirect physical resistance", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("piercing", 10)],
                     resistances: [resistance("physical", 5)],
@@ -596,8 +596,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(5);
         });
 
-        test("does not redirect to a type the target is immune to", () => {
-            const damage = calculate({
+        test("does not redirect to a type the target is immune to", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("piercing", 10)],
                     immunities: [immunity("bludgeoning")],
@@ -612,8 +612,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(5);
         });
 
-        test("resistance matching a redirected immunity does not apply", () => {
-            const damage = calculate({
+        test("resistance matching a redirected immunity does not apply", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("piercing", 10)],
                     immunities: [immunity("piercing")],
@@ -633,8 +633,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(10);
         });
 
-        test("immunity redirect still applies a lower resistance to the new type", () => {
-            const damage = calculate({
+        test("immunity redirect still applies a lower resistance to the new type", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("piercing", 10)],
                     immunities: [immunity("piercing")],
@@ -650,8 +650,8 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(7);
         });
 
-        test("redirect target is chosen by testing the resistance, not its type", () => {
-            const damage = calculate({
+        test("redirect target is chosen by testing the resistance, not its type", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("piercing", 10)],
                     resistances: [
@@ -680,8 +680,8 @@ describe("applied damage calculation", () => {
     });
 
     describe("totals and ordering", () => {
-        test("roll raised to a minimum of 1 counts only its first instance as 1", () => {
-            const damage = calculate({
+        test("roll raised to a minimum of 1 counts only its first instance as 1", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 0), instance("fire", 0)],
                     roll: { total: 1, options: { increasedFrom: -3 } },
@@ -694,8 +694,8 @@ describe("applied damage calculation", () => {
             expect(damage.updates["system.attributes.hp.value"]).toBe(27);
         });
 
-        test("finalDamage uses the roll total, not the sum of instance totals", () => {
-            const damage = calculate({
+        test("finalDamage uses the roll total, not the sum of instance totals", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 10), instance("fire", 10)],
                     resistances: [resistance("slashing", 5)],
@@ -709,11 +709,11 @@ describe("applied damage calculation", () => {
             expect(damage.finalDamage).toBe(10);
         });
 
-        test.fails("application rows sort by category, with hardness last", () => {
+        test.fails("application rows sort by category, with hardness last", async () => {
             // Unaffected and immunity both sort as first. The immunity branch checks `b.type === "unaffected"`
             // (a damage-type label), so that comparison never prefers unaffected. Instance order then decides
             // which of the two rows is listed first.
-            const damage = calculate({
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("vitality", 10), instance("fire", 10), instance("slashing", 10)],
                     immunities: [immunity("fire")],
@@ -736,8 +736,8 @@ describe("applied damage calculation", () => {
     });
 
     describe("healing", () => {
-        test("stays negative and healing dice and modifiers add to it", () => {
-            const damage = calculate({
+        test("stays negative and healing dice and modifiers add to it", async () => {
+            const damage = await calculate({
                 result: resolved(-10),
                 diceAdjustment: 3,
                 modifierAdjustment: 5,
@@ -749,8 +749,8 @@ describe("applied damage calculation", () => {
             expect(damage.totalApplied).toBe(-18);
         });
 
-        test("a healing penalty cannot flip healing into damage", () => {
-            const damage = calculate({
+        test("a healing penalty cannot flip healing into damage", async () => {
+            const damage = await calculate({
                 result: resolved(-10),
                 modifierAdjustment: -20,
             });
@@ -760,8 +760,8 @@ describe("applied damage calculation", () => {
             expect(damage.totalApplied).toBe(0);
         });
 
-        test("skips temp HP and stamina, caps at max HP, and keeps the full negative totalApplied", () => {
-            const damage = calculate({
+        test("skips temp HP and stamina, caps at max HP, and keeps the full negative totalApplied", async () => {
+            const damage = await calculate({
                 result: resolved(-20),
                 hitPoints: { max: 30, value: 25, temp: 4 },
                 sp: { max: 10, value: 8 },
@@ -775,8 +775,8 @@ describe("applied damage calculation", () => {
     });
 
     describe("hit points", () => {
-        test("applies to temp HP, then stamina, then HP, and totalApplied includes overflow past 0", () => {
-            const damage = calculate({
+        test("applies to temp HP, then stamina, then HP, and totalApplied includes overflow past 0", async () => {
+            const damage = await calculate({
                 result: resolved(20),
                 hitPoints: { max: 30, value: 10, temp: 3 },
                 sp: { max: 10, value: 5 },
@@ -791,8 +791,8 @@ describe("applied damage calculation", () => {
             expect(damage.totalApplied).toBe(20);
         });
 
-        test("does not spend stamina unless the variant is on", () => {
-            const damage = calculate({
+        test("does not spend stamina unless the variant is on", async () => {
+            const damage = await calculate({
                 result: resolved(8),
                 hitPoints: { max: 30, value: 10, temp: 0 },
                 sp: { max: 10, value: 5 },
@@ -803,8 +803,8 @@ describe("applied damage calculation", () => {
             expect(damage.totalApplied).toBe(8);
         });
 
-        test("max HP 0 writes no updates, applies 0, and does not trigger instant death", () => {
-            const damage = calculate({
+        test("max HP 0 writes no updates, applies 0, and does not trigger instant death", async () => {
+            const damage = await calculate({
                 result: resolved(50),
                 hitPoints: { max: 0, value: 0, temp: 5 },
                 rollOptions: new Set(["item:trait:death"]),
@@ -815,8 +815,8 @@ describe("applied damage calculation", () => {
             expect(damage.instantDeath).toBeNull();
         });
 
-        test("zero damage leaves HP unchanged and applies 0", () => {
-            const damage = calculate({ result: resolved(0) });
+        test("zero damage leaves HP unchanged and applies 0", async () => {
+            const damage = await calculate({ result: resolved(0) });
 
             expect(damage.updates).toEqual({ "system.attributes.hp.value": 30 });
             expect(damage.totalApplied).toBe(0);
@@ -825,8 +825,8 @@ describe("applied damage calculation", () => {
     });
 
     describe("shield and hardness", () => {
-        test("shield hardness absorbs first and the shield takes the rest, capped at its HP", () => {
-            const damage = calculate({
+        test("shield hardness absorbs first and the shield takes the rest, capped at its HP", async () => {
+            const damage = await calculate({
                 result: resolved(10),
                 shield: { hardness: 3, hp: 4 },
             });
@@ -837,8 +837,8 @@ describe("applied damage calculation", () => {
             expect(damage.totalApplied).toBe(7);
         });
 
-        test("a 0-HP shield takes no damage", () => {
-            const damage = calculate({
+        test("a 0-HP shield takes no damage", async () => {
+            const damage = await calculate({
                 result: resolved(10),
                 shield: { hardness: 3, hp: 0 },
             });
@@ -848,8 +848,8 @@ describe("applied damage calculation", () => {
             expect(damage.updates).toEqual({ "system.attributes.hp.value": 23 });
         });
 
-        test("no shield block absorbs nothing", () => {
-            const damage = calculate({
+        test("no shield block absorbs nothing", async () => {
+            const damage = await calculate({
                 result: resolved(10),
                 shield: null,
             });
@@ -859,8 +859,8 @@ describe("applied damage calculation", () => {
             expect(damage.updates).toEqual({ "system.attributes.hp.value": 20 });
         });
 
-        test("actor hardness absorbs what remains after the shield and logs a Full row", () => {
-            const damage = calculate({
+        test("actor hardness absorbs what remains after the shield and logs a Full row", async () => {
+            const damage = await calculate({
                 result: resolved(20),
                 shield: { hardness: 5, hp: 10 },
                 baseActorHardness: 4,
@@ -875,8 +875,8 @@ describe("applied damage calculation", () => {
             expect(damage.updates).toEqual({ "system.attributes.hp.value": 19 });
         });
 
-        test("hardness applies to remaining damage after IWR, not the pre-IWR total", () => {
-            const damage = calculate({
+        test("hardness applies to remaining damage after IWR, not the pre-IWR total", async () => {
+            const damage = await calculate({
                 result: iwr({
                     instances: [instance("slashing", 20)],
                     resistances: [resistance("slashing", 5)],
@@ -894,28 +894,27 @@ describe("applied damage calculation", () => {
             expect(damage.totalApplied).toBe(11);
         });
 
-        test("does not apply IWR again when finalDamage is already resolved", () => {
-            const damage = calculate({
-                result: {
-                    finalDamage: 10,
-                    applications: [{ category: "resistance", type: "slashing", adjustment: -5, ignored: false }],
-                    persistent: [],
-                },
+        test("skipped IWR leaves resistance off the breakdown and still applies hardness", async () => {
+            const damage = await calculate({
+                result: iwr({
+                    instances: [instance("slashing", 10)],
+                    resistances: [resistance("slashing", 5)],
+                }),
                 baseActorHardness: 4,
+                skipIWR: true,
             });
 
             expect(damage.finalDamage).toBe(10);
             expect(damage.damageAbsorbedByActor).toBe(4);
             expect(damage.applications).toEqual([
-                { category: "resistance", type: "slashing", adjustment: -5, ignored: false },
                 { category: "reduction", type: "PF2E.Damage.Hardness.Full", adjustment: -4 },
             ]);
             expect(damage.updates).toEqual({ "system.attributes.hp.value": 24 });
             expect(damage.totalApplied).toBe(6);
         });
 
-        test("adamantine halves hardness when the weapon grade meets the target's hardness", () => {
-            const damage = calculate({
+        test("adamantine halves hardness when the weapon grade meets the target's hardness", async () => {
+            const damage = await calculate({
                 result: resolved(20),
                 baseActorHardness: 10,
                 damageHasAdamantine: true,
@@ -928,8 +927,8 @@ describe("applied damage calculation", () => {
             ]);
         });
 
-        test("adamantine does not halve hardness above the weapon grade", () => {
-            const damage = calculate({
+        test("adamantine does not halve hardness above the weapon grade", async () => {
+            const damage = await calculate({
                 result: resolved(20),
                 baseActorHardness: 14,
                 damageHasAdamantine: true,
@@ -942,8 +941,8 @@ describe("applied damage calculation", () => {
             ]);
         });
 
-        test("low-grade adamantine has hardness 0 and does not halve", () => {
-            const damage = calculate({
+        test("low-grade adamantine has hardness 0 and does not halve", async () => {
+            const damage = await calculate({
                 result: resolved(20),
                 baseActorHardness: 10,
                 damageHasAdamantine: true,
@@ -956,8 +955,8 @@ describe("applied damage calculation", () => {
             ]);
         });
 
-        test("final application skips actor hardness", () => {
-            const damage = calculate({
+        test("final application skips actor hardness", async () => {
+            const damage = await calculate({
                 result: resolved(20),
                 baseActorHardness: 10,
                 final: true,
@@ -976,8 +975,8 @@ describe("applied damage calculation", () => {
             { hp: 10, segments: 2 },
         ];
 
-        test("reports a crossing only when the segment band changes", () => {
-            const damage = calculate({
+        test("reports a crossing only when the segment band changes", async () => {
+            const damage = await calculate({
                 result: resolved(12),
                 hitPoints: { max: 30, value: 25, temp: 0 },
                 thresholds: troopThresholds,
@@ -988,8 +987,8 @@ describe("applied damage calculation", () => {
             expect(damage.newThreshold).toEqual({ hp: 20, segments: 3 });
         });
 
-        test("does not report a hit that stays in the same band", () => {
-            const damage = calculate({
+        test("does not report a hit that stays in the same band", async () => {
+            const damage = await calculate({
                 result: resolved(4),
                 hitPoints: { max: 30, value: 25, temp: 0 },
                 thresholds: troopThresholds,
@@ -1002,28 +1001,28 @@ describe("applied damage calculation", () => {
     });
 
     describe("instant death", () => {
-        test("requires damage applied and HP ending at 0", () => {
-            const leftover = calculate({
+        test("requires damage applied and HP ending at 0", async () => {
+            const leftover = await calculate({
                 result: resolved(10),
                 rollOptions: new Set(["item:trait:death"]),
             });
             expect(leftover.updates["system.attributes.hp.value"]).toBe(20);
             expect(leftover.instantDeath).toBeNull();
 
-            const atZero = calculate({ result: resolved(30) });
+            const atZero = await calculate({ result: resolved(30) });
             expect(atZero.updates["system.attributes.hp.value"]).toBe(0);
             expect(atZero.totalApplied).toBe(30);
             expect(atZero.instantDeath).toBeNull();
         });
 
-        test("death effects win unless the target is immune", () => {
-            const death = calculate({
+        test("death effects win unless the target is immune", async () => {
+            const death = await calculate({
                 result: resolved(30),
                 rollOptions: new Set(["item:trait:death"]),
             });
             expect(death.instantDeath).toBe("death-effect");
 
-            const immune = calculate({
+            const immune = await calculate({
                 result: resolved(30),
                 rollOptions: new Set(["item:trait:death"]),
                 immuneToDeathEffects: true,
@@ -1031,8 +1030,8 @@ describe("applied damage calculation", () => {
             expect(immune.instantDeath).toBeNull();
         });
 
-        test("disintegrate reduces the target to fine powder", () => {
-            const damage = calculate({
+        test("disintegrate reduces the target to fine powder", async () => {
+            const damage = await calculate({
                 result: resolved(30),
                 rollOptions: new Set(["item:type:spell", "item:slug:disintegrate"]),
             });
@@ -1040,8 +1039,8 @@ describe("applied damage calculation", () => {
             expect(damage.instantDeath).toBe("fine-powder");
         });
 
-        test("an undead NPC is destroyed", () => {
-            const damage = calculate({
+        test("an undead NPC is destroyed", async () => {
+            const damage = await calculate({
                 result: resolved(30),
                 isUndeadNPC: true,
             });
@@ -1049,8 +1048,8 @@ describe("applied damage calculation", () => {
             expect(damage.instantDeath).toBe("destroyed");
         });
 
-        test("massive damage is twice max HP plus max stamina", () => {
-            const damage = calculate({
+        test("massive damage is twice max HP plus max stamina", async () => {
+            const damage = await calculate({
                 result: resolved(25),
                 hitPoints: { max: 10, value: 10, temp: 0 },
                 sp: { max: 5, value: 5 },
@@ -1061,7 +1060,7 @@ describe("applied damage calculation", () => {
             expect(damage.totalApplied).toBe(25);
             expect(damage.instantDeath).toBeNull();
 
-            const massive = calculate({
+            const massive = await calculate({
                 result: resolved(30),
                 hitPoints: { max: 10, value: 10, temp: 0 },
                 sp: { max: 5, value: 5 },
@@ -1070,14 +1069,14 @@ describe("applied damage calculation", () => {
             expect(massive.instantDeath).toBe("massive-damage");
         });
 
-        test("death effects beat disintegrate, and undead destruction beats massive damage", () => {
-            const death = calculate({
+        test("death effects beat disintegrate, and undead destruction beats massive damage", async () => {
+            const death = await calculate({
                 result: resolved(30),
                 rollOptions: new Set(["item:trait:death", "item:type:spell", "item:slug:disintegrate"]),
             });
             expect(death.instantDeath).toBe("death-effect");
 
-            const undead = calculate({
+            const undead = await calculate({
                 result: resolved(60),
                 isUndeadNPC: true,
             });

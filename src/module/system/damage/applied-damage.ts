@@ -1,41 +1,156 @@
+import type { ActorPF2e } from "@actor";
 import type { Immunity, Resistance, Weakness } from "@actor/data/iwr.ts";
-import type { ResistanceType } from "@actor/types.ts";
-import type { PreciousMaterialGrade } from "@item/physical/types.ts";
+import type { ApplyDamageParams, ResistanceType } from "@actor/types.ts";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
-import { tupleHasValue } from "@util/misc.ts";
+import { signedInteger, tupleHasValue } from "@util/misc.ts";
 import * as R from "remeda";
 import type { DamageType, ImmunityRedirect, ResistanceRedirect } from "./types.ts";
 import { BASE_DAMAGE_TYPES_TO_CATEGORIES } from "./values.ts";
 
-/** Post-IWR adjustments, shield, hardness, and hit points. */
-function calculateAppliedDamage(params: CalculateAppliedDamageParams): AppliedDamage {
-    const {
-        result,
+/** Fields `ActorPF2e#applyDamage` has already defaulted. `notes` stay with the caller. */
+type CalculateAppliedDamageParams = Omit<ApplyDamageParams, "notes"> &
+    Required<
+        Pick<ApplyDamageParams, "breakdown" | "final" | "outcome" | "rollOptions" | "shieldBlockRequest" | "skipIWR">
+    >;
+
+/**
+ * Damage application for an actor, minus the document updates.
+ * A test actor may set `iwr` and `healingReceived` instead of building Foundry IWR or rolling healing dice.
+ */
+async function calculateAppliedDamage(
+    actor: DamageApplicationActor,
+    {
+        damage,
+        token,
+        item,
         rollOptions,
-        isDamage,
+        skipIWR,
+        shieldBlockRequest,
+        breakdown,
+        outcome,
         final,
-        diceAdjustment,
-        modifierAdjustment,
-        shield,
-        baseActorHardness,
-        damageHasAdamantine,
-        materialGrade,
-        hitPoints,
-        sp,
-        staminaVariant,
-        thresholds,
-        immuneToDeathEffects,
-        isUndeadNPC,
-    } = params;
+    }: CalculateAppliedDamageParams,
+): Promise<AppliedDamage | null> {
+    const hitPoints = actor.hitPoints;
+    if (!hitPoints) return null;
+
+    const skip = final || skipIWR;
+    const blockWithShield = !final && shieldBlockRequest;
+
+    // Round damage and healing (negative values) toward zero
+    const result = await (async (): Promise<IWRApplicationData> => {
+        if (typeof damage === "number") {
+            return { finalDamage: Math.trunc(damage), applications: [], persistent: [] };
+        }
+        if (skip) {
+            return { finalDamage: damage.total, applications: [], persistent: [] };
+        }
+        if (actor.iwr) {
+            return applyIWRToInput({ ...actor.iwr, roll: damage }, rollOptions);
+        }
+        const { applyIWR } = await import("./iwr.ts");
+        return applyIWR(actor, damage, rollOptions);
+    })();
+
+    // Healing only when the IWR result is negative, and never for a final total
+    const isDamage = result.finalDamage >= 0;
+    const { diceAdjustment, modifierAdjustment } = await (async (): Promise<{
+        diceAdjustment: number;
+        modifierAdjustment: number;
+    }> => {
+        if (final || isDamage) return { diceAdjustment: 0, modifierAdjustment: 0 };
+        if (actor.healingReceived) return actor.healingReceived;
+
+        // Extract Target-specific healing adjustments (unless final)
+        // Currently only healing modifiers are implemented
+        const critical = outcome === "criticalSuccess";
+        const resolvables = ((): Record<string, unknown> => {
+            if (item?.isOfType("spell")) return { spell: item };
+            if (item?.isOfType("weapon")) return { weapon: item };
+            return {};
+        })();
+        const { extractDamageDice, extractModifiers } = await import("@module/rules/helpers.ts");
+        const { applyStackingRules } = await import("@actor/modifiers.ts");
+        const damageDice = extractDamageDice(actor.synthetics.damageDice, {
+            selectors: ["healing-received"],
+            resolvables,
+            test: rollOptions,
+        }).filter((d) => (d.critical === null || d.critical === critical) && d.predicate.test(rollOptions));
+        const modifiers = extractModifiers(actor.synthetics, ["healing-received"], { resolvables }).filter(
+            (m) => (m.critical === null || m.critical === critical) && m.predicate.test(rollOptions),
+        );
+
+        // Roll any dice damage adjustments and produce a total result
+        const rolled = (
+            await Promise.all(
+                damageDice.map(async (dice) => {
+                    const formula = `${dice.diceNumber}${dice.dieSize}[${dice.label}]`;
+                    const roll = await new Roll(formula).evaluate();
+                    roll._formula = `${dice.diceNumber}${dice.dieSize}`; // remove the label from the main formula
+                    await roll.toMessage({
+                        flags: { [SYSTEM_ID]: { suppressDamageButtons: true } },
+                        flavor: dice.label,
+                        speaker: ChatMessage.getSpeaker({ token }),
+                    });
+                    return roll.total;
+                }),
+            )
+        ).reduce((previous, current) => previous + current, 0);
+
+        // Apply stacking rules just in case even though the context of previously applied modifiers has been lost
+        const stacked = applyStackingRules(modifiers ?? []);
+        breakdown.push(
+            ...damageDice.map((dice) => `${dice.label} ${dice.diceNumber}${dice.dieSize}`),
+            ...modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${signedInteger(m.modifier)}`),
+        );
+        return { diceAdjustment: rolled, modifierAdjustment: stacked };
+    })();
 
     // Damage should never go negative, nor healing positive
     const clamp = isDamage ? Math.max : Math.min;
     // Compute result after adjustments (but before hardness)
     const finalDamage = clamp(0, result.finalDamage - (diceAdjustment + modifierAdjustment));
 
+    // Calculate damage to hit points and shield
+    const locPrefix = "PF2E.Actor.ApplyDamage";
+    const actorShield = isDamage && actor.isOfType("character", "npc") ? actor.attributes.shield : null;
+    const shieldBlock =
+        actorShield && blockWithShield
+            ? ((): boolean => {
+                  if (actorShield.broken) {
+                      ui.notifications.warn("PF2E.Actions.RaiseAShield.ShieldIsBroken", {
+                          format: { actor: token.name, shield: actorShield.name },
+                      });
+                      return false;
+                  }
+                  if (actorShield.destroyed) {
+                      ui.notifications.warn("PF2E.Actions.RaiseAShield.ShieldIsDestroyed", {
+                          format: { actor: token.name, shield: actorShield.name },
+                      });
+                      return false;
+                  }
+                  if (!actorShield.raised) {
+                      ui.notifications.warn(`${locPrefix}.ShieldNotRaised`, { format: { actor: token.name } });
+                      return false;
+                  }
+                  return true;
+              })()
+            : false;
+
+    // The blocking shield may not be the held shield, such as in when the Shield spell is in play
+    const blockingShield = actor.heldShield?.id === actorShield?.itemId ? actor.heldShield : null;
+    const currentShieldHP = blockingShield ? blockingShield._source.system.hp.value : (actorShield?.hp.value ?? 0);
+    const shield = shieldBlock ? { hardness: actorShield?.hardness ?? 0, hp: currentShieldHP } : null;
     const shieldHardness = shield?.hardness ?? 0;
     const damageAbsorbedByShield = finalDamage > 0 ? Math.min(shieldHardness, finalDamage) : 0;
     const shieldDamage = shield ? Math.min(shield.hp, Math.abs(finalDamage) - damageAbsorbedByShield) : 0;
+
+    const damageHasAdamantine = typeof damage !== "number" && !!damage.materials?.has("adamantine");
+    const materialGrade =
+        item?.isOfType("weapon") && item.system.material.type === "adamantine"
+            ? (item.system.material.grade ?? "standard")
+            : "standard";
+    const baseActorHardness = actor.hardness;
 
     // Reduce damage by actor hardness
     const effectiveActorHardness = ((): number => {
@@ -67,6 +182,11 @@ function calculateAppliedDamage(params: CalculateAppliedDamageParams): AppliedDa
         });
     }
 
+    const sp = actor.isOfType("character") ? actor.attributes.hp.sp : null;
+    const staminaVariant = game.pf2e.settings.variants.stamina;
+    const thresholds = actor.isOfType("npc") ? actor.system.attributes.hp.thresholds : null;
+    const immuneToDeathEffects = actor.attributes.immunities.some((i) => i.type === "death-effects");
+    const isUndeadNPC = actor.isOfType("npc") && actor.modeOfBeing === "undead";
     const damageResult = calculateHealthDelta({
         hp: hitPoints,
         sp,
@@ -106,6 +226,8 @@ function calculateAppliedDamage(params: CalculateAppliedDamageParams): AppliedDa
         reachedThreshold,
         newThreshold,
         instantDeath,
+        isDamage,
+        blockingShield,
     };
 }
 
@@ -146,8 +268,8 @@ function calculateHealthDelta(args: {
     return { updates, totalApplied };
 }
 
-/** Apply IWR to an evaluated roll described by plain records. Persistent results are those instance records. */
-function applyIWRToInput<T extends DamageInstanceRecord>(
+/** Apply IWR to an evaluated roll described by plain data. Persistent results are those instances. */
+function applyIWRToInput<T extends DamageInstanceData>(
     input: IWRInput<T>,
     rollOptions: Set<string>,
 ): IWRApplicationData<T> {
@@ -271,7 +393,7 @@ function applyIWRToInput<T extends DamageInstanceRecord>(
             const highestWeakness = [...mainWeaknesses, precisionWeakness, splashWeakness]
                 .filter(R.isTruthy)
                 .reduce(
-                    (highest: WeaknessRecord | null, w) =>
+                    (highest: WeaknessData | null, w) =>
                         w && !highest ? w : w && highest && w.value > highest.value ? w : highest,
                     null,
                 );
@@ -411,7 +533,7 @@ function applyIWRToInput<T extends DamageInstanceRecord>(
 /** A helper class for keeping track of working data alongside a resistance */
 class WorkingResistanceData {
     /** The source resistance */
-    resistance: ResistanceRecord;
+    resistance: ResistanceData;
 
     /** Whether the resistance is applicable to the damage being dealt */
     applicable: boolean;
@@ -422,7 +544,7 @@ class WorkingResistanceData {
     /** Whether the resistance has been ignored */
     ignored: boolean;
 
-    constructor(resistance: ResistanceRecord, options: { applicable?: boolean; value: number; ignored?: boolean }) {
+    constructor(resistance: ResistanceData, options: { applicable?: boolean; value: number; ignored?: boolean }) {
         this.resistance = resistance;
         this.applicable = options.applicable ?? true;
         this.value = options.value;
@@ -439,8 +561,8 @@ class WorkingResistanceData {
 }
 
 function hasImmunityRedirection(
-    testImmunity: ImmunityRecord,
-    immunities: ImmunityRecord[],
+    testImmunity: ImmunityData,
+    immunities: ImmunityData[],
     redirections: ImmunityRedirect[],
 ): boolean {
     return redirections.some((redirect) => {
@@ -490,10 +612,10 @@ function getResistanceRedirection(params: GetResistanceRedirectionParams): Resis
 }
 
 interface GetResistanceRedirectionParams {
-    immunities: ImmunityRecord[];
+    immunities: ImmunityData[];
     resistances: WorkingResistanceData[];
     /** The immunity or highest resistance to be applied: a redirect must improve the result to be selected. */
-    highest: ImmunityRecord | WorkingResistanceData | null;
+    highest: ImmunityData | WorkingResistanceData | null;
     redirects: ResistanceRedirect[];
 }
 
@@ -502,20 +624,20 @@ interface ResistanceRedirection {
     redirect: ResistanceRedirect;
 }
 
-type ImmunityRecord = Pick<Immunity, "type" | "exceptions" | "label" | "typeLabel" | "applicationLabel" | "test">;
+type ImmunityData = Pick<Immunity, "type" | "exceptions" | "label" | "typeLabel" | "applicationLabel" | "test">;
 
-type WeaknessRecord = Pick<
+type WeaknessData = Pick<
     Weakness,
     "type" | "value" | "applyOnce" | "label" | "typeLabel" | "applicationLabel" | "test"
 >;
 
-type ResistanceRecord = Pick<
+type ResistanceData = Pick<
     Resistance,
     "type" | "value" | "exceptions" | "label" | "typeLabel" | "applicationLabel" | "test" | "getDoubledValue"
 >;
 
 /** The parts of a damage instance IWR reads. A rolled `DamageInstance` satisfies this. */
-interface DamageInstanceRecord {
+interface DamageInstanceData {
     type: DamageType;
     total: number | undefined;
     persistent: boolean;
@@ -533,7 +655,7 @@ interface Bypass {
 }
 
 /** The parts of a damage roll IWR reads. A rolled `DamageRoll` satisfies this. */
-interface DamageRollRecord<T extends DamageInstanceRecord = DamageInstanceRecord> {
+interface DamageRollData<T extends DamageInstanceData = DamageInstanceData> {
     total: number;
     instances: T[];
     options: {
@@ -544,41 +666,29 @@ interface DamageRollRecord<T extends DamageInstanceRecord = DamageInstanceRecord
 }
 
 /** An evaluated damage roll and the target's IWR, with Foundry lookups passed in as callbacks */
-interface IWRInput<T extends DamageInstanceRecord = DamageInstanceRecord> {
-    roll: DamageRollRecord<T>;
+interface IWRInput<T extends DamageInstanceData = DamageInstanceData> {
+    roll: DamageRollData<T>;
     /** Bypass resistances already constructed. The roll only stores `{ type, max }`. */
-    ignoredResistances: ResistanceRecord[];
-    immunities: ImmunityRecord[];
-    weaknesses: WeaknessRecord[];
-    resistances: ResistanceRecord[];
+    ignoredResistances: ResistanceData[];
+    immunities: ImmunityData[];
+    weaknesses: WeaknessData[];
+    resistances: ResistanceData[];
     isAffectedBy: (type: DamageType) => boolean;
     immunityTypeLabel: (type: Exclude<DamageType, "untyped">) => string;
     resistanceTypeLabel: (type: Exclude<DamageType, "untyped">) => string;
 }
 
-interface CalculateAppliedDamageParams {
-    result: IWRApplicationData;
-    rollOptions: Set<string>;
-    isDamage: boolean;
-    final: boolean;
-    diceAdjustment: number;
-    modifierAdjustment: number;
-    /** The shield blocking this damage, if Shield Block is in effect */
-    shield: { hardness: number; hp: number } | null;
-    baseActorHardness: number;
-    damageHasAdamantine: boolean;
-    materialGrade: PreciousMaterialGrade;
-    hitPoints: { max: number; value: number; temp: number };
-    sp: Maybe<{ max: number; value: number }>;
-    staminaVariant: boolean;
-    thresholds: { hp: number; segments: number }[] | null;
-    immuneToDeathEffects: boolean;
-    isUndeadNPC: boolean;
+/** `ActorPF2e`, plus stand-ins tests set where Foundry would build IWR or roll healing dice. */
+interface DamageApplicationActor extends ActorPF2e {
+    /** Prepared IWR lists. Unset on a real actor, which goes through `applyIWR`. */
+    iwr?: Omit<IWRInput, "roll">;
+    /** Already-totaled healing dice and modifiers. Unset on a real actor, which rolls them. */
+    healingReceived?: { diceAdjustment: number; modifierAdjustment: number };
 }
 
 interface AppliedDamage {
     applications: IWRApplication[];
-    persistent: DamageInstanceRecord[];
+    persistent: DamageInstanceData[];
     finalDamage: number;
     damageAbsorbedByShield: number;
     shieldDamage: number;
@@ -588,9 +698,12 @@ interface AppliedDamage {
     reachedThreshold: boolean | undefined;
     newThreshold: { hp: number; segments: number } | undefined;
     instantDeath: string | null;
+    /** True when the pre-clamp total is zero or positive. */
+    isDamage: boolean;
+    blockingShield: ActorPF2e["heldShield"];
 }
 
-interface IWRApplicationData<T extends DamageInstanceRecord = DamageInstanceRecord> {
+interface IWRApplicationData<T extends DamageInstanceData = DamageInstanceData> {
     finalDamage: number;
     applications: IWRApplication[];
     persistent: T[];
@@ -641,12 +754,12 @@ export { applyIWRToInput, calculateAppliedDamage };
 export type {
     AppliedDamage,
     Bypass,
-    CalculateAppliedDamageParams,
-    DamageInstanceRecord,
-    ImmunityRecord,
+    DamageApplicationActor,
+    DamageInstanceData,
+    ImmunityData,
     IWRApplication,
     IWRApplicationData,
     IWRInput,
-    ResistanceRecord,
-    WeaknessRecord,
+    ResistanceData,
+    WeaknessData,
 };

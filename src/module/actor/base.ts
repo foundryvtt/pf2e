@@ -34,12 +34,7 @@ import type { Size } from "@module/data.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { RollNotePF2e } from "@module/notes.ts";
-import {
-    extractDamageDice,
-    extractModifiers,
-    extractNotes,
-    processPreUpdateActorHooks,
-} from "@module/rules/helpers.ts";
+import { extractNotes, processPreUpdateActorHooks } from "@module/rules/helpers.ts";
 import type { RuleElementSynthetics } from "@module/rules/index.ts";
 import type { RuleElement } from "@module/rules/rule-element/base.ts";
 import type { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data.ts";
@@ -49,7 +44,6 @@ import type { UserPF2e } from "@module/user/document.ts";
 import type { ScenePF2e } from "@scene/document.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { calculateAppliedDamage } from "@system/damage/applied-damage.ts";
-import { applyIWR, type IWRApplicationData } from "@system/damage/iwr.ts";
 import type { DamageType } from "@system/damage/types.ts";
 import type {
     ArmorStatistic,
@@ -58,7 +52,7 @@ import type {
     StatisticDifficultyClass,
 } from "@system/statistic/index.ts";
 import { TextEditorPF2e, type RollDataPF2e } from "@system/text-editor.ts";
-import { ErrorPF2e, objectHasKey, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
+import { ErrorPF2e, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import { Duration } from "luxon";
 import * as R from "remeda";
 import { v5 as UUIDv5 } from "uuid";
@@ -82,7 +76,6 @@ import {
 import type { ActorInitiative } from "./initiative.ts";
 import { ActorInventory, AddItemParam } from "./inventory/index.ts";
 import { ItemTransfer } from "./item-transfer.ts";
-import { applyStackingRules } from "./modifiers.ts";
 import type { ActorSheetPF2e } from "./sheet/base.ts";
 import type { ActorSpellcasting } from "./spellcasting.ts";
 import type { ActorRechargeData, ActorType, EmbeddedItemInstances } from "./types.ts";
@@ -1086,129 +1079,22 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         outcome = null,
         final = false,
     }: ApplyDamageParams): Promise<this> {
-        const { hitPoints, heldShield } = this;
+        const damageResult = await calculateAppliedDamage(this, {
+            damage,
+            token,
+            item,
+            rollOptions,
+            skipIWR,
+            shieldBlockRequest,
+            breakdown,
+            outcome,
+            final,
+        });
+        if (!damageResult) return this;
+
+        const { hitPoints } = this;
         if (!hitPoints) return this;
 
-        if (final) {
-            shieldBlockRequest = false;
-            skipIWR = true;
-        }
-
-        // Round damage and healing (negative values) toward zero
-        const result: IWRApplicationData =
-            typeof damage === "number"
-                ? { finalDamage: Math.trunc(damage), applications: [], persistent: [] }
-                : skipIWR
-                  ? { finalDamage: damage.total, applications: [], persistent: [] }
-                  : applyIWR(this, damage, rollOptions);
-
-        // Extract Target-specific healing adjustments (unless final)
-        // Currently only healing modifiers are implemented
-        const domain = result.finalDamage < 0 ? "healing-received" : "damage-received";
-        const isDamage = domain === "damage-received";
-        const isHealing = !isDamage;
-        const { modifiers, damageDice } = (() => {
-            if (final || isDamage) {
-                return { modifiers: [], damageDice: [] };
-            }
-
-            const critical = outcome === "criticalSuccess";
-            const resolvables = ((): Record<string, unknown> => {
-                if (item?.isOfType("spell")) return { spell: item };
-                if (item?.isOfType("weapon")) return { weapon: item };
-                return {};
-            })();
-
-            const damageDice = extractDamageDice(this.synthetics.damageDice, {
-                selectors: [domain],
-                resolvables,
-                test: rollOptions,
-            }).filter((d) => (d.critical === null || d.critical === critical) && d.predicate.test(rollOptions));
-            const modifiers = extractModifiers(this.synthetics, [domain], { resolvables }).filter(
-                (m) => (m.critical === null || m.critical === critical) && m.predicate.test(rollOptions),
-            );
-            return { modifiers, damageDice };
-        })();
-
-        // Roll any dice damage adjustments and produce a total result
-        const diceAdjustment = (
-            await Promise.all(
-                damageDice.map(async (dice) => {
-                    const formula = `${dice.diceNumber}${dice.dieSize}[${dice.label}]`;
-                    const roll = await new Roll(formula).evaluate();
-                    roll._formula = `${dice.diceNumber}${dice.dieSize}`; // remove the label from the main formula
-                    await roll.toMessage({
-                        flags: { [SYSTEM_ID]: { suppressDamageButtons: true } },
-                        flavor: dice.label,
-                        speaker: ChatMessage.getSpeaker({ token }),
-                    });
-                    return roll.total;
-                }),
-            )
-        ).reduce((previous, current) => previous + current, 0);
-
-        // Apply stacking rules just in case even though the context of previously applied modifiers has been lost
-        const modifierAdjustment = applyStackingRules(modifiers ?? []);
-
-        breakdown.push(
-            ...damageDice.map((dice) => `${dice.label} ${dice.diceNumber}${dice.dieSize}`),
-            ...modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${signedInteger(m.modifier)}`),
-        );
-
-        // Calculate damage to hit points and shield
-        const locPrefix = "PF2E.Actor.ApplyDamage";
-        const actorShield = isDamage && this.isOfType("character", "npc") ? this.attributes.shield : null;
-        const shieldBlock =
-            actorShield && shieldBlockRequest
-                ? ((): boolean => {
-                      if (actorShield.broken) {
-                          ui.notifications.warn("PF2E.Actions.RaiseAShield.ShieldIsBroken", {
-                              format: { actor: token.name, shield: actorShield.name },
-                          });
-                          return false;
-                      }
-                      if (actorShield.destroyed) {
-                          ui.notifications.warn("PF2E.Actions.RaiseAShield.ShieldIsDestroyed", {
-                              format: { actor: token.name, shield: actorShield.name },
-                          });
-                          return false;
-                      }
-                      if (!actorShield.raised) {
-                          ui.notifications.warn(`${locPrefix}.ShieldNotRaised`, { format: { actor: token.name } });
-                          return false;
-                      }
-                      return true;
-                  })()
-                : false;
-
-        // The blocking shield may not be the held shield, such as in when the Shield spell is in play
-        const blockingShield = heldShield?.id === actorShield?.itemId ? heldShield : null;
-        const currentShieldHP = blockingShield ? blockingShield._source.system.hp.value : (actorShield?.hp.value ?? 0);
-
-        const damageHasAdamantine = typeof damage === "number" ? false : damage.materials.has("adamantine");
-        const materialGrade =
-            item?.isOfType("weapon") && item.system.material.type === "adamantine"
-                ? (item.system.material.grade ?? "standard")
-                : "standard";
-
-        const damageResult = calculateAppliedDamage({
-            result,
-            rollOptions,
-            isDamage,
-            final,
-            diceAdjustment,
-            modifierAdjustment,
-            shield: shieldBlock ? { hardness: actorShield?.hardness ?? 0, hp: currentShieldHP } : null,
-            baseActorHardness: this.hardness,
-            damageHasAdamantine,
-            materialGrade,
-            hitPoints,
-            sp: this.isOfType("character") ? this.attributes.hp.sp : null,
-            staminaVariant: game.pf2e.settings.variants.stamina,
-            thresholds: this.isOfType("npc") ? this.system.attributes.hp.thresholds : null,
-            immuneToDeathEffects: this.attributes.immunities.some((i) => i.type === "death-effects"),
-            isUndeadNPC: this.isOfType("npc") && this.modeOfBeing === "undead",
-        });
         const {
             finalDamage,
             damageAbsorbedByShield,
@@ -1217,7 +1103,13 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             reachedThreshold,
             newThreshold,
             instantDeath,
+            isDamage,
+            blockingShield,
         } = damageResult;
+        const isHealing = !isDamage;
+        const domain = isDamage ? "damage-received" : "healing-received";
+        const locPrefix = "PF2E.Actor.ApplyDamage";
+        const actorShield = isDamage && this.isOfType("character", "npc") ? this.attributes.shield : null;
 
         // Extract notes based on whether it is healing or damage
         const hasDamageOrHealing = finalDamage !== 0;
