@@ -237,12 +237,12 @@ export class InlineRollLinks {
 
             // Retrieve the item if:
             // (2) The item is an action or,
-            // (1) The check is a saving throw and the item is not a weapon.
+            // (1) The check is a saving throw or rolled by the item's target, and the item is not a weapon.
             // Exclude weapons so that roll notes on strikes from incapacitation abilities continue to work.
             const item =
                 itemFromDoc?.actor &&
                 (itemFromDoc.isOfType("action", "feat", "campaignFeature") ||
-                    (isSavingThrow && !itemFromDoc?.isOfType("weapon")))
+                    ((isSavingThrow || rollerRole === "target") && !itemFromDoc?.isOfType("weapon")))
                     ? (itemFromDoc as ItemPF2e<ActorPF2e>)
                     : null;
 
