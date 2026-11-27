@@ -72,6 +72,11 @@
                 filter: drop-shadow(0 0 8px var(--visibility-gm-bg));
             }
 
+            // prevents the tooltip placeholder and token mark highligher from flickering when moving pointer over the effect icon subelements
+            * {
+                pointer-events: none;
+            }
+
             .expired {
                 position: absolute;
                 left: 0;
@@ -91,6 +96,17 @@
                 padding: 0px 2px;
                 color: var(--text-light);
                 background-color: rgba(0, 0, 0, 0.75);
+            }
+
+            .token-mark {
+                position: absolute;
+                display: inline-block;
+                left: 0;
+                top: 0;
+                padding: 0px 0px;
+                color: var(--text-light);
+                background-color: rgba(0, 0, 0, 0.75);
+                font-size: var(--font-size-13);
             }
 
             .value-wrapper {
