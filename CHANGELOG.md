@@ -1,3 +1,63 @@
+## 8.7.2
+
+### System Improvements
+
+- (Chromatic Penguin) Resolve injected properties in IWR exceptions
+- (Dire Weasel) Add `area` support to `ItemAlteration`
+- (Tikael) Add critical hit weakness to apply-once list
+- (Tikael) Add support for ABC picker to skip packs based on flags
+
+### Bugfixes
+
+- (Chromatic Penguin) Fix line width on inline templates
+- (Chromatic Penguin) Fix NPC focus points resetting to 0 with multiple focus entries
+- (Chromatic Penguin) Fix scene hearing range not applying on Foundry 14.370
+- (Chromatic Penguin) Fix Trick Magic Item proficiency for casters and counteract checks
+- (Chromatic Penguin) Link scrolls and wands to the spell they were created from
+- (Chromatic Penguin) Use a spell's own spellcasting entry for inline checks against its spell DC
+- (Chromatic Penguin) Use actor image in chat when wildcard token image isn't available
+- (Dantar) Fix capacity weapons' UI showing single empty chamber while fully unloaded
+
+### Data Updates
+
+- (Ambrose) Add area template to Grease
+- (Ambrose) Add inline Fortitude save with spell DC to Vital Seed
+- (Ambrose) Add some missing localizations
+- (Ambrose) Correct Asterid Nymph heritage's light flag
+- (Ambrose) Correct automation in Snare Genius (Gremlin) feat
+- (Ambrose) Correct Mimic's base speed to match printed values
+- (Ambrose) Correct traits on Searing Rain
+- (Ambrose) Update additional Archetype Journal entries to use the new Embed syntax
+- (Chromatic Penguin) Only show half damage save notes on rolled failures
+- (Dantar) Add Willowshore Waldgeist's resistances
+- (Dantar) Fix compendium ids
+- (Dantar) Prevent Energized Spark from overriding non-exemplar spirit damage
+- (Dantar) Remove Concealed condition's mention from Sightless Tincture
+- (Dire Weasel) Add automation for Play the Pipes, Unnerving Prowess, and some Impossible Magic staves
+- (Dire Weasel) Add effects for several abilities, items, and spells
+- (Dire Weasel) Add some inline actions, including Forager
+- (Dire Weasel) Add Spell DC to the inline checks of Phantasmal Killer and Quandary
+- (Dire Weasel) Fix action type of Reweave Fate
+- (Dire Weasel) Fix some missing aura radii and sources
+- (Dire Weasel) Improve automation for Spider Gun
+- (Dire Weasel) Use `ItemAlteration` area for Directed Channel
+- (DocSchlock) Clean up Book 1 of Agents of Edgewatch
+- (kromko) Fix Hellknight dedication localization
+- (kromko) Fix minor whitespace and formatting issues
+- (Longstrider) Brush up Pet feat
+- (Payden-Pringle) Fix Cheery Chime description formatting, weapon effect duration, and Will save type
+- (rectulo) Fix Glimpse the Netherworld description, Greater Tulgey Wood Breastplate level, and Turnip Lantern duration and target
+- (SpartanCPA) Add comparative check to Vexing Tumble
+- (SpartanCPA) Add Spell DC to the save prompt of Shadow Blast
+- (Tikael) Fix action cost of Gloom Mantle
+- (YellowAfterlife) Add Hundred-Moth Caress automation
+- (YellowAfterlife) Fix Waxing Moon Sarangay bonuses
+
+### Under the Hood
+
+- (Chromatic Penguin) Remove NPC attribute rolls
+- (Chromatic Penguin) Replace SASS with plain CSS, add initial system cascade layers
+
 ## 8.7.1
 
 ### System Improvements
