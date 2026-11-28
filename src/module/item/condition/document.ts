@@ -9,6 +9,7 @@ import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { Grouping } from "@system/damage/terms.ts";
+import type { DamageIRBypassData } from "@system/damage/types.ts";
 import { PERSISTENT_DAMAGE_IMAGES } from "@system/damage/values.ts";
 import { DegreeOfSuccess } from "@system/degree-of-success.ts";
 import { Statistic } from "@system/statistic/index.ts";
@@ -197,7 +198,23 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
                 game.settings.get(SYSTEM_ID, "critRule") === "doubledamage" ? "double-damage" : "double-dice";
             // If this damage came from a critical hit, create the evaluatable persistent damage as also having been so
             const degreeOfSuccess = systemData.persistent.criticalHit ? 3 : null;
-            const roll = new DamageRoll(fullFormula, {}, { evaluatePersistent: true, critRule, degreeOfSuccess });
+            const ignoredResistances = systemData.persistent.ignoredResistances.map(({ type, max }) => ({
+                type,
+                max: max ?? Infinity,
+            }));
+            const { ignoredImmunities, downgradedImmunities } = systemData.persistent;
+            const bypass: DamageIRBypassData | undefined =
+                ignoredResistances.length > 0 || ignoredImmunities.length > 0 || downgradedImmunities.length > 0
+                    ? {
+                          immunity: { ignore: ignoredImmunities, downgrade: downgradedImmunities, redirect: [] },
+                          resistance: { ignore: ignoredResistances, redirect: [] },
+                      }
+                    : undefined;
+            const roll = new DamageRoll(
+                fullFormula,
+                {},
+                { evaluatePersistent: true, critRule, degreeOfSuccess, bypass },
+            );
             const dc = game.user.isGM && systemData.persistent.dc !== 15 ? systemData.persistent.dc : null;
 
             const localizationKey = `PF2E.Item.Condition.PersistentDamage.${dc !== null ? "NameWithDC" : "Name"}`;
