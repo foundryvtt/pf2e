@@ -1,3 +1,40 @@
+## 1.7.2
+
+### System Improvements
+
+- (Chromatic Penguin) Resolve injected properties in IWR exceptions
+- (Dire Weasel) Add `area` support to `ItemAlteration`
+- (Tikael) Add critical hit weakness to apply-once list
+- (Tikael) Add support for ABC picker to skip packs based on flags
+
+### Bugfixes
+
+- (Chromatic Penguin) Fix line width on inline templates
+- (Chromatic Penguin) Fix NPC focus points resetting to 0 with multiple focus entries
+- (Chromatic Penguin) Fix scene hearing range not applying on Foundry 14.370+
+- (Chromatic Penguin) Fix Trick Magic Item proficiency for casters and counteract checks
+- (Chromatic Penguin) Link scrolls and wands to the spell they were created from
+- (Chromatic Penguin) Show sf2e conditions in the token HUD when anachronism is active
+- (Chromatic Penguin) Use a spell's own spellcasting entry for inline checks against its spell DC
+- (Chromatic Penguin) Use actor image in chat when wildcard token image isn't available
+- (Dantar) Fix capacity weapons' UI showing single empty chamber while fully unloaded
+
+### Data Updates
+
+- (Ambrose) Correct price on Paragon Force Field
+- (Dire Weasel) Fix some missing aura radii
+- (kromko) Fix minor whitespace and formatting issues
+- (Longstrider) Brush up Tech Core skill feats and Pet feat, and add familiar abilities
+- (Longstrider) Improve Tech Core weapons, shields, and armor implementation
+- (nobbyfix) Correct various Starfinder augmentation usages to be implanted
+- (nobbyfix) Fix type of Necrolung bonus
+- (SpartanCPA) Add Spell DC to the save prompt of Shadow Blast
+
+### Under the Hood
+
+- (Chromatic Penguin) Remove NPC attribute rolls
+- (Chromatic Penguin) Replace SASS with plain CSS, add initial system cascade layers
+
 ## 1.7.1
 
 ### System Improvements
@@ -326,6 +363,7 @@
 - (Supe) Fix ammo quantity input when there is more than one type
 
 ### Data Updates
+
 - (Ambrose) Add missing traditions from Sift the Sphere
 - (Ambrose) Add missing traits to Vulkarisu items and effect
 - (Ambrose) Fix image path for UBP item/currency
