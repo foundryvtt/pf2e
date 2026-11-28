@@ -20,7 +20,7 @@
             "die": "d6"
         },
         "description": {
-            "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>These warfans are sold and wielded in pairs (the price given is for one), although one can still be wielded even if the other is not being held. The twin weapons share upgrade slots, so upgrading one fan automatically upgrades the other for no additional cost. If you're trained with this weapon, it gains one charge each time you Strike (maximum 3) that lasts for 1 minute. A supercharged dynafan with 3 charges can be used to Area Fire as a ranged weapon with the area (cone) trait and a range of 20 feet.</p>"
+            "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>These warfans are sold and wielded in pairs (the price given is for one), although one can still be wielded even if the other is not being held. The twin weapons share upgrade slots, so upgrading one fan automatically upgrades the other for no additional cost. If you're trained with this weapon, it gains one charge each time you Strike (maximum 3) that lasts for 1 minute. A supercharged dynafan with 3 charges can be used to @UUID[Compendium.sf2e.actions.Item.Area Fire] as a ranged weapon with the area (cone) trait and a range of @Template[cone|distance:20]{20 feet}.</p>"
         },
         "expend": null,
         "grade": "advanced",
@@ -52,7 +52,24 @@
         "reload": {
             "value": null
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            1
+                        ]
+                    }
+                ],
+                "selector": [
+                    "{item|_id}-attack"
+                ],
+                "text": "PF2E.SpecificRule.Equipment.SuperchargedDynafan.TrainedStrike",
+                "title": "PF2E.SpecificRule.Equipment.SuperchargedDynafan.Title"
+            }
+        ],
         "runes": {
             "potency": 0,
             "property": [],

@@ -56,7 +56,26 @@
         "reload": {
             "value": "3"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "item:id:{item|id}",
+                    {
+                        "lt": [
+                            "item:proficiency:rank",
+                            1
+                        ]
+                    }
+                ],
+                "selector": [
+                    "attack",
+                    "area-fire-damage"
+                ],
+                "text": "PF2E.SpecificRule.Equipment.KnuckleSheller.UntrainedAttack",
+                "title": "PF2E.Weapon.Base.knuckle-sheller"
+            }
+        ],
         "runes": {
             "potency": 0,
             "property": [],

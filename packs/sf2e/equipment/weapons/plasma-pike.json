@@ -52,7 +52,50 @@
         "reload": {
             "value": null
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.PlasmaPike.FulminatingPike",
+                "option": "fulminating-pike",
+                "toggleable": true
+            },
+            {
+                "definition": [
+                    "item:id:{item|id}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "fulminating-pike"
+                ],
+                "property": "weapon-traits",
+                "value": "arc"
+            },
+            {
+                "definition": [
+                    "item:id:{item|id}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "fulminating-pike"
+                ],
+                "property": "weapon-traits",
+                "value": "reach-15"
+            },
+            {
+                "definition": [
+                    "item:id:{item|id}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "remove",
+                "predicate": [
+                    "fulminating-pike"
+                ],
+                "property": "weapon-traits",
+                "value": "reach"
+            }
+        ],
         "runes": {
             "potency": 0,
             "property": [],

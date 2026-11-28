@@ -52,7 +52,25 @@
         "reload": {
             "value": null
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "target:condition:persistent-damage",
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            1
+                        ]
+                    }
+                ],
+                "selector": [
+                    "{item|id}-attack"
+                ],
+                "text": "PF2E.SpecificRule.Equipment.FractalHook.TrainedStrike",
+                "title": "PF2E.Weapon.Base.fractal-hook"
+            }
+        ],
         "runes": {
             "potency": 0,
             "property": [],
